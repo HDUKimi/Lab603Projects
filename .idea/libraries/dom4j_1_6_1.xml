@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="dom4j-1.6.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/violetproduct-swing/lib/dom4j-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/violetproduct-swing/lib/draw2d.jar!/" />
+      <root url="jar://$PROJECT_DIR$/violetproduct-swing/lib/jgraph.jar!/" />
+      <root url="jar://$PROJECT_DIR$/violetproduct-swing/lib/schemaeditor.jar!/" />
+      <root url="jar://$PROJECT_DIR$/violetproduct-swing/lib/xstream-1.4.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
