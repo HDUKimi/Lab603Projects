@@ -32,7 +32,6 @@ public class UndoRedoOnStatelineChangeBehavior extends AbstractEditorPartBehavio
 	public void beforeChangingStateline(INode n)
 	{		
 		
-		
 		this.horizontalchildsBeforeChanges.clear();
 		
 		for(IHorizontalChild ahorizontalchild : n.getChild().gethorizontalChild())

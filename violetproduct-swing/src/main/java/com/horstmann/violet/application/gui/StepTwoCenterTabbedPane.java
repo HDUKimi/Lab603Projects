@@ -31,7 +31,7 @@ public class StepTwoCenterTabbedPane extends JTabbedPane{
 		MarkovDiagramTabbedPane.setLayout(new GridBagLayout());
 		this.add("UML模型解析",UMLDiagramTabbedPane);
 		this.add("自动机解析",UppaalDiagramTabbedPane);
-		this.add("MarKov链",MarkovDiagramTabbedPane);
+//		this.add("MarKov链",MarkovDiagramTabbedPane);
 			
 	}
   

@@ -141,18 +141,18 @@ public class ModelTransformationPanel extends JPanel{
 
 	public void initFileList() {
 		File[] sdFilelists = getAllFileByDiagramType("sequence");
-		File[] tdFilelists= getAllFileByDiagramType("timing");	
+	//	File[] tdFilelists= getAllFileByDiagramType("timing");	
 	   // File[] uppaalFilelists=getAllFileByDiagramType("UPPAAL2");
 	    for(File sdFile : sdFilelists)
 	    {
 	    	String fileName=sdFile.getName();
 	    	sdlists.add(fileName);
 	    }
-	    for(File tdFile : tdFilelists)
-	    {
-	    	String fileName=tdFile.getName();
-	    	tdlists.add(fileName);
-	    }
+//	    for(File tdFile : tdFilelists)
+//	    {
+//	    	String fileName=tdFile.getName();
+//	    	tdlists.add(fileName);
+//	    }
 //	    for(File uppaalFile:uppaalFilelists)
 //	    {
 //	    	String fileName=uppaalFile.getName();

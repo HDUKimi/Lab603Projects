@@ -71,6 +71,8 @@ import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.readSta
 import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.readStateXMLFromEA;
 import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.readUcaseXMLFormViolet;
 import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.readUseCaseXMLFromEA;
+import com.horstmann.violet.application.menu.xiaole.SequenceTransfrom.MainTransEAToViolet;
+import com.horstmann.violet.application.menu.xiaole.TimingTransfrom.MainTransVioletTiming;
 import com.horstmann.violet.framework.dialog.DialogFactory;
 import com.horstmann.violet.framework.file.GraphFile;
 import com.horstmann.violet.framework.file.IFile;
@@ -445,23 +447,24 @@ public class FileMenu extends JMenu
         });
     }
     /*
-     * 张建新加
+     * 张建新加  selectedFile(选中的文件)--->graphFile(转化成我们平台的格式) flag来表示我们打开的是ea，还是我们的平台xml
      */
     public IFile exchangeFile( IFile selectedFile,IGraphFile graphFile,boolean flag) throws Exception{
     	String url =selectedFile.getDirectory()+"\\"+selectedFile.getFilename();
 //    	String base="D:\\ModelDriverProjectFile";
     	 File ffff =FileSystemView.getFileSystemView().getHomeDirectory();
+    	 //获得目录
  		String s =ffff .getAbsolutePath();
-// 		 String baseUrl ="D://ModelDriverProjectFile";
  		String base=s+"\\ModelDriverProjectFile";
-    	String type=(selectedFile.getFilename().split("\\."))[1];
+    	String type=(selectedFile.getFilename().split("\\."))[1];//第一个表示我们文件的类型
     	String path = null;
-    	File ff=null;
-    	if(flag==true){
+    	File ff=null;//用于生成在d盘中文件
+    	if(flag==true){//选择的文件是平台保存的文件XML格式
     		 graphFile = new GraphFile(selectedFile);
-    		//选择的文件是平台保存的文件XML格式
+    		
         	if("class".equals(type)){
         		path=base+"/ClassDiagram/";
+        		//自动保存
         	 	graphFile.AutoSave(selectedFile, path+"Violet/");
         		readClassXMLFormViolet rc =new readClassXMLFormViolet(url);
         		CreateClassDiagramEAXML c =new CreateClassDiagramEAXML();
@@ -522,23 +525,20 @@ public class FileMenu extends JMenu
         		StringBuffer name = dealEAFileName(selectedFile);
         		cs.create(rs, path+"EA/"+name);
         	}
-    	}else if(flag==false){
-    		System.out.println("张建是弱智");
+    	}else if(flag==false){ 		
     		System.out.println(type);
     		String name="";
     		//选择的文件是EA格式的文件 
     		if("class".equals(type)){
         		path=base+"/ClassDiagram/";
-        		
-        		readClassXMLFromEA rc =new readClassXMLFromEA(url,selectedFile);
-        	
-        		CreateClassDiagramVioletXML c =new CreateClassDiagramVioletXML();
+        		readClassXMLFromEA rc =new readClassXMLFromEA(url,selectedFile);//读ea，提取需要的数据
+        		CreateClassDiagramVioletXML c =new CreateClassDiagramVioletXML();//转换成我们的数据
         		ff =new File(path+"Violet/");
         		if(!ff.exists()){
         			ff.mkdirs();
         		}
         	
-        		 name=selectedFile.getFilename().replaceAll("EA", "");	
+        		name=selectedFile.getFilename().replaceAll("EA", "");	
         		c.create(rc, path+"Violet/"+name);
         		
         		
@@ -556,6 +556,16 @@ public class FileMenu extends JMenu
         		
         	}else if("seq".equals(type)){
         		path=base+"/SequenceDiagram/";
+        		
+        		ff =new File(path+"Violet/");
+        		if(!ff.exists()){
+        			ff.mkdirs();
+        		}
+        		name=selectedFile.getFilename().replaceAll("EA","");
+        		directory=selectedFile.getDirectory();
+        		fileName=selectedFile.getFilename();
+        		MainTransEAToViolet.TransEAToViolet(url,path+"Violet/"+name);
+        		
         	}else if("state".equals(type)){
         		path=base+"/StateDiagram/";
         		readStateXMLFromEA rs =new readStateXMLFromEA(url,selectedFile);
@@ -568,6 +578,14 @@ public class FileMenu extends JMenu
         		cs.create(rs, path+"Violet/"+name);
         	}else if("timing".equals(type)){
         		path=base+"/TimingDiagram/";
+        		ff =new File(path+"Violet/");
+        		if(!ff.exists()){
+        			ff.mkdirs();
+        		}
+        		name=selectedFile.getFilename().replaceAll("EA","");
+        		directory=selectedFile.getDirectory();
+        		fileName=selectedFile.getFilename();
+        		MainTransVioletTiming.CreateTimCaseDiagramVioletXml(url,path+"Violet/"+name);
         	}else if("uppaal".equals(type)){
         		path=base+"/UPPAL/";
         	}else if("activity".equals(type)){
@@ -591,7 +609,7 @@ public class FileMenu extends JMenu
         		name=selectedFile.getFilename().replaceAll("EA", "");	
         		cs.create(rs, path+"Violet/"+name);
         	}
-    		File f =new File(path+"Violet/"+name);
+    		File f =new File(path+"Violet/"+name);		
     		deleteFileFirstLine(f);
     		selectedFile =new LocalFile(f);
 //    		System.out.println("改变的文件"+selectedFile.getDirectory()+"\\"+selectedFile.getFilename());
@@ -627,7 +645,7 @@ public class FileMenu extends JMenu
 		}
     }
     /*
-     * 张建
+     * 张建   处理ea文件 生成EASequence.seq.violet类似的文件名
      */
     private StringBuffer dealEAFileName(IFile selectedFile) {
 		String[] ss =selectedFile.getFilename().split("\\.");
@@ -698,13 +716,15 @@ public class FileMenu extends JMenu
                    }
                    selectedFile = fileOpener.getFileDefinition();//返回一个绝对路径的文件   
                    boolean flag=!(selectedFile.getFilename().contains("EA"));//是EA格式的文件
+                   //directory = selectedFile.getDirectory();
+                  // System.out.println(directory+"@@<>");
                 
                    //如果是平台保存的XML文件
                    IGraphFile graphFile = null;
-//                 //增加转换的方法
+//                 //增加转换的方法11
              
                    selectedFile= exchangeFile(selectedFile, graphFile , flag);
-             
+                   System.out.println(selectedFile.getDirectory());
                    graphFile = new GraphFile(selectedFile);
             
                    //显示文件图形
@@ -723,7 +743,8 @@ public class FileMenu extends JMenu
                }
            }
        });
-       if (this.fileChooserService == null) this.fileOpenItem.setEnabled(false);
+       if (this.fileChooserService == null) 
+    	   this.fileOpenItem.setEnabled(false);
 
     }
       
@@ -911,8 +932,19 @@ public class FileMenu extends JMenu
                 this.fileDsaveItem.setEnabled(false);
             }
         }
+   
+    
+    public static String getDirectory() {
+		return directory;
+	}
+    public static String getFileName() {
+		return fileName;
+	}
 
-    /** The file chooser to use with with menu */
+	public static String fileName;
+	public static String directory;
+	 
+	/** The file chooser to use with with menu */
     @InjectedBean
     public IFileChooserService fileChooserService;
 

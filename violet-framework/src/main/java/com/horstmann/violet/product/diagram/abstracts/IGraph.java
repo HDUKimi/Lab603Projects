@@ -39,6 +39,7 @@ public interface IGraph
      * 
      * @return an unmodifiable collection of the nodes
      */
+    //得到一个图的所有的node集合
     public abstract Collection<INode> getAllNodes();
 
    
@@ -47,6 +48,7 @@ public interface IGraph
      * 
      * @return an unmodifiable collection of the edges
      */
+    //得到一个图的所有的edge的集合
     public abstract Collection<IEdge> getAllEdges();
 
 

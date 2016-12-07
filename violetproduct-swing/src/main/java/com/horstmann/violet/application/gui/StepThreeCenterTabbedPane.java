@@ -27,10 +27,12 @@ public class StepThreeCenterTabbedPane extends JTabbedPane{
 			
 			uppaalTabbedPane.setLayout(new GridBagLayout());
 			abstractUppaalTabbedPane.setLayout(new GridBagLayout());
-			this.add("抽象时间迁移的自动机",abstractUppaalTabbedPane);
-			this.add("不含时间迁移的自动机",uppaalTabbedPane);
-			this.add("抽象测试用例生成",consolePartScrollPane);
-            this.add("抽象测试用例优化约简",abstractTestCaseOptimize);
+//			this.add("抽象时间迁移的自动机",abstractUppaalTabbedPane);
+//			this.add("不含时间迁移的自动机",uppaalTabbedPane);
+//			this.add("抽象测试用例生成",consolePartScrollPane);
+//            this.add("抽象测试用例优化约简",abstractTestCaseOptimize);
+			this.add("测试用例生成",consolePartScrollPane);
+			this.add("测试用例优化约简",abstractTestCaseOptimize);
 				
 		}
 		public JPanel getAbstractUppaalTabbedPane() {

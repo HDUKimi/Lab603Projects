@@ -7,8 +7,10 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.awt.geom.Rectangle2D;
+import java.util.List;
 import java.util.StringTokenizer;
 
+import com.horstmann.violet.product.diagram.abstracts.edge.HorizontalChild;
 import com.horstmann.violet.product.diagram.abstracts.edge.IEdge;
 import com.horstmann.violet.product.diagram.abstracts.edge.IHorizontalChild;
 import com.horstmann.violet.product.diagram.abstracts.edge.StatelineParent;
@@ -19,20 +21,25 @@ import com.horstmann.violet.product.diagram.abstracts.property.MultiLineString;
 
 
 
-public class State_Lifeline extends RectangularNode implements StatelineParent{
+public class StateLifeline extends RectangularNode implements StatelineParent{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private MultiLineString state0;
-	private double width=1150;
+	private double width=850;
     private double height=150;
     private StateLine s;
     private MultiLineString name;
     private MultiLineString states; 
-	public State_Lifeline(){
+	public StateLifeline(){
 	    s=new StateLine();
 		state0=new MultiLineString();
 		state0.setText("默认");
 		states=new MultiLineString();
 		states.setJustification(MultiLineString.LEFT);
+		states.setText("states");
 		name=new MultiLineString();
 		name.setJustification(MultiLineString.LEFT);
 		name.setJustification(MultiLineString.LARGE);		
@@ -46,32 +53,52 @@ public class State_Lifeline extends RectangularNode implements StatelineParent{
 	{
 		return states;
 	}	
+	//确定画出边的在图中的位置
 	@Override
 	public Point2D getConnectionPoint(IEdge e) {
 	
 		if(this==e.getStart())
-		{
+		{//如果是起始node 确定位置
 			return this.getChild().gethorizontalChild().get(e.getBelongtoStartFlag()).getEnd();
 		}
 		if(this==e.getEnd())
-		{
+		{//如果是终点node 确定位置
 			return this.getChild().gethorizontalChild().get(e.getBelongtoEndFlag()).getEnd();
 		}
 		return new Point2D.Double(0,0);
 	}	                   	       
     @Override  
     public Rectangle2D getBounds()
-   {	   
+   {//获得 目前得到的bounds(如果扩展后)	   
        Point2D currentLocation = getLocation();
        double x = currentLocation.getX();
        double y = currentLocation.getY();    
-       double stateheight= (states.getLabel().getNum_lines()-1 )* TimingDiragramConstants.StateSpace;
-       if(stateheight+50>getHeight())//如果添加的状态高度超过原始高度，则改变矩形区域
-       {     	     	  
-    	  y=y-(stateheight+80-getHeight());    	
- 	      this.setHeight(stateheight+80);  
- 	      this.setLocation(new Point2D.Double(x,y));	      
-      }    
+//       double stateheight= (states.getLabel().getNum_lines()-1 )* TimingDiragramConstants.StateSpace;
+//       if(stateheight+50>getHeight())//如果添加的状态高度超过原始高度，则改变矩形区域  这个是从状态列表的长度出发的
+//       {     	     	  
+//    	  y=y-(stateheight+80-getHeight());    	
+// 	      this.setHeight(stateheight+80);  
+// 	      this.setLocation(new Point2D.Double(x,y));	      
+//      }    
+       //动态的改变边框的长度
+       List<IHorizontalChild> listChild=s.gethorizontalChild();
+       double max=0;//最低状态的坐标  但是找坐标是最大的
+       double min=y+150;//最高状态的坐标  但是找坐标是最小的
+//       double maxY=this.getBounds().getMaxY();
+//       System.out.println("maxY"+maxY);
+       double stateheight1=getHeight();
+       for(IHorizontalChild child:listChild){
+    	   double childY=child.getEnd().getY();
+    	   max=max>childY?max:childY;//取出最低的状态的y坐标
+    	   min=min<childY?min:childY;
+       }
+       if((max-min+50)>stateheight1){
+    	   stateheight1+=TimingDiragramConstants.StateSpace;
+    	   y-=TimingDiragramConstants.StateSpace;
+    	   this.setHeight(stateheight1);
+    	   this.setLocation(new Point2D.Double(x,y));
+    	   //动态的改变边框的长度
+       }
        Rectangle2D currentBounds=new Rectangle2D.Double(x,y,getWidth(),getHeight());           
        return currentBounds;  
    }
@@ -81,6 +108,7 @@ public class State_Lifeline extends RectangularNode implements StatelineParent{
 	public void setName(MultiLineString name) {
 		this.name = name;
 	}
+	//返回整体的bounds 的path (便于直接画出)
 	public Shape getShape(){	
 		
 		   Rectangle2D bounds = this.getBounds();
@@ -93,10 +121,13 @@ public class State_Lifeline extends RectangularNode implements StatelineParent{
 	       path.closePath();
 	       return path;
 	   }
-	//设置Stateline的path路径
+	
+	//设置Stateline的path路径(便于下面直接画出)
 	public GeneralPath CreateinitLinePath(){
 		  Rectangle2D bounds=this.getBounds();	
 		  GeneralPath path1 = new GeneralPath();
+		  //获取bounds的上方x坐标
+		  double firstX=bounds.getMinX();
 		  //获取bounds的下方Y坐标		
 		  //获取bounds的下方X坐标			  
 		  Point2D p1=new Point2D.Double((double)(bounds.getX()+150), (double)(bounds.getMaxY()-TimingDiragramConstants.fisrtStateLocationY));
@@ -111,7 +142,12 @@ public class State_Lifeline extends RectangularNode implements StatelineParent{
 	    	for(int i=0;i<horizontalchildsize;i++)
 	    	{		
 	    		Point2D startPoint=s.gethorizontalChild().get(i).getStart();
-	    		Point2D endPoint=s.gethorizontalChild().get(i).getEnd();	    	
+	    		Point2D endPoint=s.gethorizontalChild().get(i).getEnd();
+	    		//为每一个horizontalChild添加StartPointTime和结束的EndPointTime(相对于图中的刻度)
+	    		//******目前只能表示在整张图的位置
+	    	    s.gethorizontalChild().get(i).setStartPointTime(TransPointToTime((int)s.gethorizontalChild().get(i).getStart().getX()));
+	    		s.gethorizontalChild().get(i).setEndPointTime(TransPointToTime((int)(s.gethorizontalChild().get(i).getEnd().getX())));
+	    		
 	    		path1.moveTo(startPoint.getX(), startPoint.getY());	    	
 	    		path1.lineTo(endPoint.getX(),endPoint.getY());//从第一个点移到
 	    		path1.moveTo(endPoint.getX(),endPoint.getY());
@@ -123,45 +159,63 @@ public class State_Lifeline extends RectangularNode implements StatelineParent{
 	    	  }
 	      return path1;	 
 	}
+	   //画出
 	   public void draw(Graphics2D g2)   
 	   {		  
 		   int j=0;
 		   int d =5;
 		   g2.setColor(Color.BLACK);		  
-	       Rectangle2D bounds = getBounds();	      	      
+	       Rectangle2D bounds = getBounds();	 
+	       //画整体的矩形的边框
 	       g2.draw(bounds);	     
 	      //设置绘制stateline的path	
-	       this.CreateinitLinePath().reset();               
+	       this.CreateinitLinePath().reset();     
+	       //画出生命线的路径
 	       g2.draw(this.CreateinitLinePath());   	     
 	       g2.drawString(state0.getText(),(int)(bounds.getX()+3*d), (int)(bounds.getMaxY()-TimingDiragramConstants.fisrtStateLocationY));//默认状态的绘制 
 	       //绘制做标尺	        
 	       states.drawTimingDiagram(g2, bounds); 
 	       g2.drawString(name.getText(),(int)bounds.getMinX(),(int)bounds.getMaxY()-10);
 	       for(double i=bounds.getX()+150;i<=bounds.getX()+width;i=i+(bounds.getWidth()-150)/20){
+	    	   //分别在固定的位置画出刻度线
 	    	   g2.drawLine((int)i, (int)(bounds.getY()+height), (int) i,(int)(bounds.getY()+height-d));   
 	    	if(this.getFlag()){
 	    	   if(j%5==0&&j<=95){
+	    		   //在相应的刻度线的位置上，写上相应的刻度值
 	    	    g2.drawString(String.valueOf(j), (int)i-d, (int)(bounds.getY()+height+10));
 	    	   }
 	    	   if(j==100){
+	    		   //同上
 	    		   g2.drawString(String.valueOf(j), (int)i-3*d, (int)(bounds.getY()+height+2*d));
 	    	   }
 	    	   j=j+d;
 	       }	 
 	    }  
 	   	this.addchild(s);
+	   	//遍历IHorizontalChild的集合 ,在集合里面的对象上面写出想表现的数据或信息
 	   for(IHorizontalChild hchild:this.getChild().gethorizontalChild())
 	   {	
-		   if(hchild.getCondition()!=null&&hchild.getContinuetime()!=null){
-		g2.drawString(hchild.getCondition(),(int) hchild.getStart().getX(),(int) hchild.getStart().getY());
-		g2.drawString(hchild.getContinuetime(),(int) hchild.getStart().getX(),
-			(int) this.getBounds().getMinY()+10);				
+		   if(hchild.getCondition()!=null||hchild.getContinuetime()!=null){
+		      //  g2.drawString(hchild.getCondition(),(int) hchild.getStart().getX(),(int) hchild.getStart().getY());
+		        g2.drawString(hchild.getContinuetime(),(int) hchild.getStart().getX(),
+			       (int) this.getBounds().getMinY()+10);	
+		        //在图中写出开始的点的时间
+		        //g2.drawString(String.valueOf(hchild.getStart()), (int)hchild.getStart().getX(),(int)hchild.getStart().getY());
+		        //在图中写出结束的点的时间
+		       // g2.drawString(String.valueOf(hchild.getEnd()), (int)hchild.getEnd().getX(), (int)hchild.getEnd().getY());
 			}
 	   }
 	   }
 	   
-   public State_Lifeline clone(){
-	      State_Lifeline cloned = (State_Lifeline) super.clone();
+	   //将相对于图的坐标转化为相对于刻度的坐标
+	   public int TransPointToTime(int pointx)
+	   {
+	       int timePoint=(int) ((pointx-150-getBounds().getX())/(getWidth()-150)*100);
+	       return timePoint;
+	   }
+	   
+   public StateLifeline clone(){
+	      StateLifeline cloned = (StateLifeline) super.clone();
 	       cloned.state0=(MultiLineString)state0.clone();
 	       cloned.states = (MultiLineString) states.clone();
 	       cloned.name=(MultiLineString)name.clone();

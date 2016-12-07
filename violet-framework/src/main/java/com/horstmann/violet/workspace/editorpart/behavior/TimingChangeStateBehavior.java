@@ -2,6 +2,7 @@ package com.horstmann.violet.workspace.editorpart.behavior;
 
 import java.awt.Cursor;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
@@ -16,6 +17,7 @@ import com.horstmann.violet.product.diagram.abstracts.edge.IHorizontalChild;
 import com.horstmann.violet.product.diagram.abstracts.edge.SEdge;
 import com.horstmann.violet.product.diagram.abstracts.edge.StatelineParent;
 import com.horstmann.violet.product.diagram.abstracts.node.INode;
+import com.horstmann.violet.product.diagram.abstracts.node.RectangularNode;
 import com.horstmann.violet.product.diagram.abstracts.node.TimingDiragramConstants;
 import com.horstmann.violet.workspace.editorpart.IEditorPart;
 import com.horstmann.violet.workspace.editorpart.IEditorPartBehaviorManager;
@@ -32,6 +34,7 @@ public class TimingChangeStateBehavior extends AbstractEditorPartBehavior{
 	 	private SEdge s;
 	 	private IEditorPartBehaviorManager behaviorManager;
 	 	private Point2D mousePressPoint=null;
+	 	
 	 public TimingChangeStateBehavior(IEditorPart editorPart, IGraphToolsBar graphToolsBar)
 	    {
 	        this.editorPart = editorPart;
@@ -62,13 +65,15 @@ public class TimingChangeStateBehavior extends AbstractEditorPartBehavior{
 	      
 		    List<INode> selectedNodes = this.selectionHandler.getSelectedNodes();
 	        List<IEdge> selectedEdges = selectionHandler.getSelectedEdges();  
+	      //只有一个节点被选取 true
 	        boolean isOnlyOneNodeSelected = (selectedNodes.size() == 1 && selectedEdges.size() == 0);
-	        //只有一个节点被选取
+	        
 	       if (!isOnlyOneNodeSelected) {
 	           return;//跳出函数
 	       }  
 	       selectedNode=selectedNodes.get(0);       		    
-	       String str1= "class com.horstmann.violet.product.diagram.timing.State_Lifeline";
+	       String str1= "class com.horstmann.violet.product.diagram.timing.StateLifeline";
+	       //如果选中的node的类不是上面的
 	       if (!selectedNode.getClass().toString().equals(str1)){
 	           return;
 	       } 
@@ -76,10 +81,15 @@ public class TimingChangeStateBehavior extends AbstractEditorPartBehavior{
 	   
 	     IHorizontalChild horizontalchild=null;
 	      //获取stateline对象
-	       mousePressPoint =e.getPoint();//获取鼠标按下时候的点	   	    		  
+	       mousePressPoint =e.getPoint();//获取鼠标按下时候的点	 
+	       //获得选的stateLine的孩子的长度
 			 int horizontalChildSize=s.gethorizontalChild().size();
-			
-			 
+//			 //获得horizontalChild的list中的集合的第一个
+//			 IHorizontalChild horizontalFirstChild =s.gethorizontalChild().get(0);
+//			 //获得第一个horizontalChild上面的感应区间
+//			 Rectangle2D rtangle=s.getChildBottomBounds(horizontalFirstChild);
+//			 //获得上面矩形的起始点的x的坐标
+//			 double  firstX=rtangle.getMinX();
 			 for(int i=0;i<horizontalChildSize;i++)
 			 {  
 			 horizontalchild=s.gethorizontalChild().get(i);//获取水平子节点

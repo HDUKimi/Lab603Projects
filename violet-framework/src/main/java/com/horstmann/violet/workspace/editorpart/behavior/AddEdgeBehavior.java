@@ -182,34 +182,37 @@ public class AddEdgeBehavior extends AbstractEditorPartBehavior
         if (added)
         {
             this.selectionHandler.setSelectedElement(this.newEdge);
-        }
+        //}作用的范围不够，改到后面去了
         String str="class com.horstmann.violet.product.diagram.timing.SendMessageEdge";
+        //添加时序图的消息
         if(str.equals(newEdge.getClass().toString()))
         {
             INode startNode=newEdge.getStart();
             INode endNode=newEdge.getEnd();
+            //分别获得一个时序图的两部分里面所有的HorizontalChild的list的集合
             List<IHorizontalChild> startHorizontalchild=startNode.getChild().gethorizontalChild();           
             List<IHorizontalChild> endHorizontalchild=endNode.getChild().gethorizontalChild();
             for(IHorizontalChild child:startHorizontalchild)
-      	    {	
+      	    {	//如果鼠标点击的位置在当前开始的child的感应区间
       		  if(startNode.getChild().getChildBottomBounds(child).
       				  contains(firstMousePoint)||startNode.getChild().getChildTopBounds(child).
       				  contains(firstMousePoint))
-      	      {     			  
+      	      {    //设置消息的开始的flag在list的索引 			  
       			 newEdge.setBelongtoStartFlag(startHorizontalchild.indexOf(child));
       	      }     		       		
       	    }
             for(IHorizontalChild child:endHorizontalchild)
-            {
+            {//如果鼠标点击的位置在当前结束的node的child的感应区间
       		 if(endNode.getChild().getChildBottomBounds(child).
      				  contains(lastMousePoint)||endNode.getChild().getChildTopBounds(child).
      				  contains(lastMousePoint))
-     	      {     			  
+     	      {     //设置	消息的结束的falg在list的索引		  
      			 newEdge.setBelongtoEndFlag(endHorizontalchild.indexOf(child));
      	      }     		       		               
            }
         }
-        
+        //上面的移到这里的
+        }
         this.isLinkingInProgress = false;
         this.isLinkBySeparatedClicks = false;
         this.transitionPoints.clear();

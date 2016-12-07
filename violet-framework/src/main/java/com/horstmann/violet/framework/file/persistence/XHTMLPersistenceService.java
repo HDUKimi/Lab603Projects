@@ -90,7 +90,7 @@ public class XHTMLPersistenceService implements IFilePersistenceService
         writer.close();
         return graph;
     }
-    private String getInputStreamContent(InputStream in) throws IOException
+    public String getInputStreamContent(InputStream in) throws IOException
     {
         BufferedInputStream bis = new BufferedInputStream(in);
         ByteArrayOutputStream buf = new ByteArrayOutputStream();

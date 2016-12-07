@@ -56,6 +56,7 @@ public class MultiLineLabel extends Canvas {
 
 	// This method figures out how the font is, and how wide each
 	// line of the label is, and how wide the widest line is.
+	//返回最大的宽度
 	protected void measure() {
 		FontMetrics fm = getFontMetrics(getFont());
 		// If we don't have font metrics yet, just return.

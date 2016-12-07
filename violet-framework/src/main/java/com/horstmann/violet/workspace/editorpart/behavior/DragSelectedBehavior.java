@@ -34,25 +34,29 @@ public class DragSelectedBehavior extends AbstractEditorPartBehavior
         this.selectionHandler = editorPart.getSelectionHandler();
         this.graphToolsBar = graphToolsBar;
     }
-
+    //压鼠标的事件
     @Override
     public void onMousePressed(MouseEvent event)
-    {
+    {   //如果不是单击
         if (event.getClickCount() > 1)
         {
             return;
         }
+        //如果不是右击
         if (event.getButton() != MouseEvent.BUTTON1)
         {
             return;
         }
+        //选择自己的工具
         GraphTool selectedTool = this.selectionHandler.getSelectedTool();
         if (IEdge.class.isInstance(selectedTool.getNodeOrEdge()))
         {
             return;
         }
         selectedNode=selectionHandler.getLastSelectedNode();
+        //顺序图
         String combinedStr = "class com.horstmann.violet.product.diagram.sequence.CombinedFragment";
+        
         double zoom = editorPart.getZoomFactor();
         final Point2D mousePoint = new Point2D.Double(event.getX() / zoom, event.getY() / zoom);
         if(selectedNode!=null)
@@ -150,7 +154,7 @@ public class DragSelectedBehavior extends AbstractEditorPartBehavior
             // children
             Point2D currentNodeLocation = n.getLocation();
             Point2D futureNodeLocation = new Point2D.Double(currentNodeLocation.getX() + dx, currentNodeLocation.getY() + dy);                     
-            String str1= "class com.horstmann.violet.product.diagram.timing.State_Lifeline";
+            String str1= "class com.horstmann.violet.product.diagram.timing.StateLifeline";
             String str2= "class com.horstmann.violet.product.diagram.sequence.CombinedFragment";
             if (!currentNodeLocation.equals(futureNodeLocation))
             {            	
@@ -206,7 +210,8 @@ public class DragSelectedBehavior extends AbstractEditorPartBehavior
             }
    	     //这里的语句是为了在拖动的时候使得每个StateLifeLine中的状态线也得以改变位置
             if (n.getClass().toString().equals(str1)){
-   	    	 SEdge s= ((StatelineParent)n).getStateLine();  	      
+   	    	 SEdge s= ((StatelineParent)n).getStateLine();  	 
+   	    	 //当孩子只是原来的状态----------
    	    	for(IHorizontalChild horizontalchild:s.gethorizontalChild())//改变孩子位置
    	    	{
    	    		

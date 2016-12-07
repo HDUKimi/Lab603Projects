@@ -186,17 +186,19 @@ public class MainFrame extends JFrame
      	   
      	    repaint();    		    
      	}
+        //添加一个workspace到mainFrame中 
      	if(workspace.getTitle().toString().endsWith(".seq.violet.xml")
      			||workspace.getTitle().toString().substring(2, 4).equals("Se"))//如果是顺序图
      			
  		{
-     	
+     	    //如果main 的workspaceList的集合中已经有
      		if(this.SequencespaceList.contains(workspace))
      		{
      			return;
      		}
      		this.SequencespaceList.clear();
      		this.SequencespaceList.add(workspace);
+     		//获得第一步uml模型的建立和导入 的tab页中的seq的tab页
      		this.getStepOneCenterTabbedPane().getSequenceDiagramTabbedPane().removeAll();
      		this.getStepOneCenterTabbedPane().getSequenceDiagramTabbedPane()
      		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));
@@ -515,6 +517,7 @@ public class MainFrame extends JFrame
                 return;
             }
         }
+        //seq
         for (IWorkspace aDiagramPanel : this.SequencespaceList)
         {
             IFile toCompare = aDiagramPanel.getGraphFile();
@@ -619,7 +622,7 @@ public class MainFrame extends JFrame
    	}
    	return this.homepanel;
    }
-    private StepButtonPanel getStepButton()
+    public StepButtonPanel getStepButton()
     {
     	if(this.stepButton==null)
     	{
@@ -674,7 +677,8 @@ public class MainFrame extends JFrame
             layout.setConstraints(this.getConsolePart(), new GBC(1,2,2,1).setFill(GBC.BOTH).setWeight(1, 0));
             layout.setConstraints(this.getOpreationPart(), new GBC(2,1,1,1).setFill(GBC.BOTH).setWeight(0, 1));
             layout.setConstraints(this.getCenterTabPanel(), new GBC(1,1,1,1).setFill(GBC.BOTH).setWeight(1, 1));
-		    		                                     
+		 
+            
         }
         return this.mainPanel;
     }
@@ -697,6 +701,7 @@ public class MainFrame extends JFrame
     return this.stepTwoCenterTabbedPane;
     	
     }   
+    //第3的tab
     public StepThreeCenterTabbedPane getStepThreeCenterTabbedPane()
     {
     if (this.stepThreeCenterTabbedPane== null)
@@ -705,7 +710,28 @@ public class MainFrame extends JFrame
     }
     return this.stepThreeCenterTabbedPane;
     	
-    }   
+    }
+    //第6的tab
+    public StepSixCenterTabbedPane getStepSixCenterTabbedPane()
+    {
+    if (this.stepSixCenterTabbedPane== null)
+    {
+    	stepSixCenterTabbedPane=new StepSixCenterTabbedPane();
+    }
+    return this.stepSixCenterTabbedPane;
+    	
+    }
+    //第5的tab
+    public StepFiveCenterTabbedPane getStepFiveCenterTabbedPane()
+    {
+    if (this.stepFiveCenterTabbedPane== null)
+    {
+    	stepFiveCenterTabbedPane=new StepFiveCenterTabbedPane();
+    }
+    return this.stepFiveCenterTabbedPane;
+    	
+    }
+    
 	public JPanel getOpreationPart() {
 		// TODO Auto-generated method stub
 		return this.opreationpanel;
@@ -741,13 +767,20 @@ public class MainFrame extends JFrame
 	public void setStepJLabel(JPanel stepJLabel) {
 		this.stepJLabel = stepJLabel;
 	}
-
+    public String getDirectory()
+    {
+    	return this.getSequenceWorkspaceList().get(0).getGraphFile().getDirectory();
+    }
 	/**
      * Tabbed pane instance
      */
     private JTabbedPane tabbedPane;
-
-    /**
+    
+    private StepSixCenterTabbedPane stepSixCenterTabbedPane;
+    
+    private StepFiveCenterTabbedPane stepFiveCenterTabbedPane;
+ 
+	/**
      * Panel added is not diagram is opened
      */
     private WelcomePanel welcomePanel;
@@ -763,6 +796,7 @@ public class MainFrame extends JFrame
     private JPanel centerPanel;
     private JPanel opreationpanel=new JPanel();
     private JPanel centerTabPanel=new JPanel();
+    private String directory;
     /**
      * Main panel
      */

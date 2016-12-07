@@ -72,6 +72,8 @@ public class GraphFile implements IGraphFile
             this.graph = this.filePersistenceService.read(in);
             this.currentFilename = fileOpener.getFileDefinition().getFilename();
             this.currentDirectory = fileOpener.getFileDefinition().getDirectory();
+            System.out.println("当前："+currentFilename);
+            System.out.println("当前："+currentDirectory);
         }
         else
         {
@@ -156,8 +158,7 @@ public class GraphFile implements IGraphFile
                fireGraphSaved();
                this.currentFilename = fileSaver.getFileDefinition().getFilename();
                this.currentDirectory = fileSaver.getFileDefinition().getDirectory();
-               System.out.println(currentFilename);
-               System.out.println(currentDirectory);
+               
            }
            catch (Exception e)
            {
@@ -389,7 +390,7 @@ public class GraphFile implements IGraphFile
                     };
                     return this.fileChooserService.DchooseAndGetFileWriter(array);//这个方法打开保存文件的对话框
                 }
-                System.out.println("哈哈");
+                //System.out.println("哈哈");
                 return this.fileChooserService.getFileWriter(this);
             }
             catch (Exception e)
@@ -428,7 +429,7 @@ public class GraphFile implements IGraphFile
  * 张建(non-Javadoc)
  * @see com.horstmann.violet.framework.file.IGraphFile#AutoSave(com.horstmann.violet.framework.file.IFile, java.lang.String)
  */
-
+    //先读入file文件，然后保存到path路径中
 	public void AutoSave(IFile file,String path) {
 		//自动保存方法（导入文件的时候自动保存）
 		 try {

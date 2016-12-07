@@ -117,11 +117,15 @@ public class UMLEditorApplication
         ITheme theme2 = new BlueAmbianceTheme();
         ITheme theme3 = new DarkAmbianceTheme();
         ITheme theme4 = new DarkBlueTheme();
+//        ITheme theme5 = new EclipseTheme();
+//        ITheme theme6 = new DarkQTTheme();
         List<ITheme> themeList = new ArrayList<ITheme>();
         themeList.add(theme1);
         themeList.add(theme2);
         themeList.add(theme3);
         themeList.add(theme4);
+//        themeList.add(theme5);
+//        themeList.add(theme6);
         themeManager.setInstalledThemes(themeList);
         themeManager.applyPreferedTheme();
         BeanFactory.getFactory().register(ThemeManager.class, themeManager);
@@ -179,7 +183,7 @@ public class UMLEditorApplication
             {
                 IGraphFile graphFile = new GraphFile(aFile);
                 IWorkspace workspace = new Workspace(graphFile);
-                mainFrame.addTabbedPane(workspace);
+//                mainFrame.addTabbedPane(workspace);
             }
             catch (Exception e)
             {

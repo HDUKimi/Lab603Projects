@@ -296,7 +296,7 @@ public class EditorPart extends JPanel implements IEditorPart
     /**
      * Scale factor used to grow drawing area
      */
-    private static final double GROW_SCALE_FACTOR = Math.sqrt(2);
+     private static final double GROW_SCALE_FACTOR = Math.sqrt(2);
 
     private IEditorPartBehaviorManager behaviorManager = new EditorPartBehaviorManager();
 

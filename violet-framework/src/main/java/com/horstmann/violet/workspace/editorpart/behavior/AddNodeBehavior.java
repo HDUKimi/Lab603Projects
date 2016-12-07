@@ -61,7 +61,7 @@ public class AddNodeBehavior extends AbstractEditorPartBehavior
         newNode.setId(new Id()); 
         newNode.setID("EAID_"+UUID.randomUUID().toString());
         boolean added = addNodeAtPoint(newNode, newNodeLocation);     
-        String str= "class com.horstmann.violet.product.diagram.timing.State_Lifeline";	    
+        String str= "class com.horstmann.violet.product.diagram.timing.StateLifeline";	    
         if (added){ 
             selectionHandler.setSelectedElement(newNode);
             editorPart.getSwingComponent().invalidate();
@@ -76,6 +76,7 @@ public class AddNodeBehavior extends AbstractEditorPartBehavior
           	  {
           		  allnodes.add(node);          		 
           	  }         	
+//          	  int flag=allnodes.size();
           	  INode BeforeaddedNode=allnodes.get(1);//这里为1，每次添加新节点都在最前面添加，即为第2个点。        
           	  newNode.setLocation(new Point2D.Double(BeforeaddedNode.getLocation().getX(),        
               BeforeaddedNode.getLocation().getY()-150));//这里的200为初始高度
