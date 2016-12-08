@@ -1,6 +1,7 @@
 package com.horstmann.violet.application.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -16,6 +17,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.l2fprod.common.swing.JTaskPane;
@@ -29,7 +31,10 @@ public class TestCaseInstantiationPanel extends JPanel{
      
 	public TestCaseInstantiationPanel() {
 		// TODO Auto-generated constructor stub			
-		initUI();		
+		initUI();	
+		this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black)
+        		,"建立抽象测试用例",TitledBorder.CENTER,TitledBorder.ABOVE_TOP,
+        		new Font("宋体",Font.BOLD,20),new Color(60, 60, 60)));
 	}
 
 	private void initUI() {

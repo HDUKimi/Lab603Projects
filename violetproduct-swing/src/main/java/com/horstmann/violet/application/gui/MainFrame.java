@@ -36,26 +36,44 @@ import java.awt.Image;
 import java.awt.Label;
 import java.awt.Paint;
 import java.awt.Toolkit;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseWheelListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import java.awt.geom.Point2D;
 import java.beans.BeanInfo;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTree;
 import javax.swing.SwingUtilities;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.synth.SynthSeparatorUI;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 import com.horstmann.violet.application.consolepart.ConsolePart;
+import com.horstmann.violet.application.consolepart.ConsolePartPanel;
+import com.horstmann.violet.application.gui.opreationTreePane.ModelExistValidationPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.help.AboutDialog;
 import com.horstmann.violet.application.menu.MenuFactory;
 import com.horstmann.violet.framework.dialog.DialogFactory;
@@ -98,10 +116,164 @@ public class MainFrame extends JFrame
         this.dialogFactory.setDialogOwner(this);
         decorateFrame();
         setInitialSize();
-        createMenuBar();
+		setUIManeger();
+		createMenuBar();
         getContentPane().add(this.getMainPanel());
-      
+		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		final int screenWidth = (int) screenSize.getWidth();
+		final int screenHeight = (int) screenSize.getHeight();
+//		
+//		this.setMinimumSize(new Dimension(screenWidth/3, screenHeight/2));
+		
+		this.addWindowStateListener(new WindowStateListener() {
+			
+			@Override
+			public void windowStateChanged(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+				if(e.getNewState()==1||e.getNewState()==7){
+//					System.out.println("---------------------窗口最小化---------------------");
+//					System.out.println(getSize());
+//					System.out.println(getJs1().getDividerLocation()+"  "+getJs2().getDividerLocation()+"  "+getJs3().getDividerLocation());
+//					System.out.println(getOpreationPart().size()+"  "+getCenterTabPanel().size()+"  "+getConsolePartPanel().size()+"  "+getAttributePartPanel().size());
+				}else if(e.getNewState()==0){
+//					System.out.println("---------------------窗口回复初始状态---------------------");
+//					System.out.println(getSize());
+//					System.out.println(getJs1().getDividerLocation()+"  "+getJs2().getDividerLocation()+"  "+getJs3().getDividerLocation());
+//					System.out.println(getOpreationPart().size()+"  "+getCenterTabPanel().size()+"  "+getConsolePartPanel().size()+"  "+getAttributePartPanel().size());					
+				}else if(e.getNewState()==6){
+//					System.out.println("---------------------窗口最大化---------------------");
+//					System.out.println(getSize());
+//					System.out.println(getJs1().getDividerLocation()+"  "+getJs2().getDividerLocation()+"  "+getJs3().getDividerLocation());
+//					System.out.println(getOpreationPart().size()+"  "+getCenterTabPanel().size()+"  "+getConsolePartPanel().size()+"  "+getAttributePartPanel().size());
+					
+					getJs1().setDividerLocation(screenWidth/8);
+					getJs2().setDividerLocation((int)getJs2().getSize().getWidth()-screenWidth/8);
+					getJs3().setDividerLocation((int)getJs3().getSize().getHeight()-screenHeight/5);
+					
+				}
+				
+			}
+		});
+		
+		this.addComponentListener(new ComponentListener() {
+			
+			@Override
+			public void componentShown(ComponentEvent e) {
+				// TODO Auto-generated method stub
+//				System.out.println("---------------------窗口显示---------------------");
+//				System.out.println(getSize());
+//				System.out.println(getJs1().getDividerLocation()+"  "+getJs2().getDividerLocation()+"  "+getJs3().getDividerLocation());
+//				System.out.println(getOpreationPart().size()+"  "+getCenterTabPanel().size()+"  "+getConsolePartPanel().size()+"  "+getAttributePartPanel().size());
+				
+//				getJs1().setDividerLocation(screenWidth/8);
+//				getJs2().setDividerLocation((int)getJs2().getSize().getWidth()-screenWidth/8);
+//				getJs3().setDividerLocation((int)getJs3().getSize().getHeight()-screenHeight/5);
+				
+			}
+			
+			@Override
+			public void componentResized(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+				if(getStepindex()>0){
+//					System.out.println("---------------------变化窗口大小---------------------");
+//					System.out.println(getSize());
+//					System.out.println(getJs1().getDividerLocation()+"  "+getJs2().getDividerLocation()+"  "+getJs3().getDividerLocation());
+//					System.out.println(getOpreationPart().size()+"  "+getCenterTabPanel().size()+"  "+getConsolePartPanel().size()+"  "+getAttributePartPanel().size());
+					
+					if(getJs1().getDividerLocation()==0){
+						getJs1().setDividerLocation(screenWidth/8);
+					}
+					if(getJs2().getDividerLocation()==0){
+						getJs2().setDividerLocation((int)getJs2().getSize().getWidth()-screenWidth/8);
+					}
+					if(getJs3().getDividerLocation()==0){
+						getJs3().setDividerLocation((int)getJs3().getSize().getHeight()-screenHeight/5);
+					}
+					
+					if(getJs1().getSize().getWidth()<screenWidth*3/8){
+						if(getOpreationPart().size().getWidth()<screenWidth/8){
+							getJs1().setDividerLocation((int)(getJs1().getSize().getWidth())/3);
+						}
+						if(getAttributePart().size().getWidth()<screenWidth/8){
+							getJs2().setDividerLocation((int)(getJs1().getSize().getWidth())/3);
+						}
+					}
+					
+					if(getJs3().getSize().getHeight()<screenHeight*2/5){
+						if(getConsolePartPanel().size().getHeight()<screenHeight/5){
+							getJs3().setDividerLocation((int)getJs3().getSize().getHeight()/2);
+						}
+					}
+					
+				}
+			}
+			
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				// TODO Auto-generated method stub
+//				System.out.println("---------------------窗口移动---------------------");
+//				System.out.println(getSize());
+//				System.out.println(getJs1().getDividerLocation()+"  "+getJs2().getDividerLocation()+"  "+getJs3().getDividerLocation());
+//				System.out.println(getOpreationPart().size()+"  "+getCenterTabPanel().size()+"  "+getConsolePartPanel().size()+"  "+getAttributePartPanel().size());
+				
+			}
+			
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				// TODO Auto-generated method stub
+//				System.out.println("---------------------窗口隐藏---------------------");
+//				System.out.println(getSize());
+//				System.out.println(getJs1().getDividerLocation()+"  "+getJs2().getDividerLocation()+"  "+getJs3().getDividerLocation());
+//				System.out.println(getOpreationPart().size()+"  "+getCenterTabPanel().size()+"  "+getConsolePartPanel().size()+"  "+getAttributePartPanel().size());
+			}
+		});
+
     }
+
+	private void setUIManeger() {
+		// TODO Auto-generated method stub
+		
+//		UIManager.put("TabbedPane.unselectedBackground", new Color(64, 66, 68));
+		UIManager.put("TabbedPane.selected",new Color(64, 66, 68));
+		UIManager.put("TabbedPane.unselected",new Color(64, 66, 68));
+		UIManager.put("TabbedPane.selectedForeground", Color.WHITE);
+		
+//		URL Tree_collapsed_url = this.getClass().getResource("Tree_collapsed.png");
+//		ImageIcon Tree_collapsed_icon = new ImageIcon(Tree_collapsed_url);
+//		Tree_collapsed_icon.setImage(Tree_collapsed_icon.getImage().getScaledInstance(20,20, Image.SCALE_DEFAULT));
+//
+//		URL Tree_expanded_url = this.getClass().getResource("Tree_expanded.png");
+//		ImageIcon Tree_expanded_icon = new ImageIcon(Tree_expanded_url);
+//		Tree_expanded_icon.setImage(Tree_expanded_icon.getImage().getScaledInstance(20,20, Image.SCALE_DEFAULT));
+		
+		String absolutePath=System.getProperty("user.dir");
+		String pngpath = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
+//        demoRenderer.setClosedIcon(new ImageIcon(pngpath+"jiahao.png"));
+//        demoRenderer.setOpenIcon(new ImageIcon(pngpath+"jianhao.png"));
+		
+		
+		UIManager.put("Tree.collapsedIcon", new ImageIcon(pngpath+"collapsed.png"));
+		UIManager.put("Tree.expandedIcon", new ImageIcon(pngpath+"expanded.png"));
+//		UIManager.put("Tree.openIcon", null);
+//		UIManager.put("Tree.closeIcon", null);
+		
+//		try {
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		UIDefaults uiDf = UIManager.getLookAndFeelDefaults();
+//		uiDf.put("SplitPane.background", new ColorUIResource(Color.RED));
+		
+		UIManager.put("SplitPane.background", new Color(41,57,85));
+		
+//		UIManager.put("Menu.foreground", new Color(0, 0, 0));
+//		UIManager.put("Menu.background", new Color(255,255,255));
+		
+	}
 
     /**
      * Sets initial size on startup
@@ -140,85 +312,250 @@ public class MainFrame extends JFrame
       
     }
 
-    /**
-     * Adds a tabbed pane (only if not already added)
-     * 
-     * @param c the component to display in the internal frame
-     */
-    public void  addTabbedPane(final IWorkspace workspace )
-    {
+	public void deleteTabbedPane(final IWorkspace workspace) {
+		if (workspace.getTitle().toString().endsWith(".ucase.violet.xml")
+				|| workspace.getTitle().toString().substring(2, 4).equals("Us"))// 如果是用例图
+		{
+
+			JTree usecasetree=this.getProjectTree().getUsecaseTreePanel().getUsecasetree();
+			DefaultTreeModel usecasetreemodel=this.getProjectTree().getUsecaseTreePanel().getUsecasetreemodel();
+			DefaultMutableTreeNode usecasetreerootnode=this.getProjectTree().getUsecaseTreePanel().getUsecasetreerootnode();
+			
+			TreePath selectionpath=usecasetree.getSelectionPath();
+			DefaultMutableTreeNode parentNode=(DefaultMutableTreeNode) selectionpath.getLastPathComponent();
+			
+			int index=usecasetreerootnode.getIndex(parentNode);
+			usecasetreemodel.removeNodeFromParent(parentNode);
+			this.UseCaseWorkspaceList.remove(index);
+			this.getStepOneCenterTabbedPane().getButtonPanel().remove(this.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists().get(index));
+			this.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists().remove(index);
+			for(ButtonTabbedPanel buttonTabbedPanel:this.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists()){
+				if(buttonTabbedPanel.getButtontabbedpanelindex()>=index){
+					buttonTabbedPanel.setButtontabbedpanelindex(buttonTabbedPanel.getButtontabbedpanelindex()-1);
+				}
+			}
+			
+		}
+		if (workspace.getTitle().toString().endsWith(".timing.violet.xml")
+				|| workspace.getTitle().toString().substring(2, 4).equals("Ti"))// 时序图
+		{
+
+			JTree timingtree=this.getProjectTree().getTimingTreePanel().getTimingtree();
+			DefaultTreeModel timingtreemodel=this.getProjectTree().getTimingTreePanel().getTimingtreemodel();
+			DefaultMutableTreeNode timingtreerootnode=this.getProjectTree().getTimingTreePanel().getTimingtreerootnode();
+			
+			TreePath selectionpath=timingtree.getSelectionPath();
+			DefaultMutableTreeNode parentNode=(DefaultMutableTreeNode) selectionpath.getLastPathComponent();
+			
+			int index=timingtreerootnode.getIndex(parentNode);
+			timingtreemodel.removeNodeFromParent(parentNode);
+			this.TimingWorkspaceList.remove(index);
+			this.getStepOneCenterTabbedPane().getButtonPanel().remove(this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().get(index));
+			this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().remove(index);
+			for(ButtonTabbedPanel buttonTabbedPanel:this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists()){
+				if(buttonTabbedPanel.getButtontabbedpanelindex()>=index){
+					buttonTabbedPanel.setButtontabbedpanelindex(buttonTabbedPanel.getButtontabbedpanelindex()-1);
+				}
+			}
+			
+		}
+		if (workspace.getTitle().toString().endsWith(".seq.violet.xml")
+				|| workspace.getTitle().toString().substring(2, 4).equals("Se"))// 如果是顺序图
+		{
+
+			JTree sequencetree=this.getProjectTree().getSequenceTreePanel().getSequencetree();
+			DefaultTreeModel sequencetreemodel=this.getProjectTree().getSequenceTreePanel().getSequencetreemodel();
+			DefaultMutableTreeNode sequencetreerootnode=this.getProjectTree().getSequenceTreePanel().getSequencetreerootnode();
+			
+			TreePath selectionpath=sequencetree.getSelectionPath();
+			DefaultMutableTreeNode parentNode=(DefaultMutableTreeNode) selectionpath.getLastPathComponent();
+			
+			int index=sequencetreerootnode.getIndex(parentNode);
+			sequencetreemodel.removeNodeFromParent(parentNode);
+			this.SequenceWorkspaceList.remove(index);
+			this.getStepOneCenterTabbedPane().getButtonPanel().remove(this.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists().get(index));
+			this.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists().remove(index);
+			for(ButtonTabbedPanel buttonTabbedPanel:this.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists()){
+				if(buttonTabbedPanel.getButtontabbedpanelindex()>=index){
+					buttonTabbedPanel.setButtontabbedpanelindex(buttonTabbedPanel.getButtontabbedpanelindex()-1);
+				}
+			}
+			
+		}
+		if (workspace.getTitle().toString().endsWith(".state.violet.xml")
+				|| workspace.getTitle().toString().substring(2, 4).equals("St"))// 如果是状态图
+		{
+
+			JTree statetree=this.getProjectTree().getStateTreePanel().getStatetree();
+			DefaultTreeModel statetreemodel=this.getProjectTree().getStateTreePanel().getStatetreemodel();
+			DefaultMutableTreeNode statetreerootnode=this.getProjectTree().getStateTreePanel().getStatetreerootnode();
+			
+			TreePath selectionpath=statetree.getSelectionPath();
+			DefaultMutableTreeNode parentNode=(DefaultMutableTreeNode) selectionpath.getLastPathComponent();
+			
+			int index=statetreerootnode.getIndex(parentNode);
+			statetreemodel.removeNodeFromParent(parentNode);
+			this.StateWorkspaceList.remove(index);
+			this.getStepOneCenterTabbedPane().getButtonPanel().remove(this.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists().get(index));
+			this.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists().remove(index);
+			for(ButtonTabbedPanel buttonTabbedPanel:this.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists()){
+				if(buttonTabbedPanel.getButtontabbedpanelindex()>=index){
+					buttonTabbedPanel.setButtontabbedpanelindex(buttonTabbedPanel.getButtontabbedpanelindex()-1);
+				}
+			}
+			
+		}
+	}
+	
+	/**
+	 * Adds a tabbed pane (only if not already added)
+	 * 
+	 * @param c
+	 *            the component to display in the internal frame
+	 */
+	public void addTabbedPane(final IWorkspace workspace) {
 //       replaceWelcomePanelByTabbedPane(); 
     	//在添加图形元素的时候，首先判断下是哪种图形
     	
         if(workspace.getTitle().toString().endsWith(".ucase.violet.xml")
         		||workspace.getTitle().toString().substring(2, 4).equals("Us"))//如果是用例图
      	{
-     		if(this.UseCaseworkspaceList.contains(workspace))
+     		if(this.UseCaseWorkspaceList.contains(workspace))
      		{
      			
      			return;
      		}
-     		this.UseCaseworkspaceList.clear();//清空
-     		this.UseCaseworkspaceList.add(workspace);
-     		
-     		this.getStepOneCenterTabbedPane().getUsecaseDiagramTabbedPane().removeAll();//只保留一个Tab页
-     		this.getStepOneCenterTabbedPane().getUsecaseDiagramTabbedPane()
-     		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));
-     		
-     		 listenToDiagramPanelEvents(workspace,UseCaseworkspaceList);
+//			this.UseCaseWorkspaceList.clear();// 清空
+//			int index=this.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists().size();
+			int index=this.getProjectTree().getUsecaseTreePanel().getUsecasetreerootnode().getChildCount();
+//			int size=this.UseCaseWorkspaceList.size();
+//			for(int i=size;i<=index;i++){
+//				this.UseCaseWorkspaceList.add(i, workspace);//预填充
+//			}
+//			this.UseCaseWorkspaceList.remove(index);
+			
+			if(index==0){
+				this.UseCaseWorkspaceList.clear();
+				this.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists().clear();
+			}
+			
+			this.UseCaseWorkspaceList.add(index,workspace);
+
+			this.getStepOneCenterTabbedPane().getUsecaseDiagramTabbedPane().removeAll();// 只保留一个Tab页
+//			this.getStepOneCenterTabbedPane().getUsecaseDiagramTabbedPane().add(workspace.getAWTComponent(),
+//					new GBC(0, 0).setWeight(1, 1).setFill(GBC.BOTH));
+			
+			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
+			this.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists().add(index,buttontabbedpanel);
+			this.getStepOneCenterTabbedPane().getButtonPanel().add(buttontabbedpanel);
+
+			listenToDiagramPanelEvents(workspace, UseCaseWorkspaceList);
      		
    		     repaint();    		    
      	}
         if(workspace.getTitle().toString().endsWith(".timing.violet.xml")
         		||workspace.getTitle().toString().substring(2, 4).equals("Ti"))//时序图
      	{
-     		if(this.TimingDiagramspaceList.contains(workspace))
+     		if(this.TimingWorkspaceList.contains(workspace))
      		{
      			return;
      		}
-     		this.TimingDiagramspaceList.clear();//保证每一次新建或导入只会有1个Type页
-     		this.TimingDiagramspaceList.add(workspace);
-     		this.getStepOneCenterTabbedPane().getTimingDiagramTabbedPane().removeAll();
-     		this.getStepOneCenterTabbedPane().getTimingDiagramTabbedPane()
-     		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));
-     		 listenToDiagramPanelEvents(workspace,TimingDiagramspaceList);
+//			this.TimingWorkspaceList.clear();// 保证每一次新建或导入只会有1个Type页
+//			int index=this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().size();
+			int index=this.getProjectTree().getTimingTreePanel().getTimingtreerootnode().getChildCount();
+//			int size=this.TimingWorkspaceList.size();
+//			for(int i=size;i<=index;i++){
+//				this.TimingWorkspaceList.add(i, workspace);
+//			}
+//			this.TimingWorkspaceList.remove(index);
+			
+			if(index==0){
+				this.TimingWorkspaceList.clear();
+				this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().clear();
+			}
+			
+			this.TimingWorkspaceList.add(index,workspace);
+			
+			this.getStepOneCenterTabbedPane().getTimingDiagramTabbedPane().removeAll();
+//			this.getStepOneCenterTabbedPane().getTimingDiagramTabbedPane().add(workspace.getAWTComponent(),
+//					new GBC(0, 0).setWeight(1, 1).setFill(GBC.BOTH));
+			
+			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
+			this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().add(index,buttontabbedpanel);
+			this.getStepOneCenterTabbedPane().getButtonPanel().add(buttontabbedpanel);
+			
+			listenToDiagramPanelEvents(workspace, TimingWorkspaceList);
      		
      	   
      	    repaint();    		    
      	}
-        //添加一个workspace到mainFrame中 
      	if(workspace.getTitle().toString().endsWith(".seq.violet.xml")
      			||workspace.getTitle().toString().substring(2, 4).equals("Se"))//如果是顺序图
      			
  		{
-     	    //如果main 的workspaceList的集合中已经有
-     		if(this.SequencespaceList.contains(workspace))
+     	
+     		if(this.SequenceWorkspaceList.contains(workspace))
      		{
      			return;
      		}
-     		this.SequencespaceList.clear();
-     		this.SequencespaceList.add(workspace);
-     		//获得第一步uml模型的建立和导入 的tab页中的seq的tab页
-     		this.getStepOneCenterTabbedPane().getSequenceDiagramTabbedPane().removeAll();
-     		this.getStepOneCenterTabbedPane().getSequenceDiagramTabbedPane()
-     		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));
-     		listenToDiagramPanelEvents(workspace,SequencespaceList);   		
+//			this.SequenceWorkspaceList.clear();
+//			int index=this.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists().size();
+			int index=this.getProjectTree().getSequenceTreePanel().getSequencetreerootnode().getChildCount();
+//			int size=this.SequenceWorkspaceList.size();
+//			for(int i=size;i<=index;i++){
+//				this.SequenceWorkspaceList.add(i, workspace);
+//			}
+//			this.SequenceWorkspaceList.remove(index);
+			
+			if(index==0){
+				this.SequenceWorkspaceList.clear();
+				this.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists().clear();
+			}
+			
+			this.SequenceWorkspaceList.add(index,workspace);
+			this.getStepOneCenterTabbedPane().getSequenceDiagramTabbedPane().removeAll();
+//			this.getStepOneCenterTabbedPane().getSequenceDiagramTabbedPane().add(workspace.getAWTComponent(),
+//					new GBC(0, 0).setWeight(1, 1).setFill(GBC.BOTH));
+			
+			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
+			this.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists().add(index,buttontabbedpanel);
+			this.getStepOneCenterTabbedPane().getButtonPanel().add(buttontabbedpanel);
+			
+			listenToDiagramPanelEvents(workspace, SequenceWorkspaceList);
      	    repaint();    		              
  		}    
      	if(workspace.getTitle().toString().endsWith(".state.violet.xml")
      			||workspace.getTitle().toString().substring(2, 4).equals("St"))//如果是状态图
  		{
-     		if(this.StatespaceList.contains(workspace))
+     		if(this.StateWorkspaceList.contains(workspace))
      		{
      			return;
      		}
-     		this.StatespaceList.clear();
-     		this.StatespaceList.add(workspace);
-     		this.getStepOneCenterTabbedPane().getStateDiagramTabbedPane().removeAll();
-     		this.getStepOneCenterTabbedPane().getStateDiagramTabbedPane()
-     		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));
-     		
-     		 listenToDiagramPanelEvents(workspace,StatespaceList);
+//			this.StateWorkspaceList.clear();
+//			int index=this.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists().size();
+			int index=this.getProjectTree().getStateTreePanel().getStatetreerootnode().getChildCount();
+//			int size=this.StateWorkspaceList.size();
+//			for(int i=size;i<=index;i++){
+//				this.StateWorkspaceList.add(i, workspace);
+//			}
+//			this.StateWorkspaceList.remove(index);
+			
+			if(index==0){
+				this.StateWorkspaceList.clear();
+				this.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists().clear();
+			}
+			
+			this.StateWorkspaceList.add(index,workspace);
+			
+			this.getStepOneCenterTabbedPane().getStateDiagramTabbedPane().removeAll();
+//			this.getStepOneCenterTabbedPane().getStateDiagramTabbedPane().add(workspace.getAWTComponent(),
+//					new GBC(0, 0).setWeight(1, 1).setFill(GBC.BOTH));
+			
+			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
+			this.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists().add(index,buttontabbedpanel);
+			this.getStepOneCenterTabbedPane().getButtonPanel().add(buttontabbedpanel);
+
+			listenToDiagramPanelEvents(workspace, StateWorkspaceList);
      	  
      	    repaint();     		    
  		}
@@ -228,24 +565,16 @@ public class MainFrame extends JFrame
      	if(workspace.getTitle().toString().endsWith(".uppaal.violet.xml")
      			&&!workspace.getTitle().toString().substring(0, 3).equals(("abs")))
      	{		
-     		if(this.UppaalspaceList.contains(workspace))
+     		if(this.UppaalWorkspaceList.contains(workspace))
      		{
      			return;
      		}
-     		this.UppaalspaceList.clear();
-     		this.UppaalspaceList.add(workspace);
+     		this.UppaalWorkspaceList.clear();
+     		this.UppaalWorkspaceList.add(workspace);
      		this.getStepTwoCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
      		this.getStepTwoCenterTabbedPane().getUppaalDiagramTabbedPane()
      		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));    		
-     		listenToDiagramPanelEvents(workspace,UppaalspaceList);    	  
-     	    repaint();     		    
-     	}
-     	//展示MarKov链
-     	if(workspace.getTitle().toString().endsWith(".markov.violet.xml"))
-     	{	   		
-     		this.getStepTwoCenterTabbedPane().getMarkovDiagramTabbedPane().removeAll();
-     		this.getStepTwoCenterTabbedPane().getMarkovDiagramTabbedPane()
-     		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));    		    		   	  
+     		listenToDiagramPanelEvents(workspace,UppaalWorkspaceList);    	  
      	    repaint();     		    
      	}
      
@@ -263,58 +592,100 @@ public class MainFrame extends JFrame
     {
 //       replaceWelcomePanelByTabbedPane(); 
     	//在添加图形元素的时候，首先判断下是哪种图形
-    if(flag==2){
-        if(workspace.getTitle().toString().endsWith(".timing.violet.xml")
-        		||workspace.getTitle().toString().substring(2, 4).equals("Ti"))//时序图
-     	{
-     		if(this.TimingDiagramspaceList.contains(workspace))
-     		{
-     			return;
-     		}
-     		this.TimingDiagramspaceList.clear();//保证每一次新建或导入只会有1个Type页
-     		this.TimingDiagramspaceList.add(workspace);
-     		this.getStepTwoCenterTabbedPane().getUMLDiagramTabbedPane().removeAll();
-     		this.getStepTwoCenterTabbedPane().getUMLDiagramTabbedPane()
-     		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));
-     		 listenToDiagramPanelEvents(workspace,TimingDiagramspaceList);    			  
-     	    repaint();    		    
-     	}
-     	if(workspace.getTitle().toString().endsWith(".seq.violet.xml")
-     			||workspace.getTitle().toString().substring(2, 4).equals("Se"))//如果是顺序图
-     			
- 		{
-     	
-     		if(this.SequencespaceList.contains(workspace))
-     		{
-     			return;
-     		}
-     		this.SequencespaceList.clear();
-     		this.SequencespaceList.add(workspace);
-     		this.getStepTwoCenterTabbedPane().getUMLDiagramTabbedPane().removeAll();
-     		this.getStepTwoCenterTabbedPane().getUMLDiagramTabbedPane()
-     		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));
-     		listenToDiagramPanelEvents(workspace,SequencespaceList);   		
-     	    repaint();    		              
- 		}    
+    if(flag==21){
+//        if(workspace.getTitle().toString().endsWith(".timing.violet.xml")
+//        		||workspace.getTitle().toString().substring(2, 4).equals("Ti"))//时序图
+//     	{
+//     		if(this.TimingWorkspaceList.contains(workspace))
+//     		{
+//     			return;
+//     		}
+//     		this.TimingWorkspaceList.clear();//保证每一次新建或导入只会有1个Type页
+//     		this.TimingWorkspaceList.add(workspace);
+//     		this.getStepTwoCenterTabbedPane().getUMLDiagramTabbedPane().removeAll();
+//     		this.getStepTwoCenterTabbedPane().getUMLDiagramTabbedPane()
+//     		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));
+//     		 listenToDiagramPanelEvents(workspace,TimingWorkspaceList);    			  
+//     	    repaint();    		    
+//     	}
+//     	if(workspace.getTitle().toString().endsWith(".seq.violet.xml")
+//     			||workspace.getTitle().toString().substring(2, 4).equals("Se"))//如果是顺序图
+//     			
+// 		{
+//     	
+//     		if(this.StepTwoSequenceWorkspaceList.contains(workspace))
+//     		{
+//     			return;
+//     		}
+//     		this.StepTwoSequenceWorkspaceList.clear();
+//     		this.StepTwoSequenceWorkspaceList.add(workspace);
+//     		this.getStepTwoCenterTabbedPane().getUMLDiagramTabbedPane().removeAll();
+//     		this.getStepTwoCenterTabbedPane().getUMLDiagramTabbedPane()
+//     		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));
+//     		listenToDiagramPanelEvents(workspace,StepTwoSequenceWorkspaceList);   		
+//     	    repaint();    		              
+// 		}    
     
      	 /*
      	  * 展示uppaal
      	  */
      	if(workspace.getTitle().toString().endsWith(".uppaal.violet.xml"))
      	{		
-     		if(this.UppaalspaceList.contains(workspace))
+     		if(this.SequenceToUppaalWorkspaceList.contains(workspace))
      		{
      			return;
      		}
-     		this.UppaalspaceList.clear();
-     		this.UppaalspaceList.add(workspace);
-     		this.getStepTwoCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
-     		this.getStepTwoCenterTabbedPane().getUppaalDiagramTabbedPane()
-     		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));    		
-     		listenToDiagramPanelEvents(workspace,UppaalspaceList);    	  
+     		
+     		int index=this.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel().getRowCount();
+
+     		if(index==0){
+				this.SequenceToUppaalWorkspaceList.clear();
+				this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().clear();
+			}
+			
+			this.SequenceToUppaalWorkspaceList.add(index,workspace);
+			
+			this.getStepTwoCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
+			
+			
+			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
+			this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().add(buttontabbedpanel);
+			this.getStepTwoCenterTabbedPane().getButtonPanel().add(buttontabbedpanel);
+			
+     		listenToDiagramPanelEvents(workspace,SequenceToUppaalWorkspaceList);    	  
      	    repaint();     		    
      	}
     }
+    
+    if(flag==22){
+    	if(workspace.getTitle().toString().endsWith(".uppaal.violet.xml"))
+     	{		
+     		if(this.TimingToUppaalWorkspaceList.contains(workspace))
+     		{
+     			return;
+     		}
+     		
+     		int index=this.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel().getRowCount();
+
+     		if(index==0){
+				this.TimingToUppaalWorkspaceList.clear();
+				this.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists().clear();
+			}
+			
+			this.TimingToUppaalWorkspaceList.add(index,workspace);
+			
+			this.getStepTwoCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
+			
+			
+			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
+			this.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists().add(buttontabbedpanel);
+			this.getStepTwoCenterTabbedPane().getButtonPanel().add(buttontabbedpanel);
+			
+     		listenToDiagramPanelEvents(workspace,TimingToUppaalWorkspaceList);    	  
+     	    repaint();     		    
+     	}
+    }
+    
     if(flag==3)
     {
     	/*
@@ -322,16 +693,16 @@ public class MainFrame extends JFrame
     	 */
     	if(workspace.getTitle().toString().startsWith("abs"))         		
       	{
-      		if(this.UppaalspaceList.contains(workspace))
+      		if(this.UppaalWorkspaceList.contains(workspace))
       		{
       			return;
       		}
-      		this.UppaalspaceList.clear();//保证每一次新建或导入只会有1个Type页
-      		this.UppaalspaceList.add(workspace);
+      		this.UppaalWorkspaceList.clear();//保证每一次新建或导入只会有1个Type页
+      		this.UppaalWorkspaceList.add(workspace);
       		this.getStepThreeCenterTabbedPane().getAbstractUppaalTabbedPane().removeAll();
       		this.getStepThreeCenterTabbedPane().getAbstractUppaalTabbedPane()
       		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));
-      		 listenToDiagramPanelEvents(workspace,UppaalspaceList);    			  
+      		 listenToDiagramPanelEvents(workspace,UppaalWorkspaceList);    			  
       	    repaint();    		    
       	}
     	/*
@@ -339,16 +710,16 @@ public class MainFrame extends JFrame
     	 */
     	if(workspace.getTitle().toString().startsWith("no_time_abs"))         		
       	{
-      		if(this.UppaalspaceList.contains(workspace))
+      		if(this.UppaalWorkspaceList.contains(workspace))
       		{
       			return;
       		}
-      		this.UppaalspaceList.clear();//保证每一次新建或导入只会有1个Type页
-      		this.UppaalspaceList.add(workspace);
+      		this.UppaalWorkspaceList.clear();//保证每一次新建或导入只会有1个Type页
+      		this.UppaalWorkspaceList.add(workspace);
       		this.getStepThreeCenterTabbedPane().getUppaalTabbedPane().removeAll();
       		this.getStepThreeCenterTabbedPane().getUppaalTabbedPane()
       		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));
-      		 listenToDiagramPanelEvents(workspace,UppaalspaceList);    			  
+      		 listenToDiagramPanelEvents(workspace,UppaalWorkspaceList);    			  
       	    repaint();    		    
       	}
     }
@@ -448,41 +819,49 @@ public class MainFrame extends JFrame
      */
     public void removeDiagramPanel(IWorkspace diagramPanel)
     {
-        if (this.UseCaseworkspaceList.contains(diagramPanel))       		
+        if (this.UseCaseWorkspaceList.contains(diagramPanel))       		
         {   
-        int pos = this.UseCaseworkspaceList.indexOf(diagramPanel);
-        getStepOneCenterTabbedPane().getUMLTabbedPane(diagramPanel).remove(pos);
-        this.UseCaseworkspaceList.remove(diagramPanel);
+        int pos = this.UseCaseWorkspaceList.indexOf(diagramPanel);
+//        getStepOneCenterTabbedPane().getUMLTabbedPane(diagramPanel).remove(pos);
+//        this.UseCaseWorkspaceList.remove(diagramPanel);
         repaint();
         }
-        if (this.TimingDiagramspaceList.contains(diagramPanel))       		
+        if (this.TimingWorkspaceList.contains(diagramPanel))       		
         {   
-        int pos = this.TimingDiagramspaceList.indexOf(diagramPanel);
-        getStepOneCenterTabbedPane().getUMLTabbedPane(diagramPanel).remove(pos);
-        this.TimingDiagramspaceList.remove(diagramPanel);
+        int pos = this.TimingWorkspaceList.indexOf(diagramPanel);
+//        getStepOneCenterTabbedPane().getUMLTabbedPane(diagramPanel).remove(pos);
+//        this.TimingWorkspaceList.remove(diagramPanel);
         repaint();
         }
-        if (this.SequencespaceList.contains(diagramPanel))       		
+        if (this.SequenceWorkspaceList.contains(diagramPanel))       		
         {   
-        int pos = this.SequencespaceList.indexOf(diagramPanel);
-        getStepOneCenterTabbedPane().getUMLTabbedPane(diagramPanel).remove(pos);
-        this.SequencespaceList.remove(diagramPanel);
+        int pos = this.SequenceWorkspaceList.indexOf(diagramPanel);
+//        getStepOneCenterTabbedPane().getUMLTabbedPane(diagramPanel).remove(pos);
+//        this.SequenceWorkspaceList.remove(diagramPanel);
         repaint();
         }
-        if (this.StatespaceList.contains(diagramPanel))       		
+        if (this.StateWorkspaceList.contains(diagramPanel))       		
         {   
-        int pos = this.StatespaceList.indexOf(diagramPanel);
-        getStepOneCenterTabbedPane().getUMLTabbedPane(diagramPanel).remove(pos);
-        this.StatespaceList.remove(diagramPanel);
+        int pos = this.StateWorkspaceList.indexOf(diagramPanel);
+//        getStepOneCenterTabbedPane().getUMLTabbedPane(diagramPanel).remove(pos);
+//        this.StateWorkspaceList.remove(diagramPanel);
         repaint();
         }
-        if (this.UppaalspaceList.contains(diagramPanel))       		
+        if (this.UppaalWorkspaceList.contains(diagramPanel))       		
         {   
-        int pos = this.UppaalspaceList.indexOf(diagramPanel);
+        int pos = this.UppaalWorkspaceList.indexOf(diagramPanel);
         getStepTwoCenterTabbedPane().getUppaalDiagramTabbedPane().remove(pos);
-        this.UppaalspaceList.remove(diagramPanel);
+        this.UppaalWorkspaceList.remove(diagramPanel);
         repaint();
         }
+		
+		this.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().setVisible(false);
+//		this.getStepOneCenterTabbedPane().getButtonPanel().remove(this.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel());
+		this.getStepOneCenterTabbedPane().getDiagramPanel().removeAll();
+		this.setVisible(false);
+		this.getContentPane().repaint();
+		this.setVisible(true);
+		
     }
     
     /**
@@ -493,50 +872,49 @@ public class MainFrame extends JFrame
     public void setActiveDiagramPanel(IFile aGraphFile)
     {
         if (aGraphFile == null) return;
-        for (IWorkspace aDiagramPanel : this.UseCaseworkspaceList)
+        for (IWorkspace aDiagramPanel : this.UseCaseWorkspaceList)
         {
             IFile toCompare = aDiagramPanel.getGraphFile();
             boolean isSameFilename = aGraphFile.getFilename().equals(toCompare.getFilename());
             if (isSameFilename)
             {
-                int pos = this.UseCaseworkspaceList.indexOf(aDiagramPanel);
+                int pos = this.UseCaseWorkspaceList.indexOf(aDiagramPanel);
 //                JTabbedPane tp = getStepOneCenterTabbedPane().getUsecaseDiagramTabbedPane();
 //                tp.setSelectedIndex(pos);
                 return;
             }
         }
-        for (IWorkspace aDiagramPanel : this.TimingDiagramspaceList)
+        for (IWorkspace aDiagramPanel : this.TimingWorkspaceList)
         {
             IFile toCompare = aDiagramPanel.getGraphFile();
             boolean isSameFilename = aGraphFile.getFilename().equals(toCompare.getFilename());
             if (isSameFilename)
             {
-                int pos = this.TimingDiagramspaceList.indexOf(aDiagramPanel);
+                int pos = this.TimingWorkspaceList.indexOf(aDiagramPanel);
 //                JTabbedPane tp = getStepOneCenterTabbedPane().getTimingDiagramTabbedPane();
 //                tp.setSelectedIndex(pos);
                 return;
             }
         }
-        //seq
-        for (IWorkspace aDiagramPanel : this.SequencespaceList)
+        for (IWorkspace aDiagramPanel : this.SequenceWorkspaceList)
         {
             IFile toCompare = aDiagramPanel.getGraphFile();
             boolean isSameFilename = aGraphFile.getFilename().equals(toCompare.getFilename());
             if (isSameFilename)
             {
-                int pos = this.SequencespaceList.indexOf(aDiagramPanel);
+                int pos = this.SequenceWorkspaceList.indexOf(aDiagramPanel);
 //                JTabbedPane tp = getStepOneCenterTabbedPane().getSequenceDiagramTabbedPane();
 //                tp.setSelectedIndex(pos);
                 return;
             }
         }
-        for (IWorkspace aDiagramPanel : this.StatespaceList)
+        for (IWorkspace aDiagramPanel : this.StateWorkspaceList)
         {
             IFile toCompare = aDiagramPanel.getGraphFile();
             boolean isSameFilename = aGraphFile.getFilename().equals(toCompare.getFilename());
             if (isSameFilename)
             {
-                int pos = this.StatespaceList.indexOf(aDiagramPanel);
+                int pos = this.StateWorkspaceList.indexOf(aDiagramPanel);
 //                JTabbedPane tp = getStepOneCenterTabbedPane().getStateDiagramTabbedPane();
 //                tp.setSelectedIndex(pos);
                 return;
@@ -549,61 +927,59 @@ public class MainFrame extends JFrame
      */
     public boolean isThereAnyDiagramDisplayed()
     {
-        return !this.UseCaseworkspaceList.isEmpty()
-        		||!this.TimingDiagramspaceList.isEmpty()
-        		||!this.StatespaceList.isEmpty()
-        		||!this.SequencespaceList.isEmpty()
-        		||!this.UppaalspaceList.isEmpty();
+        return !this.UseCaseWorkspaceList.isEmpty()
+        		||!this.TimingWorkspaceList.isEmpty()
+        		||!this.StateWorkspaceList.isEmpty()
+        		||!this.SequenceWorkspaceList.isEmpty()
+        		||!this.UppaalWorkspaceList.isEmpty();
     }
 
     public List<IWorkspace> getUseCaseWorkspaceList()
     {
-        return UseCaseworkspaceList;
+        return UseCaseWorkspaceList;
     }
     public List<IWorkspace> getTimingWorkspaceList()
     {
-        return TimingDiagramspaceList;
+        return TimingWorkspaceList;
     }
     public List<IWorkspace> getSequenceWorkspaceList()
     {
-        return SequencespaceList;
+        return SequenceWorkspaceList;
     }
     public List<IWorkspace> getStateWorkspaceList()
     {
-        return StatespaceList;
+        return StateWorkspaceList;
     }
     /**
      * @return selected diagram file path (or null if not one is selected; that should never happen)
      */
     public IWorkspace getActiveWorkspace()
     {
-        JTabbedPane Onetp = getStepOneCenterTabbedPane();
-        JTabbedPane Twotp=getStepTwoCenterTabbedPane();
+    	StepOneCenterTabbedPane Onetp = getStepOneCenterTabbedPane();
+    	StepTwoCenterTabbedPane Twotp=getStepTwoCenterTabbedPane();
         int pos1=Onetp.getSelectedIndex(); 
         int pos2=Twotp.getSelectedIndex();
-        if (pos1==0&&SequencespaceList.size()>0)
-        {
-            return this.SequencespaceList.get(0);
-        }
-        if (pos1==1&&TimingDiagramspaceList.size()>0)
-        {
-            return this.TimingDiagramspaceList.get(0);
-        }
-        if (pos1==2&&StatespaceList.size()>0)
-        {
-            return this.StatespaceList.get(0);
-        }
-        if (pos1==3&&UseCaseworkspaceList.size()>0)
-        {
-            return this.UseCaseworkspaceList.get(0);
-        }
-        if (pos2==1&&UppaalspaceList.size()>0)
-        {
-        	return this.UppaalspaceList.get(0);
-        }
-        else{//说明没有workspace UML图形需要保存
-           return null;
-        }
+//		System.out.println(pos1+"+++++++++++++++++"+pos2);
+//		System.out.println(UppaalWorkspaceList.size());
+		System.out.println("se "+SequenceWorkspaceList.size()+" + ti "+TimingWorkspaceList.size()+" + st "+StateWorkspaceList.size()+" + uc "+UseCaseWorkspaceList.size());
+		if (pos1 == 0 && SequenceWorkspaceList.size() > 0) {
+			return this.SequenceWorkspaceList.get(this.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex());
+		}
+		if (pos1 == 1 && TimingWorkspaceList.size() > 0) {
+			return this.TimingWorkspaceList.get(this.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex());
+		}
+		if (pos1 == 2 && StateWorkspaceList.size() > 0) {
+			return this.StateWorkspaceList.get(this.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex());
+		}
+		if (pos1 == 3 && UseCaseWorkspaceList.size() > 0) {
+			return this.UseCaseWorkspaceList.get(this.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex());
+		}
+		if (pos2 == 1 && UppaalWorkspaceList.size() > 0) {
+//			System.out.println("----------------");
+			return this.UppaalWorkspaceList.get(0);
+		} else {// 说明没有workspace UML图形需要保存
+			return null;
+		}
     }
    
    public WelcomePanel getWelcomePanel()
@@ -622,26 +998,48 @@ public class MainFrame extends JFrame
    	}
    	return this.homepanel;
    }
-    public StepButtonPanel getStepButton()
-    {
+	public StepButtonPanel getStepButton() {
+    
     	if(this.stepButton==null)
     	{
     		this.stepButton=new StepButtonPanel(this);
     	}
     	return this.stepButton;
     }
-    public ConsolePart getConsolePart()
-    {
-    	if(this.consolePart==null)
-    	{
-    		this.consolePart=new ConsolePart(this);
-    	}
-    	return this.consolePart;
-    }
+//    public ConsolePart getConsolePart()    {
+//    	if(this.consolePart==null)
+//    	{
+//    		this.consolePart=new ConsolePart(this);
+//    	}
+//    	return this.consolePart;
+//    }
+	public ConsolePartPanel getConsolePartPanel() {
+		if (this.consolePartPanel == null) {
+			this.consolePartPanel = new ConsolePartPanel(this);
+		}
+		return this.consolePartPanel;
+	}
+	
+	public AttributePartPanel getAttributePartPanel() {
+		if (this.attributePartPanel == null) {
+			this.attributePartPanel = new AttributePartPanel(this);
+		}
+		return this.attributePartPanel;
+	}
+	
+	public ValidationResultPanel getValidationResultPanel(){
+		if (this.validationResultPanel == null) {
+			this.validationResultPanel = new ValidationResultPanel();
+		}
+		return this.validationResultPanel;
+	}
+	
+//	public JPanel getConsolePart(){
+//		return this.consolepartpanel;
+//	}
     public ProjectTree getProjectTree()
     {
-    	if(this.projectTree==null)
-    	{
+    	if(this.projectTree==null) {
     		this.projectTree=new ProjectTree(this.getMenuFactory().getFileMenu(this),this);
     	}
     	return this.projectTree;
@@ -655,39 +1053,200 @@ public class MainFrame extends JFrame
     	}
     	return this.modelTransformationPanel;
     }
+    public ModelExistValidationPanel getModelExistValidationPanel()
+    {
+    	if(this.modelExistValidationPanel==null)
+    	{
+    		this.modelExistValidationPanel=new ModelExistValidationPanel(this);
+    		
+    	}
+    	return this.modelExistValidationPanel;
+    }
+    public AbstractTestCaseGenerationPanel getAbstractTestCaseGenerationPanel()
+    {
+    	if(this.abstractTestCaseGenerationPanel==null)
+    	{
+    		this.abstractTestCaseGenerationPanel=new AbstractTestCaseGenerationPanel(this);
+    		
+    	}
+    	return this.abstractTestCaseGenerationPanel;
+    }
+
+	private TopPanel getTopPanel() {
+		if (this.topPanel == null) {
+			this.topPanel = new TopPanel(this);
+		}
+		return this.topPanel;
+	}
+
+	private LeftPanel getLeftPanel() {
+		if (this.leftPanel == null) {
+			this.leftPanel = new LeftPanel(this);
+		}
+		return this.leftPanel;
+	}
+
+	public OneTouchExpandablePanel getOneTouchExpandablePanel() {
+		if (this.oneTouchExpandablePanel == null) {
+			this.oneTouchExpandablePanel = new OneTouchExpandablePanel(this);
+		}
+		return this.oneTouchExpandablePanel;
+	}
+
+	public BottomPanel getBottomPanel() {
+		if (this.bottomPanel == null) {
+			this.bottomPanel = new BottomPanel(this);
+		}
+		return this.bottomPanel;
+	}
     public JPanel getMainPanel() {//主面板布局
         if (this.mainPanel == null) {
         	GridBagLayout layout=new GridBagLayout();
             this.mainPanel = new JPanel(layout);
             this.mainPanel.setBorder(new EmptyBorder(0, 0, 0, 0));                                                 
-            this.mainPanel.add(this.getStepButton());
-            this.mainPanel.add(this.getStepJLabel());
-            this.mainPanel.add(this.getConsolePart());
-            this.mainPanel.add(this.getOpreationPart());
-            this.mainPanel.add(this.getCenterTabPanel());
-            this.getCenterTabPanel().setLayout(new GridLayout(1, 1));
-            this.getCenterTabPanel().add(this.getHomePanel());//默认添加首页    
-            this.getStepJLabel().setBackground(new Color(67,87,113));
-            JLabel initlabel=new JLabel("项目演示区");
-            initlabel.setFont(new Font("宋体", Font.BOLD, 20));
-			initlabel.setForeground(Color.white);
-            this.getStepJLabel().add(initlabel,JLabel.CENTER);
-            layout.setConstraints(this.getStepButton(),new GBC(0, 0, 1, 3).setFill(GBC.BOTH).setWeight(0, 1));                                    
-            layout.setConstraints(this.getStepJLabel(), new GBC(1,0,2,1).setFill(GBC.BOTH).setWeight(1, 0));
-            layout.setConstraints(this.getConsolePart(), new GBC(1,2,2,1).setFill(GBC.BOTH).setWeight(1, 0));
-            layout.setConstraints(this.getOpreationPart(), new GBC(2,1,1,1).setFill(GBC.BOTH).setWeight(0, 1));
-            layout.setConstraints(this.getCenterTabPanel(), new GBC(1,1,1,1).setFill(GBC.BOTH).setWeight(1, 1));
-		 
-            
+			 
+//			this.getOpreationPart().setBorder(new EmptyBorder(10, 0, 0, 0));
+//			this.getOpreationPart().setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(142, 155, 188)));
+//			this.getOpreationPart().setBackground(new Color(53, 73, 105));
+			this.getCenterPanel().setLayout(new GridLayout(1, 1));
+			this.getCenterPanel().setBackground(new Color(53, 73, 105));
+			this.getCenterPanel().add(this.getHomePanel());// 默认添加首页
+			this.setStepindex(0);
+			this.getCenterTabPanel().setLayout(new GridLayout(1, 1));
+			this.getCenterTabPanel().setBackground(new Color(53, 73, 105));
+			
+//			this.getCenterTabPanel().add(this.getHomePanel());// 默认添加首页
+			this.getConsolePartPanel().setVisible(false);
+			this.getOneTouchExpandablePanel().setVisible(false);
+//			this.getConsolePartPanel().setBorder(new EmptyBorder(0, 0, 0, 10));
+			this.getConsolePartPanel().setBackground(new Color(53, 73, 105));
+			this.getStepJLabel().setBackground(new Color(235, 235, 235));
+			// JLabel initlabel=new JLabel("项目演示区");
+			// initlabel.setFont(new Font("宋体", Font.BOLD, 20));
+			// initlabel.setForeground(Color.white);
+			// this.getStepJLabel().add(initlabel,JLabel.CENTER);
+
+			// layout.setConstraints(this.getStepButton(),new GBC(0, 0, 1,
+			// 3).setFill(GBC.BOTH).setWeight(0, 1));
+			// layout.setConstraints(this.getStepJLabel(), new
+			// GBC(1,0,2,1).setFill(GBC.BOTH).setWeight(1, 0));
+			// layout.setConstraints(this.getConsolePart(), new
+			// GBC(1,2,2,1).setFill(GBC.BOTH).setWeight(1, 0));
+			// layout.setConstraints(this.getOpreationPart(), new
+			// GBC(2,1,1,1).setFill(GBC.BOTH).setWeight(0, 1));
+			// layout.setConstraints(this.getCenterTabPanel(), new
+			// GBC(1,1,1,1).setFill(GBC.BOTH).setWeight(1, 1));
+			
+			// this.getCenterTabPanel().setLayout(new GridLayout(1, 1));
+			// JSplitPane js4=new
+			// JSplitPane(JSplitPane.VERTICAL_SPLIT,this.getCenterTabPanel(),this.getConsolePart());
+			// JSplitPane js3=new
+			// JSplitPane(JSplitPane.HORIZONTAL_SPLIT,this.getOpreationPart(),js4);
+			// JSplitPane js2=new
+			// JSplitPane(JSplitPane.VERTICAL_SPLIT,this.getStepJLabel(),js3);
+			// JSplitPane js1=new
+			// JSplitPane(JSplitPane.VERTICAL_SPLIT,this.getStepButton(),js2);
+			// this.mainPanel=js1;
+
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			int screenWidth = (int) screenSize.getWidth();
+			int screenHeight = (int) screenSize.getHeight();
+
+			// this.getCenterTabPanel().setMinimumSize(new
+			// Dimension(screenWidth*5/6, screenHeight*3/5));
+
+//			js4 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, this.getCenterTabPanel(), this.getConsolePartPanel());
+//			js3 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.getOpreationPart(), js4);
+//			js2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, js3, this.getBottomPanel());
+//			js1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, this.getLeftPanel(), js2);
+			
+			js3 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, this.getCenterTabPanel(), this.getConsolePartPanel());
+			js2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, js3, this.getAttributePart());
+			js1 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.getOpreationPart(), js2);
+			
+//			js1.setResizeWeight(0.2);
+//			js2.setResizeWeight(0.9);
+//			js3.setResizeWeight(0.9);
+			js1.setResizeWeight(0);
+			js2.setResizeWeight(1);
+			js3.setResizeWeight(1);
+			
+//			js3 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.getLeftPanel(), js4);
+//			js2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, js3, this.getBottomPanel());
+//			js1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, this.getTopPanel(), js2);
+//			this.mainPanel = js1;
+			
+			this.mainPanel.add(this.getTopPanel());
+			this.mainPanel.add(this.getLeftPanel());
+			this.mainPanel.add(this.getBottomPanel());
+			this.mainPanel.add(this.getCenterPanel());
+			this.mainPanel.add(this.getOneTouchExpandablePanel());
+			
+			layout.setConstraints(this.getTopPanel(), new GBC(0, 0, 3, 1).setFill(GBC.BOTH).setWeight(1, 0));
+			layout.setConstraints(this.getLeftPanel(), new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(0, 1));
+			layout.setConstraints(this.getBottomPanel(), new GBC(0, 2, 3, 1).setFill(GBC.BOTH).setWeight(1, 0));
+			layout.setConstraints(this.getCenterPanel(), new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+			layout.setConstraints(this.getOneTouchExpandablePanel(), new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(0, 1));
+			
+			
+			this.getLeftPanel().setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(28,31,35)));
+			this.getCenterPanel().setBorder(BorderFactory.createMatteBorder(6,6,6,6, new Color(41,57,85)));
+//			js1.setBorder(BorderFactory.createMatteBorder(6,6,6,6, new Color(41,57,85)));
+
+			// js1.setOneTouchExpandable(true);
+			// js1.setContinuousLayout(true);
+			// js2.setOneTouchExpandable(true);
+			// js2.setContinuousLayout(true);
+//			js3.setContinuousLayout(true);
+//			js4.setOneTouchExpandable(true);
+			js1.setContinuousLayout(true);
+			js2.setContinuousLayout(true);
+			js3.setContinuousLayout(true);
+			js1.setDividerSize(6);
+			js2.setDividerSize(6);
+			js3.setDividerSize(6);
+//			js1.setDividerLocation(screenWidth/8);
+//			js2.setDividerLocation(screenWidth*7/8);
+//			js3.setDividerLocation(screenHeight*4/5);
+			js1.setDividerLocation(screenWidth/8);
+			js2.setDividerLocation((int)js2.getSize().getWidth()-screenWidth/8);
+			js3.setDividerLocation((int)js3.getSize().getHeight()-screenHeight/5);
+
+//			js1.setDividerLocation(30);
+//			js2.setDividerLocation(screenHeight - 30);
+//			this.getBottomPanel().setPreferredSize(new Dimension(screenWidth-100, 10));
+//			this.getBottomPanel().setMaximumSize(new Dimension(screenWidth-100, 10));
+//			js3.setDividerLocation(200);
+//			js4.setDividerLocation(100);
+
+//			js1.disable();
+//			js2.disable();
+
+//			js1.setDividerSize(0);
+//			js1.setBackground(Color.ORANGE);
+//			js2.setDividerSize(6);
+//			js2.setBackground(Color.BLUE);
+//			js3.setBackground(Color.GREEN);
+//			js4.setBackground(Color.PINK);
+
+			// this.getTopPanel().setBorder(BorderFactory.createEmptyBorder(0,
+			// 0, 10, 0));
+			// this.getTopPanel().setBorder(BorderFactory.createLineBorder(Color.BLUE,
+			// 10, false));
+			// js4.setDividerLocation(800);
+			// js4.setDividerSize(8);
+			// js4.setOneTouchExpandable(true);
+			// js4.setContinuousLayout(true);
+
         }
         return this.mainPanel;
     }
-      	
+
     public StepOneCenterTabbedPane getStepOneCenterTabbedPane()
     {
     if (this.stepOneCenterTabbedPane== null)
     {
-       stepOneCenterTabbedPane=new StepOneCenterTabbedPane();
+       stepOneCenterTabbedPane=new StepOneCenterTabbedPane(this);
     }
     return this.stepOneCenterTabbedPane;
     	
@@ -696,7 +1255,7 @@ public class MainFrame extends JFrame
     {
     if (this.stepTwoCenterTabbedPane== null)
     {
-       stepTwoCenterTabbedPane=new StepTwoCenterTabbedPane();
+       stepTwoCenterTabbedPane=new StepTwoCenterTabbedPane(this);
     }
     return this.stepTwoCenterTabbedPane;
     	
@@ -716,7 +1275,7 @@ public class MainFrame extends JFrame
     {
     if (this.stepSixCenterTabbedPane== null)
     {
-    	stepSixCenterTabbedPane=new StepSixCenterTabbedPane();
+    	stepSixCenterTabbedPane=new StepSixCenterTabbedPane(this);
     }
     return this.stepSixCenterTabbedPane;
     	
@@ -735,6 +1294,10 @@ public class MainFrame extends JFrame
 	public JPanel getOpreationPart() {
 		// TODO Auto-generated method stub
 		return this.opreationpanel;
+	}
+	public JPanel getAttributePart() {
+		// TODO Auto-generated method stub
+		return this.attributePanel;
 	}
 	public JPanel getCenterTabPanel(){
 		// TODO Auto-generated method stub
@@ -767,6 +1330,47 @@ public class MainFrame extends JFrame
 	public void setStepJLabel(JPanel stepJLabel) {
 		this.stepJLabel = stepJLabel;
 	}
+
+	public JSplitPane getJs1() {
+		return js1;
+	}
+
+	public void setJs1(JSplitPane js1) {
+		this.js1 = js1;
+	}
+
+	public JSplitPane getJs2() {
+		return js2;
+	}
+
+	public void setJs2(JSplitPane js2) {
+		this.js2 = js2;
+	}
+
+	public JSplitPane getJs3() {
+		return js3;
+	}
+
+	public void setJs3(JSplitPane js3) {
+		this.js3 = js3;
+	}
+
+	public JSplitPane getJs4() {
+		return js4;
+	}
+
+	public void setJs4(JSplitPane js4) {
+		this.js4 = js4;
+	}
+	
+	public int getStepindex() {
+		return stepindex;
+	}
+
+	public void setStepindex(int stepindex) {
+		this.stepindex = stepindex;
+	}
+	
     public String getDirectory()
     {
     	return this.getSequenceWorkspaceList().get(0).getGraphFile().getDirectory();
@@ -786,17 +1390,40 @@ public class MainFrame extends JFrame
     private WelcomePanel welcomePanel;
     private HomePanel homepanel;
     private JPanel stepJLabel=new JPanel();
+    
+    private ProjectTree projectTree;
     private ModelTransformationPanel modelTransformationPanel;
+    private ModelExistValidationPanel modelExistValidationPanel;
+    private AbstractTestCaseGenerationPanel abstractTestCaseGenerationPanel;
+    
     private StepOneCenterTabbedPane stepOneCenterTabbedPane;
     private StepTwoCenterTabbedPane stepTwoCenterTabbedPane;
     private StepThreeCenterTabbedPane stepThreeCenterTabbedPane;
-    private ConsolePart consolePart;
-    private ProjectTree projectTree;
+    
+	private ConsolePartPanel consolePartPanel;
+	private AttributePartPanel attributePartPanel;
+	private ValidationResultPanel validationResultPanel;
+//	private ConsolePart consolePart;
+    
     private StepButtonPanel stepButton;
-    private JPanel centerPanel;
+	private JPanel centerPanel=new JPanel();;
     private JPanel opreationpanel=new JPanel();
+    private JPanel attributePanel=new JPanel();
     private JPanel centerTabPanel=new JPanel();
+//	private JPanel consolepartpanel = new JPanel();
     private String directory;
+	public int stepindex=0;
+	
+	private TopPanel topPanel;
+	private LeftPanel leftPanel;
+	private OneTouchExpandablePanel oneTouchExpandablePanel;
+	private BottomPanel bottomPanel;
+	private JSplitPane js1;
+	private JSplitPane js2;
+	private JSplitPane js3;
+	private JSplitPane js4;
+	private JSplitPane js5;
+
     /**
      * Main panel
      */
@@ -834,11 +1461,18 @@ public class MainFrame extends JFrame
     /**
      * All disgram workspaces
      */
-    private List<IWorkspace> UseCaseworkspaceList = new ArrayList<IWorkspace>(); //用例图    
-    private List<IWorkspace> SequencespaceList=new ArrayList<IWorkspace>();//顺序图
-    private List<IWorkspace> TimingDiagramspaceList=new ArrayList<IWorkspace>();//时序图
-    private List<IWorkspace> StatespaceList=new ArrayList<IWorkspace>();//状态图
-    private List<IWorkspace> UppaalspaceList=new ArrayList<IWorkspace>();//时间自动机
+    private List<IWorkspace> UseCaseWorkspaceList = new ArrayList<IWorkspace>(); //用例图    
+    private List<IWorkspace> SequenceWorkspaceList=new ArrayList<IWorkspace>();//顺序图
+    private List<IWorkspace> TimingWorkspaceList=new ArrayList<IWorkspace>();//时序图
+    private List<IWorkspace> StateWorkspaceList=new ArrayList<IWorkspace>();//状态图
+    private List<IWorkspace> UppaalWorkspaceList=new ArrayList<IWorkspace>();//时间自动机
+    
+    private List<IWorkspace> SequenceToUppaalWorkspaceList=new ArrayList<IWorkspace>();//时间自动机
+    private List<IWorkspace> TimingToUppaalWorkspaceList=new ArrayList<IWorkspace>();//时间自动机
+    
+    private List<IWorkspace> StepTwoSequenceWorkspaceList=new ArrayList<IWorkspace>();
+    private List<IWorkspace> StepTwoTimingWorkspaceList=new ArrayList<IWorkspace>();
+    
     // workaround for bug #4646747 in J2SE SDK 1.4.0
     private static java.util.HashMap<Class<?>, BeanInfo> beanInfos;
     static
