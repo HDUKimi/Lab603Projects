@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -39,6 +40,10 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPan
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MoviePanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ToolPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.UppaalToolPanel;
+import com.horstmann.violet.application.gui.util.wujun.TimingTransfrom.TimingEAtoUppaal;
+import com.horstmann.violet.application.gui.util.xiaole.GraghLayout.LayoutUppaal;
+import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.ImportByDoubleClick;
+import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.TransToVioletUppaal;
 import com.horstmann.violet.application.menu.FileMenu;
 import com.horstmann.violet.framework.file.GraphFile;
 import com.horstmann.violet.framework.file.IFile;
@@ -79,6 +84,22 @@ public class ModelExistValidationPanel extends JPanel{
 	private JPanel validationtoolpanel;
 	private JButton validationtoolbutton1;
 	private JButton validationtoolbutton2;
+	
+	private JPanel validationlabeltabpanel;
+	private JPanel validationlabeltabpanel1;
+	private JPanel validationlabeltabpanel2;
+	private JPanel validationlabeltabpanel3;
+	private JPanel validationlabeltabpanel4;
+	private JLabel validationlabeltab1;
+	private JLabel validationlabeltab2;
+	private JLabel validationlabeltab3;
+	private JLabel validationlabeltab4;
+	
+	private int validationlabeltabindex=1;
+	
+	private JPanel validationcheckboxpanel;
+	private JScrollPane validationscrollpanel;
+	
 	
 	public ModelExistValidationPanel(MainFrame mainFrame){
 		
@@ -294,13 +315,15 @@ public class ModelExistValidationPanel extends JPanel{
 					String baseUrl = "D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\";
 					String filename=(String) timingtablemodel.getValueAt(timingtable.getSelectedRow(), timingtable.getSelectedColumn());
 					String path = baseUrl + filename + ".timing.violet.xml";
-					System.out.println("-----path:-----"+path);
+//					System.out.println("-----path:-----"+path);
 					
 					showTimingDiagram(path);
 					
 					showUppaalDiagram(filename);
 					
-					mainFrame.getStepSixCenterTabbedPane().ChangeRepaint();
+					mainFrame.getStepSixCenterTabbedPane().getTimingDiagramButton().doClick();
+					
+//					mainFrame.getStepSixCenterTabbedPane().ChangeRepaint();
 					
 				}
 			}
@@ -323,7 +346,29 @@ public class ModelExistValidationPanel extends JPanel{
 	protected void showUppaalDiagram(String filename) {
 		// TODO Auto-generated method stub
 		
-		IWorkspace workspace=mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalTabbedPane().getTiminganduppaalmap().get(filename);
+		IWorkspace workspace=null;
+		workspace=mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalTabbedPane().getTiminganduppaalmap().get(filename);
+		
+		if(workspace==null){
+			
+			String baseUrl = "D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\";
+			String path = baseUrl + filename + ".timing.violet.xml";
+			
+			try {
+				
+				TimingEAtoUppaal.transEA(path);
+				LayoutUppaal.layout(TimingEAtoUppaal.getDiagramDataName()+".xml");
+				String filename1 = TransToVioletUppaal.TransToViolet();
+				GraphFile fGraphFile1 = ImportByDoubleClick.importFileByDoubleClick("UPPAAL", filename1);
+				workspace = new Workspace(fGraphFile1);
+				
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 		
 		mainFrame.getStepSixCenterTabbedPane().getDiagramPanel().removeAll();
 		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
@@ -436,14 +481,302 @@ public class ModelExistValidationPanel extends JPanel{
 		validationlabelpanel.setLayout(new BorderLayout());
 		validationlabelpanel.add(validationlabel, BorderLayout.WEST);
 		validationlabelpanel.add(validationtoolpanel, BorderLayout.EAST);
-		validationlabelpanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(142, 155, 188)));
+		validationlabelpanel.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, new Color(142, 155, 188)));
 		validationlabelpanel.setPreferredSize(new Dimension(100, 29));
 		validationlabelpanel.setMaximumSize(new Dimension(100, 29));
 		validationlabelpanel.setMinimumSize(new Dimension(100, 29));
 		
-		validationpanel.setLayout(new BorderLayout());
-		validationpanel.add(validationlabelpanel, BorderLayout.NORTH);
+		initValidationLabelTabPanel();
+		
+		initValidationCheckboxPanel();
+		
+//		validationpanel.setLayout(new BorderLayout());
+//		validationpanel.add(validationlabelpanel, BorderLayout.NORTH);
+		
+		GridBagLayout layout=new GridBagLayout();
+		validationpanel.setLayout(layout);
+		validationpanel.add(validationlabelpanel);
+		validationpanel.add(validationlabeltabpanel);
+		validationpanel.add(validationscrollpanel);
+		layout.setConstraints(validationlabelpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(validationlabeltabpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(validationscrollpanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 
+		
+	}
+
+	private void initValidationLabelTabPanel() {
+		// TODO Auto-generated method stub
+		
+		validationlabeltabpanel=new JPanel();
+		validationlabeltabpanel1=new JPanel();
+		validationlabeltabpanel2=new JPanel();
+		validationlabeltabpanel3=new JPanel();
+		validationlabeltabpanel4=new JPanel();
+		
+		validationlabeltab1=new JLabel();
+		validationlabeltab2=new JLabel();
+		validationlabeltab3=new JLabel();
+		validationlabeltab4=new JLabel();
+		
+		validationlabeltab1.setText("ÏûÏ¢");
+		validationlabeltab1.setForeground(new Color(0,0,0));
+		validationlabeltab1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		validationlabeltab1.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		validationlabeltab1.setFocusable(false);
+		validationlabeltab1.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				validationlabeltab1.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel1.setBackground(new Color(255, 255, 255));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (validationlabeltabindex != 1) {
+					validationlabeltab1.setForeground(new Color(255, 255, 255));
+					validationlabeltabpanel1.setBackground(new Color(77, 96, 130));
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (validationlabeltabindex != 1) {
+					validationlabeltabpanel1.setBackground(new Color(134, 161, 209));
+				}
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				setvalidationlabeltabpanelrepait();
+				validationlabeltab1.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel1.setBackground(new Color(255, 255, 255));
+				validationlabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,1,1, new Color(142, 155, 188)));
+				validationlabeltabindex = 1;
+
+			}
+		});
+		
+		validationlabeltab2.setText("·½·¨");
+		validationlabeltab2.setForeground(new Color(0,0,0));
+		validationlabeltab2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		validationlabeltab2.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		validationlabeltab2.setFocusable(false);
+		validationlabeltab2.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				validationlabeltab2.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel2.setBackground(new Color(255, 255, 255));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (validationlabeltabindex != 2) {
+					validationlabeltab2.setForeground(new Color(255, 255, 255));
+					validationlabeltabpanel2.setBackground(new Color(77, 96, 130));
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (validationlabeltabindex != 2) {
+					validationlabeltabpanel2.setBackground(new Color(134, 161, 209));
+				}
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				setvalidationlabeltabpanelrepait();
+				validationlabeltab2.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel2.setBackground(new Color(255, 255, 255));
+				validationlabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
+				validationlabeltabindex = 2;
+
+			}
+		});
+		
+		validationlabeltab3.setText("´øµÄ");
+		validationlabeltab3.setForeground(new Color(0,0,0));
+		validationlabeltab3.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		validationlabeltab3.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		validationlabeltab3.setFocusable(false);
+		validationlabeltab3.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				validationlabeltab3.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel3.setBackground(new Color(255, 255, 255));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (validationlabeltabindex != 3) {
+					validationlabeltab3.setForeground(new Color(255, 255, 255));
+					validationlabeltabpanel3.setBackground(new Color(77, 96, 130));
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (validationlabeltabindex != 3) {
+					validationlabeltabpanel3.setBackground(new Color(134, 161, 209));
+				}
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				setvalidationlabeltabpanelrepait();
+				validationlabeltab3.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel3.setBackground(new Color(255, 255, 255));
+				validationlabeltabpanel3.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
+				validationlabeltabindex = 3;
+
+			}
+		});
+		
+		validationlabeltab4.setText("ÉìËõ");
+		validationlabeltab4.setForeground(new Color(0,0,0));
+		validationlabeltab4.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		validationlabeltab4.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		validationlabeltab4.setFocusable(false);
+		validationlabeltab4.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				validationlabeltab4.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel4.setBackground(new Color(255, 255, 255));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (validationlabeltabindex != 4) {
+					validationlabeltab4.setForeground(new Color(255, 255, 255));
+					validationlabeltabpanel4.setBackground(new Color(77, 96, 130));
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (validationlabeltabindex != 4) {
+					validationlabeltabpanel4.setBackground(new Color(134, 161, 209));
+				}
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				setvalidationlabeltabpanelrepait();
+				validationlabeltab4.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel4.setBackground(new Color(255, 255, 255));
+				validationlabeltabpanel4.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
+				validationlabeltabindex = 4;
+
+			}
+		});
+		
+		validationlabeltabpanel1.setLayout(new GridLayout());
+		validationlabeltabpanel1.setBackground(new Color(255,255,255));
+		validationlabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,1,1, new Color(142, 155, 188)));
+		validationlabeltabpanel1.setPreferredSize(new Dimension(40, 23));
+		validationlabeltabpanel1.add(validationlabeltab1);
+		validationlabeltabpanel2.setLayout(new GridLayout());
+		validationlabeltabpanel2.setBackground(new Color(77, 96, 130));
+		validationlabeltabpanel2.setPreferredSize(new Dimension(40, 23));
+		validationlabeltabpanel2.add(validationlabeltab2);
+		validationlabeltabpanel3.setLayout(new GridLayout());
+		validationlabeltabpanel3.setBackground(new Color(77, 96, 130));
+		validationlabeltabpanel3.setPreferredSize(new Dimension(40, 23));
+		validationlabeltabpanel3.add(validationlabeltab3);
+		validationlabeltabpanel4.setLayout(new GridLayout());
+		validationlabeltabpanel4.setBackground(new Color(77, 96, 130));
+		validationlabeltabpanel4.setPreferredSize(new Dimension(40, 23));
+		validationlabeltabpanel4.add(validationlabeltab4);
+
+		validationlabeltabpanel.setBackground(new Color(41, 57, 85));
+		validationlabeltabpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		validationlabeltabpanel.add(validationlabeltabpanel1);
+		validationlabeltabpanel.add(validationlabeltabpanel2);
+		validationlabeltabpanel.add(validationlabeltabpanel3);
+		validationlabeltabpanel.add(validationlabeltabpanel4);
+		
+		validationlabeltabpanel.setPreferredSize(new Dimension(100, 22));
+		validationlabeltabpanel.setMinimumSize(new Dimension(100, 22));
+		
+		
+	}
+
+	protected void setvalidationlabeltabpanelrepait() {
+		// TODO Auto-generated method stub
+		
+		validationlabeltab1.setForeground(new Color(255, 255, 255));
+		validationlabeltabpanel1.setBackground(new Color(77, 96, 130));
+		validationlabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(77, 96, 130)));
+		validationlabeltab2.setForeground(new Color(255, 255, 255));
+		validationlabeltabpanel2.setBackground(new Color(77, 96, 130));
+		validationlabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(77, 96, 130)));
+		validationlabeltab3.setForeground(new Color(255, 255, 255));
+		validationlabeltabpanel3.setBackground(new Color(77, 96, 130));
+		validationlabeltabpanel3.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(77, 96, 130)));
+		validationlabeltab4.setForeground(new Color(255, 255, 255));
+		validationlabeltabpanel4.setBackground(new Color(77, 96, 130));
+		validationlabeltabpanel4.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(77, 96, 130)));
+		
+	}
+
+	private void initValidationCheckboxPanel() {
+		// TODO Auto-generated method stub
+		
+		validationcheckboxpanel=new JPanel();
+		
+		validationcheckboxpanel.setLayout(new BoxLayout(validationcheckboxpanel, BoxLayout.Y_AXIS));
+		validationcheckboxpanel.setBorder(BorderFactory.createEmptyBorder(0, 7, 0, 0));
+		validationcheckboxpanel.setBackground(new Color(255, 255, 255));
+		
+		validationscrollpanel=new JScrollPane(validationcheckboxpanel);
+		validationscrollpanel.setBorder(null);
+		validationscrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		validationscrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
 	}
 

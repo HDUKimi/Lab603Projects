@@ -231,6 +231,20 @@ public class StepSixCenterTabbedPane extends JPanel {
 	public JPanel getValidationDiagramTabbedPane() {
 		return validationDiagramTabbedPane;
 	}
+
+
+
+	public JButton getTimingDiagramButton() {
+		return timingDiagramButton;
+	}
+
+
+
+	public JButton getUppaalDiagramButton() {
+		return uppaalDiagramButton;
+	}
+	
+	
 	
 	
 
