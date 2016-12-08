@@ -209,12 +209,12 @@ public class HomePanel extends JPanel
 		leftpanel.add(leftlabelpanel1);
 		leftpanel.add(leftlabelpanel2);
 		
-		leftlabel1.setText("äº§å“è§†é¢‘");
+		leftlabel1.setText("²úÆ·ÊÓÆµ");
 		leftlabel1.setBorder(BorderFactory.createEmptyBorder(30, 30, 0, 0));
-		leftlabel1.setFont(new Font("å¾®è½¯é›…é»‘", Font.PLAIN, 27));
-		leftlabel2.setText("é€šè¿‡ä»¥ä¸‹è§†é¢‘çŸ­ç‰‡äº†è§£æ›´å¤šä¿¡æ¯");
+		leftlabel1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 27));
+		leftlabel2.setText("Í¨¹ıÏÂÂ·");
 		leftlabel2.setBorder(BorderFactory.createEmptyBorder(20, 30, 0, 0));
-		leftlabel2.setFont(new Font("å¾®è½¯é›…é»‘", Font.PLAIN, 15));
+		leftlabel2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 15));
 		
 		leftlabelpanel1.add(leftlabel1);
 		leftlabelpanel1.setLayout(new GridLayout());
@@ -267,7 +267,7 @@ public class HomePanel extends JPanel
 
 	private void inittoppanel() {
 		// TODO Auto-generated method stub
-		titlelabel.setText("èµ·å§‹é¡µ");
+		titlelabel.setText("ÆğÊ¼Ò³");
 		titlelabel.setFont(new Font("System", Font.PLAIN, 12));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 		titlepanel.setLayout(new BorderLayout());
@@ -275,7 +275,7 @@ public class HomePanel extends JPanel
 		titlepanel.setBackground(new Color(255, 242, 157));
 		titlepanel.setPreferredSize(new Dimension(90, 23));
 		
-		String path = "D:\\é¡¹ç›®ä»£ç \\violetumleditor-master\\violetproduct-swing\\src\\site\\resources\\icons\\OpreationPart\\";
+		String path = "D:\\ÏîÄ¿´úÂë\\violetumleditor-master\\violetproduct-swing\\src\\site\\resources\\icons\\OpreationPart\\";
 
 		ImageIcon icon1 = new ImageIcon(path + "yleftarrow.png");
 		icon1.setImage(icon1.getImage().getScaledInstance(8,7, Image.SCALE_DEFAULT));
