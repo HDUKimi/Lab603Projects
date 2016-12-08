@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/parent.iml" filepath="$PROJECT_DIR$/parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/violet-framework/violet-framework.iml" filepath="$PROJECT_DIR$/violet-framework/violet-framework.iml" />
       <module fileurl="file://$PROJECT_DIR$/violetplugin-Markov/violetplugin-Markov.iml" filepath="$PROJECT_DIR$/violetplugin-Markov/violetplugin-Markov.iml" />
       <module fileurl="file://$PROJECT_DIR$/violetplugin-activitydiagram/violetplugin-activitydiagram.iml" filepath="$PROJECT_DIR$/violetplugin-activitydiagram/violetplugin-activitydiagram.iml" />
@@ -14,7 +13,10 @@
       <module fileurl="file://$PROJECT_DIR$/violetplugin-uppaal/violetplugin-uppaal.iml" filepath="$PROJECT_DIR$/violetplugin-uppaal/violetplugin-uppaal.iml" />
       <module fileurl="file://$PROJECT_DIR$/violetplugin-usecasediagram/violetplugin-usecasediagram.iml" filepath="$PROJECT_DIR$/violetplugin-usecasediagram/violetplugin-usecasediagram.iml" />
       <module fileurl="file://$PROJECT_DIR$/violetproduct-deb/violetproduct-deb.iml" filepath="$PROJECT_DIR$/violetproduct-deb/violetproduct-deb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/violetproduct-eclipseplugin/violetproduct-eclipseplugin.iml" filepath="$PROJECT_DIR$/violetproduct-eclipseplugin/violetproduct-eclipseplugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/violetproduct-exe/violetproduct-exe.iml" filepath="$PROJECT_DIR$/violetproduct-exe/violetproduct-exe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/violetproduct-jnlp/violetproduct-jnlp.iml" filepath="$PROJECT_DIR$/violetproduct-jnlp/violetproduct-jnlp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/violetproduct-rpm/violetproduct-rpm.iml" filepath="$PROJECT_DIR$/violetproduct-rpm/violetproduct-rpm.iml" />
       <module fileurl="file://$PROJECT_DIR$/violetproduct-swing/violetproduct-swing.iml" filepath="$PROJECT_DIR$/violetproduct-swing/violetproduct-swing.iml" />
       <module fileurl="file://$PROJECT_DIR$/violetproduct-web/violetproduct-web.iml" filepath="$PROJECT_DIR$/violetproduct-web/violetproduct-web.iml" />
     </modules>
