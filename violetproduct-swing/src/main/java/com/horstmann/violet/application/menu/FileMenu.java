@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.SortedSet;
@@ -47,14 +48,22 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JTree;
 import javax.swing.filechooser.FileSystemView;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 import com.horstmann.violet.application.ApplicationStopper;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.StepButtonPanel;
+import com.horstmann.violet.application.gui.StepOneCenterTabbedPane;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateActivityDiagramEAXml;
 import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateActivityDiagramVioletXML;
 import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateClassDiagramEAXML;
@@ -323,13 +332,109 @@ public class FileMenu extends JMenu
                     IGraphFile graphFile = workspace.getGraphFile();
                     graphFile.saveToNewLocation();
                     userPreferencesService.addRecentFile(graphFile);
+                    
+                    messageAppendConsolepart(workspace,graphFile);
+                    
                 }
             }
         });
         if (this.fileChooserService == null) this.fileSaveAsItem.setEnabled(false);
     }
 
-    /**
+    protected void messageAppendConsolepart(IWorkspace workspace, IGraphFile graphFile) {
+		// TODO Auto-generated method stub
+    	int index=mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex();
+    	System.out.println("index:"+index);
+         
+        List<ButtonTabbedPanel> sequenceDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists();
+		List<ButtonTabbedPanel> timingDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists();
+		List<ButtonTabbedPanel> stateDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists();
+		List<ButtonTabbedPanel> usecaseDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists();
+         
+        if (workspace.getTitle().toString().endsWith(".ucase.violet.xml")
+ 				|| workspace.getTitle().toString().substring(2, 4).equals("Us"))// 如果是用例图
+ 		{
+         	
+         	usecaseDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().setText(graphFile.getFilename().toString().split("\\.")[0]);
+         	
+         	int i=0;
+				Enumeration<?> en=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetreerootnode().children();
+				DefaultMutableTreeNode node;
+				while(en.hasMoreElements()){
+					node=(DefaultMutableTreeNode) en.nextElement();
+					if(i==index){
+						node.setUserObject(graphFile.getFilename().toString().split("\\.")[0]);
+						mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetree().updateUI();
+						break;
+					}
+					i++;
+				}
+         	
+         	mainFrame.getConsolePartPanel().getTextarea().append("保存用例图文件 "+graphFile.getFilename()+" 到 "+graphFile.getDirectory()+"\n");
+ 		}
+ 		if (workspace.getTitle().toString().endsWith(".timing.violet.xml")
+ 				|| workspace.getTitle().toString().substring(2, 4).equals("Ti"))// 时序图
+ 		{
+ 			timingDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().setText(graphFile.getFilename().toString().split("\\.")[0]);
+         	
+         	int i=0;
+				Enumeration<?> en=mainFrame.getProjectTree().getTimingTreePanel().getTimingtreerootnode().children();
+				DefaultMutableTreeNode node;
+				while(en.hasMoreElements()){
+					node=(DefaultMutableTreeNode) en.nextElement();
+					if(i==index){
+						node.setUserObject(graphFile.getFilename().toString().split("\\.")[0]);
+						mainFrame.getProjectTree().getTimingTreePanel().getTimingtree().updateUI();
+						break;
+					}
+					i++;
+				}
+				
+ 			mainFrame.getConsolePartPanel().getTextarea().append("保存时序图文件 "+graphFile.getFilename()+" 到 "+graphFile.getDirectory()+"\n");
+ 		}
+ 		if (workspace.getTitle().toString().endsWith(".seq.violet.xml")
+ 				|| workspace.getTitle().toString().substring(2, 4).equals("Se"))// 如果是顺序图
+ 		{
+ 			sequenceDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().setText(graphFile.getFilename().toString().split("\\.")[0]);
+         	
+         	int i=0;
+				Enumeration<?> en=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetreerootnode().children();
+				DefaultMutableTreeNode node;
+				while(en.hasMoreElements()){
+					node=(DefaultMutableTreeNode) en.nextElement();
+					if(i==index){
+						node.setUserObject(graphFile.getFilename().toString().split("\\.")[0]);
+						mainFrame.getProjectTree().getSequenceTreePanel().getSequencetree().updateUI();
+						break;
+					}
+					i++;
+				}
+				
+ 			mainFrame.getConsolePartPanel().getTextarea().append("保存顺序图文件 "+graphFile.getFilename()+" 到 "+graphFile.getDirectory()+"\n");
+ 		}
+ 		if (workspace.getTitle().toString().endsWith(".state.violet.xml")
+ 				|| workspace.getTitle().toString().substring(2, 4).equals("St"))// 如果是状态图
+ 		{
+ 			stateDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().setText(graphFile.getFilename().toString().split("\\.")[0]);
+         	
+         	int i=0;
+				Enumeration<?> en=mainFrame.getProjectTree().getStateTreePanel().getStatetreerootnode().children();
+				DefaultMutableTreeNode node;
+				while(en.hasMoreElements()){
+					node=(DefaultMutableTreeNode) en.nextElement();
+					if(i==index){
+						node.setUserObject(graphFile.getFilename().toString().split("\\.")[0]);
+						mainFrame.getProjectTree().getStateTreePanel().getStatetree().updateUI();
+						break;
+					}
+					i++;
+				}
+				
+ 			mainFrame.getConsolePartPanel().getTextarea().append("保存状态图文件 "+graphFile.getFilename()+" 到 "+graphFile.getDirectory()+"\n");
+ 		}
+	}
+
+	/**
      * Init save menu entry
      */
     private void initFileSaveItem()
@@ -344,6 +449,9 @@ public class FileMenu extends JMenu
                     IGraphFile graphFile = workspace.getGraphFile();
                     graphFile.save();
                     userPreferencesService.addRecentFile(graphFile);
+                    
+                    messageAppendConsolepart(workspace,graphFile);
+                    
                 }
             }
         });
@@ -414,11 +522,13 @@ public class FileMenu extends JMenu
                             if (filename == null)
                             {
                                 graphFile.saveToNewLocation();
+                                messageAppendConsolepart(workspace,graphFile);
                                 userPreferencesService.addRecentFile(graphFile);
                             }
                             if (filename != null)
                             {
                                 graphFile.save();
+                                messageAppendConsolepart(workspace,graphFile);
                             }
                             if (!graphFile.isSaveRequired())
                             {
@@ -442,6 +552,28 @@ public class FileMenu extends JMenu
 //                    {
 //                        mainFrame.requestFocus();
 //                    }
+                    
+                    if (workspace.getTitle().toString().endsWith(".ucase.violet.xml")
+            				|| workspace.getTitle().toString().substring(2, 4).equals("Us"))// 如果是用例图
+            		{
+                    	mainFrame.getConsolePartPanel().getTextarea().append("关闭用例图 "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" 的绘图面板\n");
+            		}
+            		if (workspace.getTitle().toString().endsWith(".timing.violet.xml")
+            				|| workspace.getTitle().toString().substring(2, 4).equals("Ti"))// 时序图
+            		{
+            			mainFrame.getConsolePartPanel().getTextarea().append("关闭时序图 "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" 的绘图面板\n");
+            		}
+            		if (workspace.getTitle().toString().endsWith(".seq.violet.xml")
+            				|| workspace.getTitle().toString().substring(2, 4).equals("Se"))// 如果是顺序图
+            		{
+            			mainFrame.getConsolePartPanel().getTextarea().append("关闭顺序图 "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" 的绘图面板\n");
+            		}
+            		if (workspace.getTitle().toString().endsWith(".state.violet.xml")
+            				|| workspace.getTitle().toString().substring(2, 4).equals("St"))// 如果是状态图
+            		{
+            			mainFrame.getConsolePartPanel().getTextarea().append("关闭状态图 "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" 的绘图面板\n");
+            		}
+                    
                 }
             }
         });
@@ -449,12 +581,13 @@ public class FileMenu extends JMenu
     /*
      * 张建新加  selectedFile(选中的文件)--->graphFile(转化成我们平台的格式) flag来表示我们打开的是ea，还是我们的平台xml
      */
-    public IFile exchangeFile( IFile selectedFile,IGraphFile graphFile,boolean flag) throws Exception{
+    public static IFile exchangeFile( IFile selectedFile,IGraphFile graphFile,boolean flag) throws Exception{
     	String url =selectedFile.getDirectory()+"\\"+selectedFile.getFilename();
 //    	String base="D:\\ModelDriverProjectFile";
     	 File ffff =FileSystemView.getFileSystemView().getHomeDirectory();
     	 //获得目录
  		String s =ffff .getAbsolutePath();
+// 		 String baseUrl ="D://ModelDriverProjectFile";
  		String base=s+"\\ModelDriverProjectFile";
     	String type=(selectedFile.getFilename().split("\\."))[1];//第一个表示我们文件的类型
     	String path = null;
@@ -464,7 +597,6 @@ public class FileMenu extends JMenu
     		
         	if("class".equals(type)){
         		path=base+"/ClassDiagram/";
-        		//自动保存
         	 	graphFile.AutoSave(selectedFile, path+"Violet/");
         		readClassXMLFormViolet rc =new readClassXMLFormViolet(url);
         		CreateClassDiagramEAXML c =new CreateClassDiagramEAXML();
@@ -526,13 +658,15 @@ public class FileMenu extends JMenu
         		cs.create(rs, path+"EA/"+name);
         	}
     	}else if(flag==false){ 		
-    		System.out.println(type);
+//    		System.out.println(type);
     		String name="";
     		//选择的文件是EA格式的文件 
     		if("class".equals(type)){
         		path=base+"/ClassDiagram/";
-        		readClassXMLFromEA rc =new readClassXMLFromEA(url,selectedFile);//读ea，提取需要的数据
-        		CreateClassDiagramVioletXML c =new CreateClassDiagramVioletXML();//转换成我们的数据
+        		
+        		readClassXMLFromEA rc =new readClassXMLFromEA(url,selectedFile);
+        	
+        		CreateClassDiagramVioletXML c =new CreateClassDiagramVioletXML();
         		ff =new File(path+"Violet/");
         		if(!ff.exists()){
         			ff.mkdirs();
@@ -556,7 +690,6 @@ public class FileMenu extends JMenu
         		
         	}else if("seq".equals(type)){
         		path=base+"/SequenceDiagram/";
-        		
         		ff =new File(path+"Violet/");
         		if(!ff.exists()){
         			ff.mkdirs();
@@ -564,6 +697,7 @@ public class FileMenu extends JMenu
         		name=selectedFile.getFilename().replaceAll("EA","");
         		directory=selectedFile.getDirectory();
         		fileName=selectedFile.getFilename();
+        		//System.out.println("@@"+directory);
         		MainTransEAToViolet.TransEAToViolet(url,path+"Violet/"+name);
         		
         	}else if("state".equals(type)){
@@ -576,7 +710,9 @@ public class FileMenu extends JMenu
         		}
         		name=selectedFile.getFilename().replaceAll("EA", "");	
         		cs.create(rs, path+"Violet/"+name);
+        	//时序图
         	}else if("timing".equals(type)){
+        		System.out.println("start----------");
         		path=base+"/TimingDiagram/";
         		ff =new File(path+"Violet/");
         		if(!ff.exists()){
@@ -585,7 +721,10 @@ public class FileMenu extends JMenu
         		name=selectedFile.getFilename().replaceAll("EA","");
         		directory=selectedFile.getDirectory();
         		fileName=selectedFile.getFilename();
+        		//System.out.println("@@"+directory);
+        		System.out.println("middle--------");
         		MainTransVioletTiming.CreateTimCaseDiagramVioletXml(url,path+"Violet/"+name);
+        		System.out.println("end----------");
         	}else if("uppaal".equals(type)){
         		path=base+"/UPPAL/";
         	}else if("activity".equals(type)){
@@ -621,7 +760,7 @@ public class FileMenu extends JMenu
     /*
      * 张建
      */
-    private void deleteFileFirstLine(File f){
+    private static void deleteFileFirstLine(File f){
     	try {
 			BufferedReader br =new BufferedReader(new FileReader(f));
 			StringBuffer sb =new StringBuffer(4096);
@@ -647,7 +786,7 @@ public class FileMenu extends JMenu
     /*
      * 张建   处理ea文件 生成EASequence.seq.violet类似的文件名
      */
-    private StringBuffer dealEAFileName(IFile selectedFile) {
+    private static StringBuffer dealEAFileName(IFile selectedFile) {
 		String[] ss =selectedFile.getFilename().split("\\.");
 		StringBuffer name=new StringBuffer();
 		name.append("EA"+ss[0]);
@@ -724,7 +863,7 @@ public class FileMenu extends JMenu
 //                 //增加转换的方法11
              
                    selectedFile= exchangeFile(selectedFile, graphFile , flag);
-                   System.out.println(selectedFile.getDirectory());
+             
                    graphFile = new GraphFile(selectedFile);
             
                    //显示文件图形
@@ -732,6 +871,107 @@ public class FileMenu extends JMenu
                    mainFrame.addTabbedPane(workspace);
                    userPreferencesService.addOpenedFile(graphFile);
                    userPreferencesService.addRecentFile(graphFile);
+                   
+					String type = (selectedFile.getFilename().split("\\."))[1];
+					JButton tabbutton;
+					JButton stepbutton = mainFrame.getStepButton().getStep1button();
+					
+					List<ButtonTabbedPanel> sequenceDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists();
+					List<ButtonTabbedPanel> timingDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists();
+					List<ButtonTabbedPanel> stateDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists();
+					List<ButtonTabbedPanel> usecaseDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists();
+					
+					
+					if (type.equals("ucase")) {
+						tabbutton = usecaseDiagramButtonTabbedPanelLists.get(usecaseDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+						stepbutton.doClick();
+						
+						mainFrame.getConsolePartPanel().getTextarea().append("导入用例图: "+selectedFile.getFilename()+"\n");
+						
+						tabbutton.doClick();
+						
+						String nodename=tabbutton.getText();
+						DefaultMutableTreeNode node=new DefaultMutableTreeNode(nodename);
+						
+						JTree usecasetree=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetree();
+                    	DefaultTreeModel usecasetreemodel=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetreemodel();
+                    	DefaultMutableTreeNode usecasetreerootnode=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetreerootnode();
+						
+						usecasetreemodel.insertNodeInto(node, usecasetreerootnode, usecasetreerootnode.getChildCount());
+						TreePath path=new TreePath(usecasetreerootnode.getPath());
+						if(!usecasetree.isVisible(path)){
+							usecasetree.makeVisible(path);
+						}
+						usecasetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+						
+					} else if (type.equals("state")) {
+						tabbutton = stateDiagramButtonTabbedPanelLists.get(stateDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+						stepbutton.doClick();
+
+						mainFrame.getConsolePartPanel().getTextarea().append("导入状态图: "+selectedFile.getFilename()+"\n");
+						
+						tabbutton.doClick();
+						
+						String nodename=tabbutton.getText();
+						DefaultMutableTreeNode node=new DefaultMutableTreeNode(nodename);
+						
+						JTree statetree=mainFrame.getProjectTree().getStateTreePanel().getStatetree();
+                    	DefaultTreeModel statetreemodel=mainFrame.getProjectTree().getStateTreePanel().getStatetreemodel();
+                    	DefaultMutableTreeNode statetreerootnode=mainFrame.getProjectTree().getStateTreePanel().getStatetreerootnode();
+                    	
+						statetreemodel.insertNodeInto(node, statetreerootnode, statetreerootnode.getChildCount());
+						TreePath path=new TreePath(statetreerootnode.getPath());
+						if(!statetree.isVisible(path)){
+							statetree.makeVisible(path);
+						}
+						statetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+						
+					} else if (type.equals("seq")) {
+						tabbutton = sequenceDiagramButtonTabbedPanelLists.get(sequenceDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+						stepbutton.doClick();
+
+						mainFrame.getConsolePartPanel().getTextarea().append("导入顺序图: "+selectedFile.getFilename()+"\n");
+						
+						tabbutton.doClick();
+						
+						String nodename=tabbutton.getText();
+						DefaultMutableTreeNode node=new DefaultMutableTreeNode(nodename);
+						
+						JTree sequencetree=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetree();
+						DefaultTreeModel sequencetreemodel=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetreemodel();
+						DefaultMutableTreeNode sequencetreerootnode=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetreerootnode();
+						
+						sequencetreemodel.insertNodeInto(node, sequencetreerootnode, sequencetreerootnode.getChildCount());
+						TreePath path=new TreePath(sequencetreerootnode.getPath());
+						if(!sequencetree.isVisible(path)){
+							sequencetree.makeVisible(path);
+						}
+						sequencetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+						
+					} else if (type.equals("timing")) {
+						tabbutton = timingDiagramButtonTabbedPanelLists.get(timingDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+						stepbutton.doClick();
+
+						mainFrame.getConsolePartPanel().getTextarea().append("导入时序图: "+selectedFile.getFilename()+"\n");
+						
+						tabbutton.doClick();
+						
+						String nodename=tabbutton.getText();
+						DefaultMutableTreeNode node=new DefaultMutableTreeNode(nodename);
+						
+						JTree timingtree=mainFrame.getProjectTree().getTimingTreePanel().getTimingtree();
+                    	DefaultTreeModel timingtreemodel=mainFrame.getProjectTree().getTimingTreePanel().getTimingtreemodel();
+                    	DefaultMutableTreeNode timingtreerootnode=mainFrame.getProjectTree().getTimingTreePanel().getTimingtreerootnode();
+						
+						timingtreemodel.insertNodeInto(node, timingtreerootnode, timingtreerootnode.getChildCount());
+						TreePath path=new TreePath(timingtreerootnode.getPath());
+						if(!timingtree.isVisible(path)){
+							timingtree.makeVisible(path);
+						}
+						timingtree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+						
+					}
+                   
                }
                catch (StreamException se)
                {
@@ -792,7 +1032,7 @@ public class FileMenu extends JMenu
             {
                 String name = aDiagramPlugin.getName();
                 name = name.replaceFirst("[0-9]*\\.", "");
-                JMenuItem item = new JMenuItem(name);
+                final JMenuItem item = new JMenuItem(name);
                 ImageIcon sampleDiagramImage = getSampleDiagramImage(aDiagramPlugin);
                 if (sampleDiagramImage != null)
                 {
@@ -802,10 +1042,106 @@ public class FileMenu extends JMenu
                 {
                     public void actionPerformed(ActionEvent event)
                     {
-                        Class<? extends IGraph> graphClass = aDiagramPlugin.getGraphClass();
-                        IGraphFile graphFile = new GraphFile(graphClass);
-                        IWorkspace diagramPanel = new Workspace(graphFile);
-                        mainFrame.addTabbedPane(diagramPanel);
+                    	
+                    	String str =null;
+                    	str= (String) JOptionPane.showInputDialog(null,"请输入模型图名称:\n","title",JOptionPane.PLAIN_MESSAGE,null,null,"在这输入");
+                    	if(str!=null&&!str.equals("")){
+                    		Class<? extends IGraph> graphClass = aDiagramPlugin.getGraphClass();
+                            IGraphFile graphFile = new GraphFile(graphClass);
+                            IWorkspace diagramPanel = new Workspace(graphFile);
+                            mainFrame.addTabbedPane(diagramPanel);
+                            String itemname=item.getText().substring(0, 2);
+                            JButton tabbutton = null;
+                            
+                            List<ButtonTabbedPanel> sequenceDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists();
+        					List<ButtonTabbedPanel> timingDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists();
+        					List<ButtonTabbedPanel> stateDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists();
+        					List<ButtonTabbedPanel> usecaseDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists();
+                            
+                            if(itemname.equals("Us")){
+                            	
+                            	mainFrame.getConsolePartPanel().getTextarea().append("新建用例图: "+str+".seq.violet.xml\n");
+                            	
+                            	tabbutton=usecaseDiagramButtonTabbedPanelLists.get(usecaseDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+                            	tabbutton.setText(str);
+                            	tabbutton.doClick();
+                            	
+                            	JTree usecasetree=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetree();
+                            	DefaultTreeModel usecasetreemodel=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetreemodel();
+                            	DefaultMutableTreeNode usecasetreerootnode=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetreerootnode();
+                            	
+                            	DefaultMutableTreeNode node=new DefaultMutableTreeNode(str);
+    							usecasetreemodel.insertNodeInto(node, usecasetreerootnode, usecasetreerootnode.getChildCount());
+    							TreePath path=new TreePath(usecasetreerootnode.getPath());
+    							if(!usecasetree.isVisible(path)){
+    								usecasetree.makeVisible(path);
+    							}
+    							usecasetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+                            	
+                            }else if(itemname.equals("St")){
+                            	
+                            	mainFrame.getConsolePartPanel().getTextarea().append("新建状态图: "+str+".state.violet.xml\n");
+                            	
+                            	tabbutton=stateDiagramButtonTabbedPanelLists.get(stateDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+                            	tabbutton.setText(str);
+                            	tabbutton.doClick();
+                            	
+                            	JTree statetree=mainFrame.getProjectTree().getStateTreePanel().getStatetree();
+                            	DefaultTreeModel statetreemodel=mainFrame.getProjectTree().getStateTreePanel().getStatetreemodel();
+                            	DefaultMutableTreeNode statetreerootnode=mainFrame.getProjectTree().getStateTreePanel().getStatetreerootnode();
+                            	
+                            	DefaultMutableTreeNode node=new DefaultMutableTreeNode(str);
+    							statetreemodel.insertNodeInto(node, statetreerootnode, statetreerootnode.getChildCount());
+    							TreePath path=new TreePath(statetreerootnode.getPath());
+    							if(!statetree.isVisible(path)){
+    								statetree.makeVisible(path);
+    							}
+    							statetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+    							
+                            }else if(itemname.equals("Se")){
+                            	
+                            	mainFrame.getConsolePartPanel().getTextarea().append("新建顺序图: "+str+".seq.violet.xml\n");
+                            	
+                            	tabbutton=sequenceDiagramButtonTabbedPanelLists.get(sequenceDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+                            	tabbutton.setText(str);
+                            	tabbutton.doClick();
+                            	
+                            	JTree sequencetree=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetree();
+        						DefaultTreeModel sequencetreemodel=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetreemodel();
+        						DefaultMutableTreeNode sequencetreerootnode=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetreerootnode();
+        						
+    							DefaultMutableTreeNode node=new DefaultMutableTreeNode(str);
+    							sequencetreemodel.insertNodeInto(node, sequencetreerootnode, sequencetreerootnode.getChildCount());
+    							TreePath path=new TreePath(sequencetreerootnode.getPath());
+    							if(!sequencetree.isVisible(path)){
+    								sequencetree.makeVisible(path);
+    							}
+    							sequencetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+                            	
+                            }else if(itemname.equals("Ti")){
+                            	
+                            	mainFrame.getConsolePartPanel().getTextarea().append("新建时序图: "+str+".timing.violet.xml\n");
+                            	
+                            	tabbutton=timingDiagramButtonTabbedPanelLists.get(timingDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+                            	tabbutton.setText(str);
+                            	tabbutton.doClick();
+                            	
+                            	JTree timingtree=mainFrame.getProjectTree().getTimingTreePanel().getTimingtree();
+                            	DefaultTreeModel timingtreemodel=mainFrame.getProjectTree().getTimingTreePanel().getTimingtreemodel();
+                            	DefaultMutableTreeNode timingtreerootnode=mainFrame.getProjectTree().getTimingTreePanel().getTimingtreerootnode();
+                            	
+                            	DefaultMutableTreeNode node=new DefaultMutableTreeNode(str);
+    							timingtreemodel.insertNodeInto(node, timingtreerootnode, timingtreerootnode.getChildCount());
+    							TreePath path=new TreePath(timingtreerootnode.getPath());
+    							if(!timingtree.isVisible(path)){
+    								timingtree.makeVisible(path);
+    							}
+    							timingtree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+    							
+                            }
+                            tabbutton.setText(str);
+                            
+                    	}
                     }
                 });
                 categorySubMenu.add(item);
@@ -863,6 +1199,107 @@ public class FileMenu extends JMenu
                         mainFrame.addTabbedPane(workspace);
                         userPreferencesService.addOpenedFile(aFile);
                         userPreferencesService.addRecentFile(aFile);
+                        
+                        String type = (aFile.getFilename().split("\\."))[1];
+    					JButton tabbutton;
+    					JButton stepbutton = mainFrame.getStepButton().getStep1button();
+    					
+    					List<ButtonTabbedPanel> sequenceDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists();
+    					List<ButtonTabbedPanel> timingDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists();
+    					List<ButtonTabbedPanel> stateDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists();
+    					List<ButtonTabbedPanel> usecaseDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists();
+    					
+    					if (type.equals("ucase")) {
+    						tabbutton = usecaseDiagramButtonTabbedPanelLists.get(usecaseDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+    						stepbutton.doClick();
+
+    						mainFrame.getConsolePartPanel().getTextarea().append("打开最近用例图文件: "+aFile.getFilename()+"\n");
+    						
+    						tabbutton.doClick();
+    						
+    						String nodename=tabbutton.getText();
+    						DefaultMutableTreeNode node=new DefaultMutableTreeNode(nodename);
+    						
+    						JTree usecasetree=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetree();
+                        	DefaultTreeModel usecasetreemodel=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetreemodel();
+                        	DefaultMutableTreeNode usecasetreerootnode=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetreerootnode();
+    						
+							usecasetreemodel.insertNodeInto(node, usecasetreerootnode, usecasetreerootnode.getChildCount());
+							TreePath path=new TreePath(usecasetreerootnode.getPath());
+							if(!usecasetree.isVisible(path)){
+								usecasetree.makeVisible(path);
+							}
+							usecasetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+							
+    					} else if (type.equals("state")) {
+    						tabbutton = stateDiagramButtonTabbedPanelLists.get(stateDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+    						stepbutton.doClick();
+
+    						mainFrame.getConsolePartPanel().getTextarea().append("打开最近状态图文件: "+aFile.getFilename()+"\n");
+    						
+    						tabbutton.doClick();
+    						
+    						String nodename=tabbutton.getText();
+    						DefaultMutableTreeNode node=new DefaultMutableTreeNode(nodename);
+    						
+    						JTree statetree=mainFrame.getProjectTree().getStateTreePanel().getStatetree();
+                        	DefaultTreeModel statetreemodel=mainFrame.getProjectTree().getStateTreePanel().getStatetreemodel();
+                        	DefaultMutableTreeNode statetreerootnode=mainFrame.getProjectTree().getStateTreePanel().getStatetreerootnode();
+                        	
+							statetreemodel.insertNodeInto(node, statetreerootnode, statetreerootnode.getChildCount());
+							TreePath path=new TreePath(statetreerootnode.getPath());
+							if(!statetree.isVisible(path)){
+								statetree.makeVisible(path);
+							}
+							statetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+							
+    					} else if (type.equals("seq")) {
+    						tabbutton = sequenceDiagramButtonTabbedPanelLists.get(sequenceDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+    						stepbutton.doClick();
+
+    						mainFrame.getConsolePartPanel().getTextarea().append("打开最近顺序图文件: "+aFile.getFilename()+"\n");
+    						
+    						tabbutton.doClick();
+    						
+    						String nodename=tabbutton.getText();
+    						DefaultMutableTreeNode node=new DefaultMutableTreeNode(nodename);
+    						
+    						JTree sequencetree=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetree();
+    						DefaultTreeModel sequencetreemodel=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetreemodel();
+    						DefaultMutableTreeNode sequencetreerootnode=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetreerootnode();
+    						
+    						sequencetreemodel.insertNodeInto(node, sequencetreerootnode, sequencetreerootnode.getChildCount());
+    						TreePath path=new TreePath(sequencetreerootnode.getPath());
+    						if(!sequencetree.isVisible(path)){
+    							sequencetree.makeVisible(path);
+    						}
+    						sequencetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+    						
+    					} else if (type.equals("timing")) {
+    						tabbutton = timingDiagramButtonTabbedPanelLists.get(timingDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+    						stepbutton.doClick();
+
+    						mainFrame.getConsolePartPanel().getTextarea().append("打开最近时序图文件: "+aFile.getFilename()+"\n");
+    						
+    						tabbutton.doClick();
+    						
+    						String nodename=tabbutton.getText();
+    						DefaultMutableTreeNode node=new DefaultMutableTreeNode(nodename);
+    						
+    						JTree timingtree=mainFrame.getProjectTree().getTimingTreePanel().getTimingtree();
+                        	DefaultTreeModel timingtreemodel=mainFrame.getProjectTree().getTimingTreePanel().getTimingtreemodel();
+                        	DefaultMutableTreeNode timingtreerootnode=mainFrame.getProjectTree().getTimingTreePanel().getTimingtreerootnode();
+    						
+							timingtreemodel.insertNodeInto(node, timingtreerootnode, timingtreerootnode.getChildCount());
+							TreePath path=new TreePath(timingtreerootnode.getPath());
+							if(!timingtree.isVisible(path)){
+								timingtree.makeVisible(path);
+							}
+							timingtree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+							
+    					}
+                        
+                        
                     }
                     catch (Exception e)
                     {
@@ -924,6 +1361,9 @@ public class FileMenu extends JMenu
                     {
                         IGraphFile graphFile = workspace.getGraphFile();
                         graphFile.dsave();
+                        
+                        messageAppendConsolepart(workspace, graphFile);
+                        
                     }
                 }
             });
@@ -975,25 +1415,25 @@ public class FileMenu extends JMenu
     private MainFrame mainFrame;
 
     @ResourceBundleBean(key = "file.new")
-    private JMenu fileNewMenu;
+    public JMenu fileNewMenu;
 
     @ResourceBundleBean(key = "file.open")
     public JMenuItem fileOpenItem;
 
     @ResourceBundleBean(key="file.dsave")
-    private JMenuItem fileDsaveItem;
+	public JMenuItem fileDsaveItem;
     
     @ResourceBundleBean(key = "file.recent")
     private JMenu fileRecentMenu;
 
     @ResourceBundleBean(key = "file.close")
-    private JMenuItem fileCloseItem;
+	public JMenuItem fileCloseItem;
 
     @ResourceBundleBean(key = "file.save")
-    private JMenuItem fileSaveItem;
+	public JMenuItem fileSaveItem;
 
     @ResourceBundleBean(key = "file.save_as")
-    private JMenuItem fileSaveAsItem;
+    public JMenuItem fileSaveAsItem;
 
     @ResourceBundleBean(key = "file.export_to_image")
     private JMenuItem fileExportToImageItem;
