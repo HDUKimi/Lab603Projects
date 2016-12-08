@@ -65,13 +65,22 @@ public class WriteVioletUppaal {
     			TransitionEdgeInfo.get(j).setStart_reference(temp.element("source").attributeValue("ref"));
     			TransitionEdgeInfo.get(j).setEnd_reference(temp.element("target").attributeValue("ref"));
     			TransitionEdgeInfo.get(j).setStartlocation_id(UUID.randomUUID().toString());
-    			TransitionEdgeInfo.get(j).setStartlocation_x(temp.element("label").attributeValue("x"));
-    			TransitionEdgeInfo.get(j).setStartlocation_y(temp.element("label").attributeValue("y"));
+    			if(temp.element("label")!=null){
+    				TransitionEdgeInfo.get(j).setStartlocation_x(temp.element("label").attributeValue("x"));
+        			TransitionEdgeInfo.get(j).setStartlocation_y(temp.element("label").attributeValue("y"));	
+        			
+        			TransitionEdgeInfo.get(j).setEndlocation_x(temp.element("label").attributeValue("x"));
+        			TransitionEdgeInfo.get(j).setEndlocation_y(temp.element("label").attributeValue("y"));
+        			
+        			TransitionEdgeInfo.get(j).setLabelText(temp.element("label").getText());
+    			}
+//    			TransitionEdgeInfo.get(j).setStartlocation_x(temp.element("label").attributeValue("x"));
+//    			TransitionEdgeInfo.get(j).setStartlocation_y(temp.element("label").attributeValue("y"));
     			TransitionEdgeInfo.get(j).setEndlocation_id(UUID.randomUUID().toString());
-    			TransitionEdgeInfo.get(j).setEndlocation_x(temp.element("label").attributeValue("x"));
-    			TransitionEdgeInfo.get(j).setEndlocation_y(temp.element("label").attributeValue("y"));
+//    			TransitionEdgeInfo.get(j).setEndlocation_x(temp.element("label").attributeValue("x"));
+//    			TransitionEdgeInfo.get(j).setEndlocation_y(temp.element("label").attributeValue("y"));
     			TransitionEdgeInfo.get(j).setUnderEndLocation_id(UUID.randomUUID().toString());
-    			TransitionEdgeInfo.get(j).setLabelText(temp.element("label").getText());
+//    			TransitionEdgeInfo.get(j).setLabelText(temp.element("label").getText());
     			if(temp.element("source").attributeValue("ref").equals(id)){
     				TransitionEdgeInfo.get(j).setStartclass("CircularStartNode");
     				TransitionEdgeInfo.get(j).setEndlclass("CircularNode");
@@ -142,7 +151,10 @@ public class WriteVioletUppaal {
     		Element angle=TransitionEdge.addElement("angle");
     		angle.setText("10.0");
     		Element labelText=TransitionEdge.addElement("labelText");
-    		labelText.setText(temp.getLabelText());
+    		if(temp.getLabelText()!=null){
+    			labelText.setText(temp.getLabelText());	
+    		}
+//    		labelText.setText(temp.getLabelText());
     	}
     	outputXml(doc,filename);
     }	

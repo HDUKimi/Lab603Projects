@@ -72,7 +72,7 @@ public class SideBar extends JPanel implements ISideBar
         return this.graphToolsBar;
     }
 
-    protected ISideBarElement getEditorToolsBar()
+    public EditorToolsPanel getEditorToolsBar()
     {
         if (this.editorToolsBar == null)
         {
@@ -82,7 +82,7 @@ public class SideBar extends JPanel implements ISideBar
         return this.editorToolsBar;
     }
 
-    protected ISideBarElement getOptionalToolsBar()
+    public OptionalToolsPanel getOptionalToolsBar()
     {
         if (this.optionalToolsBar == null)
         {
@@ -120,8 +120,8 @@ public class SideBar extends JPanel implements ISideBar
 
     private IWorkspace diagramPanel;
     private IGraphToolsBar graphToolsBar;
-    private ISideBarElement editorToolsBar;
-    private ISideBarElement optionalToolsBar;
+    private EditorToolsPanel editorToolsBar;
+    private OptionalToolsPanel optionalToolsBar;
     private IColorChoiceBar colorChoiceBar;
     private Map<ISideBarElement, String> externalContributionElements = new HashMap<ISideBarElement, String>();
 

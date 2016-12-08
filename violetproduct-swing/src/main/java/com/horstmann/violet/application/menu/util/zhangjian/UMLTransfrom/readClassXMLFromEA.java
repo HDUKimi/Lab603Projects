@@ -18,6 +18,7 @@ public class readClassXMLFromEA {
 	public readClassXMLFromEA(String path,IFile file){
 		String aimPath="C:/Users/Administrator/Desktop/ModelDriveProjectFile/ClassDiagram/EA";
 		XMLUtils.AutoSave(path, aimPath,file.getFilename());
+		System.out.println("绗簩涓偣");
 		getInformationFormXML(path);
 	}
 //	public  readClassXMLFromEA(String path){
@@ -37,16 +38,19 @@ public class readClassXMLFromEA {
 	 * @param document
 	 */
 	private  void getInformationFormXML(String path) {
+		System.out.println("read閲岄潰鐨勶細"+path);
 		Document document =XMLUtils.load(path);
 		
-		Element root=document.getRootElement();//xml的整体的根
+		Element root=document.getRootElement();//鑾峰彇鏍硅妭鐐�
+		System.out.println("鏍硅妭鐐癸細"+root.getName());
 		
-		//获得Model
 		Element Model=root.element("Model");
+	
 		List<Element> packagedElement=Model.element("packagedElement").elements();
+	
 		for(Element element:packagedElement){
+			
 			String type=element.attributeValue("type");
-			//如果type的类型是uml:Class
 			 if(type.toString().equals("uml:Class")){
 				String attribute="";
 				String method="";
@@ -59,8 +63,7 @@ public class readClassXMLFromEA {
 							attribute=attribute+","+attr.attributeValue("name");
 						}
 					}else if(attr.getName().equals("ownedAttribute")){
-						if(attribute.equals("")){
-							method=attr.attributeValue("name");
+						if(attribute.equals("")){method=attr.attributeValue("name");
 						}else{
 							method=method+","+attr.attributeValue("name");
 						}
@@ -76,9 +79,7 @@ public class readClassXMLFromEA {
 				an.setMethod(attribute);
 				
 				nodeList.add(an);
-			}
-			 //如果类型是uml:Interface
-			 else if(type.toString().equals("uml:Interface")){//Interface锟接口节碉拷锟斤拷锟斤拷锟�
+			}else if(type.toString().equals("uml:Interface")){//Interface锟接口节碉拷锟斤拷锟斤拷锟�
 				Node an=new Node();
 				an.setType(type);
 				an.setId(element.attributeValue("id"));
@@ -90,20 +91,20 @@ public class readClassXMLFromEA {
 			
 		}
 		
-	    //获得Extension
+	
 		Element extension= root.element("Extension");//锟斤拷取锟斤拷EA锟斤拷Extension锟节碉拷
 		List<Element> connectors= extension.element("connectors").elements();
 //			System.out.println(connectors.size());
 		for(Element conn:connectors){
-			String id=conn.attributeValue("idref");//id
-			String name=conn.element("labels").attributeValue("mt");//
+			String id=conn.attributeValue("idref");
+			String name=conn.element("labels").attributeValue("mt");
 			String starNodeId=conn.element("source").attributeValue("idref");
 			String endNodeId=conn.element("target").attributeValue("idref");
 			String ea_type=conn.element("properties").attributeValue("ea_type");
 			String subtype=conn.element("properties").attributeValue("subtype");
 			String direction=conn.element("properties").attributeValue("direction");
-			
 			Edge cedge=new Edge();
+			
 				cedge.setId(id);
 				cedge.setName(name);
 				cedge.setStarNodeid(starNodeId);

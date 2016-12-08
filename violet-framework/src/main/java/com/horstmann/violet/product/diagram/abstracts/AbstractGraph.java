@@ -136,9 +136,9 @@ public abstract  class AbstractGraph implements Serializable, Cloneable, IGraph
     
     
 
-    //画出图形
+
     @Override
-    public void draw(final Graphics2D g2)
+    public void draw(Graphics2D g2)
     {
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         //抗锯齿提示值——使用抗锯齿模式完成呈现
@@ -151,24 +151,18 @@ public abstract  class AbstractGraph implements Serializable, Cloneable, IGraph
         Collection<INode> nodes = getAllNodes();
         while (count < nodes.size())
         {
-            for (final INode n : nodes) 
+            for (INode n : nodes) 
             {
+
                 if (n.getZ() == z)//Z值较高的节点在低值的上方
                 {
                     if (n instanceof NoteNode)
-                    {//如果是noteNode单独的处理
+                    {
                         specialNodes.add(n);
                     }
                     else
-                    {//如果不是，直接画出
-                    	//****
-								n.draw(g2);
-//								try {
-//									Thread.sleep(500);
-//								} catch (InterruptedException e) {
-//								}
-                    	//****
-                      //  n.draw(g2);
+                    {
+                        n.draw(g2);
                     }
                     count++;
                 }
@@ -183,7 +177,6 @@ public abstract  class AbstractGraph implements Serializable, Cloneable, IGraph
         }
       
         // Special nodes are always drawn upon other elements
-        //有些node在别的node的上面,单独的处理
         for (INode n : specialNodes)
         {
             // Translate g2 if node has parent

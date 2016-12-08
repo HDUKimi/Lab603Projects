@@ -62,13 +62,7 @@
             <groupId>com.horstmann.violet</groupId>
             <artifactId>violetplugin-objectdiagram</artifactId>
             <version>${applicationVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-    </dependencies>
+        </dependency>	</dependencies>
 	<build>
 		<finalName>violetumleditor-${project.version}</finalName>
 		<resources>
@@ -115,14 +109,6 @@
 					</execution>
 				</executions>
 			</plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-        </plugins>
+		</plugins>
 	</build>
 </project>

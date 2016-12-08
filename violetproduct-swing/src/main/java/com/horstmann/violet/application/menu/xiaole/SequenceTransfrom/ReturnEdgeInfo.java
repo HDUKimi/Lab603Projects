@@ -8,7 +8,12 @@ public class ReturnEdgeInfo {
 	  private String endLocationX;
 	  private String endLocationY;
 	  private String Id;
-	  private String middleLabel;
+	  private String name = "";
+	  private String input = "";
+	  private String output = "";
+	  private String parameter = "";
+	  private String timing = "";
+	  private String timereset = "";
 	public String getStartReferenceId() {
 		return startReferenceId;
 	}
@@ -51,11 +56,40 @@ public class ReturnEdgeInfo {
 	public void setId(String id) {
 		Id = id;
 	}
-	public String getMiddleLabel() {
-		return middleLabel;
+	public String getName() {
+		return name;
 	}
-	public void setMiddleLabel(String middleLabel) {
-		this.middleLabel = middleLabel;
+	public void setName(String middleLabel) {
+		this.name = middleLabel;
 	}
-	  
+	public String getInput() {
+		return input;
+	}
+	public void setInput(String input) {
+		this.input = input;
+	}
+	public String getOutput() {
+		return output;
+	}
+	public void setOutput(String output) {
+		this.output = output;
+	}
+	public String getParameter() {
+		return parameter;
+	}
+	public void setParameter(String parameter) {
+		this.parameter = parameter;
+	}
+	public String getTiming() {
+		return timing;
+	}
+	public void setTiming(String timing) {
+		this.timing = timing;
+	}
+	public String getTimereset() {
+		return timereset;
+	}
+	public void setTimereset(String timereset) {
+		this.timereset = timereset;
+	}  
 }

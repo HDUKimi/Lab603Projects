@@ -13,6 +13,7 @@ import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 import java.awt.Rectangle;
 import java.awt.TextArea;
+import java.awt.Toolkit;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.ComponentEvent;
@@ -20,6 +21,7 @@ import java.awt.event.ComponentListener;
 import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
 import java.beans.PropertyVetoException;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -28,6 +30,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -43,8 +46,10 @@ import javax.swing.text.JTextComponent;
 
 import com.horstmann.violet.framework.swingextension.TinyScrollBarUI;
 import com.horstmann.violet.framework.theme.ThemeManager;
+import com.horstmann.violet.product.diagram.abstracts.IGraph;
 import com.horstmann.violet.workspace.editorpart.IEditorPart;
 import com.horstmann.violet.workspace.sidebar.ISideBar;
+import com.horstmann.violet.workspace.sidebar.graphtools.GraphTool;
 import com.l2fprod.common.swing.JTaskPane;
 import com.l2fprod.common.swing.JTaskPaneGroup;
 
@@ -61,10 +66,17 @@ public class WorkspacePanel extends JPanel
         LayoutManager layout = new BorderLayout();
         setLayout(layout);
         JScrollPane scrollGPanel = getScrollableEditorPart();                                			
-    	add(scrollGPanel,BorderLayout.CENTER);         
+//		add(scrollGPanel, BorderLayout.CENTER);
         JScrollPane scrollSideBarPanel = getScrollableSideBar();
 //        if( !workspace.getTitle().toString().endsWith(".uppaal.violet.xml"))
-    	   add(scrollSideBarPanel, BorderLayout.EAST);                         			  
+//		add(scrollSideBarPanel, BorderLayout.EAST);
+		workspacejs=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollGPanel,scrollSideBarPanel);
+		workspacejs.setOneTouchExpandable(true);
+		workspacejs.setContinuousLayout(true);
+		workspacejs.setDividerSize(0);
+		workspacejs.setResizeWeight(1);
+		add(workspacejs,BorderLayout.CENTER);
+		scrollSideBarPanel.setVisible(false);
         refreshDisplay();
     }    
     /**
@@ -75,7 +87,8 @@ public class WorkspacePanel extends JPanel
         if (this.scrollableEditorPart == null)
         {
             final IEditorPart editorPart = this.workspace.getEditorPart();
-            final Component panel = editorPart.getSwingComponent();          
+            final Component panel = editorPart.getSwingComponent();
+//            panel.setPreferredSize(new Dimension(2000, 2000));
             this.scrollableEditorPart = new JScrollPane() {
                 @Override
                 public void paint(Graphics g)
@@ -105,7 +118,11 @@ public class WorkspacePanel extends JPanel
             });
             this.scrollableEditorPart.setBackground(ThemeManager.getInstance().getTheme().getWhiteColor());
             this.scrollableEditorPart.setBorder(new EmptyBorder(0, 0, 0, 0));
+//            this.scrollableEditorPart.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            
             this.scrollableEditorPart.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            this.scrollableEditorPart.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+            
         }
         return this.scrollableEditorPart;
     }
@@ -142,9 +159,28 @@ public class WorkspacePanel extends JPanel
         });
     }
 
-    private IWorkspace workspace;
-    private JScrollPane scrollableSideBar;
-    private JScrollPane scrollableEditorPart;
-    private JScrollPane scrollableStatusBar;
+	
+	
+	public JSplitPane getWorkspacejs() {
+		return workspacejs;
+	}
+
+	public void setWorkspacejs(JSplitPane workspacejs) {
+		this.workspacejs = workspacejs;
+	}
+
+
+
+	public IWorkspace getWorkspace() {
+		return workspace;
+	}
+
+
+
+	private IWorkspace workspace;
+	private JScrollPane scrollableSideBar;
+	private JScrollPane scrollableEditorPart;
+	private JScrollPane scrollableStatusBar;
+	private JSplitPane workspacejs;
 
 }
