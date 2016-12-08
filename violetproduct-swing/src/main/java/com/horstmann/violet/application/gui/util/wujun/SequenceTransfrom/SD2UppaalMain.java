@@ -47,6 +47,9 @@ public class SD2UppaalMain {
 	static Map<String,String> mapTable=new LinkedHashMap<String,String>();
 	static String k1;
 	static String value1;
+	
+	public static String diagramDataName=null;
+	
 	public static void transEA(String path,MainFrame mainframe) throws Exception 
 	{
 		//所有图
@@ -66,10 +69,16 @@ public class SD2UppaalMain {
 	    Element root=dom.getRootElement();//获取根节点
 	    
 	    Read uml=new Read();
+	    
+	    DiagramsDataList = uml.getUmlAllDiagramData();
+	    DiagramsDataList.clear();
+	    uml.setUmlAllDiagramData(DiagramsDataList);
+	    
 	    uml.load(root);
 	    
 
 	    // 得到所有图对应的所有数据
+	    
 	    DiagramsDataList = uml.getUmlAllDiagramData();
 //   ***END***
 		
@@ -99,6 +108,7 @@ public class SD2UppaalMain {
 //		}
 //   ***END***	    
 	
+	    mapTable.clear();
 	    
 	    // 遍历图DiagramsDataList
 	    Iterator<WJDiagramsData> DiagramsDataListIterator = DiagramsDataList.iterator();  
@@ -751,9 +761,10 @@ public class SD2UppaalMain {
 		    k1="完成顺序图到自动机的转换，正在写入图名为"+diagramDaraI.name+"的xml";
 		    value1="";
 		    mapTable.put(k1, value1);
-		    //给tc
+		    
 		    Write.creatXML(diagramDaraI.name+".xml",templates,template_names);//给我
-		    System.out.println("seq-------"+diagramDaraI.name);
+		    setDiagramDataName(diagramDaraI.name);
+		    System.out.println("diagramDaraI.name-----"+diagramDaraI.name);
 		    //给ckt
 		    WriteForXStream.creatXML(diagramDaraI.name+"ForXStream.xml", templates, template_names);
 		    Display.println(".....写入完成!\n");
@@ -765,7 +776,7 @@ public class SD2UppaalMain {
 		    mapTable.put(k1, value1);
 	    }//遍历diagram结束
 	    Display.println("================================所有顺序图转换完成================================");
-		  ShowOnTableAndConsole.seqShow(mapTable,mainframe);
+		ShowOnTableAndConsole.seqShow(mapTable,mainframe);
 	}//end
 	
 	private static void setOutOfLoopCondition() {
@@ -1336,4 +1347,14 @@ public class SD2UppaalMain {
 			return "["+type.substring(0,type.length()-1)+"]"+"/"+nCondition.substring(0,nCondition.length()-2);
 		}
 	}
+
+	public static String getDiagramDataName() {
+		return diagramDataName;
+	}
+
+	public static void setDiagramDataName(String diagramDataName) {
+		SD2UppaalMain.diagramDataName = diagramDataName;
+	}
+	
+	
 }

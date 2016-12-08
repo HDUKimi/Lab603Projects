@@ -23,6 +23,7 @@ public class HorizontalChild implements IHorizontalChild{
     private int endPointTime;
 
 	
+
 	public int getStartPointTime() {
 		return startPointTime;
 	}

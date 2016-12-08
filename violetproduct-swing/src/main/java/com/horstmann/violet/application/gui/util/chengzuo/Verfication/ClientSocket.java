@@ -3,18 +3,20 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
-public class ClientSocket {	
+public class ClientSocket {
 
 	// 连接服务器端IP以及端口号
 	protected String IP;
 	protected int PORT;
 
-	static public List<TestCase> testCaseList = null;
-
+	protected List<TestCase> testCaseList = Collections.synchronizedList(new ArrayList<TestCase>());
+	
 	// 创建套接字
 	private Socket socket = null;
 
@@ -33,14 +35,10 @@ public class ClientSocket {
 		this.IP = ip;
 		this.PORT = port;
 	}
-	
-	public static List<TestCase> getTestCaseList() {
-		return testCaseList;
-	}
 
 	// 初始化所有线程
 	public void initThread() {
-		clientRecThread = new ClientRecThread(socket);
+		clientRecThread = new ClientRecThread(socket,testCaseList);
 		clientRecThread.keepRunning = true;
 		recThread = new Thread(clientRecThread);
 		recThread.start();
@@ -49,7 +47,15 @@ public class ClientSocket {
 		fileThread = new Thread(clientFileThread);
 	}
 	/**
+	 * 获取当前测试用例集合
+	 */
+	public List<TestCase> getTestCaseList() {
+		return testCaseList;
+	}
+	/**
 	 * 判断连接函数
+	 * 
+	 * @return
 	 */
 	public boolean isConnect() {
 		if (socket == null || socket.isClosed()) {

@@ -18,40 +18,38 @@ import org.jfree.data.general.DefaultPieDataset;
 public class JFreeChartTest {
 	//返回一个jpanel
   public  static JPanel getJFreeChartTest(List<TestCase> list) {
-//	  //用于记录成功和失败
-//	  int i=0;
-//	  int j=0;
-//	  //遍历看看成功或者失败的个数统计
-//	  for(TestCase info:list){
-//		  String str=info.getResult();
-//		  if("成功".equals(str)){
-//			  i++;
-//		  }
-//		  else{
-//			  j++;
-//		  }
-//	  }
+	  //用于记录成功和失败
+	  int i=0;
+	  int j=0;
+	  //遍历看看成功或者失败的个数统计
+	  for(TestCase info:list){
+		  String str=info.getResult();
+		  if("成功".equals(str)){
+			  i++;
+		  }
+		  else{
+			  j++;
+		  }
+	  }
 	  JPanel jp=new JPanel(); 
 	  DefaultPieDataset dpd=new DefaultPieDataset();
-//	  if(i==0&&j!=0){//如果只有成功
-//		  dpd.setValue("成功", 100);
-//	  }
-//	  else if(i!=0&&j==0){//如果只有失败
-//		  dpd.setValue("失败", 100);
-//	  }
-//	  else if(i!=0&&j!=0){//失败和成功的都有
-//		  double a=i/(double)(i+j)*100;
-//		  double b=j/(double)(i+j)*100;
-//		  double a=0.66;
-//		  double b=0.34;
-//		  DecimalFormat df=new DecimalFormat(".##");
-//		  String sa=df.format(a);
-//		  String sb=df.format(b);
-//		  a=Double.parseDouble(sa);
-//		  b=Double.parseDouble(sb);
-		  dpd.setValue("成功",0.66);
-		  dpd.setValue("失败",0.34);
-//	  }
+	  if(i==0&&j!=0){//如果只有成功
+		  dpd.setValue("成功", 100);
+	  }
+	  else if(i!=0&&j==0){//如果只有失败
+		  dpd.setValue("失败", 100);
+	  }
+	  else if(i!=0&&j!=0){//失败和成功的都有
+		  double a=i/(double)(i+j)*100;
+		  double b=j/(double)(i+j)*100;
+		  DecimalFormat df=new DecimalFormat(".##");
+		  String sa=df.format(a);
+		  String sb=df.format(b);
+		  a=Double.parseDouble(sa);
+		  b=Double.parseDouble(sb);
+		  dpd.setValue("成功",a);
+		  dpd.setValue("失败",b);
+	  }
    //  dpd.setValue("开发人员",45);
      //dpd.setValue("其他人员", 10);
   

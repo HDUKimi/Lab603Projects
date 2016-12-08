@@ -58,7 +58,7 @@ public class GraphToolsBarPanel extends JPanel
      * @param diagram tools
      * @return buttons representing tools
      */
-    private List<GraphToolsBarButton> getToggleButtons(List<GraphTool> tools)
+    public static List<GraphToolsBarButton> getToggleButtons(List<GraphTool> tools)
     {
         List<GraphToolsBarButton> buttons = new ArrayList<GraphToolsBarButton>();
         for (GraphTool aTool : tools)
@@ -183,7 +183,12 @@ public class GraphToolsBarPanel extends JPanel
 
 
 
-
+    public void setOnClickSelectedButton(GraphToolsBarButton b) {
+		// TODO Auto-generated method stub
+		
+    	setSelectedButton(b);
+    	
+	}
 
 
     /**
@@ -191,33 +196,55 @@ public class GraphToolsBarPanel extends JPanel
      * 
      * @param selectedButton to be considered as selected
      */
-    private void setSelectedButton(GraphToolsBarButton selectedButton)
+    public void setSelectedButton(GraphToolsBarButton selectedButton)
     {
         for (GraphToolsBarButton button : this.nodeButtons)
         {
-            if (button != selectedButton)
+        	if (button.getTool().getLabel() != selectedButton.getTool().getLabel())
             {
+//            	System.out.println("++++++++");
                 button.setSelected(false);
             }
-            if (button == selectedButton)
+            if (button.getTool().getLabel() == selectedButton.getTool().getLabel())
             {
+//            	System.out.println("--------");
                 button.setSelected(true);
                 int pos = this.nodeButtons.indexOf(button);
                 this.graphToolsPanel.setSelectedTool(this.graphToolsPanel.getNodeTools().get(pos));
             }
+//            if (button != selectedButton)
+//            {
+//                button.setSelected(false);
+//            }
+//            if (button == selectedButton)
+//            {
+//                button.setSelected(true);
+//                int pos = this.nodeButtons.indexOf(button);
+//                this.graphToolsPanel.setSelectedTool(this.graphToolsPanel.getNodeTools().get(pos));
+//            }
         }
         for (GraphToolsBarButton button : this.edgeButtons)
         {
-            if (button != selectedButton)
+        	if (button.getTool().getLabel() != selectedButton.getTool().getLabel())
             {
                 button.setSelected(false);
             }
-            if (button == selectedButton)
+        	if (button.getTool().getLabel() == selectedButton.getTool().getLabel())
             {
                 button.setSelected(true);
                 int pos = this.edgeButtons.indexOf(button);
                 this.graphToolsPanel.setSelectedTool(this.graphToolsPanel.getEdgeTools().get(pos));
             }
+//            if (button != selectedButton)
+//            {
+//                button.setSelected(false);
+//            }
+//            if (button == selectedButton)
+//            {
+//                button.setSelected(true);
+//                int pos = this.edgeButtons.indexOf(button);
+//                this.graphToolsPanel.setSelectedTool(this.graphToolsPanel.getEdgeTools().get(pos));
+//            }
         }
     }
 

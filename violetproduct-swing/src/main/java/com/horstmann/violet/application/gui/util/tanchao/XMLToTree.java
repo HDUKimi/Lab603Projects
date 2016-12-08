@@ -22,8 +22,17 @@ public class XMLToTree {
     static DefaultMutableTreeNode root1;
     static DefaultMutableTreeNode root2;
     static DefaultTreeCellRenderer demoRenderer;
-    public static JPanel  getTree(String path) {
-    	JPanel jp=new JPanel();
+    public static JTree  getTree(String path) {
+//    	JPanel jp=new JPanel();
+    	
+//    	System.out.println("------"+path+"---------");
+//    	
+//    	if(path.equals("null\\null")){
+//    		System.out.println("++++++++");
+//    		JTree tree=null;
+//    		return tree;
+//    	}
+    	
         try {
         	//获得SAXReader对象
             SAXReader saxReader=new SAXReader();
@@ -50,13 +59,18 @@ public class XMLToTree {
         JTree jTree=new JTree(rootTree);
         //将树中默认操作时显示的图片改成我们想要的图片
         demoRenderer = new DefaultTreeCellRenderer();
-        demoRenderer.setClosedIcon(new ImageIcon("src/site/resources/icons/jiahao.png"));
-        demoRenderer.setOpenIcon(new ImageIcon("src/site/resources/icons/jianhao.png"));
+        String absolutePath=System.getProperty("user.dir");
+		String pngpath = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
+//        demoRenderer.setClosedIcon(new ImageIcon(pngpath+"jiahao.png"));
+//        demoRenderer.setOpenIcon(new ImageIcon(pngpath+"jianhao.png"));
+        demoRenderer.setClosedIcon(null);
+        demoRenderer.setOpenIcon(null);
         demoRenderer.setLeafIcon(null);
         jTree.setCellRenderer(demoRenderer);
         jTree.putClientProperty("JTree.lineStyle","None"); 
-        jp.add(jTree);
-       return jp;
+//        jp.add(jTree);
+//       return jp;
+        return jTree;
     }
     
     
@@ -140,7 +154,9 @@ public class XMLToTree {
         JFrame frame = new JFrame("test");
         frame.setVisible(true);
         frame.setBounds(200, 200, 400, 300);
-        JPanel jp=XMLToTree.getTree("C:\\Users\\Admin\\Desktop\\111.timing.violet.xml");
+        JPanel jp=new JPanel();
+        jp.add(XMLToTree.getTree("C:\\Users\\Administrator\\Desktop\\xxframe.seq.violet.xml"));
+//        JPanel jp=XMLToTree.getTree("C:\\Users\\Administrator\\Desktop\\xxframe.seq.violet.xml");
         frame.add(jp);
         frame.pack();
     }

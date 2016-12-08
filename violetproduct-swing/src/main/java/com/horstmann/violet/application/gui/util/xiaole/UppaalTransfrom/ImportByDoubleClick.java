@@ -74,7 +74,9 @@ public class ImportByDoubleClick {
 		 if(graphFile==null){
 			 System.out.println("¿Õ");
 		 }
-		 System.out.println("Filename£º"+graphFile.getFilename()+"&&");
+		 else{
+			 System.out.println("Filename£º"+graphFile.getFilename()+"&&");
+		 }
     	
     	return graphFile;
     }

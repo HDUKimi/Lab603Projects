@@ -1,4 +1,5 @@
 package com.horstmann.violet.application.menu.xiaole.SequenceTransfrom;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,26 +25,45 @@ public class TransEAToViolet {
 	List<ActivationBarNodeInfo> ActivationBarNodes=new ArrayList<ActivationBarNodeInfo>();
 	List<String> CallEdgesId=new ArrayList<String>();
 	List<String> ReturnEdgesId=new ArrayList<String>();
+	List<String> sequence = new ArrayList<String>();
+	List<CallEdgeInfo> selfCallEdgesID = new ArrayList<CallEdgeInfo>();  //存储所有的自回环
+	List<Element> lifenodeList = new ArrayList<Element>();
     public void ReadEATimingGraph(String url) throws Exception
     {
-    	Document dom=reader.read(url);
+    	File sequenceFile = new File(url);
+    	Document dom=reader.read(sequenceFile);
     	Element root=dom.getRootElement();
     	Element Extension=root.element("Extension");
     	Element Elements=Extension.element("elements");
-    
     	 //处理消息信息
         Element Model=root.element("Model");
         Element packagedElement1=Model.element("packagedElement");
         Element packagedElement2=packagedElement1.element("packagedElement");
         Element ownedBehavior=packagedElement2.element("ownedBehavior");
         List<Element> messageElements=ownedBehavior.elements("message");
+
         for(Element messageElement : messageElements)
         {
-        	if(messageElement.attributeValue("messageSort").equals("synchCall"))
+//        	Element argument = messageElement.element("argument");
+//        	String parameter = argument.attributeValue("name");
+//        	Element defaultValue = argument.element("defaultValue");
+//        	String input = defaultValue.attributeValue("value");
+        	String parameter = null;
+            if(messageElement.element("argument") != null)
+            {
+            	Element argument = messageElement.element("argument");
+            	 parameter = argument.attributeValue("name");
+            }
+        	if(messageElement.attributeValue("messageSort").equals("synchCall") || messageElement.attributeValue("messageSort").equals("asynchCall"))
         	{
+        		
         		CallEdgeInfo calledge=new CallEdgeInfo();
         		calledge.setId(messageElement.attributeValue("id"));
-        		calledge.setMiddleLabel(messageElement.attributeValue("name"));
+        		calledge.setName(messageElement.attributeValue("name"));
+        		if(parameter != null)
+        		{
+        			calledge.setParameter(parameter);
+        		}
         		CallEdges.add(calledge);
         		CallEdgesId.add(calledge.getId());
         	}
@@ -51,11 +71,16 @@ public class TransEAToViolet {
         	{
         		ReturnEdgeInfo returnedge=new ReturnEdgeInfo();
         		returnedge.setId(messageElement.attributeValue("id"));
-        		returnedge.setMiddleLabel(messageElement.attributeValue("name"));
+        		returnedge.setName(messageElement.attributeValue("name"));
+        		if(parameter != null)
+        		{
+        			returnedge.setParameter(parameter);
+        		}
         		ReturnEdges.add(returnedge);  
         		ReturnEdgesId.add(returnedge.getId());
         	}    	    	
         }
+        
         //处理消息信息
         Element connectors=Extension.element("connectors");
         List<Element> connectorElements=connectors.elements("connector");
@@ -91,9 +116,52 @@ public class TransEAToViolet {
         				  String LocationYsplitp[]=splitproperty.split("\\=");
         				  callEdge.setEndLocationY(LocationYsplitp[1].substring(1));
         			  }
-        			}     			  
+        			}  
+        		  Element judgeInputOrOutput = connectorElement.element("style");
+        		  Element intputAndouput = connectorElement.element("labels");
+        		  String  judgeStyle = judgeInputOrOutput.attributeValue("value");
+        		  String intputOrouput = intputAndouput.attributeValue("mt");
+        		  
+        		  if(judgeStyle != null)
+        		  {
+        		  String judgeStyleList[] = judgeStyle.split("\\;");
+        		  if(judgeStyle.contains("io=in"))
+        		  {
+        			  String inputlist[] = judgeStyleList[0].split("\\="); 
+        			  callEdge.setInput(inputlist[1]);
+        		  }
+        		  if(judgeStyle.contains("io=out")){
+        		  String outputList[] = intputOrouput.split("\\:");
+        		  callEdge.setOutput(outputList[1]);
+        		  }
+        		  if(judgeStyle.contains("RESET"))
+        		  {
+        			  for(String reset:judgeStyleList)
+        			  {
+        				  if(reset.contains("RESET"))
+        				  {
+        					  String resetList[] = reset.split("\\,");
+        					  for(String getreset:resetList)
+        					  {  
+        					  if(getreset.contains("RESET"))
+        					  {
+        						String finalResetValue[] =getreset.split("\\="); 
+        					    for(int i = 0 ;i <finalResetValue.length;i++)
+        					    {
+        					    	if(finalResetValue[i].equals("RESET"))
+        					    	{
+        					    		callEdge.setTimereset(finalResetValue[++i]);
+        					    	}
+        					    }
+        					  }
+        					  }
+        				  }
+        			  } 
+        		  }
+        		  }
        		 } 
         	}//发送消息解析到此结束
+         
           //处理返回消息
           for(ReturnEdgeInfo ReturnEdge :ReturnEdges)
           {
@@ -113,6 +181,7 @@ public class TransEAToViolet {
         			  {
         				  String LocationYsplit[]=splitproperty.split("\\=");
         				  ReturnEdge.setStartLocationY(LocationYsplit[1].substring(1));
+
         			  }
         			  if(splitproperty.startsWith("PtEndX"))
         			  {
@@ -124,12 +193,91 @@ public class TransEAToViolet {
         				  String LocationYsplitp[]=splitproperty.split("\\=");
         				  ReturnEdge.setEndLocationY(LocationYsplitp[1].substring(1));
         			  }
-        			}     			  
+        			}    
+        		  Element judgeInputOrOutput = connectorElement.element("style");
+        		  Element intputAndouput = connectorElement.element("labels");
+        		  String  judgeStyle = judgeInputOrOutput.attributeValue("value");
+        		  String intputOrouput = intputAndouput.attributeValue("mt");
+        		  if(judgeStyle != null)
+        		  {
+        		  String returnjudgeStyleList[] = judgeStyle.split("\\;");
+        		  if(judgeStyle.contains("io=in"))
+        		  {
+        			  String outputlist[] = returnjudgeStyleList[0].split("\\=");
+        			  ReturnEdge.setInput(outputlist[1]);
+        		  }
+        		  if(judgeStyle.contains("io=out")){
+            		  String outputList[] = intputOrouput.split("\\:");
+            		  ReturnEdge.setOutput(outputList[1]);
+            		  }
+        		  if(judgeStyle.contains("RESET"))
+        		  {
+        			  for(String reset:returnjudgeStyleList)
+        			  {
+        				  if(reset.contains("RESET"))
+        				  {
+        					  String resetList[] = reset.split("\\=");
+        					  ReturnEdge.setTimereset(resetList[1]);
+        				  }
+        			  }
+        		  }
+        		  
+        		  if(judgeStyle.contains("RESET"))
+        		  {
+        			  for(String reset:returnjudgeStyleList)
+        			  {
+        				  if(reset.contains("RESET"))
+        				  {
+        					  String resetList[] = reset.split("\\,");
+        					  for(String getreset:resetList)
+        					  {  
+        					  if(getreset.contains("RESET"))
+        					  {
+        						String finalResetValue[] =getreset.split("\\="); 
+        					    for(int i = 0 ;i <finalResetValue.length;i++)
+        					    {
+        					    	if(finalResetValue[i].equals("RESET"))
+        					    	{
+        					    		ReturnEdge.setTimereset(finalResetValue[++i]);
+        					    	}
+        					    }
+        					  }
+        					  }
+        				  }
+        			  }
+        		  }
+        		  }
        		 } 
         	}//返回消息解析到此结束 
-        }	//connector标签解析到此结束          
+        }	//connector标签解析到此结束    
+        List<Element> elements=Elements.elements("element");
+    	for(Element element : elements)   //获取所有lifenode element
+    	{
+    		if(element.attributeValue("type").equals("uml:Sequence")){
+    		lifenodeList.add(element);
+    		}
+    	}
       //获取到图中每个元素的element标签
-    	List<Element> elements=Elements.elements("element");	     
+    	for(Element element : elements)   //获取所有的自回环
+    	{
+    		if(element.attributeValue("type").equals("uml:Sequence")){
+    		Element links=element.element("links");
+    		List<Element> Sequence=links.elements("Sequence");
+    		for(Element edgeElement : Sequence)
+    		{
+    			if(edgeElement.attributeValue("end").equals(edgeElement.attributeValue("start")))
+    			{
+    				for(CallEdgeInfo callEdgeInfo : CallEdges)
+    				{
+    					if(edgeElement.attributeValue("id").equals(callEdgeInfo.getId()))
+    					{
+    						selfCallEdgesID.add(callEdgeInfo);
+    					}
+    				}
+    			}
+    		}
+    		}
+    	}
     	for(Element element : elements)
     	{
     		FragmentParts=new ArrayList<VLFragmentPartInfo>();//
@@ -154,9 +302,7 @@ public class TransEAToViolet {
                         String size=SplitSizes[1];
                         fragmentpart.setSize(size);//设置size
                         fragmentpart.setId(GenerateID());
-                        FragmentParts.add(fragmentpart);
-                        
-                        
+                        FragmentParts.add(fragmentpart);    
     				}				
     			}
     			//因为EA中的fragmentPart是从下到上的
@@ -167,10 +313,26 @@ public class TransEAToViolet {
     			{    		
     				ReverseFragmentParts.add(i, FragmentParts.get(FragmentParts.size()-1-i)); 
     			}
-    			System.out.println(ReverseFragmentParts);
     			combinedFragment.setFragmentParts(ReverseFragmentParts);
                 CombinedFragments.add(combinedFragment);
     		}
+            
+    		if(element.attributeValue("type").equals("uml:InteractionOccurrence"))
+    		{
+    			VLCombinedFragmentInfo combinedFragment=new VLCombinedFragmentInfo();
+    			combinedFragment.setType("ref");
+    			combinedFragment.setId(element.attributeValue("idref"));
+    			//获取到Xrefs标签    			
+    			String Value=element.attributeValue("name");   			
+					VLFragmentPartInfo fragmentpart=new VLFragmentPartInfo();
+					fragmentpart.setConditionText(Value);//设置condition	
+                    fragmentpart.setId(GenerateID());
+                    List<VLFragmentPartInfo> ReverseFragmentParts=new ArrayList<VLFragmentPartInfo>();
+                    ReverseFragmentParts.add(fragmentpart);
+                    combinedFragment.setFragmentParts(ReverseFragmentParts);
+                    CombinedFragments.add(combinedFragment);
+    		}
+    		
     		if(element.attributeValue("type").equals("uml:Sequence"))    			
     		{//如果是lifelineNode   			
     			LifeLineNodeInfo lifeLineNode=new LifeLineNodeInfo();
@@ -183,6 +345,19 @@ public class TransEAToViolet {
     		    //获取到Sequence标签，这里的Sequence标签即为从该lifelineNode
     		    //发送或接收的所有消息
     		    List<Element> Sequence=links.elements("Sequence");
+    		    for(Element sequence : Sequence)
+    			{
+    		    	for(CallEdgeInfo callEdgeInfo : CallEdges)
+    		    	{
+    		    		if(callEdgeInfo.getId().equals(sequence.attributeValue("id")))
+    		    		{
+    		    			callEdgeInfo.setStartEAReferenceId(sequence.attributeValue("start"));
+    		    			callEdgeInfo.setEndEAReferenceId(sequence.attributeValue("end"));
+    		    			lifeLineNode.getCallEdges().add(callEdgeInfo);
+    		    		}
+    		    		
+    		    	}
+    			}
     		    boolean isfirstLifelineNode=false;
     			for(Element sequence : Sequence)
     			{
@@ -191,10 +366,12 @@ public class TransEAToViolet {
     				//该lifelineNode有消息向其发送
     				//有几个消息就新建几个ActivationBarNode
     				if(sequence.attributeValue("end").equals(lifelineId)
-    						&&CallEdgesId.contains(sequence.attributeValue("id")))
+    						&&CallEdgesId.contains(sequence.attributeValue("id"))&&(!sequence.attributeValue("end").equals(sequence.attributeValue("start"))))
     				{
     					isfirstLifelineNode=true;     					
     					ActivationBarNodeInfo activationBarNode=new ActivationBarNodeInfo();
+    					activationBarNode.setEdgeID(sequence.attributeValue("id")); //设置生成ActivationBarID 自己加的
+    					activationBarNode.setLifeID(lifelineId); //设置生成lifelineId 自己加的
     					activationBarNode.setId(GenerateID());//新建ID
     					activationBarNode.setParentId(lifelineId);//新建父节点ID
     					activationBarNode.setLocationX("32");//默认离lifelineNode节点X轴的偏差
@@ -204,20 +381,50 @@ public class TransEAToViolet {
     					{
     					activationBarNode.setLocationY(calledge.getEndLocationY());
     					calledge.setEndReferenceId(activationBarNode.getId());
-    					
     					} 					
     				}
-    					
     					lifeLineNode.getActivationBarNodes().add(activationBarNode);
     				}
     			}
+//    			for(Element sequence : Sequence)
+//    			{
+//				if(isfirstLifelineNode){
+//        			if(sequence.attributeValue("start").equals(lifelineId)
+//    						&&CallEdgesId.contains(sequence.attributeValue("id"))&&(!sequence.attributeValue("end").equals(sequence.attributeValue("start"))))
+//        			{
+//        				CallEdgeInfo sendCallEdgeInfo = null;  //发送的消息
+//        				CallEdgeInfo receiveCallEdgeInfo = null; //该lifeline接收的消息
+//        				LifeLineNodeInfo lifeLineNodeInfo = null;
+//        				for(CallEdgeInfo calledge : CallEdges){
+//        					//接收一个消息新建一个ActivationBar
+//        					if(calledge.getId().equals(sequence.attributeValue("id")))
+//        					{
+//        						sendCallEdgeInfo = calledge;  //找到发送
+//        					}
+//        					String receiveLifeID = sendCallEdgeInfo.getEndEAReferenceId();
+//        					for(LifeLineNodeInfo lifeLineNode : lifenodeList)
+//        				}
+//        			}
+//    				}
+//    			}
     				//第二种情况：
     				//如果没有一个消息向其发送，则该lifelineNode为初始lifelineNode
-    				//新建一个ActivationBarNode即可   				
+    				//新建一个ActivationBarNode即可   	
+
     				if(!isfirstLifelineNode)    						
-    				{    					
+    				{    		
+    					int flag = 0;  //判断是否全为自回环
+    					for(CallEdgeInfo callEdgeInfo : lifeLineNode.getCallEdges())
+    					{
+    						if(!callEdgeInfo.getStartEAReferenceId().equals(callEdgeInfo.getEndEAReferenceId()))
+    						{
+    						    flag = 1;
+    						}
+    					}
+    					if(flag == 1){
     					ActivationBarNodeInfo activationBarNode=new ActivationBarNodeInfo();
-    					activationBarNode.setId(GenerateID());
+    					activationBarNode.setLifeID(lifelineId); //设置生成lifelineId 自己加的
+    					activationBarNode.setId(GenerateID());//新建ID
     					activationBarNode.setLocationX("32");//默认的第一个activationBar的位置信息
     					activationBarNode.setLocationY("122");
     					for(Element sequence1 : Sequence)
@@ -228,10 +435,14 @@ public class TransEAToViolet {
     						if(calledge.getId().equals(sequence1.attributeValue("id"))
     								&&sequence1.attributeValue("start").equals(lifelineId))
     						{
+    							activationBarNode.setEdgeID(calledge.getId());
     							calledge.setStartReferenceId(activationBarNode.getId());    							
     						}
     						
     					}
+    					}
+    					for(Element sequence1 : Sequence)
+    					{
     					for(ReturnEdgeInfo returnedge : ReturnEdges)
     					{
     						//对初始lifelineNode节点上接收的消息进行处理
@@ -242,9 +453,126 @@ public class TransEAToViolet {
     						}
     					}
     					//添加ActivationBarNode节点    					    					
-    				}    				
+    				    }    				
     					lifeLineNode.getActivationBarNodes().add(activationBarNode); 
-    			}    			
+    			}
+    				}
+    			//对自回环进行处理
+    			for(Element sequence : Sequence)
+        		{	
+    				int flag = 0;
+    				for(ActivationBarNodeInfo activationBarNode : lifeLineNode.getActivationBarNodes())
+    				{
+    					if(activationBarNode.getChildren().size() != 0)
+    					{
+    						for(ActivationBarNodeInfo childrenActivationBarNodeInfo:activationBarNode.getChildren()){
+    							if(childrenActivationBarNodeInfo.getEdgeID().equals(sequence.attributeValue("id")))
+    								flag = 1;
+    						}
+    					}
+    				}
+    				if(flag == 0){
+    				CallEdgeInfo selfCallEdgeInfo = null;
+    				CallEdgeInfo mindistanceWithselfCallEdgeInfo = null; //初始化
+    				if(CallEdgesId.contains(sequence.attributeValue("id")) && 
+    						sequence.attributeValue("end").equals(sequence.attributeValue("start")))
+    				{
+    			    
+    					for(CallEdgeInfo callEdgeInfo : CallEdges)
+    					{
+    						if(callEdgeInfo.getId().equals(sequence.attributeValue("id")))
+    							 selfCallEdgeInfo = callEdgeInfo; //找到自回环的edge
+    					}
+    					int mindistance = 100000; //初始化最短距离
+    					for(CallEdgeInfo callEdgeInfo : lifeLineNode.getCallEdges())
+    					{
+    						if((Integer.parseInt(callEdgeInfo.getStartLocationY()) - Integer.parseInt(selfCallEdgeInfo.getStartLocationY()) < 0 && 
+    								(Integer.parseInt(selfCallEdgeInfo.getStartLocationY()) - Integer.parseInt(callEdgeInfo.getStartLocationY())) < mindistance))
+    						{
+    							if(callEdgeInfo.getEndEAReferenceId().equals(lifeLineNode.getId())){
+    							mindistanceWithselfCallEdgeInfo = callEdgeInfo;
+    							mindistance = (Integer.parseInt(selfCallEdgeInfo.getStartLocationY()) - Integer.parseInt(callEdgeInfo.getStartLocationY()));
+    							}
+    						}
+    					}
+    					    for(CallEdgeInfo callEdgeInfo : selfCallEdgesID)
+    					    {
+    					    	if(mindistanceWithselfCallEdgeInfo != null)
+    					    	{
+    					    		if(Integer.parseInt(callEdgeInfo.getStartLocationY()) > Integer.parseInt(mindistanceWithselfCallEdgeInfo.getStartLocationY()) && 
+    					    				Integer.parseInt(callEdgeInfo.getStartLocationY()) < Integer.parseInt(selfCallEdgeInfo.getStartLocationY()))
+    					    				{
+    					    			    mindistanceWithselfCallEdgeInfo = null;
+    					    			    break;
+    					    				}
+    					    	}
+    					    }
+    						if(mindistanceWithselfCallEdgeInfo != null)
+    						{
+
+    							if(mindistanceWithselfCallEdgeInfo.getStartEAReferenceId().equals(mindistanceWithselfCallEdgeInfo.getEndEAReferenceId())){ //多个自回环
+    								for(ActivationBarNodeInfo activationBarNodeInfo : lifeLineNode.getActivationBarNodes())
+        							{
+    									if(activationBarNodeInfo.getId().equals(mindistanceWithselfCallEdgeInfo.getStartReferenceId()))
+    									{
+    										ActivationBarNodeInfo activationBarNode=new ActivationBarNodeInfo();
+        			    					activationBarNode.setEdgeID(sequence.attributeValue("id")); //设置生成ActivationBarID 自己加的
+        			    					activationBarNode.setLifeID(lifelineId); //设置生成lifelineId 自己加的
+        			    					activationBarNode.setId(GenerateID());//新建ID
+        			    					activationBarNode.setParentId(activationBarNodeInfo.getId());//新建父节点ID
+        			    					activationBarNode.setLocationX("32");//默认离lifelineNode节点X轴的偏差
+        			    					activationBarNode.setLocationY(selfCallEdgeInfo.getEndLocationY());
+        			    					selfCallEdgeInfo.setStartReferenceId(activationBarNodeInfo.getId());
+        			    					activationBarNodeInfo.getChildren().add(activationBarNode);
+        			    					selfCallEdgeInfo.setEndReferenceId(activationBarNode.getId());
+    									}
+        							}
+        							}
+    							else {
+    							for(ActivationBarNodeInfo activationBarNodeInfo : lifeLineNode.getActivationBarNodes())
+    							{
+    								if(activationBarNodeInfo.getEdgeID().equals(mindistanceWithselfCallEdgeInfo.getId()))
+    								{
+    									ActivationBarNodeInfo activationBarNode=new ActivationBarNodeInfo();
+    			    					activationBarNode.setEdgeID(sequence.attributeValue("id")); //设置生成ActivationBarID 自己加的
+    			    					activationBarNode.setLifeID(lifelineId); //设置生成lifelineId 自己加的
+    			    					activationBarNode.setId(GenerateID());//新建ID
+    			    					activationBarNode.setParentId(activationBarNodeInfo.getId());//新建父节点ID
+    			    					activationBarNode.setLocationX("32");//默认离lifelineNode节点X轴的偏差
+    			    					activationBarNode.setLocationY(selfCallEdgeInfo.getEndLocationY());
+    			    					selfCallEdgeInfo.setStartReferenceId(activationBarNodeInfo.getId());
+    			    					activationBarNodeInfo.getChildren().add(activationBarNode);
+    			    					selfCallEdgeInfo.setEndReferenceId(activationBarNode.getId());
+    								}
+    							}
+    							} 
+    						}
+    					if(mindistanceWithselfCallEdgeInfo == null)
+    					{
+    						ActivationBarNodeInfo fatherActivationBarNode=new ActivationBarNodeInfo(); //生成父节点
+    						fatherActivationBarNode.setEdgeID(sequence.attributeValue("id")); //设置生成ActivationBarID 自己加的
+    						fatherActivationBarNode.setLifeID(lifelineId); //设置生成lifelineId 自己加的
+    						fatherActivationBarNode.setId(GenerateID());//新建ID
+    						fatherActivationBarNode.setParentId(lifelineId);//新建父节点ID
+        					fatherActivationBarNode.setLocationX("32");//默认离lifelineNode节点X轴的偏差
+        					fatherActivationBarNode.setLocationY(selfCallEdgeInfo.getStartLocationY());
+        					lifeLineNode.getActivationBarNodes().add(fatherActivationBarNode);
+        					
+        					ActivationBarNodeInfo activationBarNode=new ActivationBarNodeInfo(); //生成孩子节点
+	    					activationBarNode.setEdgeID(sequence.attributeValue("id")); //设置生成ActivationBarID 自己加的
+	    					activationBarNode.setLifeID(lifelineId); //设置生成lifelineId 自己加的
+	    					activationBarNode.setId(GenerateID());//新建ID
+	    					activationBarNode.setParentId(fatherActivationBarNode.getId());//新建父节点ID
+	    					activationBarNode.setLocationX("32");//默认离lifelineNode节点X轴的偏差
+	    					activationBarNode.setLocationY(selfCallEdgeInfo.getEndLocationY());
+	    					selfCallEdgeInfo.setStartReferenceId(fatherActivationBarNode.getId());
+	    					fatherActivationBarNode.getChildren().add(activationBarNode);
+	    					selfCallEdgeInfo.setEndReferenceId(activationBarNode.getId());	
+    					}
+    					
+    				}
+    				}
+        		}
     			for(Element sequence : Sequence)
     			{
     			//进一步对Edges的相对于ActivationBar的startReferenceID和EndReferenceID进行处理
@@ -305,9 +633,10 @@ public class TransEAToViolet {
     				    }    					
     				}    				        		 
     			}   		
-    			LifeLines.add(lifeLineNode);   		
-    		}    	
+    			LifeLines.add(lifeLineNode);
+    		}
     	}
+
     Element diagrams=Extension.element("diagrams");
     Element diagram=diagrams.element("diagram");
     Element diagramelements=diagram.element("elements");
@@ -423,9 +752,11 @@ public class TransEAToViolet {
     	}
     	}
     } 
+    
     public void WriteVioletSequence(String filename)
     {
     	//创建根节点
+
     	 Document doc = DocumentHelper.createDocument();
     	 Element SequenceDiagramGraph=doc.addElement("SequenceDiagramGraph").addAttribute("id", GenerateID());
     	 Element nodes=SequenceDiagramGraph.addElement("nodes").addAttribute("id", GenerateID());    	 
@@ -436,14 +767,28 @@ public class TransEAToViolet {
     		 Element children=LifelineNode.addElement("children").addAttribute("id", GenerateID());
     		 for(ActivationBarNodeInfo activationBarNode : lifeline.getActivationBarNodes()){
     		 Element ActivationBarNode=children.addElement("ActivationBarNode");
-    		 setColor(ActivationBarNode);
     		 ActivationBarNode.addAttribute("id", activationBarNode.getId());
-    		 ActivationBarNode.addElement("children");
+    		 Element activationBarNodeChildren = ActivationBarNode.addElement("children");
+    		 if(activationBarNode.getChildren().size() != 0)
+    		 {
+    			 for(ActivationBarNodeInfo activationBarNodeInfo : activationBarNode.getChildren())
+    			 {
+    				 Element childrenActionBar =  activationBarNodeChildren.addElement("ActivationBarNode").addAttribute("id", activationBarNodeInfo.getId());
+    				 childrenActionBar.addElement("children").addAttribute("id", GenerateID());
+    				 childrenActionBar.addElement("parent").addAttribute("reference", activationBarNode.getId()).addAttribute("class", "ActivationBarNode");
+    				 int distanceBetweenActionBar = Integer.parseInt(activationBarNodeInfo.getLocationY()) - Integer.parseInt(activationBarNode.getLocationY());
+    				 childrenActionBar.addElement("location").addAttribute("class", "Point2D.Double")
+    	    		 .addAttribute("id", GenerateID()).addAttribute("x", activationBarNodeInfo.getLocationX())
+    	    		 .addAttribute("y", String.valueOf(distanceBetweenActionBar));
+    				 setColor(childrenActionBar);
+    			 }
+    		 }
     		 ActivationBarNode.addElement("parent").addAttribute("class", "LifelineNode")
     		 .addAttribute("reference", lifeline.getId());
     		 ActivationBarNode.addElement("location").addAttribute("class", "Point2D.Double")
     		 .addAttribute("id", GenerateID()).addAttribute("x", activationBarNode.getLocationX())
     		 .addAttribute("y", activationBarNode.getLocationY());
+    		 setColor(ActivationBarNode);
     		 }
     		 LifelineNode.addElement("location").addAttribute("class", "Point2D.Double")
     		 .addAttribute("id", GenerateID()).addAttribute("x", lifeline.getLocationX())
@@ -451,13 +796,43 @@ public class TransEAToViolet {
     		 setColor(LifelineNode);
     		 Element name=LifelineNode.addElement("name").addAttribute("id", GenerateID());
     		 name.addElement("text").addText(lifeline.getName());
-    		 
     	 }
     	 
     	//处理CombinedFragment
     	 for(VLCombinedFragmentInfo combinedFragment : CombinedFragments)
     	 {
     		 int size=0;
+    		 //导入ref
+    		 if(combinedFragment.getType().equals("ref")){
+    		 Element CombinedFragment=nodes.addElement("CombinedFragment");
+    		 CombinedFragment.addElement("location").addAttribute("class", "Point2D.Double")
+    		 .addAttribute("id", GenerateID()).addAttribute("x", combinedFragment.getLocationX())
+    		 .addAttribute("y", combinedFragment.getLocationY());
+    		 CombinedFragment.addElement("type").addAttribute("id", GenerateID())
+    		 .addAttribute("name", combinedFragment.getType().toUpperCase());
+    		 Element fragmentParts=CombinedFragment.addElement("fragmentParts");
+    		 Element conditions=CombinedFragment.addElement("conditions"); 
+    		 CombinedFragment.addElement("ID").addText(GenerateID());
+    		 VLFragmentPartInfo fragmentpart = combinedFragment.getFragmentParts().get(0);
+    		 conditions.addElement("string").addText(fragmentpart.getConditionText());
+ 			 Element fragmentPart=fragmentParts.addElement("com.horstmann.violet.product.diagram.abstracts.property.FragmentPart");
+ 			 fragmentPart.addElement("conditionText").addText(fragmentpart.getConditionText());
+ 			 Element borderline=fragmentPart.addElement("borderline").addAttribute("class", "java.awt.geom.Line2D$Double")
+ 					.addAttribute("id", GenerateID()); 			
+ 			 fragmentPart.addElement("coveredMessagesID").addAttribute("id",GenerateID());
+ 			 fragmentPart.addElement("nestingChildNodesID").addAttribute("id", GenerateID());
+ 			 borderline.addElement("x1").addText(combinedFragment.getLocationX());
+ 			 String Y1=String.valueOf(Integer.parseInt(combinedFragment.getLocationY()));
+			 borderline.addElement("y1").addText(Y1);
+			 borderline.addElement("x2").addText(String.valueOf(Integer.parseInt(combinedFragment.getLocationX())+
+					Integer.parseInt(combinedFragment.getWidth())));;
+			 borderline.addElement("y2").addText(Y1);
+			 fragmentPart.addElement("borderlinehaschanged").setText("true");
+ 		     CombinedFragment.addElement("width").addText(combinedFragment.getWidth());
+ 		     CombinedFragment.addElement("height").addText(combinedFragment.getHeight()); 
+    		 }
+    		 //导入类型不为ref的组合片断
+    		 else if(!combinedFragment.getType().equals("ref")){
     		 Element CombinedFragment=nodes.addElement("CombinedFragment");
     		 CombinedFragment.addElement("location").addAttribute("class", "Point2D.Double")
     		 .addAttribute("id", GenerateID()).addAttribute("x", combinedFragment.getLocationX())
@@ -476,6 +851,7 @@ public class TransEAToViolet {
     			fragmentPart.addElement("conditionText").addText(fragmentpart.getConditionText());
     			Element borderline=fragmentPart.addElement("borderline").addAttribute("class", "java.awt.geom.Line2D$Double")
     					.addAttribute("id", GenerateID());
+    			
     			fragmentPart.addElement("coveredMessagesID").addAttribute("id",GenerateID());
     			fragmentPart.addElement("nestingChildNodesID").addAttribute("id", GenerateID());
     			borderline.addElement("x1").addText(combinedFragment.getLocationX());
@@ -488,8 +864,7 @@ public class TransEAToViolet {
     					Integer.parseInt(combinedFragment.getWidth())));;
     			borderline.addElement("y2").addText(Y1);
     			}
-    			else
-    				//处理没有fragmenpart的情况
+    			else    				//处理没有fragmenpart的情况
     			{
     			String Y1=String.valueOf(Integer.parseInt(combinedFragment.getLocationY()));
     			borderline.addElement("y1").addText(Y1);
@@ -501,7 +876,8 @@ public class TransEAToViolet {
     			}
     		   CombinedFragment.addElement("width").addText(combinedFragment.getWidth());
     		   CombinedFragment.addElement("height").addText(combinedFragment.getHeight());    			    	 
-    	 }       	 
+    	 } 
+    	 }
     	 Element edges=SequenceDiagramGraph.addElement("edges").addAttribute("id", GenerateID());
     	 //处理CallEdges
     	 for(CallEdgeInfo calledge :CallEdges)
@@ -519,7 +895,11 @@ public class TransEAToViolet {
     		Calledge.addElement("endLocation").addAttribute("class", "Point2D.Double")
     		.addAttribute("id", GenerateID()).addAttribute("x", calledge.getEndLocationX())
     		.addAttribute("y", calledge.getEndLocationY());
-    		Calledge.addElement("middleLabel").addText(calledge.getMiddleLabel());   	   		 
+    		Calledge.addElement("name").addText(calledge.getName());
+    		Calledge.addElement("parameter").addText(calledge.getParameter());
+    		Calledge.addElement("input").addText(calledge.getInput());
+    		Calledge.addElement("output").addText(calledge.getOutput());
+    		Calledge.addElement("timereset").addText(calledge.getTimereset());   		
     	 }
     	 //处理ReturnEdges
     	 for(ReturnEdgeInfo returnedge : ReturnEdges)
@@ -536,9 +916,14 @@ public class TransEAToViolet {
      		.addAttribute("id", GenerateID()).addAttribute("x", returnedge.getEndLocationX())
      		.addAttribute("y", returnedge.getEndLocationY());
     		 Returnedge.addElement("ID").addText(GenerateID());
-    		 Returnedge.addElement("middleLabel").addText(returnedge.getMiddleLabel());   	   	 
+    		 Returnedge.addElement("name").addText(returnedge.getName()); 
+    		 Returnedge.addElement("parameter").addText(returnedge.getParameter());
+    		 Returnedge.addElement("input").addText(returnedge.getInput());
+    		 Returnedge.addElement("output").addText(returnedge.getOutput());
+    		 Returnedge.addElement("timereset").addText(returnedge.getTimereset()); 
     	 }    	     	 
-    	 outputXml(doc, filename);     	 
+    	 outputXml(doc, filename);     
+
     }
     public void setColor(Element Node)
    	{

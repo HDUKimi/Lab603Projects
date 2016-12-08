@@ -166,7 +166,7 @@ public class TimmingDiagramStateLineChange extends AbstractEditorPartBehavior{
 	           return;//Ìø³öº¯Êý
 	       }  		       
 	       selectedNode=selectedNodes.get(0);       
-	       String str1= "class com.horstmann.violet.product.diagram.timing.StateLifeline";
+	       String str1= "class com.horstmann.violet.product.diagram.timing.State_Lifeline";
 	       if (!selectedNode.getClass().toString().equals(str1)){
 	           return;
 	       }

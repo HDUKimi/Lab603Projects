@@ -47,6 +47,8 @@ import com.horstmann.violet.framework.theme.BlueAmbianceTheme;
 import com.horstmann.violet.framework.theme.ClassicMetalTheme;
 import com.horstmann.violet.framework.theme.DarkAmbianceTheme;
 import com.horstmann.violet.framework.theme.DarkBlueTheme;
+import com.horstmann.violet.framework.theme.DarkQTTheme;
+import com.horstmann.violet.framework.theme.EclipseTheme;
 import com.horstmann.violet.framework.theme.ITheme;
 import com.horstmann.violet.framework.theme.ThemeManager;
 import com.horstmann.violet.framework.userpreferences.DefaultUserPreferencesDao;
@@ -117,15 +119,15 @@ public class UMLEditorApplication
         ITheme theme2 = new BlueAmbianceTheme();
         ITheme theme3 = new DarkAmbianceTheme();
         ITheme theme4 = new DarkBlueTheme();
-//        ITheme theme5 = new EclipseTheme();
-//        ITheme theme6 = new DarkQTTheme();
+        ITheme theme5 = new EclipseTheme();
+        ITheme theme6 = new DarkQTTheme();
         List<ITheme> themeList = new ArrayList<ITheme>();
         themeList.add(theme1);
         themeList.add(theme2);
         themeList.add(theme3);
         themeList.add(theme4);
-//        themeList.add(theme5);
-//        themeList.add(theme6);
+        themeList.add(theme5);
+        themeList.add(theme6);
         themeManager.setInstalledThemes(themeList);
         themeManager.applyPreferedTheme();
         BeanFactory.getFactory().register(ThemeManager.class, themeManager);
@@ -181,8 +183,8 @@ public class UMLEditorApplication
         {
             try
             {
-                IGraphFile graphFile = new GraphFile(aFile);
-                IWorkspace workspace = new Workspace(graphFile);
+//                IGraphFile graphFile = new GraphFile(aFile);
+//                IWorkspace workspace = new Workspace(graphFile);
 //                mainFrame.addTabbedPane(workspace);
             }
             catch (Exception e)

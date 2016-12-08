@@ -202,7 +202,7 @@ public class StateLifeline extends RectangularNode implements StatelineParent{
 		        //在图中写出开始的点的时间
 		        //g2.drawString(String.valueOf(hchild.getStart()), (int)hchild.getStart().getX(),(int)hchild.getStart().getY());
 		        //在图中写出结束的点的时间
-		       // g2.drawString(String.valueOf(hchild.getEnd()), (int)hchild.getEnd().getX(), (int)hchild.getEnd().getY());
+		        //g2.drawString(String.valueOf(hchild.getEnd()), (int)hchild.getEnd().getX(), (int)hchild.getEnd().getY());
 			}
 	   }
 	   }

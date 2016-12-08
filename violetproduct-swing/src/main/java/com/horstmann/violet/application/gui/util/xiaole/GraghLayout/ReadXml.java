@@ -16,7 +16,7 @@ import org.dom4j.io.SAXReader;
 		Document dom;
 		Element root;
 		List<Element> Templatelist=new ArrayList<Element>();//XMl÷–TemplateºØ∫œ
-		int A[][]=new int[20][20];	
+	int A[][] = new int[500][500];
 		int TransitionNum=0,
 		    LocationNum=0,
 		    TemplateNum=0;
@@ -97,7 +97,7 @@ import org.dom4j.io.SAXReader;
 		{
 			locationlist=Templatelist.get(a).elements("location");
 		    int j=0;
-			String VertexID[]=new String[20];
+		String VertexID[] = new String[100];
 			for(Element location:locationlist)		
        		{			
 			 VertexID[j]=location.attribute("id").getValue();
