@@ -94,7 +94,7 @@ public class AbstractTestCaseUppaalSequenceCreate {
 		
 //		System.out.println(doString);
 		
-		File newFile=new File("C:\\Users\\Admin\\Desktop\\项目最新代码\\violetumleditor-master\\violetproduct-swing\\"+targetPath);
+		File newFile=new File("D:\\项目代码\\integration_code\\violetumleditor-master\\violetproduct-swing\\"+targetPath);
 		FileOutputStream outputStream = new FileOutputStream(newFile);
 		outputStream.write(doString.getBytes());
 		

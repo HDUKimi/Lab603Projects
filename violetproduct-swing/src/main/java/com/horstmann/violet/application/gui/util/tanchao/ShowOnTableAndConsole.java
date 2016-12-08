@@ -1,33 +1,61 @@
 package com.horstmann.violet.application.gui.util.tanchao;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.UppaalProcessModel;
 
 public class ShowOnTableAndConsole {
      //顺序图的中间过程
 	private static MainFrame mainFrame;
-	public static void seqShow(Map<String,String> m1,MainFrame mainframe){
-		mainFrame = mainframe;
-		Set<String> set=m1.keySet();
-		System.out.println("start11111111111111111111");
-		for(String str:set){
-			System.out.println(str);
-			System.out.println(m1.get(str));
-		}
-		System.out.println("end11111111111111111111");
-		JTextArea jTextArea=(JTextArea)mainFrame.getConsolePart().getConsoleMessageTabbedPane().getComponent();
-
-		System.out.println(mainframe.getStepButton().getStepTwoArea().getText());
-	}
 	
+	private static Map<String,String> sequencetouppaalmap=new LinkedHashMap<String,String>();
+	private static Set<String> sequencetouppaalset;
+	
+	
+	public static void seqShow(Map<String,String> m1,MainFrame mainframe){
+		
+		mainFrame = mainframe;
+		
+		sequencetouppaalmap=m1;
+		
+		sequencetouppaalset=sequencetouppaalmap.keySet();
+		System.out.println(sequencetouppaalset.size());
+		for(String s:sequencetouppaalset){
+			System.out.println(s);
+		}
+		
+	}
 	
 	//时序图
 	public static void timShow(){
 		
 	}
 	//.....
+
+	public static Set<String> getSequencetouppaalset() {
+		return sequencetouppaalset;
+	}
+
+	public static Map<String, String> getSequencetouppaalmap() {
+		return sequencetouppaalmap;
+	}
+
+	public static Map<String, String> getTimingtouppaalmap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
 }

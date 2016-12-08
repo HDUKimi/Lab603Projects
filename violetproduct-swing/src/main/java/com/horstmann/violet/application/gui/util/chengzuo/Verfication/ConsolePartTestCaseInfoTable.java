@@ -62,13 +62,11 @@ public ConsolePartTestCaseInfoTable(List<TestCase> list){
   
   public void initRowsData(final List<TestCase> list){
 	  this.removeRowsData();
-	  jTextArea.append("测试用例的数量是:"+list.size()+"\n");
 	  Thread t=new Thread(new Runnable() {
-   
+		
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-		
 			 Object[] rowData=new Object[columnNames.length];
 				
 			  if(list!=null&&!list.isEmpty()){

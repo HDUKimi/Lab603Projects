@@ -123,10 +123,10 @@ public class PlatformBean2WJclass {
 		if (mPlatformSD.getNodes().getFragments() == null) {
 			return ;
 		}
-		ArrayList<WJFragment> resFragmentList = new ArrayList<WJFragment>();
+		ArrayList<WJFragment> resFragmentList = new ArrayList<>();
 		
 		// 设置reference 的类型 得到实际的Type Name
-		HashMap<String, String> referenceType = new HashMap<String, String>();
+		HashMap<String, String> referenceType = new HashMap<>();
 		// 映射引用id 到 typeName
 		for(CombinedFragment combinedFragment : mPlatformSD.getNodes().getFragments()) {
 			if (combinedFragment.getType().name != null) { 
@@ -190,7 +190,7 @@ public class PlatformBean2WJclass {
 //  那些 消息 在这个fragment中
 	private static Collection<? extends String> getMessageIDsWitchInTheFragment(List<CallEdge> callEdges,
 			WJFragment fragment) {
-		ArrayList<String> resMessageIds = new ArrayList<String>();
+		ArrayList<String> resMessageIds = new ArrayList<>();
 		WJRectangle rectangle = fragment.getRectangle();
 		
 		for(CallEdge callEdge : callEdges) {
@@ -218,10 +218,10 @@ public class PlatformBean2WJclass {
 	
 	// 广度优先遍历 activationBarNode 得到这个lifeline包含的所有激活点id
 	private static ArrayList<String> getActivationIDs(LifelineNode lifelineNode) {
-		ArrayList<String> resIDs = new ArrayList<String>();
+		ArrayList<String> resIDs = new ArrayList<>();
 		Children c = lifelineNode.getC();
 		
-		Queue<ActivationBarNode> queue = new LinkedList<ActivationBarNode>();
+		Queue<ActivationBarNode> queue = new LinkedList<>();
 		if (lifelineNode.getC().getNodes() == null) {
 			return resIDs;
 		}
