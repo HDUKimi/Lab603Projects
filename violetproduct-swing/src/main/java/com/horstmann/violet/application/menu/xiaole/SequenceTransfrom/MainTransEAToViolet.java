@@ -6,6 +6,5 @@ public class MainTransEAToViolet {
         	TransEAToViolet read=new TransEAToViolet();
         	read.ReadEATimingGraph(url);
       	    read.WriteVioletSequence(path);
-      	   
         }
 }

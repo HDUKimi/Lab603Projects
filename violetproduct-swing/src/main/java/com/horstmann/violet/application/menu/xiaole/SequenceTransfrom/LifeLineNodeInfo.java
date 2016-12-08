@@ -10,6 +10,8 @@ public class LifeLineNodeInfo {
 	private String LocationY;
 	private String name; 
 	private List<ActivationBarNodeInfo> activationBarNodes=new ArrayList<ActivationBarNodeInfo>();
+	private List<CallEdgeInfo> callEdges = new ArrayList<CallEdgeInfo>(); 
+
 	public String getId() {
 		return Id;
 	}
@@ -40,6 +42,12 @@ public class LifeLineNodeInfo {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public List<CallEdgeInfo> getCallEdges() {
+		return callEdges;
+	}
+	public void setCallEdges(List<CallEdgeInfo> callEdges) {
+		this.callEdges = callEdges;
 	}
 	
 }
