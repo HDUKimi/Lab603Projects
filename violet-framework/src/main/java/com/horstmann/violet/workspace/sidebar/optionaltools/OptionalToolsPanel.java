@@ -68,7 +68,7 @@ public class OptionalToolsPanel extends JPanel implements ISideBarElement
     }
 
 
-    protected JButton getExportToClipboardButton()
+    public JButton getExportToClipboardButton()
     {
         bExportToClipboard.addActionListener(new ActionListener()
         {
@@ -80,7 +80,7 @@ public class OptionalToolsPanel extends JPanel implements ISideBarElement
         return bExportToClipboard;
     }
 
-    protected JButton getPrintButton()
+    public JButton getPrintButton()
     {
         bPrint.addActionListener(new ActionListener()
         {

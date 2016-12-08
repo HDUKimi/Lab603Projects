@@ -19,6 +19,8 @@ import com.horstmann.violet.application.gui.util.wujun.TimingTransfrom.XStreamBe
 
 public class TimingEAtoUppaal {
 
+	public static String diagramDataName=null;
+	
 	public static void transEA(String path) throws Exception {
 		// TODO Auto-generated method stub
 		// Global global=new Global();
@@ -389,6 +391,7 @@ public class TimingEAtoUppaal {
 			Display.println("开始写入xml");
 			// 4.写入到UPPAAL.xml中----------------------------------------------------------------------------------------------
 			Write.creatXML(diagramsData.getName() + ".xml", global_declarations, template_instantiations, temPlates);
+			setDiagramDataName(diagramsData.getName());
 			System.out.println("diagramsData--------"+diagramsData.getName() + ".xml");
 			// 4.写入到UPPAAL.xml中end-------------------------------------------------------------------------------------------
 			Display.println(".....写入完成!");
@@ -590,5 +593,13 @@ public class TimingEAtoUppaal {
 		}
 
 		return null;
+	}
+
+	public static String getDiagramDataName() {
+		return diagramDataName;
+	}
+
+	public static void setDiagramDataName(String diagramDataName) {
+		TimingEAtoUppaal.diagramDataName = diagramDataName;
 	}
 }

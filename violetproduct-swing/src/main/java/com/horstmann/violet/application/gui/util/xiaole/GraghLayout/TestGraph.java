@@ -99,9 +99,13 @@ public class TestGraph extends JApplet {
 					else if(A[I][J]==1&&I==J)//有node(存在该node到该node的边)
 						Flag++;				       
 			}				
+			System.out.println("List.size():"+List.size()+" Edgecount-flag-Flag:"+(Edgecount-flag-Flag));
 			for(int K=0;K<Edgecount-flag-Flag;K++)
 			{//因为前面有先后加的所以才能够如此
-				edgeBeanList.add(List.get(K));		
+				if(K<List.size()){
+					edgeBeanList.add(List.get(K));			
+				}
+//				edgeBeanList.add(List.get(K));	
 			}
 			// 解析数据，构造图
 			gefNodeMap = new HashMap();
@@ -127,7 +131,7 @@ public class TestGraph extends JApplet {
 				NodeBean targetAction = edgeBean.gettargetNodeBean();
 				Long ageLong = edgeBean.getStatCount();
 				String edgeString = "(" + ageLong +  ")";
-				addEdge(sourceAction, targetAction, 100, edgeString);
+				addEdge(sourceAction, targetAction, 200, edgeString);
 			}
 			// 自动布局 首先用DirectedGraphLayout如果出现异常（图不是整体连通的）则采用NodeJoiningDirectedGraphLayout
 			// 后者可以对非连通图进行布局坐标计算，但效果不如前者好，所以首选前者，当前者不可以处理时采用后者
@@ -179,8 +183,8 @@ public class TestGraph extends JApplet {
 					}// while		
 				}
 			}
-			for(int L=0;L<Vertexcount;L++)
-						System.out.println(EdgePosition[L]);			
+//			for(int L=0;L<Vertexcount;L++)
+//						System.out.println(EdgePosition[L]);			
 			// 向图中添加边  
 			if (edgeList == null) {
 				//logger.error("edge list is null");

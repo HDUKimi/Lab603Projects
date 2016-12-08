@@ -11,14 +11,14 @@ import com.horstmann.violet.product.diagram.abstracts.property.ArrowHead;
 import com.horstmann.violet.product.diagram.abstracts.property.MultiLineString;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
-//时序图的消息
+
 public abstract class TimingDiagramMessage extends AbstractMessageEdge{
  private String name;
  private String TimeConstraint;
  private ArrowHead endArrowHead;
  private String Condition; 
- private int StarttimePoint;//消息开始点的时间(目前是相对于刻度的时间)
- private int EndtimePoint;//消息结束的时间(目前是相对于刻度的时间)
+ private int StarttimePoint;
+ private int EndtimePoint;
  private String EndState;
  private int belongtostartflag;
  private int belongtoendflag;
@@ -130,7 +130,6 @@ public void setBelongtoEndFlag(int index) {
 	// TODO Auto-generated method stub
 	this.belongtoendflag=index;
 }
-//将相对于整张图的坐标转换为相对于图中刻度的坐标
 public int TransEndPointToTime(int pointx)
 {
     int timePoint=(int) ((pointx-150-getEnd().getBounds().getX())/(getEnd().getWidth()-150)*100);

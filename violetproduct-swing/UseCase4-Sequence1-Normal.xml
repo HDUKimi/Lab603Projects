@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nta><declaration>// Place global declarations here.</declaration><template><name x="30" y="30">template_</name><declaration/><location id="loc_id_init" x="30" y="30" timeDuration="null" final="false"><name x="30" y="30">Object1:_init
+time:null</name></location><location id="loc_id_1ACE7065_EEA7_4f79_A6BB_BFD2A8A97469" x="30" y="30" timeDuration="null" final="false"><name x="30" y="30">Object2:m1
+time:null</name></location><location id="loc_id_9A385D26_3E70_410c_92FD_C631D3A154E5" x="30" y="30" timeDuration="null" final="false"><name x="30" y="30">Object2:m2
+time:null</name></location><location id="loc_id_4DB7238F_5244_4852_ACB9_A129824204C6" x="30" y="30" timeDuration="null" final="false"><name x="30" y="30">Object1:m3
+time:null</name></location><location id="loc_id_3B4C3E78_9C90_4eff_A03B_2D0F243910D1" x="30" y="30" timeDuration="null" final="false"><name x="30" y="30">Object2:m4
+time:null</name></location><location id="loc_id_7595A8DC_E252_4c3d_BE2F_CE54CD71932A" x="30" y="30" timeDuration="null" final="false"><name x="30" y="30">Object3:m5
+time:null</name></location><location id="loc_id_DE07140F_DF6C_4953_B651_226286913185" x="30" y="30" timeDuration="null" final="false"><name x="30" y="30">Object2:m6
+time:null</name></location><location id="loc_id_589AEE01_2126_44b2_921D_AA41DFB3ED21" x="30" y="30" timeDuration="null" final="false"><name x="30" y="30">Object1:m7
+time:null</name></location><location id="loc_id_6ED18FB8_F1AA_44ed_99E9_B63267D835AE" x="30" y="30" timeDuration="null" final="false"><name x="30" y="30">Object3:m8
+time:null</name></location><location id="loc_id_7EA873D5_A87D_4614_A60B_17AD46087CC2" x="30" y="30" timeDuration="null" final="true"><name x="30" y="30">Object1:m9
+time:null</name></location><init ref="loc_id_init"/><transition id="tran_id_init_1ACE7065_EEA7_4f79_A6BB_BFD2A8A97469" timeDuration="null" name="m1" receiveOrSend="" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null"><source ref="loc_id_init"/><target ref="loc_id_1ACE7065_EEA7_4f79_A6BB_BFD2A8A97469"/><label kind="synchronisation" x="30" y="30">
+#name:m1
+#receiveOrSend:
+#typeAndCondition:null
+#time:null
+#in:null
+#out:null</label></transition><transition id="tran_id_1ACE7065_EEA7_4f79_A6BB_BFD2A8A97469_9A385D26_3E70_410c_92FD_C631D3A154E5" timeDuration="null" name="m2" receiveOrSend="" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null"><source ref="loc_id_1ACE7065_EEA7_4f79_A6BB_BFD2A8A97469"/><target ref="loc_id_9A385D26_3E70_410c_92FD_C631D3A154E5"/><label kind="synchronisation" x="30" y="30">
+#name:m2
+#receiveOrSend:
+#typeAndCondition:null
+#time:null
+#in:null
+#out:null</label></transition><transition id="tran_id_9A385D26_3E70_410c_92FD_C631D3A154E5_4DB7238F_5244_4852_ACB9_A129824204C6" timeDuration="null" name="m3" receiveOrSend="" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null"><source ref="loc_id_9A385D26_3E70_410c_92FD_C631D3A154E5"/><target ref="loc_id_4DB7238F_5244_4852_ACB9_A129824204C6"/><label kind="synchronisation" x="30" y="30">
+#name:m3
+#receiveOrSend:
+#typeAndCondition:null
+#time:null
+#in:null
+#out:null</label></transition><transition id="tran_id_4DB7238F_5244_4852_ACB9_A129824204C6_3B4C3E78_9C90_4eff_A03B_2D0F243910D1" timeDuration="null" name="m4" receiveOrSend="" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null"><source ref="loc_id_4DB7238F_5244_4852_ACB9_A129824204C6"/><target ref="loc_id_3B4C3E78_9C90_4eff_A03B_2D0F243910D1"/><label kind="synchronisation" x="30" y="30">
+#name:m4
+#receiveOrSend:
+#typeAndCondition:null
+#time:null
+#in:null
+#out:null</label></transition><transition id="tran_id_3B4C3E78_9C90_4eff_A03B_2D0F243910D1_7595A8DC_E252_4c3d_BE2F_CE54CD71932A" timeDuration="null" name="m5" receiveOrSend="" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null"><source ref="loc_id_3B4C3E78_9C90_4eff_A03B_2D0F243910D1"/><target ref="loc_id_7595A8DC_E252_4c3d_BE2F_CE54CD71932A"/><label kind="synchronisation" x="30" y="30">
+#name:m5
+#receiveOrSend:
+#typeAndCondition:null
+#time:null
+#in:null
+#out:null</label></transition><transition id="tran_id_7595A8DC_E252_4c3d_BE2F_CE54CD71932A_DE07140F_DF6C_4953_B651_226286913185" timeDuration="null" name="m6" receiveOrSend="" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null"><source ref="loc_id_7595A8DC_E252_4c3d_BE2F_CE54CD71932A"/><target ref="loc_id_DE07140F_DF6C_4953_B651_226286913185"/><label kind="synchronisation" x="30" y="30">
+#name:m6
+#receiveOrSend:
+#typeAndCondition:null
+#time:null
+#in:null
+#out:null</label></transition><transition id="tran_id_DE07140F_DF6C_4953_B651_226286913185_589AEE01_2126_44b2_921D_AA41DFB3ED21" timeDuration="null" name="m7" receiveOrSend="" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null"><source ref="loc_id_DE07140F_DF6C_4953_B651_226286913185"/><target ref="loc_id_589AEE01_2126_44b2_921D_AA41DFB3ED21"/><label kind="synchronisation" x="30" y="30">
+#name:m7
+#receiveOrSend:
+#typeAndCondition:null
+#time:null
+#in:null
+#out:null</label></transition><transition id="tran_id_589AEE01_2126_44b2_921D_AA41DFB3ED21_6ED18FB8_F1AA_44ed_99E9_B63267D835AE" timeDuration="null" name="m8" receiveOrSend="" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null"><source ref="loc_id_589AEE01_2126_44b2_921D_AA41DFB3ED21"/><target ref="loc_id_6ED18FB8_F1AA_44ed_99E9_B63267D835AE"/><label kind="synchronisation" x="30" y="30">
+#name:m8
+#receiveOrSend:
+#typeAndCondition:null
+#time:null
+#in:null
+#out:null</label></transition><transition id="tran_id_6ED18FB8_F1AA_44ed_99E9_B63267D835AE_7EA873D5_A87D_4614_A60B_17AD46087CC2" timeDuration="null" name="m9" receiveOrSend="" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null"><source ref="loc_id_6ED18FB8_F1AA_44ed_99E9_B63267D835AE"/><target ref="loc_id_7EA873D5_A87D_4614_A60B_17AD46087CC2"/><label kind="synchronisation" x="30" y="30">
+#name:m9
+#receiveOrSend:
+#typeAndCondition:null
+#time:null
+#in:null
+#out:null</label></transition></template><system>system template_;</system></nta>

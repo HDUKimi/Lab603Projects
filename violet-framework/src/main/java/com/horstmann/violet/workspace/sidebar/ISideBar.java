@@ -23,8 +23,12 @@ package com.horstmann.violet.workspace.sidebar;
 
 import java.awt.Component;
 
+import javax.swing.AbstractButton;
+
 import com.horstmann.violet.workspace.sidebar.colortools.IColorChoiceBar;
+import com.horstmann.violet.workspace.sidebar.editortools.EditorToolsPanel;
 import com.horstmann.violet.workspace.sidebar.graphtools.IGraphToolsBar;
+import com.horstmann.violet.workspace.sidebar.optionaltools.OptionalToolsPanel;
 
 /**
  * Side bar interface definition
@@ -61,5 +65,12 @@ public interface ISideBar
      * @return the AWT component representing this side bar
      */
     public Component getAWTComponent();
+
+
+	public EditorToolsPanel getEditorToolsBar();
+
+
+	public OptionalToolsPanel getOptionalToolsBar();
+
 
 }

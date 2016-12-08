@@ -3,12 +3,19 @@ package com.horstmann.violet.application.menu.xiaole.SequenceTransfrom;
 public class CallEdgeInfo {
   private String startReferenceId;
   private String endReferenceId;
+  private String startEAReferenceId;
+  private String endEAReferenceId;
   private String startLocationX;
   private String startLocationY;
   private String endLocationX;
   private String endLocationY;
   private String Id;
-  private String middleLabel;
+  private String name = "";
+  private String input = "";
+  private String output = "";
+  private String parameter = "";
+  private String timing = "";
+  private String timereset = "";
 public String getStartReferenceId() {
 	return startReferenceId;
 }
@@ -20,6 +27,18 @@ public String getEndReferenceId() {
 }
 public void setEndReferenceId(String endReferenceId) {
 	this.endReferenceId = endReferenceId;
+}
+public String getStartEAReferenceId() {
+	return startEAReferenceId;
+}
+public void setStartEAReferenceId(String startEAReferenceId) {
+	this.startEAReferenceId = startEAReferenceId;
+}
+public String getEndEAReferenceId() {
+	return endEAReferenceId;
+}
+public void setEndEAReferenceId(String endEAReferenceId) {
+	this.endEAReferenceId = endEAReferenceId;
 }
 public String getStartLocationX() {
 	return startLocationX;
@@ -51,12 +70,41 @@ public String getId() {
 public void setId(String id) {
 	Id = id;
 }
-public String getMiddleLabel() {
-	return middleLabel;
+public String getName() {
+	return name;
 }
-public void setMiddleLabel(String middleLabel) {
-	this.middleLabel = middleLabel;
+public void setName(String middleLabel) {
+	this.name = middleLabel;
 }
-  
+public String getInput() {
+	return input;
+}
+public void setInput(String input) {
+	this.input = input;
+}
+public String getOutput() {
+	return output;
+}
+public void setOutput(String output) {
+	this.output = output;
+}
+public String getParameter() {
+	return parameter;
+}
+public void setParameter(String parameter) {
+	this.parameter = parameter;
+}
+public String getTiming() {
+	return timing;
+}
+public void setTiming(String timing) {
+	this.timing = timing;
+}
+public String getTimereset() {
+	return timereset;
+}
+public void setTimereset(String timereset) {
+	this.timereset = timereset;
+} 
   
 }

@@ -22,7 +22,8 @@ public class ExistVerification {
     private static ArrayList<PathTuple> pathTuples = new ArrayList<>();// 路径
     private static ArrayList<UppaalTransition> messages = new ArrayList<>();// 消息序列
 
-    // 给出文件路径
+    // 1输入
+    // 文件路径
     public ExistVerification(String filePath) throws Exception {
         this.filePath = filePath;
 
@@ -47,17 +48,28 @@ public class ExistVerification {
         // 找出路径 按照时间顺序
         pathTuples = findPathByTime();
     }
+    // 输出 
     // 获取路径
     public ArrayList<PathTuple> getPath() {
         return pathTuples;
     }
+    // 输出 
     // 获取消息序列
     public ArrayList<UppaalTransition> getMessages() {
         return messages;
     }
-
-    public void loadXml(String filePath) throws Exception {
-
+    // 输入 return 输出
+    // 返回需要标记的序号
+    public ArrayList<Integer> getIndexOfSelected(String[] name) {
+    	ArrayList<Integer> res = new ArrayList<>();
+    	String target = name[0];
+    	for(int i = 0; i < pathTuples.size() - 1; i++) {
+    		PathTuple tuple = pathTuples.get(i);
+    		if (tuple.transition.getName().equals(target)) {
+    			res.add(i);
+    		}
+    	}
+    	return res;
     }
 
 
@@ -99,9 +111,9 @@ public class ExistVerification {
                 return (int) (o1.getTime() - o2.getTime());
             }
         });
-        for (UppaalTransition transition : templates.get(0).getTransitions()) {
-            System.out.println(transition.getName() + " " + transition.getTime());
-        }
+//        for (UppaalTransition transition : templates.get(0).getTransitions()) {
+//            System.out.println(transition.getName() + " " + transition.getTime());
+//        }
     }
 
     // 设置location出发的消息
