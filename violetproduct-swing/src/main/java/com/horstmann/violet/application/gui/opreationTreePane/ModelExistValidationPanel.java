@@ -519,7 +519,7 @@ public class ModelExistValidationPanel extends JPanel{
 		validationlabeltab3=new JLabel();
 		validationlabeltab4=new JLabel();
 		
-		validationlabeltab1.setText("消息");
+		validationlabeltab1.setText("存在");
 		validationlabeltab1.setForeground(new Color(0,0,0));
 		validationlabeltab1.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		validationlabeltab1.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -568,7 +568,7 @@ public class ModelExistValidationPanel extends JPanel{
 			}
 		});
 		
-		validationlabeltab2.setText("方法");
+		validationlabeltab2.setText("向前");
 		validationlabeltab2.setForeground(new Color(0,0,0));
 		validationlabeltab2.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		validationlabeltab2.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -617,7 +617,7 @@ public class ModelExistValidationPanel extends JPanel{
 			}
 		});
 		
-		validationlabeltab3.setText("带的");
+		validationlabeltab3.setText("逆向");
 		validationlabeltab3.setForeground(new Color(0,0,0));
 		validationlabeltab3.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		validationlabeltab3.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -666,7 +666,7 @@ public class ModelExistValidationPanel extends JPanel{
 			}
 		});
 		
-		validationlabeltab4.setText("伸缩");
+		validationlabeltab4.setText("双向");
 		validationlabeltab4.setForeground(new Color(0,0,0));
 		validationlabeltab4.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		validationlabeltab4.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));

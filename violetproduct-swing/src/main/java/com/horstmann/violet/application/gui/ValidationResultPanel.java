@@ -121,7 +121,7 @@ public class ValidationResultPanel extends JPanel{
 				// TODO Auto-generated method stub
 				
 				mainFrame.getJs2().setDividerSize(0);
-				mainFrame.getAttributePartPanel().setVisible(false);
+				mainFrame.getAttributePart().setVisible(false);
 				mainFrame.getOneTouchExpandablePanel().setFlag3(0);
 				mainFrame.getOneTouchExpandablePanel().setLocation3(mainFrame.getJs2().getDividerLocation());
 				
