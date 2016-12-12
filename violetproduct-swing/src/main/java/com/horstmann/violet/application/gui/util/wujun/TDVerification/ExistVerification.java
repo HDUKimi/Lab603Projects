@@ -15,6 +15,10 @@ import org.dom4j.io.SAXReader;
 
 public class ExistVerification {
     //static Scanner cin = new Scanner(System.in);
+	public static final int VERIFICATION_TYPE_EXIST = 1;
+	public static final int VERIFICATION_TYPE_FRONT = 2;
+	public static final int VERIFICATION_TYPE_BACK = 3;
+	public static final int VERIFICATION_TYPE_TWOWAY = 4;
     private String filePath;
     private static ArrayList<UppaalTemPlate> templates = new ArrayList<UppaalTemPlate>();
     private static ArrayList<UppaalTransition> transitions = new ArrayList<>();
@@ -60,18 +64,43 @@ public class ExistVerification {
     }
     // 输入 return 输出
     // 返回需要标记的序号
-    public ArrayList<Integer> getIndexOfSelected(String[] name) {
-    	ArrayList<Integer> res = new ArrayList<>();
-    	String target = name[0];
-    	for(int i = 0; i < pathTuples.size() - 1; i++) {
-    		PathTuple tuple = pathTuples.get(i);
-    		if (tuple.transition.getName().equals(target)) {
-    			res.add(i);
-    		}
-    	}
-    	return res;
+    public List<UppaalTransition> getSelectedTransitions(List<UppaalTransition> selectedTransition, int type) {
+    	int i;
+    	if (type == VERIFICATION_TYPE_FRONT || type == VERIFICATION_TYPE_TWOWAY) {
+    		i = 0;
+    		int j = 0;
+    		while(i < selectedTransition.size() && j < pathTuples.size() - 1) {// 最后一个tuple没有transition
+        		UppaalTransition transitionI = selectedTransition.get(i);
+        		UppaalTransition transitionJ = pathTuples.get(j).transition;
+        		if (transitionI.getName().equals(transitionJ.getName())) {
+    				i++;
+    				j++;
+    			} else {
+    				j++;
+    			}
+        	}
+		} else {
+			i = selectedTransition.size() - 1;
+			int  j = 0;
+			while(i >= 0 && j < pathTuples.size() - 1) {// 最后一个tuple没有transition
+	    		UppaalTransition transitionI = selectedTransition.get(i);
+	    		UppaalTransition transitionJ = pathTuples.get(j).transition;
+	    		if (transitionI.getName().equals(transitionJ.getName())) {
+					i--;
+					j++;
+				} else {
+					j++;
+				}
+	    	}
+		}
+    	
+    	if (i == selectedTransition.size()) {
+			return selectedTransition;
+		} else {
+			return null;
+		}
+    	
     }
-
 
 
     // 根据排序的消息 确定一条路径
