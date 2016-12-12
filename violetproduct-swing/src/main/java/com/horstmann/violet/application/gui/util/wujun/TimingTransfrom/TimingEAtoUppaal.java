@@ -19,8 +19,8 @@ import com.horstmann.violet.application.gui.util.wujun.TimingTransfrom.XStreamBe
 
 public class TimingEAtoUppaal {
 
-	public static String diagramDataName=null;
-	
+	public static String diagramDataName = null;
+
 	public static void transEA(String path) throws Exception {
 		// TODO Auto-generated method stub
 		// Global global=new Global();
@@ -40,11 +40,10 @@ public class TimingEAtoUppaal {
 		// 2.读取uml.xml中的数据-------------------------------------------------------------------------------------------
 		SAXReader reader = new SAXReader();// 获取解析器
 
-		Document dom = reader.read(path);//("sdtest.xml");// 解析XML获取代表整个文档的dom对象
+		Document dom = reader.read(path);// 解析XML获取代表整个文档的dom对象
 
 		Element root = dom.getRootElement();// 获取根节点
 
-		
 		Read uml = new Read();
 		uml.load(root);
 		if (uml.hasNoLifeline()) {
@@ -55,17 +54,19 @@ public class TimingEAtoUppaal {
 		allLifelines = uml.getTimingLine();
 		allConnectors = uml.getConnector();
 		diagramsDatas = uml.getUmlAllDiagramData();
-		//---------------------------------------------------------------------*
-		
+		// ---------------------------------------------------------------------*
+
 		String name = "";
 		// *** 读取平台xml
-		//String path = "coffeeAndTea.timing.violet.xml";
-//		name = path.split(".timing.violet.xml")[0];
-//		TimingDiagramGraph td0 = XML2xmlbeanUtil.getTd(new File(path));//(new File("coffeeAndTea.timing.violet.xml"));
-//		EADiagramsData eaDiagramsData = XStreamBean2EAClass.fromTimingDiagramGraph(td0, name);
-//		diagramsDatas.add(eaDiagramsData);
+		// String path = "coffeeAndTea.timing.violet.xml";
+		// name = path.split(".timing.violet.xml")[0];
+		// TimingDiagramGraph td0 = XML2xmlbeanUtil.getTd(new
+		// File("coffeeAndTea.timing.violet.xml"));
+		// EADiagramsData eaDiagramsData =
+		// XStreamBean2EAClass.fromTimingDiagramGraph(td0, name);
+		// diagramsDatas.add(eaDiagramsData);
 		// *** end
-		
+
 		for (EADiagramsData diagramsData : diagramsDatas) {// 遍历一张图
 			Display.println("===>  图名为:" + diagramsData.getName() + "\n");
 			Display.println("初始化数据...");
@@ -76,10 +77,10 @@ public class TimingEAtoUppaal {
 
 			ArrayList<EALifeline> Lifelines = new ArrayList<EALifeline>(); // 存储这张图lifeline
 			ArrayList<EAMessage> Connectors = new ArrayList<EAMessage>(); // 存储这张图message
-			if (diagramsData.getLifelines() != null) {//直接添加本图有的成员lifelineList
+			if (diagramsData.getLifelines() != null) {// 直接添加本图有的成员lifelineList
 				Lifelines.addAll(diagramsData.getLifelines());
 			}
-			if (diagramsData.getConnectors() != null) {//直接添加本图有的成员connectorList
+			if (diagramsData.getConnectors() != null) {// 直接添加本图有的成员connectorList
 				Connectors.addAll(diagramsData.getConnectors());
 			}
 			for (EALifeline lifeline : allLifelines) {// 根据id获得本图的lifeline
@@ -122,6 +123,7 @@ public class TimingEAtoUppaal {
 			// 3.遍历所有生命线--------------------------------------------------------------------------------------------------
 			// 首先对lifelines 排序 按照第一个状态的开始时间
 			Collections.sort(Lifelines, new Comparator<EALifeline>() {
+
 				@Override
 				public int compare(EALifeline o1, EALifeline o2) {
 					int t1 = Integer.valueOf(o1.getStateInfos().get(0).getStartTime());
@@ -134,8 +136,7 @@ public class TimingEAtoUppaal {
 			// 记录状态最大时间-> 终状
 			int maxTime = 0;
 			UppaalLocation lastLocation = new UppaalLocation();
-			
-			
+
 			while (lineIterator.hasNext()) {
 				// id = 0;
 				// ArrayList<String> stateNameArrayList=new ArrayList<String>();
@@ -151,17 +152,17 @@ public class TimingEAtoUppaal {
 				/* 对当前template 旧location和旧transition优化查找 */
 				HashMap<String, UppaalLocation> name_oldLocations = new HashMap<String, UppaalLocation>();// 查找是否是当前template的旧状态
 				HashMap<String, UppaalTransition> nameSnameT_oldTransition = new HashMap<String, UppaalTransition>();// 查找是否是当前template的旧状态转移
-				Display.println("获取"+line.getName()+"上的状态");
-				
+				Display.println("获取" + line.getName() + "上的状态");
+
 				// 3.1对其中一个lifeline的state进行遍历--------------------------------------------------------------------------
 				while (lineState.hasNext()) { // 第5步:若State or Condition
 												// S不为空转第6步,否则转第2步。
-						
+
 					EAStateInfo State = lineState.next();
 					UppaalLocation location = new UppaalLocation();
 					location.timeStarts.add(Integer.valueOf(State.getStartTime()));// 添加状态所在的开始时间
 					if (Integer.valueOf(State.getStartTime()) > maxTime) { // 记录最大时间
-																		// 的location
+																			// 的location
 						maxTime = Integer.valueOf(State.getStartTime());
 						lastLocation = location;
 					}
@@ -175,7 +176,7 @@ public class TimingEAtoUppaal {
 																	// 记录状态转移的name
 					// 3.1.1初始状态
 					if (State.startTime.equals("0")) // 第6步:若S是第一个State or
-													// Condition,转第7步,否则转第9步。
+														// Condition,转第7步,否则转第9步。
 					{
 						Display.println("获得初始状态 " + State.name);
 
@@ -209,6 +210,7 @@ public class TimingEAtoUppaal {
 							transition.setTargetId(location.getId());
 							transition.setNameS(FL.getName());
 							transition.setNameT(location.getName());
+							transition.setTime(State.getStartTime());
 							FL.setEndTime(State.getStartTime());
 
 							String c = new String(); // c记录持续约束的情况
@@ -233,7 +235,7 @@ public class TimingEAtoUppaal {
 							case "0":
 								location.setType(1);
 								Display.println("紧迫位置：" + State.getName()); // 第17步:将B设置为urgent
-																				// Location
+																			// Location
 								location.setInvariant(null); // 第18步:设置B的Invariant为空,转第21步
 
 								template.locations.add(location);
@@ -262,7 +264,7 @@ public class TimingEAtoUppaal {
 
 						} else {
 							// 3.1.2.2非初始状态 是旧状态
-							Display.println("旧状态："+State.getName());
+							Display.println("旧状态：" + State.getName());
 							if (lastLocation == location) {
 								lastLocation = name_oldLocations.get(location.Name);
 							}
@@ -273,6 +275,7 @@ public class TimingEAtoUppaal {
 							transition.setTargetId(location.getId());
 							transition.setNameS(FL.getName());
 							transition.setNameT(location.getName());
+							transition.setTime(State.getStartTime());
 
 						}
 						// 3.1.2得到该状态的迁移事件Event
@@ -294,7 +297,7 @@ public class TimingEAtoUppaal {
 							print_transition_name = sender_name;
 							global_declarations.add(sender_name);
 							Display.println("消息名为：" + sender_name); // 第24步:在UPPAAL中声明一个chan
-																		// message,转第25步。
+																	// message,转第25步。
 
 							int temp = Index(transition.Kind);
 							// transition.setInner(sourceIDsendTime_connector.get(SendKeyString).getInner());
@@ -326,7 +329,7 @@ public class TimingEAtoUppaal {
 							transition.Kind[temp] = "synchronisation";
 							transition.nameText[temp] = receiver_name + "?"; // 第27步:设置FL→B的Sync域为message?,转第28步
 							transition.setTime(State.getStartTime());// 为了模型验证增加的发送时间记录
-																	// -----
+																		// -----
 							transition.setEAid(EAid);
 							transition
 									.setFromName(tragertIDreceiveTime_connector.get(ReceiveKeyString).getSourceName());
@@ -336,8 +339,8 @@ public class TimingEAtoUppaal {
 						}
 						// ↓ 不管重复 不重复 都添加
 						template.transitions.add(transition);
-						Display.println("添加transition： (" + FL.Name + ")--" + print_transition_name 
-								+ "-->(" + location.Name + ")");
+						Display.println("添加transition： (" + FL.Name + ")--" + print_transition_name + "-->("
+								+ location.Name + ")");
 
 						// ↑ 不重复 才添加
 						// 3.1.5 判断是否是已经存在的迁移
@@ -379,7 +382,7 @@ public class TimingEAtoUppaal {
 			EXconnectors.addAll(EXconnectorsSender);
 			ArrayList<UppaalTransition> EXTransitions = new ArrayList<UppaalTransition>();
 			addEXconnectors(EXconnectors, temPlates, EXTransitions);// connector->transition
-			
+
 			Display.println("\n-------------------------合并template-------------------------");
 			// 合并templates
 			mergeTemplates(temPlates);
@@ -388,11 +391,10 @@ public class TimingEAtoUppaal {
 			// ex.2 添加剩下的消息
 			temPlates.get(0).getTransitions().addAll(EXTransitions);
 
+			temPlates.get(0).setName(diagramsData.getName());
 			Display.println("开始写入xml");
 			// 4.写入到UPPAAL.xml中----------------------------------------------------------------------------------------------
 			Write.creatXML(diagramsData.getName() + ".xml", global_declarations, template_instantiations, temPlates);
-			setDiagramDataName(diagramsData.getName());
-			System.out.println("diagramsData--------"+diagramsData.getName() + ".xml");
 			// 4.写入到UPPAAL.xml中end-------------------------------------------------------------------------------------------
 			Display.println(".....写入完成!");
 			Display.println("================================转换完成================================");

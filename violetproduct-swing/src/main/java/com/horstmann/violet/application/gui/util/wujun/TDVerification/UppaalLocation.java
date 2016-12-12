@@ -46,5 +46,10 @@ public class UppaalLocation {
 	public void setX(double x) {
 		this.x = x;
 	}
+	@Override
+	public String toString() {
+		return "UppaalLocation [id=" + id + ", name=" + name + ", x=" + x + ", transitions=" + transitions + ", finl="
+				+ finl + ", init=" + init + "]";
+	}
 	
 }

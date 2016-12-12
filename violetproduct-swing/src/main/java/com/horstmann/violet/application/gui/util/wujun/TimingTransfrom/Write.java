@@ -90,6 +90,13 @@ public class Write {
 
 				int i = 0;
 				boolean out = false;
+				if (tempStrings[i] == null) {
+					tran.addElement("label").addAttribute("kind", "none").addAttribute("x", xx)
+					.addAttribute("y", yy).addAttribute("time", transition.getTime())
+					.addAttribute("from", transition.getFromName())
+					.addAttribute("to", transition.getToName()).addAttribute("duration", "null")
+					.setText("null");
+				}
 				while (tempStrings[i] != null) {
 					if (tempStrings[i].equals("synchronisation")) {
 						String duration = transition.getDuration();
@@ -117,7 +124,11 @@ public class Write {
 						i++;
 					} else {
 						tran.addElement("label").addAttribute("kind", tempStrings[i]).addAttribute("x", xx)
-								.addAttribute("y", yy).addAttribute("duration", "null").setText(tempStrings2[i]);
+								.addAttribute("y", yy).addAttribute("time", transition.getTime())
+								.addAttribute("from", transition.getFromName())
+								.addAttribute("to", transition.getToName()).addAttribute("duration", "null")
+								.setText(tempStrings2[i]);
+						
 						i++;
 					}
 
