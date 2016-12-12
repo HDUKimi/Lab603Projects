@@ -146,7 +146,7 @@ public class ConsolePartPanel extends JPanel {
 		
 		// titlelabel.setText("UMLÄ£ÐÍ½¨Á¢¹ý³ÌÐÅÏ¢");
 		titlelabel.setForeground(new Color(0, 0, 0));
-		titlelabel.setFont(new Font("System", Font.PLAIN, 12));
+		titlelabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(2, 8, 2, 0));
 
 		String absolutePath=System.getProperty("user.dir");
@@ -410,7 +410,7 @@ public class ConsolePartPanel extends JPanel {
 
 		toollabel1.setText("ÏûÏ¢");
 		toollabel1.setForeground(new Color(0,0,0));
-		toollabel1.setFont(new Font("System", Font.PLAIN, 12));
+		toollabel1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		toollabel1.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 		toollabel1.setFocusable(false);
 		toollabel1.addMouseListener(new MouseListener() {
@@ -458,7 +458,7 @@ public class ConsolePartPanel extends JPanel {
 		});
 		toollabel2.setText("¶Ïµã");
 		toollabel2.setForeground(new Color(255, 255, 255));
-		toollabel2.setFont(new Font("System", Font.PLAIN, 12));
+		toollabel2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		toollabel2.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 		toollabel2.setFocusable(false);
 		toollabel2.addMouseListener(new MouseListener() {
@@ -506,7 +506,7 @@ public class ConsolePartPanel extends JPanel {
 		});
 		toollabel3.setText("Êä³ö");
 		toollabel3.setForeground(new Color(255, 255, 255));
-		toollabel3.setFont(new Font("System", Font.PLAIN, 12));
+		toollabel3.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		toollabel3.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 		toollabel3.setFocusable(false);
 		toollabel3.addMouseListener(new MouseListener() {

@@ -73,7 +73,7 @@ public class HomePanel extends JPanel
     public HomePanel()
     {
         
-//        setOpaque(false);//璁剧疆鑳屾櫙鑹蹭负閫忔槑
+//        setOpaque(false);//设置背景色为透明
 //        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 //        add(getflowchartPanel());
 
@@ -140,7 +140,7 @@ public class HomePanel extends JPanel
 //        	 protected void paintComponent(Graphics g) {
 //        		  super.paintComponent(g);
 //        		    ImageIcon icon = new ImageIcon("D:"
-//        		    		+ "\\椤圭洰浠ｇ爜\\violetumleditor-master\\"
+//        		    		+ "\\项目代码\\violetumleditor-master\\"
 //        		    		+ "violetproduct-swing\\src\\site\\"
 //        		    		+ "resources\\icons\\flowchart.PNG");
 //        		    Image img = icon.getImage();
@@ -212,7 +212,7 @@ public class HomePanel extends JPanel
 		leftlabel1.setText("产品视频");
 		leftlabel1.setBorder(BorderFactory.createEmptyBorder(30, 30, 0, 0));
 		leftlabel1.setFont(new Font("微软雅黑", Font.PLAIN, 27));
-		leftlabel2.setText("通过下路");
+		leftlabel2.setText("通过以下视频短片了解更多信息");
 		leftlabel2.setBorder(BorderFactory.createEmptyBorder(20, 30, 0, 0));
 		leftlabel2.setFont(new Font("微软雅黑", Font.PLAIN, 15));
 		

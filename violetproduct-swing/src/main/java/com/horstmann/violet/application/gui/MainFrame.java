@@ -1029,7 +1029,7 @@ public class MainFrame extends JFrame
 	
 	public ValidationResultPanel getValidationResultPanel(){
 		if (this.validationResultPanel == null) {
-			this.validationResultPanel = new ValidationResultPanel();
+			this.validationResultPanel = new ValidationResultPanel(this);
 		}
 		return this.validationResultPanel;
 	}
