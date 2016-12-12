@@ -1,5 +1,7 @@
 package com.horstmann.violet.application.gui.util.wujun.TimingTransfrom;
 
+import java.util.Arrays;
+
 public class UppaalTransition implements Cloneable {
 	public Object clone() {
 		UppaalTransition o = null;
@@ -131,5 +133,15 @@ public class UppaalTransition implements Cloneable {
 	public void setNameS(String nameS) {
 		this.nameS = nameS;
 	}
+
+	@Override
+	public String toString() {
+		return "UppaalTransition [EAid=" + EAid + ", sourceId=" + sourceId + ", inner=" + inner + ", nameT=" + nameT
+				+ ", fromName=" + fromName + ", toName=" + toName + ", targetId=" + targetId + ", time=" + time
+				+ ", Kind=" + Arrays.toString(Kind) + ", nameText=" + Arrays.toString(nameText) + ", nameS=" + nameS
+				+ ", outKindIndex=" + outKindIndex + ", duration=" + duration + "]";
+	}
+	
+	
 
 }
