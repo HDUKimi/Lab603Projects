@@ -127,11 +127,16 @@ public class ExistVerification {
     // 根据排序的消息 确定一条路径
     private ArrayList<PathTuple> findPathByTime() {
         ArrayList<PathTuple> res = new ArrayList<>();
-
+        Display.println("-------------------------根据消息确定路径-------------------------\n");
         for (UppaalTransition transition : transitions) {
-            UppaalLocation location = locationById.get(transition.getSource());
+            UppaalLocation location = locationById.get("id" + transition.getSource());
+            Display.println("得到location: ");
+            Display.println(location.toString());
+            Display.println("得到transition: ");
+            Display.println(transition.toString());
             PathTuple tuple = new PathTuple(location, transition);
             res.add(tuple);
+            Display.println();
         }
         UppaalLocation lastLocation = locationById.get(transitions.get(transitions.size() - 1).getTarget());
         PathTuple last = new PathTuple(lastLocation, null);
@@ -142,6 +147,7 @@ public class ExistVerification {
 
     // 获得按照时间顺序排序的消息序列  给平台显示
     public ArrayList<UppaalTransition> sortedMessages() {
+    	
         ArrayList<UppaalTransition> res = new ArrayList<>();
         for (UppaalTransition transition : templates.get(0).getTransitions()) {
             // 消息名不包含? 且不是null
@@ -154,6 +160,7 @@ public class ExistVerification {
 
     // 对所有消息进行排序
     private void sortTransitions() {
+    	Display.println("-------------------------对所有transition进行排序-------------------------\n");
         transitions = templates.get(0).transitions;
         Collections.sort(transitions, new Comparator<UppaalTransition>() {
             @Override
@@ -161,9 +168,10 @@ public class ExistVerification {
                 return (int) (o1.getTime() - o2.getTime());
             }
         });
-//        for (UppaalTransition transition : templates.get(0).getTransitions()) {
-//            System.out.println(transition.getName() + " " + transition.getTime());
-//        }
+        for (UppaalTransition transition : templates.get(0).getTransitions()) {
+            Display.println(transition.toString());
+        }
+        Display.println();
     }
 
     // 设置location出发的消息
@@ -178,3 +186,4 @@ public class ExistVerification {
         }
     }
 }
+

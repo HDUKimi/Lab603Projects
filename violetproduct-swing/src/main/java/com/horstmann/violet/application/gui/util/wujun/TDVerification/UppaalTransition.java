@@ -80,5 +80,13 @@ public class UppaalTransition {
 	public void setLabel(HashMap<String, String> label) {
 		this.label = label;
 	}
+	@Override
+	public String toString() {
+		return "UppaalTransition [name=" + name + ", fromName=" + fromName + ", toName=" + toName + ", target=" + target
+				+ ", source=" + source + ", x=" + x + ", time=" + time + ", out=" + out + ", duration=" + duration
+				+ ", label=" + label + "]";
+	}
+	
+	
 	 
 }

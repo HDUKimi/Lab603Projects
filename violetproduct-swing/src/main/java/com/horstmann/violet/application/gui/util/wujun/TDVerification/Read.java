@@ -104,7 +104,6 @@ public class Read {
 						transition.setFromName(label.attributeValue("from"));
 						transition.setToName(label.attributeValue("to"));
 						transition.setName(label.getTextTrim());
-						transition.setTime(Double.valueOf(label.attributeValue("time")));//设置时间time
 						
 						if (!label.attributeValue("duration").equals("null")) {
 							transition.setDuration(Double.valueOf(label.attributeValue("duration").split("<")[1]));
@@ -113,6 +112,7 @@ public class Read {
 						transition.setOut(true);//设置out
 						
 					}
+					transition.setTime(Double.valueOf(label.attributeValue("time")));//设置时间time
 				}
 				
 				
