@@ -116,7 +116,11 @@ public class TransEAToViolet {
         				  String LocationYsplitp[]=splitproperty.split("\\=");
         				  callEdge.setEndLocationY(LocationYsplitp[1].substring(1));
         			  }
-        			}  
+        			}
+                  String stateflags =  extendedProperties.attributeValue("stateflags");
+                  String Activation[] = stateflags.split("\\;");
+                  callEdge.setActivation(Activation[0].split("\\=")[1]);  //是否需要生成孩子节点activation
+                  
         		  Element judgeInputOrOutput = connectorElement.element("style");
         		  Element intputAndouput = connectorElement.element("labels");
         		  String  judgeStyle = judgeInputOrOutput.attributeValue("value");
@@ -334,7 +338,9 @@ public class TransEAToViolet {
     		}
     		
     		if(element.attributeValue("type").equals("uml:Sequence"))    			
-    		{//如果是lifelineNode   			
+    		{//如果是lifelineNode
+    			List<CallEdgeInfo> receiveNodeList = new ArrayList<CallEdgeInfo>();
+    			List<CallEdgeInfo> sendNodeList = new ArrayList<CallEdgeInfo>();
     			LifeLineNodeInfo lifeLineNode=new LifeLineNodeInfo();
     			String lifelineId=element.attributeValue("idref");
     			String lifelinename=element.attributeValue("name");
@@ -358,6 +364,7 @@ public class TransEAToViolet {
     		    		
     		    	}
     			}
+    		    System.out.println(111111);
     		    boolean isfirstLifelineNode=false;
     			for(Element sequence : Sequence)
     			{
@@ -368,6 +375,10 @@ public class TransEAToViolet {
     				if(sequence.attributeValue("end").equals(lifelineId)
     						&&CallEdgesId.contains(sequence.attributeValue("id"))&&(!sequence.attributeValue("end").equals(sequence.attributeValue("start"))))
     				{
+    					for(CallEdgeInfo calledge : CallEdges){
+        					//接收一个消息新建一个ActivationBar
+        				if(calledge.getId().equals(sequence.attributeValue("id")) && calledge.getActivation().equals("0")){	
+        				receiveNodeList.add(calledge);
     					isfirstLifelineNode=true;     					
     					ActivationBarNodeInfo activationBarNode=new ActivationBarNodeInfo();
     					activationBarNode.setEdgeID(sequence.attributeValue("id")); //设置生成ActivationBarID 自己加的
@@ -375,38 +386,13 @@ public class TransEAToViolet {
     					activationBarNode.setId(GenerateID());//新建ID
     					activationBarNode.setParentId(lifelineId);//新建父节点ID
     					activationBarNode.setLocationX("32");//默认离lifelineNode节点X轴的偏差
-    					for(CallEdgeInfo calledge : CallEdges){
-    					//接收一个消息新建一个ActivationBar
-    					if(calledge.getId().equals(sequence.attributeValue("id")))
-    					{
     					activationBarNode.setLocationY(calledge.getEndLocationY());
     					calledge.setEndReferenceId(activationBarNode.getId());
-    					} 					
-    				}
     					lifeLineNode.getActivationBarNodes().add(activationBarNode);
+        				}
+    				}	
     				}
     			}
-//    			for(Element sequence : Sequence)
-//    			{
-//				if(isfirstLifelineNode){
-//        			if(sequence.attributeValue("start").equals(lifelineId)
-//    						&&CallEdgesId.contains(sequence.attributeValue("id"))&&(!sequence.attributeValue("end").equals(sequence.attributeValue("start"))))
-//        			{
-//        				CallEdgeInfo sendCallEdgeInfo = null;  //发送的消息
-//        				CallEdgeInfo receiveCallEdgeInfo = null; //该lifeline接收的消息
-//        				LifeLineNodeInfo lifeLineNodeInfo = null;
-//        				for(CallEdgeInfo calledge : CallEdges){
-//        					//接收一个消息新建一个ActivationBar
-//        					if(calledge.getId().equals(sequence.attributeValue("id")))
-//        					{
-//        						sendCallEdgeInfo = calledge;  //找到发送
-//        					}
-//        					String receiveLifeID = sendCallEdgeInfo.getEndEAReferenceId();
-//        					for(LifeLineNodeInfo lifeLineNode : lifenodeList)
-//        				}
-//        			}
-//    				}
-//    			}
     				//第二种情况：
     				//如果没有一个消息向其发送，则该lifelineNode为初始lifelineNode
     				//新建一个ActivationBarNode即可   	
@@ -438,7 +424,6 @@ public class TransEAToViolet {
     							activationBarNode.setEdgeID(calledge.getId());
     							calledge.setStartReferenceId(activationBarNode.getId());    							
     						}
-    						
     					}
     					}
     					for(Element sequence1 : Sequence)
@@ -456,7 +441,130 @@ public class TransEAToViolet {
     				    }    				
     					lifeLineNode.getActivationBarNodes().add(activationBarNode); 
     			}
-    				}
+    			}
+    	
+    				for(Element sequence : Sequence)
+        			{
+        			//进一步对Edges的相对于ActivationBar的startReferenceID和EndReferenceID进行处理
+        			int mindistance=1000;
+        			int distance=0;
+        				//1.首先对该lifelineNode的callEdge进行处理
+        				for(CallEdgeInfo calledge:CallEdges)
+        				{
+        					if(calledge.getId().equals(sequence.attributeValue("id"))
+        							&&sequence.attributeValue("start").equals(lifelineId))
+        					{
+        					for(ActivationBarNodeInfo activationBarNode : lifeLineNode.getActivationBarNodes())
+        	    			{		
+        	    				int LocationY=Integer.parseInt(activationBarNode.getLocationY());    	    										
+        						int messageLocationY=Integer.parseInt(calledge.getEndLocationY());
+        						distance=messageLocationY-LocationY;//这里的distance即为边距离activationBarNode的距离
+        						if(distance>=0&&distance<mindistance)
+        						{
+        							mindistance=distance;
+        							calledge.setStartReferenceId(activationBarNode.getId());
+        							activationBarNode.getSendEdgeID().add(activationBarNode.getId());
+        						}
+        					}
+        				    }
+        				}
+        				 mindistance=1000;
+            			 distance=0;
+        				for(ReturnEdgeInfo returnedge :ReturnEdges)
+        				{
+        					if(returnedge.getId().equals(sequence.attributeValue("id"))
+        							&&sequence.attributeValue("start").equals(lifelineId))
+        					{
+        					for(ActivationBarNodeInfo activationBarNode : lifeLineNode.getActivationBarNodes())
+        	    			{
+        	    				int LocationY=Integer.parseInt(activationBarNode.getLocationY());    	    										
+        						int messageLocationY=Integer.parseInt(returnedge.getEndLocationY());
+        						distance=messageLocationY-LocationY;//这里的distance即为边距离activationBarNode的距离
+        						if(distance>=0&&distance<mindistance)
+        						{
+        							mindistance=distance;
+        							returnedge.setStartReferenceId(activationBarNode.getId());
+        							
+        						}
+        					}
+        				    }
+        					
+        					if(returnedge.getId().equals(sequence.attributeValue("id"))
+        							&&sequence.attributeValue("end").equals(lifelineId))
+        					{
+        					for(ActivationBarNodeInfo activationBarNode : lifeLineNode.getActivationBarNodes())
+        	    			{
+        	    				int LocationY=Integer.parseInt(activationBarNode.getLocationY());    	    										
+        						int messageLocationY=Integer.parseInt(returnedge.getEndLocationY());
+        						distance=messageLocationY-LocationY;//这里的distance即为边距离activationBarNode的距离
+        						if(distance>=0&&distance<mindistance)
+        						{
+        							mindistance=distance;
+        							returnedge.setEndReferenceId(activationBarNode.getId());
+        						}
+        					}
+        				    }    					
+        				}    				        		 
+        			} 
+        			for(Element sequence : Sequence)
+        			{
+        				if(sequence.attributeValue("start").equals(lifelineId)
+        						&&CallEdgesId.contains(sequence.attributeValue("id"))&&(!sequence.attributeValue("end").equals(sequence.attributeValue("start"))))
+        				{
+        					for(CallEdgeInfo calledge : CallEdges){
+            					//接收一个消息新建一个ActivationBar
+            					if(calledge.getId().equals(sequence.attributeValue("id")))
+            					{
+            						sendNodeList.add(calledge);    //获取所有发送的集合        
+            					}
+        				}
+        			}
+        			}
+    				System.out.println("lifeNode:"+lifeLineNode.getId());
+        			if(sendNodeList.size() != 0 && receiveNodeList.size() != 0)  //不都为自回环的lifeline
+        			{
+        				
+        				CallEdgeInfo sendCallEdgeInfo = null;
+        				int mindistance = 100000; //初始化最短距离
+        				for(CallEdgeInfo receiveCallEdgeInfo : receiveNodeList)
+        				{
+        					for(CallEdgeInfo sendCallEdge : sendNodeList)
+        					{
+        						if(Integer.parseInt(sendCallEdge.getStartLocationY()) < Integer.parseInt(receiveCallEdgeInfo.getStartLocationY()))
+        						{
+        							if( Integer.parseInt(receiveCallEdgeInfo.getStartLocationY()) - Integer.parseInt(sendCallEdge.getStartLocationY()) < mindistance){
+        								sendCallEdgeInfo = sendCallEdge;
+        								mindistance = Integer.parseInt(sendCallEdge.getStartLocationY()) - Integer.parseInt(receiveCallEdgeInfo.getStartLocationY());
+        							}
+        						}
+        					}
+        					if(sendCallEdgeInfo != null) //存在sendCallEdge消息
+        					{
+        						System.out.println(sendCallEdgeInfo.getId());
+        						System.out.println(sendCallEdgeInfo.getStartReferenceId());
+        						if(sendCallEdgeInfo.getStartReferenceId() == null)
+        						{
+        							ActivationBarNodeInfo activationBarNode=new ActivationBarNodeInfo();
+        	    					activationBarNode.setLifeID(lifelineId); //设置生成lifelineId 自己加的
+        	    					activationBarNode.setId(GenerateID());//新建ID
+        	    					activationBarNode.setLocationX("32");//默认的第一个activationBar的位置信息
+        	    					activationBarNode.setLocationY(sendCallEdgeInfo.getStartLocationY());
+        	    					activationBarNode.setParentId(lifelineId);
+        	    					sendCallEdgeInfo.setStartReferenceId(activationBarNode.getId());
+        	    					lifeLineNode.getActivationBarNodes().add(activationBarNode);
+        	    					for(ActivationBarNodeInfo activationBarNodeInfo : lifeLineNode.getActivationBarNodes())
+        	    					{
+        	    						if(receiveCallEdgeInfo.getId().equals(activationBarNodeInfo.getEdgeID()))
+        	    						{
+        	    							activationBarNodeInfo.setParentId(activationBarNode.getId());
+        	    							activationBarNode.getChildren().add(activationBarNodeInfo);
+        	    						}
+        	    					}
+        						}
+        					}
+        				}
+        			}
+        		
     			//对自回环进行处理
     			for(Element sequence : Sequence)
         		{	
@@ -486,14 +594,23 @@ public class TransEAToViolet {
     					int mindistance = 100000; //初始化最短距离
     					for(CallEdgeInfo callEdgeInfo : lifeLineNode.getCallEdges())
     					{
-    						if((Integer.parseInt(callEdgeInfo.getStartLocationY()) - Integer.parseInt(selfCallEdgeInfo.getStartLocationY()) < 0 && 
-    								(Integer.parseInt(selfCallEdgeInfo.getStartLocationY()) - Integer.parseInt(callEdgeInfo.getStartLocationY())) < mindistance))
+    						if(Integer.parseInt(callEdgeInfo.getStartLocationY()) - Integer.parseInt(selfCallEdgeInfo.getStartLocationY()) < 0 && 
+    								(Integer.parseInt(selfCallEdgeInfo.getStartLocationY()) - Integer.parseInt(callEdgeInfo.getStartLocationY())) < mindistance && !selfCallEdgeInfo.getActivation().equals(1));
+    						{
+    							if(callEdgeInfo.getStartReferenceId().equals(lifeLineNode.getId())){
+    							mindistanceWithselfCallEdgeInfo = callEdgeInfo;
+    							mindistance = (Integer.parseInt(selfCallEdgeInfo.getStartLocationY()) - Integer.parseInt(callEdgeInfo.getStartLocationY()));
+    							}
+    						}
+    						if(Integer.parseInt(callEdgeInfo.getStartLocationY()) - Integer.parseInt(selfCallEdgeInfo.getStartLocationY()) < 0 && 
+    								(Integer.parseInt(selfCallEdgeInfo.getStartLocationY()) - Integer.parseInt(callEdgeInfo.getStartLocationY())) < mindistance && selfCallEdgeInfo.getActivation().equals(1));
     						{
     							if(callEdgeInfo.getEndEAReferenceId().equals(lifeLineNode.getId())){
     							mindistanceWithselfCallEdgeInfo = callEdgeInfo;
     							mindistance = (Integer.parseInt(selfCallEdgeInfo.getStartLocationY()) - Integer.parseInt(callEdgeInfo.getStartLocationY()));
     							}
     						}
+    						    
     					}
     					    for(CallEdgeInfo callEdgeInfo : selfCallEdgesID)
     					    {
@@ -573,70 +690,11 @@ public class TransEAToViolet {
     				}
     				}
         		}
-    			for(Element sequence : Sequence)
-    			{
-    			//进一步对Edges的相对于ActivationBar的startReferenceID和EndReferenceID进行处理
-    			int mindistance=1000;
-    			int distance=0;
-    				//1.首先对该lifelineNode的callEdge进行处理
-    				for(CallEdgeInfo calledge:CallEdges)
-    				{
-    					if(calledge.getId().equals(sequence.attributeValue("id"))
-    							&&sequence.attributeValue("start").equals(lifelineId))
-    					{
-    					for(ActivationBarNodeInfo activationBarNode : lifeLineNode.getActivationBarNodes())
-    	    			{
-    	    				int LocationY=Integer.parseInt(activationBarNode.getLocationY());    	    										
-    						int messageLocationY=Integer.parseInt(calledge.getEndLocationY());
-    						distance=messageLocationY-LocationY;//这里的distance即为边距离activationBarNode的距离
-    						if(distance>=0&&distance<mindistance)
-    						{
-    							mindistance=distance;
-    							calledge.setStartReferenceId(activationBarNode.getId());
-    						}
-    					}
-    				    }
-    				}
-    				 mindistance=1000;
-        			 distance=0;
-    				for(ReturnEdgeInfo returnedge :ReturnEdges)
-    				{
-    					if(returnedge.getId().equals(sequence.attributeValue("id"))
-    							&&sequence.attributeValue("start").equals(lifelineId))
-    					{
-    					for(ActivationBarNodeInfo activationBarNode : lifeLineNode.getActivationBarNodes())
-    	    			{
-    	    				int LocationY=Integer.parseInt(activationBarNode.getLocationY());    	    										
-    						int messageLocationY=Integer.parseInt(returnedge.getEndLocationY());
-    						distance=messageLocationY-LocationY;//这里的distance即为边距离activationBarNode的距离
-    						if(distance>=0&&distance<mindistance)
-    						{
-    							mindistance=distance;
-    							returnedge.setStartReferenceId(activationBarNode.getId());
-    						}
-    					}
-    				    }
-    					if(returnedge.getId().equals(sequence.attributeValue("id"))
-    							&&sequence.attributeValue("end").equals(lifelineId))
-    					{
-    					for(ActivationBarNodeInfo activationBarNode : lifeLineNode.getActivationBarNodes())
-    	    			{
-    	    				int LocationY=Integer.parseInt(activationBarNode.getLocationY());    	    										
-    						int messageLocationY=Integer.parseInt(returnedge.getEndLocationY());
-    						distance=messageLocationY-LocationY;//这里的distance即为边距离activationBarNode的距离
-    						if(distance>=0&&distance<mindistance)
-    						{
-    							mindistance=distance;
-    							returnedge.setEndReferenceId(activationBarNode.getId());
-    						}
-    					}
-    				    }    					
-    				}    				        		 
-    			}   		
+  
     			LifeLines.add(lifeLineNode);
     		}
     	}
-
+    	System.out.println(4444444);
     Element diagrams=Extension.element("diagrams");
     Element diagram=diagrams.element("diagram");
     Element diagramelements=diagram.element("elements");
