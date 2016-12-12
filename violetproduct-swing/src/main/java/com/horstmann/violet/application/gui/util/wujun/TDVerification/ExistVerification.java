@@ -16,7 +16,6 @@ import com.thoughtworks.xstream.core.util.Types;
 
 
 public class ExistVerification {
-    //static Scanner cin = new Scanner(System.in);
 	public static final int VERIFICATION_TYPE_EXIST = 1;
 	public static final int VERIFICATION_TYPE_FRONT = 2;
 	public static final int VERIFICATION_TYPE_BACK = 3;
