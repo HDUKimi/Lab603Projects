@@ -12,6 +12,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.thoughtworks.xstream.core.util.Types;
+
 
 public class ExistVerification {
     //static Scanner cin = new Scanner(System.in);
@@ -19,6 +21,9 @@ public class ExistVerification {
 	public static final int VERIFICATION_TYPE_FRONT = 2;
 	public static final int VERIFICATION_TYPE_BACK = 3;
 	public static final int VERIFICATION_TYPE_TWOWAY = 4;
+	private static String[] types = {
+			"存在一致性验证", "前向一致性验证", "逆向一致性验证", "双向一致性验证"
+	};
     private String filePath;
     private static ArrayList<UppaalTemPlate> templates = new ArrayList<UppaalTemPlate>();
     private static ArrayList<UppaalTransition> transitions = new ArrayList<>();
@@ -31,6 +36,8 @@ public class ExistVerification {
     public ExistVerification(String filePath) throws Exception {
         this.filePath = filePath;
 
+        Display.println("================================正在读取自动机================================");
+        
         SAXReader reader = new SAXReader();//获取解析器
         Document dom = reader.read(filePath);//解析XML获取代表整个文档的dom对象
         Element root = dom.getRootElement();//获取根节点
@@ -40,7 +47,7 @@ public class ExistVerification {
 
         templates = uppaal.getUppaalTemplates();
         transitions = templates.get(0).getTransitions();
-
+        Display.println("===>  读取的自动机名：" + templates.get(0).getName());
         // 添加transiton到sourceLocation的transitionList中
         setTansitionsToSourceLocation();
 
@@ -60,11 +67,21 @@ public class ExistVerification {
     // 输出 
     // 获取消息序列
     public ArrayList<UppaalTransition> getMessages() {
-        return messages;
+    	Display.println("-------------------------获取消息序列-------------------------\n");
+        for(UppaalTransition transition : messages) {
+        	Display.println(transition.getName());
+        }
+    	return messages;
     }
     // 输入 return 输出
     // 返回需要标记的序号
     public List<UppaalTransition> getSelectedTransitions(List<UppaalTransition> selectedTransition, int type) {
+    	
+    	Display.println("-------------------------正在进行"+ types[type] +"-------------------------\n");
+        Display.println("选择的消息如下：");
+        for(UppaalTransition transition : selectedTransition) {
+        	Display.println(transition.getName() + "\n");
+        }
     	int i;
     	if (type == VERIFICATION_TYPE_FRONT || type == VERIFICATION_TYPE_TWOWAY) {
     		i = 0;
@@ -73,6 +90,7 @@ public class ExistVerification {
         		UppaalTransition transitionI = selectedTransition.get(i);
         		UppaalTransition transitionJ = pathTuples.get(j).transition;
         		if (transitionI.getName().equals(transitionJ.getName())) {
+        			Display.println("匹配到消息：" + transitionI.getName());
     				i++;
     				j++;
     			} else {
@@ -86,6 +104,7 @@ public class ExistVerification {
 	    		UppaalTransition transitionI = selectedTransition.get(i);
 	    		UppaalTransition transitionJ = pathTuples.get(j).transition;
 	    		if (transitionI.getName().equals(transitionJ.getName())) {
+	    			Display.println("匹配到消息：" + transitionI.getName());
 					i--;
 					j++;
 				} else {
@@ -95,8 +114,10 @@ public class ExistVerification {
 		}
     	
     	if (i == selectedTransition.size()) {
+    		Display.println("一致性验证完成");
 			return selectedTransition;
 		} else {
+			Display.println("一致性验证失败");
 			return null;
 		}
     	
