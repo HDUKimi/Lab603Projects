@@ -302,7 +302,6 @@ public class ModelExistValidationPanel extends JPanel{
 
 	private void initTimingTablePanel() {
 		// TODO Auto-generated method stub
-		
 		timingtablemodel=new DefaultTableModel(0, 1){
 			@Override  
             public boolean isCellEditable(int row,int column){  
