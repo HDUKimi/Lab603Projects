@@ -110,6 +110,8 @@ public class ModelExistValidationPanel extends JPanel{
 //	private JCheckBox[] uppaalMessageCheckBoxList;
 	private List<JCheckBox> uppaalMessageCheckBoxList;
 	
+	private static ExistVerification ev;
+	
 	
 	
 	
@@ -348,7 +350,7 @@ public class ModelExistValidationPanel extends JPanel{
 //					String filePath="D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\uppaalTest1.uppaal.violet.xml";
 					
 					try {
-						ExistVerification ev=new ExistVerification(TimingEAtoUppaal.getDiagramDataName()+".xml");
+						ev=new ExistVerification(TimingEAtoUppaal.getDiagramDataName()+".xml");
 						
 						uppaalmessagelist=ev.getMessages();
 						System.out.println("-------------------");
@@ -850,10 +852,10 @@ public class ModelExistValidationPanel extends JPanel{
 
 		validationlabeltabpanel.setBackground(new Color(41, 57, 85));
 		validationlabeltabpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		validationlabeltabpanel.add(validationlabeltabpanel1);
+//		validationlabeltabpanel.add(validationlabeltabpanel1);
 		validationlabeltabpanel.add(validationlabeltabpanel2);
 		validationlabeltabpanel.add(validationlabeltabpanel3);
-		validationlabeltabpanel.add(validationlabeltabpanel4);
+//		validationlabeltabpanel.add(validationlabeltabpanel4);
 		
 		validationlabeltabpanel.setPreferredSize(new Dimension(100, 22));
 		validationlabeltabpanel.setMinimumSize(new Dimension(100, 22));
@@ -918,12 +920,32 @@ public class ModelExistValidationPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				System.out.println("++++++++++++++++++++");
-				System.out.println(validationlabeltabindex);
-				for(UppaalTransition u:selecteduppaalmessagelist){
-					System.out.println(u);
+				List<UppaalTransition> l = null;
+				
+				if(validationlabeltabindex==1){
+					l=ev.getSelectedTransitions(selecteduppaalmessagelist,ExistVerification.VERIFICATION_TYPE_EXIST);
+				}else if(validationlabeltabindex==2){
+					l=ev.getSelectedTransitions(selecteduppaalmessagelist,ExistVerification.VERIFICATION_TYPE_BACK);
+				}else if(validationlabeltabindex==3){
+					l=ev.getSelectedTransitions(selecteduppaalmessagelist,ExistVerification.VERIFICATION_TYPE_FRONT);
+				}else if(validationlabeltabindex==4){
+					l=ev.getSelectedTransitions(selecteduppaalmessagelist,ExistVerification.VERIFICATION_TYPE_TWOWAY);
 				}
-				System.out.println("++++++++++++++++++++");
+				
+				if(l==null){
+					System.out.println("list is null");
+				}
+				else{
+					System.out.println("   ----------   ");
+				}
+				
+				
+//				System.out.println("++++++++++++++++++++");
+//				System.out.println(validationlabeltabindex);
+//				for(UppaalTransition u:selecteduppaalmessagelist){
+//					System.out.println(u);
+//				}
+//				System.out.println("++++++++++++++++++++");
 			}
 		});
 		
