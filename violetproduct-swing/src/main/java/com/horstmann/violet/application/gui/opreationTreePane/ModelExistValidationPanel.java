@@ -11,6 +11,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,6 +43,8 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPan
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MoviePanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ToolPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.UppaalToolPanel;
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.ExistVerification;
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalTransition;
 import com.horstmann.violet.application.gui.util.wujun.TimingTransfrom.TimingEAtoUppaal;
 import com.horstmann.violet.application.gui.util.xiaole.GraghLayout.LayoutUppaal;
 import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.ImportByDoubleClick;
@@ -99,6 +104,13 @@ public class ModelExistValidationPanel extends JPanel{
 	
 	private JPanel validationcheckboxpanel;
 	private JScrollPane validationscrollpanel;
+	
+	private List<UppaalTransition> uppaalmessagelist=new ArrayList<UppaalTransition>();
+	private List<UppaalTransition> selecteduppaalmessagelist=new ArrayList<UppaalTransition>();
+//	private JCheckBox[] uppaalMessageCheckBoxList;
+	private List<JCheckBox> uppaalMessageCheckBoxList;
+	
+	
 	
 	
 	public ModelExistValidationPanel(MainFrame mainFrame){
@@ -273,9 +285,16 @@ public class ModelExistValidationPanel extends JPanel{
 		}
 		
 		
-		timingpanel.setLayout(new BorderLayout());
-		timingpanel.add(timinglabelpanel, BorderLayout.NORTH);
-		timingpanel.add(timingscrollpanel,BorderLayout.CENTER);
+//		timingpanel.setLayout(new BorderLayout());
+//		timingpanel.add(timinglabelpanel, BorderLayout.NORTH);
+//		timingpanel.add(timingscrollpanel,BorderLayout.CENTER);
+		
+		GridBagLayout layout=new GridBagLayout();
+		timingpanel.setLayout(layout);
+		timingpanel.add(timinglabelpanel);
+		timingpanel.add(timingscrollpanel);
+		layout.setConstraints(timinglabelpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(timingscrollpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 	}
 
@@ -304,6 +323,11 @@ public class ModelExistValidationPanel extends JPanel{
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();  
         renderer.setPreferredSize(new Dimension(0, 0));  
         timingtable.getTableHeader().setDefaultRenderer(renderer);
+        
+        DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer();  
+//        renderer1.setBorder(BorderFactory.createEmptyBorder(0,30,0,0));
+//        renderer1.setM
+        timingtable.setDefaultRenderer(Object.class, renderer1);
 		
         timingtable.addMouseListener(new MouseAdapter() {
 
@@ -321,9 +345,29 @@ public class ModelExistValidationPanel extends JPanel{
 					
 					showUppaalDiagram(filename);
 					
+//					String filePath="D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\uppaalTest1.uppaal.violet.xml";
+					
+					try {
+						ExistVerification ev=new ExistVerification(TimingEAtoUppaal.getDiagramDataName()+".xml");
+						
+						uppaalmessagelist=ev.getMessages();
+						System.out.println("-------------------");
+						for(UppaalTransition u:uppaalmessagelist){
+							System.out.println(u.toString());
+						}
+						System.out.println("-------------------");
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					addCheckBoxToValidationCheckboxPanel();
+					
 					mainFrame.getStepSixCenterTabbedPane().getTimingDiagramButton().doClick();
 					
-//					mainFrame.getStepSixCenterTabbedPane().ChangeRepaint();
+					ChangeRepaint();
+					
+					mainFrame.getStepSixCenterTabbedPane().ChangeRepaint();
 					
 				}
 			}
@@ -343,6 +387,67 @@ public class ModelExistValidationPanel extends JPanel{
         
 	}
 
+	public void ChangeRepaint() {
+		// TODO Auto-generated method stub
+		
+		this.setVisible(false);
+		this.getRootPane().repaint();
+		this.setVisible(true);
+		
+	}
+
+	protected void addCheckBoxToValidationCheckboxPanel() {
+		// TODO Auto-generated method stub
+
+		validationcheckboxpanel.removeAll();
+		
+		ItemListener itemListener = new ItemListener() {
+			
+            JCheckBox jCheckBox;
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				
+				jCheckBox = (JCheckBox) e.getSource();
+				 
+                if (jCheckBox.isSelected()) {
+                	selecteduppaalmessagelist.add(uppaalmessagelist.get(uppaalMessageCheckBoxList.indexOf(jCheckBox)));
+                } else {
+                	selecteduppaalmessagelist.remove(selecteduppaalmessagelist.indexOf(uppaalmessagelist.get(uppaalMessageCheckBoxList.indexOf(jCheckBox))));
+                }
+				
+			}
+        };
+        
+        		
+        uppaalMessageCheckBoxList=new ArrayList<JCheckBox>();
+		for(int i=0;i<uppaalmessagelist.size();i++){
+			JCheckBox jcb=new JCheckBox(uppaalmessagelist.get(i).getName());
+			jcb.addItemListener(itemListener);
+			jcb.setOpaque(false);
+			uppaalMessageCheckBoxList.add(i, jcb);
+//			Object[]data={new JCheckBox(validationlists.get(i))};
+//			Object[]data={validationlists.get(i)};
+//			dtmDemo.addRow(data);
+			validationcheckboxpanel.add(Box.createVerticalStrut(7));
+			validationcheckboxpanel.add(jcb);
+		}		
+        
+//		uppaalMessageCheckBoxList=new JCheckBox[uppaalmessagelist.size()];
+//		for(int i=0;i<uppaalmessagelist.size();i++){
+//			uppaalMessageCheckBoxList[i]=new JCheckBox(uppaalmessagelist.get(i).getName());
+//			uppaalMessageCheckBoxList[i].addItemListener(itemListener);
+//			uppaalMessageCheckBoxList[i].setOpaque(false);
+////			Object[]data={new JCheckBox(validationlists.get(i))};
+////			Object[]data={validationlists.get(i)};
+////			dtmDemo.addRow(data);
+//			validationcheckboxpanel.add(Box.createVerticalStrut(7));
+//			validationcheckboxpanel.add(uppaalMessageCheckBoxList[i]);
+//		}
+		
+	}
+
 	protected void showUppaalDiagram(String filename) {
 		// TODO Auto-generated method stub
 		
@@ -359,6 +464,9 @@ public class ModelExistValidationPanel extends JPanel{
 				TimingEAtoUppaal.transEA(path);
 				LayoutUppaal.layout(TimingEAtoUppaal.getDiagramDataName()+".xml");
 				String filename1 = TransToVioletUppaal.TransToViolet();
+				
+				System.out.println("filename1:"+filename1+" TimingEAtoUppaal.getDiagramDataName():"+TimingEAtoUppaal.getDiagramDataName());
+				
 				GraphFile fGraphFile1 = ImportByDoubleClick.importFileByDoubleClick("UPPAAL", filename1);
 				workspace = new Workspace(fGraphFile1);
 				
@@ -457,6 +565,13 @@ public class ModelExistValidationPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				
+				if(timingscrollpanel.isVisible()){
+					timingscrollpanel.setVisible(false);
+				}
+				else {
+					timingscrollpanel.setVisible(true);
+				}
 				
 			}
 		});
@@ -803,7 +918,12 @@ public class ModelExistValidationPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				
+				System.out.println("++++++++++++++++++++");
+				System.out.println(validationlabeltabindex);
+				for(UppaalTransition u:selecteduppaalmessagelist){
+					System.out.println(u);
+				}
+				System.out.println("++++++++++++++++++++");
 			}
 		});
 		
@@ -819,6 +939,14 @@ public class ModelExistValidationPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
+				if(validationscrollpanel.isVisible()){
+					validationlabeltabpanel.setVisible(false);
+					validationscrollpanel.setVisible(false);
+				}
+				else{
+					validationlabeltabpanel.setVisible(true);
+					validationscrollpanel.setVisible(true);
+				}
 				
 			}
 		});

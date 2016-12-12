@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <nta>
-  <declaration>chan next, tea, cofford, coffee, teain, coffin, teaord;clock x;</declaration>
+  <declaration>chan next, tea, nexta, cofford, coffee, teain, coffin, teaord;clock x;</declaration>
   <template>
     <name x="30" y="30">Button</name>
     <declaration/>
@@ -85,7 +85,7 @@
     <transition out="true">
       <source ref="id2"/>
       <target ref="id0"/>
-      <label kind="synchronisation" x="456" y="278" time="44" from="Controller" to="Button" duration="null">next?</label>
+      <label kind="synchronisation" x="456" y="278" time="44" from="Controller" to="Button" duration="null">nexta?</label>
     </transition>
     <transition out="false">
       <source ref="id0"/>
@@ -170,7 +170,7 @@
     <transition out="true">
       <source ref="id11"/>
       <target ref="id2"/>
-      <label kind="synchronisation" x="870" y="194" time="43" from="Controller" to="Button" duration="null">next</label>
+      <label kind="synchronisation" x="870" y="194" time="43" from="Controller" to="Button" duration="null">nexta</label>
     </transition>
     <transition out="true">
       <source ref="id12"/>
