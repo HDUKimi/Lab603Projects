@@ -395,6 +395,7 @@ public class TimingEAtoUppaal {
 			Display.println("开始写入xml");
 			// 4.写入到UPPAAL.xml中----------------------------------------------------------------------------------------------
 			Write.creatXML(diagramsData.getName() + ".xml", global_declarations, template_instantiations, temPlates);
+			setDiagramDataName(diagramsData.getName());
 			// 4.写入到UPPAAL.xml中end-------------------------------------------------------------------------------------------
 			Display.println(".....写入完成!");
 			Display.println("================================转换完成================================");
