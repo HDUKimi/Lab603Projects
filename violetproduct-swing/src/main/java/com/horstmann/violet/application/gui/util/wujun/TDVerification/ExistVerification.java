@@ -22,7 +22,7 @@ public class ExistVerification {
 	public static final int VERIFICATION_TYPE_BACK = 3;
 	public static final int VERIFICATION_TYPE_TWOWAY = 4;
 	private static String[] types = {
-			"","存在一致性验证", "前向一致性验证", "逆向一致性验证", "双向一致性验证"
+			"", "存在一致性验证", "前向一致性验证", "逆向一致性验证", "双向一致性验证"
 	};
     private String filePath;
     private static ArrayList<UppaalTemPlate> templates = new ArrayList<UppaalTemPlate>();
