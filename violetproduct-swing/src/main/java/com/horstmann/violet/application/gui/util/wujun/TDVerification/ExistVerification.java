@@ -22,7 +22,7 @@ public class ExistVerification {
 	public static final int VERIFICATION_TYPE_BACK = 3;
 	public static final int VERIFICATION_TYPE_TWOWAY = 4;
 	private static String[] types = {
-			"存在一致性验证", "前向一致性验证", "逆向一致性验证", "双向一致性验证"
+			"","存在一致性验证", "前向一致性验证", "逆向一致性验证", "双向一致性验证"
 	};
     private String filePath;
     private static ArrayList<UppaalTemPlate> templates = new ArrayList<UppaalTemPlate>();
@@ -90,7 +90,7 @@ public class ExistVerification {
         		UppaalTransition transitionI = selectedTransition.get(i);
         		UppaalTransition transitionJ = pathTuples.get(j).transition;
         		if (transitionI.getName().equals(transitionJ.getName())) {
-        			Display.println("匹配到消息：" + transitionI.getName());
+        			Display.println("匹配到消息：" + transitionI.toString());
     				i++;
     				j++;
     			} else {
@@ -104,7 +104,7 @@ public class ExistVerification {
 	    		UppaalTransition transitionI = selectedTransition.get(i);
 	    		UppaalTransition transitionJ = pathTuples.get(j).transition;
 	    		if (transitionI.getName().equals(transitionJ.getName())) {
-	    			Display.println("匹配到消息：" + transitionI.getName());
+	    			Display.println("匹配到消息：" + transitionI.toString());
 					i--;
 					j++;
 				} else {
