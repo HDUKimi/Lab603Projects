@@ -1,6 +1,6 @@
 package com.horstmann.violet.application.gui.util.wujun.TDVerification;
 
-class PathTuple {
+public class PathTuple {
 	public PathTuple(UppaalLocation location, UppaalTransition transition) {
 		this.location = location;
 		if (transition == null) {
@@ -18,4 +18,18 @@ class PathTuple {
 	private boolean getfinl() {
 		return finl;
 	}
+	public UppaalLocation getLocation() {
+		return location;
+	}
+	public void setLocation(UppaalLocation location) {
+		this.location = location;
+	}
+	public UppaalTransition getTransition() {
+		return transition;
+	}
+	public void setTransition(UppaalTransition transition) {
+		this.transition = transition;
+	}
+	
+	
 }
