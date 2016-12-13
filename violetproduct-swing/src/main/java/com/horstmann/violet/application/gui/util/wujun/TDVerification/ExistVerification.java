@@ -110,7 +110,7 @@ public class ExistVerification {
 	// 返回路径
 	public List<PathTuple> getPathOfSelectedTransitions(List<UppaalTransition> selectedTransition) {
 		ArrayList<PathTuple> res = new ArrayList<>();
-		Display.println("-------------------------正在进行存在一致性验证-------------------------\n");
+		Display.println("-------------------------正在进行顺序性验证-------------------------\n");
 		Display.println("选择的消息如下：");
 		for (UppaalTransition transition : selectedTransition) {
 			Display.println(transition.getName() + "\n");
