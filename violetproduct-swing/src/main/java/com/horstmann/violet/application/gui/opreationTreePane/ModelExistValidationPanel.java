@@ -46,6 +46,7 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyUppaalLabelRe
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ToolPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.UppaalToolPanel;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.ExistVerification;
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.PathTuple;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalTransition;
 import com.horstmann.violet.application.gui.util.wujun.TimingTransfrom.TimingEAtoUppaal;
 import com.horstmann.violet.application.gui.util.xiaole.GraghLayout.LayoutUppaal;
@@ -946,24 +947,47 @@ public class ModelExistValidationPanel extends JPanel{
 					}
 				}
 				
-				List<UppaalTransition> l = null;
 				
 				if(validationlabeltabindex==1){
-					l=ev.getSelectedTransitions(selecteduppaalmessagelist,ExistVerification.VERIFICATION_TYPE_EXIST);
+					
+					List<UppaalTransition> l = null;
+					l=ev.getSelectedTransitionsIfExist(selecteduppaalmessagelist);
+					
+					if(l==null){
+						System.out.println("list is null");
+					}
+					else{
+						System.out.println("   ----------   ");
+						
+						System.out.println("++++++++++++++++++++");
+						for(UppaalTransition u:l){
+							System.out.println(u);
+						}
+						System.out.println("++++++++++++++++++++");
+						
+					}
+					
 				}else if(validationlabeltabindex==2){
-					l=ev.getSelectedTransitions(selecteduppaalmessagelist,ExistVerification.VERIFICATION_TYPE_FRONT);
-				}else if(validationlabeltabindex==3){
-					l=ev.getSelectedTransitions(selecteduppaalmessagelist,ExistVerification.VERIFICATION_TYPE_BACK);
-				}else if(validationlabeltabindex==4){
-					l=ev.getSelectedTransitions(selecteduppaalmessagelist,ExistVerification.VERIFICATION_TYPE_TWOWAY);
+					
+					List<PathTuple> l=null;
+					l=ev.getPathOfSelectedTransitions(selecteduppaalmessagelist);
+					
+					if(l==null){
+						System.out.println("list is null");
+					}
+					else{
+						System.out.println("   ----------   ");
+						
+						System.out.println("++++++++++++++++++++");
+						for(PathTuple u:l){
+							System.out.println(u.getLocation().toString()+ " --- "+u.getTransition().toString());
+						}
+						System.out.println("++++++++++++++++++++");
+						
+						
+					}
 				}
 				
-				if(l==null){
-					System.out.println("list is null");
-				}
-				else{
-					System.out.println("   ----------   ");
-				}
 				
 				
 //				System.out.println("++++++++++++++++++++");

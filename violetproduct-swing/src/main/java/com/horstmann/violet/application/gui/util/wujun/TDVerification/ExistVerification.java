@@ -129,7 +129,7 @@ public class ExistVerification {
 				j++;
 			} else {
 				if (findFirstTransition) {
-					res.add(pathTuples.get(i));
+					res.add(pathTuples.get(j));
 				}
 				j++;
 			}
