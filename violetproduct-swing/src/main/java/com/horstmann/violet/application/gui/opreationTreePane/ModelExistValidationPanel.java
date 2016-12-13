@@ -41,6 +41,8 @@ import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MoviePanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEditor;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyUppaalLabelRender;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ToolPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.UppaalToolPanel;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.ExistVerification;
@@ -84,6 +86,7 @@ public class ModelExistValidationPanel extends JPanel{
 	private JTable timingtable;
 	
 	private JPanel validationpanel;
+	private JPanel validationalllabelpanel;
 	private JPanel validationlabelpanel;
 	private JLabel validationlabel;
 	private JPanel validationtoolpanel;
@@ -144,25 +147,37 @@ public class ModelExistValidationPanel extends JPanel{
 		validationtoolbutton1=new JButton();
 		validationtoolbutton2=new JButton();
 		
-		titlepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(142, 155, 188)));
-		treepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(142, 155, 188)));
+		titlepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(142, 155, 188)));
+//		treepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(142, 155, 188)));
+		validationpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, new Color(142, 155, 188)));
 		
 		initTitlePanel();
 		
 		initTreePanel();
 		
+//		GridBagLayout layout=new GridBagLayout();
+//		this.setLayout(layout);
+//		this.add(titlepanel);
+//		this.add(treepanel);
+//		layout.setConstraints(titlepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//		layout.setConstraints(treepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
 		GridBagLayout layout=new GridBagLayout();
 		this.setLayout(layout);
 		this.add(titlepanel);
-		this.add(treepanel);
+		this.add(timinglabelpanel);
+		this.add(timingscrollpanel);
+		this.add(validationpanel);
 		layout.setConstraints(titlepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(treepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(timinglabelpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(timingscrollpanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(validationpanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenWidth = (int) screenSize.getWidth();
 		int screenHeight = (int) screenSize.getHeight();
 		
-		this.setMinimumSize(new Dimension(screenWidth/8, screenHeight-150));
+		this.setMinimumSize(new Dimension(screenWidth/8, screenHeight-100));
 	
 		
 	}
@@ -251,12 +266,12 @@ public class ModelExistValidationPanel extends JPanel{
 		
 		initValidationPanel();
 		
-		GridBagLayout layout=new GridBagLayout();
-		treepanel.setLayout(layout);
-		treepanel.add(timingpanel);
-		treepanel.add(validationpanel);
-		layout.setConstraints(timingpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(validationpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		GridBagLayout layout=new GridBagLayout();
+//		treepanel.setLayout(layout);
+//		treepanel.add(timingpanel);
+//		treepanel.add(validationpanel);
+//		layout.setConstraints(timingpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(validationpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 	}
 
@@ -274,7 +289,7 @@ public class ModelExistValidationPanel extends JPanel{
 		timinglabelpanel.setLayout(new BorderLayout());
 		timinglabelpanel.add(timinglabel, BorderLayout.WEST);
 		timinglabelpanel.add(timingtoolpanel, BorderLayout.EAST);
-		timinglabelpanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(142, 155, 188)));
+		timinglabelpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
 		timinglabelpanel.setPreferredSize(new Dimension(100, 29));
 		timinglabelpanel.setMaximumSize(new Dimension(100, 29));
 		timinglabelpanel.setMinimumSize(new Dimension(100, 29));
@@ -291,12 +306,12 @@ public class ModelExistValidationPanel extends JPanel{
 //		timingpanel.add(timinglabelpanel, BorderLayout.NORTH);
 //		timingpanel.add(timingscrollpanel,BorderLayout.CENTER);
 		
-		GridBagLayout layout=new GridBagLayout();
-		timingpanel.setLayout(layout);
-		timingpanel.add(timinglabelpanel);
-		timingpanel.add(timingscrollpanel);
-		layout.setConstraints(timinglabelpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(timingscrollpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		GridBagLayout layout=new GridBagLayout();
+//		timingpanel.setLayout(layout);
+//		timingpanel.add(timinglabelpanel);
+//		timingpanel.add(timingscrollpanel);
+//		layout.setConstraints(timinglabelpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//		layout.setConstraints(timingscrollpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 	}
 
@@ -317,19 +332,17 @@ public class ModelExistValidationPanel extends JPanel{
 		timingtable.setShowHorizontalLines(true);
 		timingtable.setShowVerticalLines(false);
 		timingtable.setFillsViewportHeight(true);
-		timingtable.setRowHeight(27);
+		timingtable.setRowHeight(24);
 		timingtable.doLayout();
+		
+		timingtable.getColumnModel().getColumn(0).setCellEditor(new MyLabelCellEditor());
+		timingtable.getColumnModel().getColumn(0).setCellRenderer(new MyGeneralLabelRenderer());
 		
 		timingtable.getTableHeader().setVisible(false);  
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();  
         renderer.setPreferredSize(new Dimension(0, 0));  
         timingtable.getTableHeader().setDefaultRenderer(renderer);
         
-        DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer();  
-//        renderer1.setBorder(BorderFactory.createEmptyBorder(0,30,0,0));
-//        renderer1.setM
-        timingtable.setDefaultRenderer(Object.class, renderer1);
-		
         timingtable.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -382,7 +395,7 @@ public class ModelExistValidationPanel extends JPanel{
 		timingtablepanel.setBorder(null);
 		
 		timingscrollpanel=new JScrollPane(timingtablepanel);
-		timingscrollpanel.setBorder(null);
+		timingscrollpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
 		timingscrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		timingscrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         
@@ -402,36 +415,37 @@ public class ModelExistValidationPanel extends JPanel{
 
 		validationcheckboxpanel.removeAll();
 		
-		ItemListener itemListener = new ItemListener() {
-			
-            JCheckBox jCheckBox;
-
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				// TODO Auto-generated method stub
-				
-				jCheckBox = (JCheckBox) e.getSource();
-				 
-                if (jCheckBox.isSelected()) {
-                	selecteduppaalmessagelist.add(uppaalmessagelist.get(uppaalMessageCheckBoxList.indexOf(jCheckBox)));
-                } else {
-                	selecteduppaalmessagelist.remove(selecteduppaalmessagelist.indexOf(uppaalmessagelist.get(uppaalMessageCheckBoxList.indexOf(jCheckBox))));
-                }
-				
-			}
-        };
+//		ItemListener itemListener = new ItemListener() {
+//			
+//            JCheckBox jCheckBox;
+//
+//			@Override
+//			public void itemStateChanged(ItemEvent e) {
+//				// TODO Auto-generated method stub
+//				
+//				jCheckBox = (JCheckBox) e.getSource();
+//				 
+//                if (jCheckBox.isSelected()) {
+//                	selecteduppaalmessagelist.add(uppaalmessagelist.get(uppaalMessageCheckBoxList.indexOf(jCheckBox)));
+//                } else {
+//                	selecteduppaalmessagelist.remove(selecteduppaalmessagelist.indexOf(uppaalmessagelist.get(uppaalMessageCheckBoxList.indexOf(jCheckBox))));
+//                }
+//				
+//			}
+//        };
         
         		
         uppaalMessageCheckBoxList=new ArrayList<JCheckBox>();
+        validationcheckboxpanel.add(Box.createVerticalStrut(5));
 		for(int i=0;i<uppaalmessagelist.size();i++){
 			JCheckBox jcb=new JCheckBox(uppaalmessagelist.get(i).getName());
-			jcb.addItemListener(itemListener);
+//			jcb.addItemListener(itemListener);
 			jcb.setOpaque(false);
 			uppaalMessageCheckBoxList.add(i, jcb);
 //			Object[]data={new JCheckBox(validationlists.get(i))};
 //			Object[]data={validationlists.get(i)};
 //			dtmDemo.addRow(data);
-			validationcheckboxpanel.add(Box.createVerticalStrut(7));
+			validationcheckboxpanel.add(Box.createVerticalStrut(0));
 			validationcheckboxpanel.add(jcb);
 		}		
         
@@ -455,29 +469,31 @@ public class ModelExistValidationPanel extends JPanel{
 		IWorkspace workspace=null;
 		workspace=mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalTabbedPane().getTiminganduppaalmap().get(filename);
 		
-		if(workspace==null){
+		
 			
-			String baseUrl = "D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\";
-			String path = baseUrl + filename + ".timing.violet.xml";
-			
-			try {
-				
-				TimingEAtoUppaal.transEA(path);
-				LayoutUppaal.layout(TimingEAtoUppaal.getDiagramDataName()+".xml");
-				String filename1 = TransToVioletUppaal.TransToViolet();
-				
-				System.out.println("filename1:"+filename1+" TimingEAtoUppaal.getDiagramDataName():"+TimingEAtoUppaal.getDiagramDataName());
-				
+		String baseUrl = "D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\";
+		String path = baseUrl + filename + ".timing.violet.xml";
+
+		try {
+
+			TimingEAtoUppaal.transEA(path);
+			LayoutUppaal.layout(TimingEAtoUppaal.getDiagramDataName() + ".xml");
+			String filename1 = TransToVioletUppaal.TransToViolet();
+
+			System.out.println("filename1:" + filename1 + " TimingEAtoUppaal.getDiagramDataName():"
+					+ TimingEAtoUppaal.getDiagramDataName());
+
+			if (workspace == null) {
 				GraphFile fGraphFile1 = ImportByDoubleClick.importFileByDoubleClick("UPPAAL", filename1);
 				workspace = new Workspace(fGraphFile1);
-				
-				
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-			
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+			
+		
 		
 		mainFrame.getStepSixCenterTabbedPane().getDiagramPanel().removeAll();
 		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
@@ -597,7 +613,7 @@ public class ModelExistValidationPanel extends JPanel{
 		validationlabelpanel.setLayout(new BorderLayout());
 		validationlabelpanel.add(validationlabel, BorderLayout.WEST);
 		validationlabelpanel.add(validationtoolpanel, BorderLayout.EAST);
-		validationlabelpanel.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, new Color(142, 155, 188)));
+		validationlabelpanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(142, 155, 188)));
 		validationlabelpanel.setPreferredSize(new Dimension(100, 29));
 		validationlabelpanel.setMaximumSize(new Dimension(100, 29));
 		validationlabelpanel.setMinimumSize(new Dimension(100, 29));
@@ -609,14 +625,18 @@ public class ModelExistValidationPanel extends JPanel{
 //		validationpanel.setLayout(new BorderLayout());
 //		validationpanel.add(validationlabelpanel, BorderLayout.NORTH);
 		
+		validationalllabelpanel=new JPanel();
+		
 		GridBagLayout layout=new GridBagLayout();
-		validationpanel.setLayout(layout);
-		validationpanel.add(validationlabelpanel);
-		validationpanel.add(validationlabeltabpanel);
-		validationpanel.add(validationscrollpanel);
+		validationalllabelpanel.setLayout(layout);
+		validationalllabelpanel.add(validationlabelpanel);
+		validationalllabelpanel.add(validationlabeltabpanel);
 		layout.setConstraints(validationlabelpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(validationlabeltabpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(validationscrollpanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+		validationpanel.setLayout(new BorderLayout());
+		validationpanel.add(validationalllabelpanel,BorderLayout.NORTH);
+		validationpanel.add(validationscrollpanel,BorderLayout.CENTER);
 
 		
 	}
@@ -684,7 +704,7 @@ public class ModelExistValidationPanel extends JPanel{
 			}
 		});
 		
-		validationlabeltab2.setText("向前");
+		validationlabeltab2.setText("前向");
 		validationlabeltab2.setForeground(new Color(0,0,0));
 		validationlabeltab2.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		validationlabeltab2.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -851,10 +871,10 @@ public class ModelExistValidationPanel extends JPanel{
 
 		validationlabeltabpanel.setBackground(new Color(41, 57, 85));
 		validationlabeltabpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-//		validationlabeltabpanel.add(validationlabeltabpanel1);
+		validationlabeltabpanel.add(validationlabeltabpanel1);
 		validationlabeltabpanel.add(validationlabeltabpanel2);
 		validationlabeltabpanel.add(validationlabeltabpanel3);
-//		validationlabeltabpanel.add(validationlabeltabpanel4);
+		validationlabeltabpanel.add(validationlabeltabpanel4);
 		
 		validationlabeltabpanel.setPreferredSize(new Dimension(100, 22));
 		validationlabeltabpanel.setMinimumSize(new Dimension(100, 22));
@@ -902,7 +922,7 @@ public class ModelExistValidationPanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "allselect.png");
+		ImageIcon icon1 = new ImageIcon(path + "start.png");
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 		ImageIcon icon2 = new ImageIcon(path + "dropdown.png");
 		icon2.setImage(icon2.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
@@ -919,14 +939,21 @@ public class ModelExistValidationPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
+				selecteduppaalmessagelist.clear();
+				for(JCheckBox jcb:uppaalMessageCheckBoxList){
+					if(jcb.isSelected()){
+						selecteduppaalmessagelist.add(uppaalmessagelist.get(uppaalMessageCheckBoxList.indexOf(jcb)));
+					}
+				}
+				
 				List<UppaalTransition> l = null;
 				
 				if(validationlabeltabindex==1){
 					l=ev.getSelectedTransitions(selecteduppaalmessagelist,ExistVerification.VERIFICATION_TYPE_EXIST);
 				}else if(validationlabeltabindex==2){
-					l=ev.getSelectedTransitions(selecteduppaalmessagelist,ExistVerification.VERIFICATION_TYPE_BACK);
-				}else if(validationlabeltabindex==3){
 					l=ev.getSelectedTransitions(selecteduppaalmessagelist,ExistVerification.VERIFICATION_TYPE_FRONT);
+				}else if(validationlabeltabindex==3){
+					l=ev.getSelectedTransitions(selecteduppaalmessagelist,ExistVerification.VERIFICATION_TYPE_BACK);
 				}else if(validationlabeltabindex==4){
 					l=ev.getSelectedTransitions(selecteduppaalmessagelist,ExistVerification.VERIFICATION_TYPE_TWOWAY);
 				}

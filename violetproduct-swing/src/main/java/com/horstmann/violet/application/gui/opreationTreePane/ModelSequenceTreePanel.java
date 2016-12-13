@@ -217,7 +217,7 @@ public class ModelSequenceTreePanel extends JPanel{
 		uppaaltable.setShowHorizontalLines(true);
 		uppaaltable.setShowVerticalLines(false);
 		uppaaltable.setFillsViewportHeight(true);
-		uppaaltable.setRowHeight(27);
+		uppaaltable.setRowHeight(24);
 		uppaaltable.doLayout();
 		
 		uppaaltable.getColumnModel().getColumn(0).setCellEditor(new MyLabelCellEditor());

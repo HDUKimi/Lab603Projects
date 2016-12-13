@@ -12,10 +12,14 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.horstmann.violet.application.gui.MainFrame;
 import com.thoughtworks.xstream.core.util.Types;
 
 
 public class ExistVerification {
+	
+	private MainFrame mainFrame;
+	
 	public static final int VERIFICATION_TYPE_EXIST = 1;
 	public static final int VERIFICATION_TYPE_FRONT = 2;
 	public static final int VERIFICATION_TYPE_BACK = 3;

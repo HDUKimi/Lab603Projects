@@ -16,6 +16,8 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class ValidationResultPanel extends JPanel{
 
@@ -28,6 +30,10 @@ public class ValidationResultPanel extends JPanel{
 	private JPanel titleiconlabelpanel;
 	private JLabel titleiconlabel1;
 	private JLabel titleiconlabel2;
+	
+	private JTextArea resultarea;
+	private JScrollPane resultscrollpanel;
+	
 	
 	public ValidationResultPanel(MainFrame mainFrame){
 		
@@ -52,7 +58,7 @@ public class ValidationResultPanel extends JPanel{
 		
 		initTitlePanel();
 		
-		resultpanel.setLayout(new GridLayout());
+		initResultPanel();
 		
 		GridBagLayout layout=new GridBagLayout();
 		this.setLayout(layout);
@@ -67,6 +73,21 @@ public class ValidationResultPanel extends JPanel{
 		
 		this.setMinimumSize(new Dimension(screenWidth/8, screenHeight-150));
 		this.setMaximumSize(new Dimension(screenWidth/7, screenHeight-150));
+		
+	}
+
+	private void initResultPanel() {
+		// TODO Auto-generated method stub
+		
+		resultarea=new JTextArea();
+		resultarea.setEditable(false);
+		resultarea.setBorder(null);
+		
+		resultscrollpanel=new JScrollPane(resultarea);
+		resultscrollpanel.setBorder(null);
+		
+		resultpanel.setLayout(new GridLayout());
+		resultpanel.add(resultscrollpanel);
 		
 	}
 
@@ -148,6 +169,11 @@ public class ValidationResultPanel extends JPanel{
 		this.getRootPane().repaint();
 		this.setVisible(true);
 	}
+
+	public JTextArea getResultarea() {
+		return resultarea;
+	}
+	
 	
 	
 }
