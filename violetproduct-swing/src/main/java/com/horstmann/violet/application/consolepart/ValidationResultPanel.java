@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui;
+package com.horstmann.violet.application.consolepart;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,17 +13,22 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import com.horstmann.violet.application.gui.GBC;
+import com.horstmann.violet.application.gui.MainFrame;
+
 public class ValidationResultPanel extends JPanel{
 
 	private MainFrame mainFrame;
 	
 	private JPanel titlepanel;
+	private JPanel namepanel;
 	private JPanel resultpanel;
 	
 	private JLabel titlelabel;
@@ -31,7 +36,9 @@ public class ValidationResultPanel extends JPanel{
 	private JLabel titleiconlabel1;
 	private JLabel titleiconlabel2;
 	
-	private JTextArea resultarea;
+	private JLabel namelabel;
+	
+//	private JTextArea resultarea;
 	private JScrollPane resultscrollpanel;
 	
 	
@@ -49,6 +56,7 @@ public class ValidationResultPanel extends JPanel{
 		// TODO Auto-generated method stub
 		
 		titlepanel=new JPanel();
+		namepanel=new JPanel();
 		resultpanel=new JPanel();
 		
 		titlelabel = new JLabel();
@@ -56,16 +64,26 @@ public class ValidationResultPanel extends JPanel{
 		titleiconlabel1 = new JLabel();
 		titleiconlabel2 = new JLabel();
 		
+		namelabel=new JLabel();
+		
 		initTitlePanel();
 		
+		initNamePanel();
+		
 		initResultPanel();
+		
+		titlepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(142, 155, 188)));
+		namepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(142, 155, 188)));
+		resultscrollpanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(142, 155, 188)));
 		
 		GridBagLayout layout=new GridBagLayout();
 		this.setLayout(layout);
 		this.add(titlepanel);
-		this.add(resultpanel);
+		this.add(namepanel);
+		this.add(resultscrollpanel);
 		layout.setConstraints(titlepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(resultpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(namepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(resultscrollpanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenWidth = (int) screenSize.getWidth();
@@ -76,18 +94,42 @@ public class ValidationResultPanel extends JPanel{
 		
 	}
 
+	private void initNamePanel() {
+		// TODO Auto-generated method stub
+		
+		namelabel.setText("  ");
+		namelabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		namelabel.setForeground(new Color(0, 102, 204));
+		namelabel.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 0));
+		
+		namepanel.setLayout(new BorderLayout());
+		namepanel.setBackground(new Color(255,255,255));
+		namepanel.setPreferredSize(new Dimension(200, 29));
+		namepanel.setMinimumSize(new Dimension(100, 29));
+		namepanel.add(namelabel,BorderLayout.WEST);
+		
+	}
+
 	private void initResultPanel() {
 		// TODO Auto-generated method stub
 		
-		resultarea=new JTextArea();
-		resultarea.setEditable(false);
-		resultarea.setBorder(null);
-		
-		resultscrollpanel=new JScrollPane(resultarea);
-		resultscrollpanel.setBorder(null);
+//		resultarea=new JTextArea();
+//		resultarea.setEditable(false);
+//		resultarea.setBorder(null);
+//		
+//		resultscrollpanel=new JScrollPane(resultarea);
+//		resultscrollpanel.setBorder(null);
+//		
+//		resultpanel.setLayout(new GridLayout());
+//		resultpanel.add(resultscrollpanel);
 		
 		resultpanel.setLayout(new GridLayout());
-		resultpanel.add(resultscrollpanel);
+//		resultpanel.setLayout(new BoxLayout(resultpanel, BoxLayout.Y_AXIS));
+
+		resultpanel.setBackground(new Color(255, 255, 255));
+		
+		resultscrollpanel=new JScrollPane(resultpanel);
+		resultscrollpanel.setBorder(null);
 		
 	}
 
@@ -170,10 +212,21 @@ public class ValidationResultPanel extends JPanel{
 		this.setVisible(true);
 	}
 
-	public JTextArea getResultarea() {
-		return resultarea;
+	
+	
+	public JLabel getNamelabel() {
+		return namelabel;
 	}
+
+	public JPanel getResultpanel() {
+		return resultpanel;
+	}
+
+//	public JTextArea getResultarea() {
+//		return resultarea;
+//	}
 	
 	
 	
 }
+
