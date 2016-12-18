@@ -301,11 +301,7 @@ public class ModelExistValidationPanel extends JPanel{
 		
 		initTimingTablePanel();
 		
-		for(String str:timinglists){
-			Object[] rowData={str};
-			timingtablemodel.addRow(rowData);
-		}
-		
+		addDataToTimingTable();
 		
 //		timingpanel.setLayout(new BorderLayout());
 //		timingpanel.add(timinglabelpanel, BorderLayout.NORTH);
@@ -317,6 +313,22 @@ public class ModelExistValidationPanel extends JPanel{
 //		timingpanel.add(timingscrollpanel);
 //		layout.setConstraints(timinglabelpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //		layout.setConstraints(timingscrollpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+	}
+
+	private void addDataToTimingTable() {
+		// TODO Auto-generated method stub
+		
+		while(timingtablemodel.getRowCount()>0){
+			timingtablemodel.removeRow(timingtablemodel.getRowCount()-1);
+		}
+		
+		
+		for(String str:timinglists){
+			Object[] rowData={str};
+			timingtablemodel.addRow(rowData);
+		}
+		
 		
 	}
 
@@ -600,6 +612,25 @@ public class ModelExistValidationPanel extends JPanel{
 				
 			}
 		});
+		
+		timingtoolbutton2.setIcon(icon2);
+		timingtoolbutton2.setFocusable(false);
+		timingtoolbutton2.setContentAreaFilled(false);
+		timingtoolbutton2.setBorderPainted(false);
+		timingtoolbutton2.addMouseListener(new ButtonMouseListener());
+		timingtoolbutton2.setPreferredSize(new Dimension(21,21));
+		timingtoolbutton2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				timinglists.clear();
+				initFileList();
+				addDataToTimingTable();
+				
+			}
+		});
 
 		timingtoolpanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,4));
 		timingtoolpanel.setOpaque(false);
@@ -716,7 +747,7 @@ public class ModelExistValidationPanel extends JPanel{
 		});
 		
 		validationlabeltab2.setText("Ë³Ðò");
-		validationlabeltab2.setForeground(new Color(0,0,0));
+		validationlabeltab2.setForeground(new Color(255, 255, 255));
 		validationlabeltab2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		validationlabeltab2.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 		validationlabeltab2.setFocusable(false);
@@ -767,7 +798,7 @@ public class ModelExistValidationPanel extends JPanel{
 		});
 		
 		validationlabeltab3.setText("ÄæÏò");
-		validationlabeltab3.setForeground(new Color(0,0,0));
+		validationlabeltab3.setForeground(new Color(255, 255, 255));
 		validationlabeltab3.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		validationlabeltab3.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 		validationlabeltab3.setFocusable(false);
@@ -816,7 +847,7 @@ public class ModelExistValidationPanel extends JPanel{
 		});
 		
 		validationlabeltab4.setText("Ë«Ïò");
-		validationlabeltab4.setForeground(new Color(0,0,0));
+		validationlabeltab4.setForeground(new Color(255, 255, 255));
 		validationlabeltab4.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		validationlabeltab4.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 		validationlabeltab4.setFocusable(false);
@@ -1062,14 +1093,14 @@ public class ModelExistValidationPanel extends JPanel{
 		
 		validationtoolpanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,4));
 		validationtoolpanel.setOpaque(false);
-		validationtoolpanel.add(validationtoolbutton1);
+//		validationtoolpanel.add(validationtoolbutton1);
 		validationtoolpanel.add(validationtoolbutton2);
 
 		
 	}
 	
-	
 	public void initFileList() {
+	
 		File[] timingFilelists = getAllFileByDiagramType("timing");
 	    for(File timingFile : timingFilelists)
 	    {

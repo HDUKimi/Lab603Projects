@@ -104,6 +104,7 @@ public class ValidationTransitionMessagePanel extends JPanel{
 		
 		linelabel.setText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
 		linelabel.setPreferredSize(new Dimension(100, 3));
+		linelabel.setForeground(new Color(223, 204, 221));
 		
 		linepanel.setLayout(new GridLayout());
 		linepanel.add(linelabel);
@@ -119,8 +120,8 @@ public class ValidationTransitionMessagePanel extends JPanel{
 
 		ImageIcon icon1 = new ImageIcon(path + "write.png");
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "dropdown.png");
-		icon2.setImage(icon2.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+		ImageIcon icon2 = new ImageIcon(path + "dropdown1.png");
+		icon2.setImage(icon2.getImage().getScaledInstance(11,11, Image.SCALE_DEFAULT));
 		
 		titlelabel.setText(transistion.getName());
 		titlelabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 12));

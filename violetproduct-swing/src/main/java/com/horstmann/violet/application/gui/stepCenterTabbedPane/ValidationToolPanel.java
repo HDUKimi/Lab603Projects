@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.plaf.ProgressBarUI;
 
+import com.horstmann.violet.application.consolepart.ValidationLocationMessagePanel;
 import com.horstmann.violet.application.consolepart.ValidationTransitionMessagePanel;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
@@ -301,9 +302,7 @@ public class ValidationToolPanel extends JPanel{
 						mainFrame.getValidationResultPanel().getNamelabel().setText("共找到"+uppaalTransitionList.size()+"条消息：");
 						
 						mainFrame.getValidationResultPanel().getResultpanel().removeAll();
-//						mainFrame.getValidationResultPanel().getResultpanel().setLayout(new BoxLayout(mainFrame.getValidationResultPanel().getResultpanel(), BoxLayout.Y_AXIS));
 						
-						System.out.println(mainFrame.getValidationResultPanel().getResultpanel().size());
 						System.out.println("++++++++++++++++++++");
 						
 						JPanel resultpanel=new JPanel();
@@ -341,10 +340,40 @@ public class ValidationToolPanel extends JPanel{
 					}
 					else{
 						
+						mainFrame.getValidationResultPanel().getNamelabel().setText("共找到一条路径，包含"+pathTupleList.size()+"条节点和"+pathTupleList.size()+"条消息：");
+						
+						mainFrame.getValidationResultPanel().getResultpanel().removeAll();
+						
 						System.out.println("++++++++++++++++++++");
+						
+						JPanel resultpanel=new JPanel();
+						JPanel emptypanel=new JPanel();
+						resultpanel.setOpaque(false);
+						emptypanel.setOpaque(false);
+						
+						GridBagLayout layout = new GridBagLayout();
+						resultpanel.setLayout(layout);
+						int i=0;
+						
 						for(PathTuple pt:pathTupleList){
 							System.out.println(pt.getLocation().toString()+ " --- "+pt.getTransition().toString());
+							
+							ValidationLocationMessagePanel vlmpanel=new ValidationLocationMessagePanel(pt.getLocation());
+							resultpanel.add(vlmpanel);
+							layout.setConstraints(vlmpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+							
+							ValidationTransitionMessagePanel vtmpanel=new ValidationTransitionMessagePanel(pt.getTransition());
+							resultpanel.add(vtmpanel);
+							layout.setConstraints(vtmpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+							
 						}
+						
+						resultpanel.add(emptypanel);
+						layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//						mainFrame.getValidationResultPanel().getResultpanel().add(Box.createVerticalGlue());
+						mainFrame.getValidationResultPanel().getResultpanel().add(resultpanel);
+						mainFrame.getValidationResultPanel().ChangeRepaint();
+						
 						System.out.println("++++++++++++++++++++");
 						
 					}
