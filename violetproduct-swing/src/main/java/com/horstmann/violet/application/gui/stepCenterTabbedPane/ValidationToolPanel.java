@@ -340,7 +340,7 @@ public class ValidationToolPanel extends JPanel{
 					}
 					else{
 						
-						mainFrame.getValidationResultPanel().getNamelabel().setText("共找到一条路径，包含"+pathTupleList.size()+"条节点和"+pathTupleList.size()+"条消息：");
+						mainFrame.getValidationResultPanel().getNamelabel().setText("共找到一条路径，包含"+pathTupleList.size()+"个节点和"+pathTupleList.size()+"条消息：");
 						
 						mainFrame.getValidationResultPanel().getResultpanel().removeAll();
 						

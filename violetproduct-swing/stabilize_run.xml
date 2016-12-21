@@ -3,7 +3,7 @@
 <nta>
   <declaration>chan next, tea, nexta, cofford, coffee, teain, coffin, teaord;clock x;</declaration>
   <template>
-    <name x="30" y="30">Button</name>
+    <name x="30" y="30">1</name>
     <declaration/>
     <location init="true" finl="true" id="id0" x="16" y="298">
       <name x="-14" y="268">startbt:Button</name>
@@ -80,7 +80,7 @@
     <transition out="false">
       <source ref="id0"/>
       <target ref="id1"/>
-      <label kind="guard" x="42" y="194" duration="null">UserPush==ButtonCoffee</label>
+      <label kind="guard" x="42" y="194" time="4" duration="null">UserPush==ButtonCoffee</label>
     </transition>
     <transition out="true">
       <source ref="id2"/>
@@ -90,7 +90,7 @@
     <transition out="false">
       <source ref="id0"/>
       <target ref="id3"/>
-      <label kind="guard" x="42" y="261" duration="null">UserPush==ButtonTea</label>
+      <label kind="guard" x="42" y="261" time="50" duration="null">UserPush==ButtonTea</label>
     </transition>
     <transition out="true">
       <source ref="id2"/>
@@ -100,21 +100,23 @@
     <transition out="true">
       <source ref="id4"/>
       <target ref="id5"/>
-      <label kind="guard" x="410" y="110" duration="null">UserPush==ButtonCoffee</label>
+      <label kind="guard" x="410" y="110" time="18" from="Controller" to="CoffeeBox" duration="null">UserPush==ButtonCoffee</label>
       <label kind="synchronisation" x="30" y="30" time="18" from="Controller" to="CoffeeBox" duration="null">cofford?</label>
     </transition>
     <transition out="false">
       <source ref="id5"/>
       <target ref="id6"/>
+      <label kind="none" x="502" y="110" time="26" duration="null">null</label>
     </transition>
     <transition out="false">
       <source ref="id6"/>
       <target ref="id7"/>
+      <label kind="none" x="594" y="110" time="32" duration="null">null</label>
     </transition>
     <transition out="true">
       <source ref="id8"/>
       <target ref="id9"/>
-      <label kind="guard" x="226" y="143" duration="null">UserPush==ButtonCoffee</label>
+      <label kind="guard" x="226" y="143" time="11" from="Button" to="Controller" duration="null">UserPush==ButtonCoffee</label>
       <label kind="synchronisation" x="30" y="30" time="11" from="Button" to="Controller" duration="null">coffee?</label>
     </transition>
     <transition out="true">
@@ -125,7 +127,7 @@
     <transition out="true">
       <source ref="id8"/>
       <target ref="id12"/>
-      <label kind="guard" x="226" y="211" duration="null">UserPush==ButtonTea</label>
+      <label kind="guard" x="226" y="211" time="57" from="Button" to="Controller" duration="null">UserPush==ButtonTea</label>
       <label kind="synchronisation" x="30" y="30" time="57" from="Button" to="Controller" duration="null">tea?</label>
     </transition>
     <transition out="true">
@@ -136,16 +138,18 @@
     <transition out="true">
       <source ref="id15"/>
       <target ref="id16"/>
-      <label kind="guard" x="410" y="245" duration="null">UserPush==ButtonTea</label>
+      <label kind="guard" x="410" y="245" time="63" from="Controller" to="TeaBox" duration="null">UserPush==ButtonTea</label>
       <label kind="synchronisation" x="30" y="30" time="63" from="Controller" to="TeaBox" duration="null">teaord?</label>
     </transition>
     <transition out="false">
       <source ref="id16"/>
       <target ref="id17"/>
+      <label kind="none" x="502" y="245" time="71" duration="null">null</label>
     </transition>
     <transition out="false">
       <source ref="id17"/>
       <target ref="id18"/>
+      <label kind="none" x="594" y="245" time="78" duration="null">null</label>
     </transition>
     <transition out="true">
       <source ref="id1"/>
