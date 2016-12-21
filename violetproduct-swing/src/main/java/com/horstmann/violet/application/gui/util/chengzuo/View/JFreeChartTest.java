@@ -1,12 +1,9 @@
-package com.horstmann.violet.application.gui.util.chengzuo.Verfication;
+package com.horstmann.violet.application.gui.util.chengzuo.View;
 import java.awt.Font;
-import java.awt.Panel;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
@@ -14,6 +11,8 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.general.DefaultPieDataset;
+
+import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 //饼状图
 public class JFreeChartTest {
 	//返回一个jpanel
@@ -24,7 +23,7 @@ public class JFreeChartTest {
 	  //遍历看看成功或者失败的个数统计
 	  for(TestCase info:list){
 		  String str=info.getResult();
-		  if("成功".equals(str)){
+		  if(str.contains("成功")){
 			  i++;
 		  }
 		  else{
@@ -47,11 +46,9 @@ public class JFreeChartTest {
 		  String sb=df.format(b);
 		  a=Double.parseDouble(sa);
 		  b=Double.parseDouble(sb);
-		  dpd.setValue("成功",a);
-		  dpd.setValue("失败",b);
+		  dpd.setValue("成功"+a+"%",a);
+		  dpd.setValue("失败"+b+"%",b);
 	  }
-   //  dpd.setValue("开发人员",45);
-     //dpd.setValue("其他人员", 10);
   
      JFreeChart chart=ChartFactory.createPieChart3D("测试用例实例化验证数据",dpd,true,true,false); 
      //对里面的标题

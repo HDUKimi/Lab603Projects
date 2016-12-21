@@ -1,13 +1,13 @@
-package com.horstmann.violet.application.gui.util.chengzuo.Verfication;
+package com.horstmann.violet.application.gui.util.chengzuo.View;
 
 import java.awt.Color;
 import java.util.List;
-
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 
 public class ConsolePartTestCaseInfoTable extends JTable{
   private static final long serialVersionUID = 1L;
