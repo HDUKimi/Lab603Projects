@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -26,6 +27,8 @@ import com.horstmann.violet.application.consolepart.ValidationTransitionMessageP
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
+import com.horstmann.violet.application.gui.util.tanchao.XMLVerificationTranMessage;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.PathTuple;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalTransition;
 import com.horstmann.violet.workspace.IWorkspace;
@@ -298,6 +301,14 @@ public class ValidationToolPanel extends JPanel{
 						System.out.println("list is null");
 					}
 					else{
+						//------------
+//						String path = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\uppaalTest1.uppaal.violet.xml";
+	                    //得到k---name v-----id的map
+//						HashMap<String,String> mapCopy=XMLVerificationTranMessage.getTranMessage(path);
+						TranMessageColorize tmc=new TranMessageColorize();
+						tmc.ColorizeTran(uppaalTransitionList,mainFrame.getModelExistValidationPanel().getUppaalworkspace());
+						
+						//------------
 						
 						mainFrame.getValidationResultPanel().getNamelabel().setText("共找到"+uppaalTransitionList.size()+"条消息：");
 						
@@ -332,14 +343,16 @@ public class ValidationToolPanel extends JPanel{
 					
 				}else if(mainFrame.getModelExistValidationPanel().getValidationlabeltabindex()==2){
 					
-					List<PathTuple> pathTupleList=null;
+					List<PathTuple> pathTupleList=null;//给我的集合
 					pathTupleList=mainFrame.getModelExistValidationPanel().getEv().getPathOfSelectedTransitions(selecteduppaalmessagelist);
 					
 					if(pathTupleList==null){
 						System.out.println("list is null");
 					}
 					else{
-						
+						//xie
+						TranMessageColorize tmc=new TranMessageColorize();
+						tmc.ColorizeTranAndState(pathTupleList, workspace);
 						mainFrame.getValidationResultPanel().getNamelabel().setText("共找到一条路径，包含"+pathTupleList.size()+"个节点和"+pathTupleList.size()+"条消息：");
 						
 						mainFrame.getValidationResultPanel().getResultpanel().removeAll();

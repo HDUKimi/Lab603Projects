@@ -119,6 +119,8 @@ public class ModelExistValidationPanel extends JPanel{
 	
 	private static ExistVerification ev;
 	
+	IWorkspace uppaalworkspace=null;
+	
 	
 	
 	
@@ -484,8 +486,8 @@ public class ModelExistValidationPanel extends JPanel{
 	protected void showUppaalDiagram(String filename) {
 		// TODO Auto-generated method stub
 		
-		IWorkspace workspace=null;
-		workspace=mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalTabbedPane().getTiminganduppaalmap().get(filename);
+//		IWorkspace workspace=null;
+		uppaalworkspace=mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalTabbedPane().getTiminganduppaalmap().get(filename);
 		
 		
 			
@@ -501,9 +503,9 @@ public class ModelExistValidationPanel extends JPanel{
 			System.out.println("filename1:" + filename1 + " TimingEAtoUppaal.getDiagramDataName():"
 					+ TimingEAtoUppaal.getDiagramDataName());
 
-			if (workspace == null) {
+			if (uppaalworkspace == null) {
 				GraphFile fGraphFile1 = ImportByDoubleClick.importFileByDoubleClick("UPPAAL", filename1);
-				workspace = new Workspace(fGraphFile1);
+				uppaalworkspace = new Workspace(fGraphFile1);
 			}
 
 		} catch (Exception e) {
@@ -516,7 +518,7 @@ public class ModelExistValidationPanel extends JPanel{
 		mainFrame.getStepSixCenterTabbedPane().getDiagramPanel().removeAll();
 		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
 		
-		ValidationToolPanel toolPanel = new ValidationToolPanel(mainFrame,workspace);
+		ValidationToolPanel toolPanel = new ValidationToolPanel(mainFrame,uppaalworkspace);
 
 		MoviePanel moviePanel = new MoviePanel();
 
@@ -524,10 +526,10 @@ public class ModelExistValidationPanel extends JPanel{
 		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().setLayout(layout);
 		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().add(toolPanel);
 		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().add(moviePanel);
-		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().add(workspace.getAWTComponent());
+		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().add(uppaalworkspace.getAWTComponent());
 		layout.setConstraints(toolPanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(moviePanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(workspace.getAWTComponent(),new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(uppaalworkspace.getAWTComponent(),new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		
 	}
@@ -1187,6 +1189,10 @@ public class ModelExistValidationPanel extends JPanel{
 
 	public static ExistVerification getEv() {
 		return ev;
+	}
+
+	public IWorkspace getUppaalworkspace() {
+		return uppaalworkspace;
 	}
 	
 	

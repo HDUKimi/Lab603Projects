@@ -41,10 +41,11 @@ public class ArrowHead extends SerializableEnumeration
      * @param p a point on the axis of the arrow head
      * @param q the end point of the arrow head
      */
-    public void draw(Graphics2D g2, Point2D p, Point2D q)
+    public void draw(Graphics2D g2, Point2D p, Point2D q,Color color)
     {
         GeneralPath path = getPath(p, q);
         Color oldColor = g2.getColor();
+//        System.out.println("color22---------"+oldColor);
         if (this != V && this != HALF_V && this != NONE)
         {
            if (this == BLACK_DIAMOND || this == BLACK_TRIANGLE)
@@ -54,7 +55,8 @@ public class ArrowHead extends SerializableEnumeration
            g2.fill(path);
         }        
         
-        g2.setColor(oldColor);
+//        g2.setColor(oldColor);
+        g2.setColor(color);
         g2.draw(path);
     }
 

@@ -21,6 +21,7 @@
 
 package com.horstmann.violet.product.diagram.state;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -66,7 +67,7 @@ public class StateTransitionEdge extends ShapeEdge
     {
         g2.draw(getShape());
         drawLabel(g2);
-        ArrowHead.V.draw(g2, getControlPoint(), getConnectionPoints().getP2());
+        ArrowHead.V.draw(g2, getControlPoint(), getConnectionPoints().getP2(),Color.black);
     }
 
     /**

@@ -151,7 +151,7 @@ public void draw(Graphics2D g2){
 	 this.setEndtimePoint(TransEndPointToTime(edgeEndXpoint));
 	
 	  //绘制消息结束位置的箭头
-	  getEndArrowHead().draw(g2, getConnectionPoints().getP1(), getConnectionPoints().getP2());
+	  getEndArrowHead().draw(g2, getConnectionPoints().getP1(), getConnectionPoints().getP2(),Color.black);
 	  //drawString,绘制消息上的属性
 	  g2.drawString(name,(int)((getConnectionPoints().getX1()+getConnectionPoints().getX2())/2),
 			  (int)((getConnectionPoints().getY1()+getConnectionPoints().getY2())/2));

@@ -99,7 +99,7 @@ public  class TimeConditionEdge extends ShapeEdge{
 	        g2.draw(getSegmentPath());  
 	     
 	        g2.setStroke(oldStroke);	       
-	        getEndArrowHead().draw(g2, (Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1));	       
+	        getEndArrowHead().draw(g2, (Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1),Color.BLACK);	       
 	        drawString(g2, (Point2D) points.get(points.size() / 2 - 1), (Point2D) points.get(points.size() / 2), null, middleLabel,
 	                true);
 	    

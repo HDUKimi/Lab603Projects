@@ -73,11 +73,14 @@ public class WriteVioletUppaal {
         			TransitionEdgeInfo.get(j).setEndlocation_y(temp.element("label").attributeValue("y"));
         			
         			System.out.println("++++++++++++++++++++++++++++++++++++++++++++"+temp.elements("label").size());
+        			String labeltext=" ";
         			for(int i=0;i<temp.elements("label").size();i++){
         				System.out.println(((Element)temp.elements("label").get(i)).getText());
+        				labeltext+=((Element)temp.elements("label").get(i)).getText();
+        				labeltext+=" ";
         			}
         			
-        			TransitionEdgeInfo.get(j).setLabelText(temp.element("label").getText());
+        			TransitionEdgeInfo.get(j).setLabelText(labeltext);
     			}
 //    			TransitionEdgeInfo.get(j).setStartlocation_x(temp.element("label").attributeValue("x"));
 //    			TransitionEdgeInfo.get(j).setStartlocation_y(temp.element("label").attributeValue("y"));

@@ -271,8 +271,8 @@ public abstract class SegmentedLineEdgeByCai extends ShapeEdge
         g2.setStroke(oldStroke);
         setStartLocation(getPoints().get(0));
         setEndLocation(getPoints().get(1));
-        getStartArrowHead().draw(g2, (Point2D) points.get(1), (Point2D) points.get(0));
-        getEndArrowHead().draw(g2, (Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1));
+        getStartArrowHead().draw(g2, (Point2D) points.get(1), (Point2D) points.get(0),Color.black);
+        getEndArrowHead().draw(g2, (Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1),Color.black);
         int x = (int)points.get(0).getX()+40;
         int y = (int)points.get(0).getY();
         Point2D point2d = new Point(x, y);

@@ -12,22 +12,22 @@
       <name x="78" y="100">pinc:Button</name>
       <urgent/>
     </location>
-    <location init="false" finl="false" id="id2" x="936" y="298">
-      <name x="906" y="268">wait:Button</name>
+    <location init="false" finl="false" id="id2" x="936" y="178">
+      <name x="906" y="148">wait:Button</name>
     </location>
     <location init="false" finl="false" id="id3" x="108" y="265">
       <name x="78" y="235">pint:Button</name>
       <urgent/>
     </location>
-    <location init="true" finl="false" id="id4" x="384" y="130">
-      <name x="354" y="100">startcoff:CoffeeBox</name>
+    <location init="true" finl="false" id="id4" x="384" y="100">
+      <name x="354" y="70">startcoff:CoffeeBox</name>
     </location>
     <location init="false" finl="false" id="id5" x="476" y="130">
       <name x="446" y="100">cofforded:CoffeeBox</name>
       <label kind="invariant" x="30" y="30">t...t+20</label>
     </location>
-    <location init="false" finl="false" id="id6" x="568" y="130">
-      <name x="538" y="100">cupdelivered:CoffeeBox</name>
+    <location init="false" finl="false" id="id6" x="568" y="100">
+      <name x="538" y="70">cupdelivered:CoffeeBox</name>
       <urgent/>
     </location>
     <location init="false" finl="false" id="id7" x="660" y="130">
@@ -37,43 +37,43 @@
     <location init="true" finl="false" id="id8" x="200" y="197">
       <name x="170" y="167">Startcon:Controller</name>
     </location>
-    <location init="false" finl="false" id="id9" x="292" y="130">
-      <name x="262" y="100">ReciveCoffeeOrder:Controller</name>
+    <location init="false" finl="false" id="id9" x="292" y="100">
+      <name x="262" y="70">ReciveCoffeeOrder:Controller</name>
       <urgent/>
     </location>
     <location init="false" finl="false" id="id10" x="752" y="130">
       <name x="722" y="100">GiveCoffee:Controller</name>
       <label kind="invariant" x="30" y="30">t...t+30</label>
     </location>
-    <location init="false" finl="false" id="id11" x="844" y="130">
-      <name x="814" y="100">CoffeeOffered:Controller</name>
+    <location init="false" finl="false" id="id11" x="844" y="100">
+      <name x="814" y="70">CoffeeOffered:Controller</name>
       <urgent/>
     </location>
-    <location init="false" finl="false" id="id12" x="292" y="265">
-      <name x="262" y="235">ReceiveTeaOrder:Controller</name>
+    <location init="false" finl="false" id="id12" x="292" y="175">
+      <name x="262" y="145">ReceiveTeaOrder:Controller</name>
       <urgent/>
     </location>
     <location init="false" finl="false" id="id13" x="752" y="265">
       <name x="722" y="235">GiveTea:Controller</name>
       <label kind="invariant" x="30" y="30">t...t+35</label>
     </location>
-    <location init="false" finl="false" id="id14" x="844" y="265">
-      <name x="814" y="235">TeapreOffered:Controller</name>
+    <location init="false" finl="false" id="id14" x="844" y="175">
+      <name x="814" y="145">TeapreOffered:Controller</name>
       <urgent/>
     </location>
     <location init="true" finl="false" id="id15" x="384" y="265">
       <name x="354" y="235">starttea:TeaBox</name>
     </location>
-    <location init="false" finl="false" id="id16" x="476" y="265">
-      <name x="446" y="235">teaorded:TeaBox</name>
+    <location init="false" finl="false" id="id16" x="476" y="175">
+      <name x="446" y="145">teaorded:TeaBox</name>
       <label kind="invariant" x="30" y="30">t...t+25</label>
     </location>
     <location init="false" finl="false" id="id17" x="568" y="265">
       <name x="538" y="235">cupdelivered:TeaBox</name>
       <label kind="invariant" x="30" y="30">t...t+10</label>
     </location>
-    <location init="false" finl="false" id="id18" x="660" y="265">
-      <name x="630" y="235">teaprepared:TeaBox</name>
+    <location init="false" finl="false" id="id18" x="660" y="175">
+      <name x="630" y="145">teaprepared:TeaBox</name>
       <urgent/>
     </location>
     <init ref="id15"/>
@@ -85,7 +85,7 @@
     <transition out="true">
       <source ref="id2"/>
       <target ref="id0"/>
-      <label kind="synchronisation" x="456" y="278" time="44" from="Controller" to="Button" duration="null">nexta?</label>
+      <label kind="synchronisation" x="456" y="218" time="44" from="Controller" to="Button" duration="null">nexta?</label>
     </transition>
     <transition out="false">
       <source ref="id0"/>
@@ -95,61 +95,61 @@
     <transition out="true">
       <source ref="id2"/>
       <target ref="id0"/>
-      <label kind="synchronisation" x="456" y="278" time="89" from="Controller" to="Button" duration="null">next?</label>
+      <label kind="synchronisation" x="456" y="218" time="89" from="Controller" to="Button" duration="null">next?</label>
     </transition>
     <transition out="true">
       <source ref="id4"/>
       <target ref="id5"/>
-      <label kind="guard" x="410" y="110" time="18" from="Controller" to="CoffeeBox" duration="null">UserPush==ButtonCoffee</label>
+      <label kind="guard" x="410" y="95" time="18" from="Controller" to="CoffeeBox" duration="null">UserPush==ButtonCoffee</label>
       <label kind="synchronisation" x="30" y="30" time="18" from="Controller" to="CoffeeBox" duration="null">cofford?</label>
     </transition>
     <transition out="false">
       <source ref="id5"/>
       <target ref="id6"/>
-      <label kind="none" x="502" y="110" time="26" duration="null">null</label>
+      <label kind="none" x="502" y="95" time="26" duration="null">null</label>
     </transition>
     <transition out="false">
       <source ref="id6"/>
       <target ref="id7"/>
-      <label kind="none" x="594" y="110" time="32" duration="null">null</label>
+      <label kind="none" x="594" y="95" time="32" duration="null">null</label>
     </transition>
     <transition out="true">
       <source ref="id8"/>
       <target ref="id9"/>
-      <label kind="guard" x="226" y="143" time="11" from="Button" to="Controller" duration="null">UserPush==ButtonCoffee</label>
+      <label kind="guard" x="226" y="128" time="11" from="Button" to="Controller" duration="null">UserPush==ButtonCoffee</label>
       <label kind="synchronisation" x="30" y="30" time="11" from="Button" to="Controller" duration="null">coffee?</label>
     </transition>
     <transition out="true">
       <source ref="id10"/>
       <target ref="id11"/>
-      <label kind="synchronisation" x="778" y="110" time="38" from="CoffeeBox" to="Controller" duration="null">coffin?</label>
+      <label kind="synchronisation" x="778" y="95" time="38" from="CoffeeBox" to="Controller" duration="null">coffin?</label>
     </transition>
     <transition out="true">
       <source ref="id8"/>
       <target ref="id12"/>
-      <label kind="guard" x="226" y="211" time="57" from="Button" to="Controller" duration="null">UserPush==ButtonTea</label>
+      <label kind="guard" x="226" y="166" time="57" from="Button" to="Controller" duration="null">UserPush==ButtonTea</label>
       <label kind="synchronisation" x="30" y="30" time="57" from="Button" to="Controller" duration="null">tea?</label>
     </transition>
     <transition out="true">
       <source ref="id13"/>
       <target ref="id14"/>
-      <label kind="synchronisation" x="778" y="245" time="82" from="TeaBox" to="Controller" duration="null">teain?</label>
+      <label kind="synchronisation" x="778" y="200" time="82" from="TeaBox" to="Controller" duration="null">teain?</label>
     </transition>
     <transition out="true">
       <source ref="id15"/>
       <target ref="id16"/>
-      <label kind="guard" x="410" y="245" time="63" from="Controller" to="TeaBox" duration="null">UserPush==ButtonTea</label>
+      <label kind="guard" x="410" y="200" time="63" from="Controller" to="TeaBox" duration="null">UserPush==ButtonTea</label>
       <label kind="synchronisation" x="30" y="30" time="63" from="Controller" to="TeaBox" duration="null">teaord?</label>
     </transition>
     <transition out="false">
       <source ref="id16"/>
       <target ref="id17"/>
-      <label kind="none" x="502" y="245" time="71" duration="null">null</label>
+      <label kind="none" x="502" y="200" time="71" duration="null">null</label>
     </transition>
     <transition out="false">
       <source ref="id17"/>
       <target ref="id18"/>
-      <label kind="none" x="594" y="245" time="78" duration="null">null</label>
+      <label kind="none" x="594" y="200" time="78" duration="null">null</label>
     </transition>
     <transition out="true">
       <source ref="id1"/>
@@ -169,27 +169,27 @@
     <transition out="true">
       <source ref="id9"/>
       <target ref="id4"/>
-      <label kind="synchronisation" x="318" y="110" time="16" from="Controller" to="CoffeeBox" duration="null">cofford</label>
+      <label kind="synchronisation" x="318" y="80" time="16" from="Controller" to="CoffeeBox" duration="null">cofford</label>
     </transition>
     <transition out="true">
       <source ref="id11"/>
       <target ref="id2"/>
-      <label kind="synchronisation" x="870" y="194" time="43" from="Controller" to="Button" duration="null">nexta</label>
+      <label kind="synchronisation" x="870" y="119" time="43" from="Controller" to="Button" duration="null">nexta</label>
     </transition>
     <transition out="true">
       <source ref="id12"/>
       <target ref="id15"/>
-      <label kind="synchronisation" x="318" y="245" time="62" from="Controller" to="TeaBox" duration="null">teaord</label>
+      <label kind="synchronisation" x="318" y="200" time="62" from="Controller" to="TeaBox" duration="null">teaord</label>
     </transition>
     <transition out="true">
       <source ref="id14"/>
       <target ref="id2"/>
-      <label kind="synchronisation" x="870" y="261" time="87" from="Controller" to="Button" duration="null">next</label>
+      <label kind="synchronisation" x="870" y="156" time="87" from="Controller" to="Button" duration="null">next</label>
     </transition>
     <transition out="true">
       <source ref="id18"/>
       <target ref="id13"/>
-      <label kind="synchronisation" x="686" y="245" time="80" from="TeaBox" to="Controller" duration="null">teain</label>
+      <label kind="synchronisation" x="686" y="200" time="80" from="TeaBox" to="Controller" duration="null">teain</label>
     </transition>
   </template>
   <system>system Button, TeaBox, CoffeeBox, Controller;</system>

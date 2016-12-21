@@ -1,6 +1,7 @@
 package com.horstmann.violet.product.diagram.uppaal;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.GeneralPath;
@@ -44,11 +45,12 @@ public class TransitionEdge extends ShapeEdge
     }
 
     public void draw(Graphics2D g2)
-    {
+    {   g2.setColor(getEdgeColor());
+//    System.out.println("color11----------"+getEdgeColor());
         g2.draw(getShape());
         //g2.drawString(labelText,(int)labelbounds.getX(),(int)labelbounds.getY());
         drawLabel(g2);
-        ArrowHead.V.draw(g2, getControlPoint(), getConnectionPoints().getP2());
+        ArrowHead.V.draw(g2, getControlPoint(), getConnectionPoints().getP2(),getEdgeColor());
     }
 
     /**
@@ -81,7 +83,8 @@ public class TransitionEdge extends ShapeEdge
         Graphics2D g2 = (Graphics2D) dummy.getGraphics();
         
         label.setText("<html>" + labelText + "</html>");
-        label.setFont(g2.getFont());
+//        label.setFont(g2.getFont());
+        label.setFont(new Font("ÐÂÂÞÂí",Font.PLAIN,10));
         Dimension d = label.getPreferredSize();
         label.setBounds(0, 0, d.width, d.height);
 

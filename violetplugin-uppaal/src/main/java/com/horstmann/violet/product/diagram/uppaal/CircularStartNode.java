@@ -1,6 +1,7 @@
 package com.horstmann.violet.product.diagram.uppaal;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -8,7 +9,6 @@ import java.awt.geom.Rectangle2D;
 
 import com.horstmann.violet.product.diagram.abstracts.node.EllipticalNode;
 import com.horstmann.violet.product.diagram.abstracts.property.MultiLineString;
-
 
 public class CircularStartNode extends EllipticalNode{
 	
@@ -48,14 +48,18 @@ public class CircularStartNode extends EllipticalNode{
 	        Rectangle2D bounds = getBounds();
 	        Ellipse2D inside = new Ellipse2D.Double(bounds.getX() + DEFAULT_GAP, bounds.getY() + DEFAULT_GAP, bounds.getWidth() - 2
 	                * DEFAULT_GAP, bounds.getHeight() - 2 * DEFAULT_GAP);
-	        g2.setColor(getBackgroundColor());
-	        g2.fill(circle);
+//	        g2.setColor(getBackgroundColor());
+//	        g2.fill(circle);
 	        g2.setColor(getBorderColor());
+	        g2.fill(circle);
 	        g2.fill(inside);
+	        g2.setColor(Color.BLACK);
+	        g2.draw(inside);
 	        g2.draw(circle);
 
 	        // Restore first color
 	        g2.setColor(oldColor);
+	        g2.setFont(new Font("ÐÂÂÞÂí",Font.PLAIN,10));
 	        g2.drawString(name,(int)getBounds().getX(),(int)getBounds().getY());
 	    }
 	    public void setName(String newValue)
@@ -69,7 +73,7 @@ public class CircularStartNode extends EllipticalNode{
 	
         private String name;
 	    /** default node diameter */
-	    private static int DEFAULT_DIAMETER = 29;
+	    private static int DEFAULT_DIAMETER = 10;//29;
 
 	    /** default gap between the main circle and the ring for a final node */
 	    private static int DEFAULT_GAP = 5;

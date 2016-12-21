@@ -1,5 +1,6 @@
 package com.horstmann.violet.product.diagram.markov;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -43,7 +44,7 @@ public class MarkovTransitionEdge extends ShapeEdge
     {
         g2.draw(getShape());
         drawLabel(g2);
-        ArrowHead.V.draw(g2, getControlPoint(), getConnectionPoints().getP2());
+        ArrowHead.V.draw(g2, getControlPoint(), getConnectionPoints().getP2(),Color.black);
     }
 
     /**

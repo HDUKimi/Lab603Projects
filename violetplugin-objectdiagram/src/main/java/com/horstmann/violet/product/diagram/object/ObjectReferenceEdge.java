@@ -21,6 +21,7 @@
 
 package com.horstmann.violet.product.diagram.object;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.GeneralPath;
@@ -47,7 +48,7 @@ public class ObjectReferenceEdge extends ShapeEdge
         double y = line.getY2();
         if (isSShaped()) x1 = x2 - ENDSIZE;
         else x1 = x2 + ENDSIZE;
-        ArrowHead.BLACK_TRIANGLE.draw(g2, new Point2D.Double(x1, y), new Point2D.Double(x2, y));
+        ArrowHead.BLACK_TRIANGLE.draw(g2, new Point2D.Double(x1, y), new Point2D.Double(x2, y),Color.black);
     }
 
     public Shape getShape()

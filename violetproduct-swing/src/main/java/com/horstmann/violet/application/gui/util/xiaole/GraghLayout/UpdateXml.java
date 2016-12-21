@@ -74,7 +74,7 @@ public class UpdateXml {
 		// 这里面是把每个点的X，Y坐标都乘以相同的倍数，以在不改变有向图格局的前提下，放大有向图，以致减少标签的重叠，因为标签有长度
 		// }
 
-		System.out.println("------------------------");
+		//System.out.println("------------------------");
 
 		for (int I = 0; I < 2 * i; I += 2) {
 			AYMap.put(I / 2, A[I]);
@@ -89,13 +89,18 @@ public class UpdateXml {
 			}
 		});
 		// 遍历AYMap,并逐行增加y轴高度
+		int count=0;
 		for (Map.Entry<Integer, Integer> mapping : aylist) {
 			System.out.println(mapping.getKey() + ":" + mapping.getValue());
 			if (Min != mapping.getValue()) {
 				index++;
+				count=0;
 				Min = mapping.getValue();
 			}
-			AYMap.put(mapping.getKey(), mapping.getValue() + 30 * index);
+			if(count%2==0){
+				AYMap.put(mapping.getKey(), mapping.getValue() + 30 * index);
+			}
+			count++;
 		}
 		// 按key排序，将y轴高度赋值给A[]
 		for (Map.Entry<Integer, Integer> sortmap : AYMap.entrySet()) {
@@ -108,7 +113,7 @@ public class UpdateXml {
 //		for (int I = 0; I < 2 * i; I++) {
 //			System.out.println(A[I] + " ++ " + A[++I]);
 //		}
-		System.out.println("------------------------");
+		//System.out.println("------------------------");
 
 		    //i代表着多少个点		
 			while (n < i) {

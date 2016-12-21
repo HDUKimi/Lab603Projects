@@ -1,6 +1,7 @@
 package com.horstmann.violet.product.diagram.uppaal;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -39,10 +40,13 @@ public class CircularNode extends EllipticalNode {
 	        // Draw circle
 	        g2.setColor(getBorderColor());
 	        Rectangle2D bounds = getBounds();
-	        Ellipse2D circle = new Ellipse2D.Double(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
+	        Ellipse2D circle = new Ellipse2D.Double(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());//(16,16,16,16);//
 	        g2.fill(circle);  
 	        // Restore first color
+	        g2.setColor(Color.black);
+	        g2.draw(circle);
 	        g2.setColor(oldColor);
+	        g2.setFont(new Font("ÐÂÂÞÂí",Font.PLAIN,10));
 	        g2.drawString(getName(),(int)getBounds().getX(),(int)getBounds().getY());
 	    }
 
@@ -66,7 +70,7 @@ public class CircularNode extends EllipticalNode {
 
 	    /** default node diameter */
 	    private String name;
-	    private static int DEFAULT_DIAMETER = 34;
+	    private static int DEFAULT_DIAMETER = 16;//34
 		
 
 	}
