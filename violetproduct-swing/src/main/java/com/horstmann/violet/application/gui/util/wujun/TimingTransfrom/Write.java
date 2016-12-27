@@ -76,6 +76,24 @@ public class Write {
 				if (location.getInit().equals("true"))
 					inittemp = location.getId();
 
+				// 写入   这个状态在不同时刻的开始时间、结束时间、时间约束
+				if (location.endTimeList.size() < location.startTimeList.size()) {
+					location.endTimeList.add(Integer.MAX_VALUE);
+				}
+				for(int i = 0; i < location.getStartTimeList().size(); i++) {
+					int startT = location.startTimeList.get(i);
+					int endT = location.endTimeList.get(i) == 0 ? Integer.MAX_VALUE : location.endTimeList.get(i);
+					String timeDuration = "null";
+					if (location.timeDurationList.size() >= i + 1) {
+						timeDuration = location.timeDurationList.get(i);
+					}
+					if (timeDuration == null) {
+						timeDuration = "null";
+					}
+					loc.addElement("moment").addAttribute("startTime", String.valueOf(startT))
+											.addAttribute("endTime", String.valueOf(endT))
+											.addAttribute("timeDuration", timeDuration);
+				}
 			}
 			tem.addElement("init").addAttribute("ref", "id" + inittemp);
 			while (transitonIterator.hasNext()) {// 写入状态迁移
@@ -91,43 +109,59 @@ public class Write {
 				int i = 0;
 				boolean out = false;
 				if (tempStrings[i] == null) {
-					tran.addElement("label").addAttribute("kind", "none").addAttribute("x", xx)
-					.addAttribute("y", yy).addAttribute("time", transition.getTime())
+					tran.addElement("label")
+					.addAttribute("kind", "none")
+					.addAttribute("x", xx)
+					.addAttribute("y", yy)
+					.addAttribute("startTime", transition.getStartTime())
+					.addAttribute("endTime", transition.getStartTime())
 					.addAttribute("from", transition.getFromName())
 					.addAttribute("to", transition.getToName()).addAttribute("duration", "null")
 					.setText("null");
 				}
 				while (tempStrings[i] != null) {
 					if (tempStrings[i].equals("synchronisation")) {
+						if (!tempStrings2[i].contains("?")) {
+							out = true;
+						}
 						String duration = transition.getDuration();
 						if (duration != null) {
 							if (tempStrings2[i].contains("?")) {
 								duration = "null";
-							}
-							tran.addElement("label").addAttribute("kind", tempStrings[i]).addAttribute("x", xx)
-									.addAttribute("y", yy).addAttribute("time", transition.getTime())
-									.addAttribute("from", transition.getFromName())
-									.addAttribute("to", transition.getToName()).addAttribute("duration", duration)
-									.setText(tempStrings2[i]);
+							} 
+							tran.addElement("label")
+							.addAttribute("kind", tempStrings[i])
+							.addAttribute("x", xx)
+							.addAttribute("y", yy)
+							.addAttribute("startTime", transition.getStartTime())
+							.addAttribute("endTime", transition.getEndTime())
+							.addAttribute("from", transition.getFromName())
+							.addAttribute("to", transition.getToName()).addAttribute("duration", duration)
+							.setText(tempStrings2[i]);
 
 						} else {
-							tran.addElement("label").addAttribute("kind", tempStrings[i]).addAttribute("x", xx)
-									.addAttribute("y", yy).addAttribute("time", transition.getTime())
-									.addAttribute("from", transition.getFromName())
-									.addAttribute("to", transition.getToName()).addAttribute("duration", "null")
-									.setText(tempStrings2[i]);
+							tran.addElement("label")
+							.addAttribute("kind", tempStrings[i])
+							.addAttribute("x", xx)
+							.addAttribute("y", yy)
+							.addAttribute("startTime", transition.getStartTime())
+							.addAttribute("endTime", transition.getEndTime())
+							.addAttribute("from", transition.getFromName())
+							.addAttribute("to", transition.getToName()).addAttribute("duration", "null")
+							.setText(tempStrings2[i]);
 						}
-
-						tran.addAttribute("out", "true");
-						out = true;
-
 						i++;
 					} else {
-						tran.addElement("label").addAttribute("kind", tempStrings[i]).addAttribute("x", xx)
-								.addAttribute("y", yy).addAttribute("time", transition.getTime())
-								.addAttribute("from", transition.getFromName())
-								.addAttribute("to", transition.getToName()).addAttribute("duration", "null")
-								.setText(tempStrings2[i]);
+						
+						tran.addElement("label")
+						.addAttribute("kind", tempStrings[i])
+						.addAttribute("x", xx)
+						.addAttribute("y", yy)
+						.addAttribute("startTime", transition.getStartTime())
+						.addAttribute("endTime", transition.getEndTime())
+						.addAttribute("from", transition.getFromName())
+						.addAttribute("to", transition.getToName()).addAttribute("duration", "null")
+						.setText(tempStrings2[i]);
 						
 						i++;
 					}
@@ -135,10 +169,10 @@ public class Write {
 				}
 				if (!out) {
 					tran.addAttribute("out", "false");
-					// tran.addElement("label")
-					// .addAttribute("duration", "null")
-					// .setText("");
+				} else {
+					tran.addAttribute("out", "true");
 				}
+				
 
 			}
 			// 只生成第一个整合的template

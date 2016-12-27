@@ -69,6 +69,14 @@ public class Read {
 					location.setX(Double.valueOf(sb.toString()));  
 				}
 				
+				ArrayList<Element> momentElements = new ArrayList<>();
+				momentElements.addAll((ArrayList<Element>) locationI.elements("moment"));
+				for(Element element : momentElements) {
+					location.startTimeList.add(Integer.valueOf(element.attributeValue("startTime")));
+					location.endTimeList.add(Integer.valueOf(element.attributeValue("endTime")));
+					location.timeDurationList.add(element.attributeValue("timeDuration"));
+//					System.err.println(element.attributeValue("timeDuration"));
+				}
 				
 				locations.add(location);
 			}
@@ -92,6 +100,8 @@ public class Read {
 				while(label_Iterator.hasNext())
 				{
 					Element label = (Element) label_Iterator.next();
+					transition.setStartTime(Integer.valueOf(label.attributeValue("startTime")));
+					transition.setEndTime(Integer.valueOf(label.attributeValue("endTime")));
 					if(label.attributeValue("kind").equals("assignment"))
 					{
 						String temp = label.getTextTrim();
@@ -106,13 +116,13 @@ public class Read {
 						transition.setName(label.getTextTrim());
 						
 						if (!label.attributeValue("duration").equals("null")) {
-							transition.setDuration(Double.valueOf(label.attributeValue("duration").split("<")[1]));
+							transition.setTimeDuration(label.attributeValue("duration"));
 						}
 						
 						transition.setOut(true);//设置out
 						
 					}
-					transition.setTime(Double.valueOf(label.attributeValue("time")));//设置时间time
+					
 				}
 				
 				
