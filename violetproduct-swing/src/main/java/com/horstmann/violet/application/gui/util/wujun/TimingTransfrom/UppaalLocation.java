@@ -4,32 +4,11 @@ import java.util.ArrayList;
 
 public class UppaalLocation {
 
-	ArrayList<Integer> startTimeList = new ArrayList<Integer>();
-	ArrayList<Integer> endTimeList = new ArrayList<Integer>();
-
+	ArrayList<Integer> timeStarts = new ArrayList<Integer>();
 	String startTime;
 	String endTime;
 	String finl = "false";
 	String init = "false";
-
-	String Name;
-	int id;
-	int Type = 0; // 0为正常 1为紧迫
-	
-	boolean needForAutomata = true;
-
-	String Invariant;// 时间约束
-	ArrayList<String> timeDurationList = new ArrayList<String>();
-	
-
-
-	public ArrayList<String> getTimeDurationList() {
-		return timeDurationList;
-	}
-
-	public void setTimeDurationList(ArrayList<String> timeDurationList) {
-		this.timeDurationList = timeDurationList;
-	}
 
 	public String getFinl() {
 		return finl;
@@ -63,7 +42,15 @@ public class UppaalLocation {
 		this.endTime = endTime;
 	}
 
-	
+	public ArrayList<Integer> getTimeStarts() {
+		return timeStarts;
+	}
+
+	public void setTimeStarts(ArrayList<Integer> timeStarts) {
+		this.timeStarts = timeStarts;
+	}
+
+	boolean needForAutomata = true;
 
 	public String getName() {
 		return Name;
@@ -91,6 +78,10 @@ public class UppaalLocation {
 		this.lineEAID = lineEAID;
 	}
 
+	String Name;
+	int id;
+	int Type = 0; // 0为正常 1为紧迫
+
 	public int getType() {
 		return Type;
 	}
@@ -99,35 +90,13 @@ public class UppaalLocation {
 		Type = type;
 	}
 
+	String Invariant;
+
 	public String getInvariant() {
 		return Invariant;
 	}
 
 	public void setInvariant(String invariant) {
 		Invariant = invariant;
-	}
-
-	public ArrayList<Integer> getEndTimeList() {
-		return endTimeList;
-	}
-
-	public void setEndTimeList(ArrayList<Integer> endTimeList) {
-		this.endTimeList = endTimeList;
-	}
-
-	public ArrayList<Integer> getStartTimeList() {
-		return startTimeList;
-	}
-
-	public void setStartTimeList(ArrayList<Integer> startTimeList) {
-		this.startTimeList = startTimeList;
-	}
-	
-	public boolean isNeedForAutomata() {
-		return needForAutomata;
-	}
-
-	public void setNeedForAutomata(boolean needForAutomata) {
-		this.needForAutomata = needForAutomata;
 	}
 }

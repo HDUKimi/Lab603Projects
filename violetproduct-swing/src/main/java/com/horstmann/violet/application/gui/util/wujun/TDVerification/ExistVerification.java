@@ -16,9 +16,9 @@ import com.horstmann.violet.application.gui.MainFrame;
 import com.thoughtworks.xstream.core.util.Types;
 
 public class ExistVerification {
-
+	
 	private MainFrame mainFrame;
-
+	
 	public static final int VERIFICATION_TYPE_EXIST = 1;
 	public static final int VERIFICATION_TYPE_FRONT = 2;
 	public static final int VERIFICATION_TYPE_BACK = 3;
@@ -27,7 +27,6 @@ public class ExistVerification {
 	private String filePath;
 	private static ArrayList<UppaalTemPlate> templates = new ArrayList<UppaalTemPlate>();
 	private static ArrayList<UppaalTransition> transitions = new ArrayList<>();
-	private static ArrayList<UppaalLocation> locations = new ArrayList<>();
 	private static HashMap<String, UppaalLocation> locationById = new HashMap<>();
 	private static ArrayList<PathTuple> pathTuples = new ArrayList<>();// 路径
 	private static ArrayList<UppaalTransition> messages = new ArrayList<>();// 消息序列
@@ -48,7 +47,6 @@ public class ExistVerification {
 
 		templates = uppaal.getUppaalTemplates();
 		transitions = templates.get(0).getTransitions();
-		locations = templates.get(0).getLocations();
 		Display.println("===>  读取的自动机名：" + templates.get(0).getName());
 		// 添加transiton到sourceLocation的transitionList中
 		setTansitionsToSourceLocation();
@@ -79,7 +77,7 @@ public class ExistVerification {
 	}
 
 	// 输入 return 输出
-	// 返回需要标记的边
+	// 返回需要标记的序号
 	public List<UppaalTransition> getSelectedTransitionsIfExist(List<UppaalTransition> selectedTransition) {
 
 		Display.println("-------------------------正在进行存在一致性验证-------------------------\n");
@@ -108,7 +106,6 @@ public class ExistVerification {
 			return null;
 		}
 	}
-
 	// 输入 return 输出
 	// 返回路径
 	public List<PathTuple> getPathOfSelectedTransitions(List<UppaalTransition> selectedTransition) {
@@ -152,22 +149,17 @@ public class ExistVerification {
 		Display.println("-------------------------根据消息确定路径-------------------------\n");
 		for (UppaalTransition transition : transitions) {
 			UppaalLocation location = locationById.get("id" + transition.getSource());
-			Display.println("location: ");
+			Display.println("得到location: ");
 			Display.println(location.toString());
-			Display.println("transition: ");
+			Display.println("得到transition: ");
 			Display.println(transition.toString());
 			PathTuple tuple = new PathTuple(location, transition);
 			res.add(tuple);
 			Display.println();
 		}
-
-		// 最后的一个节点
-		UppaalLocation lastLocation = locationById.get("id" + transitions.get(transitions.size() - 1).getTarget());
+		UppaalLocation lastLocation = locationById.get(transitions.get(transitions.size() - 1).getTarget());
 		PathTuple last = new PathTuple(lastLocation, null);
 		res.add(last);
-		Display.println("location: ");
-		Display.println(last.location.toString());
-
 		return res;
 	}
 
@@ -191,7 +183,7 @@ public class ExistVerification {
 		Collections.sort(transitions, new Comparator<UppaalTransition>() {
 			@Override
 			public int compare(UppaalTransition o1, UppaalTransition o2) {
-				return (int) (o1.getStartTime() - o2.getStartTime());
+				return (int) (o1.getTime() - o2.getTime());
 			}
 		});
 		for (UppaalTransition transition : templates.get(0).getTransitions()) {
@@ -209,129 +201,6 @@ public class ExistVerification {
 			String sourceId = "id" + transitionI.getSource();
 			UppaalLocation sourceLocation = locationById.get(sourceId);
 			sourceLocation.getTransitions().add(transitionI);
-		}
-	}
-
-	// 实时一致性验证
-	public boolean verificationTimeDuration() {
-		//1 点
-		boolean locationOK = verificationLocationTimeDuration();
-		
-		//2 边
-		boolean transitionOK = verificationTransitionTimeDuration();
-		
-		//3 路径时间和
-		boolean pathTupleOK = verificationPathTupleTime();
-		
-		
-		System.out.println("实时一致性验证完成");
-		return locationOK && transitionOK && pathTupleOK;
-	}
-
-	private boolean verificationPathTupleTime() {
-		ArrayList<PathTuple> path = getPath();
-		
-		int timeSum = 0;
-		int nextTime = 0;
-		for(int i = 0; i < path.size() - 1; i++) {
-			UppaalLocation location = path.get(i).getLocation();
-			UppaalTransition transition = path.get(i).getTransition();
-			if (transition.out && transition.getName().contains("?")) {// 不重复计算
-				continue;
-			}
-			int LocationCountIndex = 0;
-			for(int time : location.getStartTimeList()) {
-				if (time == nextTime) {
-					break;
-				}
-				LocationCountIndex++;
-			}
-			if (LocationCountIndex >= location.getStartTimeList().size()) {
-				System.out.println("根据nextTime查找这个location的所有开始时间失败！");
-			}
-			// 累加到达此location的时间
-			timeSum += location.getEndTimeList().get(LocationCountIndex) - location.getStartTimeList().get(LocationCountIndex);
-			
-			
-			// 累加此transition的时间
-			timeSum += transition.getEndTime() - transition.getStartTime();
-			nextTime = transition.getEndTime();
-		}
-		
-		PathTuple lastPathTuple = path.get(path.size() - 1);
-		UppaalLocation lastLocation = lastPathTuple.getLocation();
-		int LocationCount = lastLocation.getStartTimeList().size();
-		int lastStartTime = lastLocation.getStartTimeList().get(LocationCount - 1);// 最后一个状态的开始时间
-		return lastStartTime == timeSum;
-	}
-
-	private boolean verificationLocationTimeDuration() {
-		// 验证每一个location是否满足时间约束
-		for (UppaalLocation location : locations) {
-			for (int i = 0; i < location.getStartTimeList().size(); i++) {
-				String timeDuration = location.getTimeDurationList().get(i);
-				int startTime = location.getStartTimeList().get(i);
-				int endTime = location.getEndTimeList().get(i);
-				int time = endTime - startTime;
-				if (!satisfy(time, timeDuration)) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-
-	private boolean verificationTransitionTimeDuration() {
-		// 验证每一个transition是否满足时间约束
-		for (UppaalTransition transition : transitions) {
-			String timeDuration = transition.getTimeDuration();
-			int startTime = transition.getStartTime();
-			int endTime = transition.getEndTime();
-			int time = endTime - startTime;
-			if (!satisfy(time, timeDuration)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	// 状态持续的时间 、 消息的执行时间 是否满足时间约束
-	private boolean satisfy(int time, String timeDuration) {
-		if (timeDuration == null || timeDuration.equals("null") || timeDuration.equals("0")) {
-			return true;
-		}
-		if (timeDuration.contains("<")) {
-			if (timeDuration.contains("<=")) {
-				int limit = Integer.valueOf(timeDuration.split("<=")[1]);
-				if (time <= limit) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				int limit = Integer.valueOf(timeDuration.split("<")[1]);
-				if (time < limit) {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		} else {
-			if (timeDuration.contains(">=")) {
-				int limit = Integer.valueOf(timeDuration.split(">=")[1]);
-				if (time >= limit) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				int limit = Integer.valueOf(timeDuration.split(">")[1]);
-				if (time > limit) {
-					return true;
-				} else {
-					return false;
-				}
-			}
 		}
 	}
 }

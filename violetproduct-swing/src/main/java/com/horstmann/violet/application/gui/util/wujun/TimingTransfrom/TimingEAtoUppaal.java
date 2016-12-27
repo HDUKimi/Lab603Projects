@@ -160,8 +160,7 @@ public class TimingEAtoUppaal {
 
 					EAStateInfo State = lineState.next();
 					UppaalLocation location = new UppaalLocation();
-					location.startTimeList.add(Integer.valueOf(State.getStartTime()));// 添加状态所在的开始时间
-					FL.endTimeList.add(Integer.valueOf(State.getStartTime()));
+					location.timeStarts.add(Integer.valueOf(State.getStartTime()));// 添加状态所在的开始时间
 					if (Integer.valueOf(State.getStartTime()) > maxTime) { // 记录最大时间
 																			// 的location
 						maxTime = Integer.valueOf(State.getStartTime());
@@ -187,6 +186,7 @@ public class TimingEAtoUppaal {
 						location.setInvariant(null); // 第8步:设置B的Invariant为空,转第28步
 						location.setId(id++);
 						location.setInvariant(State.DConst);
+
 						Display.println("将location--" + location.getName() + "添加到template中");
 						template.locations.add(location);
 						name_oldLocations.put(location.Name, location);
@@ -199,7 +199,7 @@ public class TimingEAtoUppaal {
 						// 第9步:若S是一个新的State
 						// or
 						if (!name_oldLocations.containsKey(location.Name)) // Condition转第11步,
-						{// 新的State
+						{
 							Display.println("新状态：" + State.name);
 							location.setId(id++); // 第11步:在UPPAAL中声明一个Location
 													// B并声明一个迁移FL→B,转第12步。
@@ -210,8 +210,9 @@ public class TimingEAtoUppaal {
 							transition.setTargetId(location.getId());
 							transition.setNameS(FL.getName());
 							transition.setNameT(location.getName());
-							transition.setStartTime(State.getStartTime());
+							transition.setTime(State.getStartTime());
 							FL.setEndTime(State.getStartTime());
+
 							String c = new String(); // c记录持续约束的情况
 							if (State.DConst == null)
 								c = "null";
@@ -223,7 +224,7 @@ public class TimingEAtoUppaal {
 								// 第19步:将B设置为normal
 								// Location,转第20步。
 								location.setInvariant(null); // 第20步:设置B的Invariant为空,转第21步。
-								location.timeDurationList.add("null");
+
 								template.locations.add(location);
 								name_oldLocations.put(location.Name, location);
 
@@ -236,7 +237,7 @@ public class TimingEAtoUppaal {
 								Display.println("紧迫位置：" + State.getName()); // 第17步:将B设置为urgent
 																			// Location
 								location.setInvariant(null); // 第18步:设置B的Invariant为空,转第21步
-								location.timeDurationList.add("0");
+
 								template.locations.add(location);
 								name_oldLocations.put(location.Name, location);
 
@@ -247,7 +248,7 @@ public class TimingEAtoUppaal {
 							default:// t..t+n
 								Display.println("invariant==" + c);
 								location.setInvariant(c);
-								location.timeDurationList.add(c);
+
 								// int temp = Index(transition.Kind);
 								// transition.Kind[temp] = "assignment";
 								// transition.nameText[temp] = "t=0";
@@ -269,14 +270,12 @@ public class TimingEAtoUppaal {
 							}
 							location = name_oldLocations.get(location.Name);
 
-							location.startTimeList.add(Integer.valueOf(State.getStartTime()));// 添加状态所在的开始时间
-							location.timeDurationList.add(State.DConst);
+							location.timeStarts.add(Integer.valueOf(State.getStartTime()));// 添加状态所在的开始时间
 							transition.setSourceId(FL.getId());
 							transition.setTargetId(location.getId());
 							transition.setNameS(FL.getName());
 							transition.setNameT(location.getName());
-							transition.setStartTime(State.getStartTime());
-							
+							transition.setTime(State.getStartTime());
 
 						}
 						// 3.1.2得到该状态的迁移事件Event
@@ -293,9 +292,8 @@ public class TimingEAtoUppaal {
 						String SendKeyString = "#sourceIdIs" + FL.getLineEAID() + "#sendTimeIs" + State.getStartTime();
 						if (sourceIDsendTime_connector.containsKey(SendKeyString)) // 第23步:如果FL是一个消息message的发送者,转第24步,否则转第26步。
 						{
-							EAMessage eamessage = sourceIDsendTime_connector.get(SendKeyString);
-							String sender_name = eamessage.getName();
-							String EAid = eamessage.getConnectorId();
+							String sender_name = sourceIDsendTime_connector.get(SendKeyString).getName();
+							String EAid = sourceIDsendTime_connector.get(SendKeyString).getConnectorId();
 							print_transition_name = sender_name;
 							global_declarations.add(sender_name);
 							Display.println("消息名为：" + sender_name); // 第24步:在UPPAAL中声明一个chan
@@ -307,13 +305,12 @@ public class TimingEAtoUppaal {
 							transition.nameText[temp] = sender_name + "!"; // 第25步:设置FL→B的Sync域为message!,转第28步。
 							// Display.println(transition.nameText[temp]);
 
-							transition.setStartTime(State.getStartTime());// 为了模型验证增加的发送时间记录
-							transition.setEndTime(eamessage.getReceiveTime());
+							transition.setTime(State.getStartTime());// 为了模型验证增加的发送时间记录
 							transition.setEAid(EAid);
-							transition.setFromName(eamessage.getSourceName());
-							transition.setToName(eamessage.getTragetName());
-							transition.setDuration(eamessage.getDuration());
-							EXconnectorsSender.remove(eamessage);
+							transition.setFromName(sourceIDsendTime_connector.get(SendKeyString).getSourceName());
+							transition.setToName(sourceIDsendTime_connector.get(SendKeyString).getTragetName());
+							transition.setDuration(sourceIDsendTime_connector.get(SendKeyString).getDuration());
+							EXconnectorsSender.remove(sourceIDsendTime_connector.get(SendKeyString));
 						}
 						// 3.1.4判断FL（上一个状态）是否是massage的接受方
 						String ReceiveKeyString = "#tragetIdIs" + FL.getLineEAID() + "#receiveTimeIs"
@@ -321,24 +318,24 @@ public class TimingEAtoUppaal {
 						if (tragertIDreceiveTime_connector.containsKey(ReceiveKeyString)) // 第26步:如果FL是一个消息message的接收者,转第27步,否则
 						// 转第28步。
 						{
-							EAMessage eamessage = tragertIDreceiveTime_connector.get(ReceiveKeyString);
-							String receiver_name = eamessage.getName();
-							String EAid = eamessage.getConnectorId();
+							String receiver_name = tragertIDreceiveTime_connector.get(ReceiveKeyString).getName();
+							String EAid = tragertIDreceiveTime_connector.get(ReceiveKeyString).getConnectorId();
 							print_transition_name = receiver_name;
 							global_declarations.add(receiver_name); // 第24步:在UPPAAL中声明一个chan
 							Display.println("消息名为：" + receiver_name); // message,转第25步。
 
 							int temp = Index(transition.Kind);
-							// transition.setInner(eamessage.getInner());
+							// transition.setInner(tragertIDreceiveTime_connector.get(ReceiveKeyString).getInner());
 							transition.Kind[temp] = "synchronisation";
 							transition.nameText[temp] = receiver_name + "?"; // 第27步:设置FL→B的Sync域为message?,转第28步
-							transition.setStartTime(State.getStartTime());// 为了模型验证增加的发送时间记录
-							transition.setEndTime(eamessage.getReceiveTime());				
+							transition.setTime(State.getStartTime());// 为了模型验证增加的发送时间记录
+																		// -----
 							transition.setEAid(EAid);
-							transition.setFromName(eamessage.getSourceName());
-							transition.setToName(eamessage.getTragetName());
-							transition.setDuration(eamessage.getDuration());
-							EXconnectorsReciever.remove(eamessage);
+							transition
+									.setFromName(tragertIDreceiveTime_connector.get(ReceiveKeyString).getSourceName());
+							transition.setToName(tragertIDreceiveTime_connector.get(ReceiveKeyString).getTragetName());
+							transition.setDuration(tragertIDreceiveTime_connector.get(ReceiveKeyString).getDuration());
+							EXconnectorsReciever.remove(tragertIDreceiveTime_connector.get(ReceiveKeyString));
 						}
 						// ↓ 不管重复 不重复 都添加
 						template.transitions.add(transition);
@@ -395,17 +392,16 @@ public class TimingEAtoUppaal {
 			temPlates.get(0).getTransitions().addAll(EXTransitions);
 
 			temPlates.get(0).setName(diagramsData.getName());
-			Display.println("开始写入xml:" + diagramsData.getName() + ".xml");
+			Display.println("开始写入xml");
 			// 4.写入到UPPAAL.xml中----------------------------------------------------------------------------------------------
 			Write.creatXML(diagramsData.getName() + ".xml", global_declarations, template_instantiations, temPlates);
-			Write2.creatXML(diagramsData.getName() + "UPPAAL.xml", global_declarations, template_instantiations, temPlates);
 			setDiagramDataName(diagramsData.getName());
 			// 4.写入到UPPAAL.xml中end-------------------------------------------------------------------------------------------
 			Display.println(".....写入完成!");
 			Display.println("================================转换完成================================");
 		} // 一张图完毕
 	}
-	// 添加不同对象的自动机 的连接  connecter
+
 	private static void addEXconnectors(HashSet<EAMessage> eXconnectors, ArrayList<UppaalTemPlate> temPlates,
 			ArrayList<UppaalTransition> eXTransitions) {
 
@@ -434,12 +430,11 @@ public class TimingEAtoUppaal {
 			transition.setKind(new String[] { "synchronisation", null, null, null, null });
 			transition.setNameText(
 					new String[] { Connector.getName() + "|" + Connector.getDuration(), null, null, null, null });
-			transition.setStartTime(Connector.getSendTime());
-			transition.setEndTime(Connector.getReceiveTime());
+			transition.setTime(Connector.getSendTime());
 			// 从sourceTemplate中找到sourceLocation
 			int maxTime = -1;
 			for (UppaalLocation location : sourceTemplate.getLocations()) {
-				for (int time : location.getStartTimeList()) {
+				for (int time : location.getTimeStarts()) {
 					if (time > maxTime && sendTime > time) {
 						maxTime = time;
 						transition.setSourceId(location.getId());
@@ -448,7 +443,7 @@ public class TimingEAtoUppaal {
 			}
 			maxTime = -1;
 			for (UppaalLocation location : targetTemplate.getLocations()) {
-				for (int time : location.getStartTimeList()) {
+				for (int time : location.getTimeStarts()) {
 					if (time > maxTime && recieveTime > time) {
 						maxTime = time;
 						transition.setTargetId(location.getId());
@@ -459,7 +454,7 @@ public class TimingEAtoUppaal {
 		}
 
 	}
-	// 合并所有template到template[0]
+
 	private static void mergeTemplates(ArrayList<UppaalTemPlate> temPlates) {
 		UppaalTemPlate template0 = temPlates.get(0);
 		for (int i = 1; i < temPlates.size(); i++) {
@@ -467,7 +462,7 @@ public class TimingEAtoUppaal {
 			template0.getTransitions().addAll(temPlates.get(i).getTransitions());
 		}
 	}
-	
+
 	private static void outMessageConnectAutomatas(UppaalTemPlate uppaalTemPlate) {
 		ArrayList<UppaalTransition> outTransitions = new ArrayList<UppaalTransition>();
 		// 找出外部message放到outTransition
@@ -483,7 +478,9 @@ public class TimingEAtoUppaal {
 				i++;
 			}
 			transitionI.setOutKindIndex(i);
-			if (out) {
+			if (out) {// copy一份到outTransition
+				// UppaalTransition newTransition =
+				// (UppaalTransition)transitionI.clone();并不用克隆
 				outTransitions.add(transitionI);
 			}
 		}
@@ -500,10 +497,9 @@ public class TimingEAtoUppaal {
 					// 是相同的消息不同形态 cofee! 和 cofee?
 					UppaalTransition addTransition = (UppaalTransition) transitionI.clone();
 
-					// cofee! -> cofee//  去掉后面的！
 					addTransition.getNameText()[addTransition.outKindIndex] = addTransition
 							.getNameText()[addTransition.outKindIndex].substring(0, lengthI - 1);
-					
+					// cofee! -> cofee//
 					addTransition.setSourceId(transitionI.getSourceId());
 					addTransition.setTargetId(transitionJ.getSourceId());
 					uppaalTemPlate.getTransitions().add(addTransition);
@@ -515,12 +511,12 @@ public class TimingEAtoUppaal {
 		}
 	}
 
-	
 	public static UppaalLocation findState(ArrayList<UppaalLocation> locations, UppaalLocation location) {
 		Iterator<UppaalLocation> LIterator = locations.iterator();
 		while (LIterator.hasNext()) {
 			UppaalLocation temp = LIterator.next();
 			if (temp.getName().equals(location.getName())) {
+
 				return temp;
 			}
 		}

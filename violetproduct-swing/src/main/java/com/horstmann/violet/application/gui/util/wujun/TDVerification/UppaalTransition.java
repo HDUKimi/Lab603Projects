@@ -11,29 +11,14 @@ public class UppaalTransition {
 	int source;
 	double x = 0;
 	double time = 0;
-	int startTime;
-	int endTime;
 	boolean out =false;
-	String timeDuration;
+	double duration;
 	
-	
-	public String getTimeDuration() {
-		return timeDuration;
+	public double getDuration() {
+		return duration;
 	}
-	public void setTimeDuration(String timeDuration) {
-		this.timeDuration = timeDuration;
-	}
-	public int getStartTime() {
-		return startTime;
-	}
-	public void setStartTime(int startTime) {
-		this.startTime = startTime;
-	}
-	public int getEndTime() {
-		return endTime;
-	}
-	public void setEndTime(int endTime) {
-		this.endTime = endTime;
+	public void setDuration(double duration) {
+		this.duration = duration;
 	}
 	public String getFromName() {
 		return fromName;
@@ -98,10 +83,9 @@ public class UppaalTransition {
 	@Override
 	public String toString() {
 		return "UppaalTransition [name=" + name + ", fromName=" + fromName + ", toName=" + toName + ", target=" + target
-				+ ", source=" + source + ", x=" + x + ", time=" + time + ", startTime=" + startTime + ", endTime="
-				+ endTime + ", out=" + out + ", timeDuration=" + timeDuration + ", label=" + label + "]";
+				+ ", source=" + source + ", x=" + x + ", time=" + time + ", out=" + out + ", duration=" + duration
+				+ ", label=" + label + "]";
 	}
-	
 	
 	
 	 
