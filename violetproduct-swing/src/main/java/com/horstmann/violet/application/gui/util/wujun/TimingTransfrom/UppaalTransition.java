@@ -17,13 +17,6 @@ public class UppaalTransition implements Cloneable {
 
 	String EAid;
 
-	public String getEAid() {
-		return EAid;
-	}
-
-	public void setEAid(String eAid) {
-		EAid = eAid;
-	}
 
 	int sourceId;
 	String inner;
@@ -31,13 +24,39 @@ public class UppaalTransition implements Cloneable {
 	String fromName;
 	String toName;
 	int targetId;
-	String time;
+	String startTime;
+	String endTime;
 	public String[] Kind = new String[5];
 	String[] nameText = new String[5];
 	String nameS = new String();
 	int outKindIndex;// 第几个名字，kind是synchronisation （外部message）
 	String duration;
 
+	
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEAid() {
+		return EAid;
+	}
+
+	public void setEAid(String eAid) {
+		EAid = eAid;
+	}
 	public String getDuration() {
 		return duration;
 	}
@@ -102,13 +121,6 @@ public class UppaalTransition implements Cloneable {
 		this.targetId = targetId;
 	}
 
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
-	}
 
 	public String[] getKind() {
 		return Kind;
@@ -137,7 +149,7 @@ public class UppaalTransition implements Cloneable {
 	@Override
 	public String toString() {
 		return "UppaalTransition [EAid=" + EAid + ", sourceId=" + sourceId + ", inner=" + inner + ", nameT=" + nameT
-				+ ", fromName=" + fromName + ", toName=" + toName + ", targetId=" + targetId + ", time=" + time
+				+ ", fromName=" + fromName + ", toName=" + toName + ", targetId=" + targetId + ", time=" + startTime
 				+ ", Kind=" + Arrays.toString(Kind) + ", nameText=" + Arrays.toString(nameText) + ", nameS=" + nameS
 				+ ", outKindIndex=" + outKindIndex + ", duration=" + duration + "]";
 	}
