@@ -41,9 +41,16 @@ public class CompareEAtoAutomata {
 						// 从自动机中找到一个location
 						boolean find = false;
 						for(UppaalLocation location : locations) {
-							if (stateInfo.getName().equals(location.getName().split(":")[0])) {
+							if (stateInfo.getName().equals(location.getName().split(":")[0])
+									&& (
+											stateInfo.getDConst() == null ||
+											location.getTimeDurationList().contains(stateInfo.getDConst())
+										)
+								) 
+							{
 								StateCompare sc = new StateCompare(stateInfo, location, "ok");
 								System.out.println(stateInfo.getName() + "|" + location.getName() + "|" + "ok");
+								System.out.println(stateInfo.getDConst() + "\n");
 								row.getStateCompareList().add(sc);
 								find = true;
 								break;
@@ -59,12 +66,19 @@ public class CompareEAtoAutomata {
 				System.out.println("\n\n-----find transition");
 				// 找message 与transition对比
 				for(EAMessage message : diagramsData.getConnectors()) {
+					
 					// 从自动机中找到一个transition
 					boolean find = false;
 					for(UppaalTransition transition : transitions) {
-						if (message.getName().equals(transition.getName())) {
+						if (message.getName().equals(transition.getName())
+								&& ( 
+										message.getDuration() == null 
+										|| message.getDuration().equals(transition.getTimeDuration()))
+								   ) 
+						{
 							MessageCompare mc = new MessageCompare(message, transition, "ok");
 							System.out.println(message.getName() +"|" + transition.getName() +"|"+ "ok");
+							System.out.println(message.getDuration() + "\n");
 							row.getMessageCompareList().add(mc);
 							find = true;
 							break;
