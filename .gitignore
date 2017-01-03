@@ -11,3 +11,6 @@
 
 # Maven build files #
 target/
+*.xml
+*.xml
+violetproduct-swing/1.xml
