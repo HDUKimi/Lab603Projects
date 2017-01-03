@@ -1007,12 +1007,12 @@ public class ModelExistValidationPanel extends JPanel{
 					else{
 						System.out.println("   ----------   ");
 						
-						mainFrame.getValidationResultPanel().getNamelabel().setText("共找到"+l.size()+"条消息：");
+						mainFrame.getValidationResultPanel().getOneNamelabel().setText("共找到"+l.size()+"条消息：");
 						
-						mainFrame.getValidationResultPanel().getResultpanel().removeAll();
+						mainFrame.getValidationResultPanel().getOneResultpanel().removeAll();
 //						mainFrame.getValidationResultPanel().getResultpanel().setLayout(new BoxLayout(mainFrame.getValidationResultPanel().getResultpanel(), BoxLayout.Y_AXIS));
 						
-						System.out.println(mainFrame.getValidationResultPanel().getResultpanel().size());
+						System.out.println(mainFrame.getValidationResultPanel().getOneResultpanel().size());
 						System.out.println("++++++++++++++++++++");
 						
 						JPanel resultpanel=new JPanel();
@@ -1034,7 +1034,7 @@ public class ModelExistValidationPanel extends JPanel{
 						resultpanel.add(emptypanel);
 						layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 //						mainFrame.getValidationResultPanel().getResultpanel().add(Box.createVerticalGlue());
-						mainFrame.getValidationResultPanel().getResultpanel().add(resultpanel);
+						mainFrame.getValidationResultPanel().getOneResultpanel().add(resultpanel);
 						mainFrame.getValidationResultPanel().ChangeRepaint();
 						System.out.println("++++++++++++++++++++");
 						

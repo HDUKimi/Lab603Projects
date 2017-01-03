@@ -375,10 +375,7 @@ public class ProjectTree extends JPanel {
 				
 				mainFrame.getConsolePartPanel().getTextarea().append("打开用例图列表\n");
 				
-				mainFrame.setVisible(false);
-				mainFrame.getContentPane().repaint();
-				mainFrame.setVisible(true);
-				
+				ChangeRepaint();
 			}
 		});
 		diagrambutton1.setPreferredSize(new Dimension(22,22));
@@ -433,9 +430,7 @@ public class ProjectTree extends JPanel {
 				
 				mainFrame.getConsolePartPanel().getTextarea().append("打开状态图列表\n");
 				
-				mainFrame.setVisible(false);
-				mainFrame.getContentPane().repaint();
-				mainFrame.setVisible(true);
+				ChangeRepaint();
 				
 			}
 		});
@@ -491,9 +486,7 @@ public class ProjectTree extends JPanel {
 				
 				mainFrame.getConsolePartPanel().getTextarea().append("打开顺序图列表\n");
 				
-				mainFrame.setVisible(false);
-				mainFrame.getContentPane().repaint();
-				mainFrame.setVisible(true);
+				ChangeRepaint();
 				
 			}
 		});
@@ -549,9 +542,7 @@ public class ProjectTree extends JPanel {
 				
 				mainFrame.getConsolePartPanel().getTextarea().append("打开时序图列表\n");
 				
-				mainFrame.setVisible(false);
-				mainFrame.getContentPane().repaint();
-				mainFrame.setVisible(true);
+				ChangeRepaint();
 				
 			}
 		});
@@ -965,6 +956,12 @@ public class ProjectTree extends JPanel {
 //		});
 //	}
 	
+	public void ChangeRepaint() {
+		// TODO Auto-generated method stub
+		this.setVisible(false);
+		this.getRootPane().repaint();
+		this.setVisible(true);
+	}
 	
 
 	public UsecaseTreePanel getUsecaseTreePanel() {

@@ -300,11 +300,7 @@ public class ModelTransformationPanel extends JPanel{
 				
 				mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButton().doClick();
 				
-//				mainFrame.getConsolePartPanel().getTextarea().append("打开用例图列表\n");
-				
-				mainFrame.setVisible(false);
-				mainFrame.getContentPane().repaint();
-				mainFrame.setVisible(true);
+				ChangeRepaint();
 				
 			}
 		});
@@ -356,12 +352,8 @@ public class ModelTransformationPanel extends JPanel{
 				treepanel.removeAll();
 				treepanel.add(modelTimingTreePanel);
 				mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButton().doClick();
-//				
-//				mainFrame.getConsolePartPanel().getTextarea().append("打开状态图列表\n");
 				
-				mainFrame.setVisible(false);
-				mainFrame.getContentPane().repaint();
-				mainFrame.setVisible(true);
+				ChangeRepaint();
 				
 			}
 		});
@@ -412,12 +404,8 @@ public class ModelTransformationPanel extends JPanel{
 				
 				treepanel.removeAll();
 				treepanel.add(UMLDiagramTree);
-//				
-//				mainFrame.getConsolePartPanel().getTextarea().append("打开顺序图列表\n");
-				
-				mainFrame.setVisible(false);
-				mainFrame.getContentPane().repaint();
-				mainFrame.setVisible(true);
+
+				ChangeRepaint();
 				
 			}
 		});
@@ -600,6 +588,13 @@ public class ModelTransformationPanel extends JPanel{
 		titlepanel.setMinimumSize(new Dimension(100, 23));
 		titlepanel.add(titlelabel,BorderLayout.WEST);
 		titlepanel.add(titleiconlabelpanel,BorderLayout.EAST);
+	}
+	
+	public void ChangeRepaint() {
+		// TODO Auto-generated method stub
+		this.setVisible(false);
+		this.getRootPane().repaint();
+		this.setVisible(true);
 	}
 
 	private void initDoubleClick() {
