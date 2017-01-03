@@ -416,6 +416,8 @@ public class TimingEAtoUppaal {
 			finalLocation.setFinl("true");
 			
 			temPlates.get(0).setName(diagramsData.getName());
+			// 去掉不能到达的状态
+			deleteIgnoreLocation(temPlates.get(0));
 			Display.println("开始写入xml:" + diagramsData.getName() + ".xml");
 			// 4.写入到UPPAAL.xml中----------------------------------------------------------------------------------------------
 			Write.creatXML(diagramsData.getName() + ".xml", global_declarations, template_instantiations, temPlates);
@@ -425,6 +427,21 @@ public class TimingEAtoUppaal {
 			Display.println(".....写入完成!");
 			Display.println("================================转换完成================================");
 		} // 一张图完毕
+	}
+	private static void deleteIgnoreLocation(UppaalTemPlate uppaalTemPlate) {
+		HashSet<Integer> visitedLocationID = new HashSet<>();
+		for(UppaalTransition transition : uppaalTemPlate.getTransitions()) {
+			visitedLocationID.add(transition.getSourceId());
+			visitedLocationID.add(transition.getTargetId());
+		}
+		Iterator<UppaalLocation> it = uppaalTemPlate.getLocations().iterator();
+		while(it.hasNext()){
+		    UppaalLocation location = it.next();
+		    if(!visitedLocationID.contains(location.getId())){ // 不能到达的location
+		        it.remove();
+		        System.err.println("删除location：" + location.getName());
+		    }
+		}
 	}
 	// 添加不同对象的自动机 的连接  connecter
 	private static void addEXconnectors(HashSet<EAMessage> eXconnectors, ArrayList<UppaalTemPlate> temPlates,
