@@ -18,6 +18,8 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
+import antlr.debug.TraceAdapter;
+
 public class Write {
 
 	public static void creatXML(String Path, HashSet<String> global_declarations,
@@ -100,6 +102,9 @@ public class Write {
 			while (transitonIterator.hasNext()) {// Ð´Èë×´Ì¬Ç¨ÒÆ
 				UppaalTransition transition = transitonIterator.next();
 				Element tran = tem.addElement("transition");
+				if (transition.getEndTime() == null) {
+					transition.setEndTime(transition.getStartTime());
+				}
 				// tran.addElement("")
 				tran.addElement("source").addAttribute("ref", "id" + transition.getSourceId());
 				tran.addElement("target").addAttribute("ref", "id" + transition.getTargetId());
