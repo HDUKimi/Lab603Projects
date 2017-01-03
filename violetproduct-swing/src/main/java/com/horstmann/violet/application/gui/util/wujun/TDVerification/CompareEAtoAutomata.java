@@ -19,28 +19,31 @@ import com.horstmann.violet.application.gui.util.wujun.TimingTransfrom.ReadTimin
 
 public class CompareEAtoAutomata {
 	// ea
-	ArrayList<EALifeline> allLifelines;
-	ArrayList<EAMessage> allConnectors;
-	ArrayList<EADiagramsData> diagramsDatas;
+	static ArrayList<EALifeline> allLifelines;
+	static ArrayList<EAMessage> allConnectors;
+	static ArrayList<EADiagramsData> diagramsDatas;
 	// 自动机
-	ArrayList<UppaalTemPlate> templates;
-	ArrayList<UppaalTransition> transitions;
-	ArrayList<UppaalLocation> locations;
+	static ArrayList<UppaalTemPlate> templates;
+	static ArrayList<UppaalTransition> transitions;
+	static ArrayList<UppaalLocation> locations;
 	// 返回RowStringsForDisplay  （其中包含状态的对比list 和消息的对比list）
-	public RowStringsForDisplay compareFromXMLPath(String eaPath, String automataPath) throws Exception {
+	public static RowStringsForDisplay compareFromXMLPath(String eaPath, String automataPath) throws Exception {
 		RowStringsForDisplay row = new RowStringsForDisplay();
 		readEA(eaPath);
 		readAutomata(automataPath);
 		for(EADiagramsData diagramsData : diagramsDatas) {
 			if (diagramsData.getName().equals(templates.get(0).getName())) {
+				System.out.println("-------find location:");
 				// 找状态 与location对比
 				for(EALifeline lifeline : diagramsData.getLifelines()) {
 					for(EAStateInfo stateInfo : lifeline.getStateInfos()) {
+						
 						// 从自动机中找到一个location
 						boolean find = false;
 						for(UppaalLocation location : locations) {
 							if (stateInfo.getName().equals(location.getName().split(":")[0])) {
 								StateCompare sc = new StateCompare(stateInfo, location, "ok");
+								System.out.println(stateInfo.getName() + "|" + location.getName() + "|" + "ok");
 								row.getStateCompareList().add(sc);
 								find = true;
 								break;
@@ -48,11 +51,12 @@ public class CompareEAtoAutomata {
 						}
 						if (!find) {
 							row.getStateCompareList().add(new StateCompare(stateInfo, null, "false"));
+							System.out.println(stateInfo.getName() + "|" + "null | false");
 						}
 						
 					}
 				}
-				
+				System.out.println("\n\n-----find transition");
 				// 找message 与transition对比
 				for(EAMessage message : diagramsData.getConnectors()) {
 					// 从自动机中找到一个transition
@@ -60,6 +64,7 @@ public class CompareEAtoAutomata {
 					for(UppaalTransition transition : transitions) {
 						if (message.getName().equals(transition.getName())) {
 							MessageCompare mc = new MessageCompare(message, transition, "ok");
+							System.out.println(message.getName() +"|" + transition.getName() +"|"+ "ok");
 							row.getMessageCompareList().add(mc);
 							find = true;
 							break;
@@ -74,7 +79,7 @@ public class CompareEAtoAutomata {
 		return row;
 	}
 
-	private void readAutomata(String automataPath) throws Exception {
+	private static void readAutomata(String automataPath) throws Exception {
 		// 读取自动机.xml 中的数据
 		SAXReader reader = new SAXReader();// 获取解析器
 		Document dom = reader.read(automataPath);// 解析XML获取代表整个文档的dom对象
@@ -88,7 +93,7 @@ public class CompareEAtoAutomata {
 		locations = templates.get(0).getLocations();
 	}
 
-	private void readEA(String eaPath) throws Exception {
+	private static void readEA(String eaPath) throws Exception {
 		// 读取ea.xml中的数据-------------------------------------------------------------------------------------------
 		SAXReader reader = new SAXReader();// 获取解析器
 
@@ -126,6 +131,8 @@ public class CompareEAtoAutomata {
 					connectors.add(con);
 				}
 			}
+			diagramsData.setLifelines(lifelines);
+			diagramsData.setConnectors(connectors);
 		}
 	}
 

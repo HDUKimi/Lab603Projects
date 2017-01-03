@@ -7,8 +7,8 @@ import com.horstmann.violet.application.gui.util.wujun.TimingTransfrom.EAStateIn
 
 public class RowStringsForDisplay {
 	
-	ArrayList<StateCompare> stateCompareList;
-	ArrayList<MessageCompare> messageCompareList;
+	ArrayList<StateCompare> stateCompareList = new ArrayList<>();
+	ArrayList<MessageCompare> messageCompareList = new ArrayList<>();
 	
 	public static class StateCompare {
 		
