@@ -44,7 +44,7 @@ public class TimingEAtoUppaal {
 
 		Element root = dom.getRootElement();// 获取根节点
 
-		Read uml = new Read();
+		ReadTimingDiagram uml = new ReadTimingDiagram();
 		uml.load(root);
 		if (uml.hasNoLifeline()) {
 			System.exit(0);
@@ -394,6 +394,27 @@ public class TimingEAtoUppaal {
 			// ex.2 添加剩下的消息
 			temPlates.get(0).getTransitions().addAll(EXTransitions);
 
+			
+			//　将endTime最小的初始状态作为真正的初始状态
+			UppaalLocation initLocation = null;
+			UppaalLocation finalLocation = null;
+			int minEnd = Integer.MAX_VALUE;
+			int maxStart = 0;
+			for(UppaalLocation location : temPlates.get(0).getLocations()) {
+				if (location.getInit().equals("true")) {
+					location.setInit("false");
+					if (location.getEndTimeList().get(0) < minEnd) {
+						minEnd = location.getEndTimeList().get(0);
+						initLocation = location;
+					}
+					if (location.getStartTimeList().get(location.getStartTimeList().size() - 1) > maxStart) {
+						finalLocation = location;
+					}
+				}
+			}
+			initLocation.setInit("true");
+			finalLocation.setFinl("true");
+			
 			temPlates.get(0).setName(diagramsData.getName());
 			Display.println("开始写入xml:" + diagramsData.getName() + ".xml");
 			// 4.写入到UPPAAL.xml中----------------------------------------------------------------------------------------------

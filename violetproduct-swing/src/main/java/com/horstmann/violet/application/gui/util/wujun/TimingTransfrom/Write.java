@@ -27,14 +27,15 @@ public class Write {
 		Element nta = document.addElement("nta");
 		Element declaration = nta.addElement("declaration");
 		String sdeclaration = global_declarations.toString().substring(1, global_declarations.toString().length() - 1);
-		
+		String templateElement = "template";
 		declaration.setText("chan" + " " + sdeclaration + ";clock x;");// 写入全局变量
 
 		Iterator<UppaalTemPlate> templateIterator = temPlates.iterator();
 
 		while (templateIterator.hasNext()) {// 写入template
 			UppaalTemPlate template = templateIterator.next();
-			Element tem = nta.addElement("template");
+			
+			Element tem = nta.addElement(templateElement);
 			Element nameElement = tem.addElement("name");
 			String xx = String.valueOf(x++);
 			String yy = String.valueOf(y++);
@@ -175,8 +176,9 @@ public class Write {
 				
 
 			}
-			// 只生成第一个整合的template
-			break;
+			// 第一个整合的叫template
+			// 其他叫temp
+			templateElement = "temp";
 		}
 		Element sysElement = nta.addElement("system");
 		String instantiations = template_instantiations.toString().substring(1,

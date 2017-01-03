@@ -11,3 +11,5 @@
 
 # Maven build files #
 target/
+*.xml
+*.xml

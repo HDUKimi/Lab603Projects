@@ -43,7 +43,7 @@ public class ExistVerification {
 		Document dom = reader.read(filePath);// 解析XML获取代表整个文档的dom对象
 		Element root = dom.getRootElement();// 获取根节点
 
-		Read uppaal = new Read();
+		ReadAutomata uppaal = new ReadAutomata();
 		uppaal.load(root);
 
 		templates = uppaal.getUppaalTemplates();
@@ -223,9 +223,63 @@ public class ExistVerification {
 		//3 路径时间和
 		boolean pathTupleOK = verificationPathTupleTime();
 		
+		//4 矛盾的约束
+		boolean counterDuration = verificationCounterDuration();
 		
 		System.out.println("实时一致性验证完成");
-		return locationOK && transitionOK && pathTupleOK;
+		return locationOK && transitionOK && pathTupleOK && counterDuration;
+	}
+
+	// 是否存在矛盾的时间约束
+	private boolean verificationCounterDuration() {
+		for(UppaalLocation locationP : locations) {
+			for(UppaalLocation locationC : locations) {
+				if (locationC == locationP) {
+					continue;
+				}
+				
+				if (!compareLocation(locationP, locationC)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	// 两个location是否矛盾 矛盾返回false
+	private boolean compareLocation(UppaalLocation locationP, UppaalLocation locationC) {
+		for(int i = 0; i < locationP.getStartTimeList().size(); i++) {
+			for(int j = 0; j < locationC.getStartTimeList().size(); j++) {
+				int startP = locationP.getStartTimeList().get(i);
+				int startC = locationC.getStartTimeList().get(j);
+				int endP = locationP.getEndTimeList().get(i);
+				int endC = locationC.getEndTimeList().get(j);
+				if (startC >= startP && endC <= endP) { // 是同一个时间段上的状态
+					String durationP = locationP.getTimeDurationList().get(i);
+					String durationC = locationC.getTimeDurationList().get(j);
+					if (!compareDuration(durationP, durationC)) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+	// 两个时间约束是否矛盾 矛盾返回false
+	private boolean compareDuration(String durationP, String durationC) {
+		if (durationP.equals("null") || durationC.equals("null")) {
+			return true;
+		}
+		int time = 0;
+		if (durationP.contains("=")) {
+			time = Integer.valueOf(durationP.split("=")[1]);
+		} else {
+			if (durationP.contains(">")) {
+				time = Integer.valueOf(durationP.split(">")[1]) + 1;
+			} else if (durationP.contains("<")) {
+				time = Integer.valueOf(durationP.split("<")[1]) - 1;
+			}
+		}
+		return satisfy(time, durationC);
 	}
 
 	private boolean verificationPathTupleTime() {
