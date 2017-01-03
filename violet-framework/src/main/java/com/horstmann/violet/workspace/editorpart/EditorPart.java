@@ -170,8 +170,33 @@ public class EditorPart extends JPanel implements IEditorPart
     {
         Dimension parentSize = getParent().getSize();
         Rectangle2D bounds = graph.getClipBounds();
+        
+//        int zx,zy,pw,ph;
+//        zx=(int) (zoom * bounds.getMaxX());
+//        zy=(int) (zoom * bounds.getMaxY());
+//        pw=(int) parentSize.getWidth();
+//        ph=(int) parentSize.getHeight();
+//        
+//        System.out.println("-----------------------------------");
+//        System.out.println("zx:"+zx +" zy:"+zy +" pw:"+ pw+" ph:"+ph);
+//        
+//        if(pw!=0&&ph!=0){
+//        	while(zx>pw||zy>ph){
+//            	changeZoom(-1);
+//            	zx=(int) (zoom * bounds.getMaxX());
+//                zy=(int) (zoom * bounds.getMaxY());
+//                System.out.println("zx:"+zx +" zy:"+zy +" pw:"+ pw+" ph:"+ph);
+//            }
+//        }
+        
+        		
+        
         int width = Math.max((int) (zoom * bounds.getMaxX()), (int) parentSize.getWidth());
         int height = Math.max((int) (zoom * bounds.getMaxY()), (int) parentSize.getHeight());
+        
+//        System.out.println("-----------------------------------");
+        
+        
         return new Dimension(width, height);
     }
 

@@ -18,7 +18,6 @@ import javax.swing.JTabbedPane;
 
 import com.horstmann.violet.application.consolepart.ConsolePartScrollPane;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.FixedButtonTabbedPanel;
-import com.horstmann.violet.application.gui.util.wujun.TDVerification.ExistTest;
 
 public class StepSixCenterTabbedPane extends JPanel {
 	
@@ -192,9 +191,9 @@ public class StepSixCenterTabbedPane extends JPanel {
 		
 		diagramPanel.setLayout(new GridLayout());
 		try {
-			validationDiagramTabbedPane.setLayout(new GridLayout());
-			validationDiagramTabbedPane.add(new ExistTest().existTest());
-			diagramPanel.add(new ExistTest().existTest());
+//			validationDiagramTabbedPane.setLayout(new GridLayout());
+//			validationDiagramTabbedPane.add(new ExistTest().existTest());
+//			diagramPanel.add(new ExistTest().existTest());
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

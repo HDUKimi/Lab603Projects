@@ -53,7 +53,6 @@ import com.horstmann.violet.application.gui.util.chengzuo.Verfication.TestCase;
 import com.horstmann.violet.application.gui.util.wqq.AutoMataTransfrom1.GetAutomatic;
 import com.horstmann.violet.application.gui.util.wqq.AutoMataTransfrom1.Main;
 import com.horstmann.violet.application.gui.util.wujun.SequenceTransfrom.SD2UppaalMain;
-import com.horstmann.violet.application.gui.util.wujun.TDVerification.ExistTest;
 import com.horstmann.violet.application.gui.util.xiaole.GraghLayout.LayoutUppaal;
 import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.ImportByDoubleClick;
 import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.TransToVioletUppaal;
@@ -1014,7 +1013,7 @@ Sixstart.addActionListener(new ActionListener() {
 //			@Override
 //			public void run() {
 				try {
-					JSplitPane jp=new ExistTest().existTest();
+//					JSplitPane jp=new ExistTest().existTest();
 //					mainFrame.getStepSixCenterTabbedPane().getConsolePartScrollPane().setLayout(new BorderLayout());
 //					mainFrame.getStepSixCenterTabbedPane().getConsolePartScrollPane().validate();
 //					mainFrame.getStepSixCenterTabbedPane().getConsolePartScrollPane().add(jp,BorderLayout.CENTER);

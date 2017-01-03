@@ -211,7 +211,7 @@ public class ValidationTransitionMessagePanel extends JPanel{
         attributetablemodel.addRow(rowData6);
         Object[] rowData7={"out="+transistion.isOut()};
         attributetablemodel.addRow(rowData7);
-        Object[] rowData8={"duration="+transistion.getDuration()};
+        Object[] rowData8={"duration="+transistion.getTimeDuration()};
         attributetablemodel.addRow(rowData8);
         Object[] rowData9={"label="+transistion.getLabel()};
         attributetablemodel.addRow(rowData9);

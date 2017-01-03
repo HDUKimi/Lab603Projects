@@ -381,6 +381,9 @@ public class ModelExistValidationPanel extends JPanel{
 //					String filePath="D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\uppaalTest1.uppaal.violet.xml";
 					
 					try {
+						
+						System.out.println("--------------------------TimingEAtoUppaal.getDiagramDataName()"+TimingEAtoUppaal.getDiagramDataName()+".xml");
+						
 						ev=new ExistVerification(TimingEAtoUppaal.getDiagramDataName()+".xml");
 						
 						uppaalmessagelist=ev.getMessages();
