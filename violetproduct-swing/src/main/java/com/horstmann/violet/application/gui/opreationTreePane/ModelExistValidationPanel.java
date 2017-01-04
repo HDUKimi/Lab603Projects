@@ -36,6 +36,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import com.horstmann.violet.application.consolepart.TableHeadPanel;
+import com.horstmann.violet.application.consolepart.ValidationMessageComparePanel;
+import com.horstmann.violet.application.consolepart.ValidationStateComparePanel;
 import com.horstmann.violet.application.consolepart.ValidationTransitionMessagePanel;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
@@ -47,9 +50,13 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyUppaalLabelRe
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ToolPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.UppaalToolPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ValidationToolPanel;
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.CompareEAtoAutomata;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.ExistVerification;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.PathTuple;
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.RowStringsForDisplay;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalTransition;
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.RowStringsForDisplay.MessageCompare;
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.RowStringsForDisplay.StateCompare;
 import com.horstmann.violet.application.gui.util.wujun.TimingTransfrom.TimingEAtoUppaal;
 import com.horstmann.violet.application.gui.util.xiaole.GraghLayout.LayoutUppaal;
 import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.ImportByDoubleClick;
@@ -392,6 +399,113 @@ public class ModelExistValidationPanel extends JPanel{
 							System.out.println(u.toString());
 						}
 						System.out.println("-------------------");
+						
+						
+						RowStringsForDisplay row=CompareEAtoAutomata.compareFromXMLPath(path, TimingEAtoUppaal.getDiagramDataName()+".xml");
+						
+						ArrayList<StateCompare> stateCompareList =row.getStateCompareList();
+						ArrayList<MessageCompare> messageCompareList = row.getMessageCompareList();
+						
+						mainFrame.getValidationResultPanel().getTwonamelabel().setText("共找到"+stateCompareList.size()+"条状态和"+messageCompareList.size()+"条消息");
+						
+						System.out.println("***************************");
+						System.out.println(stateCompareList.size());
+						System.out.println("---------------------------");
+						
+						mainFrame.getValidationResultPanel().getStatelocationresultpanel().removeAll();
+						
+						System.out.println("++++++++++++++++++++");
+						
+						JPanel resultpanel1=new JPanel();
+						JPanel emptypanel1=new JPanel();
+						resultpanel1.setOpaque(false);
+						emptypanel1.setOpaque(false);
+						
+						GridBagLayout layout1 = new GridBagLayout();
+						resultpanel1.setLayout(layout1);
+						int i=0;
+						
+						ArrayList<String> headlist1=new ArrayList<String>();
+//						headlist1.add("EAStateInfo");
+//						headlist1.add("UppaalLocation");
+//						headlist1.add("Result");
+						headlist1.add("时序图");
+						headlist1.add("时间自动机");
+						headlist1.add("结果");
+						
+						TableHeadPanel thpanel1=new TableHeadPanel(headlist1);
+						resultpanel1.add(thpanel1);
+						layout1.setConstraints(thpanel1, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+						
+						
+						for(StateCompare s:stateCompareList){
+							System.out.println(s.getStateInfo().toString());
+							System.out.println(s.getLocation().toString());
+							System.out.println(s.getResult());
+							
+							ValidationStateComparePanel vscpanel=new ValidationStateComparePanel(s);
+							resultpanel1.add(vscpanel);
+							layout1.setConstraints(vscpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+							
+							System.out.println("---------------------------");
+						}
+						
+						resultpanel1.add(emptypanel1);
+						layout1.setConstraints(emptypanel1, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+						mainFrame.getValidationResultPanel().getStatelocationresultpanel().add(resultpanel1);
+						
+						
+						System.out.println("***************************");
+						System.out.println(messageCompareList.size());
+						System.out.println("---------------------------");
+						
+						mainFrame.getValidationResultPanel().getMessagetransitionresultpanel().removeAll();
+						
+						System.out.println("++++++++++++++++++++");
+						
+						JPanel resultpanel2=new JPanel();
+						JPanel emptypanel2=new JPanel();
+						resultpanel2.setOpaque(false);
+						emptypanel2.setOpaque(false);
+						
+						GridBagLayout layout2 = new GridBagLayout();
+						resultpanel2.setLayout(layout2);
+						int j=0;
+						
+						ArrayList<String> headlist2=new ArrayList<String>();
+//						headlist2.add("EAMessage");
+//						headlist2.add("UppaalTransition");
+//						headlist2.add("Result");
+						headlist2.add("时序图");
+						headlist2.add("时间自动机");
+						headlist2.add("结果");
+						
+						TableHeadPanel thpanel2=new TableHeadPanel(headlist2);
+						resultpanel2.add(thpanel2);
+						layout2.setConstraints(thpanel2, new GBC(0, j++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+						
+						for(MessageCompare m:messageCompareList){
+							System.out.println(m.getMessage().toString());
+							System.out.println(m.getTransition().toString());
+							System.out.println(m.getResult());
+							
+							ValidationMessageComparePanel vmcpanel=new ValidationMessageComparePanel(m);
+							resultpanel2.add(vmcpanel);
+							layout2.setConstraints(vmcpanel, new GBC(0, j++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+							
+							System.out.println("---------------------------");
+						}
+						
+						resultpanel2.add(emptypanel2);
+						layout2.setConstraints(emptypanel2, new GBC(0, j++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+						mainFrame.getValidationResultPanel().getMessagetransitionresultpanel().add(resultpanel2);
+						
+						System.out.println("***************************");
+						
+						
+						mainFrame.getValidationResultPanel().ChangeRepaint();
+						
+						
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -610,9 +724,11 @@ public class ModelExistValidationPanel extends JPanel{
 				
 				if(timingscrollpanel.isVisible()){
 					timingscrollpanel.setVisible(false);
+					ChangeRepaint();
 				}
 				else {
 					timingscrollpanel.setVisible(true);
+					ChangeRepaint();
 				}
 				
 			}
@@ -1007,12 +1123,12 @@ public class ModelExistValidationPanel extends JPanel{
 					else{
 						System.out.println("   ----------   ");
 						
-						mainFrame.getValidationResultPanel().getOneNamelabel().setText("共找到"+l.size()+"条消息：");
+						mainFrame.getValidationResultPanel().getOnenamelabel().setText("共找到"+l.size()+"条消息：");
 						
-						mainFrame.getValidationResultPanel().getOneResultpanel().removeAll();
+						mainFrame.getValidationResultPanel().getOneresultpanel().removeAll();
 //						mainFrame.getValidationResultPanel().getResultpanel().setLayout(new BoxLayout(mainFrame.getValidationResultPanel().getResultpanel(), BoxLayout.Y_AXIS));
 						
-						System.out.println(mainFrame.getValidationResultPanel().getOneResultpanel().size());
+						System.out.println(mainFrame.getValidationResultPanel().getOneresultpanel().size());
 						System.out.println("++++++++++++++++++++");
 						
 						JPanel resultpanel=new JPanel();
@@ -1034,7 +1150,7 @@ public class ModelExistValidationPanel extends JPanel{
 						resultpanel.add(emptypanel);
 						layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 //						mainFrame.getValidationResultPanel().getResultpanel().add(Box.createVerticalGlue());
-						mainFrame.getValidationResultPanel().getOneResultpanel().add(resultpanel);
+						mainFrame.getValidationResultPanel().getOneresultpanel().add(resultpanel);
 						mainFrame.getValidationResultPanel().ChangeRepaint();
 						System.out.println("++++++++++++++++++++");
 						
@@ -1087,10 +1203,12 @@ public class ModelExistValidationPanel extends JPanel{
 				if(validationscrollpanel.isVisible()){
 					validationlabeltabpanel.setVisible(false);
 					validationscrollpanel.setVisible(false);
+					ChangeRepaint();
 				}
 				else{
 					validationlabeltabpanel.setVisible(true);
 					validationscrollpanel.setVisible(true);
+					ChangeRepaint();
 				}
 				
 			}
@@ -1111,7 +1229,11 @@ public class ModelExistValidationPanel extends JPanel{
 	    {
 	    	String fileName=timingFile.getName();
 //	    	fileName.substring(0, fileName.lastIndexOf(".xml"));
-	    	timinglists.add(fileName.substring(0, fileName.lastIndexOf(".timing.violet.xml")));
+	    	if(fileName.lastIndexOf(".timing.violet.xml")>0){
+	    		timinglists.add(fileName.substring(0,fileName.lastIndexOf(".timing.violet.xml") ));
+	    	}
+	    	
+//	    	timinglists.add(fileName);
 	    }
 //	    for(File tdFile : tdFilelists)
 //	    {

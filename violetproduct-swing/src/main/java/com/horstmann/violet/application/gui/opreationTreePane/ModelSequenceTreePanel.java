@@ -425,11 +425,13 @@ public class ModelSequenceTreePanel extends JPanel{
 				// TODO Auto-generated method stub
 				if(sequencescrollpanel.isVisible()){
 					sequencescrollpanel.setVisible(false);
+					ChangeRepaint();
 //					uppaalpanel.setVisible(false);
 //					sequencecheckboxpanel.setVisible(false);
 				}
 				else{
 					sequencescrollpanel.setVisible(true);
+					ChangeRepaint();
 //					uppaalpanel.setVisible(true);
 //					sequencecheckboxpanel.setVisible(true);
 				}
@@ -477,6 +479,13 @@ public class ModelSequenceTreePanel extends JPanel{
 //        modelsequencetree.setCellRenderer(new CheckBoxTreeCellRenderer());
 		
 //	}
+	
+	public void ChangeRepaint() {
+		// TODO Auto-generated method stub
+		this.setVisible(false);
+		this.getRootPane().repaint();
+		this.setVisible(true);
+	}
 
 	public void initFileList() {
 		File[] sequenceFilelists = getAllFileByDiagramType("sequence");

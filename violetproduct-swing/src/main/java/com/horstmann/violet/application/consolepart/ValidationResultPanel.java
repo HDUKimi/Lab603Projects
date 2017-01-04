@@ -9,17 +9,22 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
+import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 
@@ -55,6 +60,22 @@ public class ValidationResultPanel extends JPanel{
 	private JLabel twonamelabel;
 	private JPanel tworesultpanel;
 	private JScrollPane tworesultscrollpanel;
+	
+	private JPanel statelocationpanel;
+	private JPanel statelocationlabelpanel;
+	private JLabel statelocationlabel;
+	private JPanel statelocationtoolpanel;
+	private JButton statelocationtoolbutton1;
+	private JPanel statelocationresultpanel;
+	private JScrollPane statelocationscrollpanel;
+	
+	private JPanel messagetransitionpanel;
+	private JPanel messagetransitionlabelpanel;
+	private JLabel messagetransitionlabel;
+	private JPanel messagetransitiontoolpanel;
+	private JButton messagetransitiontoolbutton1;
+	private JPanel messagetransitionresultpanel;
+	private JScrollPane messagetransitionscrollpanel;
 	
 	
 	public ValidationResultPanel(MainFrame mainFrame){
@@ -128,9 +149,9 @@ public class ValidationResultPanel extends JPanel{
 		GridBagLayout layout=new GridBagLayout();
 		twovalidationresultpanel.setLayout(layout);
 		twovalidationresultpanel.add(twonamepanel);
-		twovalidationresultpanel.add(tworesultscrollpanel);
+		twovalidationresultpanel.add(tworesultpanel);
 		layout.setConstraints(twonamepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(tworesultscrollpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(tworesultpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 	}
 
@@ -153,13 +174,167 @@ public class ValidationResultPanel extends JPanel{
 	private void initTwoResulePanel() {
 		// TODO Auto-generated method stub
 		
-		tworesultpanel.setLayout(new GridLayout());
-
+//		tworesultpanel.setLayout(new GridLayout());
+//
 //		tworesultpanel.setBackground(new Color(255, 255, 255));
-		tworesultpanel.setBackground(new Color(5, 255, 255));
+//		
+//		tworesultscrollpanel=new JScrollPane(tworesultpanel);
+//		tworesultscrollpanel.setBorder(null);
 		
-		tworesultscrollpanel=new JScrollPane(tworesultpanel);
-		tworesultscrollpanel.setBorder(null);
+		statelocationpanel=new JPanel();
+		statelocationlabelpanel=new JPanel();
+		statelocationlabel=new JLabel();
+		statelocationtoolpanel=new JPanel();
+		statelocationtoolbutton1=new JButton();
+		statelocationresultpanel=new JPanel();
+		
+		messagetransitionpanel=new JPanel();
+		messagetransitionlabelpanel=new JPanel();
+		messagetransitionlabel=new JLabel();
+		messagetransitiontoolpanel=new JPanel();
+		messagetransitiontoolbutton1=new JButton();
+		messagetransitionresultpanel=new JPanel();
+		
+		initStateLocationPanel();
+		
+		initMessageTransitionPanel();
+		
+		GridBagLayout layout=new GridBagLayout();
+		tworesultpanel.setLayout(layout);
+		tworesultpanel.add(statelocationlabelpanel);
+		tworesultpanel.add(statelocationscrollpanel);
+		tworesultpanel.add(messagetransitionpanel);
+		layout.setConstraints(statelocationlabelpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(statelocationscrollpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(messagetransitionpanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+		
+	}
+
+	private void initStateLocationPanel() {
+		// TODO Auto-generated method stub
+		
+		statelocationlabel.setText("时序图的状态与时间自动机的节点比较");
+		statelocationlabel.setForeground(new Color(0,0,0));
+		statelocationlabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		statelocationlabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		
+		String absolutePath=System.getProperty("user.dir");
+		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
+
+		ImageIcon icon1 = new ImageIcon(path + "dropdown.png");
+		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+
+		statelocationtoolbutton1.setIcon(icon1);
+		statelocationtoolbutton1.setFocusable(false);
+		statelocationtoolbutton1.setContentAreaFilled(false);
+		statelocationtoolbutton1.setBorderPainted(false);
+		statelocationtoolbutton1.addMouseListener(new ButtonMouseListener());
+		statelocationtoolbutton1.setPreferredSize(new Dimension(21,21));
+		statelocationtoolbutton1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				if(statelocationscrollpanel.isVisible()){
+					statelocationscrollpanel.setVisible(false);
+					ChangeRepaint();
+				}
+				else {
+					statelocationscrollpanel.setVisible(true);
+					ChangeRepaint();
+				}
+				
+			}
+		});
+		
+		statelocationtoolpanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,4));
+		statelocationtoolpanel.setOpaque(false);
+		statelocationtoolpanel.add(statelocationtoolbutton1);
+		
+		statelocationlabelpanel.setBackground(new Color(207, 214, 229));
+		statelocationlabelpanel.setLayout(new BorderLayout());
+		statelocationlabelpanel.add(statelocationlabel, BorderLayout.WEST);
+		statelocationlabelpanel.add(statelocationtoolpanel, BorderLayout.EAST);
+		statelocationlabelpanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(142, 155, 188)));
+		statelocationlabelpanel.setPreferredSize(new Dimension(100, 29));
+		statelocationlabelpanel.setMaximumSize(new Dimension(100, 29));
+		statelocationlabelpanel.setMinimumSize(new Dimension(100, 29));
+		
+		statelocationresultpanel.setLayout(new GridLayout());
+		statelocationresultpanel.setBackground(new Color(255, 255, 255));
+		statelocationscrollpanel=new JScrollPane(statelocationresultpanel);
+		statelocationscrollpanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(142, 155, 188)));
+		statelocationscrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		statelocationscrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		
+	}
+
+	private void initMessageTransitionPanel() {
+		// TODO Auto-generated method stub
+		
+		messagetransitionlabel.setText("时序图的消息与时间自动机的消息比较");
+		messagetransitionlabel.setForeground(new Color(0,0,0));
+		messagetransitionlabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		messagetransitionlabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		
+		String absolutePath=System.getProperty("user.dir");
+		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
+
+		ImageIcon icon1 = new ImageIcon(path + "dropdown.png");
+		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+
+		messagetransitiontoolbutton1.setIcon(icon1);
+		messagetransitiontoolbutton1.setFocusable(false);
+		messagetransitiontoolbutton1.setContentAreaFilled(false);
+		messagetransitiontoolbutton1.setBorderPainted(false);
+		messagetransitiontoolbutton1.addMouseListener(new ButtonMouseListener());
+		messagetransitiontoolbutton1.setPreferredSize(new Dimension(21,21));
+		messagetransitiontoolbutton1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				if(messagetransitionscrollpanel.isVisible()){
+					messagetransitionscrollpanel.setVisible(false);
+					ChangeRepaint();
+				}
+				else {
+					messagetransitionscrollpanel.setVisible(true);
+					ChangeRepaint();
+				}
+				
+			}
+		});
+		
+		messagetransitiontoolpanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,4));
+		messagetransitiontoolpanel.setOpaque(false);
+		messagetransitiontoolpanel.add(messagetransitiontoolbutton1);
+		
+		messagetransitionlabelpanel.setBackground(new Color(207, 214, 229));
+		messagetransitionlabelpanel.setLayout(new BorderLayout());
+		messagetransitionlabelpanel.add(messagetransitionlabel, BorderLayout.WEST);
+		messagetransitionlabelpanel.add(messagetransitiontoolpanel, BorderLayout.EAST);
+		messagetransitionlabelpanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(142, 155, 188)));
+		messagetransitionlabelpanel.setPreferredSize(new Dimension(100, 29));
+		messagetransitionlabelpanel.setMaximumSize(new Dimension(100, 29));
+		messagetransitionlabelpanel.setMinimumSize(new Dimension(100, 29));
+		
+		messagetransitionresultpanel.setLayout(new GridLayout());
+		messagetransitionresultpanel.setBackground(new Color(255, 255, 255));
+		messagetransitionscrollpanel=new JScrollPane(messagetransitionresultpanel);
+		messagetransitionscrollpanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(142, 155, 188)));
+		messagetransitionscrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		messagetransitionscrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		
+		messagetransitionpanel.setLayout(new BorderLayout());
+		messagetransitionpanel.add(messagetransitionlabelpanel,BorderLayout.NORTH);
+		messagetransitionpanel.add(messagetransitionscrollpanel,BorderLayout.CENTER);
+
 		
 	}
 
@@ -341,7 +516,7 @@ public class ValidationResultPanel extends JPanel{
 				setvalidationlabeltabpanelrepait();
 				validationlabeltab1.setForeground(new Color(0, 0, 0));
 				validationlabeltabpanel1.setBackground(new Color(255, 255, 255));
-				validationlabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,1,1, new Color(142, 155, 188)));
+				validationlabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,0,1, new Color(142, 155, 188)));
 				validationlabeltabindex = 1;
 				
 				resultpanel.removeAll();
@@ -399,7 +574,7 @@ public class ValidationResultPanel extends JPanel{
 				setvalidationlabeltabpanelrepait();
 				validationlabeltab2.setForeground(new Color(0, 0, 0));
 				validationlabeltabpanel2.setBackground(new Color(255, 255, 255));
-				validationlabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
+				validationlabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0,1,0,1, new Color(142, 155, 188)));
 				validationlabeltabindex = 2;
 				
 				resultpanel.removeAll();
@@ -411,7 +586,7 @@ public class ValidationResultPanel extends JPanel{
 		
 		validationlabeltabpanel1.setLayout(new GridLayout());
 		validationlabeltabpanel1.setBackground(new Color(255,255,255));
-		validationlabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,1,1, new Color(142, 155, 188)));
+		validationlabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,0,1, new Color(142, 155, 188)));
 		validationlabeltabpanel1.setPreferredSize(new Dimension(60, 30));
 		validationlabeltabpanel1.add(validationlabeltab1);
 		validationlabeltabpanel2.setLayout(new GridLayout());
@@ -457,19 +632,29 @@ public class ValidationResultPanel extends JPanel{
 	}
 
 	
-	
-	public JLabel getOneNamelabel() {
+	public JLabel getOnenamelabel() {
 		return onenamelabel;
 	}
 
-	public JPanel getOneResultpanel() {
+	public JPanel getOneresultpanel() {
 		return oneresultpanel;
 	}
 
-//	public JTextArea getResultarea() {
-//		return resultarea;
-//	}
-	
+	public JLabel getTwonamelabel() {
+		return twonamelabel;
+	}
+
+	public JPanel getTworesultpanel() {
+		return tworesultpanel;
+	}
+
+	public JPanel getStatelocationresultpanel() {
+		return statelocationresultpanel;
+	}
+
+	public JPanel getMessagetransitionresultpanel() {
+		return messagetransitionresultpanel;
+	}
 	
 	
 }

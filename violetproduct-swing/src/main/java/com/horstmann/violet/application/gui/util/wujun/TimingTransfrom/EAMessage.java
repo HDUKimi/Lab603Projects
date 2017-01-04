@@ -92,4 +92,11 @@ public class EAMessage {
 		this.inner = inner;
 	}
 
+	@Override
+	public String toString() {
+		return "EAMessage [duration=" + duration + ", inner=" + inner + ", sourceId=" + sourceId + ", tragetId="
+				+ tragetId + ", sourceName=" + sourceName + ", tragetName=" + tragetName + ", name=" + name
+				+ ", sendTime=" + sendTime + ", receiveTime=" + receiveTime + ", connectorId=" + connectorId + "]";
+	}
+
 }

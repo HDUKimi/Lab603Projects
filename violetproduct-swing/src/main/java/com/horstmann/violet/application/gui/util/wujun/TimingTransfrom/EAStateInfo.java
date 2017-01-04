@@ -39,4 +39,10 @@ public class EAStateInfo {
 		Event = event;
 	}
 
+	@Override
+	public String toString() {
+		return "EAStateInfo [startTime=" + startTime + ", name=" + name + ", DConst=" + DConst + ", Event=" + Event
+				+ "]";
+	}
+
 }

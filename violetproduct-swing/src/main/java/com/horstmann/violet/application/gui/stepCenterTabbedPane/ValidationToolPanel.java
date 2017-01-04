@@ -310,9 +310,9 @@ public class ValidationToolPanel extends JPanel{
 						
 						//------------
 						
-						mainFrame.getValidationResultPanel().getOneNamelabel().setText("共找到"+uppaalTransitionList.size()+"条消息：");
+						mainFrame.getValidationResultPanel().getOnenamelabel().setText("共找到"+uppaalTransitionList.size()+"条消息：");
 						
-						mainFrame.getValidationResultPanel().getOneResultpanel().removeAll();
+						mainFrame.getValidationResultPanel().getOneresultpanel().removeAll();
 						
 						System.out.println("++++++++++++++++++++");
 						
@@ -335,7 +335,7 @@ public class ValidationToolPanel extends JPanel{
 						resultpanel.add(emptypanel);
 						layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 //						mainFrame.getValidationResultPanel().getResultpanel().add(Box.createVerticalGlue());
-						mainFrame.getValidationResultPanel().getOneResultpanel().add(resultpanel);
+						mainFrame.getValidationResultPanel().getOneresultpanel().add(resultpanel);
 						mainFrame.getValidationResultPanel().ChangeRepaint();
 						System.out.println("++++++++++++++++++++");
 						
@@ -353,9 +353,9 @@ public class ValidationToolPanel extends JPanel{
 						//xie
 						TranMessageColorize tmc=new TranMessageColorize();
 						tmc.ColorizeTranAndState(pathTupleList, workspace);
-						mainFrame.getValidationResultPanel().getOneNamelabel().setText("共找到一条路径，包含"+pathTupleList.size()+"个节点和"+pathTupleList.size()+"条消息：");
+						mainFrame.getValidationResultPanel().getOnenamelabel().setText("共找到一条路径，包含"+pathTupleList.size()+"个节点和"+pathTupleList.size()+"条消息：");
 						
-						mainFrame.getValidationResultPanel().getOneResultpanel().removeAll();
+						mainFrame.getValidationResultPanel().getOneresultpanel().removeAll();
 						
 						System.out.println("++++++++++++++++++++");
 						
@@ -384,7 +384,7 @@ public class ValidationToolPanel extends JPanel{
 						resultpanel.add(emptypanel);
 						layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 //						mainFrame.getValidationResultPanel().getResultpanel().add(Box.createVerticalGlue());
-						mainFrame.getValidationResultPanel().getOneResultpanel().add(resultpanel);
+						mainFrame.getValidationResultPanel().getOneresultpanel().add(resultpanel);
 						mainFrame.getValidationResultPanel().ChangeRepaint();
 						
 						System.out.println("++++++++++++++++++++");

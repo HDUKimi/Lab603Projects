@@ -177,11 +177,13 @@ public class ModelTimingTreePanel extends JPanel{
 				
 				if(uppaalscrollpanel.isVisible()){
 					uppaalscrollpanel.setVisible(false);
+					ChangeRepaint();
 //					timingpanel.setVisible(false);
 					
 				}
 				else{
 					uppaalscrollpanel.setVisible(true);
+					ChangeRepaint();
 //					timingpanel.setVisible(true);
 				}
 			}
@@ -478,6 +480,13 @@ public class ModelTimingTreePanel extends JPanel{
 		
 //	}
 
+	public void ChangeRepaint() {
+		// TODO Auto-generated method stub
+		this.setVisible(false);
+		this.getRootPane().repaint();
+		this.setVisible(true);
+	}
+	
 	public void initFileList() {
 		File[] timingFilelists = getAllFileByDiagramType("timing");
 	//	File[] tdFilelists= getAllFileByDiagramType("timing");	
