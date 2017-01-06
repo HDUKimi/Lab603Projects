@@ -32,6 +32,9 @@ public class ExistVerification {
 	private static ArrayList<PathTuple> pathTuples = new ArrayList<>();// 路径
 	private static ArrayList<UppaalTransition> messages = new ArrayList<>();// 消息序列
 	private static boolean verificationResult = true;
+	public boolean getVerificationResult() {
+		return verificationResult;
+	}
 	// 1输入
 	// 文件路径
 	public ExistVerification(String filePath) throws Exception {
@@ -311,7 +314,7 @@ public class ExistVerification {
 		return res;
 	}
 	// 获取所有transition的时间约束验证结果
-	private List<TransitionVerificationDisplay> verificationTransitionTimeDuration() {
+	public List<TransitionVerificationDisplay> verificationTransitionTimeDuration() {
 		ArrayList<TransitionVerificationDisplay> res = new ArrayList<>();
 		System.out.println("-------------------------验证每一个transition是否满足时间约束-------------------------");
 		for (UppaalTransition transition : transitions) {
