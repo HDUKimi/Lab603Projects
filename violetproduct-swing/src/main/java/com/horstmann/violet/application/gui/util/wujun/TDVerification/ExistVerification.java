@@ -31,7 +31,7 @@ public class ExistVerification {
 	private static HashMap<String, UppaalLocation> locationById = new HashMap<>();
 	private static ArrayList<PathTuple> pathTuples = new ArrayList<>();// 路径
 	private static ArrayList<UppaalTransition> messages = new ArrayList<>();// 消息序列
-
+	private static boolean verificationResult = true;
 	// 1输入
 	// 文件路径
 	public ExistVerification(String filePath) throws Exception {
@@ -212,22 +212,20 @@ public class ExistVerification {
 		}
 	}
 
-	// 实时一致性验证
+	// *实时一致性验证
 	public boolean verificationTimeDuration() {
 		//1 点
-		boolean locationOK = verificationLocationTimeDuration();
+		List<LocationVerificationDisplay> lvdList = verificationLocationTimeDuration();
 		
 		//2 边
-		boolean transitionOK = verificationTransitionTimeDuration();
+		List<TransitionVerificationDisplay> tvcList = verificationTransitionTimeDuration();
 		
-		//3 路径时间和
-		boolean pathTupleOK = verificationPathTupleTime();
 		
 		//4 矛盾的约束
-		boolean counterDuration = verificationCounterDuration();
+//		boolean counterDuration = verificationCounterDuration();
 		
-		System.out.println("实时一致性验证完成");
-		return locationOK && transitionOK && pathTupleOK && counterDuration;
+		System.out.println("实时一致性验证完成" + verificationResult);
+		return verificationResult;
 	}
 
 	// 是否存在矛盾的时间约束
@@ -282,71 +280,61 @@ public class ExistVerification {
 		return satisfy(time, durationC);
 	}
 
-	private boolean verificationPathTupleTime() {
-		ArrayList<PathTuple> path = getPath();
-		
-		int timeSum = 0;
-		int nextTime = 0;
-		for(int i = 0; i < path.size() - 1; i++) {
-			UppaalLocation location = path.get(i).getLocation();
-			UppaalTransition transition = path.get(i).getTransition();
-			if (transition.out && transition.getName().contains("?")) {// 不重复计算
-				continue;
-			}
-			int LocationCountIndex = 0;
-			for(int time : location.getStartTimeList()) {
-				if (time == nextTime) {
-					break;
-				}
-				LocationCountIndex++;
-			}
-			if (LocationCountIndex >= location.getStartTimeList().size()) {
-				System.out.println("根据nextTime查找这个location的所有开始时间失败！");
-			}
-			// 累加到达此location的时间
-			timeSum += location.getEndTimeList().get(LocationCountIndex) - location.getStartTimeList().get(LocationCountIndex);
-			
-			
-			// 累加此transition的时间
-			timeSum += transition.getEndTime() - transition.getStartTime();
-			nextTime = transition.getEndTime();
-		}
-		
-		PathTuple lastPathTuple = path.get(path.size() - 1);
-		UppaalLocation lastLocation = lastPathTuple.getLocation();
-		int LocationCount = lastLocation.getStartTimeList().size();
-		int lastStartTime = lastLocation.getStartTimeList().get(LocationCount - 1);// 最后一个状态的开始时间
-		return lastStartTime == timeSum;
-	}
-
-	private boolean verificationLocationTimeDuration() {
-		// 验证每一个location是否满足时间约束
+	
+	// 获取所有location的时间约束验证结果
+	public List<LocationVerificationDisplay> verificationLocationTimeDuration() {
+		ArrayList<LocationVerificationDisplay> res = new ArrayList<>();
+		System.out.println("-------------------------验证每一个location是否满足时间约束-------------------------");
 		for (UppaalLocation location : locations) {
 			for (int i = 0; i < location.getStartTimeList().size(); i++) {
 				String timeDuration = location.getTimeDurationList().get(i);
 				int startTime = location.getStartTimeList().get(i);
 				int endTime = location.getEndTimeList().get(i);
 				int time = endTime - startTime;
+				System.out.println(location.getName());
+				System.out.println("所在时间段：" + startTime + "-" + endTime);
 				if (!satisfy(time, timeDuration)) {
-					return false;
+					System.out.println("不满足时间约束" + " " + timeDuration + "\n");
+					LocationVerificationDisplay locationVerificationDisplay = 
+							new LocationVerificationDisplay(location, startTime, endTime, timeDuration, false);
+					res.add(locationVerificationDisplay);
+					verificationResult = false;
+				} else {
+					System.out.println("满足时间约束" + " " + timeDuration + "\n");
+					LocationVerificationDisplay locationVerificationDisplay = 
+							new LocationVerificationDisplay(location, startTime, endTime, timeDuration, true);
+					res.add(locationVerificationDisplay);
 				}
+				
 			}
 		}
-		return true;
+		return res;
 	}
-
-	private boolean verificationTransitionTimeDuration() {
-		// 验证每一个transition是否满足时间约束
+	// 获取所有transition的时间约束验证结果
+	private List<TransitionVerificationDisplay> verificationTransitionTimeDuration() {
+		ArrayList<TransitionVerificationDisplay> res = new ArrayList<>();
+		System.out.println("-------------------------验证每一个transition是否满足时间约束-------------------------");
 		for (UppaalTransition transition : transitions) {
 			String timeDuration = transition.getTimeDuration();
 			int startTime = transition.getStartTime();
 			int endTime = transition.getEndTime();
 			int time = endTime - startTime;
+			System.out.println(transition.getName());
+			System.out.println("所在时间段：" + startTime + "-" + endTime);
 			if (!satisfy(time, timeDuration)) {
-				return false;
+				System.out.println("不满足时间约束" + " " + timeDuration + "\n");
+				TransitionVerificationDisplay transitionVerificationDisplay = 
+						new TransitionVerificationDisplay(transition, startTime, endTime, timeDuration, false);
+				res.add(transitionVerificationDisplay);
+				verificationResult = false;
+			} else {
+				System.out.println("满足时间约束" + " " + timeDuration + "\n");
+				TransitionVerificationDisplay transitionVerificationDisplay = 
+						new TransitionVerificationDisplay(transition, startTime, endTime, timeDuration, true);
+				res.add(transitionVerificationDisplay);
 			}
 		}
-		return true;
+		return res;
 	}
 
 	// 状态持续的时间 、 消息的执行时间 是否满足时间约束
