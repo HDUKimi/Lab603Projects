@@ -52,8 +52,10 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.UppaalToolPanel
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ValidationToolPanel;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.CompareEAtoAutomata;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.ExistVerification;
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.LocationVerificationDisplay;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.PathTuple;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.RowStringsForDisplay;
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.TransitionVerificationDisplay;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalTransition;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.RowStringsForDisplay.MessageCompare;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.RowStringsForDisplay.StateCompare;
@@ -403,6 +405,69 @@ public class ModelExistValidationPanel extends JPanel{
 						
 						RowStringsForDisplay row=CompareEAtoAutomata.compareFromXMLPath(path, TimingEAtoUppaal.getDiagramDataName()+".xml");
 						
+						System.out.println("##################################");
+						
+						ArrayList<PathTuple> pathtuple=ev.getPath();
+						
+						System.out.println(pathtuple.size());
+						
+						for(PathTuple pt:pathtuple){
+							
+							System.out.println(pt.getLocation().toString());
+							if(pt.getTransition()!=null){
+								System.out.println(pt.getTransition().toString());
+							}
+							
+							
+						}
+						
+						
+						ArrayList<Integer> times = CompareEAtoAutomata.verificationPathTupleTime(ev.getPath());
+						System.out.println("##################################");
+						System.out.println(times.size());
+						
+						for(Integer i:times){
+							System.out.println(i);
+						}
+						
+						System.out.println("##################################");
+						
+						for(int i=0;i<times.size();i++){
+							
+							if(i%2==0){
+								System.out.println("location:"+pathtuple.get(i/2).getLocation().getName()+" times:"+times.get(i));
+							}
+							else{
+								System.out.println("transition:"+pathtuple.get(i/2).getTransition().getName()+" times:"+times.get(i));
+							}
+							
+							
+							
+						}
+						
+						System.out.println("##################################");
+						List<LocationVerificationDisplay> locationVerificationDisplays = ev.verificationLocationTimeDuration();
+				    	List<TransitionVerificationDisplay> transitionVerificationDisplays = ev.verificationTransitionTimeDuration();
+				    	
+				    	System.out.println(locationVerificationDisplays.size());
+				    	for(LocationVerificationDisplay lvd:locationVerificationDisplays){
+				    		System.out.println(lvd.toString());
+				    	}
+				    	System.out.println("##################################");
+				    	System.out.println(transitionVerificationDisplays.size());
+				    	for(TransitionVerificationDisplay tvd:transitionVerificationDisplays){
+				    		System.out.println(tvd.toString());
+				    	}
+				    	
+				    	System.out.println("##################################");
+				    	System.out.println(ev.getVerificationResult());
+						
+						
+						System.out.println("##################################");
+						
+						
+						
+						
 						ArrayList<StateCompare> stateCompareList =row.getStateCompareList();
 						ArrayList<MessageCompare> messageCompareList = row.getMessageCompareList();
 						
@@ -510,6 +575,9 @@ public class ModelExistValidationPanel extends JPanel{
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+					
+					
+					
 					
 					addCheckBoxToValidationCheckboxPanel();
 					
