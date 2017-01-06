@@ -22,6 +22,7 @@ public class CompareEAtoAutomata {
 	static ArrayList<EALifeline> allLifelines;
 	static ArrayList<EAMessage> allConnectors;
 	static ArrayList<EADiagramsData> diagramsDatas;
+	static EADiagramsData automata_EADiagramData;
 	// 自动机
 	static ArrayList<UppaalTemPlate> templates;
 	static ArrayList<UppaalTransition> transitions;
@@ -33,7 +34,8 @@ public class CompareEAtoAutomata {
 		readAutomata(automataPath);
 		for(EADiagramsData diagramsData : diagramsDatas) {
 			if (diagramsData.getName().equals(templates.get(0).getName())) {
-				System.out.println("-------find location:");
+				System.out.println("-------------------------根据时序图中的状态查找Location-------------------------");
+				automata_EADiagramData = diagramsData;
 				// 找状态 与location对比
 				for(EALifeline lifeline : diagramsData.getLifelines()) {
 					for(EAStateInfo stateInfo : lifeline.getStateInfos()) {
@@ -63,7 +65,8 @@ public class CompareEAtoAutomata {
 						
 					}
 				}
-				System.out.println("\n\n-----find transition");
+				System.out.println("-------------------------根据时序图中的消息查找Transition-------------------------");
+
 				// 找message 与transition对比
 				for(EAMessage message : diagramsData.getConnectors()) {
 					
@@ -91,6 +94,57 @@ public class CompareEAtoAutomata {
 			}
 		}
 		return row;
+	}
+	
+	public static boolean verificationPathTupleTime(ArrayList<PathTuple> path) {
+		System.out.println("-------------------------累加路径时间值验证时间刻度-------------------------");
+		System.out.println("初始化时间和");
+		int timeSum = 0;
+		int nextTime = 0;
+		for(int i = 0; i < path.size() - 1; i++) {
+			UppaalLocation location = path.get(i).getLocation();
+			UppaalTransition transition = path.get(i).getTransition();
+			if (transition.out && transition.getName().contains("?")) {// 不重复计算
+				continue;
+			}
+			int LocationCountIndex = 0;
+			for(int time : location.getStartTimeList()) {
+				if (time == nextTime) {
+					break;
+				}
+				LocationCountIndex++;
+			}
+			if (LocationCountIndex >= location.getStartTimeList().size()) {
+				System.out.println("根据nextTime查找这个location的所有开始时间失败！");
+			}
+			System.out.println("累加location:" + location.getName() + "的耗时:" + (location.getEndTimeList().get(LocationCountIndex) - location.getStartTimeList().get(LocationCountIndex)));
+			timeSum += location.getEndTimeList().get(LocationCountIndex) - location.getStartTimeList().get(LocationCountIndex);
+			
+			
+			System.out.println("累加transition:" + transition.getName() + "的耗时:" + (transition.getEndTime() - transition.getStartTime()));
+			timeSum += transition.getEndTime() - transition.getStartTime();
+			nextTime = transition.getEndTime();
+		}
+		
+		PathTuple lastPathTuple = path.get(path.size() - 1);
+		UppaalLocation lastLocation = lastPathTuple.getLocation();
+		int lastStartTime = findTimingDiagramLastStateStartTime();// ea 最后一个状态的开始时间
+		System.out.println("EA最后一个状态的开始时间：" + lastStartTime);
+		System.out.println("自动机路径累加的时间和:" + timeSum);
+		return lastStartTime == timeSum;
+	}
+	
+	
+	private static int findTimingDiagramLastStateStartTime() {
+		int max = 0;
+		for(EALifeline lifeline : automata_EADiagramData.getLifelines()) {
+			for(EAStateInfo stateInfo : lifeline.getStateInfos()) {
+				if (Integer.valueOf(stateInfo.getStartTime()) > max) {
+					max = Integer.valueOf(stateInfo.getStartTime());
+				}
+			}
+		}	
+		return max;
 	}
 
 	private static void readAutomata(String automataPath) throws Exception {

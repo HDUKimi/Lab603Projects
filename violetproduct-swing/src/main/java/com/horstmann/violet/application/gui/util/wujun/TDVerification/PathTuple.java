@@ -1,6 +1,14 @@
 package com.horstmann.violet.application.gui.util.wujun.TDVerification;
 
 public class PathTuple {
+	
+	
+	boolean finl;// 最后一组 transition为null
+	UppaalLocation location;
+	UppaalTransition transition;
+	
+	
+	
 	public PathTuple(UppaalLocation location, UppaalTransition transition) {
 		this.location = location;
 		if (transition == null) {
@@ -9,9 +17,7 @@ public class PathTuple {
 			this.transition = transition;
 		}
 	}
-	boolean finl;// 最后一组 transition为null
-	UppaalLocation location;
-	UppaalTransition transition;
+	
 	public void setFinl(boolean finl) {
 		this.finl = finl;
 	}

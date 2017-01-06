@@ -11,15 +11,17 @@ public class ExistVerificationTest {
 
     public static void main(String[] args) throws Exception {
     	
-    	// 1 对比
-    	CompareEAtoAutomata.compareFromXMLPath(eaPath, automataPath);
     	
     	
-    	
-    	// 2 验证
+    	// 2 一致性验证
         ExistVerification ev = new ExistVerification(automataPath);
-        // 2.1 ... 由平台调用 验证存在一致性，
-  
+        
+        
+        // 对比
+    	CompareEAtoAutomata.compareFromXMLPath(eaPath, automataPath);
+        // 自动机路径累加时间是否等于时序图中最后一个状态的开始时间
+    	CompareEAtoAutomata.verificationPathTupleTime(ev.getPath());
+        
         // 2.2实时一致性
         ev.verificationTimeDuration();
         
