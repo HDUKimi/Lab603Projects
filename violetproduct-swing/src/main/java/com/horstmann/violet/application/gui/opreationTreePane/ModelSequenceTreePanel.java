@@ -495,7 +495,10 @@ public class ModelSequenceTreePanel extends JPanel{
 	    {
 	    	String fileName=sequenceFile.getName();
 //	    	fileName.substring(0, fileName.lastIndexOf(".xml"));
-	    	sequencelists.add(fileName.substring(0, fileName.lastIndexOf(".seq.violet.xml")));
+	    	if(fileName.lastIndexOf(".seq.violet.xml")>0){
+	    		sequencelists.add(fileName.substring(0, fileName.lastIndexOf(".seq.violet.xml")));
+	    	}
+	    	
 	    }
 //	    for(File tdFile : tdFilelists)
 //	    {

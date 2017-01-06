@@ -16,8 +16,6 @@ public class CallEdgeInfo {
   private String parameter = "";
   private String timing = "";
   private String timereset = "";
-  private String Activation;
-
 public String getStartReferenceId() {
 	return startReferenceId;
 }
@@ -108,10 +106,5 @@ public String getTimereset() {
 public void setTimereset(String timereset) {
 	this.timereset = timereset;
 } 
-public String getActivation() {
-	return Activation;
-}
-public void setActivation(String activation) {
-	Activation = activation;
-}
+  
 }

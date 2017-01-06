@@ -13,11 +13,10 @@ public class ActivationBarNodeInfo {
 	//是哪一个activationBarNode
 	private List<ActivationBarNodeInfo> children = new ArrayList<ActivationBarNodeInfo>();//引入孩子节点
 	private String LifeID;
-	private String ReceiveEdgeID;
-    private List<String> SendEdgeID = new ArrayList<String>();
+	private String EdgeID;
 
 	public void setEdgeID(String edgeID) {
-		ReceiveEdgeID = edgeID;
+		EdgeID = edgeID;
 	}
 	public String getId() {
 		return Id;
@@ -62,12 +61,6 @@ public class ActivationBarNodeInfo {
 		LifeID = lifeID;
 	}
 	public String getEdgeID() {
-		return ReceiveEdgeID;
-	}
-	public List<String> getSendEdgeID() {
-		return SendEdgeID;
-	}
-	public void setSendEdgeID(List<String> sendEdgeID) {
-		SendEdgeID = sendEdgeID;
+		return EdgeID;
 	}
 }

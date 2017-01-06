@@ -655,6 +655,15 @@ public class ValidationResultPanel extends JPanel{
 	public JPanel getMessagetransitionresultpanel() {
 		return messagetransitionresultpanel;
 	}
+
+	public int getValidationlabeltabindex() {
+		return validationlabeltabindex;
+	}
+
+	public void setValidationlabeltabindex(int validationlabeltabindex) {
+		this.validationlabeltabindex = validationlabeltabindex;
+	}
+	
 	
 	
 }

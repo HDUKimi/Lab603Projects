@@ -495,7 +495,9 @@ public class ModelTimingTreePanel extends JPanel{
 	    {
 	    	String fileName=timingFile.getName();
 //	    	fileName.substring(0, fileName.lastIndexOf(".xml"));
-	    	timinglists.add(fileName.substring(0, fileName.lastIndexOf(".timing.violet.xml")));
+	    	if(fileName.lastIndexOf(".timing.violet.xml")>0){
+	    		timinglists.add(fileName.substring(0,fileName.lastIndexOf(".timing.violet.xml") ));
+	    	}
 	    }
 //	    for(File tdFile : tdFilelists)
 //	    {

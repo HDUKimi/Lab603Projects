@@ -22,6 +22,9 @@ public class ShowOnTableAndConsole {
 	private static Map<String,String> sequencetouppaalmap=new LinkedHashMap<String,String>();
 	private static Set<String> sequencetouppaalset;
 	
+	private static Map<String,String> timingtouppaalmap=new LinkedHashMap<String,String>();
+	private static Set<String> timingtouppaalset;
+	
 	
 	public static void seqShow(Map<String,String> m1,MainFrame mainframe){
 		
@@ -38,7 +41,11 @@ public class ShowOnTableAndConsole {
 	}
 	
 	//Ê±ÐòÍ¼
-	public static void timShow(){
+	public static void timShow(Map<String,String> m1){
+
+		sequencetouppaalmap = m1;
+
+		sequencetouppaalset=sequencetouppaalmap.keySet();
 		
 	}
 	//.....
@@ -52,9 +59,13 @@ public class ShowOnTableAndConsole {
 	}
 
 	public static Map<String, String> getTimingtouppaalmap() {
-		// TODO Auto-generated method stub
-		return null;
+		return timingtouppaalmap;
 	}
+
+	public static Set<String> getTimingtouppaalset() {
+		return timingtouppaalset;
+	}
+
 	
 	
 	

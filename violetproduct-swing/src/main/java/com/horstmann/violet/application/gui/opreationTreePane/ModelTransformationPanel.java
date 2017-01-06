@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -298,10 +300,34 @@ public class ModelTransformationPanel extends JPanel{
 				treepanel.removeAll();
 				treepanel.add(modelSequenceTreePanel);
 				
-				mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButton().doClick();
+				if (mainFrame.getStepTwoCenterTabbedPane().getSelectedIndex() != 1) {
+					mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButton().doClick();
+				}
 				
 				ChangeRepaint();
 				
+			}
+		});
+		diagrambutton1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				setdiagrambuttonpanelrepaint();
+				diagrambuttonpanel1.setBackground(new Color(238, 238, 242));
+				diagrambuttonpanel1.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
+				diagrambuttonpanel2.setBorder(BorderFactory.createMatteBorder(1,0,0,0, new Color(142, 155, 188)));
+				diagrambuttonpanel3.setBorder(BorderFactory.createMatteBorder(1,0,0,0, new Color(142, 155, 188)));
+				index = 1;
+				
+				treepanel.removeAll();
+				treepanel.add(modelSequenceTreePanel);
+				
+				if(mainFrame.getStepTwoCenterTabbedPane().getSelectedIndex()!=1){
+					mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButton().doClick();
+				}
+				
+				ChangeRepaint();
 			}
 		});
 		diagrambutton1.setPreferredSize(new Dimension(22,22));
@@ -351,7 +377,34 @@ public class ModelTransformationPanel extends JPanel{
 				
 				treepanel.removeAll();
 				treepanel.add(modelTimingTreePanel);
-				mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButton().doClick();
+
+				if (mainFrame.getStepTwoCenterTabbedPane().getSelectedIndex() != 2) {
+					mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButton().doClick();
+				}
+				
+				ChangeRepaint();
+				
+			}
+		});
+		diagrambutton2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				setdiagrambuttonpanelrepaint();
+				diagrambuttonpanel2.setBackground(new Color(238, 238, 242));
+				diagrambuttonpanel2.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
+				diagrambuttonpanel1.setBorder(BorderFactory.createMatteBorder(1,0,0,0, new Color(142, 155, 188)));
+				diagrambuttonpanel3.setBorder(BorderFactory.createMatteBorder(1,0,0,0, new Color(142, 155, 188)));
+				index = 2;
+				
+				treepanel.removeAll();
+				treepanel.add(modelTimingTreePanel);
+				
+				if (mainFrame.getStepTwoCenterTabbedPane().getSelectedIndex() != 2) {
+					mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButton().doClick();
+				}
 				
 				ChangeRepaint();
 				
@@ -735,6 +788,22 @@ public class ModelTransformationPanel extends JPanel{
 	
 	public ModelTimingTreePanel getModelTimingTreePanel() {
 		return modelTimingTreePanel;
+	}
+
+	public JButton getDiagrambutton1() {
+		return diagrambutton1;
+	}
+
+	public JButton getDiagrambutton2() {
+		return diagrambutton2;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 	 
 	 

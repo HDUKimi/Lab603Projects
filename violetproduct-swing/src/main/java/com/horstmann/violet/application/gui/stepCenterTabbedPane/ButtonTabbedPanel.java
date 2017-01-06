@@ -140,11 +140,23 @@ public class ButtonTabbedPanel extends JPanel{
 				
 				if(mainFrame.getStepindex()==1){
 					mainFrame.getMenuFactory().getFileMenu(mainFrame).fileCloseItem.doClick();
+					
+					mainFrame.getAttributePartPanel().getSteponenamelabel().setText("");
+
+					mainFrame.getAttributePartPanel().getAttributepanel().removeAll();
+					
+//					mainFrame.getAttributePartPanel().ChangeRepaint();
+					
 				}
 				else if(mainFrame.getStepindex()==2){
 					((ButtonTabbedPanel)delectlabel.getParent().getParent()).setVisible(false);
 //					this.getStepOneCenterTabbedPane().getButtonPanel().remove(this.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel());
 					mainFrame.getStepTwoCenterTabbedPane().getDiagramPanel().removeAll();
+					
+					mainFrame.getAttributePartPanel().getSteptwonamelabel().setText("");
+
+					mainFrame.getAttributePartPanel().getAttributepanel().removeAll();
+					
 					mainFrame.setVisible(false);
 					mainFrame.getContentPane().repaint();
 					mainFrame.setVisible(true);

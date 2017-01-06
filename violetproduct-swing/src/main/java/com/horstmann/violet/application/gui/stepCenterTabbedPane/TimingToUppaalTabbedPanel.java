@@ -326,7 +326,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 								
 								TimingEAtoUppaal.transEA(path);
 								
-//								ShowData();
+								ShowData();
 								
 								System.out.println("*************************+++++++++++++++++++++++");
 								// 以下d盘中写的文件是死的路径，但是上面是动态生成的需要修改

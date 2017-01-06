@@ -57,7 +57,7 @@ public class StepTwoCenterTabbedPane extends JPanel{
 	private List<ButtonTabbedPanel> sequenceToUppaalDiagramButtonTabbedPanelLists;
 	private List<ButtonTabbedPanel> timingToUppaalDiagramButtonTabbedPanelLists;
 	
-	private int selectedIndex=0;
+	private int selectedIndex=1;
 	
 	private ButtonTabbedPanel selectedButtonTabbedPanel;
 	
@@ -148,7 +148,7 @@ public class StepTwoCenterTabbedPane extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				selectedIndex=0;
+				selectedIndex=1;
 				getDiagramPanel().removeAll();
 				getDiagramPanel().setLayout(new GridLayout());
 				getDiagramPanel().add(sequenceToUppaalTabbedPane);
@@ -162,6 +162,14 @@ public class StepTwoCenterTabbedPane extends JPanel{
 				sequenceToUppaalDiagramButtonPanel.setBackground(new Color(58, 105, 190));
 				timingToUppaalDiagramButtonPanel.setBackground(new Color(77, 96, 130));
 				
+				System.out.println("mainFrame.getModelTransformationPanel().getIndex(): "+mainFrame.getModelTransformationPanel().getIndex());
+				
+				if(mainFrame.getModelTransformationPanel().getIndex()!=1){
+					mainFrame.getModelTransformationPanel().getDiagrambutton1().doClick();
+				}
+				
+				System.out.println("mainFrame.getModelTransformationPanel().getIndex(): "+mainFrame.getModelTransformationPanel().getIndex());
+				
 				ChangeRepaint();
 			}
 		});
@@ -171,7 +179,7 @@ public class StepTwoCenterTabbedPane extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				selectedIndex=0;
+				selectedIndex=2;
 				getDiagramPanel().removeAll();
 				getDiagramPanel().setLayout(new GridLayout());
 				getDiagramPanel().add(timingToUppaalTabbedPane);
@@ -184,6 +192,15 @@ public class StepTwoCenterTabbedPane extends JPanel{
 				}
 				timingToUppaalDiagramButtonPanel.setBackground(new Color(58, 105, 190));
 				sequenceToUppaalDiagramButtonPanel.setBackground(new Color(77, 96, 130));
+				
+				System.out.println("mainFrame.getModelTransformationPanel().getIndex(): "+mainFrame.getModelTransformationPanel().getIndex());
+				
+				if(mainFrame.getModelTransformationPanel().getIndex()!=2){
+					mainFrame.getModelTransformationPanel().getDiagrambutton2().doClick();
+				}
+				
+				
+				System.out.println("mainFrame.getModelTransformationPanel().getIndex(): "+mainFrame.getModelTransformationPanel().getIndex());
 				
 				ChangeRepaint();
 			}
