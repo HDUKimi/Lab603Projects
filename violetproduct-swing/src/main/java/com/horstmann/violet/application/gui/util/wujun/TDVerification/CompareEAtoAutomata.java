@@ -95,16 +95,20 @@ public class CompareEAtoAutomata {
 		}
 		return row;
 	}
-	
-	public static boolean verificationPathTupleTime(ArrayList<PathTuple> path) {
+	// 返回一个list代表路径上累加时间的过程 如果和时序图的不一致 则返回null
+	public static ArrayList<Integer> verificationPathTupleTime(ArrayList<PathTuple> path) {
 		System.out.println("-------------------------累加路径时间值验证时间刻度-------------------------");
 		System.out.println("初始化时间和");
+		ArrayList<Integer> res = new ArrayList<>();
 		int timeSum = 0;
 		int nextTime = 0;
+		
 		for(int i = 0; i < path.size() - 1; i++) {
 			UppaalLocation location = path.get(i).getLocation();
 			UppaalTransition transition = path.get(i).getTransition();
 			if (transition.out && transition.getName().contains("?")) {// 不重复计算
+				res.add(timeSum);// location的时间为
+				res.add(timeSum);// transition的时间   都不变
 				continue;
 			}
 			int LocationCountIndex = 0;
@@ -119,11 +123,12 @@ public class CompareEAtoAutomata {
 			}
 			System.out.println("累加location:" + location.getName() + "的耗时:" + (location.getEndTimeList().get(LocationCountIndex) - location.getStartTimeList().get(LocationCountIndex)));
 			timeSum += location.getEndTimeList().get(LocationCountIndex) - location.getStartTimeList().get(LocationCountIndex);
-			
+			res.add(timeSum);// Location的时间
 			
 			System.out.println("累加transition:" + transition.getName() + "的耗时:" + (transition.getEndTime() - transition.getStartTime()));
 			timeSum += transition.getEndTime() - transition.getStartTime();
 			nextTime = transition.getEndTime();
+			res.add(timeSum);// Transition的时间
 		}
 		
 		PathTuple lastPathTuple = path.get(path.size() - 1);
@@ -131,10 +136,14 @@ public class CompareEAtoAutomata {
 		int lastStartTime = findTimingDiagramLastStateStartTime();// ea 最后一个状态的开始时间
 		System.out.println("EA最后一个状态的开始时间：" + lastStartTime);
 		System.out.println("自动机路径累加的时间和:" + timeSum);
-		return lastStartTime == timeSum;
+		if (lastStartTime == timeSum) {
+			return res;
+		} else {
+			return null;
+		}
 	}
 	
-	
+	// 查找时序图中最后一个状态的开始时间（最大）
 	private static int findTimingDiagramLastStateStartTime() {
 		int max = 0;
 		for(EALifeline lifeline : automata_EADiagramData.getLifelines()) {
