@@ -38,6 +38,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.consolepart.TableHeadPanel;
 import com.horstmann.violet.application.consolepart.ValidationMessageComparePanel;
+import com.horstmann.violet.application.consolepart.ValidationPathTupleTimePanel;
 import com.horstmann.violet.application.consolepart.ValidationStateComparePanel;
 import com.horstmann.violet.application.consolepart.ValidationTransitionMessagePanel;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
@@ -432,6 +433,16 @@ public class ModelExistValidationPanel extends JPanel{
 						
 						System.out.println("##################################");
 						
+						ValidationPathTupleTimePanel vpttp=new ValidationPathTupleTimePanel(pathtuple, times);
+						mainFrame.getValidationResultPanel().getThreeresultpanel().removeAll();
+						mainFrame.getValidationResultPanel().getThreeresultpanel().add(vpttp);
+						
+						mainFrame.getValidationResultPanel().getThreenamelabel().setText("自动机路径累加的时间和:"+vpttp.getSumtimes());
+						
+						
+						
+						System.out.println("##################################");
+						
 						for(int i=0;i<times.size();i++){
 							
 							if(i%2==0){
@@ -445,19 +456,19 @@ public class ModelExistValidationPanel extends JPanel{
 							
 						}
 						
-						System.out.println("##################################");
-						List<LocationVerificationDisplay> locationVerificationDisplays = ev.verificationLocationTimeDuration();
-				    	List<TransitionVerificationDisplay> transitionVerificationDisplays = ev.verificationTransitionTimeDuration();
-				    	
-				    	System.out.println(locationVerificationDisplays.size());
-				    	for(LocationVerificationDisplay lvd:locationVerificationDisplays){
-				    		System.out.println(lvd.toString());
-				    	}
-				    	System.out.println("##################################");
-				    	System.out.println(transitionVerificationDisplays.size());
-				    	for(TransitionVerificationDisplay tvd:transitionVerificationDisplays){
-				    		System.out.println(tvd.toString());
-				    	}
+//						System.out.println("##################################");
+//						List<LocationVerificationDisplay> locationVerificationDisplays = ev.verificationLocationTimeDuration();
+//				    	List<TransitionVerificationDisplay> transitionVerificationDisplays = ev.verificationTransitionTimeDuration();
+//				    	
+//				    	System.out.println(locationVerificationDisplays.size());
+//				    	for(LocationVerificationDisplay lvd:locationVerificationDisplays){
+//				    		System.out.println(lvd.toString());
+//				    	}
+//				    	System.out.println("##################################");
+//				    	System.out.println(transitionVerificationDisplays.size());
+//				    	for(TransitionVerificationDisplay tvd:transitionVerificationDisplays){
+//				    		System.out.println(tvd.toString());
+//				    	}
 				    	
 				    	System.out.println("##################################");
 				    	System.out.println(ev.getVerificationResult());

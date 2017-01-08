@@ -160,9 +160,11 @@ public class ValidationMessageComparePanel extends JPanel{
 				// TODO Auto-generated method stub
 				if(attributepanel.isVisible()){
 					attributepanel.setVisible(false);
+					linepanel.setVisible(true);
 				}
 				else{
 					attributepanel.setVisible(true);
+					linepanel.setVisible(false);
 				}
 			}
 		});
@@ -201,23 +203,46 @@ public class ValidationMessageComparePanel extends JPanel{
 		
 		attributetable=new JTable(attributetablemodel);
 		
+//		attributetable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//		attributetable.setGridColor(Color.BLACK);
+//		attributetable.setShowGrid(true);
+//		attributetable.setShowHorizontalLines(true);
+//		attributetable.setShowVerticalLines(true);
+//		attributetable.setFillsViewportHeight(true);
+//		attributetable.setRowHeight(20);
+//		attributetable.doLayout();
+		
 		attributetable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		attributetable.setGridColor(Color.BLACK);
+        attributetable.setSelectionBackground(new Color(250, 248, 236));
+        attributetable.setGridColor(new Color(224, 226, 220));
 		attributetable.setShowGrid(true);
 		attributetable.setShowHorizontalLines(true);
-		attributetable.setShowVerticalLines(true);
+		attributetable.setShowVerticalLines(false);
 		attributetable.setFillsViewportHeight(true);
 		attributetable.setRowHeight(20);
 		attributetable.doLayout();
+//		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		
+		DefaultTableCellRenderer renderer1=new DefaultTableCellRenderer();
+        renderer1.setForeground(new Color(115, 110, 102));
+        renderer1.setBackground(new Color(255, 255, 255));
+        renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+//        renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+        attributetable.setDefaultRenderer(Object.class, renderer1); 
+        
+        attributetable.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(224, 225, 220)));
+		
+        attributetable.setBackground(new Color(255, 255, 255));
+		
 		
 		attributetable.getTableHeader().setVisible(false);  
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();  
         renderer.setPreferredSize(new Dimension(0, 0));  
         attributetable.getTableHeader().setDefaultRenderer(renderer); 
         
-        DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer();  
-        renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 11));
-        attributetable.setDefaultRenderer(Object.class, renderer1);
+//        DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer();  
+//        renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 11));
+//        attributetable.setDefaultRenderer(Object.class, renderer1);
         
         attributetable.getColumnModel().getColumn(0).setMinWidth(150);
         attributetable.getColumnModel().getColumn(0).setMaxWidth(150);
@@ -244,7 +269,7 @@ public class ValidationMessageComparePanel extends JPanel{
         	attributetablemodel.setValueAt(columnData3[i], i, 2);
         }
         
-        attributetable.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, new Color(0, 0, 0)));
+//        attributetable.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, new Color(0, 0, 0)));
         
 //        attributepanel.setLayout(new GridLayout());
         attributepanel.setLayout(new FlowLayout(0, 0, FlowLayout.LEFT));
