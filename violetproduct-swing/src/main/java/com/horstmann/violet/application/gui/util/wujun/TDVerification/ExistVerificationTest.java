@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.horstmann.violet.application.gui.util.wqq.AutoMataTransfrom1.Transition;
-
 /**
  * Created by jun on 16/12/7.
  */

@@ -147,12 +147,12 @@
 			<element xmi:idref="EAID_16D07C98_2CC5_4e65_AC22_7B1F94745078" xmi:type="uml:TimeLine" name="CoffeeBox" scope="public">
 				<model package="EAPK_A35986CA_D6D6_4cb0_89B3_2A6F7A8923CB" tpos="0" ea_localid="501" ea_eleType="element"/>
 				<properties isSpecification="false" sType="TimeLine" nType="0" scope="public"/>
-				<project author="Xiaole" version="1.0" phase="1.0" created="2015-12-02 19:38:01" modified="2016-12-30 14:02:46" complexity="1" status="Proposed"/>
+				<project author="Xiaole" version="1.0" phase="1.0" created="2015-12-02 19:38:01" modified="2017-01-03 14:00:07" complexity="1" status="Proposed"/>
 				<code gentype="&lt;none&gt;"/>
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={52BED118-3141-422a-92B1-93F3DC1A961A}$XID;$NAM=Partitions$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PAR;Name=startcoff;Size=40;@ENDPAR;@PAR;Name=cofforded;Size=40;@ENDPAR;@PAR;Name=cupdelivered;Size=40;@ENDPAR;@PAR;Name=coffprepared;Size=40;@ENDPAR;$DES;$CLT={16D07C98-2CC5-4e65-AC22-7B1F94745078}$CLT;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="1" runstate="@VAR;Variable=startcoff;Value=35;Op==;@ENDVAR;@VAR;Variable=coffprepared;Value=33;Op==;DConst=0;@ENDVAR;@VAR;Variable=cupdelivered;Value=27;Op==;DConst=t&gt;25;@ENDVAR;@VAR;Variable=cofforded;Value=19;Op==;Event=UserPush==ButtonCoffee;@ENDVAR;@VAR;Variable=startcoff;Value=0;Op==;@ENDVAR;"/>
+				<extendedProperties tagged="0" package_name="1" runstate="@VAR;Variable=startcoff;Value=35;Op==;@ENDVAR;@VAR;Variable=coffprepared;Value=33;Op==;DConst=0;@ENDVAR;@VAR;Variable=cupdelivered;Value=27;Op==;DConst=t&gt;5;@ENDVAR;@VAR;Variable=cofforded;Value=19;Op==;Event=UserPush==ButtonCoffee;@ENDVAR;@VAR;Variable=startcoff;Value=0;Op==;@ENDVAR;"/>
 				<links>
 					<Sequence xmi:id="EAID_2C652EAF_7570_4f37_BDAC_576A72C32410" start="EAID_16D07C98_2CC5_4e65_AC22_7B1F94745078" end="EAID_DBF9C6C3_D701_4e8a_9C94_BAFDC18DF7D5"/>
 					<Sequence xmi:id="EAID_43FA4954_6F36_4e49_910D_8C3C2ABB2C38" start="EAID_DBF9C6C3_D701_4e8a_9C94_BAFDC18DF7D5" end="EAID_16D07C98_2CC5_4e65_AC22_7B1F94745078"/>
@@ -181,12 +181,12 @@
 			<element xmi:idref="EAID_45795E00_3A2B_439a_A536_5387CDEAE9CB" xmi:type="uml:TimeLine" name="TeaBox" scope="public">
 				<model package="EAPK_A35986CA_D6D6_4cb0_89B3_2A6F7A8923CB" tpos="0" ea_localid="503" ea_eleType="element"/>
 				<properties isSpecification="false" sType="TimeLine" nType="0" scope="public"/>
-				<project author="Xiaole" version="1.0" phase="1.0" created="2015-12-02 19:38:01" modified="2016-12-27 17:31:18" complexity="1" status="Proposed"/>
+				<project author="Xiaole" version="1.0" phase="1.0" created="2015-12-02 19:38:01" modified="2017-01-03 14:00:07" complexity="1" status="Proposed"/>
 				<code gentype="&lt;none&gt;"/>
 				<style appearance="BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;"/>
 				<tags/>
 				<xrefs value="$XREFPROP=$XID={05420787-DB1B-4454-A570-0119E078132B}$XID;$NAM=Partitions$NAM;$TYP=element property$TYP;$VIS=Public$VIS;$PAR=0$PAR;$DES=@PAR;Name=starttea;Size=40;@ENDPAR;@PAR;Name=teaorded;Size=40;@ENDPAR;@PAR;Name=cupdelivered;Size=40;@ENDPAR;@PAR;Name=teaprepared;Size=40;@ENDPAR;$DES;$CLT={45795E00-3A2B-439a-A536-5387CDEAE9CB}$CLT;$SUP=&lt;none&gt;$SUP;$ENDXREF;"/>
-				<extendedProperties tagged="0" package_name="1" runstate="@VAR;Variable=starttea;Value=81;Op==;@ENDVAR;@VAR;Variable=teaprepared;Value=79;Op==;DConst=0;@ENDVAR;@VAR;Variable=cupdelivered;Value=72;Op==;DConst=t&gt;30;@ENDVAR;@VAR;Variable=teaorded;Value=65;Op==;Event=UserPush==ButtonTea;@ENDVAR;@VAR;Variable=starttea;Value=0;Op==;@ENDVAR;"/>
+				<extendedProperties tagged="0" package_name="1" runstate="@VAR;Variable=starttea;Value=81;Op==;@ENDVAR;@VAR;Variable=teaprepared;Value=79;Op==;DConst=0;@ENDVAR;@VAR;Variable=cupdelivered;Value=72;Op==;DConst=t&gt;5;@ENDVAR;@VAR;Variable=teaorded;Value=65;Op==;Event=UserPush==ButtonTea;@ENDVAR;@VAR;Variable=starttea;Value=0;Op==;@ENDVAR;"/>
 				<links>
 					<Sequence xmi:id="EAID_6F03752E_FB4A_401a_9DE0_19DEE3B566C4" start="EAID_45795E00_3A2B_439a_A536_5387CDEAE9CB" end="EAID_DBF9C6C3_D701_4e8a_9C94_BAFDC18DF7D5"/>
 					<Sequence xmi:id="EAID_38296253_BCB8_4412_8991_C2273052C81C" start="EAID_DBF9C6C3_D701_4e8a_9C94_BAFDC18DF7D5" end="EAID_45795E00_3A2B_439a_A536_5387CDEAE9CB"/>
@@ -467,16 +467,16 @@
 			<diagram xmi:id="EAID_06C8CCFD_943B_4b03_8E16_C40675586A76">
 				<model package="EAPK_A35986CA_D6D6_4cb0_89B3_2A6F7A8923CB" localID="101" owner="EAPK_A35986CA_D6D6_4cb0_89B3_2A6F7A8923CB"/>
 				<properties name="1" type="Timing"/>
-				<project author="Xiaole" version="1.0" created="2015-12-02 19:38:01" modified="2016-12-30 14:02:46"/>
+				<project author="Xiaole" version="1.0" created="2015-12-02 19:38:01" modified="2017-01-03 14:00:07"/>
 				<style1 value="ShowPrivate=1;ShowProtected=1;ShowPublic=1;HideRelationships=0;Locked=0;Border=1;HighlightForeign=1;PackageContents=1;SequenceNotes=0;ScalePrintImage=0;PPgs.cx=1;PPgs.cy=1;DocSize.cx=803;DocSize.cy=1146;ShowDetails=0;Orientation=P;Zoom=100;ShowTags=0;OpParams=1;VisibleAttributeDetail=0;ShowOpRetType=1;ShowIcons=1;CollabNums=0;HideProps=0;ShowReqs=0;ShowCons=0;PaperSize=9;HideParents=0;UseAlias=0;HideAtts=0;HideOps=0;HideStereo=0;HideElemStereo=0;ShowTests=0;ShowMaint=0;ConnectorNotation=UML 2.1;ExplicitNavigability=0;AdvancedElementProps=1;AdvancedFeatureProps=1;AdvancedConnectorProps=1;ShowNotes=0;SuppressBrackets=0;SuppConnectorLabels=0;PrintPageHeadFoot=0;ShowAsList=0;"/>
-				<style2 value="ExcludeRTF=0;DocAll=0;HideQuals=0;AttPkg=1;ShowTests=0;ShowMaint=0;SuppressFOC=1;TDurLow=0;TDurHigh=100;TDurUnit=;TDurHide=0;StartPos=160;TimeIntervalList=;INT_ARGS=;INT_RET=;INT_ATT=;MatrixActive=0;SwimlanesActive=0;KanbanActive=0;MatrixLineWidth=1;MatrixLocked=0;TConnectorNotation=UML 2.1;TExplicitNavigability=0;AdvancedElementProps=1;AdvancedFeatureProps=1;AdvancedConnectorProps=1;ProfileData=;MDGDgm=;STBLDgm=;ShowNotes=0;VisibleAttributeDetail=0;ShowOpRetType=1;SuppressBrackets=0;SuppConnectorLabels=0;PrintPageHeadFoot=0;ShowAsList=0;SuppressedCompartments=;SaveTag=700A1FF1;"/>
+				<style2 value="ExcludeRTF=0;DocAll=0;HideQuals=0;AttPkg=1;ShowTests=0;ShowMaint=0;SuppressFOC=1;TDurLow=0;TDurHigh=100;TDurUnit=;TDurHide=0;StartPos=160;TimeIntervalList=;INT_ARGS=;INT_RET=;INT_ATT=;MatrixActive=0;SwimlanesActive=0;KanbanActive=0;MatrixLineWidth=1;MatrixLocked=0;TConnectorNotation=UML 2.1;TExplicitNavigability=0;AdvancedElementProps=1;AdvancedFeatureProps=1;AdvancedConnectorProps=1;ProfileData=;MDGDgm=;STBLDgm=;ShowNotes=0;VisibleAttributeDetail=0;ShowOpRetType=1;SuppressBrackets=0;SuppConnectorLabels=0;PrintPageHeadFoot=0;ShowAsList=0;SuppressedCompartments=;SaveTag=573428D1;"/>
 				<swimlanes value="locked=false;orientation=0;width=0;inbar=false;names=false;color=0;bold=false;fcol=0;tcol=-1;ofCol=-1;hl=1;cls=0;"/>
 				<matrixitems value="locked=false;matrixactive=false;swimlanesactive=false;kanbanactive=false;width=1;"/>
 				<extendedProperties/>
 				<elements>
-					<element geometry="Left=23;Top=154;Right=770;Bottom=294;" subject="EAID_16D07C98_2CC5_4e65_AC22_7B1F94745078" seqno="1" style="DUID=645CB4A7;"/>
+					<element geometry="Left=23;Top=509;Right=770;Bottom=646;" subject="EAID_79D51B11_D7D1_4527_AC22_C16A90355FED" seqno="1" style="DUID=7D71E94B;"/>
 					<element geometry="Left=23;Top=293;Right=770;Bottom=510;" subject="EAID_DBF9C6C3_D701_4e8a_9C94_BAFDC18DF7D5" seqno="2" style="DUID=77C8F7DD;"/>
-					<element geometry="Left=23;Top=509;Right=770;Bottom=646;" subject="EAID_79D51B11_D7D1_4527_AC22_C16A90355FED" seqno="3" style="DUID=7D71E94B;"/>
+					<element geometry="Left=23;Top=154;Right=770;Bottom=294;" subject="EAID_16D07C98_2CC5_4e65_AC22_7B1F94745078" seqno="3" style="DUID=645CB4A7;"/>
 					<element geometry="Left=23;Top=8;Right=770;Bottom=155;" subject="EAID_45795E00_3A2B_439a_A536_5387CDEAE9CB" seqno="4" style="DUID=21B1AAE3;"/>
 					<element geometry="EDGE=1;$LLB=;LLT=;LMT=CX=15:CY=13:OX=0:OY=0:HDN=0:BLD=0:ITA=0:UND=0:CLR=-1:ALN=0:DIR=0:ROT=0;LMB=;LRT=;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_3731D778_269B_4a78_A69D_D84996C09502" style="Mode=1;EOID=77C8F7DD;SOID=7D71E94B;Color=-1;LWidth=0;Hidden=0;"/>
 					<element geometry="EDGE=3;$LLB=;LLT=;LMT=CX=36:CY=13:OX=0:OY=0:HDN=0:BLD=0:ITA=0:UND=0:CLR=-1:ALN=0:DIR=0:ROT=0;LMB=;LRT=;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_47DBCFE8_B0D5_4ddb_A0CD_090677051F90" style="Mode=1;EOID=7D71E94B;SOID=77C8F7DD;Color=-1;LWidth=0;Hidden=0;"/>
