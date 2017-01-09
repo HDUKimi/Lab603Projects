@@ -45,6 +45,7 @@ import com.horstmann.violet.application.consolepart.ConsolePart;
 import com.horstmann.violet.application.consolepart.ConsolePartDetailInfoTable;
 import com.horstmann.violet.application.consolepart.ConsolePartTextArea;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseReportPartPanel;
 import com.horstmann.violet.application.gui.util.chengzuo.Verfication.ClientRecThread;
 import com.horstmann.violet.application.gui.util.chengzuo.Verfication.ClientSocket;
 import com.horstmann.violet.application.gui.util.chengzuo.Verfication.ConsolePartTestCaseInfoTable;
@@ -919,90 +920,78 @@ Fourstart.addActionListener(new ActionListener() {
 	}
 });
 
-Fivestart.addActionListener(new ActionListener() {
-	      
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		StepFiveArea.append("实例化测试用例验证正在进行中.....\n"); 
-		StepFiveArea.append("正在导入测试用例.....\n");
-		
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				ClientSocket clientSocket= new ClientSocket("192.168.150.152",5555);
-				clientSocket.Connection();
-				JFileChooser jfc=new JFileChooser();
-				jfc.setMultiSelectionEnabled(true);
-				jfc.showDialog(new JLabel(),"选择测试用例");
-				File[] files=jfc.getSelectedFiles();
-				StepFiveArea.append("正在发送数据.....\n");
-				clientSocket.sendFile(files);
-                StepFiveArea.append("发送数据完成!\n");
-                StepFiveArea.append("正在获得数据.....\n");
-                StepFiveArea.append("数据已经获得!\n");
-                try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-               List<TestCase> list = clientSocket.getTestCaseList();
-//               clientSocket.ConnectionClose();
-//                List<TestCase> list=new ArrayList<TestCase>();
-//                for(int i=1;i<4;i++){
-//                	TestCase tc=new TestCase();
-//                	if(i==1){
-//                		tc.setTestCaseID(String.valueOf(1));
-//                		tc.setContent("content"+1);
-//                		tc.setState("state"+1);
-//                		tc.setResult("失败");
-//                	}
-//                	if(i==2){
-//                		tc.setTestCaseID(String.valueOf(2));
-//                		tc.setContent("content"+2);
-//                		tc.setState("state"+2);
-//                		tc.setResult("成功");
-//                	}
-//                	if(i==3){
-//                		tc.setTestCaseID(String.valueOf(3));
-//                		tc.setContent("content"+3);
-//                		tc.setState("state"+3);
-//                		tc.setResult("成功");
-//                	}
-//                	list.add(tc);
-//                }
-//                System.out.println(list.size()+"测******试");
-//                for(TestCase tc:list){
-//                	System.out.println(tc.getTestCaseID()+"  "+tc.getContent()+" "+tc.getState()+"  "+tc.getResult());
-//                }
-                //mainFrame.getStepFiveCenterTabbedPane().getTestcaseFile().setLayout(new GridLayout(1, 1));
-                //获得root的容器
-                JPanel jp=mainFrame.getStepFiveCenterTabbedPane().getTestcaseFile();
-                //获得报表的容器
-                JPanel jp1=JFreeChartTest.getJFreeChartTest(list);
-                //将表格放到JScrollPane容器中
-                JScrollPane jsp=new JScrollPane(new ConsolePartTestCaseInfoTable(list));
-             //   JPanel jpshow=new JPanel();
-               // jpshow.setLayout(new BorderLayout());
-               // jpshow.add(new ConsolePartTestCaseInfoTable(list),BorderLayo);
-               // jpshow.add(new ConsolePartTestCaseInfoTable(list).getjTextArea(),BorderLayout.CENTER);
-               // JScrollPane jsp=new JScrollPane(jpshow);
-                
-                JSplitPane js=new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-                		jsp,new JScrollPane(new ConsolePartTestCaseInfoTable(list).getjTextArea()) );
-        		js.setDividerLocation(300);
-//			    jp.add(new ConsolePartTestCaseInfoTable(list), BorderLayout.NORTH);
-//			    jp.add(jp1,BorderLayout.CENTER);
-        		jp.add(js);
-                mainFrame.getStepFiveCenterTabbedPane().getTestcaseFile().updateUI();
-                //第二个tab页
-                JPanel jpTab2=mainFrame.getStepFiveCenterTabbedPane().getTestcaseFile1();
-                //报表放到第二个tab页
-                jpTab2.add(jp1);
+		Fivestart.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StepFiveArea.append("实例化测试用例验证正在进行中.....\n");
+				StepFiveArea.append("正在导入测试用例.....\n");
+
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+//						ClientSocket clientSocket = new ClientSocket("192.168.150.117", 5555);
+//						clientSocket.Connection();
+//						JFileChooser jfc = new JFileChooser();
+//						jfc.setMultiSelectionEnabled(true);
+//						jfc.showDialog(new JLabel(), "选择测试用例");
+//						File[] files = jfc.getSelectedFiles();
+//						StepFiveArea.append("正在发送数据.....\n");
+//						clientSocket.sendFile(files);
+//						StepFiveArea.append("发送数据完成!\n");
+//						StepFiveArea.append("正在获得数据.....\n");
+//						StepFiveArea.append("数据已经获得!\n");
+//						try {
+//							Thread.sleep(2000);
+//						} catch (InterruptedException e) {
+//							e.printStackTrace();
+//						}
+//						List<TestCase> list = clientSocket.getTestCaseList();
+						// 获得root的容器
+						JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestcaseFile();
+						
+						System.out.println("++++++++++++++++++++");
+						
+						JPanel resultpanel=new JPanel();
+						JPanel emptypanel=new JPanel();
+						resultpanel.setOpaque(false);
+						emptypanel.setOpaque(false);
+						
+						GridBagLayout layout = new GridBagLayout();
+						resultpanel.setLayout(layout);
+						int i=0;
+						for(int index=0;index<10;index++){
+							TestCaseReportPartPanel tcrppanel=new TestCaseReportPartPanel();
+							resultpanel.add(tcrppanel);
+							layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+							
+						}
+						resultpanel.add(emptypanel);
+						layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+						
+						jp.setLayout(new GridLayout());
+						jp.add(new JScrollPane(resultpanel));
+						
+						System.out.println("++++++++++++++++++++");
+						
+						// 获得报表的容器
+//						JPanel jp1 = JFreeChartTest.getJFreeChartTest(list);
+//						// 将表格放到JScrollPane容器中
+//						JScrollPane jsp = new JScrollPane(new ConsolePartTestCaseInfoTable(list));
+//						JSplitPane js = new JSplitPane(JSplitPane.VERTICAL_SPLIT, jsp,
+//								new JScrollPane(new ConsolePartTestCaseInfoTable(list).getjTextArea()));
+//						js.setDividerLocation(300);
+//						jp.add(js);
+						mainFrame.getStepFiveCenterTabbedPane().getTestcaseFile().updateUI();
+						// 第二个tab页
+//						JPanel jpTab2 = mainFrame.getStepFiveCenterTabbedPane().getTestcaseFile1();
+//						// 报表放到第二个tab页
+//						jpTab2.add(jp1);
+
+					}
+				});
 			}
 		});
-	}
-});
 
 Sixstart.addActionListener(new ActionListener() {
 	
