@@ -63,7 +63,7 @@ public class myProcess {
 	public void setProcessExec(boolean processExec) {
 		this.processExec = processExec;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "myProcess [processID=" + processID + ", processName=" + processName + ", processParam=" + processParam

@@ -1,15 +1,9 @@
 package com.horstmann.violet.application.gui.util.chengzuo.Util;
 
-import java.io.BufferedWriter;
 import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Arrays;
-import java.util.List;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
-import com.horstmann.violet.application.gui.util.chengzuo.Util.TestCaseUtil;
 
 public class ClientRecThread implements Runnable {
 
@@ -41,33 +35,12 @@ public class ClientRecThread implements Runnable {
 	 * 接受字符串处理封装成模型，并存储在List中
 	 * 
 	 * @throws IOException
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 *
 	 */
 	public void string2model() throws IOException, InterruptedException {
-		 try{
-		      String data = " This content will append to the end of the file";
-
-		      File file =new File("javaio-appendfile.txt");
-
-		      //if file doesnt exists, then create it
-		      if(!file.exists()){
-		       file.createNewFile();
-		      }
-
-		      //true = append file
-		      FileWriter fileWritter = new FileWriter(file.getName(),true);
-		             BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
-		             bufferWritter.write(content);
-		             bufferWritter.close();
-
-		         System.out.println("Done");
-
-		     }catch(IOException e){
-		      e.printStackTrace();
-		     }
-		String stringData = content;
-		ClientSocket.testCaseList = TestCaseUtil.string2TestCaseList(stringData);
+//		TestCaseUtil.string2File(content);
+		ClientSocket.testCaseList = TestCaseUtil.buildTestCaseList(content);
 	}
 
 	@Override
