@@ -931,7 +931,7 @@ public class StepButtonPanel extends JPanel {
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						ClientSocket clientSocket = new ClientSocket("192.168.150.132", 5555);
+						ClientSocket clientSocket = new ClientSocket("192.168.150.117", 5555);
 						clientSocket.Connection();
 						JFileChooser jfc = new JFileChooser();
 						jfc.setMultiSelectionEnabled(true);

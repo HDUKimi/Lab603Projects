@@ -66,13 +66,12 @@ public ConsolePartTestCaseInfoTable(List<TestCase> list){
 		
 		@Override
 		public void run() {
-			// TODO Auto-generated method stub
 			 Object[] rowData=new Object[columnNames.length];
 				
 			  if(list!=null&&!list.isEmpty()){
 				  for(TestCase info:list){
 					  rowData[0]=info.getTestCaseID();
-					  rowData[1]=info.getContent();
+					  rowData[1]="test";
 					  rowData[2]=info.getState();
 					  rowData[3]=info.getResult();
 					  defaultTableModel.addRow(rowData);

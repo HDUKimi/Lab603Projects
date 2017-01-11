@@ -1,13 +1,13 @@
 package com.horstmann.violet.application.gui.util.chengzuo.Bean;
+import java.util.List;
 
 /***
  * 
  * @author tiffy
- *  id content state result
  */
 public class TestCase {
 	String  testCaseID;
-	String  content;
+	List<myProcess> processList;
 	String  state;
 	String  result;
 	String  detail;
@@ -15,15 +15,12 @@ public class TestCase {
 	public TestCase() {
 	}
 
-	public TestCase(String testCaseID, String content, String state, String result, String detail) {
+	public TestCase(String testCaseID, String state, String result, String detail) {
 		this.testCaseID = testCaseID;
-		this.content = content;
 		this.state = state;
 		this.result = result;
 		this.detail = detail;
 	}
-
-
 
 	public String getDetail() {
 		return detail;
@@ -39,14 +36,6 @@ public class TestCase {
 
 	public void setTestCaseID(String testCaseID) {
 		this.testCaseID = testCaseID;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
 	}
 
 	public String getState() {
@@ -65,10 +54,22 @@ public class TestCase {
 		this.result = result;
 	}
 
-	@Override
-	public String toString() {
-		return "TestCase [testCaseID=" + testCaseID + ", content=" + content + ", state=" + state + ", result=" + result
-				+ ", detail=" + detail + "]";
+	public List<myProcess> getProcessList() {
+		return processList;
 	}
 
+	public void setProcessList(List<myProcess> list) {
+		this.processList = list;
+	}
+
+	@Override
+	public String toString() {
+		String tmp = "TestCase [testCaseID=" + testCaseID + ", processList=\n";
+		for (myProcess m : processList) {
+			tmp = tmp + "\tmyProcess [processID=" + m.processID + ", processName=" + m.processName + ", processParam=" + m.processParam
+					+ ", processStatus=" + m.processStatus + ", processExec=" + m.processExec + "]\n";
+		}
+		tmp = tmp + ", state=" + state + ", result="+ result + ", detail=" + detail + "]";
+		return tmp;
+	}
 }
