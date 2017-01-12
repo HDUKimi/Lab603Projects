@@ -21,8 +21,8 @@ public class Read
 {
 	ArrayList<WJLifeline> umlLifeLines=new ArrayList<WJLifeline>();
 	ArrayList<MessageClass> umlMessages=new ArrayList<MessageClass>();
-	ArrayList<ConnectorsClass> umlConnectors=new ArrayList<ConnectorsClass>();
-	ArrayList<MessageComplete> umlMessageComplete=new ArrayList<MessageComplete>();
+	ArrayList<EAConnector> umlConnectors=new ArrayList<EAConnector>();
+	ArrayList<EAMessageComplete> umlMessageComplete=new ArrayList<EAMessageComplete>();
 	ArrayList<WJFragment> umlFragment=new ArrayList<WJFragment>();
 	ArrayList<WJFragment> umlFragmentInner=new ArrayList<WJFragment>();
 	ArrayList<WJMessage> umlMessageFinal=new ArrayList<WJMessage>();
@@ -128,7 +128,7 @@ public class Read
 		for(Iterator<Element> connectorIterator=EAconnectorList.iterator();connectorIterator.hasNext();)
 		{
 			Element elConnector=connectorIterator.next();
-			ConnectorsClass connectorsMsg=new ConnectorsClass();
+			EAConnector connectorsMsg=new EAConnector();
 			connectorsMsg.setConnectorId(elConnector.attribute("idref").getValue());
 			connectorsMsg.setSourceId(elConnector.element("source").attribute("idref").getValue());
 			connectorsMsg.setTragetId(elConnector.element("target").attribute("idref").getValue());
@@ -180,15 +180,15 @@ public class Read
 		for(Iterator<MessageClass> umlMessagesIterator=umlMessages.iterator();umlMessagesIterator.hasNext();)
 		{
 			MessageClass messageI = umlMessagesIterator.next();
-			MessageComplete messageComplete=new MessageComplete();
+			EAMessageComplete messageComplete=new EAMessageComplete();
 			messageComplete.name = messageI.getSequenceMsgName();
 			messageComplete.connectorId = messageI.getSequenceMsgId();
 			messageComplete.sendEvent = messageI.getSequenceMsgSendEvent();
 			messageComplete.messageSort = messageI.getMessageSort();
 			
-			for(Iterator<ConnectorsClass> umlConnectorsIterator=umlConnectors.iterator();umlConnectorsIterator.hasNext();)
+			for(Iterator<EAConnector> umlConnectorsIterator=umlConnectors.iterator();umlConnectorsIterator.hasNext();)
 			{
-				ConnectorsClass connectorsI=umlConnectorsIterator.next();
+				EAConnector connectorsI=umlConnectorsIterator.next();
 				if(connectorsI.getConnectorId().equals(messageI.getSequenceMsgId()))
 				{
 //2222222222222222222222222222222222222					
@@ -209,13 +209,13 @@ public class Read
 			umlMessageComplete.add(messageComplete);
 		}
 		//设置messageList
-				ArrayList <MessageComplete> messageList = new ArrayList <MessageComplete>();
-				Iterator <MessageComplete> msgComplete = umlMessageComplete.iterator();
+				ArrayList <EAMessageComplete> messageList = new ArrayList <EAMessageComplete>();
+				Iterator <EAMessageComplete> msgComplete = umlMessageComplete.iterator();
 				Iterator <Element> messageIterator = EAmessagesList.iterator();
 				while(messageIterator.hasNext()&&msgComplete.hasNext())
 				{
 					Element messageI = messageIterator.next();
-					MessageComplete MC = msgComplete.next();
+					EAMessageComplete MC = msgComplete.next();
 					
 					ArrayList<Element> allargument = new ArrayList<Element>();
 					allargument.addAll(messageI.elements("argument"));
@@ -236,7 +236,7 @@ public class Read
 							R2=allargI.element("defaultValue").attributeValue("value");
 					}
 //333333333333333333333333					
-					MessageComplete messageX = new MessageComplete();
+					EAMessageComplete messageX = new EAMessageComplete();
 					messageX.setName(messageI.attributeValue("name"));
 					messageX.setConnectorId(messageI.attributeValue("id"));
 					messageX.setSourceId(messageI.attributeValue("sendEvent"));
@@ -544,11 +544,11 @@ public class Read
 		
 		
 		//设定message最后的值 0.设定各种值 1.设置5种时间约束 2.在哪个fragment中
-		for(Iterator<MessageComplete> messageListIterator=messageList.iterator();messageListIterator.hasNext();)
+		for(Iterator<EAMessageComplete> messageListIterator=messageList.iterator();messageListIterator.hasNext();)
 		{
 //4444444444444444444444444444444444444			
 			/////////////////////////EAmessage的遍历
-			MessageComplete EAmessage=messageListIterator.next();
+			EAMessageComplete EAmessage=messageListIterator.next();
 			WJMessage message=new WJMessage();
 			//1.
 			message.setName(EAmessage.getName());					//name
