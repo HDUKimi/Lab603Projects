@@ -26,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.plaf.ProgressBarUI;
 import javax.swing.table.DefaultTableModel;
 
@@ -503,14 +504,20 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			
 //			TestCase testcase=list.get(i++);
 			
+			
+			JTable attributetabel;
 			DefaultTableModel attributetablemodel;
 			
+			attributetabel=tcrpp.getAttributetable();
 			attributetablemodel=tcrpp.getAttributetablemodel();
 			
 			for(myProcess p:testcase.getProcessList()){
 				
 				attributetablemodel.setValueAt(p.getProcessStatus(), p.getProcessID()-1, 3);
 				attributetablemodel.setValueAt(p.isProcessExec(), p.getProcessID()-1, 4);
+				
+				
+//				attributetabel.get
 				
 				if(p.isProcessExec()){
 					truecount++;

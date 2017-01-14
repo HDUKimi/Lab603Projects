@@ -22,15 +22,22 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.plaf.ProgressBarUI;
 
+import com.horstmann.violet.application.consolepart.TableHeadPanel;
 import com.horstmann.violet.application.consolepart.ValidationLocationMessagePanel;
+import com.horstmann.violet.application.consolepart.ValidationMessageComparePanel;
+import com.horstmann.violet.application.consolepart.ValidationPathTupleTimePanel;
+import com.horstmann.violet.application.consolepart.ValidationStateComparePanel;
 import com.horstmann.violet.application.consolepart.ValidationTransitionMessagePanel;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
 import com.horstmann.violet.application.gui.util.tanchao.XMLVerificationTranMessage;
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.CompareEAtoAutomata;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.PathTuple;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalTransition;
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.RowStringsForDisplay.MessageCompare;
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.RowStringsForDisplay.StateCompare;
 import com.horstmann.violet.workspace.IWorkspace;
 
 public class ValidationToolPanel extends JPanel{
@@ -60,6 +67,8 @@ public class ValidationToolPanel extends JPanel{
 	private int threadstate=0;
 	
 	private static List<UppaalTransition> selecteduppaalmessagelist=new ArrayList<UppaalTransition>();
+	
+	private int statesuccesssum=0,statefailsum=0,messagesuccesssum=0,messagefailsum=0;
 	
 	public ValidationToolPanel(MainFrame mainFrame,IWorkspace workspace) {
 		
@@ -160,6 +169,31 @@ public class ValidationToolPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 			   	
+				int validationlabeltabindex;
+				validationlabeltabindex=mainFrame.getModelExistValidationPanel().getValidationlabeltabindex();
+				System.out.println(validationlabeltabindex);
+				
+				if(validationlabeltabindex==1){
+
+				} else if (validationlabeltabindex == 2) {
+
+				} else if (validationlabeltabindex == 3) {
+
+					showStateCompare(mainFrame.getModelExistValidationPanel().getStateCompareList());
+
+					showMessageCompare(mainFrame.getModelExistValidationPanel().getMessageCompareList());
+					
+					mainFrame.getValidationResultPanel().getTwonamelabel().setText("<html><body>在状态比较中,共找到"+mainFrame.getModelExistValidationPanel().getStateCompareList().size()+"条状态,成功"+statesuccesssum+"条,失败"+statefailsum+"条<br>在消息比较中,共找到"+mainFrame.getModelExistValidationPanel().getMessageCompareList().size()+"条消息,成功"+messagesuccesssum+"条,失败"+messagefailsum+"条</body></html>");
+					
+					
+				} else if (validationlabeltabindex == 4) {
+
+					showPathTupleTime(mainFrame.getModelExistValidationPanel().getPathtuple(), mainFrame.getModelExistValidationPanel().getTimes());
+					
+					mainFrame.getValidationResultPanel().ChangeRepaint();
+					
+				}
+				
 				if(threadstate==0){
 					
 					progressbar.setValue(0);
@@ -438,6 +472,117 @@ public class ValidationToolPanel extends JPanel{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	}
+	
+	protected void showMessageCompare(ArrayList<MessageCompare> messageCompareList) {
+		// TODO Auto-generated method stub
+		
+		mainFrame.getValidationResultPanel().getMessagetransitionresultpanel().removeAll();
+		
+		JPanel resultpanel2=new JPanel();
+		JPanel emptypanel2=new JPanel();
+		resultpanel2.setOpaque(false);
+		emptypanel2.setOpaque(false);
+		
+		GridBagLayout layout2 = new GridBagLayout();
+		resultpanel2.setLayout(layout2);
+		int j=0;
+		
+		ArrayList<String> headlist2=new ArrayList<String>();
+		headlist2.add("时序图");
+		headlist2.add("时间自动机");
+		headlist2.add("结果");
+		
+		TableHeadPanel thpanel2=new TableHeadPanel(headlist2);
+		resultpanel2.add(thpanel2);
+		layout2.setConstraints(thpanel2, new GBC(0, j++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		
+		messagesuccesssum=0;
+		messagefailsum=0;
+		
+		for(MessageCompare m:messageCompareList){
+
+			ValidationMessageComparePanel vmcpanel=new ValidationMessageComparePanel(m);
+			resultpanel2.add(vmcpanel);
+			layout2.setConstraints(vmcpanel, new GBC(0, j++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+			
+			if(m.getResult().equals("ok")){
+				messagesuccesssum++;
+			}
+			else{
+				messagefailsum++;
+			}
+
+		}
+		
+		resultpanel2.add(emptypanel2);
+		layout2.setConstraints(emptypanel2, new GBC(0, j++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		mainFrame.getValidationResultPanel().getMessagetransitionresultpanel().add(resultpanel2);
+		
+	}
+
+	protected void showStateCompare(ArrayList<StateCompare> stateCompareList) {
+		// TODO Auto-generated method stub
+		
+		mainFrame.getValidationResultPanel().getStatelocationresultpanel().removeAll();
+		
+		JPanel resultpanel1=new JPanel();
+		JPanel emptypanel1=new JPanel();
+		resultpanel1.setOpaque(false);
+		emptypanel1.setOpaque(false);
+		
+		GridBagLayout layout1 = new GridBagLayout();
+		resultpanel1.setLayout(layout1);
+		int i=0;
+		
+		ArrayList<String> headlist1=new ArrayList<String>();
+		headlist1.add("时序图");
+		headlist1.add("时间自动机");
+		headlist1.add("结果");
+		
+		TableHeadPanel thpanel1=new TableHeadPanel(headlist1);
+		resultpanel1.add(thpanel1);
+		layout1.setConstraints(thpanel1, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		
+		statesuccesssum=0;
+		statefailsum=0;
+		
+		for(StateCompare s:stateCompareList){
+			
+			ValidationStateComparePanel vscpanel=new ValidationStateComparePanel(s);
+			resultpanel1.add(vscpanel);
+			layout1.setConstraints(vscpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+			
+			if(s.getResult().equals("ok")){
+				statesuccesssum++;
+			}
+			else{
+				statefailsum++;
+			}
+			
+		}
+		
+		resultpanel1.add(emptypanel1);
+		layout1.setConstraints(emptypanel1, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		mainFrame.getValidationResultPanel().getStatelocationresultpanel().add(resultpanel1);
+		
+	}
+
+	protected void showPathTupleTime(ArrayList<PathTuple> pathtuple, ArrayList<Integer> times) {
+		// TODO Auto-generated method stub
+		
+		ValidationPathTupleTimePanel vpttp=new ValidationPathTupleTimePanel(pathtuple, times);
+		mainFrame.getValidationResultPanel().getThreeresultpanel().removeAll();
+		mainFrame.getValidationResultPanel().getThreeresultpanel().add(vpttp);
+		
+		if(times.get(times.size()-1)==CompareEAtoAutomata.findTimingDiagramLastStateStartTime()){
+			mainFrame.getValidationResultPanel().getThreenamelabel().setText("自动机路径累加的时间和为"+times.get(times.size()-1)+"s,最后一个状态的开始时间为"+CompareEAtoAutomata.findTimingDiagramLastStateStartTime()+"s,验证成功");
+		}
+		else{
+			mainFrame.getValidationResultPanel().getThreenamelabel().setText("自动机路径累加的时间和为"+times.get(times.size()-1)+"s,最后一个状态的开始时间为"+CompareEAtoAutomata.findTimingDiagramLastStateStartTime()+"s,验证失败");
+		}
+		
 		
 	}
 	

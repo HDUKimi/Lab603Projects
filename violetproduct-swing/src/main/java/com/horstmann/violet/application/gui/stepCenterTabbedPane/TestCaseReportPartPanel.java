@@ -2,6 +2,7 @@ package com.horstmann.violet.application.gui.stepCenterTabbedPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -211,17 +212,44 @@ public class TestCaseReportPartPanel extends JPanel {
 		renderer.setBackground(new Color(71, 80, 93));
 		renderer.setForeground(new Color(255, 255, 255));
 		renderer.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 13));
-		renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+//		renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
 		attributetable.getTableHeader().setDefaultRenderer(renderer);
 
 		attributetable.getTableHeader().setPreferredSize(new Dimension(100, 27));
 
+//		DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer(){
+//
+//			@Override
+//			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+//					boolean hasFocus, int row, int column) {
+//				// TODO Auto-generated method stub
+//				
+//				setForeground(new Color(115, 110, 102));
+//				setBackground(new Color(255, 255, 255));
+//				setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+//				setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+//				
+//				if(value.toString().equals("false")){
+//					setForeground(Color.RED);
+//					setBackground(Color.RED);
+//					
+////					table.getR
+//				}
+//				
+//				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//			}
+//			
+//		};
 		DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer();
 		renderer1.setForeground(new Color(115, 110, 102));
 		renderer1.setBackground(new Color(255, 255, 255));
 		renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
 		attributetable.setDefaultRenderer(Object.class, renderer1);
+		
+//		for (int i = 0; i < attributetable.getColumnCount(); i++) {  
+//			attributetable.getColumn(attributetable.getColumnName(i)).setCellRenderer(renderer1);  
+//        }
 
 		attributetable.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(224, 225, 220)));
 

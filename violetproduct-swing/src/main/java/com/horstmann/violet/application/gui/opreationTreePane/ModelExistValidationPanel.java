@@ -131,7 +131,13 @@ public class ModelExistValidationPanel extends JPanel{
 	
 	IWorkspace uppaalworkspace=null;
 	
-	private int statesuccesssum=0,statefailsum=0,messagesuccesssum=0,messagefailsum=0;;
+	private int statesuccesssum=0,statefailsum=0,messagesuccesssum=0,messagefailsum=0;
+	
+	private ArrayList<StateCompare> stateCompareList =new ArrayList<StateCompare>();
+	private ArrayList<MessageCompare> messageCompareList = new ArrayList<MessageCompare>();
+	
+	private ArrayList<PathTuple> pathtuple=new ArrayList<PathTuple>();
+	private ArrayList<Integer> times = new ArrayList<Integer>();
 	
 	
 	public ModelExistValidationPanel(MainFrame mainFrame){
@@ -398,22 +404,22 @@ public class ModelExistValidationPanel extends JPanel{
 						
 						RowStringsForDisplay row=CompareEAtoAutomata.compareFromXMLPath(path, TimingEAtoUppaal.getDiagramDataName()+".xml");
 						
-						ArrayList<StateCompare> stateCompareList =row.getStateCompareList();
-						ArrayList<MessageCompare> messageCompareList = row.getMessageCompareList();
+						stateCompareList =row.getStateCompareList();
+						messageCompareList = row.getMessageCompareList();
 						
-						showStateCompare(stateCompareList);
-
-						showMessageCompare(messageCompareList);
+//						showStateCompare(stateCompareList);
+//
+//						showMessageCompare(messageCompareList);
+//						
+////						mainFrame.getValidationResultPanel().getTwonamelabel().setText("共找到"+stateCompareList.size()+"条状态和"+messageCompareList.size()+"条消息"+"状态和节点比较中,成功"+statesuccesssum+"条,失败"+statefailsum+"条"+"消息比较中,成功"+messagesuccesssum+"条,失败"+messagefailsum+"条");
+//						mainFrame.getValidationResultPanel().getTwonamelabel().setText("<html><body>在状态比较中,共找到"+stateCompareList.size()+"条状态,成功"+statesuccesssum+"条,失败"+statefailsum+"条<br>在消息比较中,共找到"+messageCompareList.size()+"条消息,成功"+messagesuccesssum+"条,失败"+messagefailsum+"条</body></html>");
 						
-//						mainFrame.getValidationResultPanel().getTwonamelabel().setText("共找到"+stateCompareList.size()+"条状态和"+messageCompareList.size()+"条消息"+"状态和节点比较中,成功"+statesuccesssum+"条,失败"+statefailsum+"条"+"消息比较中,成功"+messagesuccesssum+"条,失败"+messagefailsum+"条");
-						mainFrame.getValidationResultPanel().getTwonamelabel().setText("<html><body>在状态比较中,共找到"+stateCompareList.size()+"条状态,成功"+statesuccesssum+"条,失败"+statefailsum+"条<br>在消息比较中,共找到"+messageCompareList.size()+"条消息,成功"+messagesuccesssum+"条,失败"+messagefailsum+"条</body></html>");
+						pathtuple=ev.getPath();
+						times = CompareEAtoAutomata.verificationPathTupleTime(ev.getPath());
 						
-						ArrayList<PathTuple> pathtuple=ev.getPath();
-						ArrayList<Integer> times = CompareEAtoAutomata.verificationPathTupleTime(ev.getPath());
-						
-						showPathTupleTime(pathtuple, times);
-						
-						mainFrame.getValidationResultPanel().ChangeRepaint();
+//						showPathTupleTime(pathtuple, times);
+//						
+//						mainFrame.getValidationResultPanel().ChangeRepaint();
 						
 						
 					} catch (Exception e1) {
@@ -944,7 +950,7 @@ public class ModelExistValidationPanel extends JPanel{
 			}
 		});
 		
-		validationlabeltab3.setText("逆向");
+		validationlabeltab3.setText("对比");
 		validationlabeltab3.setForeground(new Color(255, 255, 255));
 		validationlabeltab3.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		validationlabeltab3.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -989,11 +995,13 @@ public class ModelExistValidationPanel extends JPanel{
 				validationlabeltabpanel3.setBackground(new Color(255, 255, 255));
 				validationlabeltabpanel3.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
 				validationlabeltabindex = 3;
+				
+				validationlabel.setText("对比性验证");
 
 			}
 		});
 		
-		validationlabeltab4.setText("双向");
+		validationlabeltab4.setText("时间");
 		validationlabeltab4.setForeground(new Color(255, 255, 255));
 		validationlabeltab4.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		validationlabeltab4.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -1038,6 +1046,8 @@ public class ModelExistValidationPanel extends JPanel{
 				validationlabeltabpanel4.setBackground(new Color(255, 255, 255));
 				validationlabeltabpanel4.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
 				validationlabeltabindex = 4;
+				
+				validationlabel.setText("时间性验证");
 
 			}
 		});
@@ -1064,8 +1074,8 @@ public class ModelExistValidationPanel extends JPanel{
 		validationlabeltabpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		validationlabeltabpanel.add(validationlabeltabpanel1);
 		validationlabeltabpanel.add(validationlabeltabpanel2);
-//		validationlabeltabpanel.add(validationlabeltabpanel3);
-//		validationlabeltabpanel.add(validationlabeltabpanel4);
+		validationlabeltabpanel.add(validationlabeltabpanel3);
+		validationlabeltabpanel.add(validationlabeltabpanel4);
 		
 		validationlabeltabpanel.setPreferredSize(new Dimension(100, 22));
 		validationlabeltabpanel.setMinimumSize(new Dimension(100, 22));
@@ -1344,6 +1354,22 @@ public class ModelExistValidationPanel extends JPanel{
 
 	public IWorkspace getUppaalworkspace() {
 		return uppaalworkspace;
+	}
+
+	public ArrayList<StateCompare> getStateCompareList() {
+		return stateCompareList;
+	}
+
+	public ArrayList<MessageCompare> getMessageCompareList() {
+		return messageCompareList;
+	}
+
+	public ArrayList<PathTuple> getPathtuple() {
+		return pathtuple;
+	}
+
+	public ArrayList<Integer> getTimes() {
+		return times;
 	}
 	
 	
