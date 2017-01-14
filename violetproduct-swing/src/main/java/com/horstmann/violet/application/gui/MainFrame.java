@@ -70,13 +70,16 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import com.horstmann.violet.application.consolepart.AbstractTestCaseResultPanel;
 import com.horstmann.violet.application.consolepart.AttributePartPanel;
 import com.horstmann.violet.application.consolepart.ConsolePart;
 import com.horstmann.violet.application.consolepart.ConsolePartPanel;
+import com.horstmann.violet.application.consolepart.TestCaseConfirmResultPanel;
 import com.horstmann.violet.application.consolepart.ValidationResultPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.ModelExistValidationPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.ModelTransformationPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.ProjectTree;
+import com.horstmann.violet.application.gui.opreationTreePane.TestCaseConfirmationPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.help.AboutDialog;
 import com.horstmann.violet.application.menu.MenuFactory;
@@ -153,7 +156,7 @@ public class MainFrame extends JFrame
 //					System.out.println(getOpreationPart().size()+"  "+getCenterTabPanel().size()+"  "+getConsolePartPanel().size()+"  "+getAttributePartPanel().size());
 					
 					getJs1().setDividerLocation(screenWidth/8);
-					getJs2().setDividerLocation((int)getJs2().getSize().getWidth()-screenWidth/8);
+					getJs2().setDividerLocation((int)getJs2().getSize().getWidth()-screenWidth/6);
 					getJs3().setDividerLocation((int)getJs3().getSize().getHeight()-screenHeight/5);
 					
 				}
@@ -191,7 +194,7 @@ public class MainFrame extends JFrame
 						getJs1().setDividerLocation(screenWidth/8);
 					}
 					if(getJs2().getDividerLocation()==0){
-						getJs2().setDividerLocation((int)getJs2().getSize().getWidth()-screenWidth/8);
+						getJs2().setDividerLocation((int)getJs2().getSize().getWidth()-screenWidth/6);
 					}
 					if(getJs3().getDividerLocation()==0){
 						getJs3().setDividerLocation((int)getJs3().getSize().getHeight()-screenHeight/5);
@@ -201,7 +204,7 @@ public class MainFrame extends JFrame
 						if(getOpreationPart().size().getWidth()<screenWidth/8){
 							getJs1().setDividerLocation((int)(getJs1().getSize().getWidth())/3);
 						}
-						if(getAttributePart().size().getWidth()<screenWidth/8){
+						if(getAttributePart().size().getWidth()<screenWidth/6){
 							getJs2().setDividerLocation((int)(getJs1().getSize().getWidth())/3);
 						}
 					}
@@ -1038,43 +1041,61 @@ public class MainFrame extends JFrame
 		return this.validationResultPanel;
 	}
 	
-//	public JPanel getConsolePart(){
-//		return this.consolepartpanel;
-//	}
-    public ProjectTree getProjectTree()
-    {
-    	if(this.projectTree==null) {
-    		this.projectTree=new ProjectTree(this.getMenuFactory().getFileMenu(this),this);
-    	}
-    	return this.projectTree;
-    }
-    public ModelTransformationPanel getModelTransformationPanel()
-    {
-    	if(this.modelTransformationPanel==null)
-    	{
-    		this.modelTransformationPanel=new ModelTransformationPanel(this);
-    		
-    	}
-    	return this.modelTransformationPanel;
-    }
-    public ModelExistValidationPanel getModelExistValidationPanel()
-    {
-    	if(this.modelExistValidationPanel==null)
-    	{
-    		this.modelExistValidationPanel=new ModelExistValidationPanel(this);
-    		
-    	}
-    	return this.modelExistValidationPanel;
-    }
-    public AbstractTestCaseGenerationPanel getAbstractTestCaseGenerationPanel()
-    {
-    	if(this.abstractTestCaseGenerationPanel==null)
-    	{
-    		this.abstractTestCaseGenerationPanel=new AbstractTestCaseGenerationPanel(this);
-    		
-    	}
-    	return this.abstractTestCaseGenerationPanel;
-    }
+	public AbstractTestCaseResultPanel getAbstractTestCaseResultPanel(){
+		if (this.abstractTestCaseResultPanel == null) {
+			this.abstractTestCaseResultPanel = new AbstractTestCaseResultPanel(this);
+		}
+		return this.abstractTestCaseResultPanel;
+	}
+	
+	public TestCaseConfirmResultPanel getTestCaseConfirmResultPanel(){
+		if (this.testCaseConfirmResultPanel == null) {
+			this.testCaseConfirmResultPanel = new TestCaseConfirmResultPanel(this);
+		}
+		return this.testCaseConfirmResultPanel;
+	}
+
+	// public JPanel getConsolePart(){
+	// return this.consolepartpanel;
+	// }
+	public ProjectTree getProjectTree() {
+		if (this.projectTree == null) {
+			this.projectTree = new ProjectTree(this.getMenuFactory().getFileMenu(this), this);
+		}
+		return this.projectTree;
+	}
+
+	public ModelTransformationPanel getModelTransformationPanel() {
+		if (this.modelTransformationPanel == null) {
+			this.modelTransformationPanel = new ModelTransformationPanel(this);
+
+		}
+		return this.modelTransformationPanel;
+	}
+
+	public ModelExistValidationPanel getModelExistValidationPanel() {
+		if (this.modelExistValidationPanel == null) {
+			this.modelExistValidationPanel = new ModelExistValidationPanel(this);
+
+		}
+		return this.modelExistValidationPanel;
+	}
+
+	public AbstractTestCaseGenerationPanel getAbstractTestCaseGenerationPanel() {
+		if (this.abstractTestCaseGenerationPanel == null) {
+			this.abstractTestCaseGenerationPanel = new AbstractTestCaseGenerationPanel(this);
+
+		}
+		return this.abstractTestCaseGenerationPanel;
+	}
+
+	public TestCaseConfirmationPanel getTestCaseConfirmationPanel() {
+		if (this.testCaseConfirmationPanel == null) {
+			this.testCaseConfirmationPanel = new TestCaseConfirmationPanel(this);
+
+		}
+		return this.testCaseConfirmationPanel;
+	}
 
 	private TopPanel getTopPanel() {
 		if (this.topPanel == null) {
@@ -1213,7 +1234,7 @@ public class MainFrame extends JFrame
 //			js2.setDividerLocation(screenWidth*7/8);
 //			js3.setDividerLocation(screenHeight*4/5);
 			js1.setDividerLocation(screenWidth/8);
-			js2.setDividerLocation((int)js2.getSize().getWidth()-screenWidth/8);
+			js2.setDividerLocation((int)js2.getSize().getWidth()-screenWidth/6);
 			js3.setDividerLocation((int)js3.getSize().getHeight()-screenHeight/5);
 
 //			js1.setDividerLocation(30);
@@ -1289,7 +1310,7 @@ public class MainFrame extends JFrame
     {
     if (this.stepFiveCenterTabbedPane== null)
     {
-    	stepFiveCenterTabbedPane=new StepFiveCenterTabbedPane();
+    	stepFiveCenterTabbedPane=new StepFiveCenterTabbedPane(this);
     }
     return this.stepFiveCenterTabbedPane;
     	
@@ -1399,6 +1420,7 @@ public class MainFrame extends JFrame
     private ModelTransformationPanel modelTransformationPanel;
     private ModelExistValidationPanel modelExistValidationPanel;
     private AbstractTestCaseGenerationPanel abstractTestCaseGenerationPanel;
+    private TestCaseConfirmationPanel testCaseConfirmationPanel;
     
     private StepOneCenterTabbedPane stepOneCenterTabbedPane;
     private StepTwoCenterTabbedPane stepTwoCenterTabbedPane;
@@ -1407,6 +1429,8 @@ public class MainFrame extends JFrame
 	private ConsolePartPanel consolePartPanel;
 	private AttributePartPanel attributePartPanel;
 	private ValidationResultPanel validationResultPanel;
+	private AbstractTestCaseResultPanel abstractTestCaseResultPanel; 
+	private TestCaseConfirmResultPanel testCaseConfirmResultPanel;
 //	private ConsolePart consolePart;
     
     private StepButtonPanel stepButton;

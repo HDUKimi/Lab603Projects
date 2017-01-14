@@ -107,10 +107,12 @@ public class ValidationMessageComparePanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "scenario_end.png");
-		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "dropdown1.png");
-		icon2.setImage(icon2.getImage().getScaledInstance(11,11, Image.SCALE_DEFAULT));
+		ImageIcon icon1 = new ImageIcon(path + "tick.png");
+		icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+		ImageIcon icon2 = new ImageIcon(path + "cross.png");
+		icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+		ImageIcon icon3 = new ImageIcon(path + "dropdown1.png");
+		icon3.setImage(icon3.getImage().getScaledInstance(11,11, Image.SCALE_DEFAULT));
 		
 //		titlelabel.setText(stateInfo.getName()+" "+location.getName()+" "+result);
 //		titlelabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
@@ -121,10 +123,12 @@ public class ValidationMessageComparePanel extends JPanel{
 		label2.setText(transition.getName());
 		
 		if(result.equals("ok")){
-			label3.setText("³É¹¦");
+//			label3.setText("³É¹¦"+"  ¡Ì");
+			label3.setIcon(icon1);
 		}
 		else{
-			label3.setText("Ê§°Ü");
+//			label3.setText("Ê§°Ü"+"  ¡Á");
+			label3.setIcon(icon2);
 		}
 		
 		label1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
@@ -147,7 +151,7 @@ public class ValidationMessageComparePanel extends JPanel{
 		titlelabelpanel.setOpaque(false);
 		
 		
-		toolbutton.setIcon(icon2);
+		toolbutton.setIcon(icon3);
 		toolbutton.setFocusable(false);
 		toolbutton.setContentAreaFilled(false);
 		toolbutton.setBorderPainted(false);

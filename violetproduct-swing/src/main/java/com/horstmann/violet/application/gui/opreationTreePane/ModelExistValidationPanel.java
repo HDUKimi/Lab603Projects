@@ -131,7 +131,7 @@ public class ModelExistValidationPanel extends JPanel{
 	
 	IWorkspace uppaalworkspace=null;
 	
-	
+	private int statesuccesssum=0,statefailsum=0,messagesuccesssum=0,messagefailsum=0;;
 	
 	
 	public ModelExistValidationPanel(MainFrame mainFrame){
@@ -392,192 +392,26 @@ public class ModelExistValidationPanel extends JPanel{
 					
 					try {
 						
-						System.out.println("--------------------------TimingEAtoUppaal.getDiagramDataName()"+TimingEAtoUppaal.getDiagramDataName()+".xml");
-						
 						ev=new ExistVerification(TimingEAtoUppaal.getDiagramDataName()+".xml");
 						
 						uppaalmessagelist=ev.getMessages();
-						System.out.println("-------------------");
-						for(UppaalTransition u:uppaalmessagelist){
-							System.out.println(u.toString());
-						}
-						System.out.println("-------------------");
-						
 						
 						RowStringsForDisplay row=CompareEAtoAutomata.compareFromXMLPath(path, TimingEAtoUppaal.getDiagramDataName()+".xml");
-						
-						System.out.println("##################################");
-						
-						ArrayList<PathTuple> pathtuple=ev.getPath();
-						
-						System.out.println(pathtuple.size());
-						
-						for(PathTuple pt:pathtuple){
-							
-							System.out.println(pt.getLocation().toString());
-							if(pt.getTransition()!=null){
-								System.out.println(pt.getTransition().toString());
-							}
-							
-							
-						}
-						
-						
-						ArrayList<Integer> times = CompareEAtoAutomata.verificationPathTupleTime(ev.getPath());
-						System.out.println("##################################");
-						System.out.println(times.size());
-						
-						for(Integer i:times){
-							System.out.println(i);
-						}
-						
-						System.out.println("##################################");
-						
-						ValidationPathTupleTimePanel vpttp=new ValidationPathTupleTimePanel(pathtuple, times);
-						mainFrame.getValidationResultPanel().getThreeresultpanel().removeAll();
-						mainFrame.getValidationResultPanel().getThreeresultpanel().add(vpttp);
-						
-						mainFrame.getValidationResultPanel().getThreenamelabel().setText("自动机路径累加的时间和:"+vpttp.getSumtimes());
-						
-						
-						
-						System.out.println("##################################");
-						
-						for(int i=0;i<times.size();i++){
-							
-							if(i%2==0){
-								System.out.println("location:"+pathtuple.get(i/2).getLocation().getName()+" times:"+times.get(i));
-							}
-							else{
-								System.out.println("transition:"+pathtuple.get(i/2).getTransition().getName()+" times:"+times.get(i));
-							}
-							
-							
-							
-						}
-						
-//						System.out.println("##################################");
-//						List<LocationVerificationDisplay> locationVerificationDisplays = ev.verificationLocationTimeDuration();
-//				    	List<TransitionVerificationDisplay> transitionVerificationDisplays = ev.verificationTransitionTimeDuration();
-//				    	
-//				    	System.out.println(locationVerificationDisplays.size());
-//				    	for(LocationVerificationDisplay lvd:locationVerificationDisplays){
-//				    		System.out.println(lvd.toString());
-//				    	}
-//				    	System.out.println("##################################");
-//				    	System.out.println(transitionVerificationDisplays.size());
-//				    	for(TransitionVerificationDisplay tvd:transitionVerificationDisplays){
-//				    		System.out.println(tvd.toString());
-//				    	}
-				    	
-				    	System.out.println("##################################");
-				    	System.out.println(ev.getVerificationResult());
-						
-						
-						System.out.println("##################################");
-						
-						
-						
 						
 						ArrayList<StateCompare> stateCompareList =row.getStateCompareList();
 						ArrayList<MessageCompare> messageCompareList = row.getMessageCompareList();
 						
-						mainFrame.getValidationResultPanel().getTwonamelabel().setText("共找到"+stateCompareList.size()+"条状态和"+messageCompareList.size()+"条消息");
+						showStateCompare(stateCompareList);
+
+						showMessageCompare(messageCompareList);
 						
-						System.out.println("***************************");
-						System.out.println(stateCompareList.size());
-						System.out.println("---------------------------");
+//						mainFrame.getValidationResultPanel().getTwonamelabel().setText("共找到"+stateCompareList.size()+"条状态和"+messageCompareList.size()+"条消息"+"状态和节点比较中,成功"+statesuccesssum+"条,失败"+statefailsum+"条"+"消息比较中,成功"+messagesuccesssum+"条,失败"+messagefailsum+"条");
+						mainFrame.getValidationResultPanel().getTwonamelabel().setText("<html><body>在状态比较中,共找到"+stateCompareList.size()+"条状态,成功"+statesuccesssum+"条,失败"+statefailsum+"条<br>在消息比较中,共找到"+messageCompareList.size()+"条消息,成功"+messagesuccesssum+"条,失败"+messagefailsum+"条</body></html>");
 						
-						mainFrame.getValidationResultPanel().getStatelocationresultpanel().removeAll();
+						ArrayList<PathTuple> pathtuple=ev.getPath();
+						ArrayList<Integer> times = CompareEAtoAutomata.verificationPathTupleTime(ev.getPath());
 						
-						System.out.println("++++++++++++++++++++");
-						
-						JPanel resultpanel1=new JPanel();
-						JPanel emptypanel1=new JPanel();
-						resultpanel1.setOpaque(false);
-						emptypanel1.setOpaque(false);
-						
-						GridBagLayout layout1 = new GridBagLayout();
-						resultpanel1.setLayout(layout1);
-						int i=0;
-						
-						ArrayList<String> headlist1=new ArrayList<String>();
-//						headlist1.add("EAStateInfo");
-//						headlist1.add("UppaalLocation");
-//						headlist1.add("Result");
-						headlist1.add("时序图");
-						headlist1.add("时间自动机");
-						headlist1.add("结果");
-						
-						TableHeadPanel thpanel1=new TableHeadPanel(headlist1);
-						resultpanel1.add(thpanel1);
-						layout1.setConstraints(thpanel1, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-						
-						
-						for(StateCompare s:stateCompareList){
-							System.out.println(s.getStateInfo().toString());
-							System.out.println(s.getLocation().toString());
-							System.out.println(s.getResult());
-							
-							ValidationStateComparePanel vscpanel=new ValidationStateComparePanel(s);
-							resultpanel1.add(vscpanel);
-							layout1.setConstraints(vscpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-							
-							System.out.println("---------------------------");
-						}
-						
-						resultpanel1.add(emptypanel1);
-						layout1.setConstraints(emptypanel1, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-						mainFrame.getValidationResultPanel().getStatelocationresultpanel().add(resultpanel1);
-						
-						
-						System.out.println("***************************");
-						System.out.println(messageCompareList.size());
-						System.out.println("---------------------------");
-						
-						mainFrame.getValidationResultPanel().getMessagetransitionresultpanel().removeAll();
-						
-						System.out.println("++++++++++++++++++++");
-						
-						JPanel resultpanel2=new JPanel();
-						JPanel emptypanel2=new JPanel();
-						resultpanel2.setOpaque(false);
-						emptypanel2.setOpaque(false);
-						
-						GridBagLayout layout2 = new GridBagLayout();
-						resultpanel2.setLayout(layout2);
-						int j=0;
-						
-						ArrayList<String> headlist2=new ArrayList<String>();
-//						headlist2.add("EAMessage");
-//						headlist2.add("UppaalTransition");
-//						headlist2.add("Result");
-						headlist2.add("时序图");
-						headlist2.add("时间自动机");
-						headlist2.add("结果");
-						
-						TableHeadPanel thpanel2=new TableHeadPanel(headlist2);
-						resultpanel2.add(thpanel2);
-						layout2.setConstraints(thpanel2, new GBC(0, j++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-						
-						for(MessageCompare m:messageCompareList){
-							System.out.println(m.getMessage().toString());
-							System.out.println(m.getTransition().toString());
-							System.out.println(m.getResult());
-							
-							ValidationMessageComparePanel vmcpanel=new ValidationMessageComparePanel(m);
-							resultpanel2.add(vmcpanel);
-							layout2.setConstraints(vmcpanel, new GBC(0, j++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-							
-							System.out.println("---------------------------");
-						}
-						
-						resultpanel2.add(emptypanel2);
-						layout2.setConstraints(emptypanel2, new GBC(0, j++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-						mainFrame.getValidationResultPanel().getMessagetransitionresultpanel().add(resultpanel2);
-						
-						System.out.println("***************************");
-						
+						showPathTupleTime(pathtuple, times);
 						
 						mainFrame.getValidationResultPanel().ChangeRepaint();
 						
@@ -586,9 +420,6 @@ public class ModelExistValidationPanel extends JPanel{
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					
-					
-					
 					
 					addCheckBoxToValidationCheckboxPanel();
 					
@@ -615,6 +446,122 @@ public class ModelExistValidationPanel extends JPanel{
 		timingscrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		timingscrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         
+	}
+
+	protected void showMessageCompare(ArrayList<MessageCompare> messageCompareList) {
+		// TODO Auto-generated method stub
+		
+		mainFrame.getValidationResultPanel().getMessagetransitionresultpanel().removeAll();
+		
+		JPanel resultpanel2=new JPanel();
+		JPanel emptypanel2=new JPanel();
+		resultpanel2.setOpaque(false);
+		emptypanel2.setOpaque(false);
+		
+		GridBagLayout layout2 = new GridBagLayout();
+		resultpanel2.setLayout(layout2);
+		int j=0;
+		
+		ArrayList<String> headlist2=new ArrayList<String>();
+		headlist2.add("时序图");
+		headlist2.add("时间自动机");
+		headlist2.add("结果");
+		
+		TableHeadPanel thpanel2=new TableHeadPanel(headlist2);
+		resultpanel2.add(thpanel2);
+		layout2.setConstraints(thpanel2, new GBC(0, j++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		
+		messagesuccesssum=0;
+		messagefailsum=0;
+		
+		for(MessageCompare m:messageCompareList){
+
+			ValidationMessageComparePanel vmcpanel=new ValidationMessageComparePanel(m);
+			resultpanel2.add(vmcpanel);
+			layout2.setConstraints(vmcpanel, new GBC(0, j++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+			
+			if(m.getResult().equals("ok")){
+				messagesuccesssum++;
+			}
+			else{
+				messagefailsum++;
+			}
+
+		}
+		
+		resultpanel2.add(emptypanel2);
+		layout2.setConstraints(emptypanel2, new GBC(0, j++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		mainFrame.getValidationResultPanel().getMessagetransitionresultpanel().add(resultpanel2);
+		
+	}
+
+	protected void showStateCompare(ArrayList<StateCompare> stateCompareList) {
+		// TODO Auto-generated method stub
+		
+		mainFrame.getValidationResultPanel().getStatelocationresultpanel().removeAll();
+		
+		JPanel resultpanel1=new JPanel();
+		JPanel emptypanel1=new JPanel();
+		resultpanel1.setOpaque(false);
+		emptypanel1.setOpaque(false);
+		
+		GridBagLayout layout1 = new GridBagLayout();
+		resultpanel1.setLayout(layout1);
+		int i=0;
+		
+		ArrayList<String> headlist1=new ArrayList<String>();
+		headlist1.add("时序图");
+		headlist1.add("时间自动机");
+		headlist1.add("结果");
+		
+		TableHeadPanel thpanel1=new TableHeadPanel(headlist1);
+		resultpanel1.add(thpanel1);
+		layout1.setConstraints(thpanel1, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		
+		statesuccesssum=0;
+		statefailsum=0;
+		
+		for(StateCompare s:stateCompareList){
+			
+			ValidationStateComparePanel vscpanel=new ValidationStateComparePanel(s);
+			resultpanel1.add(vscpanel);
+			layout1.setConstraints(vscpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+			
+			if(s.getResult().equals("ok")){
+				statesuccesssum++;
+			}
+			else{
+				statefailsum++;
+			}
+			
+		}
+		
+		resultpanel1.add(emptypanel1);
+		layout1.setConstraints(emptypanel1, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		mainFrame.getValidationResultPanel().getStatelocationresultpanel().add(resultpanel1);
+		
+	}
+
+	protected void showPathTupleTime(ArrayList<PathTuple> pathtuple, ArrayList<Integer> times) {
+		// TODO Auto-generated method stub
+		
+		ValidationPathTupleTimePanel vpttp=new ValidationPathTupleTimePanel(pathtuple, times);
+		mainFrame.getValidationResultPanel().getThreeresultpanel().removeAll();
+		mainFrame.getValidationResultPanel().getThreeresultpanel().add(vpttp);
+		
+		if(times.get(times.size()-1)==CompareEAtoAutomata.findTimingDiagramLastStateStartTime()){
+			mainFrame.getValidationResultPanel().getThreenamelabel().setText("自动机路径累加的时间和为"+times.get(times.size()-1)+"s,最后一个状态的开始时间为"+CompareEAtoAutomata.findTimingDiagramLastStateStartTime()+"s,验证成功");
+		}
+		else{
+			mainFrame.getValidationResultPanel().getThreenamelabel().setText("自动机路径累加的时间和为"+times.get(times.size()-1)+"s,最后一个状态的开始时间为"+CompareEAtoAutomata.findTimingDiagramLastStateStartTime()+"s,验证失败");
+		}
+		
+		
+	}
+
+	protected void showPathTupleTime() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public void ChangeRepaint() {

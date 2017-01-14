@@ -144,7 +144,7 @@ public class CompareEAtoAutomata {
 	}
 	
 	// 查找时序图中最后一个状态的开始时间（最大）
-	private static int findTimingDiagramLastStateStartTime() {
+	public static int findTimingDiagramLastStateStartTime() {
 		int max = 0;
 		for(EALifeline lifeline : automata_EADiagramData.getLifelines()) {
 			for(EAStateInfo stateInfo : lifeline.getStateInfos()) {

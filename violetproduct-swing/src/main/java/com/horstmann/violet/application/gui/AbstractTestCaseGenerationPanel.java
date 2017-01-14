@@ -62,8 +62,8 @@ public class AbstractTestCaseGenerationPanel extends JPanel {
 //	private JLabel titlelabel;
 //	private JSplitPane js;
 
-	public AbstractTestCaseGenerationPanel(MainFrame mainFram) {
-		this.mainFrame = mainFram;
+	public AbstractTestCaseGenerationPanel(MainFrame mainFrame) {
+		this.mainFrame = mainFrame;
 		initFileList();
 		initUI();
 		
@@ -286,10 +286,6 @@ public class AbstractTestCaseGenerationPanel extends JPanel {
 				treepanel.removeAll();
 				treepanel.add(UppaalDiagramTree);
 				
-				mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButton().doClick();
-				
-//				mainFrame.getConsolePartPanel().getTextarea().append("打开用例图列表\n");
-				
 				mainFrame.setVisible(false);
 				mainFrame.getContentPane().repaint();
 				mainFrame.setVisible(true);
@@ -340,11 +336,6 @@ public class AbstractTestCaseGenerationPanel extends JPanel {
 				diagrambuttonpanel1.setBorder(BorderFactory.createMatteBorder(1,0,0,0, new Color(142, 155, 188)));
 				diagrambuttonpanel3.setBorder(BorderFactory.createMatteBorder(1,0,0,0, new Color(142, 155, 188)));
 				index = 2;
-				
-//				treepanel.removeAll();
-//				treepanel.add(stateTreePanel);
-//				
-//				mainFrame.getConsolePartPanel().getTextarea().append("打开状态图列表\n");
 				
 				mainFrame.setVisible(false);
 				mainFrame.getContentPane().repaint();
@@ -399,9 +390,7 @@ public class AbstractTestCaseGenerationPanel extends JPanel {
 				
 				treepanel.removeAll();
 				treepanel.add(UppaalDiagramTree);
-//				
-//				mainFrame.getConsolePartPanel().getTextarea().append("打开顺序图列表\n");
-				
+
 				mainFrame.setVisible(false);
 				mainFrame.getContentPane().repaint();
 				mainFrame.setVisible(true);
@@ -459,9 +448,6 @@ public class AbstractTestCaseGenerationPanel extends JPanel {
 		treepanel.removeAll();
 		treepanel.setLayout(new GridLayout());
 		treepanel.add(UppaalDiagramTree);
-		mainFrame.setVisible(false);
-		mainFrame.getContentPane().repaint();
-		mainFrame.setVisible(true);
 		
 	}
 

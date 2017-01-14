@@ -14,9 +14,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,19 +42,22 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
 import com.horstmann.violet.application.consolepart.ConsoleMessageTabbedPane;
 import com.horstmann.violet.application.consolepart.ConsolePart;
 import com.horstmann.violet.application.consolepart.ConsolePartDetailInfoTable;
 import com.horstmann.violet.application.consolepart.ConsolePartTextArea;
+import com.horstmann.violet.application.gui.opreationTreePane.TestCaseConfirmationPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCasePieChartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseReportPartPanel;
-import com.horstmann.violet.application.gui.util.chengzuo.Verfication.ClientRecThread;
-import com.horstmann.violet.application.gui.util.chengzuo.Verfication.ClientSocket;
-import com.horstmann.violet.application.gui.util.chengzuo.Verfication.ConsolePartTestCaseInfoTable;
-import com.horstmann.violet.application.gui.util.chengzuo.Verfication.JFreeChartTest;
-import com.horstmann.violet.application.gui.util.chengzuo.Verfication.TestCase;
+import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
+import com.horstmann.violet.application.gui.util.chengzuo.Util.ClientSocket;
 import com.horstmann.violet.application.gui.util.wqq.AutoMataTransfrom1.GetAutomatic;
 import com.horstmann.violet.application.gui.util.wqq.AutoMataTransfrom1.Main;
 import com.horstmann.violet.application.gui.util.wujun.SequenceTransfrom.SD2UppaalMain;
@@ -141,6 +148,10 @@ public class StepButtonPanel extends JPanel {
 	JScrollPane StepTwoScrollTree;
 	JScrollPane StepThreeScrollTree;
 	JScrollPane StepSixScrollTree;
+	
+	
+	List<TestCaseReportPartPanel> testcasereportlist=new ArrayList<TestCaseReportPartPanel>();
+	
 	
 	public static JButton getStep1button() {
 		return step1button;
@@ -940,15 +951,26 @@ Fourstart.addActionListener(new ActionListener() {
 //						clientSocket.sendFile(files);
 //						StepFiveArea.append("发送数据完成!\n");
 //						StepFiveArea.append("正在获得数据.....\n");
-//						StepFiveArea.append("数据已经获得!\n");
 //						try {
-//							Thread.sleep(2000);
+//							Thread.sleep(10000);
 //						} catch (InterruptedException e) {
-//							e.printStackTrace();
 //						}
 //						List<TestCase> list = clientSocket.getTestCaseList();
+//						StepFiveArea.append("数据已经获得!\n");
 						// 获得root的容器
-						JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestcaseFile();
+
+						System.out.println("///////////////////////////////");
+						
+//						List<TestCase> list = extractData();
+						List<TestCase> list = extractDataToXml();
+						
+						for(TestCase tc:list){
+							System.out.println(tc.toString());
+						}
+
+						System.out.println("///////////////////////////////");
+
+						JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getTableresultpanel();
 						
 						System.out.println("++++++++++++++++++++");
 						
@@ -960,17 +982,18 @@ Fourstart.addActionListener(new ActionListener() {
 						GridBagLayout layout = new GridBagLayout();
 						resultpanel.setLayout(layout);
 						int i=0;
-						for(int index=0;index<10;index++){
-							TestCaseReportPartPanel tcrppanel=new TestCaseReportPartPanel();
+						testcasereportlist.clear();
+						for(TestCase tc:list){
+							TestCaseReportPartPanel tcrppanel=new TestCaseReportPartPanel(tc);
 							resultpanel.add(tcrppanel);
 							layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-							
+							testcasereportlist.add(tcrppanel);
 						}
 						resultpanel.add(emptypanel);
 						layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 						
-						jp.setLayout(new GridLayout());
-						jp.add(new JScrollPane(resultpanel));
+						jp.removeAll();
+						jp.add(resultpanel);
 						
 						System.out.println("++++++++++++++++++++");
 						
@@ -982,7 +1005,11 @@ Fourstart.addActionListener(new ActionListener() {
 //								new JScrollPane(new ConsolePartTestCaseInfoTable(list).getjTextArea()));
 //						js.setDividerLocation(300);
 //						jp.add(js);
-						mainFrame.getStepFiveCenterTabbedPane().getTestcaseFile().updateUI();
+//						mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().updateUI();
+//						
+//						mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().removeAll();
+//						mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().add(new TestCaseChartPanel());
+						
 						// 第二个tab页
 //						JPanel jpTab2 = mainFrame.getStepFiveCenterTabbedPane().getTestcaseFile1();
 //						// 报表放到第二个tab页
@@ -1282,17 +1309,20 @@ Sixstart.addActionListener(new ActionListener() {
 //				consolePart.setTitle("抽象测试用例生成过程信息");
 //			    consolePart.add(new ConsoleMessageTabbedPane("详细信息",StepThreeArea));	
 			    
+//			    ClearAttributePanel();
+//			    attributePanel.add(mainFrame.getAttributePartPanel());
+//			    
+//			    mainFrame.getAttributePartPanel().getNamepanel().removeAll();
+//			    mainFrame.getAttributePartPanel().getNamepanel().add(mainFrame.getAttributePartPanel().getStepthreenamelabel());
+//			    
+//			    mainFrame.getAttributePartPanel().getAttributepanel().removeAll();
+//			    StepThreeScrollTree=new JScrollPane(mainFrame.getAttributePartPanel().getStepthreeattributetree());
+//			    StepThreeScrollTree.setBorder(null);
+//			    StepThreeScrollTree.setBackground(new Color(255, 255, 255));
+//			    mainFrame.getAttributePartPanel().getAttributepanel().add(StepThreeScrollTree);
+			    
 			    ClearAttributePanel();
-			    attributePanel.add(mainFrame.getAttributePartPanel());
-			    
-			    mainFrame.getAttributePartPanel().getNamepanel().removeAll();
-			    mainFrame.getAttributePartPanel().getNamepanel().add(mainFrame.getAttributePartPanel().getStepthreenamelabel());
-			    
-			    mainFrame.getAttributePartPanel().getAttributepanel().removeAll();
-			    StepThreeScrollTree=new JScrollPane(mainFrame.getAttributePartPanel().getStepthreeattributetree());
-			    StepThreeScrollTree.setBorder(null);
-			    StepThreeScrollTree.setBackground(new Color(255, 255, 255));
-			    mainFrame.getAttributePartPanel().getAttributepanel().add(StepThreeScrollTree);
+			    attributePanel.add(mainFrame.getAbstractTestCaseResultPanel());
 			    
 			    wakeupUI();
 			    mainFrame.setVisible(false);
@@ -1378,7 +1408,7 @@ Sixstart.addActionListener(new ActionListener() {
 				labelpanel.add(Buttonstop);
 				
 				ClearOpreationPanel();
-				operationPanel.add(new TestCaseConfirmationPanel());
+				operationPanel.add(mainFrame.getTestCaseConfirmationPanel());
 				
 				
 				mainFrame.getCenterTabPanel().removeAll();
@@ -1394,6 +1424,9 @@ Sixstart.addActionListener(new ActionListener() {
 			    mainFrame.getConsolePartPanel().getTextpanel().add(new JScrollPane(StepFiveArea));
 //				consolePart.setTitle("测试用例实例验证过程信息");
 //    			consolePart.add(new ConsoleMessageTabbedPane("详细信息",StepFiveArea));	
+			    
+			    ClearAttributePanel();
+			    attributePanel.add(mainFrame.getTestCaseConfirmResultPanel());
 							
 			    wakeupUI();
 				mainFrame.setVisible(false);
@@ -1469,6 +1502,203 @@ Sixstart.addActionListener(new ActionListener() {
 
 	public JButton getTwostart() {
 		return Twostart;
+	}
+
+	public List<TestCaseReportPartPanel> getTestcasereportlist() {
+		return testcasereportlist;
+	}
+	
+	public List<TestCase> extractDataToXml(){
+		
+		int i=1,j=1;
+		
+		List<TestCase> testcaseList = new ArrayList<TestCase>();
+		List<myProcess> processList = new ArrayList<myProcess>();
+		
+		SAXReader reader = new SAXReader();
+		
+		String path="D:\\rc_loopForXStream1.0.1.xml";
+		
+		File file=new File(path);
+		
+		try {
+			
+			Document dom = reader.read(file);
+			
+			Element TCS=dom.getRootElement();
+			List<Element> testcaseElements=TCS.elements("testcase");
+			for(Element testcase:testcaseElements){
+				
+//				System.out.println(i++);
+				
+				List<Element> processElements=testcase.elements("process");
+				
+				for(Element process:processElements){
+					
+//					System.out.println(j++);
+					
+					Element operation=process.element("operation");
+//					System.out.println(operation.getData());
+					
+					Element input=process.element("input");
+//					System.out.println(input.getData());
+					
+					myProcess p = new myProcess();
+					p.setProcessID(j++);
+					p.setProcessName(operation.getData().toString());
+					p.setProcessParam(input.getData().toString());
+//					p.setProcessStatus(processStatus);
+//					p.setProcessExec(processExec);
+
+					processList.add(p);
+					
+				}
+				
+				j=1;
+				
+				TestCase tc = new TestCase();
+				tc.setTestCaseID(String.valueOf(i++));
+				tc.setProcessList(processList);
+//				tc.setState(state);
+//				tc.setResult(result);
+
+				testcaseList.add(tc);
+				
+				processList = new ArrayList<myProcess>();
+				
+			}
+			
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+//		System.out.println(testcaseList.size());
+//		
+//		for(TestCase tc:testcaseList){
+//			
+//			System.out.println(tc);
+//			
+//		}
+		return testcaseList;
+		
+	}
+	
+	public List<TestCase> extractData() {
+
+		// 测试用例ID
+		String testCaseID = null;
+		// 测试用例 激励链表
+		List<myProcess> processList = new ArrayList<myProcess>();
+		// 测试用例执行状态
+		String state = null;
+		// 测试用例执行结果
+		String result = null;
+
+		String process;
+
+		// 激励ID
+		int processID;
+		// 激励名称
+		String processName;
+		// 激励参数
+		String processParam;
+		// 激励状态
+		String processStatus;
+		// 激励执行情况
+		boolean processExec;
+
+		int startendstate = 0;
+
+		List<TestCase> testcaseList = new ArrayList<TestCase>();
+
+		try {
+
+//			 String encoding = "utf-8";
+			String encoding = "GBK";
+
+			String filePath="D:\\123.txt";
+			
+			File file = new File(filePath);
+			if (file.isFile() && file.exists()) { // 判断文件是否存在
+				InputStreamReader read = new InputStreamReader(new FileInputStream(file), encoding);// 考虑到编码格式
+				BufferedReader bufferedReader = new BufferedReader(read);
+				String lineTxt = null;
+				while ((lineTxt = bufferedReader.readLine()) != null) {
+
+					if (startendstate == 1) {
+
+						processList = new ArrayList<myProcess>();
+						startendstate = 0;
+
+					}
+
+					if (lineTxt.substring(0, 8).equals("TestCase")) {
+
+						testCaseID = lineTxt.substring(lineTxt.indexOf("testCaseID=") + 11, lineTxt.indexOf(","));
+
+					} else if (lineTxt.substring(1, 10).equals("myProcess")) {
+
+						process = lineTxt.substring(lineTxt.indexOf("[") + 1, lineTxt.indexOf("]"));
+						processID = Integer.valueOf(process.substring(process.indexOf("processID=") + 10,
+								process.indexOf(", processName=")));
+						processName = process.substring(process.indexOf("processName=") + 12,
+								process.indexOf(", processParam="));
+						processParam = process.substring(process.indexOf("processParam=") + 13,
+								process.indexOf(", processStatus="));
+						processStatus = process.substring(process.indexOf("processStatus=") + 14,
+								process.indexOf(", processExec="));
+						processExec = Boolean
+								.valueOf(process.substring(process.indexOf("processExec="), process.length()));
+
+						myProcess p = new myProcess();
+						p.setProcessID(processID);
+						p.setProcessName(processName);
+						p.setProcessParam(processParam);
+						p.setProcessStatus(processStatus);
+						p.setProcessExec(processExec);
+
+						processList.add(p);
+
+					} else if (lineTxt.substring(0, 2).equals(", ")) {
+
+						state = lineTxt.substring(lineTxt.indexOf("state=") + 6, lineTxt.indexOf(", result="));
+						result = lineTxt.substring(lineTxt.indexOf("result=") + 7, lineTxt.indexOf(", detail="));
+
+					} else if (lineTxt.substring(lineTxt.length() - 2, lineTxt.length()).equals("]]")) {
+
+						TestCase tc = new TestCase();
+						tc.setTestCaseID(testCaseID);
+						tc.setProcessList(processList);
+						tc.setState(state);
+						tc.setResult(result);
+
+						testcaseList.add(tc);
+
+						startendstate = 1;
+
+					}
+
+				}
+				read.close();
+			} else {
+				System.out.println("找不到指定的文件");
+			}
+		} catch (Exception e) {
+			System.out.println("读取文件内容出错");
+			e.printStackTrace();
+		}
+
+//		System.out.println(testcaseList.size());
+//
+//		for (TestCase tc : testcaseList) {
+//
+//			System.out.println(tc.toString());
+//
+//		}
+		
+		return testcaseList;
+
 	}
 
 }

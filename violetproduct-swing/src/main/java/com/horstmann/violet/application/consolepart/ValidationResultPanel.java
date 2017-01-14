@@ -136,8 +136,8 @@ public class ValidationResultPanel extends JPanel{
 		int screenWidth = (int) screenSize.getWidth();
 		int screenHeight = (int) screenSize.getHeight();
 		
-		this.setMinimumSize(new Dimension(screenWidth/8, screenHeight-150));
-		this.setMaximumSize(new Dimension(screenWidth/7, screenHeight-150));
+		this.setMinimumSize(new Dimension(screenWidth/7, screenHeight-150));
+		this.setMaximumSize(new Dimension(screenWidth/6, screenHeight-150));
 		
 	}
 
@@ -227,8 +227,8 @@ public class ValidationResultPanel extends JPanel{
 		
 		twonamepanel.setLayout(new BorderLayout());
 		twonamepanel.setBackground(new Color(255,255,255));
-		twonamepanel.setPreferredSize(new Dimension(200, 25));
-		twonamepanel.setMinimumSize(new Dimension(100, 25));
+		twonamepanel.setPreferredSize(new Dimension(200, 45));
+		twonamepanel.setMinimumSize(new Dimension(100, 45));
 		twonamepanel.add(twonamelabel,BorderLayout.WEST);
 		
 	}

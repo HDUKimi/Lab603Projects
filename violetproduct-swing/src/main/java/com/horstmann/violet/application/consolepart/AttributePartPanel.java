@@ -168,8 +168,8 @@ public class AttributePartPanel  extends JPanel {
 		int screenWidth = (int) screenSize.getWidth();
 		int screenHeight = (int) screenSize.getHeight();
 		
-		this.setMinimumSize(new Dimension(screenWidth/8, screenHeight-150));
-		this.setMaximumSize(new Dimension(screenWidth/7, screenHeight-150));
+		this.setMinimumSize(new Dimension(screenWidth/7, screenHeight-150));
+		this.setMaximumSize(new Dimension(screenWidth/6, screenHeight-150));
 		
 	}
 
