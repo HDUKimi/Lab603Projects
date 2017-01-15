@@ -169,31 +169,6 @@ public class ValidationToolPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 			   	
-				int validationlabeltabindex;
-				validationlabeltabindex=mainFrame.getModelExistValidationPanel().getValidationlabeltabindex();
-				System.out.println(validationlabeltabindex);
-				
-				if(validationlabeltabindex==1){
-
-				} else if (validationlabeltabindex == 2) {
-
-				} else if (validationlabeltabindex == 3) {
-
-					showStateCompare(mainFrame.getModelExistValidationPanel().getStateCompareList());
-
-					showMessageCompare(mainFrame.getModelExistValidationPanel().getMessageCompareList());
-					
-					mainFrame.getValidationResultPanel().getTwonamelabel().setText("<html><body>在状态比较中,共找到"+mainFrame.getModelExistValidationPanel().getStateCompareList().size()+"条状态,成功"+statesuccesssum+"条,失败"+statefailsum+"条<br>在消息比较中,共找到"+mainFrame.getModelExistValidationPanel().getMessageCompareList().size()+"条消息,成功"+messagesuccesssum+"条,失败"+messagefailsum+"条</body></html>");
-					
-					
-				} else if (validationlabeltabindex == 4) {
-
-					showPathTupleTime(mainFrame.getModelExistValidationPanel().getPathtuple(), mainFrame.getModelExistValidationPanel().getTimes());
-					
-					mainFrame.getValidationResultPanel().ChangeRepaint();
-					
-				}
-				
 				if(threadstate==0){
 					
 					progressbar.setValue(0);
@@ -201,7 +176,22 @@ public class ValidationToolPanel extends JPanel{
 					
 					progressbarindex=0;
 					
-					startValidation();
+					int validationlabeltabindex;
+					validationlabeltabindex=mainFrame.getModelExistValidationPanel().getValidationlabeltabindex();
+					
+					if(validationlabeltabindex==1){
+
+						startValidation();
+					} else if (validationlabeltabindex == 2) {
+						startValidation();
+					} else if (validationlabeltabindex == 3) {
+						startValidation3();
+						
+					} else if (validationlabeltabindex == 4) {
+						startValidation4();
+						
+					}
+					
 					
 					threadstate=1;
 					
@@ -309,6 +299,97 @@ public class ValidationToolPanel extends JPanel{
 		
 	}
 
+	private  void startValidation3() {
+		// TODO Auto-generated method stub
+		
+		t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+
+				startRunProgressbar(mainFrame.getModelExistValidationPanel().getStateCompareList().size()+mainFrame.getModelExistValidationPanel().getMessageCompareList().size());
+				
+				showStateCompare(mainFrame.getModelExistValidationPanel().getStateCompareList());
+
+				showMessageCompare(mainFrame.getModelExistValidationPanel().getMessageCompareList());
+				
+				mainFrame.getValidationResultPanel().getThreenamelabel().setText("<html><body>在状态比较中,共找到"+mainFrame.getModelExistValidationPanel().getStateCompareList().size()+"条状态,成功"+statesuccesssum+"条,失败"+statefailsum+"条<br>在消息比较中,共找到"+mainFrame.getModelExistValidationPanel().getMessageCompareList().size()+"条消息,成功"+messagesuccesssum+"条,失败"+messagefailsum+"条</body></html>");
+				
+				
+				threadstate = 0;
+
+			}
+		});
+
+		t.start();
+		
+	}
+	
+	private  void startValidation4() {
+		// TODO Auto-generated method stub
+		
+		t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+
+				startRunProgressbar(mainFrame.getModelExistValidationPanel().getTimes().size());
+				
+				showPathTupleTime(mainFrame.getModelExistValidationPanel().getPathtuple(), mainFrame.getModelExistValidationPanel().getTimes());
+				
+				mainFrame.getValidationResultPanel().ChangeRepaint();
+				
+				threadstate = 0;
+
+			}
+		});
+
+		t.start();
+		
+	}
+
+	protected void startRunProgressbar(final int listsize) {
+		// TODO Auto-generated method stub
+		try {
+			progreseethread=new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					for(int index=0;index<listsize;index++){
+						int startprogressbar = (int) ((double) 100 / listsize * progressbarindex);
+						int endprogressbar = (int) ((double) 100 / listsize * (progressbarindex + 1));
+						
+						progressbarindex++;
+						
+						for(int i=startprogressbar;i<endprogressbar;i++){
+							progressbar.setValue(progressbar.getValue()+1);
+							progressbarlabel.setText(progressbar.getValue()+"%");
+							
+							try {
+								Thread.sleep(100);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+						}
+					}
+					
+				}
+				
+			});
+			
+			progreseethread.start();
+			progreseethread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	protected void startValidation() {
 		// TODO Auto-generated method stub
 		
@@ -387,9 +468,9 @@ public class ValidationToolPanel extends JPanel{
 						//xie
 						TranMessageColorize tmc=new TranMessageColorize();
 						tmc.ColorizeTranAndState(pathTupleList, workspace);
-						mainFrame.getValidationResultPanel().getOnenamelabel().setText("共找到一条路径，包含"+pathTupleList.size()+"个节点和"+pathTupleList.size()+"条消息：");
+						mainFrame.getValidationResultPanel().getTwonamelabel().setText("共找到一条路径，包含"+pathTupleList.size()+"个节点和"+pathTupleList.size()+"条消息：");
 						
-						mainFrame.getValidationResultPanel().getOneresultpanel().removeAll();
+						mainFrame.getValidationResultPanel().getTworesultpanel().removeAll();
 						
 						System.out.println("++++++++++++++++++++");
 						
@@ -418,7 +499,7 @@ public class ValidationToolPanel extends JPanel{
 						resultpanel.add(emptypanel);
 						layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 //						mainFrame.getValidationResultPanel().getResultpanel().add(Box.createVerticalGlue());
-						mainFrame.getValidationResultPanel().getOneresultpanel().add(resultpanel);
+						mainFrame.getValidationResultPanel().getTworesultpanel().add(resultpanel);
 						mainFrame.getValidationResultPanel().ChangeRepaint();
 						
 						System.out.println("++++++++++++++++++++");
@@ -573,14 +654,14 @@ public class ValidationToolPanel extends JPanel{
 		// TODO Auto-generated method stub
 		
 		ValidationPathTupleTimePanel vpttp=new ValidationPathTupleTimePanel(pathtuple, times);
-		mainFrame.getValidationResultPanel().getThreeresultpanel().removeAll();
-		mainFrame.getValidationResultPanel().getThreeresultpanel().add(vpttp);
+		mainFrame.getValidationResultPanel().getFourresultpanel().removeAll();
+		mainFrame.getValidationResultPanel().getFourresultpanel().add(vpttp);
 		
 		if(times.get(times.size()-1)==CompareEAtoAutomata.findTimingDiagramLastStateStartTime()){
-			mainFrame.getValidationResultPanel().getThreenamelabel().setText("自动机路径累加的时间和为"+times.get(times.size()-1)+"s,最后一个状态的开始时间为"+CompareEAtoAutomata.findTimingDiagramLastStateStartTime()+"s,验证成功");
+			mainFrame.getValidationResultPanel().getFournamelabel().setText("<html><body>自动机路径累加的时间和为"+times.get(times.size()-1)+"s<br>最后一个状态的开始时间为"+CompareEAtoAutomata.findTimingDiagramLastStateStartTime()+"s<br>验证成功</html></body>");
 		}
 		else{
-			mainFrame.getValidationResultPanel().getThreenamelabel().setText("自动机路径累加的时间和为"+times.get(times.size()-1)+"s,最后一个状态的开始时间为"+CompareEAtoAutomata.findTimingDiagramLastStateStartTime()+"s,验证失败");
+			mainFrame.getValidationResultPanel().getFournamelabel().setText("<html><body>自动机路径累加的时间和为"+times.get(times.size()-1)+"s<br>最后一个状态的开始时间为"+CompareEAtoAutomata.findTimingDiagramLastStateStartTime()+"s<br>验证失败</html></body>");
 		}
 		
 		

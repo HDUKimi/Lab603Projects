@@ -71,6 +71,11 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private JLabel progressbarlabel;
 	
 	private JProgressBar progressbar;
+	private int progressbarindex;
+	
+	private Thread t;
+	private Thread progreseethread;
+	private int threadstate=0;
 	
 	private JScrollPane tabelscrollpanel;
 	private JPanel tableresultpanel;
@@ -158,78 +163,24 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-//				if(t==null){
-//					startSequenceToUppaal();
-//					threadstate=true;
-//				}
-				
-//				if(threadstate==0){
-//					startSequenceToUppaal();
-//					threadstate=1;
-//					System.out.println("t is alive");
-//				}
-//				else if(threadstate==1){
-//					
-//				}
-//				else if(threadstate==-1){
-//					threadstate=1;
-//					t.resume();
-//					progreseethread.resume();
-//					System.out.println("t is not alive");
-//				}
-				
-//				ClientSocket clientSocket = new ClientSocket("192.168.150.117", 5555);
-//				clientSocket.Connection();
-//				JFileChooser jfc = new JFileChooser();
-//				jfc.setMultiSelectionEnabled(true);
-//				jfc.showDialog(new JLabel(), "选择测试用例");
-//				File[] files = jfc.getSelectedFiles();
-//				StepFiveArea.append("正在发送数据.....\n");
-//				clientSocket.sendFile(files);
-//				StepFiveArea.append("发送数据完成!\n");
-//				StepFiveArea.append("正在获得数据.....\n");
-//				try {
-//					Thread.sleep(10000);
-//				} catch (InterruptedException e) {
-//				}
-//				List<TestCase> list = clientSocket.getTestCaseList();
-//				StepFiveArea.append("数据已经获得!\n");
+				if (threadstate == 0) {
+					progressbar.setValue(0);
+					progressbarlabel.setText(" ");
+					
+					progressbarindex=0;
+					
+					startConfirmation();
+					
+					threadstate=1;
+					
+				} else if (threadstate == 1) {
 
-				checkedtestcasereportlist.removeAll(checkedtestcasereportlist);
-				testcaselist.removeAll(testcaselist);
-				
-				testcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTestcasereportlist();
-				
-				for(TestCaseReportPartPanel tcrpp:testcasereportlist){
-					
-					if(tcrpp.getToolcheckbox().isSelected()){
-						checkedtestcasereportlist.add(tcrpp);
-						testcaselist.add(tcrpp.getTestcase());
-					}
-					
+				} else if (threadstate == -1) {
+					threadstate = 1;
+					t.resume();
+					progreseethread.resume();
+					System.out.println("t is not alive");
 				}
-				
-				extractDataToXml(testcaselist);
-				
-				changeDataInTable(extractData());
-				
-				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().add(new TestCasePieChartPanel(testcasecount));
-				
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().add(new TestCaseBarChartPanel(testcasecount));
-				
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseLineChartTabbedPane().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseLineChartTabbedPane().add(new JScrollPane(new TestCaseLineChartPanel(testcasecountlist)));
-				
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().add(new JScrollPane(new TestCaseStackedBarChartPanel(testcasecountlist)));
-				
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().removeAll();
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().add(new JScrollPane(new TestCaseAreaChartPanel(testcasecountlist)));
-				
-				
-//				changeDataInTable(list);
 				
 			}
 		});
@@ -246,9 +197,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-//				t.suspend();
-//				progreseethread.suspend();
-//				threadstate=-1;
+				t.suspend();
+				progreseethread.suspend();
+				threadstate=-1;
 				
 			}
 		});
@@ -266,12 +217,12 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-//				t.stop();
-//				progreseethread.stop();
-//				threadstate=0;
-//				
-//				progressbar.setValue(0);
-//				progressbarlabel.setText("0%");
+				t.stop();
+				progreseethread.stop();
+				threadstate=0;
+				
+				progressbar.setValue(0);
+				progressbarlabel.setText("0%");
 //				
 //				while(sequencetouppaaltablemodel.getRowCount()>0){
 //					sequencetouppaaltablemodel.removeRow(sequencetouppaaltablemodel.getRowCount()-1);
@@ -442,6 +393,126 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		toolpanel.setPreferredSize(new Dimension(100, 29));
 		toolpanel.setMaximumSize(new Dimension(100, 29));
 		toolpanel.setMinimumSize(new Dimension(100, 29));
+		
+	}
+
+	private void startConfirmation() {
+		// TODO Auto-generated method stub
+		
+//		ClientSocket clientSocket = new ClientSocket("192.168.150.117", 5555);
+//		clientSocket.Connection();
+//		JFileChooser jfc = new JFileChooser();
+//		jfc.setMultiSelectionEnabled(true);
+//		jfc.showDialog(new JLabel(), "选择测试用例");
+//		File[] files = jfc.getSelectedFiles();
+//		StepFiveArea.append("正在发送数据.....\n");
+//		clientSocket.sendFile(files);
+//		StepFiveArea.append("发送数据完成!\n");
+//		StepFiveArea.append("正在获得数据.....\n");
+//		try {
+//			Thread.sleep(10000);
+//		} catch (InterruptedException e) {
+//		}
+//		List<TestCase> list = clientSocket.getTestCaseList();
+//		StepFiveArea.append("数据已经获得!\n");
+
+		t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				checkedtestcasereportlist.removeAll(checkedtestcasereportlist);
+				testcaselist.removeAll(testcaselist);
+				
+				testcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTestcasereportlist();
+				
+				for(TestCaseReportPartPanel tcrpp:testcasereportlist){
+					
+					if(tcrpp.getToolcheckbox().isSelected()){
+						checkedtestcasereportlist.add(tcrpp);
+						testcaselist.add(tcrpp.getTestcase());
+					}
+					
+				}
+				
+				extractDataToXml(testcaselist);//生成测试用例xml
+				
+				//接收到测试结果list
+				
+				startRunProgressbar();//显示进度条
+				
+				changeDataInTable(extractData());//显示测试结果
+				
+				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().removeAll();
+				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().add(new TestCasePieChartPanel(testcasecount));
+				
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().removeAll();
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().add(new TestCaseBarChartPanel(testcasecount));
+				
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseLineChartTabbedPane().removeAll();
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseLineChartTabbedPane().add(new JScrollPane(new TestCaseLineChartPanel(testcasecountlist)));
+				
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().removeAll();
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().add(new JScrollPane(new TestCaseStackedBarChartPanel(testcasecountlist)));
+				
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().removeAll();
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().add(new JScrollPane(new TestCaseAreaChartPanel(testcasecountlist)));
+				
+				
+//				changeDataInTable(list);
+				
+				threadstate=0;
+			}
+			
+		});
+		t.start();
+		
+	}
+
+	protected void startRunProgressbar() {
+		// TODO Auto-generated method stub
+		
+		try {
+			progreseethread=new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					for(int index=0;index<testcaselist.size();index++){
+						int startprogressbar = (int) ((double) 100 / testcaselist.size() * progressbarindex);
+						int endprogressbar = (int) ((double) 100 / testcaselist.size() * (progressbarindex + 1));
+						
+						progressbarindex++;
+						System.out.println(progressbarindex);
+//						System.out.println(startprogressbar+"  "+endprogressbar);
+						
+						for(int i=startprogressbar;i<endprogressbar;i++){
+							progressbar.setValue(progressbar.getValue()+1);
+							progressbarlabel.setText(progressbar.getValue()+"%");
+//							ChangeRepaint();
+							
+							try {
+								Thread.sleep(100);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+						}
+					}
+					
+				}
+				
+			});
+			
+			progreseethread.start();
+			progreseethread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 

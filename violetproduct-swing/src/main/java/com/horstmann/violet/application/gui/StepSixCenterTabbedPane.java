@@ -112,7 +112,7 @@ public class StepSixCenterTabbedPane extends JPanel {
 		
 		buttonPanel.add(timingDiagramButtonPanel);
 		buttonPanel.add(uppaalDiagramButtonPanel);
-		buttonPanel.add(validationDiagramButtonPanel);
+//		buttonPanel.add(validationDiagramButtonPanel);
 		
 		setButtonActionListener();
 		

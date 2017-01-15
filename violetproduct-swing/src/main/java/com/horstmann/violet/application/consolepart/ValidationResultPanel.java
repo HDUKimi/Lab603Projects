@@ -45,9 +45,11 @@ public class ValidationResultPanel extends JPanel{
 	private JPanel validationlabeltabpanel1;
 	private JPanel validationlabeltabpanel2;
 	private JPanel validationlabeltabpanel3;
-	private JLabel validationlabeltab1;
-	private JLabel validationlabeltab2;
-	private JLabel validationlabeltab3;
+	private JPanel validationlabeltabpanel4;
+	private JButton validationlabeltab1;
+	private JButton validationlabeltab2;
+	private JButton validationlabeltab3;
+	private JButton validationlabeltab4;
 	
 	private int validationlabeltabindex=1;
 	
@@ -68,6 +70,12 @@ public class ValidationResultPanel extends JPanel{
 	private JLabel threenamelabel;
 	private JPanel threeresultpanel;
 	private JScrollPane threeresultscrollpanel;
+	
+	private JPanel fourvalidationresultpanel;
+	private JPanel fournamepanel;
+	private JLabel fournamelabel;
+	private JPanel fourresultpanel;
+	private JScrollPane fourresultscrollpanel;
 	
 	private JPanel statelocationpanel;
 	private JPanel statelocationlabelpanel;
@@ -113,6 +121,8 @@ public class ValidationResultPanel extends JPanel{
 		
 		initThreeValidationResultPanel();
 		
+		initFourValidationResultPanel();
+		
 		initTitlePanel();
 		
 		initTabPanel();
@@ -141,6 +151,58 @@ public class ValidationResultPanel extends JPanel{
 		
 	}
 
+	private void initFourValidationResultPanel() {
+		// TODO Auto-generated method stub
+		
+		fourvalidationresultpanel=new JPanel();
+		
+		fournamepanel=new JPanel();
+		fournamelabel=new JLabel();
+		fourresultpanel=new JPanel();
+		
+		fournamepanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(142, 155, 188)));
+		
+		initFourNamePanel();
+		
+		initFourResulePanel();
+		
+		GridBagLayout layout=new GridBagLayout();
+		fourvalidationresultpanel.setLayout(layout);
+		fourvalidationresultpanel.add(fournamepanel);
+		fourvalidationresultpanel.add(fourresultscrollpanel);
+		layout.setConstraints(fournamepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(fourresultscrollpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+	}
+
+	private void initFourNamePanel() {
+		// TODO Auto-generated method stub
+		
+		fournamelabel.setText("时间刻度显示： ");
+		fournamelabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		fournamelabel.setForeground(new Color(0, 102, 204));
+		fournamelabel.setBorder(BorderFactory.createEmptyBorder(2, 6, 2, 0));
+		
+		fournamepanel.setLayout(new BorderLayout());
+		fournamepanel.setBackground(new Color(255,255,255));
+		fournamepanel.setPreferredSize(new Dimension(200, 60));
+		fournamepanel.setMinimumSize(new Dimension(100, 60));
+		fournamepanel.add(fournamelabel,BorderLayout.WEST);
+		
+	}
+
+	private void initFourResulePanel() {
+		// TODO Auto-generated method stub
+		
+		fourresultpanel.setLayout(new GridLayout());
+
+		fourresultpanel.setBackground(new Color(255, 255, 255));
+		
+		fourresultscrollpanel=new JScrollPane(fourresultpanel);
+		fourresultscrollpanel.setBorder(null);
+		
+	}
+
 	private void initThreeValidationResultPanel() {
 		// TODO Auto-generated method stub
 		
@@ -159,24 +221,24 @@ public class ValidationResultPanel extends JPanel{
 		GridBagLayout layout=new GridBagLayout();
 		threevalidationresultpanel.setLayout(layout);
 		threevalidationresultpanel.add(threenamepanel);
-		threevalidationresultpanel.add(threeresultscrollpanel);
+		threevalidationresultpanel.add(threeresultpanel);
 		layout.setConstraints(threenamepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(threeresultscrollpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(threeresultpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 	}
 
 	private void initThreeNamePanel() {
 		// TODO Auto-generated method stub
 		
-		threenamelabel.setText("时间刻度显示： ");
+		threenamelabel.setText(" 测试对比结果显示： ");
 		threenamelabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		threenamelabel.setForeground(new Color(0, 102, 204));
-		threenamelabel.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 0));
+		threenamelabel.setBorder(BorderFactory.createEmptyBorder(2, 6, 2, 0));
 		
 		threenamepanel.setLayout(new BorderLayout());
 		threenamepanel.setBackground(new Color(255,255,255));
-		threenamepanel.setPreferredSize(new Dimension(200, 25));
-		threenamepanel.setMinimumSize(new Dimension(100, 25));
+		threenamepanel.setPreferredSize(new Dimension(200, 45));
+		threenamepanel.setMinimumSize(new Dimension(100, 45));
 		threenamepanel.add(threenamelabel,BorderLayout.WEST);
 		
 	}
@@ -184,64 +246,12 @@ public class ValidationResultPanel extends JPanel{
 	private void initThreeResulePanel() {
 		// TODO Auto-generated method stub
 		
-		threeresultpanel.setLayout(new GridLayout());
-
-		threeresultpanel.setBackground(new Color(255, 255, 255));
-		
-		threeresultscrollpanel=new JScrollPane(threeresultpanel);
-		threeresultscrollpanel.setBorder(null);
-		
-	}
-
-	private void initTwoValidationResultPanel() {
-		// TODO Auto-generated method stub
-		
-		twovalidationresultpanel=new JPanel();
-		
-		twonamepanel=new JPanel();
-		twonamelabel=new JLabel();
-		tworesultpanel=new JPanel();
-		
-		twonamepanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(142, 155, 188)));
-		
-		initTwoNamePanel();
-		
-		initTwoResulePanel();
-		
-		GridBagLayout layout=new GridBagLayout();
-		twovalidationresultpanel.setLayout(layout);
-		twovalidationresultpanel.add(twonamepanel);
-		twovalidationresultpanel.add(tworesultpanel);
-		layout.setConstraints(twonamepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(tworesultpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		
-	}
-
-	private void initTwoNamePanel() {
-		// TODO Auto-generated method stub
-		
-		twonamelabel.setText(" 测试对比结果显示： ");
-		twonamelabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-		twonamelabel.setForeground(new Color(0, 102, 204));
-		twonamelabel.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 0));
-		
-		twonamepanel.setLayout(new BorderLayout());
-		twonamepanel.setBackground(new Color(255,255,255));
-		twonamepanel.setPreferredSize(new Dimension(200, 45));
-		twonamepanel.setMinimumSize(new Dimension(100, 45));
-		twonamepanel.add(twonamelabel,BorderLayout.WEST);
-		
-	}
-
-	private void initTwoResulePanel() {
-		// TODO Auto-generated method stub
-		
-//		tworesultpanel.setLayout(new GridLayout());
+//		threeresultpanel.setLayout(new GridLayout());
 //
-//		tworesultpanel.setBackground(new Color(255, 255, 255));
+//		threeresultpanel.setBackground(new Color(255, 255, 255));
 //		
-//		tworesultscrollpanel=new JScrollPane(tworesultpanel);
-//		tworesultscrollpanel.setBorder(null);
+//		threeresultscrollpanel=new JScrollPane(threeresultpanel);
+//		threeresultscrollpanel.setBorder(null);
 		
 		statelocationpanel=new JPanel();
 		statelocationlabelpanel=new JPanel();
@@ -262,10 +272,10 @@ public class ValidationResultPanel extends JPanel{
 		initMessageTransitionPanel();
 		
 		GridBagLayout layout=new GridBagLayout();
-		tworesultpanel.setLayout(layout);
-		tworesultpanel.add(statelocationlabelpanel);
-		tworesultpanel.add(statelocationscrollpanel);
-		tworesultpanel.add(messagetransitionpanel);
+		threeresultpanel.setLayout(layout);
+		threeresultpanel.add(statelocationlabelpanel);
+		threeresultpanel.add(statelocationscrollpanel);
+		threeresultpanel.add(messagetransitionpanel);
 		layout.setConstraints(statelocationlabelpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(statelocationscrollpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		layout.setConstraints(messagetransitionpanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
@@ -452,6 +462,59 @@ public class ValidationResultPanel extends JPanel{
 		onenamepanel.add(onenamelabel,BorderLayout.WEST);
 		
 	}
+	
+	private void initTwoValidationResultPanel() {
+		// TODO Auto-generated method stub
+		
+		twovalidationresultpanel=new JPanel();
+		
+		twonamepanel=new JPanel();
+		twonamelabel=new JLabel();
+		tworesultpanel=new JPanel();
+		
+		twonamepanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(142, 155, 188)));
+		
+		initTwoNamePanel();
+		
+		initTwoResulePanel();
+		
+		GridBagLayout layout=new GridBagLayout();
+		twovalidationresultpanel.setLayout(layout);
+		twovalidationresultpanel.add(twonamepanel);
+		twovalidationresultpanel.add(tworesultscrollpanel);
+		layout.setConstraints(twonamepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(tworesultscrollpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+		
+	}
+
+	private void initTwoResulePanel() {
+		// TODO Auto-generated method stub
+		
+		tworesultpanel.setLayout(new GridLayout());
+
+		tworesultpanel.setBackground(new Color(255, 255, 255));
+		
+		tworesultscrollpanel=new JScrollPane(tworesultpanel);
+		tworesultscrollpanel.setBorder(null);
+		
+	}
+
+	private void initTwoNamePanel() {
+		// TODO Auto-generated method stub
+		
+		twonamelabel.setText("  ");
+		twonamelabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		twonamelabel.setForeground(new Color(0, 102, 204));
+		twonamelabel.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 0));
+		
+		twonamepanel.setLayout(new BorderLayout());
+		twonamepanel.setBackground(new Color(255,255,255));
+		twonamepanel.setPreferredSize(new Dimension(200, 25));
+		twonamepanel.setMinimumSize(new Dimension(100, 25));
+		twonamepanel.add(twonamelabel,BorderLayout.WEST);
+		
+	}
 
 	private void initTitlePanel() {
 		// TODO Auto-generated method stub
@@ -532,16 +595,20 @@ public class ValidationResultPanel extends JPanel{
 		validationlabeltabpanel1=new JPanel();
 		validationlabeltabpanel2=new JPanel();
 		validationlabeltabpanel3=new JPanel();
+		validationlabeltabpanel4=new JPanel();
 		
-		validationlabeltab1=new JLabel();
-		validationlabeltab2=new JLabel();
-		validationlabeltab3=new JLabel();
+		validationlabeltab1=new JButton();
+		validationlabeltab2=new JButton();
+		validationlabeltab3=new JButton();
+		validationlabeltab4=new JButton();
 		
-		validationlabeltab1.setText("属性结果");
+		validationlabeltab1.setText("存在结果");
 		validationlabeltab1.setForeground(new Color(0,0,0));
 		validationlabeltab1.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-		validationlabeltab1.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		validationlabeltab1.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
 		validationlabeltab1.setFocusable(false);
+		validationlabeltab1.setContentAreaFilled(false);
+		validationlabeltab1.setBorderPainted(false);
 		validationlabeltab1.addMouseListener(new MouseListener() {
 
 			@Override
@@ -585,21 +652,45 @@ public class ValidationResultPanel extends JPanel{
 				
 				resultpanel.removeAll();
 				resultpanel.add(onevalidationresultpanel);
+				if(mainFrame.getModelExistValidationPanel().getValidationlabeltabindex()!=1){
+					mainFrame.getModelExistValidationPanel().getValidationlabeltab1().doClick();
+				}
 				
 				ChangeRepaint();
-				
-//				mainFrame.setVisible(false);
-//				mainFrame.getContentPane().repaint();
-//				mainFrame.setVisible(true);
 				
 			}
 		});
 		
-		validationlabeltab2.setText("对比结果");
+		validationlabeltab1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				setvalidationlabeltabpanelrepait();
+				validationlabeltab1.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel1.setBackground(new Color(255, 255, 255));
+				validationlabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,0,1, new Color(142, 155, 188)));
+				validationlabeltabindex = 1;
+				
+				resultpanel.removeAll();
+				resultpanel.add(onevalidationresultpanel);
+				if(mainFrame.getModelExistValidationPanel().getValidationlabeltabindex()!=1){
+					mainFrame.getModelExistValidationPanel().getValidationlabeltab1().doClick();
+				}
+				
+				ChangeRepaint();
+				
+			}
+		});
+		
+		validationlabeltab2.setText("顺序结果");
 		validationlabeltab2.setForeground(new Color(255, 255, 255));
 		validationlabeltab2.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-		validationlabeltab2.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		validationlabeltab2.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
 		validationlabeltab2.setFocusable(false);
+		validationlabeltab2.setContentAreaFilled(false);
+		validationlabeltab2.setBorderPainted(false);
 		validationlabeltab2.addMouseListener(new MouseListener() {
 
 			@Override
@@ -638,21 +729,50 @@ public class ValidationResultPanel extends JPanel{
 				setvalidationlabeltabpanelrepait();
 				validationlabeltab2.setForeground(new Color(0, 0, 0));
 				validationlabeltabpanel2.setBackground(new Color(255, 255, 255));
-				validationlabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0,1,0,1, new Color(142, 155, 188)));
+				validationlabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0,0,0,1, new Color(142, 155, 188)));
 				validationlabeltabindex = 2;
 				
 				resultpanel.removeAll();
 				resultpanel.add(twovalidationresultpanel);
+				if(mainFrame.getModelExistValidationPanel().getValidationlabeltabindex()!=2){
+					mainFrame.getModelExistValidationPanel().getValidationlabeltab2().doClick();
+				}
 				
 				ChangeRepaint();
+				
 			}
 		});
 		
-		validationlabeltab3.setText("时间刻度");
+		validationlabeltab2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				setvalidationlabeltabpanelrepait();
+				validationlabeltab2.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel2.setBackground(new Color(255, 255, 255));
+				validationlabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0,0,0,1, new Color(142, 155, 188)));
+				validationlabeltabindex = 2;
+				
+				resultpanel.removeAll();
+				resultpanel.add(twovalidationresultpanel);
+				if(mainFrame.getModelExistValidationPanel().getValidationlabeltabindex()!=2){
+					mainFrame.getModelExistValidationPanel().getValidationlabeltab2().doClick();
+				}
+				
+				ChangeRepaint();
+				
+			}
+		});
+		
+		validationlabeltab3.setText("对比结果");
 		validationlabeltab3.setForeground(new Color(255, 255, 255));
 		validationlabeltab3.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-		validationlabeltab3.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		validationlabeltab3.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
 		validationlabeltab3.setFocusable(false);
+		validationlabeltab3.setContentAreaFilled(false);
+		validationlabeltab3.setBorderPainted(false);
 		validationlabeltab3.addMouseListener(new MouseListener() {
 
 			@Override
@@ -696,8 +816,115 @@ public class ValidationResultPanel extends JPanel{
 				
 				resultpanel.removeAll();
 				resultpanel.add(threevalidationresultpanel);
+				if(mainFrame.getModelExistValidationPanel().getValidationlabeltabindex()!=3){
+					mainFrame.getModelExistValidationPanel().getValidationlabeltab3().doClick();
+				}
 				
 				ChangeRepaint();
+			}
+		});
+		
+		validationlabeltab3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				setvalidationlabeltabpanelrepait();
+				validationlabeltab3.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel3.setBackground(new Color(255, 255, 255));
+				validationlabeltabpanel3.setBorder(BorderFactory.createMatteBorder(0,1,0,1, new Color(142, 155, 188)));
+				validationlabeltabindex = 3;
+				
+				resultpanel.removeAll();
+				resultpanel.add(threevalidationresultpanel);
+				if(mainFrame.getModelExistValidationPanel().getValidationlabeltabindex()!=3){
+					mainFrame.getModelExistValidationPanel().getValidationlabeltab3().doClick();
+				}
+				
+				ChangeRepaint();
+				
+			}
+		});
+		
+		validationlabeltab4.setText("时间刻度");
+		validationlabeltab4.setForeground(new Color(255, 255, 255));
+		validationlabeltab4.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		validationlabeltab4.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
+		validationlabeltab4.setFocusable(false);
+		validationlabeltab4.setContentAreaFilled(false);
+		validationlabeltab4.setBorderPainted(false);
+		validationlabeltab4.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				validationlabeltab4.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel4.setBackground(new Color(255, 255, 255));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (validationlabeltabindex != 4) {
+					validationlabeltab4.setForeground(new Color(255, 255, 255));
+					validationlabeltabpanel4.setBackground(new Color(77, 96, 130));
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (validationlabeltabindex != 4) {
+					validationlabeltabpanel4.setBackground(new Color(134, 161, 209));
+				}
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				setvalidationlabeltabpanelrepait();
+				validationlabeltab4.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel4.setBackground(new Color(255, 255, 255));
+				validationlabeltabpanel4.setBorder(BorderFactory.createMatteBorder(0,1,0,1, new Color(142, 155, 188)));
+				validationlabeltabindex = 4;
+				
+				resultpanel.removeAll();
+				resultpanel.add(fourvalidationresultpanel);
+				if(mainFrame.getModelExistValidationPanel().getValidationlabeltabindex()!=4){
+					mainFrame.getModelExistValidationPanel().getValidationlabeltab4().doClick();
+				}
+				
+				ChangeRepaint();
+			}
+		});
+		
+		validationlabeltab4.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				setvalidationlabeltabpanelrepait();
+				validationlabeltab4.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel4.setBackground(new Color(255, 255, 255));
+				validationlabeltabpanel4.setBorder(BorderFactory.createMatteBorder(0,1,0,1, new Color(142, 155, 188)));
+				validationlabeltabindex = 4;
+				
+				resultpanel.removeAll();
+				resultpanel.add(fourvalidationresultpanel);
+				if(mainFrame.getModelExistValidationPanel().getValidationlabeltabindex()!=4){
+					mainFrame.getModelExistValidationPanel().getValidationlabeltab4().doClick();
+				}
+				
+				ChangeRepaint();
+				
 			}
 		});
 		
@@ -714,12 +941,17 @@ public class ValidationResultPanel extends JPanel{
 		validationlabeltabpanel3.setBackground(new Color(77, 96, 130));
 		validationlabeltabpanel3.setPreferredSize(new Dimension(60, 30));
 		validationlabeltabpanel3.add(validationlabeltab3);
+		validationlabeltabpanel4.setLayout(new GridLayout());
+		validationlabeltabpanel4.setBackground(new Color(77, 96, 130));
+		validationlabeltabpanel4.setPreferredSize(new Dimension(60, 30));
+		validationlabeltabpanel4.add(validationlabeltab4);
 
 		validationlabeltabpanel.setBackground(new Color(41, 57, 85));
 		validationlabeltabpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		validationlabeltabpanel.add(validationlabeltabpanel1);
 		validationlabeltabpanel.add(validationlabeltabpanel2);
 		validationlabeltabpanel.add(validationlabeltabpanel3);
+		validationlabeltabpanel.add(validationlabeltabpanel4);
 		
 		validationlabeltabpanel.setPreferredSize(new Dimension(100, 30));
 		validationlabeltabpanel.setMinimumSize(new Dimension(100, 30));
@@ -737,7 +969,10 @@ public class ValidationResultPanel extends JPanel{
 		validationlabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(77, 96, 130)));
 		validationlabeltab3.setForeground(new Color(255, 255, 255));
 		validationlabeltabpanel3.setBackground(new Color(77, 96, 130));
-		validationlabeltabpanel3.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(77, 96, 130)));
+		validationlabeltabpanel3.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(77, 96, 130)));
+		validationlabeltab4.setForeground(new Color(255, 255, 255));
+		validationlabeltabpanel4.setBackground(new Color(77, 96, 130));
+		validationlabeltabpanel4.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(77, 96, 130)));
 
 	}
 
@@ -764,21 +999,13 @@ public class ValidationResultPanel extends JPanel{
 	public JPanel getOneresultpanel() {
 		return oneresultpanel;
 	}
-
+	
 	public JLabel getTwonamelabel() {
 		return twonamelabel;
 	}
 
 	public JPanel getTworesultpanel() {
 		return tworesultpanel;
-	}
-
-	public JPanel getStatelocationresultpanel() {
-		return statelocationresultpanel;
-	}
-
-	public JPanel getMessagetransitionresultpanel() {
-		return messagetransitionresultpanel;
 	}
 
 	public JLabel getThreenamelabel() {
@@ -789,12 +1016,44 @@ public class ValidationResultPanel extends JPanel{
 		return threeresultpanel;
 	}
 
+	public JLabel getFournamelabel() {
+		return fournamelabel;
+	}
+
+	public JPanel getFourresultpanel() {
+		return fourresultpanel;
+	}
+	
+	public JPanel getStatelocationresultpanel() {
+		return statelocationresultpanel;
+	}
+
+	public JPanel getMessagetransitionresultpanel() {
+		return messagetransitionresultpanel;
+	}
+
 	public int getValidationlabeltabindex() {
 		return validationlabeltabindex;
 	}
 
 	public void setValidationlabeltabindex(int validationlabeltabindex) {
 		this.validationlabeltabindex = validationlabeltabindex;
+	}
+
+	public JButton getValidationlabeltab1() {
+		return validationlabeltab1;
+	}
+
+	public JButton getValidationlabeltab2() {
+		return validationlabeltab2;
+	}
+	
+	public JButton getValidationlabeltab3() {
+		return validationlabeltab3;
+	}
+
+	public JButton getValidationlabeltab4() {
+		return validationlabeltab4;
 	}
 	
 	

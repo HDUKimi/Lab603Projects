@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -212,7 +213,9 @@ public class TestCaseReportPartPanel extends JPanel {
 		renderer.setBackground(new Color(71, 80, 93));
 		renderer.setForeground(new Color(255, 255, 255));
 		renderer.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 13));
-//		renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+		renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+//		renderer.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
+//		renderer.set
 		attributetable.getTableHeader().setDefaultRenderer(renderer);
 
 		attributetable.getTableHeader().setPreferredSize(new Dimension(100, 27));
@@ -245,6 +248,7 @@ public class TestCaseReportPartPanel extends JPanel {
 		renderer1.setBackground(new Color(255, 255, 255));
 		renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+//		renderer1.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
 		attributetable.setDefaultRenderer(Object.class, renderer1);
 		
 //		for (int i = 0; i < attributetable.getColumnCount(); i++) {  

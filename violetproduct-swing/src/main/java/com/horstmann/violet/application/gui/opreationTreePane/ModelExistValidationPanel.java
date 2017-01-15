@@ -112,15 +112,17 @@ public class ModelExistValidationPanel extends JPanel{
 	private JPanel validationlabeltabpanel2;
 	private JPanel validationlabeltabpanel3;
 	private JPanel validationlabeltabpanel4;
-	private JLabel validationlabeltab1;
-	private JLabel validationlabeltab2;
-	private JLabel validationlabeltab3;
-	private JLabel validationlabeltab4;
+	private JButton validationlabeltab1;
+	private JButton validationlabeltab2;
+	private JButton validationlabeltab3;
+	private JButton validationlabeltab4;
 	
 	private int validationlabeltabindex=1;
 	
 	private JPanel validationcheckboxpanel;
 	private JScrollPane validationscrollpanel;
+	private JPanel validationinfopanel;
+	private JPanel emptypanel;
 	
 	private List<UppaalTransition> uppaalmessagelist=new ArrayList<UppaalTransition>();
 	private List<UppaalTransition> selecteduppaalmessagelist=new ArrayList<UppaalTransition>();
@@ -552,14 +554,14 @@ public class ModelExistValidationPanel extends JPanel{
 		// TODO Auto-generated method stub
 		
 		ValidationPathTupleTimePanel vpttp=new ValidationPathTupleTimePanel(pathtuple, times);
-		mainFrame.getValidationResultPanel().getThreeresultpanel().removeAll();
-		mainFrame.getValidationResultPanel().getThreeresultpanel().add(vpttp);
+		mainFrame.getValidationResultPanel().getFourresultpanel().removeAll();
+		mainFrame.getValidationResultPanel().getFourresultpanel().add(vpttp);
 		
 		if(times.get(times.size()-1)==CompareEAtoAutomata.findTimingDiagramLastStateStartTime()){
-			mainFrame.getValidationResultPanel().getThreenamelabel().setText("自动机路径累加的时间和为"+times.get(times.size()-1)+"s,最后一个状态的开始时间为"+CompareEAtoAutomata.findTimingDiagramLastStateStartTime()+"s,验证成功");
+			mainFrame.getValidationResultPanel().getFournamelabel().setText("自动机路径累加的时间和为"+times.get(times.size()-1)+"s,最后一个状态的开始时间为"+CompareEAtoAutomata.findTimingDiagramLastStateStartTime()+"s,验证成功");
 		}
 		else{
-			mainFrame.getValidationResultPanel().getThreenamelabel().setText("自动机路径累加的时间和为"+times.get(times.size()-1)+"s,最后一个状态的开始时间为"+CompareEAtoAutomata.findTimingDiagramLastStateStartTime()+"s,验证失败");
+			mainFrame.getValidationResultPanel().getFournamelabel().setText("自动机路径累加的时间和为"+times.get(times.size()-1)+"s,最后一个状态的开始时间为"+CompareEAtoAutomata.findTimingDiagramLastStateStartTime()+"s,验证失败");
 		}
 		
 		
@@ -827,9 +829,16 @@ public class ModelExistValidationPanel extends JPanel{
 		layout.setConstraints(validationlabelpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(validationlabeltabpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		
+		emptypanel=new JPanel();
+		emptypanel.setBackground(new Color(255, 255, 255));
+		
+		validationinfopanel=new JPanel();
+		validationinfopanel.setLayout(new GridLayout());
+		validationinfopanel.add(validationscrollpanel);
+		
 		validationpanel.setLayout(new BorderLayout());
 		validationpanel.add(validationalllabelpanel,BorderLayout.NORTH);
-		validationpanel.add(validationscrollpanel,BorderLayout.CENTER);
+		validationpanel.add(validationinfopanel,BorderLayout.CENTER);
 
 		
 	}
@@ -843,16 +852,18 @@ public class ModelExistValidationPanel extends JPanel{
 		validationlabeltabpanel3=new JPanel();
 		validationlabeltabpanel4=new JPanel();
 		
-		validationlabeltab1=new JLabel();
-		validationlabeltab2=new JLabel();
-		validationlabeltab3=new JLabel();
-		validationlabeltab4=new JLabel();
+		validationlabeltab1=new JButton();
+		validationlabeltab2=new JButton();
+		validationlabeltab3=new JButton();
+		validationlabeltab4=new JButton();
 		
 		validationlabeltab1.setText("存在");
 		validationlabeltab1.setForeground(new Color(0,0,0));
 		validationlabeltab1.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-		validationlabeltab1.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		validationlabeltab1.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
 		validationlabeltab1.setFocusable(false);
+		validationlabeltab1.setContentAreaFilled(false);
+		validationlabeltab1.setBorderPainted(false);
 		validationlabeltab1.addMouseListener(new MouseListener() {
 
 			@Override
@@ -895,15 +906,48 @@ public class ModelExistValidationPanel extends JPanel{
 				validationlabeltabindex = 1;
 				
 				validationlabel.setText("存在性验证");
+				
+				validationinfopanel.removeAll();
+				validationinfopanel.add(validationscrollpanel);
+				if(mainFrame.getValidationResultPanel().getValidationlabeltabindex()!=1){
+					mainFrame.getValidationResultPanel().getValidationlabeltab1().doClick();
+				}
+				
+				ChangeRepaint();
 
+			}
+		});
+		
+		validationlabeltab1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				setvalidationlabeltabpanelrepait();
+				validationlabeltab1.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel1.setBackground(new Color(255, 255, 255));
+				validationlabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,1,1, new Color(142, 155, 188)));
+				validationlabeltabindex = 1;
+				
+				validationlabel.setText("存在性验证");
+				
+				validationinfopanel.removeAll();
+				validationinfopanel.add(validationscrollpanel);
+				if(mainFrame.getValidationResultPanel().getValidationlabeltabindex()!=1){
+					mainFrame.getValidationResultPanel().getValidationlabeltab1().doClick();
+				}
+				
+				ChangeRepaint();
 			}
 		});
 		
 		validationlabeltab2.setText("顺序");
 		validationlabeltab2.setForeground(new Color(255, 255, 255));
 		validationlabeltab2.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-		validationlabeltab2.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		validationlabeltab2.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
 		validationlabeltab2.setFocusable(false);
+		validationlabeltab2.setContentAreaFilled(false);
+		validationlabeltab2.setBorderPainted(false);
 		validationlabeltab2.addMouseListener(new MouseListener() {
 
 			@Override
@@ -946,15 +990,48 @@ public class ModelExistValidationPanel extends JPanel{
 				validationlabeltabindex = 2;
 				
 				validationlabel.setText("顺序性验证");
+				
+				validationinfopanel.removeAll();
+				validationinfopanel.add(validationscrollpanel);
+				if(mainFrame.getValidationResultPanel().getValidationlabeltabindex()!=2){
+					mainFrame.getValidationResultPanel().getValidationlabeltab2().doClick();
+				}
+				
+				ChangeRepaint();
 
+			}
+		});
+
+		validationlabeltab2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				setvalidationlabeltabpanelrepait();
+				validationlabeltab2.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel2.setBackground(new Color(255, 255, 255));
+				validationlabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
+				validationlabeltabindex = 2;
+				
+				validationlabel.setText("顺序性验证");
+				
+				validationinfopanel.removeAll();
+				validationinfopanel.add(validationscrollpanel);
+				if(mainFrame.getValidationResultPanel().getValidationlabeltabindex()!=2){
+					mainFrame.getValidationResultPanel().getValidationlabeltab2().doClick();
+				}
+				
+				ChangeRepaint();
 			}
 		});
 		
 		validationlabeltab3.setText("对比");
 		validationlabeltab3.setForeground(new Color(255, 255, 255));
 		validationlabeltab3.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-		validationlabeltab3.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		validationlabeltab3.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
 		validationlabeltab3.setFocusable(false);
+		validationlabeltab3.setContentAreaFilled(false);
+		validationlabeltab3.setBorderPainted(false);
 		validationlabeltab3.addMouseListener(new MouseListener() {
 
 			@Override
@@ -997,6 +1074,38 @@ public class ModelExistValidationPanel extends JPanel{
 				validationlabeltabindex = 3;
 				
 				validationlabel.setText("对比性验证");
+				
+				validationinfopanel.removeAll();
+				validationinfopanel.add(emptypanel);
+				if(mainFrame.getValidationResultPanel().getValidationlabeltabindex()!=3){
+					mainFrame.getValidationResultPanel().getValidationlabeltab3().doClick();
+				}
+				
+				ChangeRepaint();
+
+			}
+		});
+		
+		validationlabeltab3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				setvalidationlabeltabpanelrepait();
+				validationlabeltab3.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel3.setBackground(new Color(255, 255, 255));
+				validationlabeltabpanel3.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
+				validationlabeltabindex = 3;
+				
+				validationlabel.setText("对比性验证");
+				
+				validationinfopanel.removeAll();
+				validationinfopanel.add(emptypanel);
+				if(mainFrame.getValidationResultPanel().getValidationlabeltabindex()!=3){
+					mainFrame.getValidationResultPanel().getValidationlabeltab3().doClick();
+				}
+				
+				ChangeRepaint();
 
 			}
 		});
@@ -1004,8 +1113,10 @@ public class ModelExistValidationPanel extends JPanel{
 		validationlabeltab4.setText("时间");
 		validationlabeltab4.setForeground(new Color(255, 255, 255));
 		validationlabeltab4.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-		validationlabeltab4.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		validationlabeltab4.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
 		validationlabeltab4.setFocusable(false);
+		validationlabeltab4.setContentAreaFilled(false);
+		validationlabeltab4.setBorderPainted(false);
 		validationlabeltab4.addMouseListener(new MouseListener() {
 
 			@Override
@@ -1048,7 +1159,38 @@ public class ModelExistValidationPanel extends JPanel{
 				validationlabeltabindex = 4;
 				
 				validationlabel.setText("时间性验证");
+				
+				validationinfopanel.removeAll();
+				validationinfopanel.add(emptypanel);
+				if(mainFrame.getValidationResultPanel().getValidationlabeltabindex()!=4){
+					mainFrame.getValidationResultPanel().getValidationlabeltab4().doClick();
+				}
+				
+				ChangeRepaint();
 
+			}
+		});
+		
+		validationlabeltab4.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				setvalidationlabeltabpanelrepait();
+				validationlabeltab4.setForeground(new Color(0, 0, 0));
+				validationlabeltabpanel4.setBackground(new Color(255, 255, 255));
+				validationlabeltabpanel4.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
+				validationlabeltabindex = 4;
+				
+				validationlabel.setText("时间性验证");
+				
+				validationinfopanel.removeAll();
+				validationinfopanel.add(emptypanel);
+				if(mainFrame.getValidationResultPanel().getValidationlabeltabindex()!=4){
+					mainFrame.getValidationResultPanel().getValidationlabeltab4().doClick();
+				}
+				
+				ChangeRepaint();
 			}
 		});
 		
@@ -1370,6 +1512,22 @@ public class ModelExistValidationPanel extends JPanel{
 
 	public ArrayList<Integer> getTimes() {
 		return times;
+	}
+
+	public JButton getValidationlabeltab1() {
+		return validationlabeltab1;
+	}
+
+	public JButton getValidationlabeltab2() {
+		return validationlabeltab2;
+	}
+
+	public JButton getValidationlabeltab3() {
+		return validationlabeltab3;
+	}
+
+	public JButton getValidationlabeltab4() {
+		return validationlabeltab4;
 	}
 	
 	
