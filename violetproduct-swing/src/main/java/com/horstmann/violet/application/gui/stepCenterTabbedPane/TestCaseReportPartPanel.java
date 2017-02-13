@@ -314,6 +314,14 @@ public class TestCaseReportPartPanel extends JPanel {
 		return attributetablemodel;
 	}
 
+	public void setAttributetable(JTable attributetable) {
+		this.attributetable = attributetable;
+	}
+
+	public void setAttributetablemodel(DefaultTableModel attributetablemodel) {
+		this.attributetablemodel = attributetablemodel;
+	}
+
 	
 	
 	

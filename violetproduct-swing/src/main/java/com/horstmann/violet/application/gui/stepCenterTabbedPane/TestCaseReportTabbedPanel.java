@@ -1,6 +1,7 @@
 package com.horstmann.violet.application.gui.stepCenterTabbedPane;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -28,6 +29,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.plaf.ProgressBarUI;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import org.dom4j.Document;
@@ -576,28 +578,55 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //			TestCase testcase=list.get(i++);
 			
 			
-			JTable attributetabel;
+			JTable attributetable;
 			DefaultTableModel attributetablemodel;
 			
-			attributetabel=tcrpp.getAttributetable();
+			attributetable=tcrpp.getAttributetable();
 			attributetablemodel=tcrpp.getAttributetablemodel();
+			
+			final List<Integer> badnumlist=new ArrayList<Integer>();
 			
 			for(myProcess p:testcase.getProcessList()){
 				
 				attributetablemodel.setValueAt(p.getProcessStatus(), p.getProcessID()-1, 3);
 				attributetablemodel.setValueAt(p.isProcessExec(), p.getProcessID()-1, 4);
 				
-				
-//				attributetabel.get
-				
 				if(p.isProcessExec()){
 					truecount++;
 				}
 				else{
 					falsecount++;
+					badnumlist.add(p.getProcessID()-1);
 				}
 				
 			}
+			
+			DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer() {
+
+				@Override
+				public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+						boolean hasFocus, int row, int column) {
+					// TODO Auto-generated method stub
+
+					setForeground(new Color(115, 110, 102));
+					setBackground(new Color(255, 255, 255));
+					setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+					setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+
+					for(int num:badnumlist){
+						if(row==num){
+							setForeground(new Color(115, 110, 102));
+							setBackground(new Color(255, 135, 135));
+							break;
+						}
+					}
+					
+					return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				}
+
+			};
+			attributetable.setDefaultRenderer(Object.class, renderer1);
+			
 			
 			attributetablemodel.fireTableDataChanged();
 			

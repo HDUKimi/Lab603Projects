@@ -1224,7 +1224,7 @@ Sixstart.addActionListener(new ActionListener() {
 				labelpanel.removeAll();
 //				labelpanel.add(jLabel,new GBC(0, 0).setWeight(1, 0));
 				labelpanel.add(Twostart,new GBC(0, 1));
-				labelpanel.add(Buttonstop,new GBC(0, 2));
+//				labelpanel.add(Buttonstop,new GBC(0, 2));
 				
 				mainFrame.getCenterPanel().removeAll();
 				mainFrame.getCenterPanel().add(mainFrame.getJs1());
@@ -1289,11 +1289,11 @@ Sixstart.addActionListener(new ActionListener() {
 				jLabel.setFont(new Font("ËÎÌå", Font.BOLD, 20));
 				jLabel.setForeground(Color.white);
 				JPanel labelpanel=mainFrame.getStepJLabel();
-				labelpanel.setLayout(new GridLayout(2, 1));
+				labelpanel.setLayout(new GridLayout(1, 1));
 				labelpanel.removeAll();
 //				labelpanel.add(jLabel,new GBC(0, 0).setWeight(1, 0));																			
 				labelpanel.add(Threestart);
-				labelpanel.add(Buttonstop);		
+//				labelpanel.add(Buttonstop);		
 				
 				ClearOpreationPanel();
 				operationPanel.add(mainFrame.getAbstractTestCaseGenerationPanel());	
@@ -1351,11 +1351,11 @@ Sixstart.addActionListener(new ActionListener() {
 				jLabel.setFont(new Font("ËÎÌå", Font.BOLD, 20));
 				jLabel.setForeground(Color.white);
 				JPanel labelpanel=mainFrame.getStepJLabel();
-				labelpanel.setLayout(new GridLayout(2, 1));
+				labelpanel.setLayout(new GridLayout(1, 1));
 				labelpanel.removeAll();
 //				labelpanel.add(jLabel,new GBC(0, 0).setWeight(1, 0));
 				labelpanel.add(Fourstart);
-				labelpanel.add(Buttonstop);
+//				labelpanel.add(Buttonstop);
 				
 				ClearOpreationPanel();
 				operationPanel.add(new TestCaseInstantiationPanel());
@@ -1401,11 +1401,11 @@ Sixstart.addActionListener(new ActionListener() {
 				jLabel.setFont(new Font("ËÎÌå", Font.BOLD, 20));
 				jLabel.setForeground(Color.white);
 				JPanel labelpanel=mainFrame.getStepJLabel();
-				labelpanel.setLayout(new GridLayout(2, 1));
+				labelpanel.setLayout(new GridLayout(1, 1));
 				labelpanel.removeAll();
 //				labelpanel.add(jLabel,new GBC(0, 0).setWeight(1, 0));
 				labelpanel.add(Fivestart);
-				labelpanel.add(Buttonstop);
+//				labelpanel.add(Buttonstop);
 				
 				ClearOpreationPanel();
 				operationPanel.add(mainFrame.getTestCaseConfirmationPanel());
@@ -1455,11 +1455,11 @@ Sixstart.addActionListener(new ActionListener() {
 				jLabel.setFont(new Font("ËÎÌå", Font.BOLD, 20));
 				jLabel.setForeground(Color.white);
 				JPanel labelpanel=mainFrame.getStepJLabel();
-				labelpanel.setLayout(new GridLayout(2, 1));
+				labelpanel.setLayout(new GridLayout(1, 1));
 				labelpanel.removeAll();
 //				labelpanel.add(jLabel,new GBC(0, 0).setWeight(1, 0));
 				labelpanel.add(Sixstart);
-				labelpanel.add(Buttonstop);
+//				labelpanel.add(Buttonstop);
 				//labelpanel.add(new JButton("ÔÝÍ£"),new GBC(2, 0));
 				
 				ClearOpreationPanel();

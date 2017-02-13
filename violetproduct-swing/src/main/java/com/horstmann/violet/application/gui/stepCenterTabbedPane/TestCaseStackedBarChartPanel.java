@@ -40,15 +40,17 @@ public class TestCaseStackedBarChartPanel extends JPanel {
 			
 		}
 		
-		JFreeChart chart = ChartFactory.createStackedBarChart("Stacked Bar Chart Demo 1", "Category", "Value", dcd, PlotOrientation.VERTICAL, true, true, false);
+		JFreeChart chart = ChartFactory.createStackedBarChart("测试报告数据图", "测试用例", "激励",  dcd, PlotOrientation.VERTICAL, true, true, false);
 		chart.setBackgroundPaint(Color.white);
 	    CategoryPlot categoryplot = (CategoryPlot)chart.getPlot();
-	    categoryplot.setBackgroundPaint(Color.lightGray);
-	    categoryplot.setRangeGridlinePaint(Color.white);
-	    StackedBarRenderer stackedbarrenderer = (StackedBarRenderer)categoryplot.getRenderer();
-	    stackedbarrenderer.setDrawBarOutline(false);
-	    stackedbarrenderer.setBaseItemLabelsVisible(true);
-	    stackedbarrenderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+	    categoryplot.setDomainGridlinesVisible(false);
+	    categoryplot.setRangeGridlinesVisible(false);
+	    categoryplot.setBackgroundPaint(Color.white);
+//	    categoryplot.setRangeGridlinePaint(Color.white);
+//	    StackedBarRenderer stackedbarrenderer = (StackedBarRenderer)categoryplot.getRenderer();
+//	    stackedbarrenderer.setDrawBarOutline(false);
+//	    stackedbarrenderer.setBaseItemLabelsVisible(true);
+//	    stackedbarrenderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
 		
 		ChartPanel chartpanel = new ChartPanel(chart);
 

@@ -16,7 +16,8 @@ public  class DataBaseUtil {
  	public static final String url ="jdbc:mysql://localhost:3306/mydb"; 
     public static final String name ="com.mysql.jdbc.Driver";  
     public static final String user ="root";  
-    public static final String password ="123456";  
+//    public static final String password ="123456";  
+    public static final String password ="";  
     public static Connection conn = null;  
     public static PreparedStatement pst = null;  
     /**

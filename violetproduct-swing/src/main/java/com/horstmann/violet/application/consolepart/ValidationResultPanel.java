@@ -230,7 +230,7 @@ public class ValidationResultPanel extends JPanel{
 	private void initThreeNamePanel() {
 		// TODO Auto-generated method stub
 		
-		threenamelabel.setText(" 测试对比结果显示： ");
+		threenamelabel.setText("测试对比结果显示： ");
 		threenamelabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		threenamelabel.setForeground(new Color(0, 102, 204));
 		threenamelabel.setBorder(BorderFactory.createEmptyBorder(2, 6, 2, 0));
