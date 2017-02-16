@@ -1358,7 +1358,7 @@ Sixstart.addActionListener(new ActionListener() {
 //				labelpanel.add(Buttonstop);
 				
 				ClearOpreationPanel();
-				operationPanel.add(new TestCaseInstantiationPanel());
+				operationPanel.add(mainFrame.getTestCaseInstantiationPanel());
 				
 				mainFrame.getCenterTabPanel().removeAll();
 				mainFrame.getCenterTabPanel().add(stepFourCenterTabbedPane);
@@ -1373,6 +1373,9 @@ Sixstart.addActionListener(new ActionListener() {
 			    mainFrame.getConsolePartPanel().getTextpanel().add(new JScrollPane(StepFourArea));
 //				consolePart.setTitle("抽象测试用例实例化过程信息");
 //				consolePart.add(new ConsoleMessageTabbedPane("详细信息",StepFourArea));
+			    
+			    ClearAttributePanel();
+			    attributePanel.add(mainFrame.getTestCaseInstantiationResultPanel());
 			    
 			    wakeupUI();
 				mainFrame.setVisible(false);

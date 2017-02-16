@@ -445,7 +445,8 @@ public class ModelExistValidationPanel extends JPanel{
 		
 		timingtablepanel.setLayout(new GridLayout());
 		timingtablepanel.add(timingtable);
-		timingtable.setBackground(new Color(238, 238, 242));
+//		timingtable.setBackground(new Color(238, 238, 242));
+		timingtable.setBackground(new Color(255,255,255));
 		timingtable.setBorder(null);
 		timingtablepanel.setBorder(null);
 		

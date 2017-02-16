@@ -75,11 +75,14 @@ import com.horstmann.violet.application.consolepart.AttributePartPanel;
 import com.horstmann.violet.application.consolepart.ConsolePart;
 import com.horstmann.violet.application.consolepart.ConsolePartPanel;
 import com.horstmann.violet.application.consolepart.TestCaseConfirmResultPanel;
+import com.horstmann.violet.application.consolepart.TestCaseInstantiationResultPanel;
 import com.horstmann.violet.application.consolepart.ValidationResultPanel;
+import com.horstmann.violet.application.gui.opreationTreePane.AbstractTestCaseGenerationPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.ModelExistValidationPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.ModelTransformationPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.ProjectTree;
 import com.horstmann.violet.application.gui.opreationTreePane.TestCaseConfirmationPanel;
+import com.horstmann.violet.application.gui.opreationTreePane.TestCaseInstantiationPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.help.AboutDialog;
 import com.horstmann.violet.application.menu.MenuFactory;
@@ -1048,6 +1051,13 @@ public class MainFrame extends JFrame
 		return this.abstractTestCaseResultPanel;
 	}
 	
+	public TestCaseInstantiationResultPanel getTestCaseInstantiationResultPanel(){
+		if (this.testCaseInstantiationResultPanel == null) {
+			this.testCaseInstantiationResultPanel = new TestCaseInstantiationResultPanel(this);
+		}
+		return this.testCaseInstantiationResultPanel;
+	}
+	
 	public TestCaseConfirmResultPanel getTestCaseConfirmResultPanel(){
 		if (this.testCaseConfirmResultPanel == null) {
 			this.testCaseConfirmResultPanel = new TestCaseConfirmResultPanel(this);
@@ -1087,6 +1097,14 @@ public class MainFrame extends JFrame
 
 		}
 		return this.abstractTestCaseGenerationPanel;
+	}
+	
+	public TestCaseInstantiationPanel getTestCaseInstantiationPanel() {
+		if (this.testCaseInstantiationPanel == null) {
+			this.testCaseInstantiationPanel = new TestCaseInstantiationPanel(this);
+
+		}
+		return this.testCaseInstantiationPanel;
 	}
 
 	public TestCaseConfirmationPanel getTestCaseConfirmationPanel() {
@@ -1420,6 +1438,7 @@ public class MainFrame extends JFrame
     private ModelTransformationPanel modelTransformationPanel;
     private ModelExistValidationPanel modelExistValidationPanel;
     private AbstractTestCaseGenerationPanel abstractTestCaseGenerationPanel;
+    private TestCaseInstantiationPanel testCaseInstantiationPanel;
     private TestCaseConfirmationPanel testCaseConfirmationPanel;
     
     private StepOneCenterTabbedPane stepOneCenterTabbedPane;
@@ -1430,6 +1449,7 @@ public class MainFrame extends JFrame
 	private AttributePartPanel attributePartPanel;
 	private ValidationResultPanel validationResultPanel;
 	private AbstractTestCaseResultPanel abstractTestCaseResultPanel; 
+	private TestCaseInstantiationResultPanel testCaseInstantiationResultPanel;
 	private TestCaseConfirmResultPanel testCaseConfirmResultPanel;
 //	private ConsolePart consolePart;
     

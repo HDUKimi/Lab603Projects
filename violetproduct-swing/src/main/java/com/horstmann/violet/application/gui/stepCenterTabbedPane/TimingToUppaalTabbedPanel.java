@@ -309,6 +309,8 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 					try {
 						//uml转化成事件自动机
                          //用于获得当前工作的timing
+						
+						successcount=0;
 
 						for (String filename : timinglists) {
 							
