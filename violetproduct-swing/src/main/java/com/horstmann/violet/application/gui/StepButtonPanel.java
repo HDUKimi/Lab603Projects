@@ -35,6 +35,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JViewport;
 import javax.swing.SwingConstants;
@@ -49,12 +50,15 @@ import org.dom4j.io.SAXReader;
 
 import com.horstmann.violet.application.consolepart.ConsoleMessageTabbedPane;
 import com.horstmann.violet.application.consolepart.ConsolePart;
+import com.horstmann.violet.application.consolepart.ConsolePartDataTestDao;
 import com.horstmann.violet.application.consolepart.ConsolePartDetailInfoTable;
 import com.horstmann.violet.application.consolepart.ConsolePartTextArea;
 import com.horstmann.violet.application.gui.opreationTreePane.TestCaseConfirmationPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.MoviePanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCasePieChartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseReportPartPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.ValidationToolPanel;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
 import com.horstmann.violet.application.gui.util.chengzuo.Util.ClientSocket;
@@ -66,6 +70,7 @@ import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.ImportBy
 import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.TransToVioletUppaal;
 import com.horstmann.violet.application.menu.FileMenu;
 import com.horstmann.violet.application.menu.util.zhangjian.Database.AbstractState;
+import com.horstmann.violet.application.menu.util.zhangjian.Database.RealTestCaseVO;
 import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.AbstractTestCaseInsertByTan;
 import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.AbstractTestCaseUppaalCreate;
 import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.AbstractTestCaseUppaalSequenceCreate;
@@ -111,9 +116,6 @@ public class StepButtonPanel extends JPanel {
 //    private ConsolePart consolePart;
     private JPanel operationPanel;
     private JPanel attributePanel;
-    StepThreeCenterTabbedPane stepThreeCenterTabbedPane;
-//    StepSixCenterTabbedPane stepSixCenterTabbedPane=new StepSixCenterTabbedPane();
-    StepFourCenterTabbedPane stepFourCenterTabbedPane=new StepFourCenterTabbedPane();
 	
 //    private JButton Threestart=new JButton("开始");
 //    private JButton Fourstart=new JButton("开始");
@@ -161,7 +163,6 @@ public class StepButtonPanel extends JPanel {
 //		this.setBackground(new Color(174,199,225));
 		this.mainFrame=mainFrame;
 		init();
-		stepThreeCenterTabbedPane=mainFrame.getStepThreeCenterTabbedPane();
 	}
     
 	private void init() {
@@ -182,7 +183,7 @@ public class StepButtonPanel extends JPanel {
 		this.add(step2buttonpanel);
 		this.add(step6buttonpanel);
 		this.add(step3buttonpanel);
-		this.add(step4buttonpanel);
+//		this.add(step4buttonpanel);
 		this.add(step5buttonpanel);
 		
 		
@@ -484,7 +485,7 @@ public class StepButtonPanel extends JPanel {
 			}
 		});
 		step4button.setIcon(icon4);
-		step4button.setText("用例优化");
+		step4button.setText("用例实例化");
         step4button.setFont(new Font("微软雅黑", Font.PLAIN, 13));
         step4button.setForeground(new Color(255,255,255));
         step4button.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -885,7 +886,8 @@ Threestart.addActionListener(new ActionListener() {
 		 			    IWorkspace absworkspace=new Workspace(absfGraphFile);
 		 			    //IWorkspace no_time_absworkspace=new Workspace(no_time_absfGraphFile);
 		 			    //展示时间迁移的自动机
-		 			    mainFrame.addTabbedPane(absworkspace,3);
+//		 			    mainFrame.addTabbedPane(absworkspace,3);
+		 			    
 		 			    
 		 			    StepThreeArea.append("抽象时间迁移的时间自动机生成完成!\n");
 		 			    StepThreeArea.append("不含时间迁移的时间自动机正在生成.....\n");
@@ -895,10 +897,17 @@ Threestart.addActionListener(new ActionListener() {
 		 			    StepThreeArea.append("不含时间迁移的时间自动机生成完成!\n");
 		 			    StepThreeArea.append("抽象测试用例正在生成.....\n");
 						//展示抽象测试用例的生成
-		 			    stepThreeCenterTabbedPane.getConsolePartScrollPane()
+//		 			    mainFrame.getStepThreeCenterTabbedPane().getConsolePartScrollPane()
+//						.getViewport().add(new ConsolePartDetailInfoTable(0));			
+//		 			   mainFrame.getStepThreeCenterTabbedPane().getConsolePartScrollPane().getViewport().repaint();
+					    
+		 			   mainFrame.getStepThreeCenterTabbedPane().getTestCaseProduceTabbedPanel().getTabelscrollpanel().setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
+		 			   mainFrame.getStepThreeCenterTabbedPane().getTestCaseProduceTabbedPanel().getTabelscrollpanel()
 						.getViewport().add(new ConsolePartDetailInfoTable(0));			
-					    stepThreeCenterTabbedPane.getConsolePartScrollPane().getViewport().repaint();
-					    StepThreeArea.append("抽象测试用例生成完成!.....\n");
+		 			   mainFrame.getStepThreeCenterTabbedPane().getTestCaseProduceTabbedPanel().getTabelscrollpanel().getViewport().repaint();
+					    
+		 			    
+		 			    StepThreeArea.append("抽象测试用例生成完成!.....\n");
 					    
 //					    tabbutton=StepThreeCenterTabbedPane.getAbstractUppaalDiagramButton();
 //						tabbutton.doClick();
@@ -914,22 +923,40 @@ Fourstart.addActionListener(new ActionListener() {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		StepFourArea.append("实例化测试用例正在生成.....\n");
-		SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
+//		SwingUtilities.invokeLater(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
 				new RealTestCaseXMLRead("tcs.xml");
-				stepFourCenterTabbedPane.getConsolePartScrollPane()
-				.getViewport().add(new ConsolePartDetailInfoTable(1));			
-			    stepFourCenterTabbedPane.getConsolePartScrollPane().getViewport().repaint();
+//				mainFrame.getStepFourCenterTabbedPane().getConsolePartScrollPane()
+//				.getViewport().add(new ConsolePartDetailInfoTable(1));			
+//				mainFrame.getStepFourCenterTabbedPane().getConsolePartScrollPane().getViewport().repaint();
+				
+				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().removeAll();
+				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().setLayout(new BorderLayout());
+				JTable jt=new ConsolePartDetailInfoTable(1);
+				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().add(jt.getTableHeader(),BorderLayout.NORTH);
+				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().add(jt, BorderLayout.CENTER);
+//				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().add(new ConsolePartDetailInfoTable(1));
+				
+//				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().removeAll();
+//				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
+//				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().getViewport().add(new ConsolePartDetailInfoTable(1));
+//				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().getViewport().repaint();
+//				
+				
+//				StartThread();
+				
+				
 			    StepFourArea.append("实例化测试用例生成成功!");
 			}
+
 		});
 		
 		
-	}
-});
+//	}
+//});
 
 		Fivestart.addActionListener(new ActionListener() {
 
@@ -1296,7 +1323,7 @@ Sixstart.addActionListener(new ActionListener() {
 //				labelpanel.add(Buttonstop);		
 				
 				ClearOpreationPanel();
-				operationPanel.add(mainFrame.getAbstractTestCaseGenerationPanel());	
+				operationPanel.add(mainFrame.getTestCaseGenerationPanel());	
 				
 //				clearConsolePart();		
 				mainFrame.getConsolePartPanel().getTitlelabel().setText("抽象测试用例生成过程信息");
@@ -1329,6 +1356,7 @@ Sixstart.addActionListener(new ActionListener() {
 				mainFrame.getContentPane().repaint();
 				mainFrame.setVisible(true);
 				step4button.setEnabled(true);
+				step5button.setEnabled(true);
 			}
 		});
 		step4button.addActionListener(new ActionListener() {
@@ -1361,7 +1389,7 @@ Sixstart.addActionListener(new ActionListener() {
 				operationPanel.add(mainFrame.getTestCaseInstantiationPanel());
 				
 				mainFrame.getCenterTabPanel().removeAll();
-				mainFrame.getCenterTabPanel().add(stepFourCenterTabbedPane);
+				mainFrame.getCenterTabPanel().add(mainFrame.getStepFourCenterTabbedPane());
 				
 //				clearConsolePart();	
 				mainFrame.getConsolePartPanel().getTitlelabel().setText("抽象测试用例实例化过程信息");
@@ -1489,6 +1517,53 @@ Sixstart.addActionListener(new ActionListener() {
 			}
 		});
 	}
+	protected void StartThread() {
+		// TODO Auto-generated method stub
+		
+		Thread thread1=new Thread(){
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				for(int i=1;i<100;i++){
+//					mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getProgressbar().setValue(i);
+					try {
+						sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			
+		};
+		
+		Thread thread2=new Thread(){
+
+			@Override
+			public void run() {
+				
+//				List<RealTestCaseVO> list = ConsolePartDataTestDao.getRealTestCaseList();
+//				System.out.println("list.size()"+list.size());
+				
+				// TODO Auto-generated method stub
+//					try {
+						mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().getViewport().add(new ConsolePartDetailInfoTable(1));
+						mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().getViewport().repaint();
+//						sleep(100);
+//					} catch (InterruptedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+				}
+			
+		};
+		
+		thread1.start();
+		thread2.start();
+		
+	}
+
 	/*
 	 * 使原来不可见的界面重新可见(除了首页,都需要重新可见,首页已使其他界面不可见)
 	 */

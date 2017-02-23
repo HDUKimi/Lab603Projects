@@ -16,20 +16,31 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import com.horstmann.violet.application.consolepart.ConsolePartScrollPane;
+import com.horstmann.violet.application.consolepart.TestCaseInstantiationResultPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.FixedButtonTabbedPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseInstantiationTabbedPanel;
 
 public class StepFourCenterTabbedPane extends JPanel {
 
+	private MainFrame mainFrame;
+	
 	private JScrollPane ConsolePartScrollPane;
 
 	private JPanel buttonPanel;
 	public JPanel diagramPanel;
 
-	private FixedButtonTabbedPanel abstractTestCaseInstantiationButtonPanel;
+	private FixedButtonTabbedPanel testCaseInstantiationButtonPanel;
 
-	private JButton abstractTestCaseInstantiationButton;
+	private JButton testCaseInstantiationButton;
+	
+	private TestCaseInstantiationTabbedPanel testCaseInstantiationTabbedPanel;
 
-	public StepFourCenterTabbedPane() {
+	public StepFourCenterTabbedPane(MainFrame mainFrame) {
+		
+		this.mainFrame = mainFrame;
+		
+		testCaseInstantiationTabbedPanel=new TestCaseInstantiationTabbedPanel(mainFrame);
+		
 		ConsolePartScrollPane = new JScrollPane();
 
 		buttonPanel = new JPanel();
@@ -61,14 +72,14 @@ public class StepFourCenterTabbedPane extends JPanel {
 	private void initbuttonpanel() {
 		// TODO Auto-generated method stub
 
-		abstractTestCaseInstantiationButtonPanel = new FixedButtonTabbedPanel("抽象测试用例实例化");
-		abstractTestCaseInstantiationButton = abstractTestCaseInstantiationButtonPanel.getTabbedbutton();
+		testCaseInstantiationButtonPanel = new FixedButtonTabbedPanel("抽象测试用例实例化");
+		testCaseInstantiationButton = testCaseInstantiationButtonPanel.getTabbedbutton();
 
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		buttonPanel.setBackground(new Color(41, 57, 85));
 		buttonPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(58, 105, 190)));
 
-		buttonPanel.add(abstractTestCaseInstantiationButtonPanel);
+		buttonPanel.add(testCaseInstantiationButtonPanel);
 
 		setButtonActionListener();
 
@@ -77,15 +88,15 @@ public class StepFourCenterTabbedPane extends JPanel {
 	private void setButtonActionListener() {
 		// TODO Auto-generated method stub
 
-		abstractTestCaseInstantiationButton.addActionListener(new ActionListener() {
+		testCaseInstantiationButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				getDiagramPanel().removeAll();
-				getDiagramPanel().add(getConsolePartScrollPane());
+				getDiagramPanel().add(testCaseInstantiationTabbedPanel);
 
-				abstractTestCaseInstantiationButtonPanel.setBackground(new Color(58, 105, 190));
+				testCaseInstantiationButtonPanel.setBackground(new Color(58, 105, 190));
 
 				ChangeRepaint();
 			}
@@ -116,4 +127,14 @@ public class StepFourCenterTabbedPane extends JPanel {
 		this.diagramPanel = diagramPanel;
 	}
 
+	public JButton getAbstractTestCaseInstantiationButton() {
+		return testCaseInstantiationButton;
+	}
+
+	public TestCaseInstantiationTabbedPanel getTestCaseInstantiationTabbedPanel() {
+		return testCaseInstantiationTabbedPanel;
+	}
+
+	
+	
 }

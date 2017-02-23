@@ -22,9 +22,24 @@ public class FixedButtonTabbedPanel extends JPanel{
 	
 	private JPanel labelpanel;
 	
+	private int width=180;
+	
 	public FixedButtonTabbedPanel(String tabbedbuttontext){
 		
 		this.tabbedbuttontext=tabbedbuttontext;
+		
+		tabbedbutton=new JButton();
+		fixedlabel=new JLabel();
+		delectlabel=new JLabel();
+		labelpanel=new JPanel();
+		
+		init();
+	}
+	
+	public FixedButtonTabbedPanel(String tabbedbuttontext,int width){
+		
+		this.tabbedbuttontext=tabbedbuttontext;
+		this.width=width;
 		
 		tabbedbutton=new JButton();
 		fixedlabel=new JLabel();
@@ -64,7 +79,7 @@ public class FixedButtonTabbedPanel extends JPanel{
 		
 		this.setLayout(new BorderLayout());
 		this.setBackground(new Color(77, 96, 130));
-		this.setPreferredSize(new Dimension(180, 23));
+		this.setPreferredSize(new Dimension(width, 23));
 		this.setBorder(BorderFactory.createEmptyBorder(2, 0, 1, 0));
 		this.add(tabbedbutton, BorderLayout.WEST);
 		this.add(labelpanel, BorderLayout.EAST);

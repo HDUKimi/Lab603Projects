@@ -77,7 +77,7 @@ import com.horstmann.violet.application.consolepart.ConsolePartPanel;
 import com.horstmann.violet.application.consolepart.TestCaseConfirmResultPanel;
 import com.horstmann.violet.application.consolepart.TestCaseInstantiationResultPanel;
 import com.horstmann.violet.application.consolepart.ValidationResultPanel;
-import com.horstmann.violet.application.gui.opreationTreePane.AbstractTestCaseGenerationPanel;
+import com.horstmann.violet.application.gui.opreationTreePane.TestCaseGenerationPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.ModelExistValidationPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.ModelTransformationPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.ProjectTree;
@@ -588,15 +588,15 @@ public class MainFrame extends JFrame
      	    repaint();     		    
      	}
      
-     	if(workspace.getTitle().toString().substring(0, 3).equals(("abs")))
-     	{
-     		
-     		this.getStepThreeCenterTabbedPane().getAbstractUppaalTabbedPane().removeAll();
-     		this.getStepThreeCenterTabbedPane().getAbstractUppaalTabbedPane()
-     		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));    		    		   	  
-     	    repaint();    
-     	 
-     	}
+//     	if(workspace.getTitle().toString().substring(0, 3).equals(("abs")))
+//     	{
+//     		
+//     		this.getStepThreeCenterTabbedPane().getAbstractUppaalTabbedPane().removeAll();
+//     		this.getStepThreeCenterTabbedPane().getAbstractUppaalTabbedPane()
+//     		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));    		    		   	  
+//     	    repaint();    
+//     	 
+//     	}
     }
     public void addTabbedPane(final IWorkspace workspace,int flag )
     {
@@ -701,37 +701,37 @@ public class MainFrame extends JFrame
     	/*
     	 * 含有时间迁移自动机
     	 */
-    	if(workspace.getTitle().toString().startsWith("abs"))         		
-      	{
-      		if(this.UppaalWorkspaceList.contains(workspace))
-      		{
-      			return;
-      		}
-      		this.UppaalWorkspaceList.clear();//保证每一次新建或导入只会有1个Type页
-      		this.UppaalWorkspaceList.add(workspace);
-      		this.getStepThreeCenterTabbedPane().getAbstractUppaalTabbedPane().removeAll();
-      		this.getStepThreeCenterTabbedPane().getAbstractUppaalTabbedPane()
-      		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));
-      		 listenToDiagramPanelEvents(workspace,UppaalWorkspaceList);    			  
-      	    repaint();    		    
-      	}
+//    	if(workspace.getTitle().toString().startsWith("abs"))         		
+//      	{
+//      		if(this.UppaalWorkspaceList.contains(workspace))
+//      		{
+//      			return;
+//      		}
+//      		this.UppaalWorkspaceList.clear();//保证每一次新建或导入只会有1个Type页
+//      		this.UppaalWorkspaceList.add(workspace);
+//      		this.getStepThreeCenterTabbedPane().getAbstractUppaalTabbedPane().removeAll();
+//      		this.getStepThreeCenterTabbedPane().getAbstractUppaalTabbedPane()
+//      		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));
+//      		 listenToDiagramPanelEvents(workspace,UppaalWorkspaceList);    			  
+//      	    repaint();    		    
+//      	}
     	/*
     	 * 去时间迁移自动机
     	 */
-    	if(workspace.getTitle().toString().startsWith("no_time_abs"))         		
-      	{
-      		if(this.UppaalWorkspaceList.contains(workspace))
-      		{
-      			return;
-      		}
-      		this.UppaalWorkspaceList.clear();//保证每一次新建或导入只会有1个Type页
-      		this.UppaalWorkspaceList.add(workspace);
-      		this.getStepThreeCenterTabbedPane().getUppaalTabbedPane().removeAll();
-      		this.getStepThreeCenterTabbedPane().getUppaalTabbedPane()
-      		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));
-      		 listenToDiagramPanelEvents(workspace,UppaalWorkspaceList);    			  
-      	    repaint();    		    
-      	}
+//    	if(workspace.getTitle().toString().startsWith("no_time_abs"))         		
+//      	{
+//      		if(this.UppaalWorkspaceList.contains(workspace))
+//      		{
+//      			return;
+//      		}
+//      		this.UppaalWorkspaceList.clear();//保证每一次新建或导入只会有1个Type页
+//      		this.UppaalWorkspaceList.add(workspace);
+//      		this.getStepThreeCenterTabbedPane().getUppaalTabbedPane().removeAll();
+//      		this.getStepThreeCenterTabbedPane().getUppaalTabbedPane()
+//      		.add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1, 1).setFill(GBC.BOTH));
+//      		 listenToDiagramPanelEvents(workspace,UppaalWorkspaceList);    			  
+//      	    repaint();    		    
+//      	}
     }
      	
     }
@@ -1091,9 +1091,9 @@ public class MainFrame extends JFrame
 		return this.modelExistValidationPanel;
 	}
 
-	public AbstractTestCaseGenerationPanel getAbstractTestCaseGenerationPanel() {
+	public TestCaseGenerationPanel getTestCaseGenerationPanel() {
 		if (this.abstractTestCaseGenerationPanel == null) {
-			this.abstractTestCaseGenerationPanel = new AbstractTestCaseGenerationPanel(this);
+			this.abstractTestCaseGenerationPanel = new TestCaseGenerationPanel(this);
 
 		}
 		return this.abstractTestCaseGenerationPanel;
@@ -1308,31 +1308,39 @@ public class MainFrame extends JFrame
     {
     if (this.stepThreeCenterTabbedPane== null)
     {
-       stepThreeCenterTabbedPane=new StepThreeCenterTabbedPane();
+       stepThreeCenterTabbedPane=new StepThreeCenterTabbedPane(this);
     }
     return this.stepThreeCenterTabbedPane;
     	
     }
-    //第6的tab
-    public StepSixCenterTabbedPane getStepSixCenterTabbedPane()
+    
+    public StepFourCenterTabbedPane getStepFourCenterTabbedPane()
     {
-    if (this.stepSixCenterTabbedPane== null)
+    if (this.stepFourCenterTabbedPane== null)
     {
-    	stepSixCenterTabbedPane=new StepSixCenterTabbedPane(this);
+    	stepFourCenterTabbedPane=new StepFourCenterTabbedPane(this);
     }
-    return this.stepSixCenterTabbedPane;
+    return this.stepFourCenterTabbedPane;
     	
     }
-    //第5的tab
-    public StepFiveCenterTabbedPane getStepFiveCenterTabbedPane()
-    {
-    if (this.stepFiveCenterTabbedPane== null)
-    {
-    	stepFiveCenterTabbedPane=new StepFiveCenterTabbedPane(this);
-    }
-    return this.stepFiveCenterTabbedPane;
-    	
-    }
+    
+	// 第5的tab
+	public StepFiveCenterTabbedPane getStepFiveCenterTabbedPane() {
+		if (this.stepFiveCenterTabbedPane == null) {
+			stepFiveCenterTabbedPane = new StepFiveCenterTabbedPane(this);
+		}
+		return this.stepFiveCenterTabbedPane;
+
+	}
+
+	// 第6的tab
+	public StepSixCenterTabbedPane getStepSixCenterTabbedPane() {
+		if (this.stepSixCenterTabbedPane == null) {
+			stepSixCenterTabbedPane = new StepSixCenterTabbedPane(this);
+		}
+		return this.stepSixCenterTabbedPane;
+
+	}
     
 	public JPanel getOpreationPart() {
 		// TODO Auto-generated method stub
@@ -1423,10 +1431,6 @@ public class MainFrame extends JFrame
      */
     private JTabbedPane tabbedPane;
     
-    private StepSixCenterTabbedPane stepSixCenterTabbedPane;
-    
-    private StepFiveCenterTabbedPane stepFiveCenterTabbedPane;
- 
 	/**
      * Panel added is not diagram is opened
      */
@@ -1437,13 +1441,16 @@ public class MainFrame extends JFrame
     private ProjectTree projectTree;
     private ModelTransformationPanel modelTransformationPanel;
     private ModelExistValidationPanel modelExistValidationPanel;
-    private AbstractTestCaseGenerationPanel abstractTestCaseGenerationPanel;
+    private TestCaseGenerationPanel abstractTestCaseGenerationPanel;
     private TestCaseInstantiationPanel testCaseInstantiationPanel;
     private TestCaseConfirmationPanel testCaseConfirmationPanel;
     
     private StepOneCenterTabbedPane stepOneCenterTabbedPane;
     private StepTwoCenterTabbedPane stepTwoCenterTabbedPane;
     private StepThreeCenterTabbedPane stepThreeCenterTabbedPane;
+    private StepFourCenterTabbedPane stepFourCenterTabbedPane;
+    private StepFiveCenterTabbedPane stepFiveCenterTabbedPane;
+    private StepSixCenterTabbedPane stepSixCenterTabbedPane;
     
 	private ConsolePartPanel consolePartPanel;
 	private AttributePartPanel attributePartPanel;

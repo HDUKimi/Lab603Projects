@@ -18,8 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -51,12 +54,15 @@ public class AbstractUppaalPanel extends JPanel {
 	private JButton timingtoolbutton1;
 	private JButton timingtoolbutton2;
 	private JPanel timingtablepanel;
+	private JPanel timingcheckboxpanel;
 	private JScrollPane timingscrollpanel;
 
 	private DefaultTableModel timingtablemodel;
 	private JTable timingtable;
 
 	private List<String> timinglists = new ArrayList<String>();
+	
+	private JCheckBox[] timingCheckBoxList;
 
 	private JPanel abstractpanel;
 	private JPanel abstractlabelpanel;
@@ -80,6 +86,7 @@ public class AbstractUppaalPanel extends JPanel {
 		timingtoolbutton1 = new JButton();
 		timingtoolbutton2 = new JButton();
 		timingtablepanel = new JPanel();
+		timingcheckboxpanel=new JPanel();
 
 		abstractpanel = new JPanel();
 		abstractlabelpanel = new JPanel();
@@ -129,10 +136,37 @@ public class AbstractUppaalPanel extends JPanel {
 		timinglabelpanel.setMaximumSize(new Dimension(100, 29));
 		timinglabelpanel.setMinimumSize(new Dimension(100, 29));
 
-		initTimingTablePanel();
+//		initTimingTablePanel();
 
-		addDataToTimingTable();
+//		addDataToTimingTable();
+		
+		timingcheckboxpanel.setLayout(new BoxLayout(timingcheckboxpanel, BoxLayout.Y_AXIS));
+		timingcheckboxpanel.setBorder(BorderFactory.createEmptyBorder(0, 7, 0, 0));
+		timingcheckboxpanel.setBackground(new Color(255, 255, 255));
+		
+		addCheckBoxToTimingcheckboxpanel();
+		
+		timingscrollpanel=new JScrollPane(timingcheckboxpanel);
+		timingscrollpanel.setBorder(null);
+		timingscrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		timingscrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
 
+	}
+
+	private void addCheckBoxToTimingcheckboxpanel() {
+		// TODO Auto-generated method stub
+		timingcheckboxpanel.removeAll();
+		timingCheckBoxList=new JCheckBox[timinglists.size()];
+		for(int i=0;i<timinglists.size();i++){
+			timingCheckBoxList[i]=new JCheckBox(timinglists.get(i));
+			timingCheckBoxList[i].setOpaque(false);
+//			Object[]data={new JCheckBox(timinglists.get(i))};
+//			Object[]data={timinglists.get(i)};
+//			dtmDemo.addRow(data);
+			timingcheckboxpanel.add(Box.createVerticalStrut(7));
+			timingcheckboxpanel.add(timingCheckBoxList[i]);
+		}
 	}
 
 	private void initTimingToolPanel() {
