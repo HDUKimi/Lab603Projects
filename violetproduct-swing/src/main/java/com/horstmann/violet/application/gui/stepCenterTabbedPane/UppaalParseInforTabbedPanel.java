@@ -173,8 +173,8 @@ public class UppaalParseInforTabbedPanel extends JPanel{
 		// TODO Auto-generated method stub
 		
 //		generalinforpanel=new UppaalParseGeneralInforPanel();
-		stateinforpanel=new UppaalParseStateInforPartPanel();
-		migrateinforpanel=new UppaalParseMigrateInforPartPanel();
+		stateinforpanel=new UppaalParseStateInforPartPanel(mainFrame);
+		migrateinforpanel=new UppaalParseMigrateInforPartPanel(mainFrame);
 		
 		generalinforpanel=new JPanel();
 //		stateinforpanel=new JPanel();

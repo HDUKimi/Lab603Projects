@@ -43,7 +43,6 @@ public class TestCaseProcessEndPanel extends JPanel{
 		// TODO Auto-generated method stub
 		
 		label=new JLabel();
-		
 		label.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 13));
 		
 		label.setText("<html><body>"

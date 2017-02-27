@@ -167,7 +167,7 @@ public class TestCaseInstantiationTabbedPanel extends JPanel {
 		int i=0;
 		for(int j=0;j<30;j++){
 			
-			TestCaseInstantiationPartPanel tcippanel=new TestCaseInstantiationPartPanel();
+			TestCaseInstantiationPartPanel tcippanel=new TestCaseInstantiationPartPanel(mainFrame);
 			resultpanel.add(tcippanel);
 			layout.setConstraints(tcippanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		}

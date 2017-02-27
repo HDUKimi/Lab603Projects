@@ -2,6 +2,7 @@ package com.horstmann.violet.application.gui.stepCenterTabbedPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -10,6 +11,10 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -25,9 +30,12 @@ import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
+import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalLocation;
 
 public class UppaalParseStateInforPartPanel extends JPanel{
+	
+	private MainFrame mainFrame;
 
 	private JPanel titlepanel;
 	private JPanel linepanel;
@@ -46,7 +54,9 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 	private JTable attributetable;
 	private DefaultTableModel attributetablemodel;
 	
-	public UppaalParseStateInforPartPanel(){
+	public UppaalParseStateInforPartPanel(MainFrame mainFrame){
+		
+		this.mainFrame=mainFrame;
 		
 		init();
 		
@@ -185,7 +195,7 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 	private void initAttributePanel() {
 		// TODO Auto-generated method stub
 		
-		String[] columnNames={"ÐòºÅ","Ãû³Æ","Î»ÖÃ","ÊÇ·ñÎªÖÕÖ¹×´Ì¬","ÀàÐÍ"};
+		final String[] columnNames={"ÐòºÅ","Ãû³Æ","Î»ÖÃ","ÊÇ·ñÎªÖÕÖ¹×´Ì¬","ÀàÐÍ"};
 		String[][] tabelValues={};
 		
 		attributetablemodel=new DefaultTableModel(tabelValues, columnNames){
@@ -235,6 +245,81 @@ public class UppaalParseStateInforPartPanel extends JPanel{
         renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
         attributetable.setDefaultRenderer(Object.class, renderer1); 
         
+        attributetable.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getClickCount()==2){
+					
+					mainFrame.getAbstractTestCaseResultPanel().getOnenamelabel().setText(titlelabel.getText());
+					
+					JTable jt=mainFrame.getAbstractTestCaseResultPanel().getTestcaseinfortable();
+					DefaultTableModel dtm=mainFrame.getAbstractTestCaseResultPanel().getTestcaseinfortablemodel();
+					
+					int index=attributetable.getSelectedRow();
+					
+					final int[] columnindex=new int[columnNames.length];
+					int k=0;
+					int count=0;
+					
+					List<String> rowDataList=new ArrayList<String>();
+					
+					for(int i=0;i<columnNames.length;i++){
+						rowDataList.add(columnNames[i]);
+						columnindex[k++]=count++;
+						
+						String str=(String) attributetablemodel.getValueAt(index, i);
+						String[] strdata=str.split("--");
+						
+						for(String s:strdata){
+							rowDataList.add(s);
+							count++;
+						}
+						
+					}
+					
+					while(dtm.getRowCount()>0){
+						dtm.removeRow(dtm.getRowCount()-1);
+					}
+					
+					for(String s:rowDataList){
+						Object[] rowData={"   "+s};
+						dtm.addRow(rowData);
+					}
+					
+					DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer() {
+
+						@Override
+						public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+								boolean hasFocus, int row, int column) {
+							// TODO Auto-generated method stub
+
+							if(row==columnindex[0]||row==columnindex[1]||row==columnindex[2]||row==columnindex[3]||row==columnindex[4]){
+								setBackground(new Color(71, 80, 93));
+						        setForeground(new Color(255, 255, 255));
+							}
+							else{
+								setForeground(new Color(115, 110, 102));
+						        setBackground(new Color(255, 255, 255));
+							}
+							
+							setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+							setHorizontalAlignment(DefaultTableCellRenderer.LEFT);
+
+							return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+						}
+
+					};
+					jt.setDefaultRenderer(Object.class, renderer1);
+					
+					dtm.fireTableDataChanged();
+					
+				}
+			}
+
+		});
+        
         attributetable.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(224, 225, 220)));
 		
         attributetable.setBackground(new Color(255, 255, 255));
@@ -276,6 +361,14 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 
 	public JPanel getTitlelinepanel() {
 		return titlelinepanel;
+	}
+
+	public JTable getAttributetable() {
+		return attributetable;
+	}
+
+	public DefaultTableModel getAttributetablemodel() {
+		return attributetablemodel;
 	}
 	
 	

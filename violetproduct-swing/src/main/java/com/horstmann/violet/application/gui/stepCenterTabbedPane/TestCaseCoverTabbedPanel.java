@@ -171,7 +171,7 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 		int i=0;
 		for(int j=0;j<30;j++){
 			
-			TestCaseCoverPartPanel tccppanel=new TestCaseCoverPartPanel();
+			TestCaseCoverPartPanel tccppanel=new TestCaseCoverPartPanel(mainFrame);
 			resultpanel.add(tccppanel);
 			layout.setConstraints(tccppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		}

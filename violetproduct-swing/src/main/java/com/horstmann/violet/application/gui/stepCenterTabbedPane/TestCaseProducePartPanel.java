@@ -2,6 +2,7 @@ package com.horstmann.violet.application.gui.stepCenterTabbedPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -156,7 +157,7 @@ public class TestCaseProducePartPanel extends JPanel{
 	private void initAttributePanel() {
 		// TODO Auto-generated method stub
 		
-		String[] columnNames={"迁移Id","迁移名称","源状态名称","目的状态名称","实例化约束条件"};
+		final String[] columnNames={"迁移Id","迁移名称","源状态名称","目的状态名称","实例化约束条件"};
 		String[][] tabelValues={};
 		
 		attributetablemodel=new DefaultTableModel(tabelValues, columnNames){
@@ -214,34 +215,68 @@ public class TestCaseProducePartPanel extends JPanel{
 				// TODO Auto-generated method stub
 				if(e.getClickCount()==2){
 					
-					mainFrame.getAbstractTestCaseResultPanel().getNamelabel().setText("测试用例  23");
+					mainFrame.getAbstractTestCaseResultPanel().getOnenamelabel().setText(titlelabel.getText());
 					
-					DefaultTableModel dtm=mainFrame.getAbstractTestCaseResultPanel().getTestcaseproducetablemodel();
+					JTable jt=mainFrame.getAbstractTestCaseResultPanel().getTestcaseinfortable();
+					DefaultTableModel dtm=mainFrame.getAbstractTestCaseResultPanel().getTestcaseinfortablemodel();
 					
 					int index=attributetable.getSelectedRow();
 					
+					final int[] columnindex=new int[columnNames.length];
+					int k=0;
+					int count=0;
+					
 					List<String> rowDataList=new ArrayList<String>();
-					rowDataList.add("迁移Id");
-					rowDataList.add((String) attributetablemodel.getValueAt(index, 0));
-					rowDataList.add("迁移名称");
-					rowDataList.add((String) attributetablemodel.getValueAt(index, 1));
-					rowDataList.add("源状态名称");
-					rowDataList.add((String) attributetablemodel.getValueAt(index, 2));
-					rowDataList.add("目的状态名称");
-					rowDataList.add((String) attributetablemodel.getValueAt(index, 3));
-					rowDataList.add("实例化约束条件");
 					
-					String str=(String) attributetablemodel.getValueAt(index, 4);
-					String[] strdata=str.split(",");
+					for(int i=0;i<columnNames.length;i++){
+						rowDataList.add(columnNames[i]);
+						columnindex[k++]=count++;
+						
+						String str=(String) attributetablemodel.getValueAt(index, i);
+						String[] strdata=str.split("--");
+						
+						for(String s:strdata){
+							rowDataList.add(s);
+							count++;
+						}
+						
+					}
 					
-					for(String s:strdata){
-						rowDataList.add(s);
+					while(dtm.getRowCount()>0){
+						dtm.removeRow(dtm.getRowCount()-1);
 					}
 					
 					for(String s:rowDataList){
 						Object[] rowData={"   "+s};
 						dtm.addRow(rowData);
 					}
+					
+					DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer() {
+
+						@Override
+						public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+								boolean hasFocus, int row, int column) {
+							// TODO Auto-generated method stub
+
+							if(row==0||row==2||row==4||row==6||row==8){
+								setBackground(new Color(71, 80, 93));
+						        setForeground(new Color(255, 255, 255));
+							}
+							else{
+								setForeground(new Color(115, 110, 102));
+						        setBackground(new Color(255, 255, 255));
+							}
+							
+							setFont(new Font("微软雅黑", Font.PLAIN, 12));
+							setHorizontalAlignment(DefaultTableCellRenderer.LEFT);
+
+							return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+						}
+
+					};
+					jt.setDefaultRenderer(Object.class, renderer1);
+					
+					dtm.fireTableDataChanged();
 					
 				}
 			}
