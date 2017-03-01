@@ -232,7 +232,7 @@ public class TestCaseCoverPartPanel extends JPanel{
 					List<String> rowDataList=new ArrayList<String>();
 					
 					for(int i=0;i<columnNames.length;i++){
-						rowDataList.add(columnNames[i]);
+						rowDataList.add("+-+"+columnNames[i]+":");
 						columnindex[k++]=count++;
 						
 						String str=(String) attributetablemodel.getValueAt(index, i);
@@ -250,34 +250,9 @@ public class TestCaseCoverPartPanel extends JPanel{
 					}
 					
 					for(String s:rowDataList){
-						Object[] rowData={"   "+s};
+						Object[] rowData={s};
 						dtm.addRow(rowData);
 					}
-					
-					DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer() {
-
-						@Override
-						public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-								boolean hasFocus, int row, int column) {
-							// TODO Auto-generated method stub
-
-							if(row==columnindex[0]||row==columnindex[1]||row==columnindex[2]||row==columnindex[3]||row==columnindex[4]||row==columnindex[5]||row==columnindex[6]){
-								setBackground(new Color(71, 80, 93));
-						        setForeground(new Color(255, 255, 255));
-							}
-							else{
-								setForeground(new Color(115, 110, 102));
-						        setBackground(new Color(255, 255, 255));
-							}
-							
-							setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-							setHorizontalAlignment(DefaultTableCellRenderer.LEFT);
-
-							return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-						}
-
-					};
-					jt.setDefaultRenderer(Object.class, renderer1);
 					
 					dtm.fireTableDataChanged();
 					

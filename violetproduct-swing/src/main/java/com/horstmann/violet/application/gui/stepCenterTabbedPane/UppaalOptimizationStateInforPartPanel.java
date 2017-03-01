@@ -2,7 +2,6 @@ package com.horstmann.violet.application.gui.stepCenterTabbedPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -31,10 +29,9 @@ import javax.swing.table.DefaultTableModel;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
-import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalLocation;
 
-public class UppaalParseStateInforPartPanel extends JPanel{
-	
+public class UppaalOptimizationStateInforPartPanel extends JPanel{
+
 	private MainFrame mainFrame;
 
 	private JPanel titlepanel;
@@ -54,7 +51,7 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 	private JTable attributetable;
 	private DefaultTableModel attributetablemodel;
 	
-	public UppaalParseStateInforPartPanel(MainFrame mainFrame){
+	public UppaalOptimizationStateInforPartPanel(MainFrame mainFrame){
 		
 		this.mainFrame=mainFrame;
 		
@@ -195,7 +192,7 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 	private void initAttributePanel() {
 		// TODO Auto-generated method stub
 		
-		final String[] columnNames={"ÐòºÅ","Ãû³Æ","Î»ÖÃ","ÊÇ·ñÎªÖÕÖ¹×´Ì¬","ÀàÐÍ"};
+		final String[] columnNames={"×´Ì¬","ÐòºÅ","Ãû³Æ","Î»ÖÃ","ÊÇ·ñÎªÖÕÖ¹×´Ì¬","ÀàÐÍ"};
 		String[][] tabelValues={};
 		
 		attributetablemodel=new DefaultTableModel(tabelValues, columnNames){
@@ -218,6 +215,8 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
+		attributetable.getColumn("×´Ì¬").setPreferredWidth(10);
+		attributetable.getColumn("×´Ì¬").setMinWidth(10);
 		attributetable.getColumn("ÐòºÅ").setPreferredWidth(10);
 		attributetable.getColumn("ÐòºÅ").setMinWidth(10);
 		attributetable.getColumn("Ãû³Æ").setPreferredWidth(300);
@@ -259,13 +258,13 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 					
 					int index=attributetable.getSelectedRow();
 					
-					final int[] columnindex=new int[columnNames.length];
+					final int[] columnindex=new int[columnNames.length-1];
 					int k=0;
 					int count=0;
 					
 					List<String> rowDataList=new ArrayList<String>();
 					
-					for(int i=0;i<columnNames.length;i++){
+					for(int i=1;i<columnNames.length;i++){
 						rowDataList.add("+-+"+columnNames[i]+":");
 						columnindex[k++]=count++;
 						
@@ -316,7 +315,7 @@ public class UppaalParseStateInforPartPanel extends JPanel{
         attributepanel.setOpaque(false);
         
         for(int i=0;i<50;i++){
-			Object[] rowData={"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
+			Object[] rowData={"0","1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
 			attributetablemodel.addRow(rowData);
 		}
 		
@@ -345,7 +344,5 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 	public DefaultTableModel getAttributetablemodel() {
 		return attributetablemodel;
 	}
-	
-	
 	
 }

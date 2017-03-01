@@ -2,11 +2,9 @@ package com.horstmann.violet.application.gui.stepCenterTabbedPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -29,12 +27,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.gui.ButtonMouseListener;
-import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
-import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalLocation;
 
-public class UppaalParseStateInforPartPanel extends JPanel{
-	
+public class UppaalOptimizationMigrateInforPartPanel extends JPanel{
+
 	private MainFrame mainFrame;
 
 	private JPanel titlepanel;
@@ -54,7 +50,7 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 	private JTable attributetable;
 	private DefaultTableModel attributetablemodel;
 	
-	public UppaalParseStateInforPartPanel(MainFrame mainFrame){
+	public UppaalOptimizationMigrateInforPartPanel(MainFrame mainFrame){
 		
 		this.mainFrame=mainFrame;
 		
@@ -84,7 +80,6 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 		
 		titlepanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
 		linepanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
-//		attributepanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		
 		initTitlePanel();
 		
@@ -103,17 +98,10 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 //		layout.setConstraints(titlepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //		layout.setConstraints(attributepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		
-//		titlelinepanel.setLayout(new BoxLayout(titlelinepanel, BoxLayout.Y_AXIS));
-//		titlelinepanel.add(titlepanel);
-//		titlelinepanel.add(linepanel);
-		titlelinepanel.setOpaque(false);
-		
-		GridBagLayout layout = new GridBagLayout();
-		titlelinepanel.setLayout(layout);
+		titlelinepanel.setLayout(new BoxLayout(titlelinepanel, BoxLayout.Y_AXIS));
 		titlelinepanel.add(titlepanel);
 		titlelinepanel.add(linepanel);
-		layout.setConstraints(titlepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(linepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		titlelinepanel.setOpaque(false);
 		
 		this.setLayout(new BorderLayout());
 		this.add(titlelinepanel,BorderLayout.NORTH);
@@ -128,12 +116,12 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "scenario_end.png");
+		ImageIcon icon1 = new ImageIcon(path + "event_ation.png");
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 		ImageIcon icon2 = new ImageIcon(path + "dropdown1.png");
 		icon2.setImage(icon2.getImage().getScaledInstance(11,11, Image.SCALE_DEFAULT));
 		
-		titlelabel.setText("所有状态信息");
+		titlelabel.setText("所有迁移信息");
 		titlelabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(250,0,60));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -169,9 +157,9 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 		titlepanel.setLayout(new BorderLayout());
 		titlepanel.add(titlelabelpanel,BorderLayout.WEST);
 		titlepanel.add(toolbutton,BorderLayout.EAST);
-		titlepanel.setPreferredSize(new Dimension(100, 25));
-		titlepanel.setMinimumSize(new Dimension(100, 25));
-		titlepanel.setMaximumSize(new Dimension(100, 25));
+//		titlepanel.setPreferredSize(new Dimension(100, 20));
+//		titlepanel.setMinimumSize(new Dimension(100, 20));
+//		titlepanel.setMaximumSize(new Dimension(100, 20));
 		
 		titlepanel.setOpaque(false);
 		
@@ -182,8 +170,6 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 		
 		linelabel.setText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
 		linelabel.setPreferredSize(new Dimension(100, 3));
-		linelabel.setMaximumSize(new Dimension(100, 3));
-		linelabel.setMinimumSize(new Dimension(100, 3));
 		linelabel.setForeground(new Color(223, 204, 221));
 		
 		linepanel.setLayout(new GridLayout());
@@ -195,7 +181,7 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 	private void initAttributePanel() {
 		// TODO Auto-generated method stub
 		
-		final String[] columnNames={"序号","名称","位置","是否为终止状态","类型"};
+		final String[] columnNames={"状态","序号","名称","in(约束条件)","conditions(约束条件)","out(输出信息)","重置时钟"};
 		String[][] tabelValues={};
 		
 		attributetablemodel=new DefaultTableModel(tabelValues, columnNames){
@@ -218,16 +204,20 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
+		attributetable.getColumn("状态").setPreferredWidth(10);
+		attributetable.getColumn("状态").setMinWidth(10);
 		attributetable.getColumn("序号").setPreferredWidth(10);
 		attributetable.getColumn("序号").setMinWidth(10);
-		attributetable.getColumn("名称").setPreferredWidth(300);
-		attributetable.getColumn("名称").setMinWidth(300);
-		attributetable.getColumn("位置").setPreferredWidth(300);
-		attributetable.getColumn("位置").setMinWidth(300);
-		attributetable.getColumn("是否为终止状态").setPreferredWidth(50);
-		attributetable.getColumn("是否为终止状态").setMinWidth(50);
-		attributetable.getColumn("类型").setPreferredWidth(50);
-		attributetable.getColumn("类型").setMinWidth(50);
+		attributetable.getColumn("名称").setPreferredWidth(50);
+		attributetable.getColumn("名称").setMinWidth(50);
+		attributetable.getColumn("in(约束条件)").setPreferredWidth(50);
+		attributetable.getColumn("in(约束条件)").setMinWidth(50);
+		attributetable.getColumn("conditions(约束条件)").setPreferredWidth(300);
+		attributetable.getColumn("conditions(约束条件)").setMinWidth(300);
+		attributetable.getColumn("out(输出信息)").setPreferredWidth(50);
+		attributetable.getColumn("out(输出信息)").setMinWidth(50);
+		attributetable.getColumn("重置时钟").setPreferredWidth(50);
+		attributetable.getColumn("重置时钟").setMinWidth(50);
         
         DefaultTableCellRenderer renderer=new DefaultTableCellRenderer();
         renderer.setBackground(new Color(71, 80, 93));
@@ -259,13 +249,13 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 					
 					int index=attributetable.getSelectedRow();
 					
-					final int[] columnindex=new int[columnNames.length];
+					final int[] columnindex=new int[columnNames.length-1];
 					int k=0;
 					int count=0;
 					
 					List<String> rowDataList=new ArrayList<String>();
 					
-					for(int i=0;i<columnNames.length;i++){
+					for(int i=1;i<columnNames.length;i++){
 						rowDataList.add("+-+"+columnNames[i]+":");
 						columnindex[k++]=count++;
 						
@@ -316,7 +306,7 @@ public class UppaalParseStateInforPartPanel extends JPanel{
         attributepanel.setOpaque(false);
         
         for(int i=0;i<50;i++){
-			Object[] rowData={"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
+			Object[] rowData={"-1","13","set_throttle_out_unstabilizedfloat, bool, float","g.throttle_filt#g.throttle_filt:float","cycle=2.5ms--control_mode==0#control_mode:int8_t--motor_state==False || ap.throttle_zero==True#motor_state:bool,ap.throttle_zero:bool","null","不空，但是没有内容"};
 			attributetablemodel.addRow(rowData);
 		}
 		
@@ -334,10 +324,6 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 		return attributepanel;
 	}
 
-	public JPanel getTitlelinepanel() {
-		return titlelinepanel;
-	}
-
 	public JTable getAttributetable() {
 		return attributetable;
 	}
@@ -345,7 +331,4 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 	public DefaultTableModel getAttributetablemodel() {
 		return attributetablemodel;
 	}
-	
-	
-	
 }

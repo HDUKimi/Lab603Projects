@@ -28,6 +28,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelRenderer;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseProducePartPanel;
 
 public class AbstractTestCaseResultPanel extends JPanel{
 
@@ -108,6 +110,8 @@ public class AbstractTestCaseResultPanel extends JPanel{
 		initOneTestCaseResultPanel();
 
 		initTwoTestCaseResultPanel();
+		
+//		initThreeTestCaseResultPanel();
 		
 		initTitlePanel();
 		
@@ -194,7 +198,7 @@ public class AbstractTestCaseResultPanel extends JPanel{
 		testcaseinfortable=new JTable(testcaseinfortablemodel);
 		
 		testcaseinfortable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        testcaseinfortable.setSelectionBackground(new Color(250, 248, 236));
+        testcaseinfortable.setSelectionBackground(new Color(250, 248, 236));
         testcaseinfortable.setGridColor(new Color(224, 226, 220));
 		testcaseinfortable.setShowGrid(true);
 		testcaseinfortable.setShowHorizontalLines(true);
@@ -204,30 +208,32 @@ public class AbstractTestCaseResultPanel extends JPanel{
 		testcaseinfortable.doLayout();
 		testcaseinfortable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		
-		DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer() {
-
-			@Override
-			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-					boolean hasFocus, int row, int column) {
-				// TODO Auto-generated method stub
-
-				if(row==0||row==2||row==4||row==6||row==8){
-					setBackground(new Color(71, 80, 93));
-			        setForeground(new Color(255, 255, 255));
-				}
-				else{
-					setForeground(new Color(115, 110, 102));
-			        setBackground(new Color(255, 255, 255));
-				}
-				
-				setFont(new Font("微软雅黑", Font.PLAIN, 12));
-				setHorizontalAlignment(DefaultTableCellRenderer.LEFT);
-
-				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-			}
-
-		};
-		testcaseinfortable.setDefaultRenderer(Object.class, renderer1);
+		testcaseinfortable.getColumnModel().getColumn(0).setCellRenderer(new TestCaseInforLabelRenderer());
+		
+//		DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer() {
+//
+//			@Override
+//			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+//					boolean hasFocus, int row, int column) {
+//				// TODO Auto-generated method stub
+//
+//				if(row==0||row==2||row==4||row==6||row==8){
+//					setBackground(new Color(71, 80, 93));
+//			        setForeground(new Color(255, 255, 255));
+//				}
+//				else{
+//					setForeground(new Color(115, 110, 102));
+//			        setBackground(new Color(255, 255, 255));
+//				}
+//				
+//				setFont(new Font("微软雅黑", Font.PLAIN, 12));
+//				setHorizontalAlignment(DefaultTableCellRenderer.LEFT);
+//
+//				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//			}
+//
+//		};
+//		testcaseinfortable.setDefaultRenderer(Object.class, renderer1);
 		
 		testcaseinfortable.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(224, 225, 220)));
         testcaseinfortable.setBackground(new Color(255, 255, 255));
@@ -278,6 +284,8 @@ public class AbstractTestCaseResultPanel extends JPanel{
 	private void initTwoResulePanel() {
 		// TODO Auto-generated method stub
 		
+		initTestCaseInequalitySolveProcess();
+		
 		tworesultpanel.setLayout(new GridLayout());
 
 		tworesultpanel.setBackground(new Color(255, 255, 255));
@@ -287,10 +295,47 @@ public class AbstractTestCaseResultPanel extends JPanel{
 		
 	}
 
+	private void initTestCaseInequalitySolveProcess() {
+		// TODO Auto-generated method stub
+		
+		JPanel resultpanel=new JPanel();
+		JPanel emptypanel=new JPanel();
+		resultpanel.setOpaque(false);
+		emptypanel.setOpaque(false);
+		
+		GridBagLayout layout1 = new GridBagLayout();
+		resultpanel.setLayout(layout1);
+		int i=0;
+		for(int j=0;j<30;j++){
+			
+			TestCaseInequalitySolvePanel tcispanel=new TestCaseInequalitySolvePanel();
+			
+			JPanel processpanel=tcispanel.getAttributepanel();
+			GridBagLayout layout2 = new GridBagLayout();
+			processpanel.setLayout(layout2);
+			for(int k=0;k<10;k++){
+				
+				TestCaseInequalitySolveInforPanel tcisipanel=new TestCaseInequalitySolveInforPanel();
+				processpanel.add(tcisipanel);
+				layout2.setConstraints(tcisipanel, new GBC(0, k, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+				
+			}
+			
+			resultpanel.add(tcispanel);
+			layout1.setConstraints(tcispanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		}
+		resultpanel.add(emptypanel);
+		layout1.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+		tworesultpanel.removeAll();
+		tworesultpanel.add(resultpanel);
+		
+	}
+
 	private void initTwoNamePanel() {
 		// TODO Auto-generated method stub
 		
-		twonamelabel.setText("  ");
+		twonamelabel.setText("实例化中不等式求解过程");
 		twonamelabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		twonamelabel.setForeground(new Color(0, 102, 204));
 		twonamelabel.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 0));
@@ -301,6 +346,83 @@ public class AbstractTestCaseResultPanel extends JPanel{
 		twonamepanel.setMinimumSize(new Dimension(100, 25));
 		twonamepanel.add(twonamelabel,BorderLayout.WEST);
 		
+	}
+	
+	private void initThreeTestCaseResultPanel() {
+		// TODO Auto-generated method stub
+		
+		threetestcaseresultpanel=new JPanel();
+		
+		threenamepanel=new JPanel();
+		threenamelabel=new JLabel();
+		threeresultpanel=new JPanel();
+		
+		threenamepanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(142, 155, 188)));
+		
+		initThreeNamePanel();
+		
+		initThreeResulePanel();
+		
+		GridBagLayout layout=new GridBagLayout();
+		threetestcaseresultpanel.setLayout(layout);
+		threetestcaseresultpanel.add(threenamepanel);
+		threetestcaseresultpanel.add(threeresultscrollpanel);
+		layout.setConstraints(threenamepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(threeresultscrollpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+	}
+
+	private void initThreeNamePanel() {
+		// TODO Auto-generated method stub
+		
+		threenamelabel.setText("共找到了5条路径");
+		threenamelabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		threenamelabel.setForeground(new Color(0, 102, 204));
+		threenamelabel.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 0));
+		
+		threenamepanel.setLayout(new BorderLayout());
+		threenamepanel.setBackground(new Color(255,255,255));
+		threenamepanel.setPreferredSize(new Dimension(200, 25));
+		threenamepanel.setMinimumSize(new Dimension(100, 25));
+		threenamepanel.add(threenamelabel,BorderLayout.WEST);
+		
+	}
+
+	private void initThreeResulePanel() {
+		// TODO Auto-generated method stub
+		
+		initTestCasePathPanel();
+		
+		threeresultpanel.setLayout(new GridLayout());
+
+		threeresultpanel.setBackground(new Color(255, 255, 255));
+		
+		threeresultscrollpanel=new JScrollPane(threeresultpanel);
+		threeresultscrollpanel.setBorder(null);
+		
+	}
+
+	private void initTestCasePathPanel() {
+		// TODO Auto-generated method stub
+		
+		JPanel resultpanel=new JPanel();
+		JPanel emptypanel=new JPanel();
+		resultpanel.setOpaque(false);
+		emptypanel.setOpaque(false);
+		
+		GridBagLayout layout = new GridBagLayout();
+		resultpanel.setLayout(layout);
+		int i=0;
+		for(int j=0;j<30;j++){
+			TestCasePathPanel tcppanel=new TestCasePathPanel();
+			resultpanel.add(tcppanel);
+			layout.setConstraints(tcppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		}
+		resultpanel.add(emptypanel);
+		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+		threeresultpanel.removeAll();
+		threeresultpanel.add(resultpanel);
 	}
 
 	private void initTitlePanel() {
@@ -503,7 +625,7 @@ public class AbstractTestCaseResultPanel extends JPanel{
 		});
 		
 		
-		testcaselabeltab3.setText("");
+		testcaselabeltab3.setText("路径信息");
 		testcaselabeltab3.setForeground(new Color(255, 255, 255));
 		testcaselabeltab3.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		testcaselabeltab3.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
@@ -637,7 +759,7 @@ public class AbstractTestCaseResultPanel extends JPanel{
 		testcaselabeltabpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		testcaselabeltabpanel.add(testcaselabeltabpanel1);
 		testcaselabeltabpanel.add(testcaselabeltabpanel2);
-//		testcaselabeltabpanel.add(testcaselabeltabpanel3);
+		testcaselabeltabpanel.add(testcaselabeltabpanel3);
 //		testcaselabeltabpanel.add(testcaselabeltabpanel4);
 		
 		testcaselabeltabpanel.setPreferredSize(new Dimension(100, 30));
