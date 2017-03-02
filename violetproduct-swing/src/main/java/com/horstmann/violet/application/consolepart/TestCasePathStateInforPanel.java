@@ -43,7 +43,8 @@ public class TestCasePathStateInforPanel extends JPanel{
 		
 		init();
 		
-		this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+//		this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		this.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 		
 		this.setBackground(new Color(255, 255, 255));
 		
@@ -101,7 +102,7 @@ public class TestCasePathStateInforPanel extends JPanel{
 		
 		titlelabel.setText("×´Ì¬1");
 		titlelabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 12));
-		titlelabel.setForeground(new Color(250,0,60));
+//		titlelabel.setForeground(new Color(250,0,60));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 		
 		iconlabel.setIcon(icon1);
@@ -184,17 +185,14 @@ public class TestCasePathStateInforPanel extends JPanel{
         renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 11));
         attributetable.setDefaultRenderer(Object.class, renderer1);
         
-        Object[] rowData={"id="};
+        Object[] rowData={"id=1"};
         attributetablemodel.addRow(rowData);
-        Object[] rowData1={"name="};
+        Object[] rowData1={"name=state1"};
         attributetablemodel.addRow(rowData1);
-        Object[] rowData2={"x="};
+        Object[] rowData2={"type=CircularNode"};
         attributetablemodel.addRow(rowData2);
-        Object[] rowData3={"finl="};
+        Object[] rowData3={"finalState=false"};
         attributetablemodel.addRow(rowData3);
-        Object[] rowData4={"init="};
-        attributetablemodel.addRow(rowData4);
-       
         
         attributepanel.setLayout(new GridLayout());
         attributepanel.add(attributetable);

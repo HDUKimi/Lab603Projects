@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -158,7 +159,7 @@ public class UppaalOptimizationTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("正在进行符号状态拆分");
+		moviepanel.getMovieLabel().setText("正在进行符号状态拆分,去除抽象时间迁移");
 		
 	}
 	
@@ -238,18 +239,13 @@ public class UppaalOptimizationTabbedPanel extends JPanel{
 				setFont(new Font("微软雅黑", Font.PLAIN, 12));
 				setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
 
-//				if (row%3==0) {
-//					setForeground(new Color(115, 110, 102));
-//					setBackground(new Color(255, 135, 135));
-//				}
-				
-				if(table.getValueAt(row, 0)=="-1"){
-					setForeground(new Color(5, 110, 2));
-					setBackground(new Color(5, 135, 5));
+				if(Integer.parseInt(table.getValueAt(row, 0).toString())==-1){
+					setForeground(new Color(177,177,177));
+					setBackground(new Color(200,200,200));
 				}
-				else if(table.getValueAt(row, 0)=="1"){
-					setForeground(new Color(115, 110, 102));
-					setBackground(new Color(255, 135, 135));
+				else if(Integer.parseInt(table.getValueAt(row, 0).toString())==1){
+					setForeground(new Color(0,0,0));
+					setBackground(new Color(205,255,185));
 				}
 
 				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
@@ -259,14 +255,24 @@ public class UppaalOptimizationTabbedPanel extends JPanel{
 		stateinfortable.setDefaultRenderer(Object.class, renderer1);
 		migrateinfortable.setDefaultRenderer(Object.class, renderer1);
 		
+		Random rand=new Random();
+		int index;
 		for(int i=0;i<50;i++){
-			Object[] rowData={"1","1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
-			stateinfortablemodel.addRow(rowData);
+			index=rand.nextInt(3);
+			if(index==2){
+				index=-1;
+			}
+			Object[] rowData1={index,"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
+			stateinfortablemodel.addRow(rowData1);
 		}
 		
 		for(int i=0;i<50;i++){
-			Object[] rowData={"-1","13","set_throttle_out_unstabilizedfloat, bool, float","g.throttle_filt#g.throttle_filt:float","cycle=2.5ms--control_mode==0#control_mode:int8_t--motor_state==False || ap.throttle_zero==True#motor_state:bool,ap.throttle_zero:bool","null","不空，但是没有内容"};
-			migrateinfortablemodel.addRow(rowData);
+			index=rand.nextInt(3);
+			if(index==2){
+				index=-1;
+			}
+			Object[] rowData1={index,"13","set_throttle_out_unstabilizedfloat, bool, float","g.throttle_filt#g.throttle_filt:float","cycle=2.5ms--control_mode==0#control_mode:int8_t--motor_state==False || ap.throttle_zero==True#motor_state:bool,ap.throttle_zero:bool","null","不空，但是没有内容"};
+			migrateinfortablemodel.addRow(rowData1);
 		}
 		
 	}
@@ -281,8 +287,8 @@ public class UppaalOptimizationTabbedPanel extends JPanel{
 		
 		generalinforlabel1.setText("时间自动机名字：template_");
 		generalinforlabel2.setText("时间自动机时钟集合： t");
-		generalinforlabel3.setText("模型中总状态个数：200 ， 相对于拆分前 ， 增加了50个");
-		generalinforlabel4.setText("模型中总迁移个数：220 ， 相对于拆分前 ， 增加了20个");
+		generalinforlabel3.setText("模型中总状态个数：200 ，  增加了50个 ， 减少了10个");
+		generalinforlabel4.setText("模型中总迁移个数：220 ，  增加了20个 ， 减少了30个");
 		
 		generalinforlabel1.setFont(new Font("微软雅黑", Font.PLAIN, 13));
 		generalinforlabel2.setFont(new Font("微软雅黑", Font.PLAIN, 13));

@@ -179,14 +179,14 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-		attributetable.getColumn("迁移Id").setPreferredWidth(5);
-		attributetable.getColumn("迁移Id").setMinWidth(5);
-		attributetable.getColumn("迁移名称").setPreferredWidth(10);
-		attributetable.getColumn("迁移名称").setMinWidth(10);
+		attributetable.getColumn("迁移Id").setPreferredWidth(20);
+		attributetable.getColumn("迁移Id").setMinWidth(20);
+		attributetable.getColumn("迁移名称").setPreferredWidth(20);
+		attributetable.getColumn("迁移名称").setMinWidth(20);
 		attributetable.getColumn("源状态名称").setPreferredWidth(200);
 		attributetable.getColumn("源状态名称").setMinWidth(200);
-		attributetable.getColumn("实例化结果").setPreferredWidth(600);
-		attributetable.getColumn("实例化结果").setMinWidth(600);
+		attributetable.getColumn("实例化结果").setPreferredWidth(500);
+		attributetable.getColumn("实例化结果").setMinWidth(500);
         
         DefaultTableCellRenderer renderer=new DefaultTableCellRenderer();
         renderer.setBackground(new Color(71, 80, 93));

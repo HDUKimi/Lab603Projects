@@ -195,9 +195,9 @@ public class StepThreeCenterTabbedPane extends JPanel {
 
 		buttonTabbedPanel.add(testCaseProcessButtonPanel);
 		buttonTabbedPanel.add(uppaalParseInforButtonPanel);
-//		buttonTabbedPanel.add(uppaalOptimizationButtonPanel);
-		buttonTabbedPanel.add(uppaalSplitStateButtonPanel);
-		buttonTabbedPanel.add(uppaalRemoveMigrateButtonPanel);
+		buttonTabbedPanel.add(uppaalOptimizationButtonPanel);
+//		buttonTabbedPanel.add(uppaalSplitStateButtonPanel);
+//		buttonTabbedPanel.add(uppaalRemoveMigrateButtonPanel);
 //		buttonTabbedPanel.add(testCaseConstraintButtonPanel);
 		buttonTabbedPanel.add(testCaseUppaalButtonPanel);
 		buttonTabbedPanel.add(testCaseCoverButtonPanel);
@@ -208,9 +208,9 @@ public class StepThreeCenterTabbedPane extends JPanel {
 				
 		fixButtonTabbedPanelList.add(testCaseProcessButtonPanel);
 		fixButtonTabbedPanelList.add(uppaalParseInforButtonPanel);
-//		fixButtonTabbedPanelList.add(uppaalOptimizationButtonPanel);
-		fixButtonTabbedPanelList.add(uppaalSplitStateButtonPanel);
-		fixButtonTabbedPanelList.add(uppaalRemoveMigrateButtonPanel);
+		fixButtonTabbedPanelList.add(uppaalOptimizationButtonPanel);
+//		fixButtonTabbedPanelList.add(uppaalSplitStateButtonPanel);
+//		fixButtonTabbedPanelList.add(uppaalRemoveMigrateButtonPanel);
 //		fixButtonTabbedPanelList.add(testCaseConstraintButtonPanel);
 		fixButtonTabbedPanelList.add(testCaseUppaalButtonPanel);
 		fixButtonTabbedPanelList.add(testCaseCoverButtonPanel);

@@ -2,6 +2,7 @@ package com.horstmann.violet.application.gui.stepCenterTabbedPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -26,6 +27,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import com.horstmann.violet.application.consolepart.TestCaseInforLabelRenderer;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.MainFrame;
 
@@ -204,10 +206,12 @@ public class UppaalOptimizationMigrateInforPartPanel extends JPanel{
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-		attributetable.getColumn("×´Ì¬").setPreferredWidth(10);
-		attributetable.getColumn("×´Ì¬").setMinWidth(10);
-		attributetable.getColumn("ÐòºÅ").setPreferredWidth(10);
-		attributetable.getColumn("ÐòºÅ").setMinWidth(10);
+		attributetable.getColumnModel().getColumn(0).setCellRenderer(new MyAddDeleteLabelRenderer());
+		
+		attributetable.getColumn("×´Ì¬").setPreferredWidth(20);
+		attributetable.getColumn("×´Ì¬").setMinWidth(20);
+		attributetable.getColumn("ÐòºÅ").setPreferredWidth(20);
+		attributetable.getColumn("ÐòºÅ").setMinWidth(20);
 		attributetable.getColumn("Ãû³Æ").setPreferredWidth(50);
 		attributetable.getColumn("Ãû³Æ").setMinWidth(50);
 		attributetable.getColumn("in(Ô¼ÊøÌõ¼þ)").setPreferredWidth(50);
@@ -228,12 +232,37 @@ public class UppaalOptimizationMigrateInforPartPanel extends JPanel{
         
         attributetable.getTableHeader().setPreferredSize(new Dimension(100, 27));
         
-        DefaultTableCellRenderer renderer1=new DefaultTableCellRenderer();
-        renderer1.setForeground(new Color(115, 110, 102));
-        renderer1.setBackground(new Color(255, 255, 255));
-        renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-        renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-        attributetable.setDefaultRenderer(Object.class, renderer1); 
+//        DefaultTableCellRenderer renderer1=new DefaultTableCellRenderer();
+//        renderer1.setForeground(new Color(115, 110, 102));
+//        renderer1.setBackground(new Color(255, 255, 255));
+//        renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+//        renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+//        DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer() {
+//
+//			@Override
+//			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+//					boolean hasFocus, int row, int column) {
+//				// TODO Auto-generated method stub
+//
+//				setForeground(new Color(115, 110, 102));
+//				setBackground(new Color(255, 255, 255));
+//				setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+//				setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+//
+//				if(table.getValueAt(row, 0)=="-1"){
+//					setForeground(new Color(5, 110, 2));
+//					setBackground(new Color(5, 135, 5));
+//				}
+//				else if(table.getValueAt(row, 0)=="1"){
+//					setForeground(new Color(115, 110, 102));
+//					setBackground(new Color(255, 135, 135));
+//				}
+//
+//				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//			}
+//
+//		};
+//        attributetable.setDefaultRenderer(Object.class, renderer1); 
         
         attributetable.addMouseListener(new MouseAdapter() {
 
@@ -305,11 +334,6 @@ public class UppaalOptimizationMigrateInforPartPanel extends JPanel{
 //        attributepanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         attributepanel.setOpaque(false);
         
-        for(int i=0;i<50;i++){
-			Object[] rowData={"-1","13","set_throttle_out_unstabilizedfloat, bool, float","g.throttle_filt#g.throttle_filt:float","cycle=2.5ms--control_mode==0#control_mode:int8_t--motor_state==False || ap.throttle_zero==True#motor_state:bool,ap.throttle_zero:bool","null","²»¿Õ£¬µ«ÊÇÃ»ÓÐÄÚÈÝ"};
-			attributetablemodel.addRow(rowData);
-		}
-		
 	}
 
 	public JPanel getTitlepanel() {

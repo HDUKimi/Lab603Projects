@@ -2,6 +2,7 @@ package com.horstmann.violet.application.gui.stepCenterTabbedPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -215,10 +216,12 @@ public class UppaalOptimizationStateInforPartPanel extends JPanel{
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-		attributetable.getColumn("×´Ì¬").setPreferredWidth(10);
-		attributetable.getColumn("×´Ì¬").setMinWidth(10);
-		attributetable.getColumn("ÐòºÅ").setPreferredWidth(10);
-		attributetable.getColumn("ÐòºÅ").setMinWidth(10);
+		attributetable.getColumnModel().getColumn(0).setCellRenderer(new MyAddDeleteLabelRenderer());
+		
+		attributetable.getColumn("×´Ì¬").setPreferredWidth(20);
+		attributetable.getColumn("×´Ì¬").setMinWidth(20);
+		attributetable.getColumn("ÐòºÅ").setPreferredWidth(20);
+		attributetable.getColumn("ÐòºÅ").setMinWidth(20);
 		attributetable.getColumn("Ãû³Æ").setPreferredWidth(300);
 		attributetable.getColumn("Ãû³Æ").setMinWidth(300);
 		attributetable.getColumn("Î»ÖÃ").setPreferredWidth(300);
@@ -237,12 +240,37 @@ public class UppaalOptimizationStateInforPartPanel extends JPanel{
         
         attributetable.getTableHeader().setPreferredSize(new Dimension(100, 27));
         
-        DefaultTableCellRenderer renderer1=new DefaultTableCellRenderer();
-        renderer1.setForeground(new Color(115, 110, 102));
-        renderer1.setBackground(new Color(255, 255, 255));
-        renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-        renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-        attributetable.setDefaultRenderer(Object.class, renderer1); 
+//        DefaultTableCellRenderer renderer1=new DefaultTableCellRenderer();
+//        renderer1.setForeground(new Color(115, 110, 102));
+//        renderer1.setBackground(new Color(255, 255, 255));
+//        renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+//        renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+//        DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer() {
+//
+//			@Override
+//			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+//					boolean hasFocus, int row, int column) {
+//				// TODO Auto-generated method stub
+//
+//				setForeground(new Color(115, 110, 102));
+//				setBackground(new Color(255, 255, 255));
+//				setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+//				setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+//
+//				if(table.getValueAt(row, 0)=="-1"){
+//					setForeground(new Color(5, 110, 2));
+//					setBackground(new Color(5, 135, 5));
+//				}
+//				else if(table.getValueAt(row, 0)=="1"){
+//					setForeground(new Color(115, 110, 102));
+//					setBackground(new Color(255, 135, 135));
+//				}
+//
+//				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//			}
+//
+//		};
+//        attributetable.setDefaultRenderer(Object.class, renderer1); 
         
         attributetable.addMouseListener(new MouseAdapter() {
 
@@ -314,11 +342,6 @@ public class UppaalOptimizationStateInforPartPanel extends JPanel{
 //        attributepanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         attributepanel.setOpaque(false);
         
-        for(int i=0;i<50;i++){
-			Object[] rowData={"0","1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
-			attributetablemodel.addRow(rowData);
-		}
-		
 	}
 
 	public JPanel getTitlepanel() {

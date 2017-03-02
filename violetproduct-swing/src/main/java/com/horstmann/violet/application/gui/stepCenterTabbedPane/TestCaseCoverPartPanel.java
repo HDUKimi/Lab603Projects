@@ -100,7 +100,7 @@ public class TestCaseCoverPartPanel extends JPanel{
 		ImageIcon icon3 = new ImageIcon(path + "dropdown1.png");
 		icon3.setImage(icon3.getImage().getScaledInstance(11, 11, Image.SCALE_DEFAULT));
 
-		titlelabel.setText("测试用例  21");
+		titlelabel.setText("测试序列  21");
 		titlelabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(60,0,255));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -180,18 +180,18 @@ public class TestCaseCoverPartPanel extends JPanel{
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-		attributetable.getColumn("迁移Id").setPreferredWidth(5);
-		attributetable.getColumn("迁移Id").setMinWidth(5);
-		attributetable.getColumn("迁移名称").setPreferredWidth(10);
-		attributetable.getColumn("迁移名称").setMinWidth(10);
+		attributetable.getColumn("迁移Id").setPreferredWidth(20);
+		attributetable.getColumn("迁移Id").setMinWidth(20);
+		attributetable.getColumn("迁移名称").setPreferredWidth(20);
+		attributetable.getColumn("迁移名称").setMinWidth(20);
 		attributetable.getColumn("源状态名称").setPreferredWidth(100);
 		attributetable.getColumn("源状态名称").setMinWidth(100);
 		attributetable.getColumn("目的状态名称").setPreferredWidth(100);
 		attributetable.getColumn("目的状态名称").setMinWidth(100);
 		attributetable.getColumn("in(约束条件)").setPreferredWidth(150);
 		attributetable.getColumn("in(约束条件)").setMinWidth(150);
-		attributetable.getColumn("out(输出信息)").setPreferredWidth(5);
-		attributetable.getColumn("out(输出信息)").setMinWidth(5);
+		attributetable.getColumn("out(输出信息)").setPreferredWidth(20);
+		attributetable.getColumn("out(输出信息)").setMinWidth(20);
 		attributetable.getColumn("conditions(约束条件)").setPreferredWidth(200);
 		attributetable.getColumn("conditions(约束条件)").setMinWidth(200);
         

@@ -111,7 +111,7 @@ public class AbstractTestCaseResultPanel extends JPanel{
 
 		initTwoTestCaseResultPanel();
 		
-//		initThreeTestCaseResultPanel();
+		initThreeTestCaseResultPanel();
 		
 		initTitlePanel();
 		

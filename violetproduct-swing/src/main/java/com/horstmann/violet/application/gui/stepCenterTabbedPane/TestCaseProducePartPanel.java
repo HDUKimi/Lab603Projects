@@ -180,10 +180,10 @@ public class TestCaseProducePartPanel extends JPanel{
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-		attributetable.getColumn("Ç¨ÒÆId").setPreferredWidth(5);
-		attributetable.getColumn("Ç¨ÒÆId").setMinWidth(5);
-		attributetable.getColumn("Ç¨ÒÆÃû³Æ").setPreferredWidth(10);
-		attributetable.getColumn("Ç¨ÒÆÃû³Æ").setMinWidth(10);
+		attributetable.getColumn("Ç¨ÒÆId").setPreferredWidth(20);
+		attributetable.getColumn("Ç¨ÒÆId").setMinWidth(20);
+		attributetable.getColumn("Ç¨ÒÆÃû³Æ").setPreferredWidth(20);
+		attributetable.getColumn("Ç¨ÒÆÃû³Æ").setMinWidth(20);
 		attributetable.getColumn("Ô´×´Ì¬Ãû³Æ").setPreferredWidth(100);
 		attributetable.getColumn("Ô´×´Ì¬Ãû³Æ").setMinWidth(100);
 		attributetable.getColumn("Ä¿µÄ×´Ì¬Ãû³Æ").setPreferredWidth(100);

@@ -43,7 +43,8 @@ public class TestCasePathTransitionInforPanel extends JPanel{
 		
 		init();
 		
-		this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+//		this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		this.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 		
 		this.setBackground(new Color(255, 255, 255));
 		
@@ -115,7 +116,7 @@ public class TestCasePathTransitionInforPanel extends JPanel{
 		
 		titlelabel.setText("Ç¨ÒÆ1");
 		titlelabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 12));
-		titlelabel.setForeground(new Color(60,0,255));
+//		titlelabel.setForeground(new Color(60,0,255));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 		
 		iconlabel.setIcon(icon1);
@@ -185,26 +186,14 @@ public class TestCasePathTransitionInforPanel extends JPanel{
         renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 11));
         attributetable.setDefaultRenderer(Object.class, renderer1);
         
-        Object[] rowData={"name="};
+        Object[] rowData={"id=1"};
         attributetablemodel.addRow(rowData);
-        Object[] rowData1={"fromName="};
+        Object[] rowData1={"name=transition1"};
         attributetablemodel.addRow(rowData1);
-        Object[] rowData2={"toName="};
-        attributetablemodel.addRow(rowData2);
-        Object[] rowData3={"target="};
+        Object[] rowData3={"target=start"};
         attributetablemodel.addRow(rowData3);
-        Object[] rowData4={"source="};
+        Object[] rowData4={"source=end"};
         attributetablemodel.addRow(rowData4);
-        Object[] rowData5={"x="};
-        attributetablemodel.addRow(rowData5);
-        Object[] rowData6={"time="};
-        attributetablemodel.addRow(rowData6);
-        Object[] rowData7={"out="};
-        attributetablemodel.addRow(rowData7);
-        Object[] rowData8={"duration="};
-        attributetablemodel.addRow(rowData8);
-        Object[] rowData9={"label="};
-        attributetablemodel.addRow(rowData9);
         
         attributepanel.setLayout(new GridLayout());
         attributepanel.add(attributetable);

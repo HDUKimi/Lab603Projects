@@ -64,6 +64,8 @@ public class TestCasePathPanel extends JPanel{
 		
 		initAttributePanel();
 		
+		attributepanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
+		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.add(titlepanel);
 		this.add(linepanel);
@@ -77,12 +79,12 @@ public class TestCasePathPanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "scenario_end.png");
+		ImageIcon icon1 = new ImageIcon(path + "test17.png");
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 		ImageIcon icon2 = new ImageIcon(path + "dropdown1.png");
 		icon2.setImage(icon2.getImage().getScaledInstance(11,11, Image.SCALE_DEFAULT));
 		
-		titlelabel.setText("≤‚ ‘”√¿˝1");
+		titlelabel.setText("¬∑æ∂1");
 		titlelabel.setFont(new Font("Œ¢»Ì—≈∫⁄", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(250,0,60));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
