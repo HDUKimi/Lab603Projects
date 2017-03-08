@@ -423,5 +423,39 @@ public class UppaalParseInforTabbedPanel extends JPanel{
 		this.getRootPane().repaint();
 		this.setVisible(true);
 	}
+
+	public JPanel getInforpanel() {
+		return inforpanel;
+	}
+
+	public UppaalParseStateInforPartPanel getStateinforpanel() {
+		return stateinforpanel;
+	}
+
+	public UppaalParseMigrateInforPartPanel getMigrateinforpanel() {
+		return migrateinforpanel;
+	}
+
+	public JLabel getGeneralinforlabel1() {
+		return generalinforlabel1;
+	}
+
+	public JLabel getGeneralinforlabel2() {
+		return generalinforlabel2;
+	}
+
+	public JLabel getGeneralinforlabel3() {
+		return generalinforlabel3;
+	}
+
+	public JLabel getGeneralinforlabel4() {
+		return generalinforlabel4;
+	}
+
+	public void setInforpanel(JPanel inforpanel) {
+		this.inforpanel = inforpanel;
+	}
+	
+	
 	
 }

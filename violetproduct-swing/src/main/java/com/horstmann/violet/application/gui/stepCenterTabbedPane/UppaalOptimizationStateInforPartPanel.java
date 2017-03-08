@@ -270,7 +270,28 @@ public class UppaalOptimizationStateInforPartPanel extends JPanel{
 //			}
 //
 //		};
-//        attributetable.setDefaultRenderer(Object.class, renderer1); 
+        DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer() {
+
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				// TODO Auto-generated method stub
+				
+				setForeground(new Color(0,0,0));
+				setBackground(new Color(255, 255, 255));
+				setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+				setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+				if(Integer.parseInt(table.getValueAt(row, 0).toString())==-1){
+					setForeground(new Color(177,177,177));
+					setBackground(new Color(255, 255, 255));
+				}
+				
+
+				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			}
+
+		};
+        attributetable.setDefaultRenderer(Object.class, renderer1); 
         
         attributetable.addMouseListener(new MouseAdapter() {
 

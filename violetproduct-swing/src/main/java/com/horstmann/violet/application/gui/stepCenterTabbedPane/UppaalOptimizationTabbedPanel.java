@@ -10,6 +10,12 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
@@ -234,19 +240,29 @@ public class UppaalOptimizationTabbedPanel extends JPanel{
 					boolean hasFocus, int row, int column) {
 				// TODO Auto-generated method stub
 
-				setForeground(new Color(115, 110, 102));
+//				setForeground(new Color(115, 110, 102));
+//				setBackground(new Color(255, 255, 255));
+//				setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+//				setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+//
+//				if(Integer.parseInt(table.getValueAt(row, 0).toString())==-1){
+//					setForeground(new Color(177,177,177));
+//					setBackground(new Color(200,200,200));
+//				}
+//				else if(Integer.parseInt(table.getValueAt(row, 0).toString())==1){
+//					setForeground(new Color(0,0,0));
+//					setBackground(new Color(205,255,185));
+//				}
+				
+				setForeground(new Color(0,0,0));
 				setBackground(new Color(255, 255, 255));
 				setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 				setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-
 				if(Integer.parseInt(table.getValueAt(row, 0).toString())==-1){
 					setForeground(new Color(177,177,177));
-					setBackground(new Color(200,200,200));
+					setBackground(new Color(255, 255, 255));
 				}
-				else if(Integer.parseInt(table.getValueAt(row, 0).toString())==1){
-					setForeground(new Color(0,0,0));
-					setBackground(new Color(205,255,185));
-				}
+				
 
 				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 			}
@@ -311,5 +327,19 @@ public class UppaalOptimizationTabbedPanel extends JPanel{
 		this.getRootPane().repaint();
 		this.setVisible(true);
 	}
+
+	public JPanel getInforpanel() {
+		return inforpanel;
+	}
+
+	public UppaalOptimizationStateInforPartPanel getStateinforpanel() {
+		return stateinforpanel;
+	}
+
+	public UppaalOptimizationMigrateInforPartPanel getMigrateinforpanel() {
+		return migrateinforpanel;
+	}
+	
+	
 	
 }

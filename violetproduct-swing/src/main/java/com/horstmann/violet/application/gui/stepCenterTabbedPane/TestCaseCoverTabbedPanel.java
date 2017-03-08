@@ -257,26 +257,44 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 		tabelpanel.add(tabelscrollpanel);
 		
 		
-		JPanel resultpanel=new JPanel();
-		JPanel emptypanel=new JPanel();
-		resultpanel.setOpaque(false);
-		emptypanel.setOpaque(false);
-		
-		GridBagLayout layout = new GridBagLayout();
-		resultpanel.setLayout(layout);
-		int i=0;
-		for(int j=0;j<30;j++){
-			
-			TestCaseCoverPartPanel tccppanel=new TestCaseCoverPartPanel(mainFrame);
-			resultpanel.add(tccppanel);
-			layout.setConstraints(tccppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		}
-		resultpanel.add(emptypanel);
-		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		
-		tableresultpanel.removeAll();
-		tableresultpanel.add(resultpanel);
+//		JPanel resultpanel=new JPanel();
+//		JPanel emptypanel=new JPanel();
+//		resultpanel.setOpaque(false);
+//		emptypanel.setOpaque(false);
+//		
+//		GridBagLayout layout = new GridBagLayout();
+//		resultpanel.setLayout(layout);
+//		int i=0;
+//		for(int j=0;j<30;j++){
+//			
+//			TestCaseCoverPartPanel tccppanel=new TestCaseCoverPartPanel(mainFrame);
+//			resultpanel.add(tccppanel);
+//			layout.setConstraints(tccppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//		}
+//		resultpanel.add(emptypanel);
+//		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		
+//		tableresultpanel.removeAll();
+//		tableresultpanel.add(resultpanel);
 		
 	}
+
+	public JPanel getResultpanel() {
+		return resultpanel;
+	}
+
+	public JPanel getDiagrampanel() {
+		return diagrampanel;
+	}
+
+	public JPanel getTabelpanel() {
+		return tabelpanel;
+	}
+
+	public JPanel getTableresultpanel() {
+		return tableresultpanel;
+	}
+	
+	
 	
 }

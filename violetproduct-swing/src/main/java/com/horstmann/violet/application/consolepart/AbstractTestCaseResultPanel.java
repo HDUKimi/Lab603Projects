@@ -284,7 +284,7 @@ public class AbstractTestCaseResultPanel extends JPanel{
 	private void initTwoResulePanel() {
 		// TODO Auto-generated method stub
 		
-		initTestCaseInequalitySolveProcess();
+//		initTestCaseInequalitySolveProcess();
 		
 		tworesultpanel.setLayout(new GridLayout());
 
@@ -391,7 +391,7 @@ public class AbstractTestCaseResultPanel extends JPanel{
 	private void initThreeResulePanel() {
 		// TODO Auto-generated method stub
 		
-		initTestCasePathPanel();
+//		initTestCasePathPanel();
 		
 		threeresultpanel.setLayout(new GridLayout());
 
@@ -566,6 +566,23 @@ public class AbstractTestCaseResultPanel extends JPanel{
 				
 			}
 		});
+		testcaselabeltab1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				settestcaselabeltabpanelrepait();
+				testcaselabeltab1.setForeground(new Color(0, 0, 0));
+				testcaselabeltabpanel1.setBackground(new Color(255, 255, 255));
+				testcaselabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,0,1, new Color(142, 155, 188)));
+				testcaselabeltabindex = 1;
+				
+				resultpanel.removeAll();
+				resultpanel.add(onetestcaseresultpanel);
+				
+				ChangeRepaint();
+			}
+		});
 		
 		
 		testcaselabeltab2.setText("求解");
@@ -623,6 +640,23 @@ public class AbstractTestCaseResultPanel extends JPanel{
 				
 			}
 		});
+		testcaselabeltab2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				settestcaselabeltabpanelrepait();
+				testcaselabeltab2.setForeground(new Color(0, 0, 0));
+				testcaselabeltabpanel2.setBackground(new Color(255, 255, 255));
+				testcaselabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0,0,0,1, new Color(142, 155, 188)));
+				testcaselabeltabindex = 2;
+				
+				resultpanel.removeAll();
+				resultpanel.add(twotestcaseresultpanel);
+				
+				ChangeRepaint();
+			}
+		});
 		
 		
 		testcaselabeltab3.setText("路径信息");
@@ -666,6 +700,23 @@ public class AbstractTestCaseResultPanel extends JPanel{
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				settestcaselabeltabpanelrepait();
+				testcaselabeltab3.setForeground(new Color(0, 0, 0));
+				testcaselabeltabpanel3.setBackground(new Color(255, 255, 255));
+				testcaselabeltabpanel3.setBorder(BorderFactory.createMatteBorder(0,1,0,1, new Color(142, 155, 188)));
+				testcaselabeltabindex = 3;
+				
+				resultpanel.removeAll();
+				resultpanel.add(threetestcaseresultpanel);
+				
+				ChangeRepaint();
+			}
+		});
+		testcaselabeltab3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				settestcaselabeltabpanelrepait();
 				testcaselabeltab3.setForeground(new Color(0, 0, 0));
@@ -854,6 +905,34 @@ public class AbstractTestCaseResultPanel extends JPanel{
 
 	public DefaultTableModel getTestcaseinfortablemodel() {
 		return testcaseinfortablemodel;
+	}
+	
+	public JLabel getTwonamelabel() {
+		return twonamelabel;
+	}
+
+	public JPanel getTworesultpanel() {
+		return tworesultpanel;
+	}
+
+	public JLabel getThreenamelabel() {
+		return threenamelabel;
+	}
+
+	public JPanel getThreeresultpanel() {
+		return threeresultpanel;
+	}
+
+	public JButton getTestcaselabeltab1() {
+		return testcaselabeltab1;
+	}
+
+	public JButton getTestcaselabeltab2() {
+		return testcaselabeltab2;
+	}
+
+	public JButton getTestcaselabeltab3() {
+		return testcaselabeltab3;
 	}
 
 

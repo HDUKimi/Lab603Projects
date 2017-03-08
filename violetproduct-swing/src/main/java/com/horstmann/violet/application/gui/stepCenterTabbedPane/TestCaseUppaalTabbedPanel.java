@@ -70,5 +70,12 @@ public class TestCaseUppaalTabbedPanel extends JPanel{
 	public IWorkspace getWorkspace() {
 		return workspace;
 	}
+
+
+	public JPanel getDiagramPanel() {
+		return diagramPanel;
+	}
+	
+	
 	
 }

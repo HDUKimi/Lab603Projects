@@ -114,7 +114,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		
 		initdiagrampanel();
 		
-		initTestCaseUppaalPanel();
+//		initTestCaseUppaalPanel();
 		
 		GridBagLayout layout = new GridBagLayout();
 		this.setLayout(layout);
@@ -216,6 +216,8 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		fixButtonTabbedPanelList.add(testCaseCoverButtonPanel);
 		fixButtonTabbedPanelList.add(testCaseProduceButtonPanel);
 		fixButtonTabbedPanelList.add(testCaseInstantiationButtonPanel);
+
+		setFixButtonTabbedPanelVisible();
 		
 		
 		buttonPanel.setLayout(new BorderLayout());
@@ -223,6 +225,17 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		buttonPanel.add(buttonTabbedPanel, BorderLayout.CENTER);
 		buttonPanel.add(rightButton, BorderLayout.EAST);
 
+	}
+
+	private void setFixButtonTabbedPanelVisible() {
+		// TODO Auto-generated method stub
+		
+		for(FixedButtonTabbedPanel fbtpanel:fixButtonTabbedPanelList){
+			fbtpanel.setVisible(false);
+		}
+		testCaseProcessButtonPanel.setVisible(true);
+		fixButtonTabbedPanelStartIndex=0;
+		
 	}
 
 	private void initleftrightbuttonpanel() {
@@ -479,7 +492,8 @@ public class StepThreeCenterTabbedPane extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				getDiagramPanel().removeAll();
-				getDiagramPanel().add(testCaseInstantiationTabbedPanel);
+//				getDiagramPanel().add(testCaseInstantiationTabbedPanel);
+				getDiagramPanel().add(mainFrame.getStepThreeCenterTabbedPane().getTestCaseInstantiationTabbedPanel());
 
 				ChangeAllButtonPanelState();
 				testCaseInstantiationButtonPanel.setBackground(new Color(58, 105, 190));
@@ -590,6 +604,66 @@ public class StepThreeCenterTabbedPane extends JPanel {
 
 	public JButton getTestCaseUppaalButton() {
 		return testCaseUppaalButton;
+	}
+
+	public List<FixedButtonTabbedPanel> getFixButtonTabbedPanelList() {
+		return fixButtonTabbedPanelList;
+	}
+
+	public MainFrame getMainFrame() {
+		return mainFrame;
+	}
+
+	public JPanel getButtonPanel() {
+		return buttonPanel;
+	}
+
+	public JPanel getButtonTabbedPanel() {
+		return buttonTabbedPanel;
+	}
+
+	public JButton getLeftButton() {
+		return leftButton;
+	}
+
+	public void setFixButtonTabbedPanelStartIndex(int fixButtonTabbedPanelStartIndex) {
+		this.fixButtonTabbedPanelStartIndex = fixButtonTabbedPanelStartIndex;
+	}
+
+	public int getFixButtonTabbedPanelStartIndex() {
+		return fixButtonTabbedPanelStartIndex;
+	}
+
+	public FixedButtonTabbedPanel getTestCaseProcessButtonPanel() {
+		return testCaseProcessButtonPanel;
+	}
+
+	public FixedButtonTabbedPanel getUppaalParseInforButtonPanel() {
+		return uppaalParseInforButtonPanel;
+	}
+
+	public FixedButtonTabbedPanel getUppaalOptimizationButtonPanel() {
+		return uppaalOptimizationButtonPanel;
+	}
+
+	public FixedButtonTabbedPanel getTestCaseConstraintButtonPanel() {
+		return testCaseConstraintButtonPanel;
+	}
+
+	public FixedButtonTabbedPanel getTestCaseUppaalButtonPanel() {
+		return testCaseUppaalButtonPanel;
+	}
+
+	public FixedButtonTabbedPanel getTestCaseCoverButtonPanel() {
+		return testCaseCoverButtonPanel;
+	}
+
+	public FixedButtonTabbedPanel getTestCaseProduceButtonPanel() {
+		return testCaseProduceButtonPanel;
+	}
+
+	public FixedButtonTabbedPanel getTestCaseInstantiationButtonPanel() {
+		return testCaseInstantiationButtonPanel;
 	}
 
 	

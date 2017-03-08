@@ -214,7 +214,7 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 		attributetable.setShowHorizontalLines(true);
 		attributetable.setShowVerticalLines(false);
 		attributetable.setFillsViewportHeight(true);
-		attributetable.setRowHeight(27);
+		attributetable.setRowHeight(22);
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
@@ -236,7 +236,7 @@ public class UppaalParseStateInforPartPanel extends JPanel{
         renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
         attributetable.getTableHeader().setDefaultRenderer(renderer); 
         
-        attributetable.getTableHeader().setPreferredSize(new Dimension(100, 27));
+        attributetable.getTableHeader().setPreferredSize(new Dimension(100, 22));
         
         DefaultTableCellRenderer renderer1=new DefaultTableCellRenderer();
         renderer1.setForeground(new Color(115, 110, 102));
@@ -315,10 +315,10 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 //        attributepanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         attributepanel.setOpaque(false);
         
-        for(int i=0;i<50;i++){
-			Object[] rowData={"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
-			attributetablemodel.addRow(rowData);
-		}
+//        for(int i=0;i<50;i++){
+//			Object[] rowData={"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
+//			attributetablemodel.addRow(rowData);
+//		}
 		
 	}
 

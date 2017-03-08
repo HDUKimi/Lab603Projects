@@ -22,20 +22,20 @@ public class MyAddDeleteLabelRenderer extends JLabel implements TableCellRendere
         }
 
         else{
-        	if(pngstate==1){
-        		l.setForeground(new Color(0,0,0));
-				l.setBackground(new Color(205,255,185));
-        	}
-        	else if(pngstate==-1){
-        		l.setForeground(new Color(177,177,177));
-        		l.setBackground(new Color(200,200,200));
-        	}
-        	else{
-        		l.setForeground(new Color(115, 110, 102));
-        		l.setBackground(new Color(255, 255, 255));
-        	}
-//            l.setBackground(t.getBackground());
-//            l.setForeground(t.getForeground());
+//        	if(pngstate==1){
+//        		l.setForeground(new Color(0,0,0));
+//				l.setBackground(new Color(205,255,185));
+//        	}
+//        	else if(pngstate==-1){
+//        		l.setForeground(new Color(177,177,177));
+//        		l.setBackground(new Color(200,200,200));
+//        	}
+//        	else{
+//        		l.setForeground(new Color(115, 110, 102));
+//        		l.setBackground(new Color(255, 255, 255));
+//        	}
+            l.setBackground(t.getBackground());
+            l.setForeground(t.getForeground());
         }
     }
 	

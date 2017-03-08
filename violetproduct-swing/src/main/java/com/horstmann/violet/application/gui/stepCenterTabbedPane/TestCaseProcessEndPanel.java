@@ -76,8 +76,6 @@ public class TestCaseProcessEndPanel extends JPanel{
 		panel.setLayout(new BorderLayout());
 		panel.add(label,BorderLayout.NORTH);
 		
-		
-		
 	}
 
 }
