@@ -97,7 +97,7 @@ import org.dom4j.io.SAXReader;
 		{
 			locationlist=Templatelist.get(a).elements("location");
 		    int j=0;
-		String VertexID[] = new String[100];
+		String VertexID[] = new String[1000];
 			for(Element location:locationlist)		
        		{			
 			 VertexID[j]=location.attribute("id").getValue();

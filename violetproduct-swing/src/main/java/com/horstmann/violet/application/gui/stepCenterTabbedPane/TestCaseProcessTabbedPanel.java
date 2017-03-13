@@ -40,6 +40,9 @@ import com.horstmann.violet.framework.file.GraphFile;
 import com.horstmann.violet.workspace.IWorkspace;
 import com.horstmann.violet.workspace.Workspace;
 
+import cn.edu.hdu.ckt.handle.Automatic;
+import cn.edu.hdu.ckt.handle.TestAutoDiagram;
+
 public class TestCaseProcessTabbedPanel extends JPanel{
 	
 	private MainFrame mainFrame;
@@ -487,6 +490,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				Thread.sleep(1000);
 
 				//路径信息
+				List<Automatic> autopathlist=new ArrayList<>();
+				autopathlist=TestAutoDiagram.PathAuto();
+				
 				JPanel resultpanel=new JPanel();
 				JPanel emptypanel=new JPanel();
 				resultpanel.setOpaque(false);
@@ -495,11 +501,18 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				GridBagLayout layout = new GridBagLayout();
 				resultpanel.setLayout(layout);
 				int i=0;
-				for(int j=0;j<30;j++){
-					TestCasePathPanel tcppanel=new TestCasePathPanel();
+				
+				for(Automatic am:autopathlist){
+					TestCasePathPanel tcppanel=new TestCasePathPanel(am);
 					resultpanel.add(tcppanel);
 					layout.setConstraints(tcppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 				}
+				
+//				for(int j=0;j<30;j++){
+//					TestCasePathPanel tcppanel=new TestCasePathPanel();
+//					resultpanel.add(tcppanel);
+//					layout.setConstraints(tcppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//				}
 				resultpanel.add(emptypanel);
 				layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 				
@@ -541,6 +554,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				
 				//测试序列
+				
+				List<Automatic> autopathlist=new ArrayList<>();
+				autopathlist=TestAutoDiagram.PathAuto();
+				
 				List<TestCaseCoverPartPanel> coverpartlist=new ArrayList<>();
 				
 				JPanel resultpanel=new JPanel();
@@ -562,18 +579,31 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				int i=0;
 				int copyi=0;
 				
-				for(int j=0;j<30;j++){
+				for(Automatic am:autopathlist){
 					
-					TestCaseCoverPartPanel tccppanel=new TestCaseCoverPartPanel(mainFrame);//传入测试序列。包括路径信息，以及workspace
+					TestCaseCoverPartPanel tccppanel=new TestCaseCoverPartPanel(mainFrame,am,workspace);//传入测试序列。包括路径信息，以及workspace
 					resultpanel.add(tccppanel);
 					layout.setConstraints(tccppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 					
 					coverpartlist.add(tccppanel);
 					
-					TestCaseCoverPartPanel copytccppanel=new TestCaseCoverPartPanel(mainFrame);//传入测试序列。包括路径信息，以及workspace
+					TestCaseCoverPartPanel copytccppanel=new TestCaseCoverPartPanel(mainFrame,am,workspace);//传入测试序列。包括路径信息，以及workspace
 					copyresultpanel.add(copytccppanel);
 					copylayout.setConstraints(copytccppanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 				}
+				
+//				for(int j=0;j<30;j++){
+//					
+//					TestCaseCoverPartPanel tccppanel=new TestCaseCoverPartPanel(mainFrame);//传入测试序列。包括路径信息，以及workspace
+//					resultpanel.add(tccppanel);
+//					layout.setConstraints(tccppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//					
+//					coverpartlist.add(tccppanel);
+//					
+//					TestCaseCoverPartPanel copytccppanel=new TestCaseCoverPartPanel(mainFrame);//传入测试序列。包括路径信息，以及workspace
+//					copyresultpanel.add(copytccppanel);
+//					copylayout.setConstraints(copytccppanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//				}
 				resultpanel.add(emptypanel);
 				layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 				
@@ -817,27 +847,5 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		this.getRootPane().repaint();
 		this.setVisible(true);
 	}
-	
-	public static Object copy(Object oldObj) {  
-	    Object obj = null;  
-	    try {  
-	        // Write the object out to a byte array  
-	        ByteArrayOutputStream bos = new ByteArrayOutputStream();  
-	        ObjectOutputStream out = new ObjectOutputStream(bos);  
-	        out.writeObject(oldObj);  
-	        out.flush();  
-	        out.close();  
-	        // Retrieve an input stream from the byte array and read  
-	        // a copy of the object back in.  
-	        ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());   
-	        ObjectInputStream in = new ObjectInputStream(bis);  
-	        obj = in.readObject();  
-	    } catch (IOException e) {  
-	        e.printStackTrace();  
-	    } catch (ClassNotFoundException cnfe) {  
-	        cnfe.printStackTrace();  
-	    }  
-	    return obj;  
-	} 
 	
 }

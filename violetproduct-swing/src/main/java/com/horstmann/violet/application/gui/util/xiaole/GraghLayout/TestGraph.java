@@ -60,7 +60,7 @@ public class TestGraph extends JApplet {
 		return (paintGraph(a));			
 	}
 	public int[] paintGraph(int a) {//a表示某一个template
-		int EdgePosition[]=new int[100];
+		int EdgePosition[]=new int[1000];
 		try {		
 		//测试数据
 			ReadXml read=new ReadXml(filename);

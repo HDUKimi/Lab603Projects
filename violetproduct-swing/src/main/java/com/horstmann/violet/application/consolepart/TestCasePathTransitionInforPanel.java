@@ -23,8 +23,12 @@ import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 
+import cn.edu.hdu.ckt.handle.Transition;
+
 public class TestCasePathTransitionInforPanel extends JPanel{
 
+	private Transition transition;
+	
 	private JPanel titlepanel;
 	private JPanel linepanel;
 	private JPanel attributepanel;
@@ -39,7 +43,9 @@ public class TestCasePathTransitionInforPanel extends JPanel{
 	private JTable attributetable;
 	private DefaultTableModel attributetablemodel;
 	
-	public TestCasePathTransitionInforPanel(){
+	public TestCasePathTransitionInforPanel(Transition transition){
+		
+		this.transition=transition;
 		
 		init();
 		
@@ -114,7 +120,7 @@ public class TestCasePathTransitionInforPanel extends JPanel{
 		ImageIcon icon2 = new ImageIcon(path + "dropdown1.png");
 		icon2.setImage(icon2.getImage().getScaledInstance(11,11, Image.SCALE_DEFAULT));
 		
-		titlelabel.setText("Ç¨ÒÆ1");
+		titlelabel.setText("Ç¨ÒÆ"+transition.getId());
 		titlelabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(60,0,255));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -186,14 +192,20 @@ public class TestCasePathTransitionInforPanel extends JPanel{
         renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 11));
         attributetable.setDefaultRenderer(Object.class, renderer1);
         
-        Object[] rowData={"id=1"};
-        attributetablemodel.addRow(rowData);
-        Object[] rowData1={"name=transition1"};
+        Object[] rowData1={"id="+transition.getId()};
         attributetablemodel.addRow(rowData1);
-        Object[] rowData3={"target=start"};
+        Object[] rowData2={"name="+transition.getName()};
+        attributetablemodel.addRow(rowData2);
+        Object[] rowData3={"source="+transition.getSource()};
         attributetablemodel.addRow(rowData3);
-        Object[] rowData4={"source=end"};
+        Object[] rowData4={"target="+transition.getTarget()};
         attributetablemodel.addRow(rowData4);
+        Object[] rowData5={"in="+transition.getIn()};
+        attributetablemodel.addRow(rowData5);
+        Object[] rowData6={"out="+transition.getOut()};
+        attributetablemodel.addRow(rowData6);
+        Object[] rowData7={"condition="+transition.getCondition()};
+        attributetablemodel.addRow(rowData7);
         
         attributepanel.setLayout(new GridLayout());
         attributepanel.add(attributetable);

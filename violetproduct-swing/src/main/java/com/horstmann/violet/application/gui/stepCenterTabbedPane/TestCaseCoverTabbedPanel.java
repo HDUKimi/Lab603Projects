@@ -289,6 +289,13 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 //		tableresultpanel.add(resultpanel);
 		
 	}
+	
+	public void ChangeRepaint() {
+		// TODO Auto-generated method stub
+		this.setVisible(false);
+		this.getRootPane().repaint();
+		this.setVisible(true);
+	}
 
 	public JPanel getResultpanel() {
 		return resultpanel;

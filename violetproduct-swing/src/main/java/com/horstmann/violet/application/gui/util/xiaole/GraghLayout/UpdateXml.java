@@ -39,10 +39,10 @@ public class UpdateXml {
     public void Update(int a) throws Exception{
 		
 		int i = 0, j=0,n = 0, m = 0, p = 0, xxxx, yyyy, YYYY,k = 0;
-		String XXX[] = new String[30];
-		String YYY[] = new String[30];
-		String xxx[] = new String[30];
-		String yyy[] = new String[30];
+		String XXX[] = new String[1000];
+		String YYY[] = new String[1000];
+		String xxx[] = new String[1000];
+		String yyy[] = new String[1000];
 		int[] A = new int[500];
 	
 		int Min, index;
@@ -69,47 +69,47 @@ public class UpdateXml {
 		    }
          A=new TestGraph(filename).init(a);
     
-		// for (int I = 0; I < 2 * i; I++) {
-		// A[I] *= 1.5;//
-		// 这里面是把每个点的X，Y坐标都乘以相同的倍数，以在不改变有向图格局的前提下，放大有向图，以致减少标签的重叠，因为标签有长度
-		// }
+		 for (int I = 0; I < 2 * i; I++) {
+		 A[I] *= 1.5;//这里面是把每个点的X，Y坐标都乘以相同的倍数，以在不改变有向图格局的前提下，放大有向图，以致减少标签的重叠，因为标签有长度
+		 }
 
 		//System.out.println("------------------------");
 
-		for (int I = 0; I < 2 * i; I += 2) {
-			AYMap.put(I / 2, A[I]);
-		}
-		// 这里将map.entrySet()转换成list
-		List<Map.Entry<Integer, Integer>> aylist = new ArrayList<Map.Entry<Integer, Integer>>(AYMap.entrySet());
-		// 然后通过比较器来实现排序
-		Collections.sort(aylist, new Comparator<Map.Entry<Integer, Integer>>() {
-			// 升序排序
-			public int compare(Entry<Integer, Integer> o1, Entry<Integer, Integer> o2) {
-				return o1.getValue().compareTo(o2.getValue());
-			}
-		});
-		// 遍历AYMap,并逐行增加y轴高度
-		int count=0;
-		for (Map.Entry<Integer, Integer> mapping : aylist) {
-			System.out.println(mapping.getKey() + ":" + mapping.getValue());
-			if (Min != mapping.getValue()) {
-				index++;
-				count=0;
-				Min = mapping.getValue();
-			}
-			if(count%2==0){
-				AYMap.put(mapping.getKey(), mapping.getValue() + 30 * index);
-			}
-			count++;
-		}
-		// 按key排序，将y轴高度赋值给A[]
-		for (Map.Entry<Integer, Integer> sortmap : AYMap.entrySet()) {
-			// System.out.println(sortmap.getKey() + ":" + sortmap.getValue());
-			A[sortmap.getKey() * 2] = sortmap.getValue();
-		}
-		for (int I = 0; I < i; I++) {
-			A[I * 2] += 100;
-		}
+//		for (int I = 0; I < 2 * i; I += 2) {
+//			AYMap.put(I / 2, A[I]);
+//		}
+//		// 这里将map.entrySet()转换成list
+//		List<Map.Entry<Integer, Integer>> aylist = new ArrayList<Map.Entry<Integer, Integer>>(AYMap.entrySet());
+//		// 然后通过比较器来实现排序
+//		Collections.sort(aylist, new Comparator<Map.Entry<Integer, Integer>>() {
+//			// 升序排序
+//			public int compare(Entry<Integer, Integer> o1, Entry<Integer, Integer> o2) {
+//				return o1.getValue().compareTo(o2.getValue());
+//			}
+//		});
+//		// 遍历AYMap,并逐行增加y轴高度
+//		int count=0;
+//		for (Map.Entry<Integer, Integer> mapping : aylist) {
+//			System.out.println(mapping.getKey() + ":" + mapping.getValue());
+//			if (Min != mapping.getValue()) {
+//				index++;
+//				count=0;
+//				Min = mapping.getValue();
+//			}
+//			if(count%2==0){
+//				AYMap.put(mapping.getKey(), mapping.getValue() + 30 * index);
+//			}
+//			count++;
+//		}
+//		// 按key排序，将y轴高度赋值给A[]
+//		for (Map.Entry<Integer, Integer> sortmap : AYMap.entrySet()) {
+//			// System.out.println(sortmap.getKey() + ":" + sortmap.getValue());
+//			A[sortmap.getKey() * 2] = sortmap.getValue();
+//		}
+//		for (int I = 0; I < i; I++) {
+//			A[I * 2] += 300;
+//		}
+		 
 //		for (int I = 0; I < 2 * i; I++) {
 //			System.out.println(A[I] + " ++ " + A[++I]);
 //		}

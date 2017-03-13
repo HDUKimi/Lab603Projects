@@ -139,11 +139,20 @@ public class CreateAbstractUppaalXML {
 														  .addAttribute("x", x)
 														  .addAttribute("y", y);
 					TransitionEdge.addElement("id").addAttribute("id", k+3+"");
-						TransitionEdge.addElement("labelText").addText("type:"+edge.getType()//new String(edge.getType().getBytes(),"utf-8")
-								                                        +" source£º"+edge.getSource()//new String(edge.getSource().getBytes(),"utf-8")
-								                                        +" target£º"+edge.getTarget()//new String(edge.getTarget().getBytes(),"utf-8")
-								                                        +" ResetClockSet£º"+edge.getResetClockSet()//new String(edge.getResetClockSet().getBytes(),"utf-8")
-								                                        +" DBM£º"+edge.getConstraintDBM());//new String(edge.getConstraintDBM().getBytes(),"utf-8"));
+//						TransitionEdge.addElement("labelText").addText("type:"+edge.getType()//new String(edge.getType().getBytes(),"utf-8")
+//								                                        +" source£º"+edge.getSource()//new String(edge.getSource().getBytes(),"utf-8")
+//								                                        +" target£º"+edge.getTarget()//new String(edge.getTarget().getBytes(),"utf-8")
+//								                                        +" ResetClockSet£º"+edge.getResetClockSet()//new String(edge.getResetClockSet().getBytes(),"utf-8")
+//								                                        +" DBM£º"+edge.getConstraintDBM());//new String(edge.getConstraintDBM().getBytes(),"utf-8"));
+					
+//					TransitionEdge.addElement("labelText").addText("");
+					
+//					TransitionEdge.addElement("labelText").addText("type:"+edge.getType()
+//					+" ResetClockSet£º"+edge.getResetClockSet()
+//					+" DBM£º"+edge.getConstraintDBM());
+					
+					TransitionEdge.addElement("labelText").addText(edge.getTid()+"");
+					
 					k=k+4;
 			}	
 		}
@@ -176,7 +185,7 @@ public class CreateAbstractUppaalXML {
 				System.out.println(x+"---"+y);
 				System.out.println("*************************");
 				
-				
+				System.out.println();
 				if("Start".equals(node.getType().trim())){
 					
 					Element cStartNode =nodes.addElement("CircularNode").addAttribute("id", k+"");
@@ -218,7 +227,8 @@ public class CreateAbstractUppaalXML {
 						}		
 							
 						Element name =cStartNode.addElement("name").addAttribute("id", k+4+"");
-								name.addText(node.getSname());
+//								name.addText(node.getSname());
+						name.addText(node.getSid()+"");
 								k=k+5;
 						
 				}else if("CircularNode".equals(node.getType().trim())){
@@ -256,7 +266,10 @@ public class CreateAbstractUppaalXML {
 									cNode.addElement("textColor").addAttribute("reference", textid);
 								}
 							Element name =cNode.addElement("name").addAttribute("id", k+4+"");
-								name.addText(" name:"+node.getSname()+";DBM:"+node.getInvariantDBM()+";position:"+node.getPosition());
+//								name.addText(" name:"+node.getSname()+";DBM:"+node.getInvariantDBM()+";position:"+node.getPosition());
+//							name.addText("");
+//							name.addText(" name:"+node.getSname()+";DBM:"+node.getInvariantDBM());
+							name.addText(node.getSid()+"");
 							
 							k=k+5;
 						}

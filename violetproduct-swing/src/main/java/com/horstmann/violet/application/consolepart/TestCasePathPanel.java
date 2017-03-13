@@ -21,8 +21,14 @@ import javax.swing.JPanel;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 
+import cn.edu.hdu.ckt.handle.Automatic;
+import cn.edu.hdu.ckt.handle.State;
+import cn.edu.hdu.ckt.handle.Transition;
+
 public class TestCasePathPanel extends JPanel{
 
+	private Automatic automatic;
+	
 	private JPanel titlepanel;
 	private JPanel linepanel;
 	private JPanel attributepanel;
@@ -34,7 +40,9 @@ public class TestCasePathPanel extends JPanel{
 	
 	private JLabel linelabel;
 	
-	public TestCasePathPanel(){
+	public TestCasePathPanel(Automatic automatic){
+		
+		this.automatic=automatic;
 		
 		init();
 		
@@ -84,7 +92,8 @@ public class TestCasePathPanel extends JPanel{
 		ImageIcon icon2 = new ImageIcon(path + "dropdown1.png");
 		icon2.setImage(icon2.getImage().getScaledInstance(11,11, Image.SCALE_DEFAULT));
 		
-		titlelabel.setText("¬∑æ∂1");
+//		titlelabel.setText(automatic.getName().substring(automatic.getName().indexOf("≤‚ ‘”√¿˝")));
+		titlelabel.setText("¬∑æ∂"+automatic.getName().split("≤‚ ‘”√¿˝")[1]);
 		titlelabel.setFont(new Font("Œ¢»Ì—≈∫⁄", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(250,0,60));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -148,16 +157,28 @@ public class TestCasePathPanel extends JPanel{
 		GridBagLayout layout = new GridBagLayout();
 		attributepanel.setLayout(layout);
 		int i=0;
-		for(int k=0;k<5;k++){
-			
-			TestCasePathStateInforPanel tcpsipanel=new TestCasePathStateInforPanel();
+//		for(int k=0;k<5;k++){
+//			
+//			TestCasePathStateInforPanel tcpsipanel=new TestCasePathStateInforPanel();
+//			attributepanel.add(tcpsipanel);
+//			layout.setConstraints(tcpsipanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//			
+//			TestCasePathTransitionInforPanel tcptipanel=new TestCasePathTransitionInforPanel();
+//			attributepanel.add(tcptipanel);
+//			layout.setConstraints(tcptipanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//			
+//		}
+		
+		for(State s:automatic.getStateSet()){
+			TestCasePathStateInforPanel tcpsipanel=new TestCasePathStateInforPanel(s);
 			attributepanel.add(tcpsipanel);
 			layout.setConstraints(tcpsipanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-			
-			TestCasePathTransitionInforPanel tcptipanel=new TestCasePathTransitionInforPanel();
+		}
+		
+		for(Transition t:automatic.getTransitionSet()){
+			TestCasePathTransitionInforPanel tcptipanel=new TestCasePathTransitionInforPanel(t);
 			attributepanel.add(tcptipanel);
 			layout.setConstraints(tcptipanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-			
 		}
 		
 	}

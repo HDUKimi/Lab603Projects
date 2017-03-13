@@ -413,11 +413,11 @@ public class AbstractTestCaseResultPanel extends JPanel{
 		GridBagLayout layout = new GridBagLayout();
 		resultpanel.setLayout(layout);
 		int i=0;
-		for(int j=0;j<30;j++){
-			TestCasePathPanel tcppanel=new TestCasePathPanel();
-			resultpanel.add(tcppanel);
-			layout.setConstraints(tcppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		}
+//		for(int j=0;j<30;j++){
+//			TestCasePathPanel tcppanel=new TestCasePathPanel();
+//			resultpanel.add(tcppanel);
+//			layout.setConstraints(tcppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//		}
 		resultpanel.add(emptypanel);
 		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		

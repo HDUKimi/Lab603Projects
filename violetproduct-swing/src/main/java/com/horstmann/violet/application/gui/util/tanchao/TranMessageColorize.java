@@ -146,9 +146,13 @@ import com.horstmann.violet.product.diagram.uppaal.TransitionEdge;
 //用于改变迁移的颜色
 import com.horstmann.violet.workspace.IWorkspace;
 
+import cn.edu.hdu.ckt.handle.Automatic;
+import cn.edu.hdu.ckt.handle.State;
+import cn.edu.hdu.ckt.handle.Transition;
+
 public class TranMessageColorize {
-	// 用于动态的改变迁移的颜色(包含箭头)
-	public void ColorizeTran(List<UppaalTransition> list, IWorkspace workspace) {
+	
+	public void CleanColorize(IWorkspace workspace) {
 		Collection<IEdge> edges = workspace.getGraphFile().getGraph().getAllEdges();
 		Collection<INode> nodes = workspace.getGraphFile().getGraph().getAllNodes();
 		// 用于回复最初的颜色
@@ -164,6 +168,15 @@ public class TranMessageColorize {
 			colorableNode.setBorderColor(new Color(191, 191, 191));
 			colorableNode.setTextColor(new Color(51, 51, 51));
 		}
+	}
+	
+	// 用于动态的改变迁移的颜色(包含箭头)
+	public void ColorizeTran(List<UppaalTransition> list, IWorkspace workspace) {
+		Collection<IEdge> edges = workspace.getGraphFile().getGraph().getAllEdges();
+		Collection<INode> nodes = workspace.getGraphFile().getGraph().getAllNodes();
+		
+		CleanColorize(workspace);
+		
 		for (UppaalTransition upt : list) {
 			String name = upt.getName();
 			for (IEdge edge : edges) {
@@ -177,6 +190,9 @@ public class TranMessageColorize {
 						if (edge != null && IEdgeColorable.class.isInstance(edge)) {
 							IEdgeColorable colorableEdge = (IEdgeColorable) edge;
 							colorableEdge.setEdgeColor(Color.RED);
+							
+//							((TransitionEdge) edge).setLabel(labelName+"<br>-+- ");
+							
 							break;
 						}
 					}
@@ -197,19 +213,9 @@ public class TranMessageColorize {
 	public void ColorizeTranAndState(List<PathTuple> pathTupleList, IWorkspace workspace) {
 		Collection<IEdge> edges = workspace.getGraphFile().getGraph().getAllEdges();
 		Collection<INode> nodes = workspace.getGraphFile().getGraph().getAllNodes();
-		// 用于回复最初的颜色
-		for (IEdge edge : edges) {
-			IEdgeColorable colorableEdge = (IEdgeColorable) edge;
-			colorableEdge.setEdgeColor(Color.BLACK);
-		}
-		// 用于恢复最初的颜色
-		for (INode node : nodes) {// (Color.WHITE, new Color(191,191,191), new
-									// Color(51,51,51)默认的颜色
-			IColorable colorableNode = (IColorable) node;
-			colorableNode.setBackgroundColor(Color.WHITE);
-			colorableNode.setBorderColor(new Color(191, 191, 191));
-			colorableNode.setTextColor(new Color(51, 51, 51));
-		}
+		
+		CleanColorize(workspace);
+		
 		// 捕获并且改变颜色
 		for (PathTuple pt : pathTupleList) {// 获得node和迁移的集合
 			System.out.println("333333333333333" + pathTupleList.size());
@@ -270,6 +276,61 @@ public class TranMessageColorize {
 			}
 		}
 
+	}
+	
+	public void ColorizeDFSPath(Automatic automatic,IWorkspace workspace){
+		
+		Collection<IEdge> edges = workspace.getGraphFile().getGraph().getAllEdges();
+		Collection<INode> nodes = workspace.getGraphFile().getGraph().getAllNodes();
+		
+		CleanColorize(workspace);
+		
+		for (Transition t : automatic.getTransitionSet()) {
+			String id = t.getId() + "";
+			for (IEdge edge : edges) {
+				String labelName = ((TransitionEdge) edge).getLabel();
+				if (id.equals(labelName)) {
+					if (edge != null && IEdgeColorable.class.isInstance(edge)) {
+						IEdgeColorable colorableEdge = (IEdgeColorable) edge;
+						colorableEdge.setEdgeColor(Color.RED);
+						break;
+					}
+				}
+			}
+		}
+		
+		for(State s:automatic.getStateSet()){
+			String id=s.getId()+"";
+			for (INode node : nodes) {
+				// 第一个node
+				if (CircularStartNode.class.isInstance(node)) {
+					String startName = ((CircularStartNode) node).getName();
+					if (id.equals(startName)) {
+						if (node != null && IColorable.class.isInstance(node)) {
+							IColorable colorableNode = (IColorable) node;
+							colorableNode.setBackgroundColor(Color.RED);
+							colorableNode.setBorderColor(Color.RED);
+							colorableNode.setTextColor(Color.RED);
+						}
+					}
+				}
+
+				// 除了第一个之外的其他node
+				if (CircularNode.class.isInstance(node)) {
+					String labelName = ((CircularNode) node).getName();
+					if (id.equals(labelName)) {
+						if (node != null && IColorable.class.isInstance(node)) {
+							IColorable colorableNode = (IColorable) node;
+							colorableNode.setBackgroundColor(Color.RED);
+							colorableNode.setBorderColor(Color.RED);
+							colorableNode.setTextColor(Color.RED);
+						}
+					}
+				}
+
+			}
+		}
+		
 	}
 }
 

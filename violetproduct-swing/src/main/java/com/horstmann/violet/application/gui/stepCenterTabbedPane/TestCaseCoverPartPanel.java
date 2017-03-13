@@ -29,10 +29,18 @@ import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
+import com.horstmann.violet.workspace.IWorkspace;
+
+import cn.edu.hdu.ckt.handle.Automatic;
+import cn.edu.hdu.ckt.handle.State;
+import cn.edu.hdu.ckt.handle.Transition;
 
 public class TestCaseCoverPartPanel extends JPanel{
 	
 	private MainFrame mainFrame;
+	private Automatic automatic;
+	private IWorkspace workspace;
 
 	private JPanel titlepanel;
 	private JPanel linepanel;
@@ -48,9 +56,11 @@ public class TestCaseCoverPartPanel extends JPanel{
 	private DefaultTableModel attributetablemodel;
 	
 	
-	public TestCaseCoverPartPanel(MainFrame mainFrame){
+	public TestCaseCoverPartPanel(MainFrame mainFrame,Automatic automatic,IWorkspace workspace){
 		
 		this.mainFrame=mainFrame;
+		this.automatic=automatic;
+		this.workspace=workspace;
 		
 		init();
 		
@@ -100,10 +110,34 @@ public class TestCaseCoverPartPanel extends JPanel{
 		ImageIcon icon3 = new ImageIcon(path + "dropdown1.png");
 		icon3.setImage(icon3.getImage().getScaledInstance(11, 11, Image.SCALE_DEFAULT));
 
-		titlelabel.setText("≤‚ ‘–Ú¡–  21");
+		titlelabel.setText(automatic.getName());
 		titlelabel.setFont(new Font("Œ¢»Ì—≈∫⁄", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(60,0,255));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		
+		titlelabel.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getClickCount()==2){
+					
+					for(State s:automatic.getStateSet()){
+						System.out.print(s.getId()+" ");
+					}
+					System.out.println();
+					for(Transition t:automatic.getTransitionSet()){
+						System.out.print(t.getId()+" ");
+					}
+					
+					TranMessageColorize tmc=new TranMessageColorize();
+					tmc.ColorizeDFSPath(automatic,workspace);
+					mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().ChangeRepaint();
+					
+				}
+			}
+			
+		});
 
 		
 		titlelabelpanel.setLayout(new FlowLayout(0, 0, FlowLayout.LEFT));
@@ -274,10 +308,15 @@ public class TestCaseCoverPartPanel extends JPanel{
         attributepanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         attributepanel.setOpaque(false);
 
-        for(int i=0;i<8;i++){
-			Object[] rowData={"239","set_pwmshort","loc_id_CF74505B_4978_4ced_BADB_17F68009F2AC_13_14","loc_id_BB0BA59E_33B9_4f4d_BAB5_C57D1A2CA044_13_14","800<=pitch_pwm<=2200#pitch_pwm:int16_t","null","i<5#i:uint8_t--has_new_input==True#has_new_input:bool"};
+//        for(int i=0;i<8;i++){
+//			Object[] rowData={"239","set_pwmshort","loc_id_CF74505B_4978_4ced_BADB_17F68009F2AC_13_14","loc_id_BB0BA59E_33B9_4f4d_BAB5_C57D1A2CA044_13_14","800<=pitch_pwm<=2200#pitch_pwm:int16_t","null","i<5#i:uint8_t--has_new_input==True#has_new_input:bool"};
+//			attributetablemodel.addRow(rowData);
+//		}
+        
+        for(Transition t:automatic.getTransitionSet()){
+        	Object[] rowData={t.getId()+"",t.getName(),t.getSource(),t.getTarget(),t.getIn(),t.getOut(),t.getCondition()};
 			attributetablemodel.addRow(rowData);
-		}
+        }
 		
 	}
 

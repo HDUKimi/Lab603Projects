@@ -23,8 +23,13 @@ import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 
+import cn.edu.hdu.ckt.handle.State;
+import cn.edu.hdu.ckt.handle.Transition;
+
 public class TestCasePathStateInforPanel extends JPanel{
 
+	private State state;
+	
 	private JPanel titlepanel;
 	private JPanel linepanel;
 	private JPanel attributepanel;
@@ -39,7 +44,9 @@ public class TestCasePathStateInforPanel extends JPanel{
 	private JTable attributetable;
 	private DefaultTableModel attributetablemodel;
 	
-	public TestCasePathStateInforPanel(){
+	public TestCasePathStateInforPanel(State state){
+		
+		this.state=state;
 		
 		init();
 		
@@ -100,7 +107,7 @@ public class TestCasePathStateInforPanel extends JPanel{
 		ImageIcon icon2 = new ImageIcon(path + "dropdown1.png");
 		icon2.setImage(icon2.getImage().getScaledInstance(11,11, Image.SCALE_DEFAULT));
 		
-		titlelabel.setText("×´Ì¬1");
+		titlelabel.setText("×´Ì¬"+state.getId());
 		titlelabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(250,0,60));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -185,14 +192,15 @@ public class TestCasePathStateInforPanel extends JPanel{
         renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 11));
         attributetable.setDefaultRenderer(Object.class, renderer1);
         
-        Object[] rowData={"id=1"};
-        attributetablemodel.addRow(rowData);
-        Object[] rowData1={"name=state1"};
+        Object[] rowData1={"id="+state.getId()};
         attributetablemodel.addRow(rowData1);
-        Object[] rowData2={"type=CircularNode"};
+        Object[] rowData2={"name="+state.getName()};
         attributetablemodel.addRow(rowData2);
-        Object[] rowData3={"finalState=false"};
+        Object[] rowData3={"type="+state.getType()};
         attributetablemodel.addRow(rowData3);
+        Object[] rowData4={"position="+state.getPosition()};
+        attributetablemodel.addRow(rowData4);
+        
         
         attributepanel.setLayout(new GridLayout());
         attributepanel.add(attributetable);
