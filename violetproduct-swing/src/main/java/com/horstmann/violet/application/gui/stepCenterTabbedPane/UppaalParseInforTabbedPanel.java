@@ -122,6 +122,8 @@ public class UppaalParseInforTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
+				stateinforpanel.getAttributepanel().setVisible(false);
+				migrateinforpanel.getAttributepanel().setVisible(false);
 				
 			}
 		});
@@ -138,6 +140,8 @@ public class UppaalParseInforTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
+				stateinforpanel.getAttributepanel().setVisible(true);
+				migrateinforpanel.getAttributepanel().setVisible(true);
 				
 			}
 		});
@@ -203,27 +207,13 @@ public class UppaalParseInforTabbedPanel extends JPanel{
 		GridBagLayout layout = new GridBagLayout();
 		inforresultpanel.setLayout(layout);
 		inforresultpanel.add(generalinforpanel);
-//		inforresultpanel.add(stateinforpanel);
-//		inforresultpanel.add(migrateinforpanel);
 		inforresultpanel.add(stateinforpanel.getTitlelinepanel());
-//		inforresultpanel.add(stateinforpanel.getLinepanel());
 		inforresultpanel.add(stateinforpanel.getAttributepanel());
 		inforresultpanel.add(migrateinforpanel);
-//		inforresultpanel.add(migrateinforpanel.getTitlepanel());
-//		inforresultpanel.add(migrateinforpanel.getLinepanel());
-//		inforresultpanel.add(migrateinforpanel.getAttributepanel());
-//		inforresultpanel.add(emptypanel);
 		layout.setConstraints(generalinforpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//		layout.setConstraints(stateinforpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-//		layout.setConstraints(migrateinforpanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		layout.setConstraints(stateinforpanel.getTitlelinepanel(), new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//		layout.setConstraints(stateinforpanel.getLinepanel(), new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(stateinforpanel.getAttributepanel(), new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		layout.setConstraints(migrateinforpanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-//		layout.setConstraints(migrateinforpanel.getTitlepanel(), new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//		layout.setConstraints(migrateinforpanel.getLinepanel(), new GBC(0, 5, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//		layout.setConstraints(migrateinforpanel.getAttributepanel(), new GBC(0, 6, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-//		layout.setConstraints(emptypanel, new GBC(0, 7, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		
 		inforscrollpanel=new JScrollPane(inforresultpanel);

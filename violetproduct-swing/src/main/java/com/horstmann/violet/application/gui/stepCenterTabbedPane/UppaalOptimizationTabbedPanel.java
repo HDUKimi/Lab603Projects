@@ -122,6 +122,8 @@ public class UppaalOptimizationTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
+				stateinforpanel.getAttributepanel().setVisible(false);
+				migrateinforpanel.getAttributepanel().setVisible(false);
 				
 			}
 		});
@@ -138,6 +140,8 @@ public class UppaalOptimizationTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
+				stateinforpanel.getAttributepanel().setVisible(true);
+				migrateinforpanel.getAttributepanel().setVisible(true);
 				
 			}
 		});

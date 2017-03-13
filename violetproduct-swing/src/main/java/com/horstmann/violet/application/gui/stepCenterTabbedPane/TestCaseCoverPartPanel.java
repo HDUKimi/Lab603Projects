@@ -256,6 +256,8 @@ public class TestCaseCoverPartPanel extends JPanel{
 					
 					dtm.fireTableDataChanged();
 					
+					mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab1().doClick();
+					
 				}
 			}
 
@@ -278,5 +280,11 @@ public class TestCaseCoverPartPanel extends JPanel{
 		}
 		
 	}
+
+
+	public JPanel getAttributepanel() {
+		return attributepanel;
+	}
+	
 	
 }

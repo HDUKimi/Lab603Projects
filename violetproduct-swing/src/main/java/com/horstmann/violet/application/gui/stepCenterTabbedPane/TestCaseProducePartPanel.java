@@ -253,6 +253,8 @@ public class TestCaseProducePartPanel extends JPanel{
 					
 					dtm.fireTableDataChanged();
 					
+					mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab1().doClick();
+					
 				}
 			}
 
@@ -275,6 +277,11 @@ public class TestCaseProducePartPanel extends JPanel{
 			attributetablemodel.addRow(rowData);
 		}
 		
+	}
+
+
+	public JPanel getAttributepanel() {
+		return attributepanel;
 	}
 	
 }

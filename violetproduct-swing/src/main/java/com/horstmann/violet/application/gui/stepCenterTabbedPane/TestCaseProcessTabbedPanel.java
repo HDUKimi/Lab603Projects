@@ -163,6 +163,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				if(threadstate==0){
 					initThread();
+					step=1;
 					mainthread.start();
 					thread1.start();
 					threadstate=1;
@@ -289,6 +290,13 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		progressbarindex=0;
 		progressbar.setValue(0);
 		progressbarlabel.setText(" ");
+		
+		for(FixedButtonTabbedPanel fbtpanel:mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelList()){
+			fbtpanel.setVisible(false);
+		}
+		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButtonPanel().setVisible(true);
+		mainFrame.getStepThreeCenterTabbedPane().setFixButtonTabbedPanelStartIndex(0);
+		tablepanel.removeAll();
 		
 		maincallable=new Callable<Integer>() {
 			
@@ -533,6 +541,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				
 				//测试序列
+				List<TestCaseCoverPartPanel> coverpartlist=new ArrayList<>();
+				
 				JPanel resultpanel=new JPanel();
 				JPanel emptypanel=new JPanel();
 				resultpanel.setOpaque(false);
@@ -558,12 +568,16 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					resultpanel.add(tccppanel);
 					layout.setConstraints(tccppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 					
+					coverpartlist.add(tccppanel);
+					
 					TestCaseCoverPartPanel copytccppanel=new TestCaseCoverPartPanel(mainFrame);//传入测试序列。包括路径信息，以及workspace
 					copyresultpanel.add(copytccppanel);
 					copylayout.setConstraints(copytccppanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 				}
 				resultpanel.add(emptypanel);
 				layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+				
+				mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().setTestCaseCoverPartPanelList(coverpartlist);
 				
 				copyresultpanel.add(copyemptypanel);
 				copylayout.setConstraints(copyemptypanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
@@ -598,6 +612,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				tablepanel.removeAll();
 				tablepanel.add(copytcptpanel.getTabelpanel());
 				
+				//抽象测试用例
+				List<TestCaseProducePartPanel> producepartlist=new ArrayList<>();
+				
 				JPanel resultpanel=new JPanel();
 				JPanel emptypanel=new JPanel();
 				resultpanel.setOpaque(false);
@@ -622,12 +639,16 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					resultpanel.add(tcpppanel);
 					layout.setConstraints(tcpppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 					
+					producepartlist.add(tcpppanel);
+					
 					TestCaseProducePartPanel copytcpppanel=new TestCaseProducePartPanel(mainFrame);//传入单个测试用例信息
 					copyresultpanel.add(copytcpppanel);
 					copylayout.setConstraints(copytcpppanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 				}
 				resultpanel.add(emptypanel);
 				layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+				
+				mainFrame.getStepThreeCenterTabbedPane().getTestCaseProduceTabbedPanel().setTestCaseProducePartPanelList(producepartlist);
 				
 				copyresultpanel.add(copyemptypanel);
 				copylayout.setConstraints(copyemptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
@@ -662,6 +683,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				tablepanel.removeAll();
 				tablepanel.add(copytcitpanel.getTabelpanel());
 				
+				//实例化
+				List<TestCaseInstantiationPartPanel> instantiationpartlist=new ArrayList<>();
+				
 				JPanel resultpanel=new JPanel();
 				JPanel emptypanel=new JPanel();
 				resultpanel.setOpaque(false);
@@ -686,12 +710,16 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					resultpanel.add(tcippanel);
 					layout.setConstraints(tcippanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 					
+					instantiationpartlist.add(tcippanel);
+					
 					TestCaseInstantiationPartPanel copytcippanel=new TestCaseInstantiationPartPanel(mainFrame);//传入单个实例化信息
 					copyresultpanel.add(copytcippanel);
 					copylayout.setConstraints(copytcippanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 				}
 				resultpanel.add(emptypanel);
 				layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+				
+				mainFrame.getStepThreeCenterTabbedPane().getTestCaseInstantiationTabbedPanel().setTestCaseInstantiationPartPanelList(instantiationpartlist);
 				
 				copyresultpanel.add(copyemptypanel);
 				copylayout.setConstraints(copyemptypanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));

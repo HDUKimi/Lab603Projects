@@ -290,6 +290,8 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 					
 					dtm.fireTableDataChanged();
 					
+					mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab1().doClick();
+					
 				}
 			}
 

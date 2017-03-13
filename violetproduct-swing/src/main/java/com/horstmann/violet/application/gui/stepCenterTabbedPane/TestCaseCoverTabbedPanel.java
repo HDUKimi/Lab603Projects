@@ -9,6 +9,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -19,6 +21,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.plaf.ProgressBarUI;
 
+import com.horstmann.violet.application.consolepart.TestCasePathPanel;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
@@ -48,6 +51,8 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 	
 	private JScrollPane tabelscrollpanel;
 	private JPanel tableresultpanel;
+	
+	private List<TestCaseCoverPartPanel> testCaseCoverPartPanelList=new ArrayList<>();
 	
 	public TestCaseCoverTabbedPanel(MainFrame mainframe,IWorkspace workspace) {
 
@@ -179,6 +184,9 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
+				for(TestCaseCoverPartPanel tccppanel:testCaseCoverPartPanelList){
+					tccppanel.getAttributepanel().setVisible(false);
+				}
 				
 			}
 		});
@@ -195,6 +203,9 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
+				for(TestCaseCoverPartPanel tccppanel:testCaseCoverPartPanelList){
+					tccppanel.getAttributepanel().setVisible(true);
+				}
 				
 			}
 		});
@@ -294,7 +305,14 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 	public JPanel getTableresultpanel() {
 		return tableresultpanel;
 	}
-	
+
+	public List<TestCaseCoverPartPanel> getTestCaseCoverPartPanelList() {
+		return testCaseCoverPartPanelList;
+	}
+
+	public void setTestCaseCoverPartPanelList(List<TestCaseCoverPartPanel> testCaseCoverPartPanelList) {
+		this.testCaseCoverPartPanelList = testCaseCoverPartPanelList;
+	}
 	
 	
 }

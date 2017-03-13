@@ -9,6 +9,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -38,6 +40,8 @@ public class TestCaseProduceTabbedPanel extends JPanel{
 
 	private JScrollPane tabelscrollpanel;
 	private JPanel tableresultpanel;
+	
+	private List<TestCaseProducePartPanel> testCaseProducePartPanelList=new ArrayList<>();
 	
 	public TestCaseProduceTabbedPanel(MainFrame mainframe){
 		
@@ -96,7 +100,9 @@ public class TestCaseProduceTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				
+				for(TestCaseProducePartPanel tcpppanel:testCaseProducePartPanelList){
+					tcpppanel.getAttributepanel().setVisible(false);
+				}
 			}
 		});
 		
@@ -112,7 +118,9 @@ public class TestCaseProduceTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				
+				for(TestCaseProducePartPanel tcpppanel:testCaseProducePartPanelList){
+					tcpppanel.getAttributepanel().setVisible(true);
+				}
 			}
 		});
 
@@ -197,6 +205,14 @@ public class TestCaseProduceTabbedPanel extends JPanel{
 
 	public JPanel getTabelpanel() {
 		return tabelpanel;
+	}
+
+	public List<TestCaseProducePartPanel> getTestCaseProducePartPanelList() {
+		return testCaseProducePartPanelList;
+	}
+
+	public void setTestCaseProducePartPanelList(List<TestCaseProducePartPanel> testCaseProducePartPanelList) {
+		this.testCaseProducePartPanelList = testCaseProducePartPanelList;
 	}
 	
 	

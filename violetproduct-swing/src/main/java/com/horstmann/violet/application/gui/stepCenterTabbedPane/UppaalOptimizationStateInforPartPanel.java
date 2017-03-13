@@ -212,7 +212,7 @@ public class UppaalOptimizationStateInforPartPanel extends JPanel{
 		attributetable.setShowHorizontalLines(true);
 		attributetable.setShowVerticalLines(false);
 		attributetable.setFillsViewportHeight(true);
-		attributetable.setRowHeight(27);
+		attributetable.setRowHeight(22);
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
@@ -238,7 +238,7 @@ public class UppaalOptimizationStateInforPartPanel extends JPanel{
         renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
         attributetable.getTableHeader().setDefaultRenderer(renderer); 
         
-        attributetable.getTableHeader().setPreferredSize(new Dimension(100, 27));
+        attributetable.getTableHeader().setPreferredSize(new Dimension(100, 22));
         
 //        DefaultTableCellRenderer renderer1=new DefaultTableCellRenderer();
 //        renderer1.setForeground(new Color(115, 110, 102));
@@ -337,6 +337,8 @@ public class UppaalOptimizationStateInforPartPanel extends JPanel{
 					}
 					
 					dtm.fireTableDataChanged();
+					
+					mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab1().doClick();
 					
 				}
 			}

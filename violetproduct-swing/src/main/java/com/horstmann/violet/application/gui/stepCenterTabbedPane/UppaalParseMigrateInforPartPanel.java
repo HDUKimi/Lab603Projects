@@ -279,6 +279,8 @@ public class UppaalParseMigrateInforPartPanel extends JPanel{
 					
 					dtm.fireTableDataChanged();
 					
+					mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab1().doClick();
+					
 				}
 			}
 
