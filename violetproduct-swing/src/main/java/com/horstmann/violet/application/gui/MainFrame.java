@@ -70,9 +70,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import com.horstmann.violet.application.consolepart.AttributePartPanel;
 import com.horstmann.violet.application.consolepart.ConsolePart;
 import com.horstmann.violet.application.consolepart.ConsolePartPanel;
+import com.horstmann.violet.application.consolepart.ValidationResultPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.ModelExistValidationPanel;
+import com.horstmann.violet.application.gui.opreationTreePane.ModelTransformationPanel;
+import com.horstmann.violet.application.gui.opreationTreePane.ProjectTree;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.help.AboutDialog;
 import com.horstmann.violet.application.menu.MenuFactory;

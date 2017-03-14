@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui;
+package com.horstmann.violet.application.consolepart;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,6 +26,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+
+import com.horstmann.violet.application.gui.ButtonMouseListener;
+import com.horstmann.violet.application.gui.GBC;
+import com.horstmann.violet.application.gui.MainFrame;
 
 public class AttributePartPanel  extends JPanel {
 	

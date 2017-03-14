@@ -36,6 +36,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import com.horstmann.violet.application.consolepart.ValidationTransitionMessagePanel;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
@@ -45,6 +46,7 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEdit
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyUppaalLabelRender;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ToolPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.UppaalToolPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.ValidationToolPanel;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.ExistVerification;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.PathTuple;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalTransition;
@@ -62,7 +64,7 @@ import com.horstmann.violet.workspace.Workspace;
 
 public class ModelExistValidationPanel extends JPanel{
 
-	private MainFrame mainFrame;
+	private static MainFrame mainFrame;
 	
 	private List<String> timinglists=new ArrayList<String>();
 	
@@ -80,6 +82,7 @@ public class ModelExistValidationPanel extends JPanel{
 	private JLabel timinglabel;
 	private JPanel timingtoolpanel;
 	private JButton timingtoolbutton1;
+	private JButton timingtoolbutton2;
 	private JPanel timingtablepanel;
 	private JScrollPane timingscrollpanel;
 	
@@ -139,6 +142,7 @@ public class ModelExistValidationPanel extends JPanel{
 		timinglabel=new JLabel();
 		timingtoolpanel=new JPanel();
 		timingtoolbutton1=new JButton();
+		timingtoolbutton2=new JButton();
 		timingtablepanel=new JPanel();
 		
 		validationpanel=new JPanel();
@@ -253,8 +257,8 @@ public class ModelExistValidationPanel extends JPanel{
 
 		titlepanel.setLayout(new BorderLayout());
 		titlepanel.setBackground(new Color(77, 96, 130));
-		titlepanel.setPreferredSize(new Dimension(100, 23));
-		titlepanel.setMinimumSize(new Dimension(100, 23));
+		titlepanel.setPreferredSize(new Dimension(100, 24));
+		titlepanel.setMinimumSize(new Dimension(100, 24));
 		titlepanel.add(titlelabel,BorderLayout.WEST);
 		titlepanel.add(titleiconlabelpanel,BorderLayout.EAST);
 
@@ -297,11 +301,7 @@ public class ModelExistValidationPanel extends JPanel{
 		
 		initTimingTablePanel();
 		
-		for(String str:timinglists){
-			Object[] rowData={str};
-			timingtablemodel.addRow(rowData);
-		}
-		
+		addDataToTimingTable();
 		
 //		timingpanel.setLayout(new BorderLayout());
 //		timingpanel.add(timinglabelpanel, BorderLayout.NORTH);
@@ -313,6 +313,22 @@ public class ModelExistValidationPanel extends JPanel{
 //		timingpanel.add(timingscrollpanel);
 //		layout.setConstraints(timinglabelpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //		layout.setConstraints(timingscrollpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+	}
+
+	private void addDataToTimingTable() {
+		// TODO Auto-generated method stub
+		
+		while(timingtablemodel.getRowCount()>0){
+			timingtablemodel.removeRow(timingtablemodel.getRowCount()-1);
+		}
+		
+		
+		for(String str:timinglists){
+			Object[] rowData={str};
+			timingtablemodel.addRow(rowData);
+		}
+		
 		
 	}
 
@@ -378,7 +394,8 @@ public class ModelExistValidationPanel extends JPanel{
 					
 					addCheckBoxToValidationCheckboxPanel();
 					
-					mainFrame.getStepSixCenterTabbedPane().getTimingDiagramButton().doClick();
+//					mainFrame.getStepSixCenterTabbedPane().getTimingDiagramButton().doClick();
+					mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramButton().doClick();
 					
 					ChangeRepaint();
 					
@@ -499,7 +516,7 @@ public class ModelExistValidationPanel extends JPanel{
 		mainFrame.getStepSixCenterTabbedPane().getDiagramPanel().removeAll();
 		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
 		
-		UppaalToolPanel toolPanel = new UppaalToolPanel(mainFrame,workspace);
+		ValidationToolPanel toolPanel = new ValidationToolPanel(mainFrame,workspace);
 
 		MoviePanel moviePanel = new MoviePanel();
 
@@ -571,6 +588,8 @@ public class ModelExistValidationPanel extends JPanel{
 
 		ImageIcon icon1 = new ImageIcon(path + "dropdown.png");
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+		ImageIcon icon2 = new ImageIcon(path + "refresh.png");
+		icon2.setImage(icon2.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 
 		timingtoolbutton1.setIcon(icon1);
 		timingtoolbutton1.setFocusable(false);
@@ -593,9 +612,29 @@ public class ModelExistValidationPanel extends JPanel{
 				
 			}
 		});
+		
+		timingtoolbutton2.setIcon(icon2);
+		timingtoolbutton2.setFocusable(false);
+		timingtoolbutton2.setContentAreaFilled(false);
+		timingtoolbutton2.setBorderPainted(false);
+		timingtoolbutton2.addMouseListener(new ButtonMouseListener());
+		timingtoolbutton2.setPreferredSize(new Dimension(21,21));
+		timingtoolbutton2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				timinglists.clear();
+				initFileList();
+				addDataToTimingTable();
+				
+			}
+		});
 
 		timingtoolpanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,4));
 		timingtoolpanel.setOpaque(false);
+		timingtoolpanel.add(timingtoolbutton2);
 		timingtoolpanel.add(timingtoolbutton1);
 		
 	}
@@ -603,7 +642,7 @@ public class ModelExistValidationPanel extends JPanel{
 	private void initValidationPanel() {
 		// TODO Auto-generated method stub
 		
-		validationlabel.setText("一致性验证");
+		validationlabel.setText("存在性验证");
 		validationlabel.setForeground(new Color(0,0,0));
 		validationlabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		validationlabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
@@ -701,12 +740,14 @@ public class ModelExistValidationPanel extends JPanel{
 				validationlabeltabpanel1.setBackground(new Color(255, 255, 255));
 				validationlabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,1,1, new Color(142, 155, 188)));
 				validationlabeltabindex = 1;
+				
+				validationlabel.setText("存在性验证");
 
 			}
 		});
 		
-		validationlabeltab2.setText("前向");
-		validationlabeltab2.setForeground(new Color(0,0,0));
+		validationlabeltab2.setText("顺序");
+		validationlabeltab2.setForeground(new Color(255, 255, 255));
 		validationlabeltab2.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		validationlabeltab2.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 		validationlabeltab2.setFocusable(false);
@@ -750,12 +791,14 @@ public class ModelExistValidationPanel extends JPanel{
 				validationlabeltabpanel2.setBackground(new Color(255, 255, 255));
 				validationlabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
 				validationlabeltabindex = 2;
+				
+				validationlabel.setText("顺序性验证");
 
 			}
 		});
 		
 		validationlabeltab3.setText("逆向");
-		validationlabeltab3.setForeground(new Color(0,0,0));
+		validationlabeltab3.setForeground(new Color(255, 255, 255));
 		validationlabeltab3.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		validationlabeltab3.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 		validationlabeltab3.setFocusable(false);
@@ -804,7 +847,7 @@ public class ModelExistValidationPanel extends JPanel{
 		});
 		
 		validationlabeltab4.setText("双向");
-		validationlabeltab4.setForeground(new Color(0,0,0));
+		validationlabeltab4.setForeground(new Color(255, 255, 255));
 		validationlabeltab4.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		validationlabeltab4.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 		validationlabeltab4.setFocusable(false);
@@ -874,8 +917,8 @@ public class ModelExistValidationPanel extends JPanel{
 		validationlabeltabpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		validationlabeltabpanel.add(validationlabeltabpanel1);
 		validationlabeltabpanel.add(validationlabeltabpanel2);
-		validationlabeltabpanel.add(validationlabeltabpanel3);
-		validationlabeltabpanel.add(validationlabeltabpanel4);
+//		validationlabeltabpanel.add(validationlabeltabpanel3);
+//		validationlabeltabpanel.add(validationlabeltabpanel4);
 		
 		validationlabeltabpanel.setPreferredSize(new Dimension(100, 22));
 		validationlabeltabpanel.setMinimumSize(new Dimension(100, 22));
@@ -959,10 +1002,35 @@ public class ModelExistValidationPanel extends JPanel{
 					else{
 						System.out.println("   ----------   ");
 						
+						mainFrame.getValidationResultPanel().getNamelabel().setText("共找到"+l.size()+"条消息：");
+						
+						mainFrame.getValidationResultPanel().getResultpanel().removeAll();
+//						mainFrame.getValidationResultPanel().getResultpanel().setLayout(new BoxLayout(mainFrame.getValidationResultPanel().getResultpanel(), BoxLayout.Y_AXIS));
+						
+						System.out.println(mainFrame.getValidationResultPanel().getResultpanel().size());
 						System.out.println("++++++++++++++++++++");
+						
+						JPanel resultpanel=new JPanel();
+						JPanel emptypanel=new JPanel();
+						resultpanel.setOpaque(false);
+						emptypanel.setOpaque(false);
+						
+						GridBagLayout layout = new GridBagLayout();
+						resultpanel.setLayout(layout);
+						int i=0;
 						for(UppaalTransition u:l){
 							System.out.println(u);
+							
+							ValidationTransitionMessagePanel vtmpanel=new ValidationTransitionMessagePanel(u);
+							resultpanel.add(vtmpanel);
+							layout.setConstraints(vtmpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+							
 						}
+						resultpanel.add(emptypanel);
+						layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//						mainFrame.getValidationResultPanel().getResultpanel().add(Box.createVerticalGlue());
+						mainFrame.getValidationResultPanel().getResultpanel().add(resultpanel);
+						mainFrame.getValidationResultPanel().ChangeRepaint();
 						System.out.println("++++++++++++++++++++");
 						
 					}
@@ -1025,14 +1093,14 @@ public class ModelExistValidationPanel extends JPanel{
 		
 		validationtoolpanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,4));
 		validationtoolpanel.setOpaque(false);
-		validationtoolpanel.add(validationtoolbutton1);
+//		validationtoolpanel.add(validationtoolbutton1);
 		validationtoolpanel.add(validationtoolbutton2);
 
 		
 	}
 	
-	
 	public void initFileList() {
+	
 		File[] timingFilelists = getAllFileByDiagramType("timing");
 	    for(File timingFile : timingFilelists)
 	    {
@@ -1100,6 +1168,28 @@ public class ModelExistValidationPanel extends JPanel{
 		 }
 		 return fList;
 	}
+
+	public static MainFrame getMainFrame() {
+		return mainFrame;
+	}
+
+	public int getValidationlabeltabindex() {
+		return validationlabeltabindex;
+	}
+
+	public List<UppaalTransition> getUppaalmessagelist() {
+		return uppaalmessagelist;
+	}
+
+	public List<JCheckBox> getUppaalMessageCheckBoxList() {
+		return uppaalMessageCheckBoxList;
+	}
+
+	public static ExistVerification getEv() {
+		return ev;
+	}
+	
+	
 
 	
 	
