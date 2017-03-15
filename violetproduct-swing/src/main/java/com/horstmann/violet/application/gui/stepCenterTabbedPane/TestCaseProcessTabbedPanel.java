@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
@@ -29,19 +31,27 @@ import javax.swing.JProgressBar;
 import javax.swing.plaf.ProgressBarUI;
 import javax.swing.table.DefaultTableModel;
 
+import org.dom4j.DocumentException;
+
 import com.horstmann.violet.application.consolepart.TestCaseInequalitySolveInforPanel;
 import com.horstmann.violet.application.consolepart.TestCaseInequalitySolvePanel;
 import com.horstmann.violet.application.consolepart.TestCasePathPanel;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.util.xiaole.GraghLayout.LayoutUppaal;
 import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.ImportByDoubleClick;
+import com.horstmann.violet.application.menu.util.zhangjian.Database.AbstractState;
+import com.horstmann.violet.application.menu.util.zhangjian.Database.AbstractTransition;
+import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateAbstractUppaalXML;
 import com.horstmann.violet.framework.file.GraphFile;
 import com.horstmann.violet.workspace.IWorkspace;
 import com.horstmann.violet.workspace.Workspace;
 
 import cn.edu.hdu.ckt.handle.Automatic;
+import cn.edu.hdu.ckt.handle.State;
 import cn.edu.hdu.ckt.handle.TestAutoDiagram;
+import cn.edu.hdu.ckt.handle.Transition;
 
 public class TestCaseProcessTabbedPanel extends JPanel{
 	
@@ -94,6 +104,15 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	private int threadstate=0;
 	private int stepsum=6;
 	private int step=1;
+	
+	private Automatic automatic;
+	private List<AbstractState> abStateList =new ArrayList<AbstractState>();
+	private List<AbstractTransition> abTransList =new ArrayList<AbstractTransition>();
+	
+	private Map<String, String> stateIdToNameMap=new HashMap<String, String>();
+	private Map<String, String> stateNameToIdMap=new HashMap<String, String>();
+	private Map<String, String> transitionIdToNameMap=new HashMap<String, String>();
+	private Map<String, String> transitionNameToIdMap=new HashMap<String, String>();
 	
 
 	public TestCaseProcessTabbedPanel(MainFrame mainframe) {
@@ -335,7 +354,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						progressbar.setValue(progressbar.getValue()+1);
 						progressbarlabel.setText(progressbar.getValue()+"%");
 					}
-					Thread.sleep(100);
+					Thread.sleep(1000);
 				}
 				moviepanel.getMovieLabel().setText("测试用例生成完毕");
 				TestCaseProcessEndPanel tcpepanel=new TestCaseProcessEndPanel(mainFrame);
@@ -474,6 +493,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				Thread.sleep(1000);
 				
 				//Automate数据转换为xml
+				AutomateTransformXml();
 				
 				GraphFile absfGraphFile=ImportByDoubleClick.importFileByDoubleClick("UPPAAL","abs.uppaal.violet.xml");
 				IWorkspace workspace=new Workspace(absfGraphFile);
@@ -490,35 +510,35 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				Thread.sleep(1000);
 
 				//路径信息
-				List<Automatic> autopathlist=new ArrayList<>();
-				autopathlist=TestAutoDiagram.PathAuto();
-				
-				JPanel resultpanel=new JPanel();
-				JPanel emptypanel=new JPanel();
-				resultpanel.setOpaque(false);
-				emptypanel.setOpaque(false);
-				
-				GridBagLayout layout = new GridBagLayout();
-				resultpanel.setLayout(layout);
-				int i=0;
-				
-				for(Automatic am:autopathlist){
-					TestCasePathPanel tcppanel=new TestCasePathPanel(am);
-					resultpanel.add(tcppanel);
-					layout.setConstraints(tcppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-				}
-				
-//				for(int j=0;j<30;j++){
-//					TestCasePathPanel tcppanel=new TestCasePathPanel();
+//				List<Automatic> autopathlist=new ArrayList<>();
+//				autopathlist=TestAutoDiagram.PathAuto();
+//				
+//				JPanel resultpanel=new JPanel();
+//				JPanel emptypanel=new JPanel();
+//				resultpanel.setOpaque(false);
+//				emptypanel.setOpaque(false);
+//				
+//				GridBagLayout layout = new GridBagLayout();
+//				resultpanel.setLayout(layout);
+//				int i=0;
+//				
+//				for(Automatic am:autopathlist){
+//					TestCasePathPanel tcppanel=new TestCasePathPanel(am);
 //					resultpanel.add(tcppanel);
 //					layout.setConstraints(tcppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //				}
-				resultpanel.add(emptypanel);
-				layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-				
-				mainFrame.getAbstractTestCaseResultPanel().getThreeresultpanel().removeAll();
-				mainFrame.getAbstractTestCaseResultPanel().getThreeresultpanel().add(resultpanel);
-				mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab3().doClick();
+//				
+////				for(int j=0;j<30;j++){
+////					TestCasePathPanel tcppanel=new TestCasePathPanel();
+////					resultpanel.add(tcppanel);
+////					layout.setConstraints(tcppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+////				}
+//				resultpanel.add(emptypanel);
+//				layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//				
+//				mainFrame.getAbstractTestCaseResultPanel().getThreeresultpanel().removeAll();
+//				mainFrame.getAbstractTestCaseResultPanel().getThreeresultpanel().add(resultpanel);
+//				mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab3().doClick();
 				
 				mainFrame.getStepThreeCenterTabbedPane().getTestCaseUppaalButtonPanel().setVisible(true);
 				
@@ -823,6 +843,95 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 	}
 
+	protected void AutomateTransformXml() {
+		// TODO Auto-generated method stub
+		
+		automatic=TestAutoDiagram.DFSAuto();
+		
+		try {
+			TestAutoDiagram.createSequenceXML(automatic);
+			
+			LayoutUppaal.layout("D:\\sequence.xml");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		abStateList=new ArrayList<>();
+		abTransList=new ArrayList<>();
+		
+		stateIdToNameMap=new HashMap<>();
+		stateNameToIdMap=new HashMap<>();
+		transitionIdToNameMap=new HashMap<>();
+		transitionNameToIdMap=new HashMap<>();
+		
+		for(State s :automatic.getStateSet()){
+			//将wqq的相关的信息--->转换为zhangjian的相关的信息(state)
+			AbstractState abState =new AbstractState();
+			abState.setSid(s.getId());//查询数据库里面状态节点的个数
+			abState.setSname(s.getName());
+			abState.setPosition(s.getPosition());
+			
+			if(s.getType()==null){
+				abState.setType("CircularNode");
+			}
+			else if(s.getType().equals("start")){
+				abState.setType("Start");
+			}
+			
+			abState.setInvariantDBM(s.getInvariantDBM().toString());
+			abStateList.add(abState);
+			
+			stateIdToNameMap.put(s.getId()+"", s.getId()+" "+s.getName());
+			stateNameToIdMap.put(s.getId()+" "+s.getName(), s.getId()+"");
+			
+		}
+		
+		for(Transition t :automatic.getTransitionSet()){
+			//将wqq的相关的信息--->转换为zhangjian的相关的信息(transition)
+			AbstractTransition abTrans =new AbstractTransition();
+			abTrans.setTid(t.getId());
+			abTrans.setTname(t.getName());
+			abTrans.setSourceID(TestAutoDiagram.getStateIdByName(abStateList, t.getSource())+"");
+			
+			abTrans.setSource(t.getSource());
+			abTrans.setTargetID(TestAutoDiagram.getStateIdByName(abStateList, t.getTarget())+"");
+			abTrans.setTarget(t.getTarget());
+			
+			abTrans.setType(t.getTypes().toString());
+			StringBuilder sb =new StringBuilder();
+			for(int i=0;i<t.getResetClockSet().size();i++){
+				sb.append(t.getResetClockSet().get(i));
+				if(i!=t.getResetClockSet().size()-1){
+					sb.append(";");
+				}
+			}
+			abTrans.setResetClockSet(sb.toString());
+			abTrans.setConstraintDBM(t.getConstraintDBM().toString());
+			//System.out.println(t.getTypes()+"**"+t.getSource()+"**"+t.getTarget()+"**"+t.getResetClockSet()+"**"+t.getConstraintDBM());
+			abTransList.add(abTrans);
+			
+			transitionIdToNameMap.put(t.getId()+"", t.getId()+"<br>"+t.getName());
+			transitionNameToIdMap.put(t.getId()+"<br>"+t.getName(), t.getId()+"");
+		}
+		
+		CreateAbstractUppaalXML c =new CreateAbstractUppaalXML(abStateList, abTransList);
+		try {
+			 c.create("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\abs.uppaal.violet.xml");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
@@ -847,5 +956,23 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		this.getRootPane().repaint();
 		this.setVisible(true);
 	}
+
+	public Map<String, String> getStateIdToNameMap() {
+		return stateIdToNameMap;
+	}
+
+	public Map<String, String> getStateNameToIdMap() {
+		return stateNameToIdMap;
+	}
+
+	public Map<String, String> getTransitionIdToNameMap() {
+		return transitionIdToNameMap;
+	}
+
+	public Map<String, String> getTransitionNameToIdMap() {
+		return transitionNameToIdMap;
+	}
+	
+	
 	
 }

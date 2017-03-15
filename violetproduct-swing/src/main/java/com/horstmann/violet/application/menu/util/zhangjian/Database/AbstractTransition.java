@@ -8,6 +8,7 @@ import java.io.Serializable;
  */
 public class AbstractTransition  implements Serializable{
 	private int tid;
+	private String tname;
 	private String targetID;
 	private String target;
 	private String sourceID;
@@ -45,6 +46,12 @@ public class AbstractTransition  implements Serializable{
 	}
 	public void setTid(int tid) {
 		this.tid = tid;
+	}
+	public String getTname() {
+		return tname;
+	}
+	public void setTname(String tname) {
+		this.tname = tname;
 	}
 	public String getTarget() {
 		return target;

@@ -20,6 +20,11 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
 import java.beans.PropertyVetoException;
 import java.util.List;
 
@@ -29,6 +34,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
@@ -95,7 +101,8 @@ public class WorkspacePanel extends JPanel
                 {
                     editorPart.getSwingComponent().invalidate();
                     super.paint(g);
-                }                
+                }
+                
             };
             this.scrollableEditorPart.getViewport().setView(panel);
             this.scrollableEditorPart.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener()
@@ -122,6 +129,38 @@ public class WorkspacePanel extends JPanel
             
             this.scrollableEditorPart.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
             this.scrollableEditorPart.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+            
+            panel.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					super.mousePressed(e);
+					
+					oldx=e.getX();
+					oldy=e.getY();
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+					super.mouseReleased(e);
+					
+					newx=e.getX();
+					newy=e.getY();
+					
+					movex=newx-oldx;
+					movey=newy-oldy;
+					
+					JScrollBar hbar=scrollableEditorPart.getVerticalScrollBar();
+					JScrollBar vbar=scrollableEditorPart.getHorizontalScrollBar();
+					hbar.setValue(hbar.getValue()+movex);
+					vbar.setValue(vbar.getValue()+movey);
+					
+					System.out.println(" oldx "+oldx+" oldy "+oldy+" newx "+newx+" newy "+newy+" movex "+movex+" movey "+movey);
+				}
+
+			});
             
         }
         return this.scrollableEditorPart;
@@ -182,5 +221,12 @@ public class WorkspacePanel extends JPanel
 	private JScrollPane scrollableEditorPart;
 	private JScrollPane scrollableStatusBar;
 	private JSplitPane workspacejs;
+	
+	int oldx=0;
+	int oldy=0;
+	int newx=0;
+	int newy=0;
+	int movex=0;
+	int movey=0;
 
 }

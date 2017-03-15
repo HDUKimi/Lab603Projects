@@ -49,6 +49,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 	private JButton rightButton;
 	
 	private int fixButtonTabbedPanelStartIndex=0;
+	private int fixButtonTabbedPanelSelectedIndex=0;
 	private List<FixedButtonTabbedPanel> fixButtonTabbedPanelList=new ArrayList<FixedButtonTabbedPanel>();
 
 	private FixedButtonTabbedPanel testCaseProcessButtonPanel;
@@ -370,6 +371,8 @@ public class StepThreeCenterTabbedPane extends JPanel {
 
 				ChangeAllButtonPanelState();
 				testCaseProcessButtonPanel.setBackground(new Color(58, 105, 190));
+				
+				fixButtonTabbedPanelSelectedIndex=0;
 
 				ChangeRepaint();
 			}
@@ -384,6 +387,8 @@ public class StepThreeCenterTabbedPane extends JPanel {
 
 				ChangeAllButtonPanelState();
 				uppaalParseInforButtonPanel.setBackground(new Color(58, 105, 190));
+				
+				fixButtonTabbedPanelSelectedIndex=1;
 
 				ChangeRepaint();
 			}
@@ -398,6 +403,8 @@ public class StepThreeCenterTabbedPane extends JPanel {
 
 				ChangeAllButtonPanelState();
 				uppaalOptimizationButtonPanel.setBackground(new Color(58, 105, 190));
+				
+				fixButtonTabbedPanelSelectedIndex=2;
 
 				ChangeRepaint();
 			}
@@ -454,6 +461,8 @@ public class StepThreeCenterTabbedPane extends JPanel {
 
 				ChangeAllButtonPanelState();
 				testCaseUppaalButtonPanel.setBackground(new Color(58, 105, 190));
+				
+				fixButtonTabbedPanelSelectedIndex=3;
 
 				ChangeRepaint();
 			}
@@ -468,6 +477,8 @@ public class StepThreeCenterTabbedPane extends JPanel {
 
 				ChangeAllButtonPanelState();
 				testCaseCoverButtonPanel.setBackground(new Color(58, 105, 190));
+				
+				fixButtonTabbedPanelSelectedIndex=4;
 
 				ChangeRepaint();
 			}
@@ -482,6 +493,8 @@ public class StepThreeCenterTabbedPane extends JPanel {
 
 				ChangeAllButtonPanelState();
 				testCaseProduceButtonPanel.setBackground(new Color(58, 105, 190));
+				
+				fixButtonTabbedPanelSelectedIndex=5;
 
 				ChangeRepaint();
 			}
@@ -497,6 +510,8 @@ public class StepThreeCenterTabbedPane extends JPanel {
 
 				ChangeAllButtonPanelState();
 				testCaseInstantiationButtonPanel.setBackground(new Color(58, 105, 190));
+				
+				fixButtonTabbedPanelSelectedIndex=6;
 
 				ChangeRepaint();
 			}
@@ -632,6 +647,10 @@ public class StepThreeCenterTabbedPane extends JPanel {
 
 	public int getFixButtonTabbedPanelStartIndex() {
 		return fixButtonTabbedPanelStartIndex;
+	}
+
+	public int getFixButtonTabbedPanelSelectedIndex() {
+		return fixButtonTabbedPanelSelectedIndex;
 	}
 
 	public FixedButtonTabbedPanel getTestCaseProcessButtonPanel() {

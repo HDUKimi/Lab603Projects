@@ -70,7 +70,7 @@ public class UpdateXml {
          A=new TestGraph(filename).init(a);
     
 		 for (int I = 0; I < 2 * i; I++) {
-		 A[I] *= 1.5;//这里面是把每个点的X，Y坐标都乘以相同的倍数，以在不改变有向图格局的前提下，放大有向图，以致减少标签的重叠，因为标签有长度
+		 A[I] *= 3;//这里面是把每个点的X，Y坐标都乘以相同的倍数，以在不改变有向图格局的前提下，放大有向图，以致减少标签的重叠，因为标签有长度
 		 }
 
 		//System.out.println("------------------------");
@@ -96,9 +96,9 @@ public class UpdateXml {
 //				count=0;
 //				Min = mapping.getValue();
 //			}
-//			if(count%2==0){
+////			if(count%2==0){
 //				AYMap.put(mapping.getKey(), mapping.getValue() + 30 * index);
-//			}
+////			}
 //			count++;
 //		}
 //		// 按key排序，将y轴高度赋值给A[]

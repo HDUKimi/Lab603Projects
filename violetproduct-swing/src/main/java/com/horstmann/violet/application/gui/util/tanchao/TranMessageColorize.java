@@ -132,6 +132,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.PathTuple;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalLocation;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalTransition;
@@ -278,21 +279,32 @@ public class TranMessageColorize {
 
 	}
 	
-	public void ColorizeDFSPath(Automatic automatic,IWorkspace workspace){
+	public void ColorizeDFSPath(Automatic automatic,MainFrame mainFrame,IWorkspace workspace){
 		
 		Collection<IEdge> edges = workspace.getGraphFile().getGraph().getAllEdges();
 		Collection<INode> nodes = workspace.getGraphFile().getGraph().getAllNodes();
 		
 		CleanColorize(workspace);
 		
+		int trantextstate=mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getTrantextstate();
+		
 		for (Transition t : automatic.getTransitionSet()) {
-			String id = t.getId() + "";
+			String id;
+			
+			if(trantextstate==1){
+				id = t.getId() + "";
+			}
+			else{
+				id = t.getId()+"<br>"+t.getName();
+			}
+			
 			for (IEdge edge : edges) {
 				String labelName = ((TransitionEdge) edge).getLabel();
 				if (id.equals(labelName)) {
 					if (edge != null && IEdgeColorable.class.isInstance(edge)) {
 						IEdgeColorable colorableEdge = (IEdgeColorable) edge;
 						colorableEdge.setEdgeColor(Color.RED);
+						
 						break;
 					}
 				}
@@ -300,7 +312,16 @@ public class TranMessageColorize {
 		}
 		
 		for(State s:automatic.getStateSet()){
-			String id=s.getId()+"";
+			String id;
+			
+			if(trantextstate==1){
+				id = s.getId() + "";
+			}
+			else{
+				id = s.getId()+" "+s.getName();
+			}
+			
+			
 			for (INode node : nodes) {
 				// µÚÒ»¸önode
 				if (CircularStartNode.class.isInstance(node)) {
@@ -311,6 +332,8 @@ public class TranMessageColorize {
 							colorableNode.setBackgroundColor(Color.RED);
 							colorableNode.setBorderColor(Color.RED);
 							colorableNode.setTextColor(Color.RED);
+							
+							break;
 						}
 					}
 				}
@@ -324,6 +347,8 @@ public class TranMessageColorize {
 							colorableNode.setBackgroundColor(Color.RED);
 							colorableNode.setBorderColor(Color.RED);
 							colorableNode.setTextColor(Color.RED);
+							
+							break;
 						}
 					}
 				}

@@ -10,6 +10,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -72,11 +74,11 @@ public class TestCasePathPanel extends JPanel{
 		
 		initAttributePanel();
 		
-		attributepanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
+//		attributepanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.add(titlepanel);
-		this.add(linepanel);
+//		this.add(titlepanel);
+//		this.add(linepanel);
 		this.add(attributepanel);
 		
 	}
@@ -169,17 +171,35 @@ public class TestCasePathPanel extends JPanel{
 //			
 //		}
 		
-		for(State s:automatic.getStateSet()){
-			TestCasePathStateInforPanel tcpsipanel=new TestCasePathStateInforPanel(s);
+//		for(State s:automatic.getStateSet()){
+//			TestCasePathStateInforPanel tcpsipanel=new TestCasePathStateInforPanel(s);
+//			attributepanel.add(tcpsipanel);
+//			layout.setConstraints(tcpsipanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//		}
+//		
+//		for(Transition t:automatic.getTransitionSet()){
+//			TestCasePathTransitionInforPanel tcptipanel=new TestCasePathTransitionInforPanel(t);
+//			attributepanel.add(tcptipanel);
+//			layout.setConstraints(tcptipanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//		}
+		
+		List<State> statelist=new ArrayList<>();
+		List<Transition> transitionlist=new ArrayList<>();
+		
+		statelist=automatic.getStateSet();
+		transitionlist=automatic.getTransitionSet();
+		
+		for(int index=0;index<transitionlist.size();index++){
+			TestCasePathStateInforPanel tcpsipanel=new TestCasePathStateInforPanel(statelist.get(index));
 			attributepanel.add(tcpsipanel);
 			layout.setConstraints(tcpsipanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		}
-		
-		for(Transition t:automatic.getTransitionSet()){
-			TestCasePathTransitionInforPanel tcptipanel=new TestCasePathTransitionInforPanel(t);
+			TestCasePathTransitionInforPanel tcptipanel=new TestCasePathTransitionInforPanel(transitionlist.get(index));
 			attributepanel.add(tcptipanel);
 			layout.setConstraints(tcptipanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		}
+		TestCasePathStateInforPanel tcpsipanel=new TestCasePathStateInforPanel(statelist.get(statelist.size()-1));
+		attributepanel.add(tcpsipanel);
+		layout.setConstraints(tcpsipanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		
 	}
 

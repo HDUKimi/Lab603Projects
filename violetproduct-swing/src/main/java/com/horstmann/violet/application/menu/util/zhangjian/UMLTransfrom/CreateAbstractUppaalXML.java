@@ -151,6 +151,8 @@ public class CreateAbstractUppaalXML {
 //					+" ResetClockSet£º"+edge.getResetClockSet()
 //					+" DBM£º"+edge.getConstraintDBM());
 					
+//					TransitionEdge.addElement("labelText").addText(edge.getTname());
+					
 					TransitionEdge.addElement("labelText").addText(edge.getTid()+"");
 					
 					k=k+4;
@@ -268,7 +270,7 @@ public class CreateAbstractUppaalXML {
 							Element name =cNode.addElement("name").addAttribute("id", k+4+"");
 //								name.addText(" name:"+node.getSname()+";DBM:"+node.getInvariantDBM()+";position:"+node.getPosition());
 //							name.addText("");
-//							name.addText(" name:"+node.getSname()+";DBM:"+node.getInvariantDBM());
+//							name.addText(node.getSname());
 							name.addText(node.getSid()+"");
 							
 							k=k+5;

@@ -375,7 +375,7 @@ public class AbstractTestCaseResultPanel extends JPanel{
 	private void initThreeNamePanel() {
 		// TODO Auto-generated method stub
 		
-		threenamelabel.setText("共找到了5条路径");
+		threenamelabel.setText("");
 		threenamelabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		threenamelabel.setForeground(new Color(0, 102, 204));
 		threenamelabel.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 0));

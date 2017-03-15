@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -27,7 +28,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import com.horstmann.violet.application.consolepart.TestCasePathPanel;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
+import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
 import com.horstmann.violet.workspace.IWorkspace;
@@ -47,6 +50,7 @@ public class TestCaseCoverPartPanel extends JPanel{
 	private JPanel attributepanel;
 
 	private JPanel titlelabelpanel;
+	private JLabel iconlabel;
 	private JLabel titlelabel;
 	private JButton toolbutton;
 
@@ -80,6 +84,7 @@ public class TestCaseCoverPartPanel extends JPanel{
 		attributepanel = new JPanel();
 
 		titlelabelpanel = new JPanel();
+		iconlabel=new JLabel();
 		titlelabel = new JLabel();
 		toolbutton = new JButton();
 
@@ -105,7 +110,7 @@ public class TestCaseCoverPartPanel extends JPanel{
 		String absolutePath = System.getProperty("user.dir");
 		String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "tick.png");
+		ImageIcon icon1 = new ImageIcon(path + "test17.png");
 		icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
 		ImageIcon icon3 = new ImageIcon(path + "dropdown1.png");
 		icon3.setImage(icon3.getImage().getScaledInstance(11, 11, Image.SCALE_DEFAULT));
@@ -122,25 +127,55 @@ public class TestCaseCoverPartPanel extends JPanel{
 				// TODO Auto-generated method stub
 				if(e.getClickCount()==2){
 					
-					for(State s:automatic.getStateSet()){
-						System.out.print(s.getId()+" ");
-					}
-					System.out.println();
-					for(Transition t:automatic.getTransitionSet()){
-						System.out.print(t.getId()+" ");
-					}
+//					for(State s:automatic.getStateSet()){
+//						System.out.print(s.getId()+" ");
+//					}
+//					System.out.println();
+//					for(Transition t:automatic.getTransitionSet()){
+//						System.out.print(t.getId()+" ");
+//					}
 					
 					TranMessageColorize tmc=new TranMessageColorize();
-					tmc.ColorizeDFSPath(automatic,workspace);
-					mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().ChangeRepaint();
+					tmc.ColorizeDFSPath(automatic,mainFrame,workspace);
+					
+					if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==4){
+						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().ChangeRepaint();
+					}
+					else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==0){
+						mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().ChangeRepaint();
+					}
+					
+					JPanel resultpanel = new JPanel();
+					JPanel emptypanel = new JPanel();
+					resultpanel.setOpaque(false);
+					emptypanel.setOpaque(false);
+
+					GridBagLayout layout = new GridBagLayout();
+					resultpanel.setLayout(layout);
+					int i = 0;
+
+					TestCasePathPanel tcppanel = new TestCasePathPanel(automatic);
+					resultpanel.add(tcppanel);
+					layout.setConstraints(tcppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+					resultpanel.add(emptypanel);
+					layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+
+					mainFrame.getAbstractTestCaseResultPanel().getThreeresultpanel().removeAll();
+					mainFrame.getAbstractTestCaseResultPanel().getThreeresultpanel().add(resultpanel);
+					
+					mainFrame.getAbstractTestCaseResultPanel().getThreenamelabel().setText("路径"+automatic.getName().split("测试用例")[1]+"，包含"+automatic.getStateSet().size()+"个状态节点和"+automatic.getTransitionSet().size()+"条消息迁移");
+					
+					mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab3().doClick();
 					
 				}
 			}
 			
 		});
 
+		iconlabel.setIcon(icon1);
 		
 		titlelabelpanel.setLayout(new FlowLayout(0, 0, FlowLayout.LEFT));
+		titlelabelpanel.add(iconlabel);
 		titlelabelpanel.add(titlelabel);
 		titlelabelpanel.setOpaque(false);
 

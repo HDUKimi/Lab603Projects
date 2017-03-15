@@ -36,16 +36,16 @@ public class TestAutoDiagram {
 		System.out.println(a.getTransitionSet().size());
 			
 		
-		alist=PathAuto();
-		
-		System.out.println(alist.size());
-		
-		for(Automatic am:alist){
-			System.out.println("----------------");
-			for(Transition t:am.getTransitionSet()){
-				System.out.println(t.toString());
-			}
-		}
+//		alist=PathAuto();
+//		
+//		System.out.println(alist.size());
+//		
+//		for(Automatic am:alist){
+//			System.out.println("----------------");
+//			for(Transition t:am.getTransitionSet()){
+//				System.out.println(t.toString());
+//			}
+//		}
 		
 		try {
 			createSequenceXML(a);
@@ -84,6 +84,7 @@ public class TestAutoDiagram {
 			//将wqq的相关的信息--->转换为zhangjian的相关的信息(transition)
 			AbstractTransition abTrans =new AbstractTransition();
 			abTrans.setTid(t.getId());
+			abTrans.setTname(t.getName());
 			abTrans.setSourceID(getStateIdByName(abStateList, t.getSource())+"");
 			
 			abTrans.setSource(t.getSource());

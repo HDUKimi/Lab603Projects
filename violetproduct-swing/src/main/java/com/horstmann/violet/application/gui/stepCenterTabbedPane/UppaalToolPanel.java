@@ -12,6 +12,8 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.MainFrame;
@@ -81,6 +83,16 @@ public class UppaalToolPanel extends JPanel{
 				// TODO Auto-generated method stub
 				workspace.getSideBar().getEditorToolsBar().getZoomInButton().doClick();
 				mainFrame.getConsolePartPanel().getTextarea().append("放大一倍视图\n");
+				
+				JScrollPane js=workspace.getAWTComponent().getScrollableEditorPart();
+				JScrollBar hbar=js.getHorizontalScrollBar();
+				JScrollBar vbar=js.getVerticalScrollBar();
+				System.out.println("--------------------------------");
+				System.out.println(" hbar.getValue() "+hbar.getValue()+" hbar.getMinimum() "+hbar.getMinimum()+" hbar.getMaximum() "+hbar.getMaximum());
+				System.out.println(" vbar.getValue() "+vbar.getValue()+" vbar.getMinimum() "+vbar.getMinimum()+" vbar.getMaximum() "+vbar.getMaximum());
+				
+				hbar.setValue((hbar.getMaximum()-hbar.getBlockIncrement())/2);
+				
 			}
 		});
 		
@@ -97,6 +109,16 @@ public class UppaalToolPanel extends JPanel{
 				// TODO Auto-generated method stub
 				workspace.getSideBar().getEditorToolsBar().getZoomOutButton().doClick();
 				mainFrame.getConsolePartPanel().getTextarea().append("缩小一倍视图\n");
+				
+				JScrollPane js=workspace.getAWTComponent().getScrollableEditorPart();
+				JScrollBar hbar=js.getHorizontalScrollBar();
+				JScrollBar vbar=js.getVerticalScrollBar();
+				System.out.println("--------------------------------");
+				System.out.println(" hbar.getValue() "+hbar.getValue()+" hbar.getMinimum() "+hbar.getMinimum()+" hbar.getMaximum() "+hbar.getMaximum());
+				System.out.println(" vbar.getValue() "+vbar.getValue()+" vbar.getMinimum() "+vbar.getMinimum()+" vbar.getMaximum() "+vbar.getMaximum());
+				
+				hbar.setValue((hbar.getMaximum()-hbar.getBlockIncrement())/2);
+				
 			}
 		});
 		
