@@ -354,7 +354,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						progressbar.setValue(progressbar.getValue()+1);
 						progressbarlabel.setText(progressbar.getValue()+"%");
 					}
-					Thread.sleep(1000);
+					Thread.sleep(100);
 				}
 				moviepanel.getMovieLabel().setText("测试用例生成完毕");
 				TestCaseProcessEndPanel tcpepanel=new TestCaseProcessEndPanel(mainFrame);

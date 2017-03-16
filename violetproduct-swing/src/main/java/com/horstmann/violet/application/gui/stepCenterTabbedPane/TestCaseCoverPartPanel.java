@@ -245,7 +245,7 @@ public class TestCaseCoverPartPanel extends JPanel{
 		attributetable.setShowHorizontalLines(true);
 		attributetable.setShowVerticalLines(false);
 		attributetable.setFillsViewportHeight(true);
-		attributetable.setRowHeight(27);
+		attributetable.setRowHeight(21);
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
@@ -267,7 +267,7 @@ public class TestCaseCoverPartPanel extends JPanel{
         DefaultTableCellRenderer renderer=new DefaultTableCellRenderer();
         renderer.setBackground(new Color(71, 80, 93));
         renderer.setForeground(new Color(255, 255, 255));
-        renderer.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 13));
+        renderer.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
         renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
         attributetable.getTableHeader().setDefaultRenderer(renderer); 
         
@@ -276,7 +276,7 @@ public class TestCaseCoverPartPanel extends JPanel{
         DefaultTableCellRenderer renderer1=new DefaultTableCellRenderer();
         renderer1.setForeground(new Color(115, 110, 102));
         renderer1.setBackground(new Color(255, 255, 255));
-        renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+        renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 10));
         renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
         attributetable.setDefaultRenderer(Object.class, renderer1); 
         

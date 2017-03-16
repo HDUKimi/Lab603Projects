@@ -154,8 +154,9 @@ public class WorkspacePanel extends JPanel
 					
 					JScrollBar hbar=scrollableEditorPart.getVerticalScrollBar();
 					JScrollBar vbar=scrollableEditorPart.getHorizontalScrollBar();
-					hbar.setValue(hbar.getValue()+movex);
-					vbar.setValue(vbar.getValue()+movey);
+					
+//					hbar.setValue(hbar.getValue()-movey);
+//					vbar.setValue(vbar.getValue()-movex);
 					
 					System.out.println(" oldx "+oldx+" oldy "+oldy+" newx "+newx+" newy "+newy+" movex "+movex+" movey "+movey);
 				}

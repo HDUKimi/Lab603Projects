@@ -40,7 +40,7 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 	private MoviePanel moviepanel;
 	private JSplitPane resultpanel;
 	private JPanel diagrampanel;
-	private JPanel tabelpanel;
+	private JPanel tablepanel;
 	
 	private JPanel toolbuttonpanel1;
 	private JPanel toolbuttonpanel2;
@@ -60,7 +60,7 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 	private JPanel emptypanel2;
 	private JPanel emptypanel3;
 	
-	private JScrollPane tabelscrollpanel;
+	private JScrollPane tablescrollpanel;
 	private JPanel tableresultpanel;
 	
 	private List<TestCaseCoverPartPanel> testCaseCoverPartPanelList=new ArrayList<>();
@@ -78,7 +78,7 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 		moviepanel=new MoviePanel();
 //		resultpanel=new JPanel();
 		diagrampanel=new JPanel();
-		tabelpanel=new JPanel();
+		tablepanel=new JPanel();
 		
 		initToolPanel();
 		
@@ -107,19 +107,20 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 		
 		initTablePanel();
 
-//		diagrampanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(142, 155, 188)));
+		diagrampanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(142, 155, 188)));
+		tablepanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(142, 155, 188)));
 
 //		GridBagLayout layout = new GridBagLayout();
 //		resultpanel.setLayout(layout);
 //		resultpanel.add(diagrampanel);
-//		resultpanel.add(tabelpanel);
+//		resultpanel.add(tablepanel);
 //		layout.setConstraints(diagrampanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-//		layout.setConstraints(tabelpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(tablepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenHeight = (int) screenSize.getHeight();
 		
-		resultpanel=new JSplitPane(JSplitPane.VERTICAL_SPLIT, diagrampanel, tabelpanel);
+		resultpanel=new JSplitPane(JSplitPane.VERTICAL_SPLIT, diagrampanel, tablepanel);
 		resultpanel.setDividerSize(6);
 		resultpanel.setDividerLocation(screenHeight*5/12);
 		resultpanel.setResizeWeight(1);
@@ -166,12 +167,12 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 		icon1.setImage(icon1.getImage().getScaledInstance(20,20, Image.SCALE_DEFAULT));
 		ImageIcon icon2 = new ImageIcon(path + "zoomout1.png");
 		icon2.setImage(icon2.getImage().getScaledInstance(20,20, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(path + "down_arrow.png");
-		icon3.setImage(icon3.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon4 = new ImageIcon(path + "down_arrow.png");
-		icon4.setImage(icon4.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon5 = new ImageIcon(path + "down_arrow.png");
-		icon5.setImage(icon5.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+		ImageIcon icon3 = new ImageIcon(path + "test12.png");
+		icon3.setImage(icon3.getImage().getScaledInstance(18,18, Image.SCALE_DEFAULT));
+		ImageIcon icon4 = new ImageIcon(path + "test11.png");
+		icon4.setImage(icon4.getImage().getScaledInstance(18,18, Image.SCALE_DEFAULT));
+		ImageIcon icon5 = new ImageIcon(path + "test13.png");
+		icon5.setImage(icon5.getImage().getScaledInstance(18,18, Image.SCALE_DEFAULT));
 		ImageIcon icon6 = new ImageIcon(path + "up_arrow.png");
 		icon6.setImage(icon6.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 		ImageIcon icon7 = new ImageIcon(path + "down_arrow.png");
@@ -262,12 +263,14 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 				
 				if(tablestate==1){
 					location=resultpanel.getDividerLocation();
-					tabelpanel.setVisible(false);
+					resultpanel.setDividerSize(0);
+					tablepanel.setVisible(false);
 					tablestate=0;
 				}
 				else{
-					tabelpanel.setVisible(true);
+					tablepanel.setVisible(true);
 					resultpanel.setDividerLocation(location);
+					resultpanel.setDividerSize(6);
 					tablestate=1;
 				}
 				
@@ -386,12 +389,12 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 		tableresultpanel.setBorder(null);
 		tableresultpanel.setBackground(new Color(255, 255, 255));
 		
-		tabelscrollpanel=new JScrollPane(tableresultpanel);
-        tabelscrollpanel.setBorder(null);
-        tabelscrollpanel.setBackground(new Color(255, 255, 255));
+		tablescrollpanel=new JScrollPane(tableresultpanel);
+        tablescrollpanel.setBorder(null);
+        tablescrollpanel.setBackground(new Color(255, 255, 255));
 		
-		tabelpanel.setLayout(new GridLayout());
-		tabelpanel.add(tabelscrollpanel);
+		tablepanel.setLayout(new GridLayout());
+		tablepanel.add(tablescrollpanel);
 		
 		
 //		JPanel resultpanel=new JPanel();
@@ -431,8 +434,8 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 		return diagrampanel;
 	}
 
-	public JPanel getTabelpanel() {
-		return tabelpanel;
+	public JPanel getTablepanel() {
+		return tablepanel;
 	}
 
 	public JPanel getTableresultpanel() {
