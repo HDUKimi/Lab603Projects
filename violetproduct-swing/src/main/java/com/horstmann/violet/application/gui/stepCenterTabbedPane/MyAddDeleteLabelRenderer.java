@@ -43,6 +43,7 @@ public class MyAddDeleteLabelRenderer extends JLabel implements TableCellRendere
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
 			int row, int column) {
 		// TODO Auto-generated method stub
+		
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 

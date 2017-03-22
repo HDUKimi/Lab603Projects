@@ -105,6 +105,11 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	private int stepsum=6;
 	private int step=1;
 	
+	private String selectUppaal;
+	private String selectUppaalPath;
+	private String selectCover;
+	private int selectCoverState=0;
+	
 	private Automatic automatic;
 	private List<AbstractState> abStateList =new ArrayList<AbstractState>();
 	private List<AbstractTransition> abTransList =new ArrayList<AbstractTransition>();
@@ -319,6 +324,24 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButtonPanel().setVisible(true);
 		mainFrame.getStepThreeCenterTabbedPane().setFixButtonTabbedPanelStartIndex(0);
 		tablepanel.removeAll();
+		
+		selectUppaal=mainFrame.getTestCaseGenerationPanel().getSelectUppaalCheckBox().getText();
+		selectCover=mainFrame.getTestCaseGenerationPanel().getSelectCoverCheckBox().getText();
+		System.out.println(selectUppaal+"  ------  "+selectCover);
+		
+		String baseUrl = "D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\";
+		selectUppaalPath = baseUrl + selectUppaal + ".timing.violet.xml";
+		
+		selectCoverState=0;
+		if(selectCover.equals("×´Ì¬¸²¸Ç")){
+			selectCoverState=0;
+		}
+		else if(selectCover.equals("Â·¾¶¸²¸Ç")){
+			selectCoverState=1;
+		}
+		
+		System.out.println(selectUppaalPath+"  ----------  "+selectCoverState);
+		
 		
 		maincallable=new Callable<Integer>() {
 			

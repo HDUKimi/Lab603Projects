@@ -104,9 +104,9 @@ public class TestCaseUppaalTabbedPanel extends JPanel{
 		icon1.setImage(icon1.getImage().getScaledInstance(20,20, Image.SCALE_DEFAULT));
 		ImageIcon icon2 = new ImageIcon(path + "zoomout1.png");
 		icon2.setImage(icon2.getImage().getScaledInstance(20,20, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(path + "test12.png");
+		final ImageIcon icon3 = new ImageIcon(path + "test12.png");
 		icon3.setImage(icon3.getImage().getScaledInstance(18,18, Image.SCALE_DEFAULT));
-		ImageIcon icon4 = new ImageIcon(path + "test11.png");
+		final ImageIcon icon4 = new ImageIcon(path + "test11.png");
 		icon4.setImage(icon4.getImage().getScaledInstance(18,18, Image.SCALE_DEFAULT));
 		ImageIcon icon5 = new ImageIcon(path + "test13.png");
 		icon5.setImage(icon5.getImage().getScaledInstance(18,18, Image.SCALE_DEFAULT));
@@ -125,15 +125,15 @@ public class TestCaseUppaalTabbedPanel extends JPanel{
 				workspace.getSideBar().getEditorToolsBar().getZoomInButton().doClick();
 				mainFrame.getConsolePartPanel().getTextarea().append("放大一倍视图\n");
 				
-				JScrollPane js=workspace.getAWTComponent().getScrollableEditorPart();
-				JScrollBar hbar=js.getHorizontalScrollBar();
-				JScrollBar vbar=js.getVerticalScrollBar();
-				System.out.println("--------------------------------");
-				System.out.println(" hbar.getValue() "+hbar.getValue()+" hbar.getMinimum() "+hbar.getMinimum()+" hbar.getMaximum() "+hbar.getMaximum());
-				System.out.println(" vbar.getValue() "+vbar.getValue()+" vbar.getMinimum() "+vbar.getMinimum()+" vbar.getMaximum() "+vbar.getMaximum());
-				
-				hbar.setValue((hbar.getMaximum()-hbar.getBlockIncrement())/2);
-				vbar.setValue((vbar.getMaximum()-vbar.getBlockIncrement())/2);
+//				JScrollPane js=workspace.getAWTComponent().getScrollableEditorPart();
+//				JScrollBar hbar=js.getHorizontalScrollBar();
+//				JScrollBar vbar=js.getVerticalScrollBar();
+//				System.out.println("--------------------------------");
+//				System.out.println(" hbar.getValue() "+hbar.getValue()+" hbar.getMinimum() "+hbar.getMinimum()+" hbar.getMaximum() "+hbar.getMaximum());
+//				System.out.println(" vbar.getValue() "+vbar.getValue()+" vbar.getMinimum() "+vbar.getMinimum()+" vbar.getMaximum() "+vbar.getMaximum());
+//				
+//				hbar.setValue((hbar.getMaximum()-hbar.getBlockIncrement())/2);
+//				vbar.setValue((vbar.getMaximum()-vbar.getBlockIncrement())/2);
 				
 			}
 		});
@@ -152,15 +152,15 @@ public class TestCaseUppaalTabbedPanel extends JPanel{
 				workspace.getSideBar().getEditorToolsBar().getZoomOutButton().doClick();
 				mainFrame.getConsolePartPanel().getTextarea().append("缩小一倍视图\n");
 
-				JScrollPane js=workspace.getAWTComponent().getScrollableEditorPart();
-				JScrollBar hbar=js.getHorizontalScrollBar();
-				JScrollBar vbar=js.getVerticalScrollBar();
-				System.out.println("--------------------------------");
-				System.out.println(" hbar.getValue() "+hbar.getValue()+" hbar.getMinimum() "+hbar.getMinimum()+" hbar.getMaximum() "+hbar.getMaximum());
-				System.out.println(" vbar.getValue() "+vbar.getValue()+" vbar.getMinimum() "+vbar.getMinimum()+" vbar.getMaximum() "+vbar.getMaximum());
-				
-				hbar.setValue((hbar.getMaximum()-hbar.getBlockIncrement())/2);
-				vbar.setValue((vbar.getMaximum()-vbar.getBlockIncrement())/2);
+//				JScrollPane js=workspace.getAWTComponent().getScrollableEditorPart();
+//				JScrollBar hbar=js.getHorizontalScrollBar();
+//				JScrollBar vbar=js.getVerticalScrollBar();
+//				System.out.println("--------------------------------");
+//				System.out.println(" hbar.getValue() "+hbar.getValue()+" hbar.getMinimum() "+hbar.getMinimum()+" hbar.getMaximum() "+hbar.getMaximum());
+//				System.out.println(" vbar.getValue() "+vbar.getValue()+" vbar.getMinimum() "+vbar.getMinimum()+" vbar.getMaximum() "+vbar.getMaximum());
+//				
+//				hbar.setValue((hbar.getMaximum()-hbar.getBlockIncrement())/2);
+//				vbar.setValue((vbar.getMaximum()-vbar.getBlockIncrement())/2);
 				
 			}
 		});
@@ -177,10 +177,29 @@ public class TestCaseUppaalTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				TranMessageText tmt=new TranMessageText();
-				tmt.TranTextToId(mainFrame, workspace);
-				trantextstate=1;
-				ChangeRepaint();
+				if(trantextstate==0){
+					TranMessageText tmt=new TranMessageText();
+					tmt.TranTextToId(mainFrame, workspace);
+					trantextstate=1;
+					
+					toolbutton3.setIcon(icon3);
+					
+					ChangeRepaint();
+				}
+				else{
+					TranMessageText tmt=new TranMessageText();
+					tmt.TranTextToName(mainFrame, workspace);
+					trantextstate=0;
+					
+					toolbutton3.setIcon(icon4);
+					
+					ChangeRepaint();
+				}
+				
+//				TranMessageText tmt=new TranMessageText();
+//				tmt.TranTextToId(mainFrame, workspace);
+//				trantextstate=1;
+//				ChangeRepaint();
 				
 			}
 		});
@@ -230,7 +249,7 @@ public class TestCaseUppaalTabbedPanel extends JPanel{
 		toolpanel.add(toolbuttonpanel2);
 		toolpanel.add(emptypanel1);
 		toolpanel.add(toolbuttonpanel3);
-		toolpanel.add(toolbuttonpanel4);
+//		toolpanel.add(toolbuttonpanel4);
 		
 		toolpanel.setPreferredSize(new Dimension(100, 29));
 		toolpanel.setMaximumSize(new Dimension(100, 29));

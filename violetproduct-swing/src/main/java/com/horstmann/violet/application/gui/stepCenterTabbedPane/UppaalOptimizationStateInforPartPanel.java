@@ -204,6 +204,7 @@ public class UppaalOptimizationStateInforPartPanel extends JPanel{
 		};
 		
 		attributetable=new JTable(attributetablemodel);
+		attributetable.setName("UppaalOptimizationStateInforPartPanel");
 		
 		attributetable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         attributetable.setSelectionBackground(new Color(250, 248, 236));
@@ -212,11 +213,17 @@ public class UppaalOptimizationStateInforPartPanel extends JPanel{
 		attributetable.setShowHorizontalLines(true);
 		attributetable.setShowVerticalLines(false);
 		attributetable.setFillsViewportHeight(true);
-		attributetable.setRowHeight(21);
+		attributetable.setRowHeight(22);
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
 		attributetable.getColumnModel().getColumn(0).setCellRenderer(new MyAddDeleteLabelRenderer());
+		attributetable.getColumnModel().getColumn(1).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(2).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(3).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(5).setCellRenderer(new MyAllLabelRenderer());
+
 		
 		attributetable.getColumn("×´Ì¬").setPreferredWidth(20);
 		attributetable.getColumn("×´Ì¬").setMinWidth(20);
@@ -270,28 +277,29 @@ public class UppaalOptimizationStateInforPartPanel extends JPanel{
 //			}
 //
 //		};
-        DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer() {
-
-			@Override
-			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-					boolean hasFocus, int row, int column) {
-				// TODO Auto-generated method stub
-				
-				setForeground(new Color(0,0,0));
-				setBackground(new Color(255, 255, 255));
-				setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 10));
-				setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-				if(Integer.parseInt(table.getValueAt(row, 0).toString())==-1){
-					setForeground(new Color(177,177,177));
-					setBackground(new Color(255, 255, 255));
-				}
-				
-
-				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-			}
-
-		};
-        attributetable.setDefaultRenderer(Object.class, renderer1); 
+        
+//        DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer() {
+//
+//			@Override
+//			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+//					boolean hasFocus, int row, int column) {
+//				// TODO Auto-generated method stub
+//				
+//				setForeground(new Color(0,0,0));
+//				setBackground(new Color(255, 255, 255));
+//				setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 10));
+//				setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+//				if(Integer.parseInt(table.getValueAt(row, 0).toString())==-1){
+//					setForeground(new Color(177,177,177));
+//					setBackground(new Color(255, 255, 255));
+//				}
+//				
+//
+//				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//			}
+//
+//		};
+//        attributetable.setDefaultRenderer(Object.class, renderer1); 
         
         attributetable.addMouseListener(new MouseAdapter() {
 

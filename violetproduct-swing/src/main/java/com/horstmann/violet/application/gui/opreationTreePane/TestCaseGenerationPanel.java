@@ -530,6 +530,9 @@ public class TestCaseGenerationPanel extends JPanel {
 			
 		}
 		
+		coverCheckBoxList[0].setSelected(true);
+		selectCoverCheckBox=coverCheckBoxList[0];//Ä¬ÈÏÑ¡ÖÐ
+		
 	}
 
 
@@ -614,4 +617,26 @@ public class TestCaseGenerationPanel extends JPanel {
 		this.setVisible(true);
 	}
 
+
+	public JCheckBox getSelectUppaalCheckBox() {
+		return selectUppaalCheckBox;
+	}
+
+
+	public JCheckBox[] getUppaalCheckBoxList() {
+		return uppaalCheckBoxList;
+	}
+
+
+	public JCheckBox getSelectCoverCheckBox() {
+		return selectCoverCheckBox;
+	}
+
+
+	public JCheckBox[] getCoverCheckBoxList() {
+		return coverCheckBoxList;
+	}
+
+	
+	
 }

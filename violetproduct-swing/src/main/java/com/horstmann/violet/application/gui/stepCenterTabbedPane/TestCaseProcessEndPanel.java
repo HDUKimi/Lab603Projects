@@ -3,7 +3,9 @@ package com.horstmann.violet.application.gui.stepCenterTabbedPane;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -33,6 +35,7 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.title.TextTitle;
+import org.jfree.chart.title.Title;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -45,6 +48,8 @@ import com.horstmann.violet.application.gui.MainFrame;
 public class TestCaseProcessEndPanel extends JPanel{
 	
 	private MainFrame mainFrame;
+	
+	private JScrollPane scrollpanel;
 	
 	private JPanel panel;
 //	
@@ -95,8 +100,11 @@ public class TestCaseProcessEndPanel extends JPanel{
 		layout.setConstraints(chartresultpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(emptypanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
+		scrollpanel=new JScrollPane(panel);
+		scrollpanel.setBorder(null);
+		
 		this.setLayout(new GridLayout());
-		this.add(new JScrollPane(panel));
+		this.add(scrollpanel);
 		
 		
 		this.setBackground(new Color(255, 255, 255));
@@ -140,6 +148,8 @@ public class TestCaseProcessEndPanel extends JPanel{
 		
 		attributetable=new JTable(attributetablemodel);
 		
+		attributetable.setName("TestCaseProcessEndPanel");
+		
 		attributetable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         attributetable.setSelectionBackground(new Color(250, 248, 236));
         attributetable.setGridColor(new Color(224, 226, 220));
@@ -151,6 +161,10 @@ public class TestCaseProcessEndPanel extends JPanel{
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
+		attributetable.getColumnModel().getColumn(0).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(1).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(2).setCellRenderer(new MyAllLabelRenderer());
+		
 		attributetable.getColumn("步骤").setPreferredWidth(150);
 		attributetable.getColumn("步骤").setMinWidth(150);
 		attributetable.getColumn("耗时").setPreferredWidth(30);
@@ -167,12 +181,35 @@ public class TestCaseProcessEndPanel extends JPanel{
         
         attributetable.getTableHeader().setPreferredSize(new Dimension(100, 27));
         
-        DefaultTableCellRenderer renderer1=new DefaultTableCellRenderer();
-        renderer1.setForeground(new Color(115, 110, 102));
-        renderer1.setBackground(new Color(255, 255, 255));
-        renderer1.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-        renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-        attributetable.setDefaultRenderer(Object.class, renderer1); 
+        
+//        DefaultTableCellRenderer renderer1=new DefaultTableCellRenderer(){
+//
+//			@Override
+//			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+//					boolean hasFocus, int row, int column) {
+//				// TODO Auto-generated method stub
+//
+//				this.setForeground(new Color(115, 110, 102));
+//				this.setBackground(new Color(255, 255, 255));
+//				this.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+//				this.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+//				if (column == 0) {
+//					this.setHorizontalAlignment(DefaultTableCellRenderer.LEFT);
+//					this.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.RED));
+//				}
+//
+//				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//			}
+//
+//        };
+//        attributetable.setDefaultRenderer(Object.class, renderer1);
+        
+//        DefaultTableCellRenderer renderer1=new DefaultTableCellRenderer();
+//        renderer1.setForeground(new Color(115, 110, 102));
+//        renderer1.setBackground(new Color(255, 255, 255));
+//        renderer1.setFont(new Font("微软雅黑", Font.PLAIN, 10));
+////        renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+//        attributetable.setDefaultRenderer(Object.class, renderer1); 
         
         attributetable.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(224, 225, 220)));
 		
@@ -182,7 +219,7 @@ public class TestCaseProcessEndPanel extends JPanel{
         attributepanel.setLayout(new BorderLayout());
         attributepanel.add(attributetable.getTableHeader(),BorderLayout.NORTH);
         attributepanel.add(attributetable, BorderLayout.CENTER);
-        attributepanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 15));
+        attributepanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 15, 5));
         attributepanel.setOpaque(false);
 		
 	}
@@ -206,51 +243,68 @@ public class TestCaseProcessEndPanel extends JPanel{
         chart.setBackgroundPaint(Color.white);
         
 
-        Font xfont = new Font("微软雅黑",Font.PLAIN,11) ;// X轴  
-        Font yfont = new Font("微软雅黑",Font.PLAIN,11) ;// Y轴  
-        Font kfont = new Font("微软雅黑",Font.PLAIN,11) ;// 底部  
-        Font titleFont = new Font("微软雅黑", Font.PLAIN , 16) ; // 图片标题  
-        CategoryPlot plot = chart.getCategoryPlot();// 图形的绘制结构对象  
-          
-        // 图片标题  
-        chart.setTitle(new TextTitle(chart.getTitle().getText(),titleFont));  
-          
-        // 底部  
-//        chart.getLegend().setItemFont(kfont);  
-          
-        // X 轴  
-        CategoryAxis domainAxis = plot.getDomainAxis();     
-           domainAxis.setLabelFont(xfont);// 轴标题  
-           domainAxis.setTickLabelFont(xfont);// 轴数值    
-           domainAxis.setTickLabelPaint(Color.BLACK) ; // 字体颜色  
-//           domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45); // 横轴上的label斜显示   
-             
-        // Y 轴  
-        ValueAxis rangeAxis = plot.getRangeAxis();     
-           rangeAxis.setLabelFont(yfont);   
-           rangeAxis.setLabelPaint(Color.BLACK) ; // 字体颜色  
-           rangeAxis.setTickLabelFont(yfont);    
-           
-        
-        CategoryPlot categoryplot = (CategoryPlot)chart.getPlot();
-//        categoryplot.setBackgroundPaint(Color.lightGray);
-        categoryplot.setBackgroundPaint(Color.WHITE);
-        categoryplot.setRangeGridlinesVisible(false);
-        NumberAxis numberaxis = (NumberAxis)categoryplot.getRangeAxis();
-        numberaxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        LineAndShapeRenderer lineandshaperenderer = (LineAndShapeRenderer)categoryplot.getRenderer();
-        lineandshaperenderer.setBaseShapesVisible(true);
-        lineandshaperenderer.setDrawOutlines(true);
-        lineandshaperenderer.setUseFillPaint(true);
-        lineandshaperenderer.setBaseFillPaint(Color.white);
-        lineandshaperenderer.setSeriesStroke(0, new BasicStroke(2F));
-        lineandshaperenderer.setSeriesOutlineStroke(0, new BasicStroke(2.0F));
-        lineandshaperenderer.setSeriesShape(0, new java.awt.geom.Ellipse2D.Double(-5D, -5D, 10D, 10D));
+        Font xfont = new Font("微软雅黑",Font.PLAIN,12) ;// X轴  
+        Font yfont = new Font("微软雅黑",Font.PLAIN,12) ;// Y轴  
+        Font kfont = new Font("微软雅黑",Font.PLAIN,12) ;// 底部  
+        Font titleFont = new Font("微软雅黑", Font.PLAIN , 13) ; // 图片标题  
+		CategoryPlot plot = chart.getCategoryPlot();// 图形的绘制结构对象
+
+		// 图片标题
+		TextTitle title=new TextTitle(chart.getTitle().getText());
+		title.setFont(titleFont);
+		title.setPaint(new Color(115, 110, 102));
+		chart.setTitle(title);
+
+		// 底部
+		// chart.getLegend().setItemFont(kfont);
+
+		// X 轴
+		CategoryAxis domainAxis = plot.getDomainAxis();
+		domainAxis.setLabelFont(xfont);// 轴标题
+		domainAxis.setTickLabelFont(xfont);// 轴数值
+		domainAxis.setTickLabelPaint(new Color(115, 110, 102)); // 字体颜色
+		// domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+		// // 横轴上的label斜显示
+
+		// Y 轴
+		ValueAxis rangeAxis = plot.getRangeAxis();
+		rangeAxis.setLabelFont(yfont);
+		rangeAxis.setLabelPaint(new Color(115, 110, 102)); // 字体颜色
+		rangeAxis.setTickLabelFont(yfont);
+		rangeAxis.setTickLabelPaint(new Color(115, 110, 102)); // 字体颜色
+
+		CategoryPlot categoryplot = (CategoryPlot) chart.getPlot();
+		// categoryplot.setBackgroundPaint(Color.lightGray);
+		categoryplot.setBackgroundPaint(Color.WHITE);
+		categoryplot.setRangeGridlinesVisible(false);
+		NumberAxis numberaxis = (NumberAxis) categoryplot.getRangeAxis();
+		numberaxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+		LineAndShapeRenderer lineandshaperenderer = (LineAndShapeRenderer) categoryplot.getRenderer();
+		lineandshaperenderer.setBaseShapesVisible(true);
+		lineandshaperenderer.setDrawOutlines(true);
+		lineandshaperenderer.setUseFillPaint(true);
+		lineandshaperenderer.setBaseFillPaint(Color.white);
+		lineandshaperenderer.setSeriesStroke(0, new BasicStroke(2F));
+		lineandshaperenderer.setSeriesOutlineStroke(0, new BasicStroke(2.0F));
+		lineandshaperenderer.setSeriesShape(0, new java.awt.geom.Ellipse2D.Double(-5D, -5D, 10D, 10D));
 
 		ChartPanel chartpanel = new ChartPanel(chart);
-
-		chartresultpanel.setLayout(new GridLayout());
-		chartresultpanel.add(chartpanel);
+		
+		System.out.println(chartpanel.getMinimumDrawHeight()+"  "+chartpanel.getMinimumDrawWidth());
+		System.out.println(chartpanel.getMaximumDrawHeight()+"  "+chartpanel.getMaximumDrawWidth());
+//		chartpanel.setDomainZoomable(true);
+		
+//		chartpanel.setSize(new Dimension(chartpanel.getMinimumDrawWidth(), chartpanel.getMinimumDrawHeight()));
+//		chartpanel.setSize(new Dimension(100, 100));
+		
+		chartresultpanel.setLayout(new BorderLayout());
+		chartresultpanel.add(chartpanel,BorderLayout.CENTER);
+		
+//		chartresultpanel.setLayout(new FlowLayout());
+//		chartresultpanel.add(chartpanel);
+		
+		chartresultpanel.setBackground(new Color(255, 255, 255));
+		
 		
 	}
 

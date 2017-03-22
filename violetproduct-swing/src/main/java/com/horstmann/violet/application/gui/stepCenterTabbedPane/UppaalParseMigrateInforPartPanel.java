@@ -194,6 +194,8 @@ public class UppaalParseMigrateInforPartPanel extends JPanel{
 		
 		attributetable=new JTable(attributetablemodel);
 		
+		attributetable.setName("UppaalParseMigrateInforPartPanel");
+		
 		attributetable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         attributetable.setSelectionBackground(new Color(250, 248, 236));
         attributetable.setGridColor(new Color(224, 226, 220));
@@ -204,6 +206,14 @@ public class UppaalParseMigrateInforPartPanel extends JPanel{
 		attributetable.setRowHeight(21);
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		
+		attributetable.getColumnModel().getColumn(0).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(1).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(2).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(3).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(5).setCellRenderer(new MyAllLabelRenderer());
+
 
 		attributetable.getColumn("ÐòºÅ").setPreferredWidth(10);
 		attributetable.getColumn("ÐòºÅ").setMinWidth(10);
@@ -227,12 +237,12 @@ public class UppaalParseMigrateInforPartPanel extends JPanel{
         
         attributetable.getTableHeader().setPreferredSize(new Dimension(100, 22));
         
-        DefaultTableCellRenderer renderer1=new DefaultTableCellRenderer();
-        renderer1.setForeground(new Color(115, 110, 102));
-        renderer1.setBackground(new Color(255, 255, 255));
-        renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 10));
-        renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-        attributetable.setDefaultRenderer(Object.class, renderer1); 
+//        DefaultTableCellRenderer renderer1=new DefaultTableCellRenderer();
+//        renderer1.setForeground(new Color(115, 110, 102));
+//        renderer1.setBackground(new Color(255, 255, 255));
+//        renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 10));
+//        renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+//        attributetable.setDefaultRenderer(Object.class, renderer1); 
         
         attributetable.addMouseListener(new MouseAdapter() {
 
