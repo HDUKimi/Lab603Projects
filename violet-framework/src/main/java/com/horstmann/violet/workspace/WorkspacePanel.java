@@ -5,6 +5,7 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -139,6 +140,9 @@ public class WorkspacePanel extends JPanel
 					
 					oldx=e.getX();
 					oldy=e.getY();
+					
+					panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+					
 				}
 
 				@Override

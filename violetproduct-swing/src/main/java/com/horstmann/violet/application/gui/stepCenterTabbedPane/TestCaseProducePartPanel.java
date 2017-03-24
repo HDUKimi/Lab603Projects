@@ -29,10 +29,13 @@ import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
+import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 
 public class TestCaseProducePartPanel extends JPanel{
 
 	private MainFrame mainFrame;
+	private Automatic automatic;
 	
 	private JPanel titlepanel;
 	private JPanel linepanel;
@@ -48,9 +51,11 @@ public class TestCaseProducePartPanel extends JPanel{
 	private DefaultTableModel attributetablemodel;
 	
 	
-	public TestCaseProducePartPanel(MainFrame mainFrame){
+	public TestCaseProducePartPanel(MainFrame mainFrame, Automatic automatic){
 		
 		this.mainFrame=mainFrame;
+		
+		this.automatic=automatic;
 		
 		init();
 		
@@ -100,7 +105,7 @@ public class TestCaseProducePartPanel extends JPanel{
 		ImageIcon icon3 = new ImageIcon(path + "dropdown1.png");
 		icon3.setImage(icon3.getImage().getScaledInstance(11, 11, Image.SCALE_DEFAULT));
 
-		titlelabel.setText("≤‚ ‘”√¿˝  23");
+		titlelabel.setText(automatic.getName());
 		titlelabel.setFont(new Font("Œ¢»Ì—≈∫⁄", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(60,0,255));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -280,8 +285,9 @@ public class TestCaseProducePartPanel extends JPanel{
         attributepanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         attributepanel.setOpaque(false);
 
-        for(int i=0;i<8;i++){
-			Object[] rowData={"266","loop","loc_id_0D871D83_6090_4623_852D_16B5323BFC94_14","loc_id_9A3C08E8_ECB5_4e57_86B0_723B3E6DBF39_15","0<=g.failsafe_throttle<=1,925<=g.failsafe_throttle_value<=1100,-128<=g.failsafe_throttle<=127,-32768<=g.failsafe_throttle_value<=32767,ap.pre_arm_rc_check==1,0<=ap.pre_arm_rc_check<=255"};
+        for(Transition t:automatic.getTransitionSet()){
+//			Object[] rowData={"266","loop","loc_id_0D871D83_6090_4623_852D_16B5323BFC94_14","loc_id_9A3C08E8_ECB5_4e57_86B0_723B3E6DBF39_15","0<=g.failsafe_throttle<=1,925<=g.failsafe_throttle_value<=1100,-128<=g.failsafe_throttle<=127,-32768<=g.failsafe_throttle_value<=32767,ap.pre_arm_rc_check==1,0<=ap.pre_arm_rc_check<=255"};
+			Object[] rowData={t.getId()+"",t.getName(),t.getSource(),t.getTarget(),t.getLimit()};
 			attributetablemodel.addRow(rowData);
 		}
 		

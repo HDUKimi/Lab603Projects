@@ -28,10 +28,13 @@ import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
+import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 
 public class TestCaseInstantiationPartPanel extends JPanel{
 
 	private MainFrame mainFrame;
+	private Automatic automatic;
 	
 	private JPanel titlepanel;
 	private JPanel linepanel;
@@ -47,9 +50,11 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 	private DefaultTableModel attributetablemodel;
 	
 	
-	public TestCaseInstantiationPartPanel(MainFrame mainFrame){
+	public TestCaseInstantiationPartPanel(MainFrame mainFrame, Automatic automatic){
 		
 		this.mainFrame=mainFrame;
+		
+		this.automatic=automatic;
 		
 		init();
 		
@@ -99,7 +104,7 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 		ImageIcon icon3 = new ImageIcon(path + "dropdown1.png");
 		icon3.setImage(icon3.getImage().getScaledInstance(11, 11, Image.SCALE_DEFAULT));
 
-		titlelabel.setText("测试用例  2");
+		titlelabel.setText(automatic.getName());
 		titlelabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(60,0,255));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -156,7 +161,7 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 	private void initAttributePanel() {
 		// TODO Auto-generated method stub
 		
-		final String[] columnNames={"迁移Id","迁移名称","源状态名称","实例化结果"};
+		final String[] columnNames={"迁移Id","迁移名称","源状态名称","目的状态名称","实例化结果"};
 		String[][] tabelValues={};
 		
 		attributetablemodel=new DefaultTableModel(tabelValues, columnNames){
@@ -185,13 +190,16 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 		attributetable.getColumnModel().getColumn(1).setCellRenderer(new MyAllLabelRenderer());
 		attributetable.getColumnModel().getColumn(2).setCellRenderer(new MyAllLabelRenderer());
 		attributetable.getColumnModel().getColumn(3).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
 
 		attributetable.getColumn("迁移Id").setPreferredWidth(20);
 		attributetable.getColumn("迁移Id").setMinWidth(20);
 		attributetable.getColumn("迁移名称").setPreferredWidth(20);
 		attributetable.getColumn("迁移名称").setMinWidth(20);
-		attributetable.getColumn("源状态名称").setPreferredWidth(200);
-		attributetable.getColumn("源状态名称").setMinWidth(200);
+		attributetable.getColumn("源状态名称").setPreferredWidth(100);
+		attributetable.getColumn("源状态名称").setMinWidth(100);
+		attributetable.getColumn("目的状态名称").setPreferredWidth(100);
+		attributetable.getColumn("目的状态名称").setMinWidth(100);
 		attributetable.getColumn("实例化结果").setPreferredWidth(500);
 		attributetable.getColumn("实例化结果").setMinWidth(500);
         
@@ -274,8 +282,9 @@ public class TestCaseInstantiationPartPanel extends JPanel{
         attributepanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         attributepanel.setOpaque(false);
 
-        for(int i=0;i<8;i++){
-			Object[] rowData={"48","set_pwm","loc_id_41F2D344_CCE6_4e2a_A417_9245889CE58C_4_5","yaw_pwm=2200,_num_tasks=255,dt=65535,_task_time_allowed=4294967295,i=0,time_available=4294967295,interval_ticks=65535,has_new_input=True"};
+        for(Transition t:automatic.getTransitionSet()){
+//			Object[] rowData={"48","set_pwm","loc_id_41F2D344_CCE6_4e2a_A417_9245889CE58C_4_5","yaw_pwm=2200,_num_tasks=255,dt=65535,_task_time_allowed=4294967295,i=0,time_available=4294967295,interval_ticks=65535,has_new_input=True"};
+			Object[] rowData={t.getId()+"",t.getName(),t.getSource(),t.getTarget(),t.getResult().toString().replaceAll("\\[|]", "")};
 			attributetablemodel.addRow(rowData);
 		}
 		

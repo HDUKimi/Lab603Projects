@@ -35,9 +35,9 @@ import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
 import com.horstmann.violet.workspace.IWorkspace;
 
-import cn.edu.hdu.ckt.handle.Automatic;
-import cn.edu.hdu.ckt.handle.State;
-import cn.edu.hdu.ckt.handle.Transition;
+import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
+import com.horstmann.violet.application.gui.util.ckt.handle.State;
+import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 
 public class TestCaseCoverPartPanel extends JPanel{
 	

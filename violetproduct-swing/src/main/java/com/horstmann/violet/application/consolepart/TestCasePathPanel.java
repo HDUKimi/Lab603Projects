@@ -23,9 +23,9 @@ import javax.swing.JPanel;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 
-import cn.edu.hdu.ckt.handle.Automatic;
-import cn.edu.hdu.ckt.handle.State;
-import cn.edu.hdu.ckt.handle.Transition;
+import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
+import com.horstmann.violet.application.gui.util.ckt.handle.State;
+import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 
 public class TestCasePathPanel extends JPanel{
 

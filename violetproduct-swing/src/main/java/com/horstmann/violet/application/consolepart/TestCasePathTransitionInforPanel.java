@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 
-import cn.edu.hdu.ckt.handle.Transition;
+import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 
 public class TestCasePathTransitionInforPanel extends JPanel{
 

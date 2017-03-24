@@ -39,6 +39,8 @@ import com.horstmann.violet.application.consolepart.TestCasePathPanel;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.util.ckt.handle.AddType;
+import com.horstmann.violet.application.gui.util.ckt.handle.GetAutomatic;
 import com.horstmann.violet.application.gui.util.xiaole.GraghLayout.LayoutUppaal;
 import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.ImportByDoubleClick;
 import com.horstmann.violet.application.menu.util.zhangjian.Database.AbstractState;
@@ -48,10 +50,12 @@ import com.horstmann.violet.framework.file.GraphFile;
 import com.horstmann.violet.workspace.IWorkspace;
 import com.horstmann.violet.workspace.Workspace;
 
-import cn.edu.hdu.ckt.handle.Automatic;
-import cn.edu.hdu.ckt.handle.State;
-import cn.edu.hdu.ckt.handle.TestAutoDiagram;
-import cn.edu.hdu.ckt.handle.Transition;
+import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
+import com.horstmann.violet.application.gui.util.ckt.handle.State;
+import com.horstmann.violet.application.gui.util.ckt.handle.StateCoverage__1;
+import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
+import com.horstmann.violet.application.gui.util.ckt.output.TestAutoDiagram;
+import com.horstmann.violet.application.gui.util.ckt.output.forPlatform;
 
 public class TestCaseProcessTabbedPanel extends JPanel{
 	
@@ -110,7 +114,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	private String selectCover;
 	private int selectCoverState=0;
 	
-	private Automatic automatic;
+//	private Automatic automatic;
 	private List<AbstractState> abStateList =new ArrayList<AbstractState>();
 	private List<AbstractTransition> abTransList =new ArrayList<AbstractTransition>();
 	
@@ -118,6 +122,14 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	private Map<String, String> stateNameToIdMap=new HashMap<String, String>();
 	private Map<String, String> transitionIdToNameMap=new HashMap<String, String>();
 	private Map<String, String> transitionNameToIdMap=new HashMap<String, String>();
+	
+	
+	private Automatic a;
+	private Automatic DFStree;
+	private ArrayList<Automatic> testCase;
+	private ArrayList<Automatic> collectLimit;
+	private ArrayList<Automatic> collectResult;
+	
 	
 
 	public TestCaseProcessTabbedPanel(MainFrame mainframe) {
@@ -360,6 +372,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 //								step=3;
 							}
 							System.out.println(step);
+//							if(step==3){
+//								step=stepsum;
+//							}
 							if(step<6){
 								threadlist.get(step).start();
 							}
@@ -406,6 +421,13 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				tablepanel.add(copyupitpanel.getInforpanel());
 				
 				//获取数据
+//				String xml="UAVForXStreamXuanTing.xml";
+				String xml="D:\\xml\\UAVForXStream3.1.6.xml";
+				
+				a = GetAutomatic.getAutomatic(xml);
+				a=AddType.addType(a);
+				
+				
 				Thread.sleep(1000);
 				
 				DefaultTableModel copystatetablemodel=copyupitpanel.getStateinforpanel().getAttributetablemodel();
@@ -422,14 +444,16 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					migrateinfortablemodel.removeRow(migrateinfortablemodel.getRowCount()-1);
 				}
 				
-				for(int i=0;i<50;i++){
-					Object[] rowData={"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
+				for(State s:a.getStateSet()){
+//					Object[] rowData={"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
+					Object[] rowData={s.getId()+"",s.getName(),s.getPosition(),s.isFinalState()+"",s.getType()};
 					copystatetablemodel.addRow(rowData);
 					stateinfortablemodel.addRow(rowData);
 				}
 				
-				for(int i=0;i<50;i++){
-					Object[] rowData={"13","set_throttle_out_unstabilizedfloat, bool, float","g.throttle_filt#g.throttle_filt:float","cycle=2.5ms--control_mode==0#control_mode:int8_t--motor_state==False || ap.throttle_zero==True#motor_state:bool,ap.throttle_zero:bool","null","不空，但是没有内容"};
+				for(Transition t:a.getTransitionSet()){
+//					Object[] rowData={"13","set_throttle_out_unstabilizedfloat, bool, float","g.throttle_filt#g.throttle_filt:float","cycle=2.5ms--control_mode==0#control_mode:int8_t--motor_state==False || ap.throttle_zero==True#motor_state:bool,ap.throttle_zero:bool","null","不空，但是没有内容"};
+					Object[] rowData={t.getId()+"",t.getName(),t.getIn(),t.getCondition(),t.getOut(),t.getResetClockSet()+""};
 					copymigratetablemodel.addRow(rowData);
 					migrateinfortablemodel.addRow(rowData);
 				}
@@ -513,10 +537,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				moviepanel.getMovieLabel().setText("正在根据时间自动机生成深度优先生成树");
 				
 				//获取数据
-				Thread.sleep(1000);
+				DFStree=StateCoverage__1.DFSTree(a);
 				
 				//Automate数据转换为xml
-				AutomateTransformXml();
+				AutomateTransformXml(DFStree);
 				
 				GraphFile absfGraphFile=ImportByDoubleClick.importFileByDoubleClick("UPPAAL","abs.uppaal.violet.xml");
 				IWorkspace workspace=new Workspace(absfGraphFile);
@@ -529,6 +553,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				tablepanel.removeAll();
 				tablepanel.add(copytcutpanel.getDiagramPanel());
+				
+				System.out.println("122222222222222222222222222223333333333333333333");
 				
 				Thread.sleep(1000);
 
@@ -580,6 +606,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				moviepanel.getMovieLabel().setText("正在进行路径覆盖，生成测试序列");
 				
 				//获取数据
+				testCase=StateCoverage__1.testCase(DFStree);
+				
 				Thread.sleep(1000);
 				
 				//上一步的xml
@@ -598,8 +626,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				//测试序列
 				
-				List<Automatic> autopathlist=new ArrayList<>();
-				autopathlist=TestAutoDiagram.PathAuto();
+//				List<Automatic> autopathlist=new ArrayList<>();
+//				autopathlist=TestAutoDiagram.PathAuto();
 				
 				List<TestCaseCoverPartPanel> coverpartlist=new ArrayList<>();
 				
@@ -622,7 +650,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				int i=0;
 				int copyi=0;
 				
-				for(Automatic am:autopathlist){
+				for(Automatic am:testCase){
 					
 					TestCaseCoverPartPanel tccppanel=new TestCaseCoverPartPanel(mainFrame,am,workspace);//传入测试序列。包括路径信息，以及workspace
 					resultpanel.add(tccppanel);
@@ -678,6 +706,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				moviepanel.getMovieLabel().setText("正在抽象测试用例");
 				
 				//获取数据
+				collectLimit = forPlatform.collectLimit(testCase);
+				
 				Thread.sleep(1000);
 				
 				TestCaseProduceTabbedPanel copytcptpanel=new TestCaseProduceTabbedPanel(mainFrame);
@@ -706,15 +736,15 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				int i=0;
 				int copyi=0;
-				for(int j=0;j<30;j++){
+				for(Automatic am:collectLimit){
 					
-					TestCaseProducePartPanel tcpppanel=new TestCaseProducePartPanel(mainFrame);//传入单个测试用例信息
+					TestCaseProducePartPanel tcpppanel=new TestCaseProducePartPanel(mainFrame,am);//传入单个测试用例信息
 					resultpanel.add(tcpppanel);
 					layout.setConstraints(tcpppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 					
 					producepartlist.add(tcpppanel);
 					
-					TestCaseProducePartPanel copytcpppanel=new TestCaseProducePartPanel(mainFrame);//传入单个测试用例信息
+					TestCaseProducePartPanel copytcpppanel=new TestCaseProducePartPanel(mainFrame,am);//传入单个测试用例信息
 					copyresultpanel.add(copytcpppanel);
 					copylayout.setConstraints(copytcpppanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 				}
@@ -749,6 +779,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				moviepanel.getMovieLabel().setText("正在进行实例化测试用例");
 				
 				//获取数据
+				collectResult = forPlatform.collectResult(collectLimit);
 				Thread.sleep(1000);
 				
 				TestCaseInstantiationTabbedPanel copytcitpanel=new TestCaseInstantiationTabbedPanel(mainFrame);
@@ -777,15 +808,15 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				int i=0;
 				int copyi=0;
-				for(int j=0;j<30;j++){
+				for(Automatic am:collectResult){
 					
-					TestCaseInstantiationPartPanel tcippanel=new TestCaseInstantiationPartPanel(mainFrame);//传入单个实例化信息
+					TestCaseInstantiationPartPanel tcippanel=new TestCaseInstantiationPartPanel(mainFrame,am);//传入单个实例化信息
 					resultpanel.add(tcippanel);
 					layout.setConstraints(tcippanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 					
 					instantiationpartlist.add(tcippanel);
 					
-					TestCaseInstantiationPartPanel copytcippanel=new TestCaseInstantiationPartPanel(mainFrame);//传入单个实例化信息
+					TestCaseInstantiationPartPanel copytcippanel=new TestCaseInstantiationPartPanel(mainFrame,am);//传入单个实例化信息
 					copyresultpanel.add(copytcippanel);
 					copylayout.setConstraints(copytcippanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 				}
@@ -866,15 +897,15 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 	}
 
-	protected void AutomateTransformXml() {
+	protected void AutomateTransformXml(Automatic automatic) {
 		// TODO Auto-generated method stub
 		
-		automatic=TestAutoDiagram.DFSAuto();
+//		automatic=TestAutoDiagram.DFSAuto();
 		
 		try {
 			TestAutoDiagram.createSequenceXML(automatic);
 			
-			LayoutUppaal.layout("D:\\sequence.xml");
+			LayoutUppaal.layout("sequence.xml");
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -899,10 +930,14 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			abState.setSname(s.getName());
 			abState.setPosition(s.getPosition());
 			
-			if(s.getType()==null){
+//			abState.setType(s.getType());
+			System.out.println("************************  "+s.getType());
+			if(s.getType().equals("CircularNode")){
+				System.out.println("---------------");
 				abState.setType("CircularNode");
 			}
 			else if(s.getType().equals("start")){
+				System.out.println("++++++++++++++++++");
 				abState.setType("Start");
 			}
 			
@@ -941,6 +976,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			transitionIdToNameMap.put(t.getId()+"", t.getId()+"<br>"+t.getName());
 			transitionNameToIdMap.put(t.getId()+"<br>"+t.getName(), t.getId()+"");
 		}
+		
+		System.out.println("--------------------***********************************-----------------------------");
+		System.out.println(abStateList.size()+"  -  -  "+abTransList.size());
 		
 		CreateAbstractUppaalXML c =new CreateAbstractUppaalXML(abStateList, abTransList);
 		try {
