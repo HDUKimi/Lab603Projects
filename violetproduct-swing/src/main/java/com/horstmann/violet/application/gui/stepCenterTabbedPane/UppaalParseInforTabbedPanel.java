@@ -252,10 +252,10 @@ public class UppaalParseInforTabbedPanel extends JPanel{
 		generalinforlabel3=new JLabel();
 		generalinforlabel4=new JLabel();
 		
-		generalinforlabel1.setText("时间自动机名字：template_");
-		generalinforlabel2.setText("时间自动机时钟集合： t");
-		generalinforlabel3.setText("模型中总状态个数：119");
-		generalinforlabel4.setText("模型中总迁移个数：220");
+		generalinforlabel1.setText("时间自动机名字：");
+		generalinforlabel2.setText("时间自动机时钟集合： ");
+		generalinforlabel3.setText("模型中总状态个数：");
+		generalinforlabel4.setText("模型中总迁移个数：");
 		
 		generalinforlabel1.setFont(new Font("微软雅黑", Font.PLAIN, 13));
 		generalinforlabel2.setFont(new Font("微软雅黑", Font.PLAIN, 13));

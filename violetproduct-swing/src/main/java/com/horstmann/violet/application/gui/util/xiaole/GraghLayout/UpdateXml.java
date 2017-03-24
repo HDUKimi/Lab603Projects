@@ -68,6 +68,10 @@ public class UpdateXml {
 		    	j++;//j代表着每个Template有几条边
 		    }
          A=new TestGraph(filename).init(a);
+         
+         for (int I = 0; I < 2 * i; I+=2) {
+    		 A[I] += 100;//这里面是把每个点的X坐标下移100像素
+    		 }
     
 		 for (int I = 0; I < 2 * i; I++) {
 		 A[I] *= 3;//这里面是把每个点的X，Y坐标都乘以相同的倍数，以在不改变有向图格局的前提下，放大有向图，以致减少标签的重叠，因为标签有长度

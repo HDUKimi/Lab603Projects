@@ -16,7 +16,7 @@ import org.dom4j.io.SAXReader;
 		Document dom;
 		Element root;
 		List<Element> Templatelist=new ArrayList<Element>();//XMl÷–TemplateºØ∫œ
-	int A[][] = new int[500][500];
+	int A[][] = new int[900][900];
 		int TransitionNum=0,
 		    LocationNum=0,
 		    TemplateNum=0;

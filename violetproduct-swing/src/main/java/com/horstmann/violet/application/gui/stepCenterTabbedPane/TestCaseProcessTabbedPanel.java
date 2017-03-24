@@ -56,6 +56,8 @@ import com.horstmann.violet.application.gui.util.ckt.handle.StateCoverage__1;
 import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 import com.horstmann.violet.application.gui.util.ckt.output.TestAutoDiagram;
 import com.horstmann.violet.application.gui.util.ckt.output.forPlatform;
+import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML;
+import com.horstmann.violet.application.gui.util.wj.util.GeneratePath;
 
 public class TestCaseProcessTabbedPanel extends JPanel{
 	
@@ -130,6 +132,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	private ArrayList<Automatic> collectLimit;
 	private ArrayList<Automatic> collectResult;
 	
+	long time1;
+	long time2;
+	
+	private List<String> stepAllProcessList=new ArrayList<>();
+	private List<String> timeAllProcessList=new ArrayList<>();
+	private List<String> resultAllProcessList=new ArrayList<>();
 	
 
 	public TestCaseProcessTabbedPanel(MainFrame mainframe) {
@@ -394,11 +402,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					}
 					Thread.sleep(100);
 				}
-				moviepanel.getMovieLabel().setText("测试用例生成完毕");
-				TestCaseProcessEndPanel tcpepanel=new TestCaseProcessEndPanel(mainFrame);
-				tablepanel.removeAll();
-				tablepanel.add(tcpepanel);
-				ChangeRepaint();
+				
+				initTestCaseProcessEndUIData();
+				
 				threadstate=0;
 				
 				return progressbarindex;
@@ -412,6 +418,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			@Override
 			public Integer call() throws Exception {
 				// TODO Auto-generated method stub
+				
+				time1=System.currentTimeMillis();
 				
 				moviepanel.getMovieLabel().setText("正在解析时间自动机");
 				
@@ -427,8 +435,18 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				a = GetAutomatic.getAutomatic(xml);
 				a=AddType.addType(a);
 				
-				
 				Thread.sleep(1000);
+				
+				mainFrame.getStepThreeCenterTabbedPane().getUppaalParseInforTabbedPanel().getGeneralinforlabel1().setText("时间自动机名字："+a.getName());
+				mainFrame.getStepThreeCenterTabbedPane().getUppaalParseInforTabbedPanel().getGeneralinforlabel2().setText("时间自动机时钟集合："+a.getClockSet());
+				mainFrame.getStepThreeCenterTabbedPane().getUppaalParseInforTabbedPanel().getGeneralinforlabel3().setText("模型中总状态个数："+a.getStateSet().size());
+				mainFrame.getStepThreeCenterTabbedPane().getUppaalParseInforTabbedPanel().getGeneralinforlabel4().setText("模型中总迁移个数："+a.getTransitionSet().size());
+				
+				copyupitpanel.getGeneralinforlabel1().setText("时间自动机名字："+a.getName());
+				copyupitpanel.getGeneralinforlabel2().setText("时间自动机时钟集合："+a.getClockSet());
+				copyupitpanel.getGeneralinforlabel3().setText("模型中总状态个数："+a.getStateSet().size());
+				copyupitpanel.getGeneralinforlabel4().setText("模型中总迁移个数："+a.getTransitionSet().size());
+				
 				
 				DefaultTableModel copystatetablemodel=copyupitpanel.getStateinforpanel().getAttributetablemodel();
 				DefaultTableModel copymigratetablemodel=copyupitpanel.getMigrateinforpanel().getAttributetablemodel();
@@ -460,6 +478,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				mainFrame.getStepThreeCenterTabbedPane().getUppaalParseInforButtonPanel().setVisible(true);
 				
+				time2=System.currentTimeMillis();
+				
+				stepAllProcessList.add("第一步：解析时间自动机");
+				timeAllProcessList.add(time2-time1+"ms");
+				resultAllProcessList.add("共解析出"+a.getStateSet().size()+"个状态，"+a.getTransitionSet().size()+"个迁移");
+				
 				return 1;
 			}
 		};
@@ -471,6 +495,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			@Override
 			public Integer call() throws Exception {
 				// TODO Auto-generated method stub
+				
+				time1=System.currentTimeMillis();
 				
 				moviepanel.getMovieLabel().setText("正在进行优化约简");
 				
@@ -522,6 +548,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				mainFrame.getStepThreeCenterTabbedPane().getUppaalOptimizationButtonPanel().setVisible(true);
 				
+				time2=System.currentTimeMillis();
+				
+				stepAllProcessList.add("第二步：优化约简");
+				timeAllProcessList.add(time2-time1+"ms");
+				resultAllProcessList.add("得到200个状态，220个迁移，其中状态增加了50个，减少了20个，迁移增加了20个，减少了30个");
+				
 				return 1;
 			}
 		};
@@ -534,13 +566,21 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			public Integer call() throws Exception {
 				// TODO Auto-generated method stub
 				
+				time1=System.currentTimeMillis();
+				
 				moviepanel.getMovieLabel().setText("正在根据时间自动机生成深度优先生成树");
 				
-				//获取数据
-				DFStree=StateCoverage__1.DFSTree(a);
+				if(selectCoverState==0){//状态覆盖
+					//获取数据
+					DFStree=StateCoverage__1.DFSTree(a);
+					
+					//Automate数据转换为xml
+					AutomateTransformXml(DFStree);
+				}
+				else{//路径覆盖
+					AutomateTransformXml(a);
+				}
 				
-				//Automate数据转换为xml
-				AutomateTransformXml(DFStree);
 				
 				GraphFile absfGraphFile=ImportByDoubleClick.importFileByDoubleClick("UPPAAL","abs.uppaal.violet.xml");
 				IWorkspace workspace=new Workspace(absfGraphFile);
@@ -590,6 +630,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 //				mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab3().doClick();
 				
 				mainFrame.getStepThreeCenterTabbedPane().getTestCaseUppaalButtonPanel().setVisible(true);
+
+				time2=System.currentTimeMillis();
+				
+				stepAllProcessList.add("第三步：生成深度优先生成树");
+				timeAllProcessList.add(time2-time1+"ms");
+				resultAllProcessList.add("得到深度优先生成树");
 				
 				return 1;
 			}
@@ -603,10 +649,17 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			public Integer call() throws Exception {
 				// TODO Auto-generated method stub
 				
+				time1=System.currentTimeMillis();
+				
 				moviepanel.getMovieLabel().setText("正在进行路径覆盖，生成测试序列");
 				
-				//获取数据
-				testCase=StateCoverage__1.testCase(DFStree);
+				if(selectCoverState==0){//状态覆盖
+					//获取数据
+					testCase=StateCoverage__1.testCase(DFStree);
+				}
+				else{
+					testCase=GeneratePath.getFormatPathFromAutomatic(a, 200);
+				}
 				
 				Thread.sleep(1000);
 				
@@ -690,6 +743,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				copytcctpanel.getTableresultpanel().add(copyresultpanel);
 				
 				mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButtonPanel().setVisible(true);
+
+				time2=System.currentTimeMillis();
+				
+				stepAllProcessList.add("第四步：路径覆盖");
+				timeAllProcessList.add(time2-time1+"ms");
+				resultAllProcessList.add("生成"+testCase.size()+"条路径，得到"+testCase.size()+"条测试序列");
 				
 				return 1;
 			}
@@ -702,6 +761,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			@Override
 			public Integer call() throws Exception {
 				// TODO Auto-generated method stub
+				
+				time1=System.currentTimeMillis();
 				
 				moviepanel.getMovieLabel().setText("正在抽象测试用例");
 				
@@ -763,6 +824,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				copytcptpanel.getTableresultpanel().add(copyresultpanel);
 				
 				mainFrame.getStepThreeCenterTabbedPane().getTestCaseProduceButtonPanel().setVisible(true);
+
+				time2=System.currentTimeMillis();
+				
+				stepAllProcessList.add("第五步：添加实例化约束条件");
+				timeAllProcessList.add(time2-time1+"ms");
+				resultAllProcessList.add("得到"+collectLimit.size()+"条含有约束条件的抽象测试用例");
 				
 				return 1;
 			}
@@ -775,6 +842,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			@Override
 			public Integer call() throws Exception {
 				// TODO Auto-generated method stub
+				
+				time1=System.currentTimeMillis();
 				
 				moviepanel.getMovieLabel().setText("正在进行实例化测试用例");
 				
@@ -872,6 +941,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab2().doClick();
 				
 				mainFrame.getStepThreeCenterTabbedPane().getTestCaseInstantiationButtonPanel().setVisible(true);
+
+				time2=System.currentTimeMillis();
+				
+				stepAllProcessList.add("第六步：实例化");
+				timeAllProcessList.add(time2-time1+"ms");
+				resultAllProcessList.add("得到"+collectResult.size()+"条测试用例");
 				
 				return 1;
 			}
@@ -894,6 +969,29 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		threadlist.add(thread4);
 		threadlist.add(thread5);
 		threadlist.add(thread6);
+		
+	}
+
+	protected void initTestCaseProcessEndUIData() {
+		// TODO Auto-generated method stub
+		
+		moviepanel.getMovieLabel().setText("测试用例生成完毕");
+		TestCaseProcessEndPanel tcpepanel=new TestCaseProcessEndPanel(mainFrame,stepAllProcessList,timeAllProcessList,resultAllProcessList);
+		
+//		tcpepanel.setStepAllProcessList(stepAllProcessList);
+//		tcpepanel.setTimeAllProcessList(timeAllProcessList);
+//		tcpepanel.setResultAllProcessList(resultAllProcessList);
+		
+		
+		tablepanel.removeAll();
+		tablepanel.add(tcpepanel);
+		
+		
+//		String path;
+//		PerformanceXML.createXML(collectResult, path);
+		
+		
+		ChangeRepaint();
 		
 	}
 
@@ -936,7 +1034,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				System.out.println("---------------");
 				abState.setType("CircularNode");
 			}
-			else if(s.getType().equals("start")){
+			else if(s.getType().equals("Start")||s.getType().equals("start")){
 				System.out.println("++++++++++++++++++");
 				abState.setType("Start");
 			}
@@ -1006,8 +1104,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		tablepanel.setLayout(new GridLayout());
 		tablepanel.setOpaque(false);
 		
-		TestCaseProcessEndPanel tcpepanel=new TestCaseProcessEndPanel(mainFrame);
-		tablepanel.add(tcpepanel);
+//		TestCaseProcessEndPanel tcpepanel=new TestCaseProcessEndPanel(mainFrame);
+//		tablepanel.add(tcpepanel);
 		
 	}
 	

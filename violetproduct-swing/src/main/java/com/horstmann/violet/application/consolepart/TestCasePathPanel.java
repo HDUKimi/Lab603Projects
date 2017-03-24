@@ -68,9 +68,9 @@ public class TestCasePathPanel extends JPanel{
 		
 		linelabel=new JLabel();
 		
-		initTitlePanel();
+//		initTitlePanel();
 		
-		initLinePanel();
+//		initLinePanel();
 		
 		initAttributePanel();
 		
@@ -95,7 +95,8 @@ public class TestCasePathPanel extends JPanel{
 		icon2.setImage(icon2.getImage().getScaledInstance(11,11, Image.SCALE_DEFAULT));
 		
 //		titlelabel.setText(automatic.getName().substring(automatic.getName().indexOf("²âÊÔÓÃÀı")));
-		titlelabel.setText("Â·¾¶"+automatic.getName().split("²âÊÔÓÃÀı")[1]);
+//		titlelabel.setText("Â·¾¶"+automatic.getName().split("²âÊÔÓÃÀı")[1]);
+		titlelabel.setText("Â·¾¶"+automatic.getName().replaceAll("²âÊÔÓÃÀı", ""));
 		titlelabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(250,0,60));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));

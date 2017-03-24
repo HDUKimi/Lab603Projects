@@ -75,7 +75,13 @@ public class TestGraph extends JApplet {
 			/*for(int m=0;m<Vertexcount;m++)		
 				for(int n=0;n<Vertexcount;n++)
 					System.out.println(A[m][n]);*/
-			int B[]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+//			int B[]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+			int B[]=new int[1000];
+			
+			for(int ib=0;ib<B.length;ib++){
+				B[ib]=0;
+			}
+			
 			int flag=0;//表示回路边
 			int Flag=0;//表示自己到自己的边
 		while(i<Vertexcount)
