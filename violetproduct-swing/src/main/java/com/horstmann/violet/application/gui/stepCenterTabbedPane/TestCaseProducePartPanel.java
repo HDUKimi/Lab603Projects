@@ -42,6 +42,7 @@ public class TestCaseProducePartPanel extends JPanel{
 	private JPanel attributepanel;
 
 	private JPanel titlelabelpanel;
+	private JLabel iconlabel;
 	private JLabel titlelabel;
 	private JButton toolbutton;
 
@@ -75,6 +76,7 @@ public class TestCaseProducePartPanel extends JPanel{
 		attributepanel = new JPanel();
 
 		titlelabelpanel = new JPanel();
+		iconlabel=new JLabel();
 		titlelabel = new JLabel();
 		toolbutton = new JButton();
 
@@ -100,7 +102,7 @@ public class TestCaseProducePartPanel extends JPanel{
 		String absolutePath = System.getProperty("user.dir");
 		String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "tick.png");
+		ImageIcon icon1 = new ImageIcon(path + "test16.png");
 		icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
 		ImageIcon icon3 = new ImageIcon(path + "dropdown1.png");
 		icon3.setImage(icon3.getImage().getScaledInstance(11, 11, Image.SCALE_DEFAULT));
@@ -109,9 +111,11 @@ public class TestCaseProducePartPanel extends JPanel{
 		titlelabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(60,0,255));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
-
+		
+		iconlabel.setIcon(icon1);
 		
 		titlelabelpanel.setLayout(new FlowLayout(0, 0, FlowLayout.LEFT));
+		titlelabelpanel.add(iconlabel);
 		titlelabelpanel.add(titlelabel);
 		titlelabelpanel.setOpaque(false);
 
@@ -193,16 +197,17 @@ public class TestCaseProducePartPanel extends JPanel{
 		attributetable.getColumnModel().getColumn(3).setCellRenderer(new MyAllLabelRenderer());
 		attributetable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
 
-		attributetable.getColumn("迁移Id").setPreferredWidth(20);
-		attributetable.getColumn("迁移Id").setMinWidth(20);
-		attributetable.getColumn("迁移名称").setPreferredWidth(20);
-		attributetable.getColumn("迁移名称").setMinWidth(20);
-		attributetable.getColumn("源状态名称").setPreferredWidth(100);
-		attributetable.getColumn("源状态名称").setMinWidth(100);
-		attributetable.getColumn("目的状态名称").setPreferredWidth(100);
-		attributetable.getColumn("目的状态名称").setMinWidth(100);
-		attributetable.getColumn("实例化约束条件").setPreferredWidth(500);
-		attributetable.getColumn("实例化约束条件").setMinWidth(500);
+		attributetable.getColumn("迁移Id").setPreferredWidth(50);
+		attributetable.getColumn("迁移Id").setMinWidth(50);
+		attributetable.getColumn("迁移Id").setMaxWidth(50);
+		attributetable.getColumn("迁移名称").setPreferredWidth(50);
+		attributetable.getColumn("迁移名称").setMinWidth(50);
+		attributetable.getColumn("源状态名称").setPreferredWidth(80);
+		attributetable.getColumn("源状态名称").setMinWidth(80);
+		attributetable.getColumn("目的状态名称").setPreferredWidth(80);
+		attributetable.getColumn("目的状态名称").setMinWidth(80);
+		attributetable.getColumn("实例化约束条件").setPreferredWidth(270);
+		attributetable.getColumn("实例化约束条件").setMinWidth(270);
         
         DefaultTableCellRenderer renderer=new DefaultTableCellRenderer();
         renderer.setBackground(new Color(71, 80, 93));

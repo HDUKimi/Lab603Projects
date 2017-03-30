@@ -41,14 +41,12 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 		tablename=table.getName();
 		
 		if(tablename.equals("TestCaseProcessEndPanel")){
+//			final String[] columnNames={"步骤","耗时","运行结果"};
 			setFont(new Font("微软雅黑", Font.PLAIN, 12));
 			if(table.getColumnName(column).equals("耗时")){
 				setHorizontalAlignment(JLabel.CENTER);
 				setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 			}
-//			if(column==1){
-//				
-//			}
 			else{
 				setHorizontalAlignment(JLabel.LEFT);
 				setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0));
@@ -68,7 +66,7 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 			}
 		}
 		else if(tablename.equals("UppaalParseMigrateInforPartPanel")){
-//			final String[] columnNames={"序号","名称","in(约束条件)","conditions(约束条件)","out(输出信息)","重置时钟"};
+//			final String[] columnNames={"序号","名称","源状态名称","目的状态名称","in(约束条件)","out(输出信息)","conditions(约束条件)"};
 //			setFont(new Font("微软雅黑", Font.PLAIN, 10));
 			if(table.getColumnName(column).equals("序号")){
 				setHorizontalAlignment(JLabel.CENTER);

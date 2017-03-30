@@ -36,7 +36,6 @@ import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
 import com.horstmann.violet.workspace.IWorkspace;
 
 import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
-import com.horstmann.violet.application.gui.util.ckt.handle.State;
 import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 
 public class TestCaseCoverPartPanel extends JPanel{
@@ -259,20 +258,21 @@ public class TestCaseCoverPartPanel extends JPanel{
 		attributetable.getColumnModel().getColumn(5).setCellRenderer(new MyAllLabelRenderer());
 		attributetable.getColumnModel().getColumn(6).setCellRenderer(new MyAllLabelRenderer());
 
-		attributetable.getColumn("迁移Id").setPreferredWidth(20);
-		attributetable.getColumn("迁移Id").setMinWidth(20);
-		attributetable.getColumn("迁移名称").setPreferredWidth(20);
-		attributetable.getColumn("迁移名称").setMinWidth(20);
-		attributetable.getColumn("源状态名称").setPreferredWidth(100);
-		attributetable.getColumn("源状态名称").setMinWidth(100);
-		attributetable.getColumn("目的状态名称").setPreferredWidth(100);
-		attributetable.getColumn("目的状态名称").setMinWidth(100);
-		attributetable.getColumn("in(约束条件)").setPreferredWidth(150);
-		attributetable.getColumn("in(约束条件)").setMinWidth(150);
-		attributetable.getColumn("out(输出信息)").setPreferredWidth(20);
-		attributetable.getColumn("out(输出信息)").setMinWidth(20);
-		attributetable.getColumn("conditions(约束条件)").setPreferredWidth(200);
-		attributetable.getColumn("conditions(约束条件)").setMinWidth(200);
+		attributetable.getColumn("迁移Id").setPreferredWidth(50);
+		attributetable.getColumn("迁移Id").setMinWidth(50);
+		attributetable.getColumn("迁移Id").setMaxWidth(50);
+		attributetable.getColumn("迁移名称").setPreferredWidth(50);
+		attributetable.getColumn("迁移名称").setMinWidth(50);
+		attributetable.getColumn("源状态名称").setPreferredWidth(80);
+		attributetable.getColumn("源状态名称").setMinWidth(80);
+		attributetable.getColumn("目的状态名称").setPreferredWidth(80);
+		attributetable.getColumn("目的状态名称").setMinWidth(80);
+		attributetable.getColumn("in(约束条件)").setPreferredWidth(90);
+		attributetable.getColumn("in(约束条件)").setMinWidth(90);
+		attributetable.getColumn("out(输出信息)").setPreferredWidth(90);
+		attributetable.getColumn("out(输出信息)").setMinWidth(90);
+		attributetable.getColumn("conditions(约束条件)").setPreferredWidth(90);
+		attributetable.getColumn("conditions(约束条件)").setMinWidth(90);
         
         DefaultTableCellRenderer renderer=new DefaultTableCellRenderer();
         renderer.setBackground(new Color(71, 80, 93));

@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -25,6 +26,10 @@ import com.horstmann.violet.application.gui.ButtonMouseListener;
 
 public class TestCaseInequalitySolveInforPanel extends JPanel{
 
+	private String id;
+	private List<String> limit;
+	private List<String> result;
+	
 	private JPanel titlepanel;
 	private JPanel linepanel;
 	private JPanel attributepanel;
@@ -39,7 +44,13 @@ public class TestCaseInequalitySolveInforPanel extends JPanel{
 	private JTable attributetable;
 	private DefaultTableModel attributetablemodel;
 	
-	public TestCaseInequalitySolveInforPanel(){
+	public TestCaseInequalitySolveInforPanel(String id,List<String> limit, List<String> result){
+		
+		this.id=id;
+		
+		this.limit=limit;
+		
+		this.result=result;
 		
 		init();
 		
@@ -87,7 +98,7 @@ public class TestCaseInequalitySolveInforPanel extends JPanel{
 		ImageIcon icon2 = new ImageIcon(path + "dropdown1.png");
 		icon2.setImage(icon2.getImage().getScaledInstance(11,11, Image.SCALE_DEFAULT));
 		
-		titlelabel.setText("迁移1");
+		titlelabel.setText("迁移"+id);
 		titlelabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(250,0,60));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -164,6 +175,8 @@ public class TestCaseInequalitySolveInforPanel extends JPanel{
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		
+		attributetable.getColumnModel().getColumn(0).setCellRenderer(new TestCaseInforLabelRenderer());
+		
 		attributetable.getTableHeader().setVisible(false);  
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();  
         renderer.setPreferredSize(new Dimension(0, 0));  
@@ -177,12 +190,58 @@ public class TestCaseInequalitySolveInforPanel extends JPanel{
         attributetable.setDefaultRenderer(Object.class, renderer1); 
         
         
-        for(int i=0;i<4;i++){
-        	Object[] rowData1={" 925<=g.failsafe_throttle_value<=1100,-128<=g.failsafe_throttle<=127"};
-			attributetablemodel.addRow(rowData1);
-			Object[] rowData2={"求解： g.failsafe_throttle_value=1100"};
-			attributetablemodel.addRow(rowData2);
+//        for(int i=0;i<4;i++){
+//        	Object[] rowData1={" 925<=g.failsafe_throttle_value<=1100,-128<=g.failsafe_throttle<=127"};
+//			attributetablemodel.addRow(rowData1);
+//			Object[] rowData2={"求解： g.failsafe_throttle_value=1100"};
+//			attributetablemodel.addRow(rowData2);
+//        }
+        
+        Object[] rowData={"+-+不等式："};
+    	attributetablemodel.addRow(rowData);
+        for(String l:limit){
+        	if(l.equals("")||l==null){
+        		Object[] rowData1={"null"};
+            	attributetablemodel.addRow(rowData1);
+        	}
+        	else{
+        		Object[] rowData1={l};
+            	attributetablemodel.addRow(rowData1);
+        	}
         }
+        Object[] rowData2={"+-+求解："};
+    	attributetablemodel.addRow(rowData2);
+    	
+    	if(result.toString().replaceAll("\\[|]", "").equals("null")){
+    		Object[] rowData3={"null"};
+        	attributetablemodel.addRow(rowData3);
+    	}
+    	else{
+			for (String r : result) {
+				String[] rs = r.split(",");
+				for (int i = 0; i < rs.length; i++) {
+					Object[] rowData3 = { rs[i] };
+					attributetablemodel.addRow(rowData3);
+				}
+			}
+    	}
+    	
+//        for(String r:result){
+//        	if(r.equals(null)){
+//        		Object[] rowData3={"null"};
+//            	attributetablemodel.addRow(rowData3);
+//        	}
+//        	else{
+////        		String []rs=r.split(",");
+////            	for(int i=0;i<rs.length;i++){
+////            		Object[] rowData3={rs[i]};
+////                	attributetablemodel.addRow(rowData3);
+////            	}
+//        		Object[] rowData3={"+"+r+"+"};
+//            	attributetablemodel.addRow(rowData3);
+//        	}
+//        	
+//        }
         
         attributetable.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(224, 225, 220)));
 		

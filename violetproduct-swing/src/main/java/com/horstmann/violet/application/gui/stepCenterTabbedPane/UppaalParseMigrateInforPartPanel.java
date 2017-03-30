@@ -182,7 +182,7 @@ public class UppaalParseMigrateInforPartPanel extends JPanel{
 	private void initAttributePanel() {
 		// TODO Auto-generated method stub
 		
-		final String[] columnNames={"序号","名称","in(约束条件)","conditions(约束条件)","out(输出信息)","重置时钟"};
+		final String[] columnNames={"序号","名称","源状态名称","目的状态名称","in(约束条件)","out(输出信息)","conditions(约束条件)"};
 		String[][] tabelValues={};
 		
 		attributetablemodel=new DefaultTableModel(tabelValues, columnNames){
@@ -213,20 +213,24 @@ public class UppaalParseMigrateInforPartPanel extends JPanel{
 		attributetable.getColumnModel().getColumn(3).setCellRenderer(new MyAllLabelRenderer());
 		attributetable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
 		attributetable.getColumnModel().getColumn(5).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(6).setCellRenderer(new MyAllLabelRenderer());
 
 
-		attributetable.getColumn("序号").setPreferredWidth(10);
-		attributetable.getColumn("序号").setMinWidth(10);
+		attributetable.getColumn("序号").setPreferredWidth(50);
+		attributetable.getColumn("序号").setMinWidth(50);
+		attributetable.getColumn("序号").setMaxWidth(50);
 		attributetable.getColumn("名称").setPreferredWidth(50);
 		attributetable.getColumn("名称").setMinWidth(50);
-		attributetable.getColumn("in(约束条件)").setPreferredWidth(50);
-		attributetable.getColumn("in(约束条件)").setMinWidth(50);
-		attributetable.getColumn("conditions(约束条件)").setPreferredWidth(300);
-		attributetable.getColumn("conditions(约束条件)").setMinWidth(300);
-		attributetable.getColumn("out(输出信息)").setPreferredWidth(50);
-		attributetable.getColumn("out(输出信息)").setMinWidth(50);
-		attributetable.getColumn("重置时钟").setPreferredWidth(50);
-		attributetable.getColumn("重置时钟").setMinWidth(50);
+		attributetable.getColumn("源状态名称").setPreferredWidth(80);
+		attributetable.getColumn("源状态名称").setMinWidth(80);
+		attributetable.getColumn("目的状态名称").setPreferredWidth(80);
+		attributetable.getColumn("目的状态名称").setMinWidth(80);
+		attributetable.getColumn("in(约束条件)").setPreferredWidth(90);
+		attributetable.getColumn("in(约束条件)").setMinWidth(90);
+		attributetable.getColumn("out(输出信息)").setPreferredWidth(90);
+		attributetable.getColumn("out(输出信息)").setMinWidth(90);
+		attributetable.getColumn("conditions(约束条件)").setPreferredWidth(90);
+		attributetable.getColumn("conditions(约束条件)").setMinWidth(90);
         
         DefaultTableCellRenderer renderer=new DefaultTableCellRenderer();
         renderer.setBackground(new Color(71, 80, 93));

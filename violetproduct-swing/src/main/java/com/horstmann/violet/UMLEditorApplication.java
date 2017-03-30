@@ -154,6 +154,8 @@ public class UMLEditorApplication
      */
     private void createDefaultWorkspace(String[] filesToOpen)
     {
+    	
+    	
         installPlugins();//导入插件
         SplashScreen splashScreen = new SplashScreen();
         splashScreen.setVisible(true);//一个窗体

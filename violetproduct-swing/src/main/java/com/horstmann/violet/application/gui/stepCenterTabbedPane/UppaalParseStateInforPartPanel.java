@@ -226,16 +226,19 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 		attributetable.getColumnModel().getColumn(3).setCellRenderer(new MyAllLabelRenderer());
 		attributetable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
 
-		attributetable.getColumn("序号").setPreferredWidth(10);
-		attributetable.getColumn("序号").setMinWidth(10);
-		attributetable.getColumn("名称").setPreferredWidth(300);
-		attributetable.getColumn("名称").setMinWidth(300);
-		attributetable.getColumn("位置").setPreferredWidth(300);
-		attributetable.getColumn("位置").setMinWidth(300);
-		attributetable.getColumn("是否为终止状态").setPreferredWidth(50);
-		attributetable.getColumn("是否为终止状态").setMinWidth(50);
-		attributetable.getColumn("类型").setPreferredWidth(50);
-		attributetable.getColumn("类型").setMinWidth(50);
+		attributetable.getColumn("序号").setPreferredWidth(50);
+		attributetable.getColumn("序号").setMinWidth(50);
+		attributetable.getColumn("序号").setMaxWidth(50);
+		attributetable.getColumn("名称").setPreferredWidth(180);
+		attributetable.getColumn("名称").setMinWidth(180);
+		attributetable.getColumn("位置").setPreferredWidth(180);
+		attributetable.getColumn("位置").setMinWidth(180);
+		attributetable.getColumn("是否为终止状态").setPreferredWidth(120);
+		attributetable.getColumn("是否为终止状态").setMinWidth(120);
+		attributetable.getColumn("是否为终止状态").setMaxWidth(120);
+		attributetable.getColumn("类型").setPreferredWidth(90);
+		attributetable.getColumn("类型").setMinWidth(90);
+		attributetable.getColumn("类型").setMaxWidth(90);
         
         DefaultTableCellRenderer renderer=new DefaultTableCellRenderer();
         renderer.setBackground(new Color(71, 80, 93));

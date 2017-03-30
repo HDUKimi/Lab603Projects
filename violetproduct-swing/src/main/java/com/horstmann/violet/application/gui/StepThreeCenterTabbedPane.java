@@ -176,7 +176,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		testCaseConstraintButtonPanel = new FixedButtonTabbedPanel("抽象时间延迟迁移", 150);
 		testCaseConstraintButton = testCaseConstraintButtonPanel.getTabbedbutton();
 
-		testCaseUppaalButtonPanel = new FixedButtonTabbedPanel("时间自动机",150);
+		testCaseUppaalButtonPanel = new FixedButtonTabbedPanel("深度优先生成树",150);
 		testCaseUppaalButton = testCaseUppaalButtonPanel.getTabbedbutton();
 		
 		testCaseCoverButtonPanel = new FixedButtonTabbedPanel("路径覆盖",150);

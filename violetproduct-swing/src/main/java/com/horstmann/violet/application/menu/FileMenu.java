@@ -869,6 +869,7 @@ public class FileMenu extends JMenu
                    //显示文件图形
                    IWorkspace workspace = new Workspace(graphFile);
                    mainFrame.addTabbedPane(workspace);
+                   
                    userPreferencesService.addOpenedFile(graphFile);
                    userPreferencesService.addRecentFile(graphFile);
                    
@@ -907,7 +908,7 @@ public class FileMenu extends JMenu
 					} else if (type.equals("state")) {
 						tabbutton = stateDiagramButtonTabbedPanelLists.get(stateDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
 						stepbutton.doClick();
-
+						
 						mainFrame.getConsolePartPanel().getTextarea().append("导入状态图: "+selectedFile.getFilename()+"\n");
 						
 						tabbutton.doClick();

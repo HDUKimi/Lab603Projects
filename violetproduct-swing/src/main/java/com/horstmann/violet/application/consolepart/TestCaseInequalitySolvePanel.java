@@ -21,6 +21,8 @@ import com.horstmann.violet.application.gui.ButtonMouseListener;
 
 public class TestCaseInequalitySolvePanel extends JPanel{
 
+	private String name;
+	
 	private JPanel titlepanel;
 	private JPanel linepanel;
 	private JPanel attributepanel;
@@ -32,7 +34,9 @@ public class TestCaseInequalitySolvePanel extends JPanel{
 	
 	private JLabel linelabel;
 	
-	public TestCaseInequalitySolvePanel(){
+	public TestCaseInequalitySolvePanel(String name){
+		
+		this.name=name;
 		
 		init();
 		
@@ -82,7 +86,7 @@ public class TestCaseInequalitySolvePanel extends JPanel{
 		ImageIcon icon2 = new ImageIcon(path + "dropdown1.png");
 		icon2.setImage(icon2.getImage().getScaledInstance(11,11, Image.SCALE_DEFAULT));
 		
-		titlelabel.setText("≤‚ ‘”√¿˝1");
+		titlelabel.setText(name);
 		titlelabel.setFont(new Font("Œ¢»Ì—≈∫⁄", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(250,0,60));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));

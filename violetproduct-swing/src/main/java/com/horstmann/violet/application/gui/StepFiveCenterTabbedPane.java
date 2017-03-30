@@ -11,12 +11,16 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.FixedButtonTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseReportTabbedPanel;
+
+import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 
 public class StepFiveCenterTabbedPane extends JPanel{
 	
@@ -42,6 +46,8 @@ public class StepFiveCenterTabbedPane extends JPanel{
 	private JPanel testCaseLineChartTabbedPane;
 	
 	private int selectedIndex=1;
+	
+	private WebFrame webframe;
 	
 	public StepFiveCenterTabbedPane(MainFrame mainFrame)
 	{
@@ -82,10 +88,53 @@ public class StepFiveCenterTabbedPane extends JPanel{
 		
 		this.setMinimumSize(new Dimension(screenWidth/2, screenHeight/2));
 		
+//		initWeb();
+		
 //		testcaseFile=new JPanel();
 //		this.add("测试用例实例化测试报告",testcaseFile);	
 //		testcaseFile1=new JPanel();
 //		this.add("测试用例实例化测试报告",testcaseFile1);	
+	}
+
+	private void initWeb() {
+		// TODO Auto-generated method stub
+		
+//		NativeInterface.open();  
+//		  
+//        SwingUtilities.invokeLater(new Runnable() {  
+//            public void run() {  
+//            	webframe = new WebFrame();
+//            	webframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+//            	webframe.setExtendedState(JFrame.MAXIMIZED_BOTH);  
+//            	webframe.setLocationByPlatform(true);  
+////            	webframe.setVisible(true);  
+//            }  
+//        });  
+//        NativeInterface.runEventPump();
+        
+		Thread t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				NativeInterface.open();
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						webframe = new WebFrame();
+						webframe.invalidate();
+						webframe.pack();
+						// webframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						// webframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+						// webframe.setLocationByPlatform(true);
+						 webframe.setVisible(false);
+					}
+				});
+				NativeInterface.runEventPump();
+			}
+		});
+
+		t.start();
+		
 	}
 
 	private void initbuttonpanel() {
@@ -155,6 +204,11 @@ public class StepFiveCenterTabbedPane extends JPanel{
 				getDiagramPanel().removeAll();
 				getDiagramPanel().setLayout(new GridLayout());
 				getDiagramPanel().add(testCasePieChartTabbedPane);
+				
+//				initWeb();
+				
+//				getDiagramPanel().add(webframe.getContentPane());
+				
 				
 				testCasePieChartDiagramButtonPanel.setBackground(new Color(58, 105, 190));
 				testCaseReportDiagramButtonPanel.setBackground(new Color(77, 96, 130));

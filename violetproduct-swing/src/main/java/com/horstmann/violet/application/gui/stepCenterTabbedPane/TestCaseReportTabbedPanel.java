@@ -1,5 +1,6 @@
 package com.horstmann.violet.application.gui.stepCenterTabbedPane;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -23,11 +24,13 @@ import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.plaf.ProgressBarUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -45,6 +48,8 @@ import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
+
+import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 
 public class TestCaseReportTabbedPanel extends JPanel{
 	
@@ -445,6 +450,12 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				startRunProgressbar();//显示进度条
 				
 				changeDataInTable(extractData());//显示测试结果
+				
+//				initWebBrowser();
+				
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().removeAll();
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().setLayout(new GridLayout());
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().add(webframe.getContentPane());
 				
 				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().removeAll();
 				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().add(new TestCasePieChartPanel(testcasecount));

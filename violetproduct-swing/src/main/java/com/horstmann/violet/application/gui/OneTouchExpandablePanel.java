@@ -11,7 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.net.URL;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -21,6 +25,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
+import com.horstmann.violet.framework.file.GraphFile;
+import com.horstmann.violet.framework.file.IFile;
+import com.horstmann.violet.framework.file.IGraphFile;
+import com.horstmann.violet.framework.file.LocalFile;
+import com.horstmann.violet.workspace.IWorkspace;
+import com.horstmann.violet.workspace.Workspace;
 import com.horstmann.violet.workspace.WorkspacePanel;
 
 public class OneTouchExpandablePanel extends JPanel{
@@ -174,6 +185,135 @@ public class OneTouchExpandablePanel extends JPanel{
 					
 					flag1=1;
 				}
+				
+				//**********************************************************
+//				Callable<Integer> callable1=new Callable<Integer>() {
+//					
+//					@Override
+//					public Integer call() throws Exception {
+//						// TODO Auto-generated method stub
+//						
+////						stateDiagramButtonTabbedPanelLists.get(0).getTabbedbutton().doClick();
+////						Thread.sleep(2000);
+//						
+//						IFile file =  new LocalFile(new File("D:\\ModelDriverProjectFile\\StateDiagram\\Violet\\1.state.violet.xml"));
+//						IGraphFile graphFile = new GraphFile(file);
+//						IWorkspace workspace = new Workspace(graphFile);
+//						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().removeAll();
+//						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().setLayout(new GridLayout());
+//						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().add(workspace.getAWTComponent());
+//						mainFrame.getStepOneCenterTabbedPane().ChangeRepaint();
+//						
+//						
+//						return 1;
+//					}
+//				};
+//				final FutureTask<Integer> task1=new FutureTask<>(callable1);
+//				final Thread thread1=new Thread(task1);
+//				
+//				Callable<Integer> callable2=new Callable<Integer>() {
+//					
+//					@Override
+//					public Integer call() throws Exception {
+//						// TODO Auto-generated method stub
+//						
+////						stateDiagramButtonTabbedPanelLists.get(1).getTabbedbutton().doClick();
+////						Thread.sleep(2000);
+//						
+//						IFile file =  new LocalFile(new File("D:\\ModelDriverProjectFile\\StateDiagram\\Violet\\2.state.violet.xml"));
+//						IGraphFile graphFile = new GraphFile(file);
+//						IWorkspace workspace = new Workspace(graphFile);
+//						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().removeAll();
+//						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().setLayout(new GridLayout());
+//						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().add(workspace.getAWTComponent());
+//						mainFrame.getStepOneCenterTabbedPane().ChangeRepaint();
+//						
+//						return 1;
+//					}
+//				};
+//				final FutureTask<Integer> task2=new FutureTask<>(callable2);
+//				final Thread thread2=new Thread(task2);
+//				
+//				Callable<Integer> callable3=new Callable<Integer>() {
+//					
+//					@Override
+//					public Integer call() throws Exception {
+//						// TODO Auto-generated method stub
+//						
+////						stateDiagramButtonTabbedPanelLists.get(2).getTabbedbutton().doClick();
+////						Thread.sleep(000);
+//						IFile file =  new LocalFile(new File("D:\\ModelDriverProjectFile\\StateDiagram\\Violet\\3.state.violet.xml"));
+//						IGraphFile graphFile = new GraphFile(file);
+//						IWorkspace workspace = new Workspace(graphFile);
+//						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().removeAll();
+//						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().setLayout(new GridLayout());
+//						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().add(workspace.getAWTComponent());
+//						mainFrame.getStepOneCenterTabbedPane().ChangeRepaint();
+//						
+//						return 1;
+//					}
+//				};
+//				final FutureTask<Integer> task3=new FutureTask<>(callable3);
+//				final Thread thread3=new Thread(task3);
+//				
+//				Callable<Integer> callable4=new Callable<Integer>() {
+//					
+//					@Override
+//					public Integer call() throws Exception {
+//						// TODO Auto-generated method stub
+//						
+////						stateDiagramButtonTabbedPanelLists.get(3).getTabbedbutton().doClick();
+////						Thread.sleep(000);
+//						IFile file =  new LocalFile(new File("D:\\ModelDriverProjectFile\\StateDiagram\\Violet\\1.state.violet.xml"));
+//						IGraphFile graphFile = new GraphFile(file);
+//						IWorkspace workspace = new Workspace(graphFile);
+//						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().removeAll();
+//						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().setLayout(new GridLayout());
+//						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().add(workspace.getAWTComponent());
+//						mainFrame.getStepOneCenterTabbedPane().ChangeRepaint();
+//						
+//						return 1;
+//					}
+//				};
+//				final FutureTask<Integer> task4=new FutureTask<>(callable4);
+//				final Thread thread4=new Thread(task4);
+//				
+//				Callable<Integer> callable=new Callable<Integer>() {
+//					
+//					@Override
+//					public Integer call() throws Exception {
+//						// TODO Auto-generated method stub
+//						int i=1;
+//						while(true){
+//							if(i==1&&task1.isDone()){
+//								thread2.start();
+//								i++;
+//							}
+//							else if(i==2&&task2.isDone()){
+//								System.out.println("------////------");
+//								thread3.start();
+//								i++;
+//							}
+//							else if(i==3&&task3.isDone()){
+//								System.out.println("++++++////++++++");
+//								thread4.start();
+//								i++;
+//								break;
+//							}
+//							Thread.sleep(1000);
+//						}
+//						return 1;
+//					}
+//				};
+//				FutureTask<Integer> task=new FutureTask<>(callable);
+//				Thread thread=new Thread(task);
+//				
+//				thread1.start();
+//				thread.start();
+				
+				//*********************************************
+				
+				
 			}
 		});
 		

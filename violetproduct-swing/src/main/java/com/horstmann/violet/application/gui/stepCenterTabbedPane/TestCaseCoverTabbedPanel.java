@@ -472,5 +472,9 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 	public int getTrantextstate() {
 		return trantextstate;
 	}
+
+	public MoviePanel getMoviepanel() {
+		return moviepanel;
+	}
 	
 }

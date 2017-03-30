@@ -295,42 +295,42 @@ public class AbstractTestCaseResultPanel extends JPanel{
 		
 	}
 
-	private void initTestCaseInequalitySolveProcess() {
-		// TODO Auto-generated method stub
-		
-		JPanel resultpanel=new JPanel();
-		JPanel emptypanel=new JPanel();
-		resultpanel.setOpaque(false);
-		emptypanel.setOpaque(false);
-		
-		GridBagLayout layout1 = new GridBagLayout();
-		resultpanel.setLayout(layout1);
-		int i=0;
-		for(int j=0;j<30;j++){
-			
-			TestCaseInequalitySolvePanel tcispanel=new TestCaseInequalitySolvePanel();
-			
-			JPanel processpanel=tcispanel.getAttributepanel();
-			GridBagLayout layout2 = new GridBagLayout();
-			processpanel.setLayout(layout2);
-			for(int k=0;k<10;k++){
-				
-				TestCaseInequalitySolveInforPanel tcisipanel=new TestCaseInequalitySolveInforPanel();
-				processpanel.add(tcisipanel);
-				layout2.setConstraints(tcisipanel, new GBC(0, k, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-				
-			}
-			
-			resultpanel.add(tcispanel);
-			layout1.setConstraints(tcispanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		}
-		resultpanel.add(emptypanel);
-		layout1.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		
-		tworesultpanel.removeAll();
-		tworesultpanel.add(resultpanel);
-		
-	}
+//	private void initTestCaseInequalitySolveProcess() {
+//		// TODO Auto-generated method stub
+//		
+//		JPanel resultpanel=new JPanel();
+//		JPanel emptypanel=new JPanel();
+//		resultpanel.setOpaque(false);
+//		emptypanel.setOpaque(false);
+//		
+//		GridBagLayout layout1 = new GridBagLayout();
+//		resultpanel.setLayout(layout1);
+//		int i=0;
+//		for(int j=0;j<30;j++){
+//			
+//			TestCaseInequalitySolvePanel tcispanel=new TestCaseInequalitySolvePanel();
+//			
+//			JPanel processpanel=tcispanel.getAttributepanel();
+//			GridBagLayout layout2 = new GridBagLayout();
+//			processpanel.setLayout(layout2);
+//			for(int k=0;k<10;k++){
+//				
+//				TestCaseInequalitySolveInforPanel tcisipanel=new TestCaseInequalitySolveInforPanel();
+//				processpanel.add(tcisipanel);
+//				layout2.setConstraints(tcisipanel, new GBC(0, k, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//				
+//			}
+//			
+//			resultpanel.add(tcispanel);
+//			layout1.setConstraints(tcispanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//		}
+//		resultpanel.add(emptypanel);
+//		layout1.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		
+//		tworesultpanel.removeAll();
+//		tworesultpanel.add(resultpanel);
+//		
+//	}
 
 	private void initTwoNamePanel() {
 		// TODO Auto-generated method stub

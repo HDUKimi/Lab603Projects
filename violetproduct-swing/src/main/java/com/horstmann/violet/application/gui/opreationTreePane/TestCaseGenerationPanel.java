@@ -537,28 +537,15 @@ public class TestCaseGenerationPanel extends JPanel {
 
 
 	public void initFileList() {
-		File[] sequenceFilelists = getAllFileByDiagramType("sequence");
-	//	File[] tdFilelists= getAllFileByDiagramType("timing");	
-	   // File[] uppaalFilelists=getAllFileByDiagramType("UPPAAL2");
-	    for(File sequenceFile : sequenceFilelists)
+		File[] filelists=new File("D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase").listFiles();
+	    for(File file : filelists)
 	    {
-	    	String fileName=sequenceFile.getName();
-//	    	fileName.substring(0, fileName.lastIndexOf(".xml"));
-	    	if(fileName.lastIndexOf(".seq.violet.xml")>0){
-	    		uppaallists.add(fileName.substring(0, fileName.lastIndexOf(".seq.violet.xml")));
+	    	String fileName=file.getName();
+	    	if(fileName.lastIndexOf(".xml")>0){
+	    		uppaallists.add(fileName.substring(0, fileName.lastIndexOf(".xml")));
 	    	}
 	    	
 	    }
-//	    for(File tdFile : tdFilelists)
-//	    {
-//	    	String fileName=tdFile.getName();
-//	    	tdlists.add(fileName);
-//	    }
-//	    for(File uppaalFile:uppaalFilelists)
-//	    {
-//	    	String fileName=uppaalFile.getName();
-//	    	uppaallists.add(fileName);
-//	    }
 	}
 	/**
 	  * 根据类型获取文件夹下的所有文件
