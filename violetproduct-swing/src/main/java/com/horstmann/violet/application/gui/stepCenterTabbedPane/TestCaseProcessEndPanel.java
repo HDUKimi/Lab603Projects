@@ -101,14 +101,18 @@ public class TestCaseProcessEndPanel extends JPanel{
 		
 		initTableData();
 		
-		GridBagLayout layout = new GridBagLayout();
-		panel.setLayout(layout);
-		panel.add(attributepanel);
-		panel.add(chartresultpanel);
-//		panel.add(emptypanel);
-		layout.setConstraints(attributepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(chartresultpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-//		layout.setConstraints(emptypanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		GridBagLayout layout = new GridBagLayout();
+//		panel.setLayout(layout);
+//		panel.add(attributepanel);
+//		panel.add(chartresultpanel);
+////		panel.add(emptypanel);
+//		layout.setConstraints(attributepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//		layout.setConstraints(chartresultpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+////		layout.setConstraints(emptypanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+		panel.setLayout(new BorderLayout());
+		panel.add(attributepanel, BorderLayout.NORTH);
+		panel.add(chartresultpanel, BorderLayout.CENTER);
 		
 //		scrollpanel=new JScrollPane(panel);
 //		scrollpanel.setBorder(null);
@@ -178,27 +182,27 @@ public class TestCaseProcessEndPanel extends JPanel{
 	private void initTableData() {
 		// TODO Auto-generated method stub
 		
-		Object[] rowData1 = { "第一步：解析时间自动机", "20ms", "共解析出119个状态，220个迁移" };
-		attributetablemodel.addRow(rowData1);
-		Object[] rowData2 = { "第二步：优化约简", "50ms", "得到200个状态，220个迁移，其中状态增加了50个，减少了20个，迁移增加了20个，减少了30个" };
-		attributetablemodel.addRow(rowData2);
-		Object[] rowData3 = { "第三步：生成深度优先生成树", "60ms", "得到深度优先生成树" };
-		attributetablemodel.addRow(rowData3);
-		Object[] rowData4 = { "第四步：路径覆盖", "40ms", "生成100条路径，得到100条测试序列" };
-		attributetablemodel.addRow(rowData4);
-		Object[] rowData5 = { "第五步：添加实例化约束条件", "40ms", "得到100条含有约束条件的抽象测试用例" };
-		attributetablemodel.addRow(rowData5);
-		Object[] rowData6 = { "第六步：实例化", "50ms", "得到100条测试用例" };
-		attributetablemodel.addRow(rowData6);
-		Object[] rowData7 = { "第七步：存储测试用例", "10ms", "生成test.xml，保存路径：D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\test.xml" };
-		attributetablemodel.addRow(rowData7);
+//		Object[] rowData1 = { "第一步：解析时间自动机", "20ms", "共解析出119个状态，220个迁移" };
+//		attributetablemodel.addRow(rowData1);
+//		Object[] rowData2 = { "第二步：优化约简", "50ms", "得到200个状态，220个迁移，其中状态增加了50个，减少了20个，迁移增加了20个，减少了30个" };
+//		attributetablemodel.addRow(rowData2);
+//		Object[] rowData3 = { "第三步：生成深度优先生成树", "60ms", "得到深度优先生成树" };
+//		attributetablemodel.addRow(rowData3);
+//		Object[] rowData4 = { "第四步：路径覆盖", "40ms", "生成100条路径，得到100条测试序列" };
+//		attributetablemodel.addRow(rowData4);
+//		Object[] rowData5 = { "第五步：添加实例化约束条件", "40ms", "得到100条含有约束条件的抽象测试用例" };
+//		attributetablemodel.addRow(rowData5);
+//		Object[] rowData6 = { "第六步：实例化", "50ms", "得到100条测试用例" };
+//		attributetablemodel.addRow(rowData6);
+//		Object[] rowData7 = { "第七步：存储测试用例", "10ms", "生成test.xml，保存路径：D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\test.xml" };
+//		attributetablemodel.addRow(rowData7);
 		
-//		for(int i=0;i<stepAllProcessList.size();i++){
-//			
-//			Object[] rowData={stepAllProcessList.get(i),timeAllProcessList.get(i),resultAllProcessList.get(i)};
-//			attributetablemodel.addRow(rowData);
-//			
-//		}
+		for(int i=0;i<stepAllProcessList.size();i++){
+			
+			Object[] rowData={stepAllProcessList.get(i),timeAllProcessList.get(i),resultAllProcessList.get(i)};
+			attributetablemodel.addRow(rowData);
+			
+		}
 		
 		
 	}
@@ -292,7 +296,7 @@ public class TestCaseProcessEndPanel extends JPanel{
         attributepanel.setLayout(new BorderLayout());
         attributepanel.add(attributetable.getTableHeader(),BorderLayout.NORTH);
         attributepanel.add(attributetable, BorderLayout.CENTER);
-        attributepanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 5));
+        attributepanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         attributepanel.setOpaque(false);
 		
 	}
@@ -303,22 +307,22 @@ public class TestCaseProcessEndPanel extends JPanel{
 		
 		DefaultCategoryDataset defaultcategorydataset = new DefaultCategoryDataset();
 
-		defaultcategorydataset.addValue(20, "", "第一步");
-		defaultcategorydataset.addValue(50, "", "第二步");
-		defaultcategorydataset.addValue(60, "", "第三步");
-		defaultcategorydataset.addValue(40, "", "第四步");
-		defaultcategorydataset.addValue(40, "", "第五步");
-		defaultcategorydataset.addValue(50, "", "第六步");
-		defaultcategorydataset.addValue(10, "", "第七步");
+//		defaultcategorydataset.addValue(20, "", "第一步");
+//		defaultcategorydataset.addValue(50, "", "第二步");
+//		defaultcategorydataset.addValue(60, "", "第三步");
+//		defaultcategorydataset.addValue(40, "", "第四步");
+//		defaultcategorydataset.addValue(40, "", "第五步");
+//		defaultcategorydataset.addValue(50, "", "第六步");
+//		defaultcategorydataset.addValue(10, "", "第七步");
 		
-//		for(int i=0;i<stepAllProcessList.size();i++){
-//			System.out.println(stepAllProcessList.get(i)+"  -  "+timeAllProcessList.get(i)+"  -  "+resultAllProcessList.get(i));
-//			
-//			double time=Double.parseDouble(timeAllProcessList.get(i).replaceAll("ms", ""));
-//			String step=stepAllProcessList.get(i).substring(0, 3);
-//			
-//			defaultcategorydataset.addValue(time, "", step);
-//		}
+		for(int i=0;i<stepAllProcessList.size();i++){
+			System.out.println(stepAllProcessList.get(i)+"  -  "+timeAllProcessList.get(i)+"  -  "+resultAllProcessList.get(i));
+			
+			double time=Double.parseDouble(timeAllProcessList.get(i).replaceAll("ms", ""));
+			String step=stepAllProcessList.get(i).substring(0, 3);
+			
+			defaultcategorydataset.addValue(time, "", step);
+		}
 		
 		
 		JFreeChart chart = ChartFactory.createLineChart("各步骤耗时折线图", null, "耗时 (ms)", defaultcategorydataset, PlotOrientation.VERTICAL, false, true, false);

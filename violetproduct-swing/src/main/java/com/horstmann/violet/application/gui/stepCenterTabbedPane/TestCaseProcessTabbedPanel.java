@@ -48,8 +48,10 @@ import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
+import com.horstmann.violet.application.gui.util.ckt.handle.ATDTR__1;
 import com.horstmann.violet.application.gui.util.ckt.handle.AddType;
 import com.horstmann.violet.application.gui.util.ckt.handle.GetAutomatic;
+import com.horstmann.violet.application.gui.util.ckt.handle.IPR__1;
 import com.horstmann.violet.application.gui.util.xiaole.GraghLayout.LayoutUppaal;
 import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.ImportByDoubleClick;
 import com.horstmann.violet.application.menu.util.zhangjian.Database.AbstractState;
@@ -139,11 +141,16 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	
 	
 	private Automatic a;
+	private Automatic type_a;
+	private Automatic iPARAutomatic;
+	private Automatic aTDRTAutomatic;
+	private Automatic type_aTDRTAutomatic;
 	private Automatic DFStree;
 	private ArrayList<Automatic> testCase;
 	private ArrayList<Automatic> collectLimit;
 	private ArrayList<Automatic> collectResult;
 	
+	private String clockstate="否";
 	private int automatictimestate=0;//0-不带时间约束，1-带时间约束
 	
 	long time1;
@@ -461,12 +468,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				//获取数据
 //				String xml="UAVForXStreamXuanTing.xml";
-				String xml="D:\\xml\\UAVForXStream3.1.6.xml";
+//				String xml="D:\\xml\\UAVForXStream3.1.6.xml";
 				
 				a = GetAutomatic.getAutomatic(selectUppaalPath);
-				a=AddType.addType(a);
-				
-				String clockstate="否";
+				type_a=AddType.addType(a);
 				
 				if(a.getClockSet().get(0).equals("t")){
 					automatictimestate=1;
@@ -500,14 +505,14 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					migrateinfortablemodel.removeRow(migrateinfortablemodel.getRowCount()-1);
 				}
 				
-				for(State s:a.getStateSet()){
+				for(State s:type_a.getStateSet()){
 //					Object[] rowData={"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
 					Object[] rowData={s.getId()+"",s.getName(),s.getPosition(),s.isFinalState()+"",s.getType()};
 					copystatetablemodel.addRow(rowData);
 					stateinfortablemodel.addRow(rowData);
 				}
 				
-				for(Transition t:a.getTransitionSet()){
+				for(Transition t:type_a.getTransitionSet()){
 //					Object[] rowData={"13","set_throttle_out_unstabilizedfloat, bool, float","g.throttle_filt#g.throttle_filt:float","cycle=2.5ms--control_mode==0#control_mode:int8_t--motor_state==False || ap.throttle_zero==True#motor_state:bool,ap.throttle_zero:bool","null","不空，但是没有内容"};
 					Object[] rowData={t.getId()+"",t.getName(),t.getSource(),t.getTarget(),t.getIn(),t.getOut(),t.getCondition()};
 					copymigratetablemodel.addRow(rowData);
@@ -546,7 +551,32 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				tablepanel.add(copyuotpanel.getInforpanel());
 				
 				//获取数据
+				iPARAutomatic=IPR__1.iPR(a);//状态拆分
+				
+				aTDRTAutomatic=ATDTR__1.aTDRT(iPARAutomatic,a);//去除迁移
+				
+				List<State> oldstatelists=aTDRTAutomatic.getStateSet();//添加状态ID
+				ArrayList<State> newstatelists=new ArrayList<>();
+				int stateindex=1;
+				for(State s:oldstatelists){
+					s.setId(stateindex++);
+					newstatelists.add(s);
+				}
+				aTDRTAutomatic.setStateSet(newstatelists);
+				
+				type_aTDRTAutomatic=AddType.addType(aTDRTAutomatic);
+				
 				Thread.sleep(1000);
+				
+				mainFrame.getStepThreeCenterTabbedPane().getUppaalOptimizationTabbedPanel().getGeneralinforlabel1().setText("时间自动机名字："+aTDRTAutomatic.getName());
+				mainFrame.getStepThreeCenterTabbedPane().getUppaalOptimizationTabbedPanel().getGeneralinforlabel2().setText("是否含有时间约束："+clockstate);
+				mainFrame.getStepThreeCenterTabbedPane().getUppaalOptimizationTabbedPanel().getGeneralinforlabel3().setText("模型中总状态个数："+aTDRTAutomatic.getStateSet().size());
+				mainFrame.getStepThreeCenterTabbedPane().getUppaalOptimizationTabbedPanel().getGeneralinforlabel4().setText("模型中总迁移个数："+aTDRTAutomatic.getTransitionSet().size());
+				
+				copyuotpanel.getGeneralinforlabel1().setText("时间自动机名字："+aTDRTAutomatic.getName());
+				copyuotpanel.getGeneralinforlabel2().setText("是否含有时间约束："+clockstate);
+				copyuotpanel.getGeneralinforlabel3().setText("模型中总状态个数："+aTDRTAutomatic.getStateSet().size());
+				copyuotpanel.getGeneralinforlabel4().setText("模型中总迁移个数："+aTDRTAutomatic.getTransitionSet().size());
 				
 				DefaultTableModel copystatetablemodel=copyuotpanel.getStateinforpanel().getAttributetablemodel();
 				DefaultTableModel copymigratetablemodel=copyuotpanel.getMigrateinforpanel().getAttributetablemodel();
@@ -564,25 +594,41 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				Random rand=new Random();
 				int index;
-				for(int i=0;i<50;i++){
+				
+				for(State s:type_aTDRTAutomatic.getStateSet()){
 					index=rand.nextInt(3);
 					if(index==2){
 						index=-1;
 					}
-					Object[] rowData={index,"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
+//					Object[] rowData={index,"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
+					Object[] rowData={index,s.getId()+"",s.getName(),s.getPosition(),s.isFinalState()+"",s.getType()};
 					copystatetablemodel.addRow(rowData);
 					stateinfortablemodel.addRow(rowData);
 				}
 				
-				for(int i=0;i<50;i++){
+//				for(Transition t:type_aTDRTAutomatic.getTransitionSet()){
+//					index=rand.nextInt(3);
+//					if(index==2){
+//						index=-1;
+//					}
+////					Object[] rowData={index,"13","set_throttle_out_unstabilizedfloat, bool, float","g.throttle_filt#g.throttle_filt:float","cycle=2.5ms--control_mode==0#control_mode:int8_t--motor_state==False || ap.throttle_zero==True#motor_state:bool,ap.throttle_zero:bool","null","不空，但是没有内容"};
+//					Object[] rowData={index,t.getId()+"",t.getName(),t.getSource(),t.getTarget(),t.getIn(),t.getOut(),t.getCondition()};
+//					copymigratetablemodel.addRow(rowData);
+//					migrateinfortablemodel.addRow(rowData);
+//				}
+				System.out.println("-----------------------------------------");
+				for(Transition t:type_aTDRTAutomatic.getTransitionSet()){
+					System.out.println(t.getId()+""+" - "+t.getName()+" - "+t.getSource()+" - "+t.getTarget()+" - "+t.getIn()+" - "+t.getOut()+" - "+t.getCondition());
 					index=rand.nextInt(3);
 					if(index==2){
 						index=-1;
 					}
-					Object[] rowData={index,"13","set_throttle_out_unstabilizedfloat, bool, float","g.throttle_filt#g.throttle_filt:float","cycle=2.5ms--control_mode==0#control_mode:int8_t--motor_state==False || ap.throttle_zero==True#motor_state:bool,ap.throttle_zero:bool","null","不空，但是没有内容"};
+//					index,t.getId()+"",t.getName(),t.getSource(),t.getTarget(),t.getIn(),t.getOut(),t.getCondition()};
+					Object[] rowData={index,t.getId()+"",t.getName(),t.getSource(),t.getTarget(),t.getIn(),t.getOut()+"",t.getCondition()};
 					copymigratetablemodel.addRow(rowData);
 					migrateinfortablemodel.addRow(rowData);
 				}
+				System.out.println("-----------------------------------------");
 				
 				mainFrame.getStepThreeCenterTabbedPane().getUppaalOptimizationButtonPanel().setVisible(true);
 				
@@ -590,7 +636,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				stepAllProcessList.add("第二步：优化约简");
 				timeAllProcessList.add(time2-time1+"ms");
-				resultAllProcessList.add("得到200个状态，220个迁移，其中状态增加了50个，减少了20个，迁移增加了20个，减少了30个");
+				resultAllProcessList.add("得到"+aTDRTAutomatic.getStateSet().size()+"个状态，"+aTDRTAutomatic.getTransitionSet().size()+"个迁移，其中状态增加了50个，减少了20个，迁移增加了20个，减少了30个");
 				
 				return 1;
 			}
@@ -609,11 +655,26 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				moviepanel.getMovieLabel().setText("正在根据时间自动机生成深度优先生成树");
 				
 				if(selectCoverState==0){//状态覆盖
-					//获取数据
-					DFStree=StateCoverage__1.DFSTree(a);
 					
-					//Automate数据转换为xml
-					AutomateTransformXml(DFStree);
+					if(automatictimestate==0){
+						System.out.println("123456////************");
+						//获取数据
+						DFStree=StateCoverage__1.DFSTree(a);
+						
+						//Automate数据转换为xml
+						AutomateTransformXml(DFStree);
+					}
+					else{
+						System.out.println("123456---------------");
+						//获取数据,带时间约束
+//						DFStree=StateCoverage__1.DFSTree(aTDRTAutomatic);
+						DFStree=StateCoverage__1.DFSTree(type_aTDRTAutomatic);
+						
+						//Automate数据转换为xml
+						AutomateTransformXml(DFStree);
+					}
+					
+					
 				}
 				else{//路径覆盖
 					AutomateTransformXml(a);
@@ -1167,6 +1228,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		transitionIdToNameMap=new HashMap<>();
 		transitionNameToIdMap=new HashMap<>();
 		
+		System.out.println("ABCABCABCABCABCABCABCABCABCABCABCABC");
+		
 		for(State s :automatic.getStateSet()){
 			//将wqq的相关的信息--->转换为zhangjian的相关的信息(state)
 			AbstractState abState =new AbstractState();
@@ -1205,15 +1268,15 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			abTrans.setTarget(t.getTarget());
 			
 			abTrans.setType(t.getTypes().toString());
-			StringBuilder sb =new StringBuilder();
-			for(int i=0;i<t.getResetClockSet().size();i++){
-				sb.append(t.getResetClockSet().get(i));
-				if(i!=t.getResetClockSet().size()-1){
-					sb.append(";");
-				}
-			}
-			abTrans.setResetClockSet(sb.toString());
-			abTrans.setConstraintDBM(t.getConstraintDBM().toString());
+//			StringBuilder sb =new StringBuilder();
+//			for(int i=0;i<t.getResetClockSet().size();i++){
+//				sb.append(t.getResetClockSet().get(i));
+//				if(i!=t.getResetClockSet().size()-1){
+//					sb.append(";");
+//				}
+//			}
+//			abTrans.setResetClockSet(sb.toString());
+//			abTrans.setConstraintDBM(t.getConstraintDBM().toString());
 			//System.out.println(t.getTypes()+"**"+t.getSource()+"**"+t.getTarget()+"**"+t.getResetClockSet()+"**"+t.getConstraintDBM());
 			abTransList.add(abTrans);
 			
@@ -1250,8 +1313,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		tablepanel.setLayout(new GridLayout());
 		tablepanel.setOpaque(false);
 		
-		TestCaseProcessEndPanel tcpepanel=new TestCaseProcessEndPanel(mainFrame);
-		tablepanel.add(tcpepanel);
+//		TestCaseProcessEndPanel tcpepanel=new TestCaseProcessEndPanel(mainFrame);
+//		tablepanel.add(tcpepanel);
 		
 	}
 	

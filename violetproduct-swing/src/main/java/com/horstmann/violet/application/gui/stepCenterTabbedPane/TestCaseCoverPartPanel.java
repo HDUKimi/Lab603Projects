@@ -354,7 +354,7 @@ public class TestCaseCoverPartPanel extends JPanel{
 //		}
         
         for(Transition t:automatic.getTransitionSet()){
-        	Object[] rowData={t.getId()+"",t.getName(),t.getSource(),t.getTarget(),t.getIn(),t.getOut(),t.getCondition()};
+        	Object[] rowData={t.getId()+"",t.getName(),t.getSource(),t.getTarget(),t.getIn(),t.getOut()+"",t.getCondition()};
 			attributetablemodel.addRow(rowData);
         }
 		

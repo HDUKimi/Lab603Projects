@@ -32,14 +32,15 @@ public class BuildRelation__1 {
 				tran.setSource(source.getName());
 				tran.setTarget(target.getName());
 				//////////////////////////////////////////////////////////ckt添加
-				
+
 				//////////////////////////////////////////////////////////				
 				if(source.getPosition().equals(target.getPosition())){//如果源和目的相同，则迁移上为*
 					ArrayList<String> events=new ArrayList<String>();
 					events.add("*");
 					tran.setEventSet(events);
 					///////////////////////////////////////////////////
-					
+					tran.setId(0000);
+					tran.setName("*");
 					//////////////////////////////////////////////////
 				}
 				else{//如果源和目的不同，则迁移上为相应事件

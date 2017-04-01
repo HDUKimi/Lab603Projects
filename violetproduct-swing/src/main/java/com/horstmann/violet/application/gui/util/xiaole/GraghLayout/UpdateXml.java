@@ -53,6 +53,12 @@ public class UpdateXml {
 		List<Element> LIST=root.elements("template");//LIST表示XML有几个Template
 		List<Element> list=LIST.get(a).elements("transition");
  		List<Element> List=LIST.get(a).elements("location");//List代表着点的集合
+ 		
+ 		System.out.println("/*/*/*/****************"+filename);
+ 		for(Element e:List){
+ 			System.out.println(e.attributeValue("id"));
+ 		}
+ 		
 		Element Template=List.get(0);//Template指向点
         Element template1=list.get(0);
  		Iterator it = List.iterator();

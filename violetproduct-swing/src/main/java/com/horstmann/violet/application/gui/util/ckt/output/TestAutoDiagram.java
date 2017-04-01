@@ -14,8 +14,12 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
+import com.horstmann.violet.application.gui.util.ckt.handle.ATDTR__1;
 import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
+import com.horstmann.violet.application.gui.util.ckt.handle.GetAutomatic;
+import com.horstmann.violet.application.gui.util.ckt.handle.IPR__1;
 import com.horstmann.violet.application.gui.util.ckt.handle.State;
+import com.horstmann.violet.application.gui.util.ckt.handle.StateCoverage__1;
 import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 import com.horstmann.violet.application.gui.util.xiaole.GraghLayout.LayoutUppaal;
 import com.horstmann.violet.application.menu.util.zhangjian.Database.AbstractState;
@@ -29,14 +33,35 @@ public class TestAutoDiagram {
 
 	public static void main(String[] args) {
 		
-		Automatic a=null;
+//		Automatic a=null;
 		List<Automatic> alist=new ArrayList<>();
+		
+		String xml="D:\\xml\\UAVForXStream3.1.6.xml";//有时间约束
+		
+		Automatic a = GetAutomatic.getAutomatic(xml);
+		Automatic automatic=IPR__1.iPR(a);
+		Automatic aTDRTAutomatic=ATDTR__1.aTDRT(automatic,a);
+		List<State> statelists=aTDRTAutomatic.getStateSet();
+		ArrayList<State> newstatelists=new ArrayList<>();
+		int stateindex=1;
+		for(State s:statelists){
+			s.setId(stateindex++);
+			newstatelists.add(s);
+		}
+		aTDRTAutomatic.setStateSet(newstatelists);
+		Automatic DFStree=StateCoverage__1.DFSTree(aTDRTAutomatic);
+		
+		
 		
 //		a=DFSAuto();
 		
-		System.out.println(a.toString());
-		System.out.println(a.getStateSet().size());
-		System.out.println(a.getTransitionSet().size());
+		System.out.println(DFStree.toString());
+		System.out.println(DFStree.getStateSet().size());
+		System.out.println(DFStree.getTransitionSet().size());
+		
+//		for(State s:DFStree.getStateSet()){
+//			System.out.println(s.getName());
+//		}
 			
 		
 //		alist=PathAuto();
@@ -51,9 +76,10 @@ public class TestAutoDiagram {
 //		}
 		
 		try {
-			createSequenceXML(a);
+			createSequenceXML(DFStree);
 			
-			LayoutUppaal.layout("D:\\sequence.xml");
+//			LayoutUppaal.layout("D:\\sequence.xml");
+			LayoutUppaal.layout("sequence.xml");
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -64,7 +90,7 @@ public class TestAutoDiagram {
 		}
 		
 		
-		for(State s :a.getStateSet()){
+		for(State s :DFStree.getStateSet()){
 			//将wqq的相关的信息--->转换为zhangjian的相关的信息(state)
 			AbstractState abState =new AbstractState();
 			abState.setSid(s.getId());//查询数据库里面状态节点的个数
@@ -83,7 +109,7 @@ public class TestAutoDiagram {
 			
 		}
 		
-		for(Transition t :a.getTransitionSet()){
+		for(Transition t :DFStree.getTransitionSet()){
 			//将wqq的相关的信息--->转换为zhangjian的相关的信息(transition)
 			AbstractTransition abTrans =new AbstractTransition();
 			abTrans.setTid(t.getId());
@@ -103,7 +129,7 @@ public class TestAutoDiagram {
 				}
 			}
 			abTrans.setResetClockSet(sb.toString());
-			abTrans.setConstraintDBM(t.getConstraintDBM().toString());
+//			abTrans.setConstraintDBM(t.getConstraintDBM().toString());
 			//System.out.println(t.getTypes()+"**"+t.getSource()+"**"+t.getTarget()+"**"+t.getResetClockSet()+"**"+t.getConstraintDBM());
 			abTransList.add(abTrans);
 		}

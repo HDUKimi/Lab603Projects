@@ -65,14 +65,11 @@ public class GeneratePath {
 		
 		
 		ArrayList<Automatic> res = new ArrayList<>();
-		int i = 1;
 		for(ArrayList<Transition> tranList : paths) {
-			Automatic a = GeneratePath.fromTranListToAuto(tranList);
-			a.setName("测试用例"+(i++));
-			res.add(a);
+			res.add(GeneratePath.fromTranListToAuto(tranList));
 		}
-		return res;
 		
+		return res;
 	}
 	// 性能测试的一条路径
 	public static Automatic getPerformPathFromAutomatic(Automatic automatic) throws Exception {

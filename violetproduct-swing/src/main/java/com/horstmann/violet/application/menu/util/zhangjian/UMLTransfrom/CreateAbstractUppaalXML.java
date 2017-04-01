@@ -248,7 +248,7 @@ public class CreateAbstractUppaalXML {
 			sum++;
 			AbstractState node = abNodeList.get(i);
 
-			System.out.println("*************************" + i + "  " + abNodeList.size());
+			System.out.println("*************************" + i + "  " + abNodeList.size()+"   *"+locationmap.get(node.getSname())+"*"+ "  "+node.getSname());
 			xy = locationmap.get(node.getSname());
 			index = xy.indexOf('-');
 			x = xy.substring(0, index);

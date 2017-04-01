@@ -1,21 +1,37 @@
 package com.horstmann.violet.application.gui.util.ckt.testcase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.horstmann.violet.application.gui.util.ckt.handle.*;
 
 public class Test {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String xml="Draw MoneyForXStream(2).xml";
+		//String xml="Draw MoneyForXStream(2).xml";
+		String xml="UAVForXStream3.1.6.xml";
+		
 		Automatic automatic=GetAutomatic.getAutomatic(xml);//获得原始的时间自动机
+		//print(automatic);
 		//ArrayList<State> new_stateSet=Minimization__1.minimization(automatic);
 		Automatic new_automatic=IPR__1.iPR(automatic);//获得拆分后的时间自动机
-		Automatic aTDRTAutomatic=ATDTR__1.aTDRT(new_automatic,automatic);//获得去除抽象时间迁移后的时间自动机
-		//Automatic DFStree=StateCoverage__1.DFSTree(aTDRTAutomatic);
-		ArrayList<Automatic> testCase=StateCoverage__1.testCase(aTDRTAutomatic);//获得满足状态覆盖的抽象测试序列
-		ArrayList<ArrayList<String>> all_inequalitys=Get_inequality__1.get_AllInequalitys(testCase);//每个抽象测试序列有一个不等式组
 		
+		List<State> statelists=new_automatic.getStateSet();
+		ArrayList<State> newstatelists=new ArrayList<>();
+		int i=1;
+		for(State s:statelists){
+			s.setId(i++);
+			newstatelists.add(s);
+		}
+		new_automatic.setStateSet(newstatelists);
+		
+//		print(new_automatic);
+		Automatic aTDRTAutomatic=ATDTR__1.aTDRT(new_automatic,automatic);//获得去除抽象时间迁移后的时间自动机
+		print(aTDRTAutomatic);
+		//Automatic DFStree=StateCoverage__1.DFSTree(aTDRTAutomatic);
+		/*ArrayList<Automatic> testCase=StateCoverage__1.testCase(aTDRTAutomatic);//获得满足状态覆盖的抽象测试序列
+		ArrayList<ArrayList<String>> all_inequalitys=Get_inequality__1.get_AllInequalitys(testCase);//每个抽象测试序列有一个不等式组
+		*/
 		/*System.out.println("时间自动机名字:"+automatic.getName());
 		System.out.println("时间自动机时钟集合：");
 		for(String c:automatic.getClockSet()){
@@ -549,7 +565,7 @@ public class Test {
 		
 		
 		
-		System.out.println("总共"+all_inequalitys.size()+"个不等式组");
+		/*System.out.println("总共"+all_inequalitys.size()+"个不等式组");
 		int e=1;
 		for(ArrayList<String> inequalitys:all_inequalitys){
 			System.out.println("第"+e+"个不等式组");
@@ -558,8 +574,29 @@ public class Test {
 			}
 			System.out.println("***************");
 			e++;
-		}
+		}*/
 		
 	}
-
+	/**
+	 * 打印时间自动机上的name和id
+	 * @param a
+	 */
+	public static void  print(Automatic a){
+		int i = 1;
+		for(State state:a.getStateSet()){
+			System.out.println("*****************第"+(i++)+"个状态*****************");
+			System.out.println("状态名称："+state.getName());
+			System.out.println("状态Id："+state.getId());
+			
+		}
+		i=1;
+		for(Transition t:a.getTransitionSet()){
+			System.out.println("*****************第"+(i++)+"个迁移*****************");
+			System.out.println("迁移名称："+t.getName());
+			System.out.println("迁移Id："+t.getId());
+			//System.out.println("迁移总约束："+t.getEventSet());
+			//System.out.println("迁移in："+t.getIn());
+			//System.out.println("迁移condition："+t.getCondition());
+		}
+	}
 }

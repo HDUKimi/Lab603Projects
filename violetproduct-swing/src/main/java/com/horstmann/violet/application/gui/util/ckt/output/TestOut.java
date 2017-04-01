@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.horstmann.violet.application.gui.util.ckt.handle.ATDTR__1;
 import com.horstmann.violet.application.gui.util.ckt.handle.AddType;
@@ -23,10 +24,10 @@ public class TestOut {
 		File f=new File("D:\\test.txt");
 		Writer w=new FileWriter(f,false);
 		
-		String xml="D:\\xml\\UAVForXStream3.1.6.xml";//有时间约束
-	//	String xml = "UAVForXStream3.8.2.0.xml";
+//		String xml="D:\\xml\\UAVForXStream3.1.6.xml";//有时间约束
+//		String xml = "D:\\xml\\UAVForXStream3.8.2.0.xml";
 		//String xml="UAVForXStreamPerformTestV6.xml";
-//		String xml="UAVForXStream3.8.2.xml";
+		String xml="D:\\xml\\UAVForXStream3.8.2.xml";
 		
 
 //		String xml="UAVForXStreamXuanTing.xml";
@@ -40,7 +41,7 @@ public class TestOut {
 //		String xml="";
 		
 		Automatic a = GetAutomatic.getAutomatic(xml);
-		a=AddType.addType(a);
+//		a=AddType.addType(a);
 		
 		System.out.println(a.getClockSet());
 		
@@ -58,40 +59,49 @@ public class TestOut {
 		writeStr(w,"1---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		
-//		Automatic automatic=IPR__1.iPR(a);
-//		
-//		writeStr(w,automatic.getTransitionSet().size()+" - - "+automatic.getStateSet().size());
-//		
-//		for(Transition t:automatic.getTransitionSet()){
-//			writeStr(w,t.toString());
-//		}
-//		
-//		for(State s:automatic.getStateSet()){
-//			writeStr(w,s.toString());
-//		}
-//		
-//		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-//		writeStr(w,"2---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-//		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-//		
-//		Automatic aTDRTAutomatic=ATDTR__1.aTDRT(automatic,a);
-//		
-//		writeStr(w,aTDRTAutomatic.getTransitionSet().size()+" - - "+aTDRTAutomatic.getStateSet().size());
-//		
-//		for(Transition t:aTDRTAutomatic.getTransitionSet()){
-//			writeStr(w,t.toString());
-//		}
-//		
-//		for(State s:aTDRTAutomatic.getStateSet()){
-//			writeStr(w,s.toString());
-//		}
+		Automatic automatic=IPR__1.iPR(a);
+		
+		writeStr(w,automatic.getTransitionSet().size()+" - - "+automatic.getStateSet().size());
+		
+		for(Transition t:automatic.getTransitionSet()){
+			writeStr(w,t.toString());
+		}
+		
+		for(State s:automatic.getStateSet()){
+			writeStr(w,s.toString());
+		}
+		
+		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+		writeStr(w,"2---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+		
+		Automatic aTDRTAutomatic=ATDTR__1.aTDRT(automatic,a);
+		
+		writeStr(w,aTDRTAutomatic.getTransitionSet().size()+" - - "+aTDRTAutomatic.getStateSet().size());
+		
+		for(Transition t:aTDRTAutomatic.getTransitionSet()){
+			writeStr(w,t.toString());
+		}
+		
+		for(State s:aTDRTAutomatic.getStateSet()){
+			writeStr(w,s.toString());
+		}
+		
+		List<State> statelists=aTDRTAutomatic.getStateSet();
+		ArrayList<State> newstatelists=new ArrayList<>();
+		int i=1;
+		for(State s:statelists){
+			s.setId(i++);
+			newstatelists.add(s);
+		}
+		aTDRTAutomatic.setStateSet(newstatelists);
 		
 		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		writeStr(w,"3---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		
 		//状态覆盖
-		Automatic DFStree=StateCoverage__1.DFSTree(a);
+		Automatic DFStree=StateCoverage__1.DFSTree(aTDRTAutomatic);
 		
 		writeStr(w,DFStree.getTransitionSet().size()+" - - "+DFStree.getStateSet().size());
 		

@@ -30,6 +30,9 @@ public class SplitSuseSs_new1__1 {
 					s.setInvariantDBM(X_DBMs.get(i));//状态的不变式为X_DBMs.get(i)
 					s.setAddClockRelationDBM(X_DBMs.get(i));//状态的添加了时钟复位信息不变式也为X_DBMs.get(i)
 					s.setName(x_name+i);//状态的名称为原名称加i
+					//////////////////////.........................
+					s.setId(x.getId());
+					/////////////////////
 					States.add(s);
 				}
 				return States;

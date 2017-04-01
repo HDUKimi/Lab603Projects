@@ -29,8 +29,10 @@ public class ATDTR__1 {
 			tran.setTypeIds(t.getTypeIds());
 			tran.setTypes(t.getTypes());
 			//////////ckt添加
-			//tran.setId(kk++);
-			//tran.setName(t.getName());
+			tran.setId(t.getId());
+			tran.setName(t.getName());
+			tran.setIn(t.getIn());
+			tran.setCondition(t.getCondition());
 			////////////
 			
 			TransitionSet.add(tran);
@@ -78,6 +80,12 @@ public class ATDTR__1 {
 						tran.setEventSet(events);
 						tran.setTypeIds(tt.getTypeIds());
 						tran.setTypes(tt.getTypes());
+						/////////////////
+						tran.setName(tt.getName());
+						tran.setId(tt.getId());
+						tran.setIn(tt.getIn());
+						tran.setCondition(tt.getCondition());
+						//////////////////
 						
 						TransitionSet.add(tran);//将新边加入迁移集合
 						if(tran.getEventSet().get(0).equals("*")){//如果新边是含抽象时间迁移的边，则加入ET	

@@ -189,7 +189,7 @@ public class UppaalOptimizationTabbedPanel extends JPanel{
 		
 		initGeneralInforPanel();
 		
-		initDataToDate();
+//		initDataToDate();
 		
 		inforresultpanel=new JPanel();
 		inforresultpanel.setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
@@ -275,25 +275,25 @@ public class UppaalOptimizationTabbedPanel extends JPanel{
 		stateinfortable.setDefaultRenderer(Object.class, renderer1);
 		migrateinfortable.setDefaultRenderer(Object.class, renderer1);
 		
-		Random rand=new Random();
-		int index;
-		for(int i=0;i<50;i++){
-			index=rand.nextInt(3);
-			if(index==2){
-				index=-1;
-			}
-			Object[] rowData1={index,"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
-			stateinfortablemodel.addRow(rowData1);
-		}
-		
-		for(int i=0;i<50;i++){
-			index=rand.nextInt(3);
-			if(index==2){
-				index=-1;
-			}
-			Object[] rowData1={index,"13","set_throttle_out_unstabilizedfloat, bool, float","g.throttle_filt#g.throttle_filt:float","cycle=2.5ms--control_mode==0#control_mode:int8_t--motor_state==False || ap.throttle_zero==True#motor_state:bool,ap.throttle_zero:bool","null","不空，但是没有内容"};
-			migrateinfortablemodel.addRow(rowData1);
-		}
+//		Random rand=new Random();
+//		int index;
+//		for(int i=0;i<50;i++){
+//			index=rand.nextInt(3);
+//			if(index==2){
+//				index=-1;
+//			}
+//			Object[] rowData1={index,"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
+//			stateinfortablemodel.addRow(rowData1);
+//		}
+//		
+//		for(int i=0;i<50;i++){
+//			index=rand.nextInt(3);
+//			if(index==2){
+//				index=-1;
+//			}
+//			Object[] rowData1={index,"13","set_throttle_out_unstabilizedfloat, bool, float","g.throttle_filt#g.throttle_filt:float","cycle=2.5ms--control_mode==0#control_mode:int8_t--motor_state==False || ap.throttle_zero==True#motor_state:bool,ap.throttle_zero:bool","null","不空，但是没有内容"};
+//			migrateinfortablemodel.addRow(rowData1);
+//		}
 		
 	}
 
@@ -342,6 +342,22 @@ public class UppaalOptimizationTabbedPanel extends JPanel{
 
 	public UppaalOptimizationMigrateInforPartPanel getMigrateinforpanel() {
 		return migrateinforpanel;
+	}
+
+	public JLabel getGeneralinforlabel1() {
+		return generalinforlabel1;
+	}
+
+	public JLabel getGeneralinforlabel2() {
+		return generalinforlabel2;
+	}
+
+	public JLabel getGeneralinforlabel3() {
+		return generalinforlabel3;
+	}
+
+	public JLabel getGeneralinforlabel4() {
+		return generalinforlabel4;
 	}
 	
 	

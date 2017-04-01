@@ -23,7 +23,7 @@ public class Minimization__1 {
 			}
 			System.out.println("*******************************");
 		}
-		
+
 	}
 	/**
 	 * 最小化算法，返回一个稳定的状态集
@@ -35,7 +35,7 @@ public class Minimization__1 {
 		ArrayList<State> StateSet=automatic.getStateSet();//获得时间自动机状态集合
 		ArrayList<Transition> TransitionSet=automatic.getTransitionSet();//获得时间自动机迁移集合
 		ArrayList<String> ClockSet=automatic.getClockSet();//获得时间自动机时钟集合
-		
+
 		ArrayList<State> P=new ArrayList<State>();//P复制时间自动机的状态集合，防止时间自动机的状态集合被改变
 		for(State s:StateSet){
 			State ss=new State();
@@ -45,18 +45,18 @@ public class Minimization__1 {
 			ss.setAddClockRelationDBM(s.getAddClockRelationDBM());
 			P.add(ss);
 		}
-		
+
 		State s0=new State();//s0为第一个被拆分的状态，复制时间自动机的初始状态，防止时间自动机的初始状态被改变
 		s0.setName(Init_State.getName());
 		s0.setPosition(Init_State.getPosition());
 		s0.setInvariantDBM(Init_State.getInvariantDBM());
 		s0.setAddClockRelationDBM(Init_State.getAddClockRelationDBM());
-		
+
 		ArrayList<State> accessible=new ArrayList<State>();//可达的状态集合
 		accessible.add(s0);
-		
+
 		ArrayList<State> stable=new ArrayList<State>();//稳定的状态集合
-		
+
 		while(accessible.size()!=stable.size()){//当可达集合和稳定集合不相同时
 			State x=accessibleNostable(accessible, stable);//选取可达集合中第一个不在稳定集合的状态进行拆分
 			ArrayList<State> new_X=SplitSuseSs_new1__1.splitSuseSs(x, P, TransitionSet, ClockSet);//new_x为x被拆分后的状态集合
@@ -79,14 +79,14 @@ public class Minimization__1 {
 				System.out.println("*******************************");
 			}*/
 			if(new_X.size()==1){//如果x没有被拆分
-				
+
 				State x_copy=new State();
 				x_copy.setName(x.getName());
 				x_copy.setPosition(x.getPosition());
 				x_copy.setInvariantDBM(x.getInvariantDBM());
 				x_copy.setAddClockRelationDBM(x.getAddClockRelationDBM());
 				stable.add(x_copy);//将x加入稳定集(稳定集中肯定没有x)
-				
+
 				ArrayList<State> posts=PostAndPre__1.post(x, P, TransitionSet, ClockSet);//获取x的后继
 				//输出x的后继
 				/*System.out.println("posts size: "+posts.size());
@@ -135,7 +135,7 @@ public class Minimization__1 {
 				}
 				ArrayList<State> pres=PostAndPre__1.pre(x, P, TransitionSet, ClockSet);//获得x的前驱集合
 				//输出x的前驱
-			/*	System.out.println("pres size: "+pres.size());
+				/*	System.out.println("pres size: "+pres.size());
 				for(State s:pres){
 					System.out.println("状态name: "+s.getName());
 					System.out.println("状态position: "+s.getPosition());
@@ -185,8 +185,8 @@ public class Minimization__1 {
 					System.out.println("Strictness:"+cons.isStrictness());									
 				}
 			}*/
-		
-			
+
+
 			//输出可达集
 			/*System.out.println("accessible size: "+accessible.size());
 			for(State s:accessible){
@@ -242,10 +242,10 @@ public class Minimization__1 {
 				System.out.println("*******************************");
 			}*/
 		}
-		
+
 		return stable;
 	}
-	
+
 	/**
 	 * 返回在可达集中而不在稳定集中的第一个状态 ，返回的是一个新的状态
 	 * @param accessible
@@ -268,7 +268,7 @@ public class Minimization__1 {
 				break;
 			}
 		}
-		
+
 		State accNostable=new State();
 		accNostable.setName(s.getName());
 		accNostable.setPosition(s.getPosition());
@@ -277,7 +277,7 @@ public class Minimization__1 {
 		
 		return accNostable;
 	}
-	
+
 	/**
 	 * zone包含零点返回1，不包含零点返回0
 	 * @param zone
@@ -296,13 +296,13 @@ public class Minimization__1 {
 				zero[i][j]=ele;	
 			}
 		}
-		
+
 		if(IsEmpty.isEmpty(AndDBM.andDBM(Floyds.floyds(zone), Floyds.floyds(zero)))==1){//如果与零点相交为空，则该DBM不包含零点，返回0
 			return 0;
 		}
 		else return 1;//如果与零点相交不为空，则该DBM包含零点，返回1
 	}
-	
+
 	/**
 	 * 返回后继集中与可达集不同的状态
 	 * @param accessible
@@ -311,7 +311,7 @@ public class Minimization__1 {
 	 */
 	public static ArrayList<State> posts_differ_access(ArrayList<State> accessible,ArrayList<State> posts) {
 		ArrayList<State> diff=new ArrayList<State>();//保存后继集中与可达集不同的状态
-		
+
 		for(int i=0;i<posts.size();i++){
 			int flag=1;
 			for(int j=0;j<accessible.size();j++){
