@@ -23,7 +23,7 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
         }
 
         else{
-            l.setBackground(t.getBackground());
+            l.setBackground(l.getBackground());
             l.setForeground(l.getForeground());
         }
     }
@@ -147,6 +147,34 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 			else{
 				setHorizontalAlignment(JLabel.LEFT);
 				setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+			}
+		}
+		else if(tablename.equals("TestCaseReportPartPanel")){
+//			String[] columnNames = { "激励ID", "激励名称", "激励参数", "激励状态", "激励执行情况" };
+//			setFont(new Font("微软雅黑", Font.PLAIN, 10));
+			if(table.getValueAt(row, 4).toString().equals("false")){
+				setForeground(new Color(115, 110, 102));
+				setBackground(new Color(255, 135, 135));
+			}
+			if(table.getColumnName(column).equals("激励ID")){
+				setHorizontalAlignment(JLabel.CENTER);
+				setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+			}
+			else{
+				setHorizontalAlignment(JLabel.LEFT);
+				setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+			}
+		}
+		else if(tablename.equals("TestCaseChartTabbedPanel")){
+//			String[] columnNames = { "模块名称", "通过数", "不通过数", "首轮命中用例数", "执行用例数", "未执行用例数", "变更用例数", "测试用例总数"};
+//			setFont(new Font("微软雅黑", Font.PLAIN, 10));
+			if(table.getColumnName(column).equals("模块名称")){
+				setHorizontalAlignment(JLabel.LEFT);
+				setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+			}
+			else{
+				setHorizontalAlignment(JLabel.CENTER);
+				setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 			}
 		}
 		

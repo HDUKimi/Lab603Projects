@@ -327,6 +327,7 @@ public class TestCaseProcessEndPanel extends JPanel{
 		
 		JFreeChart chart = ChartFactory.createLineChart("各步骤耗时折线图", null, "耗时 (ms)", defaultcategorydataset, PlotOrientation.VERTICAL, false, true, false);
         chart.setBackgroundPaint(Color.white);
+        chart.setBorderVisible(false);
         
 
         Font xfont = new Font("微软雅黑",Font.PLAIN,12) ;// X轴  

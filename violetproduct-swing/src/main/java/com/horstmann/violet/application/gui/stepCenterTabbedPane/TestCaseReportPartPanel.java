@@ -186,20 +186,29 @@ public class TestCaseReportPartPanel extends JPanel {
 		};
 
 		attributetable = new JTable(attributetablemodel);
+		
+		attributetable.setName("TestCaseReportPartPanel");
 
 		attributetable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		attributetable.setSelectionBackground(new Color(250, 248, 236));
 		attributetable.setGridColor(new Color(224, 226, 220));
-		attributetable.setShowGrid(true);
+		attributetable.setShowGrid(false);
 		attributetable.setShowHorizontalLines(true);
 		attributetable.setShowVerticalLines(false);
 		attributetable.setFillsViewportHeight(true);
 		attributetable.setRowHeight(27);
 		attributetable.doLayout();
-		// attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-		attributetable.getColumn("¼¤ÀøID").setPreferredWidth(30);
-		attributetable.getColumn("¼¤ÀøID").setMinWidth(30);
+		attributetable.getColumnModel().getColumn(0).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(1).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(2).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(3).setCellRenderer(new MyAllLabelRenderer());
+		attributetable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
+
+		attributetable.getColumn("¼¤ÀøID").setPreferredWidth(50);
+		attributetable.getColumn("¼¤ÀøID").setMinWidth(50);
+		attributetable.getColumn("¼¤ÀøID").setMaxWidth(50);
 		attributetable.getColumn("¼¤ÀøÃû³Æ").setPreferredWidth(100);
 		attributetable.getColumn("¼¤ÀøÃû³Æ").setMinWidth(100);
 		attributetable.getColumn("¼¤Àø²ÎÊý").setPreferredWidth(500);
@@ -214,8 +223,6 @@ public class TestCaseReportPartPanel extends JPanel {
 		renderer.setForeground(new Color(255, 255, 255));
 		renderer.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 13));
 		renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-//		renderer.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
-//		renderer.set
 		attributetable.getTableHeader().setDefaultRenderer(renderer);
 
 		attributetable.getTableHeader().setPreferredSize(new Dimension(100, 27));
@@ -243,13 +250,14 @@ public class TestCaseReportPartPanel extends JPanel {
 //			}
 //			
 //		};
-		DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer();
-		renderer1.setForeground(new Color(115, 110, 102));
-		renderer1.setBackground(new Color(255, 255, 255));
-		renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-		renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-//		renderer1.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
-		attributetable.setDefaultRenderer(Object.class, renderer1);
+		
+//		DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer();
+//		renderer1.setForeground(new Color(115, 110, 102));
+//		renderer1.setBackground(new Color(255, 255, 255));
+//		renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+//		renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+////		renderer1.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
+//		attributetable.setDefaultRenderer(Object.class, renderer1);
 		
 //		for (int i = 0; i < attributetable.getColumnCount(); i++) {  
 //			attributetable.getColumn(attributetable.getColumnName(i)).setCellRenderer(renderer1);  
@@ -257,7 +265,8 @@ public class TestCaseReportPartPanel extends JPanel {
 
 		attributetable.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(224, 225, 220)));
 
-		attributetable.setBackground(new Color(255, 255, 255));
+//		attributetable.setBackground(new Color(255, 255, 255));
+//		attributetable.setBackground(Color.BLUE);
 
 		// attributepanel.setLayout(new GridLayout());
 		// attributepanel.add(attributetable);

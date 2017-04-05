@@ -46,6 +46,10 @@ import org.dom4j.io.XMLWriter;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseBarChartPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseLineChartPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCasePieChartPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseStackedBarChartPanel;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
 
@@ -57,7 +61,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	
 	private JPanel toolpanel;
 	private MoviePanel moviepanel;
-	private JPanel tabelpanel;
+	private JPanel tablepanel;
 	
 	private JPanel toolbuttonpanel1;
 	private JPanel toolbuttonpanel2;
@@ -84,7 +88,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private Thread progreseethread;
 	private int threadstate=0;
 	
-	private JScrollPane tabelscrollpanel;
+	private JScrollPane tablescrollpanel;
 	private JPanel tableresultpanel;
 	
 	private List<TestCaseReportPartPanel> testcasereportlist=new ArrayList<TestCaseReportPartPanel>();
@@ -100,7 +104,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 		toolpanel=new JPanel();
 		moviepanel=new MoviePanel();
-		tabelpanel=new JPanel();
+		tablepanel=new JPanel();
 		
 		initToolPanel();
 		
@@ -112,10 +116,10 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		this.setLayout(layout);
 		this.add(toolpanel);
 		this.add(moviepanel);
-		this.add(tabelpanel);
+		this.add(tablepanel);
 		layout.setConstraints(toolpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(moviepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(tabelpanel,new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(tablepanel,new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		this.setBackground(new Color(255, 255, 255));
 		
@@ -457,17 +461,20 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().setLayout(new GridLayout());
 //				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().add(webframe.getContentPane());
 				
-				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().add(new TestCasePieChartPanel(testcasecount));
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().removeAll();
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().add(new TestCasePieChartPanel(testcasecount));
 				
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().add(new TestCaseBarChartPanel(testcasecount));
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().removeAll();
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().add(new TestCasePieChartPanel(testcasecount));
 				
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseLineChartTabbedPane().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseLineChartTabbedPane().add(new JScrollPane(new TestCaseLineChartPanel(testcasecountlist)));
-				
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().add(new JScrollPane(new TestCaseStackedBarChartPanel(testcasecountlist)));
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().removeAll();
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().add(new TestCaseBarChartPanel(testcasecount));
+//				
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseLineChartTabbedPane().removeAll();
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseLineChartTabbedPane().add(new JScrollPane(new TestCaseLineChartPanel(testcasecountlist)));
+//				
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().removeAll();
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().add(new JScrollPane(new TestCaseStackedBarChartPanel(testcasecountlist)));
 				
 //				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().removeAll();
 //				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().add(new JScrollPane(new TestCaseAreaChartPanel(testcasecountlist)));
@@ -532,7 +539,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("正在生成测试报告");
+		moviepanel.getMovieLabel().setText("正在进行测试");
 		
 	}
 
@@ -544,14 +551,14 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		tableresultpanel.setBorder(null);
 		tableresultpanel.setBackground(new Color(255, 255, 255));
 		
-		tabelscrollpanel=new JScrollPane(tableresultpanel);
-        tabelscrollpanel.setBorder(null);
-        tabelscrollpanel.setBackground(new Color(255, 255, 255));
+		tablescrollpanel=new JScrollPane(tableresultpanel);
+        tablescrollpanel.setBorder(null);
+        tablescrollpanel.setBackground(new Color(255, 255, 255));
 		
-//		tabelpanel.setBackground(new Color(255, 255, 255));
-		tabelpanel.setLayout(new GridLayout());
-		tabelpanel.add(tabelscrollpanel);
-//		tabelpanel.setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
+//		tablepanel.setBackground(new Color(255, 255, 255));
+		tablepanel.setLayout(new GridLayout());
+		tablepanel.add(tablescrollpanel);
+//		tablepanel.setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
 		
 	}
 
@@ -612,31 +619,31 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 			}
 			
-			DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer() {
-
-				@Override
-				public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-						boolean hasFocus, int row, int column) {
-					// TODO Auto-generated method stub
-
-					setForeground(new Color(115, 110, 102));
-					setBackground(new Color(255, 255, 255));
-					setFont(new Font("微软雅黑", Font.PLAIN, 12));
-					setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-
-					for(int num:badnumlist){
-						if(row==num){
-							setForeground(new Color(115, 110, 102));
-							setBackground(new Color(255, 135, 135));
-							break;
-						}
-					}
-					
-					return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-				}
-
-			};
-			attributetable.setDefaultRenderer(Object.class, renderer1);
+//			DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer() {
+//
+//				@Override
+//				public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+//						boolean hasFocus, int row, int column) {
+//					// TODO Auto-generated method stub
+//
+//					setForeground(new Color(115, 110, 102));
+//					setBackground(new Color(255, 255, 255));
+//					setFont(new Font("微软雅黑", Font.PLAIN, 12));
+//					setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+//
+//					for(int num:badnumlist){
+//						if(row==num){
+//							setForeground(new Color(115, 110, 102));
+//							setBackground(new Color(255, 135, 135));
+//							break;
+//						}
+//					}
+//					
+//					return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//				}
+//
+//			};
+//			attributetable.setDefaultRenderer(Object.class, renderer1);
 			
 			
 			attributetablemodel.fireTableDataChanged();

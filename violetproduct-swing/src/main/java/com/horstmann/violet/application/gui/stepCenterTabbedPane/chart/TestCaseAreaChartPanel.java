@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.stepCenterTabbedPane;
+package com.horstmann.violet.application.gui.stepCenterTabbedPane.chart;
 
 import java.awt.Color;
 import java.awt.Dimension;
