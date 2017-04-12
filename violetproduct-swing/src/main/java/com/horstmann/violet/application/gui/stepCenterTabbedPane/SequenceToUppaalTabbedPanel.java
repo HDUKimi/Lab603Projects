@@ -43,6 +43,7 @@ import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.StepTwoCenterTabbedPane;
 import com.horstmann.violet.application.gui.util.tanchao.ShowOnTableAndConsole;
+import com.horstmann.violet.application.gui.util.tanchao.XMLCopy;
 import com.horstmann.violet.application.gui.util.wujun.SequenceTransfrom.SD2UppaalMain;
 import com.horstmann.violet.application.gui.util.xiaole.GraghLayout.LayoutUppaal;
 import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.ImportByDoubleClick;
@@ -332,10 +333,13 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //								LayoutUppaal.layout(
 //										"UseCase4-Sequence1-Normal.xml");// ("sequence.xml");
 								
-								System.out.println("SD2UppaalMain.getDiagramDataName():+++++++++"+SD2UppaalMain.getDiagramDataName());
+								System.out.println("SD2UppaalMain.getDiagramDataName():+++++++++"+SD2UppaalMain.getDiagramDataName()+" - - "+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml");//前者文件为时间自动机需要，后者文件为测试用例生成需要
+								
+								XMLCopy.SourceCopyToTarget(SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
+								
 								LayoutUppaal.layout(SD2UppaalMain.getDiagramDataName()+".xml");
 								
-								filename1 = TransToVioletUppaal.TransToViolet();
+								filename1 = TransToVioletUppaal.TransToViolet(filename);//wujun的xml转换为平台显示的时间自动机xml
 								// String
 								// filename1="uppaalTest1.uppaal.violet.xml";
 								// GraphFile

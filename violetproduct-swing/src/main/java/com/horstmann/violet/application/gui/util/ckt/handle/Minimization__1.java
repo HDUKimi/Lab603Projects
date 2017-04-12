@@ -1,5 +1,6 @@
 package com.horstmann.violet.application.gui.util.ckt.handle;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class Minimization__1 {
@@ -152,13 +153,28 @@ public class Minimization__1 {
 					}
 					System.out.println("*******************************");
 				}*/
-				for(int i=0;i<stable.size();i++){//稳定集中删除x的前驱集合（稳定集一定包含前驱状态）
-					for(int j=0;j<pres.size();j++){
-						if(stable.get(i).getName().equals(pres.get(j).getName())){
-							stable.remove(i);
+				
+//				for(int i=0;i<stable.size();i++){//稳定集中删除x的前驱集合（稳定集一定包含前驱状态）
+//					for(int j=0;j<pres.size();j++){
+//						if(stable.get(i).getName().equals(pres.get(j).getName())){
+//							stable.remove(i);
+//						}
+//					}
+//				}
+				
+				Iterator<State> stableiterator=stable.iterator();
+				while (stableiterator.hasNext()) {
+					State stablestate = (State) stableiterator.next();
+					Iterator<State> presiterator=pres.iterator();
+					while (presiterator.hasNext()) {
+						State presstate = (State) presiterator.next();
+						if(stablestate.getName().equals(presstate.getName())){
+							stableiterator.remove();
 						}
 					}
 				}
+				System.out.println("123456789123456798987654321");
+				
 				for(int i=0;i<P.size();i++){//状态集中删除x
 					if(P.get(i).getName().equals(x.getName())){
 						P.remove(i);

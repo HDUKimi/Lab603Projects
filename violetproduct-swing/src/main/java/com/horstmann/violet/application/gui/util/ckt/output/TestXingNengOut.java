@@ -7,52 +7,38 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.horstmann.violet.application.gui.util.ckt.handle.ATDTR__1;
 import com.horstmann.violet.application.gui.util.ckt.handle.AddType;
 import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
 import com.horstmann.violet.application.gui.util.ckt.handle.GetAutomatic;
-import com.horstmann.violet.application.gui.util.ckt.handle.IPR__1;
 import com.horstmann.violet.application.gui.util.ckt.handle.State;
-import com.horstmann.violet.application.gui.util.ckt.handle.StateCoverage__1;
 import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
+import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML;
 import com.horstmann.violet.application.gui.util.wj.util.GeneratePath;
 
-public class TestOut {
+public class TestXingNengOut {
+	
+	public static int index=1;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		
 		File f=new File("D:\\test.txt");
 		Writer w=new FileWriter(f,false);
 		
-		String xml="D:\\xml\\UAVForXStream3.1.6.xml";//有时间约束
-//		String xml = "D:\\xml\\UAVForXStream3.8.2.0.xml";
-		//String xml="UAVForXStreamPerformTestV6.xml";
-//		String xml="D:\\xml\\UAVForXStream3.8.2.xml";
-//		String xml="D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\UseCase4-Sequence1-NormalForXStream.xml";
+		String xml = "D:\\xml\\UAVForXStreamGAODU.xml";//性能测试，测高度，从Excel中读取高度值
 		
-
-//		String xml="UAVForXStreamXuanTing.xml";
-//		String xml="";
-//		String xml="";
-//		String xml="";
-//		String xml="";
-//		
-//		String xml="";
-//		String xml="";
-//		String xml="";
+		Automatic auto=GetAutomatic.getAutomatic(xml);//获得原始的时间自动机
 		
-		Automatic a = GetAutomatic.getAutomatic(xml);
-//		a=AddType.addType(a);
+		Automatic type_auto=AddType.addType(auto);
 		
-		System.out.println(a.getClockSet().size());
+		System.out.println(type_auto.getClockSet().size());
 		
-		writeStr(w,a.getTransitionSet().size()+" - - "+a.getStateSet().size());
+		writeStr(w,type_auto.getTransitionSet().size()+" - - "+type_auto.getStateSet().size());
 		
-		for(Transition t:a.getTransitionSet()){
+		for(Transition t:type_auto.getTransitionSet()){
 			writeStr(w,t.toString());
 		}
 		
-		for(State s:a.getStateSet()){
+		for(State s:type_auto.getStateSet()){
 			writeStr(w,s.toString());
 		}
 		
@@ -60,15 +46,17 @@ public class TestOut {
 		writeStr(w,"1---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		
-		Automatic automatic=IPR__1.iPR(a);
+		Automatic a=GeneratePath.getPerformPathFromAutomatic(type_auto);//获得满足状态覆盖的抽象测试序列
+//		Automatic type_a=AddType.addType(a);
 		
-		writeStr(w,automatic.getTransitionSet().size()+" - - "+automatic.getStateSet().size());
+		writeStr(w,a.getTransitionSet().size()+" - - "+a.getStateSet().size());
 		
-		for(Transition t:automatic.getTransitionSet()){
-			writeStr(w,t.toString());
+		index=1;
+		for(Transition t:a.getTransitionSet()){
+			writeStr(w,(index++)+"  "+t.toString());
 		}
 		
-		for(State s:automatic.getStateSet()){
+		for(State s:a.getStateSet()){
 			writeStr(w,s.toString());
 		}
 		
@@ -76,95 +64,55 @@ public class TestOut {
 		writeStr(w,"2---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		
-		Automatic aTDRTAutomatic=ATDTR__1.aTDRT(automatic,a);
+		ArrayList<Automatic> listauto=new ArrayList<>();
+		listauto.add(a);
+		ArrayList<Automatic> collectLimit = forPlatform.collectLimit(listauto);
 		
-		writeStr(w,aTDRTAutomatic.getTransitionSet().size()+" - - "+aTDRTAutomatic.getStateSet().size());
+		writeStr(w,collectLimit.size()+"");
 		
-		for(Transition t:aTDRTAutomatic.getTransitionSet()){
-			writeStr(w,t.toString());
+		for(Automatic aut:collectLimit){
+			index=1;
+			writeStr(w,aut.getTransitionSet().size()+"");
+			for(Transition t:aut.getTransitionSet()){
+				writeStr(w,(index++)+"  "+t.toString1());
+			}
 		}
-		
-		for(State s:aTDRTAutomatic.getStateSet()){
-			writeStr(w,s.toString());
-		}
-		
-		List<State> statelists=aTDRTAutomatic.getStateSet();
-		ArrayList<State> newstatelists=new ArrayList<>();
-		int i=1;
-		for(State s:statelists){
-			s.setId(i++);
-			newstatelists.add(s);
-		}
-		aTDRTAutomatic.setStateSet(newstatelists);
 		
 		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		writeStr(w,"3---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		
-		//状态覆盖
-		Automatic DFStree=StateCoverage__1.DFSTree(aTDRTAutomatic);
+		Automatic perauto=PerformanceXML.getPerformResultFromAutomatic(a);
+//		List<List<String>> result=PerformanceXML.cases;
 		
-		writeStr(w,DFStree.getTransitionSet().size()+" - - "+DFStree.getStateSet().size());
+		writeStr(w,perauto.getTransitionSet().size()+"");
 		
-		for(Transition t:DFStree.getTransitionSet()){
-			writeStr(w,t.toString());
-		}
+		index=1;
 		
-		for(State s:DFStree.getStateSet()){
-			writeStr(w,s.toString());
+		for(Transition t:perauto.getTransitionSet()){
+			writeStr(w,(index++)+"  "+t.getResult().toString().substring(t.getResult().toString().indexOf("%"))+"");
 		}
 		
 		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		writeStr(w,"4---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		
-		
-		
-		ArrayList<Automatic> testCase=StateCoverage__1.testCase(DFStree);
-		
-		//路径覆盖
-//		ArrayList<Automatic> testCase=GeneratePath.getFormatPathFromAutomatic(a, 2000);
-		
-		writeStr(w,testCase.size()+"");
-		
-		for(Automatic auto:testCase){
-			writeStr(w,auto.getTransitionSet().size()+"");
-			for(Transition t:auto.getTransitionSet()){
-				writeStr(w,t.toString());
-			}
+		List<List<String>> listcases=new ArrayList<>();
+		for(Transition t:perauto.getTransitionSet()){
+			listcases.add(t.getResult());
 		}
+		
+		writeStr(w,listcases.size()+"");
+		
+		String path="E:\\XML\\UAVForXStreamGAODU+border+path+perform.xml";
+		
+		PerformanceXML.produceXML(listcases, path);
 		
 		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		writeStr(w,"5---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		
-		ArrayList<Automatic> collectLimit = forPlatform.collectLimit(testCase);
 		
-		writeStr(w,collectLimit.size()+"");
-		
-		for(Automatic auto:collectLimit){
-			writeStr(w,auto.getTransitionSet().size()+"");
-			for(Transition t:auto.getTransitionSet()){
-				writeStr(w,t.toString1());
-			}
-		}
-		
-		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		writeStr(w,"6---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		
-		ArrayList<Automatic> collectResult = forPlatform.collectResult(collectLimit);
-		
-		writeStr(w,collectResult.size()+"");
-		
-		for(Automatic auto:collectResult){
-			writeStr(w,auto.getTransitionSet().size()+"");
-			for(Transition t:auto.getTransitionSet()){
-				writeStr(w,t.toString2());
-			}
-		}
-		
-//		package cn.edu.hdu.ckt.testcase.PerformanceXML;//xml
 		System.out.println("END");
 		w.flush();//刷新输出流，强制清空缓存区
 		w.close();

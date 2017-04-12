@@ -63,10 +63,12 @@ public class GeneratePath {
 		
 		System.out.println("共有" + paths.size() + "条路径");
 		
-		
+		int i=1;
 		ArrayList<Automatic> res = new ArrayList<>();
 		for(ArrayList<Transition> tranList : paths) {
-			res.add(GeneratePath.fromTranListToAuto(tranList));
+			Automatic auto=GeneratePath.fromTranListToAuto(tranList);
+			auto.setName("测试用例"+(i++));
+			res.add(auto);
 		}
 		
 		return res;

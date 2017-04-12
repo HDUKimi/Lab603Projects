@@ -297,11 +297,14 @@ public class TranMessageColorize {
 			else{
 				id = t.getId()+"<br>"+t.getName();
 			}
-			
+
 			for (IEdge edge : edges) {
 				String labelName = ((TransitionEdge) edge).getLabel();
-				if (id.equals(labelName)) {
+//				System.out.println(id+" - "+labelName+" - "+id.equals(labelName)+" - "+(index++)+" - "+(edge==null));
+//				if (id.equals(labelName)) {
+				if (labelName.contains(id)) {
 					if (edge != null && IEdgeColorable.class.isInstance(edge)) {
+						
 						IEdgeColorable colorableEdge = (IEdgeColorable) edge;
 						colorableEdge.setEdgeColor(Color.RED);
 						

@@ -134,6 +134,13 @@ public class TestCaseCoverPartPanel extends JPanel{
 //						System.out.print(t.getId()+" ");
 //					}
 					
+					System.out.println("---------------------------------");
+					for(Transition t:automatic.getTransitionSet()){
+						System.out.println(t.getId()+" + "+t.getName());
+					}
+					System.out.println("---------------------------------");
+
+					
 					TranMessageColorize tmc=new TranMessageColorize();
 					tmc.ColorizeDFSPath(automatic,mainFrame,workspace);
 					

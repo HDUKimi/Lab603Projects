@@ -50,9 +50,9 @@ public class ImportByDoubleClick {
     	 //看看文件夹里面有多少的文件
 		 File[] fList=file.listFiles();//D: ModelDriverProjectFile UPPAL 2.UML_Model_Transfer
 		 System.out.println("数目:"+fList.length);
-		 for(int i=0;i<fList.length;i++){
-			 System.out.println("名字："+fList[i].getName()+"ad");
-		 }
+//		 for(int i=0;i<fList.length;i++){
+//			 System.out.println("名字："+fList[i].getName()+"ad");
+//		 }
 		 for (int i = 0; i < fList.length; i++) {
 			
 			 String fname =fList[i].getName();

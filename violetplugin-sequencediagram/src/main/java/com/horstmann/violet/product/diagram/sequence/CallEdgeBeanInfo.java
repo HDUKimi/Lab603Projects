@@ -34,11 +34,25 @@ public class CallEdgeBeanInfo extends SimpleBeanInfo
     {
         try
         {
-            return new PropertyDescriptor[]
-            {
-                    new PropertyDescriptor("middleLabel", CallEdge.class),
-                    new PropertyDescriptor("signal", CallEdge.class)
-            };
+            
+        	PropertyDescriptor name = new PropertyDescriptor("name", CallEdge.class);
+        	PropertyDescriptor input = new PropertyDescriptor("input", CallEdge.class);
+        	PropertyDescriptor parameter = new PropertyDescriptor("parameter", CallEdge.class);
+        	PropertyDescriptor output = new PropertyDescriptor("output", CallEdge.class);
+        	PropertyDescriptor timing = new PropertyDescriptor("timing", CallEdge.class);
+        	PropertyDescriptor timereset = new PropertyDescriptor("timereset", CallEdge.class);
+        	PropertyDescriptor signal = new PropertyDescriptor("signal", CallEdge.class);
+        	return new PropertyDescriptor[]
+    	            {
+    	            	name,
+    	            	input,
+    	            	parameter,
+    	            	output,
+    	            	timing,
+    	            	timereset,
+    	            	signal,
+    	            };
+            
         }
         catch (IntrospectionException exception)
         {

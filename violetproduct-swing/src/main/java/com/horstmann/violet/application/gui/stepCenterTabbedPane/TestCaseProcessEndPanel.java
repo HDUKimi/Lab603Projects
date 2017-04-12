@@ -44,6 +44,7 @@ import org.jfree.ui.RectangleEdge;
 
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.ChartUtils;
 
 public class TestCaseProcessEndPanel extends JPanel{
 	
@@ -324,6 +325,7 @@ public class TestCaseProcessEndPanel extends JPanel{
 			defaultcategorydataset.addValue(time, "", step);
 		}
 		
+		ChartUtils.setChartTheme();
 		
 		JFreeChart chart = ChartFactory.createLineChart("各步骤耗时折线图", null, "耗时 (ms)", defaultcategorydataset, PlotOrientation.VERTICAL, false, true, false);
         chart.setBackgroundPaint(Color.white);

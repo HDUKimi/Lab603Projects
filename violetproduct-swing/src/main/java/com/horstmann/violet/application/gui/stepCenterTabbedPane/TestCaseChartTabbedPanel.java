@@ -15,6 +15,7 @@ import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -39,8 +40,13 @@ public class TestCaseChartTabbedPanel extends JPanel{
 	private MoviePanel moviepanel;
 	private JPanel reportpanel;
 	
-	private JPanel toolbuttonpanel1;
-	private JButton toolbutton1;
+//	private JPanel toolbuttonpanel1;
+//	private JButton toolbutton1;
+	
+	private JCheckBox checkbox1;
+	private JCheckBox checkbox2;
+	private JCheckBox checkbox3;
+	private JCheckBox checkbox4;
 	
 	private JScrollPane reportscrollpanel;
 	private JPanel reportresultpanel;
@@ -56,6 +62,13 @@ public class TestCaseChartTabbedPanel extends JPanel{
 	private ChartPanel barchartpanel;
 	private ChartPanel linechartpanel;
 	private ChartPanel piechartpanel;
+	
+	private JPanel leftemptypanel1;
+	private JPanel leftemptypanel2;
+	private JPanel leftemptypanel3;
+	private JPanel rightemptypanel1;
+	private JPanel rightemptypanel2;
+	private JPanel rightemptypanel3;
 	
 	private JPanel emptypanel;
 
@@ -89,30 +102,116 @@ public class TestCaseChartTabbedPanel extends JPanel{
 	private void initToolPanel() {
 		// TODO Auto-generated method stub
 		
-		toolbuttonpanel1 = new JPanel();
-		toolbutton1 = new JButton();
+//		toolbuttonpanel1 = new JPanel();
+//		toolbutton1 = new JButton();
+//		
+//		String absolutePath=System.getProperty("user.dir");
+//		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
+//
+//		ImageIcon icon1 = new ImageIcon(path + "start.png");
+//		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+//		
+//		toolbutton1.setIcon(icon1);
+//		toolbutton1.setFocusable(false);
+//		toolbutton1.setContentAreaFilled(false);
+//		toolbutton1.setBorderPainted(false);
+//		toolbutton1.addMouseListener(new ButtonMouseListener());
+//		toolbutton1.setPreferredSize(new Dimension(21,21));
+//		
+//		toolbuttonpanel1.setLayout(new GridLayout());
+//		toolbuttonpanel1.setBackground(new Color(207, 214, 229));
+//		toolbuttonpanel1.add(toolbutton1);
 		
-		String absolutePath=System.getProperty("user.dir");
-		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
-
-		ImageIcon icon1 = new ImageIcon(path + "start.png");
-		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+		checkbox1=new JCheckBox();
+		checkbox2=new JCheckBox();
+		checkbox3=new JCheckBox();
+		checkbox4=new JCheckBox();
 		
-		toolbutton1.setIcon(icon1);
-		toolbutton1.setFocusable(false);
-		toolbutton1.setContentAreaFilled(false);
-		toolbutton1.setBorderPainted(false);
-		toolbutton1.addMouseListener(new ButtonMouseListener());
-		toolbutton1.setPreferredSize(new Dimension(21,21));
+		checkbox1.setText("±í¸ñ");
+		checkbox1.setOpaque(false);
+		checkbox1.setSelected(true);
+		checkbox1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(checkbox1.isSelected()){
+					tablepanel.setVisible(true);
+					ChangeRepaint();
+				}
+				else{
+					tablepanel.setVisible(false);
+					ChangeRepaint();
+				}
+			}
+		});
 		
-		toolbuttonpanel1.setLayout(new GridLayout());
-		toolbuttonpanel1.setBackground(new Color(207, 214, 229));
-		toolbuttonpanel1.add(toolbutton1);
+		checkbox2.setText("Öù×´Í¼");
+		checkbox2.setOpaque(false);
+		checkbox2.setSelected(true);
+		checkbox2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(checkbox2.isSelected()){
+					barchartpanel.setVisible(true);
+					ChangeRepaint();
+				}
+				else{
+					barchartpanel.setVisible(false);
+					ChangeRepaint();
+				}
+			}
+		});
+		
+		checkbox3.setText("ÕÛÏßÍ¼");
+		checkbox3.setOpaque(false);
+		checkbox3.setSelected(true);
+		checkbox3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(checkbox3.isSelected()){
+					linechartpanel.setVisible(true);
+					ChangeRepaint();
+				}
+				else{
+					linechartpanel.setVisible(false);
+					ChangeRepaint();
+				}
+			}
+		});
+		
+		checkbox4.setText("±ý×´Í¼");
+		checkbox4.setOpaque(false);
+		checkbox4.setSelected(true);
+		checkbox4.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(checkbox4.isSelected()){
+					piechartpanel.setVisible(true);
+					ChangeRepaint();
+				}
+				else{
+					piechartpanel.setVisible(false);
+					ChangeRepaint();
+				}
+			}
+		});
 		
 		toolpanel.setBackground(new Color(207, 214, 229));
 		toolpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5,3));
 		
-		toolpanel.add(toolbuttonpanel1);
+//		toolpanel.add(toolbuttonpanel1);
+		
+		toolpanel.add(checkbox1);
+		toolpanel.add(checkbox2);
+		toolpanel.add(checkbox3);
+		toolpanel.add(checkbox4);
 		
 		toolpanel.setPreferredSize(new Dimension(100, 29));
 		toolpanel.setMaximumSize(new Dimension(100, 29));
@@ -190,7 +289,7 @@ public class TestCaseChartTabbedPanel extends JPanel{
 		attributetable.setShowHorizontalLines(true);
 		attributetable.setShowVerticalLines(false);
 		attributetable.setFillsViewportHeight(true);
-		attributetable.setRowHeight(27);
+		attributetable.setRowHeight(22);
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
@@ -264,6 +363,22 @@ public class TestCaseChartTabbedPanel extends JPanel{
 //		linechartpanel=linechart.getChartpanel();
 //		piechartpanel=piechart.getChartpanel();
 		
+		leftemptypanel1=new JPanel();
+		leftemptypanel2=new JPanel();
+		leftemptypanel3=new JPanel();
+		
+		rightemptypanel1=new JPanel();
+		rightemptypanel2=new JPanel();
+		rightemptypanel3=new JPanel();
+		
+		leftemptypanel1.setOpaque(false);
+		leftemptypanel2.setOpaque(false);
+		leftemptypanel3.setOpaque(false);
+		
+		rightemptypanel1.setOpaque(false);
+		rightemptypanel2.setOpaque(false);
+		rightemptypanel3.setOpaque(false);
+		
 		barchartpanel=new BarChart().createChart();
 		linechartpanel=new LineChart().createChart();
 		piechartpanel=new PieChart().createChart();
@@ -283,12 +398,34 @@ public class TestCaseChartTabbedPanel extends JPanel{
 		chartpanel.add(barchartpanel);
 		chartpanel.add(linechartpanel);
 		chartpanel.add(piechartpanel);
-		layout.setConstraints(barchartpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(linechartpanel, new GBC(1, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(piechartpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+		chartpanel.add(leftemptypanel1);
+		chartpanel.add(leftemptypanel2);
+		chartpanel.add(leftemptypanel3);
+		chartpanel.add(rightemptypanel1);
+		chartpanel.add(rightemptypanel2);
+		chartpanel.add(rightemptypanel3);
+		
+		layout.setConstraints(barchartpanel, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.6, 1));
+		layout.setConstraints(linechartpanel, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.6, 1));
+		layout.setConstraints(piechartpanel, new GBC(1, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.6, 1));
+		
+		layout.setConstraints(leftemptypanel1, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.2, 1));
+		layout.setConstraints(leftemptypanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.2, 1));
+		layout.setConstraints(leftemptypanel3, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.2, 1));
+		layout.setConstraints(rightemptypanel1, new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.2, 1));
+		layout.setConstraints(rightemptypanel2, new GBC(2, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.2, 1));
+		layout.setConstraints(rightemptypanel3, new GBC(2, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.2, 1));
 		
 		chartpanel.setBackground(new Color(255, 255, 255));
 		
+	}
+	
+	public void ChangeRepaint() {
+		// TODO Auto-generated method stub
+		this.setVisible(false);
+		this.getRootPane().repaint();
+		this.setVisible(true);
 	}
 	
 }

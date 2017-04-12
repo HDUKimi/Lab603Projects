@@ -29,6 +29,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import com.horstmann.violet.product.diagram.abstracts.IEdgeColorable;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 /**
  * A class that assumes that an edge can yield its shape and then takes advantage of the fact that containment testing can be done

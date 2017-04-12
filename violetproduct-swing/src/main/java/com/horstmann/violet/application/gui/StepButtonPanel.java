@@ -796,11 +796,11 @@ public class StepButtonPanel extends JPanel {
 									SD2UppaalMain.transEA(path,mainFrame);//主要是将ea的xml转换成我们的wujun的xml(里面有他的路径)
 									//以下d盘中写的文件是死的路径，但是上面是动态生成的需要修改
 									LayoutUppaal.layout("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\UseCase1-Sequence1-Normal.xml");//("sequence.xml");
-								    String filename1=TransToVioletUppaal.TransToViolet();
+//								    String filename1=TransToVioletUppaal.TransToViolet();
 									//String filename1="uppaalTest1.uppaal.violet.xml";
-								    GraphFile fGraphFile1=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename1);
-				    			    IWorkspace workspace1=new Workspace(fGraphFile1);  
-				    			    mainFrame.addTabbedPane(workspace1,2);
+//								    GraphFile fGraphFile1=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename1);
+//				    			    IWorkspace workspace1=new Workspace(fGraphFile1);  
+//				    			    mainFrame.addTabbedPane(workspace1,2);
 				    			    mainFrame.repaint();
 				    			    Thread.sleep(5000);
 				    				//String filename2=TransToVioletUppaal.TransToViolet();

@@ -14,6 +14,8 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
+import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.XMLUtils;
+
 public class TransEAToViolet { 
 	SAXReader reader = new SAXReader();
 	List<LifeLineNodeInfo> LifeLines=new ArrayList<LifeLineNodeInfo>();
@@ -27,6 +29,12 @@ public class TransEAToViolet {
 	List<String> ReturnEdgesId=new ArrayList<String>();
 	List<String> sequence = new ArrayList<String>();
 	List<CallEdgeInfo> selfCallEdgesID = new ArrayList<CallEdgeInfo>();  //存储所有的自回环
+	
+//	public TransEAToViolet(String url,String filename)
+//	{
+//		String aimPath="C:/Users/ccc/Desktop/ModelDriverProjectFile/SequenceDiagram/EAXML";
+//		XMLUtils.AutoSave(url, aimPath, filename);
+//	}
     public void ReadEATimingGraph(String url) throws Exception
     {
     	File sequenceFile = new File(url);
@@ -42,10 +50,6 @@ public class TransEAToViolet {
         List<Element> messageElements=ownedBehavior.elements("message");
         for(Element messageElement : messageElements)
         {
-//        	Element argument = messageElement.element("argument");
-//        	String parameter = argument.attributeValue("name");
-//        	Element defaultValue = argument.element("defaultValue");
-//        	String input = defaultValue.attributeValue("value");
         	String parameter = null;
             if(messageElement.element("argument") != null)
             {

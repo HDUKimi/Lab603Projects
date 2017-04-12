@@ -1,5 +1,7 @@
 package com.horstmann.violet.application.gui.util.ckt.testcase;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -643,22 +645,27 @@ public class Result1 {
 					String[] in = inn.split("#")[0].split(",");							
 					for(String s1:in){								
 						if(s1.contains("takeoff_alt_cm")){
-							//高度,10组解
-							high = Result1.PerformanceResult(s1,1000);
+							//高度,1000组解
+							//high = Result1.PerformanceResult(s1,1000);
+							high = Result1.In_Result(s1, 10);
 							if((high.size()>0)&&!(high.get(0).equals(null))){
 								in_result.add(high);
 							}
+							
+							
 						}else{									
 							if(s1.contains("_sitl.wind_speed")){
 								//风速，10组解
-								speed = Result1.PerformanceResult(s1,20);
+								//speed = Result1.PerformanceResult(s1,20);
+								speed = Result1.In_Result(s1, 10);
 								if((speed.size()>0)&&!(speed.get(0).equals(null))){
 									in_result.add(speed);
 								}
 							}else{
 								if(s1.contains("_sitl.wind_direction")){
 									//风向，10组解
-									direction = Result1.PerformanceResult(s1,60);
+									//direction = Result1.PerformanceResult(s1,60);
+									direction = Result1.In_Result(s1, 10);
 									if((direction.size()>0)&&!(direction.get(0).equals(null))){
 										in_result.add(direction);
 									}
@@ -962,6 +969,264 @@ public class Result1 {
 			return null;
 		}else  return result;
 	}
+	
+	/**
+	 * 性能测试，不使用软件，通过给出特定的递增数值进行赋值求解
+	 * @param s
+	 * @return
+	 */
+	public static List<String> In_Result(String domain,int n){
+		List<String> result = new ArrayList<String>();
+		String cs = null;
+		if (domain.contains("<=")){
+			String[] strs = domain.split("<=");				
+			System.out.println("需处理（有<=）："+domain);
+			if (strs.length == 3) {	
+				//System.out.println("例如1<=x<=7");//
+				cs = strs[1];	
+				result.add(cs+"="+strs[0]);
+				int y = Integer.parseInt(strs[0]);
+				for(;y+n<=Integer.parseInt(strs[2]);){//以n为递增数字，求出解
+					y = y+n;
+					result.add(cs+"="+y);				
+				}				
+			} else{ 
+				if (strs[0].contains("<")||strs[1].contains("<")) {
+					//System.out.println("     例如1<x<=7或1<=x<7");//
+					if (strs[1].contains("<")) {  //1<=x<7
+						//System.out.println("     例如1<=x<7");//
+						cs = strs[1].split("<")[0];
+						result.add(cs+"="+strs[0]);
+						int y = Integer.parseInt(strs[0]);
+						for(;y+n<Integer.parseInt(strs[1].split("<")[1]);){//以n为递增数字，求出解
+							y = y+n;
+							result.add(cs+"="+y);				
+						}	
+					} else {
+						if (strs[0].contains("<")) {
+							//System.out.println("     例如1<x<=7");//
+							cs = strs[0].split("<")[1];
+							int y = Integer.parseInt(strs[0].split("<")[0])+1;//为了达到边界测试，把边界+1
+							result.add(cs+"="+y);
+							for(;y+n<=Integer.parseInt(strs[1]);){ //除边界还需要求出解的个数
+								y = y+n;
+								result.add(cs+"="+y);				
+							}
+						}						
+					}
+				} else {
+					//System.out.println("     例如1<=x或x<=7");//
+					int s1=domain.substring(0,1).toCharArray()[0];
+					if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
+						//System.out.println("     例如x<=7");//
+						cs = strs[0];
+						result.add(cs+"="+0);
+						int y = 0;
+						for(;y+n<=Integer.parseInt(strs[1]);){ //除边界还需要求出解的个数
+							y = y+n;
+							result.add(cs+"="+y);				
+						}
+					}else{
+						//System.out.println("     例如1<=x");//
+						cs = strs[1];
+						result.add(cs+"="+strs[0]);
+						int y = Integer.parseInt(strs[0]);
+						for(;y+n<=5000;){ //1到5000以递增数n往上叠加
+							y = y+n;
+							result.add(cs+"="+y);				
+						}
+					}					
+				}
+			}
+		}else{			 
+			if (domain.contains(">=")) {
+				System.out.println("需处理（有>=）："+domain);
+				String[] strs = domain.split(">=");
+				if (strs.length == 3) {	
+					//System.out.println("例如7>=x>=1");//		
+					cs = strs[1];
+					int y = Integer.parseInt(strs[2]);
+					result.add(cs+"="+y);
+					for(;y+n<=Integer.parseInt(strs[0]);){//除边界还需要求出解的个数
+						y = y+n;
+						result.add(cs+"="+y);				
+					}	
+				} else{ 
+					if (strs[0].contains(">")||strs[1].contains(">")) {
+						//System.out.println("     例如7>=x>1或7>x>=1");//
+						if (strs[1].contains(">")) {  //1<=x<7
+							//System.out.println("     例如7>=x>1");//
+							cs = strs[1].split(">")[0];
+							int y = Integer.parseInt(strs[1].split(">")[1])+1;
+							result.add(cs+"="+y);
+							for(;y+n<=Integer.parseInt(strs[0]);){ //除边界还需要求出解的个数
+								y = y+n;
+								result.add(cs+"="+y);				
+							}
+						} else {
+							if (strs[0].contains(">")) {
+								//System.out.println("     例如7>x>=1");//
+								cs = strs[0].split(">")[1];
+								result.add(cs+"="+strs[1]);
+								int y = Integer.parseInt(strs[1]);
+								for(;y+n<Integer.parseInt(strs[0].split(">")[0]);){ //除边界还需要求出解的个数
+									y = y+n;
+									result.add(cs+"="+y);				
+								}									
+							}						
+						}
+					}else{
+						//System.out.println("     例如x>=1或7>=x");//
+						int s1=domain.substring(0,1).toCharArray()[0];
+						if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
+							//System.out.println("     例如x>=1");//
+							cs = domain.split(">=")[0];
+							result.add(cs+"="+domain.split(">=")[1]);
+							int y = Integer.parseInt(domain.split(">=")[1]);
+							for(;y+n<=5000;){ //除边界还需要求出解的个数
+								y = y+n;
+								result.add(cs+"="+y);				
+							}	
+						}else{
+							//System.out.println("     例如7>=x");//						
+							cs = domain.split(">=")[1];								
+							result.add(cs+"="+0);
+							int y = 0;
+							for(;y+n<=Integer.parseInt(domain.split(">=")[0]);){ //除边界还需要求出解的个数
+								y = y+n;
+								result.add(cs+"="+y);				
+							}	
+						}	
+					}
+				}		
+			} else{ 					
+				if (domain.contains("<")) { //不包含<=也不包含>=
+					System.out.println("需处理（有<）："+domain);
+					String[] strs = domain.split("<");
+					//System.out.println("     例如1<x<7或x<7或1<x");//
+					if (strs.length == 3) {
+						//System.out.println("     例如1<x<7");//
+						cs = strs[1];
+						int y = Integer.parseInt(strs[0])+1;
+						result.add(cs+"="+y);
+						for(;y+n<Integer.parseInt(strs[2]);){ //除边界还需要求出解的个数
+							y=y+n;
+							result.add(cs+"="+y);				
+						}	
+					} else {
+						int s1=domain.substring(0,1).toCharArray()[0];
+						if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
+							//System.out.println("     例如x<7");//
+							cs = strs[0];
+							int y = 0;
+							result.add(cs+"="+y);
+							for(;y+n<Integer.parseInt(strs[1]);){ //除边界还需要求出解的个数
+								y=y+n;
+								result.add(cs+"="+y);				
+							}	
+						}else{
+							//System.out.println("     例如1<x");//					
+							cs = strs[1]; 
+							int y = Integer.parseInt(strs[0])+1;
+							result.add(cs+"="+y);
+							for(;y+n<=5000;){ //除边界还需要求出解的个数
+								y = y+n;
+								result.add(cs+"="+y);				
+							}	
+						}					
+					}
+				} else{ 
+					if (domain.contains(">")) { //不包含<=也不包含>=也不包含<
+						System.out.println("需处理（有>）："+domain);
+						//System.out.println("     例如7>x>1或x>1或7>x");//
+						String[] strs = domain.split(">");
+						if (strs.length == 3) {
+							//System.out.println("     例如7>x>1");//
+							cs = strs[1];
+							int y = Integer.parseInt(strs[2])+1;
+							result.add(cs+"="+y);
+							for(;y+n<Integer.parseInt(strs[0]);){ //除边界还需要求出解的个数
+								y = y+n;
+								result.add(cs+"="+y);				
+							}	
+						} else {
+							int s1=domain.substring(0,1).toCharArray()[0];
+							if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
+								//System.out.println("     例如x>1");//								
+								cs = strs[0]; 
+								int y = Integer.parseInt(strs[1])+1;
+								result.add(cs+"="+y);
+								for(;y+n<=5000;){ //除边界还需要求出解的个数
+									y = y+n;
+									result.add(cs+"="+y);				
+								}	
+							}else{
+								//System.out.println("     例如7>x");//								
+								cs = strs[1];  
+								int y = 0;
+								result.add(cs+"="+y);						
+								for(;y+n<Integer.parseInt(strs[0]);){ //除边界还需要求出解的个数
+									y=y+n;
+									result.add(cs+"="+y);				
+								}	
+							}
+						}
+					}
+				}
+			}		
+		}
+		if(result.equals(null)){
+			return null;
+		}else  return result;
+	}
+	
+//	/**
+//	 * 利用poi方法来解析excel文件
+//	 * @param s
+//	 * @return
+//	 */
+//	public static List<String> PoiReadExcel(File file){
+//		List<String> string = new ArrayList<String>();
+//		//需要解析的excel文件
+//				//File file = new File("C:\\Users\\Administrator\\Desktop\\v41.xls");		
+//				try {
+//					//创建Excel，读取文件内容
+//					HSSFWorkbook workbook = new HSSFWorkbook(FileUtils.openInputStream(file));
+//					//获取第一个工作表workbook.getSheet("Sheet1");
+////					HSSFSheet sheet = workbook.getSheet("Sheet1");
+//					//读取默认第一个工作表sheet
+//					HSSFSheet sheet = workbook.getSheetAt(0);
+//					int firstRowNum = 0;
+//					//获取sheet中最后一行行号
+//					int lastRowNum = sheet.getLastRowNum();
+//					for (int i = 1; i < lastRowNum; i++) {
+//						HSSFRow row = sheet.getRow(i);
+//						//获取当前行最后单元格列号
+//						int laseCellNum = row.getLastCellNum();
+//						/*for (int j = 0; j < 2; j++) {
+//							HSSFCell cell = row.getCell(j);
+//							//String value = cell.getStringCellValue();
+//							int value1 = (int) cell.getNumericCellValue();
+//							System.out.print(value1 + "    ");
+//						}*/
+//						HSSFCell cell = row.getCell(1);
+//						//String value = cell.getStringCellValue();
+//						//int value1 = (int) cell.getNumericCellValue();
+//						String value1 = (int) cell.getNumericCellValue() + "";
+//						System.out.print(value1 + "    ");
+//						string.add(value1);
+//						System.out.println();
+//					}	
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//				return string;
+//	}
+
+	
+	
+	
+	
 	
 	
 	public static String s="";

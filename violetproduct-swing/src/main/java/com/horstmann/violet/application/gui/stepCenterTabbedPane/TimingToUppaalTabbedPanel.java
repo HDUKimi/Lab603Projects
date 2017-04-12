@@ -43,6 +43,7 @@ import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.StepTwoCenterTabbedPane;
 import com.horstmann.violet.application.gui.util.tanchao.ShowOnTableAndConsole;
+import com.horstmann.violet.application.gui.util.tanchao.XMLCopy;
 import com.horstmann.violet.application.gui.util.wujun.SequenceTransfrom.SD2UppaalMain;
 import com.horstmann.violet.application.gui.util.wujun.TimingTransfrom.TimingEAtoUppaal;
 import com.horstmann.violet.application.gui.util.xiaole.GraghLayout.LayoutUppaal;
@@ -335,9 +336,11 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 //								LayoutUppaal.layout(
 //										"D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\UseCase1-Sequence1-Normal.xml");// ("sequence.xml");
 								
+								XMLCopy.SourceCopyToTarget(SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
+								
 								LayoutUppaal.layout(TimingEAtoUppaal.getDiagramDataName()+".xml");
 								
-								filename1 = TransToVioletUppaal.TransToViolet();
+								filename1 = TransToVioletUppaal.TransToViolet(filename);
 								// String
 								// filename1="uppaalTest1.uppaal.violet.xml";
 								// GraphFile

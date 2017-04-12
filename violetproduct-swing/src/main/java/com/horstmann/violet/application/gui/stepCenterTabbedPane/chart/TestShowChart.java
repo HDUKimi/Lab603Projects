@@ -53,7 +53,7 @@ public class TestShowChart {
 		piechartpanel=new PieChart().createChart();
 		
 		
-		jp.setLayout(new GridLayout(2, 2));
+		jp.setLayout(new GridLayout(3, 1));
 		
 		jp.add(barchartpanel);
 		jp.add(linechartpanel);

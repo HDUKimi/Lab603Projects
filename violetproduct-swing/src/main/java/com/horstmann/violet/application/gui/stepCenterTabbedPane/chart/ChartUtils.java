@@ -249,7 +249,9 @@ public class ChartUtils {
 		plot.setInsets(new RectangleInsets(10, 10, 0, 10), false);
 		LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
 
-		renderer.setStroke(new BasicStroke(1.5F));
+//		renderer.setStroke(new BasicStroke(1.5F));
+		renderer.setStroke(new BasicStroke(3F));
+		renderer.setOutlineStroke(new BasicStroke(5F));
 		if (isShowDataLabels) {
 			renderer.setBaseItemLabelsVisible(true);
 			renderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator(StandardCategoryItemLabelGenerator.DEFAULT_LABEL_FORMAT_STRING,
@@ -257,6 +259,8 @@ public class ChartUtils {
 			renderer.setBasePositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE1, TextAnchor.BOTTOM_CENTER));// weizhi
 		}
 		renderer.setBaseShapesVisible(isShapesVisible);// 数据点绘制形状
+//		renderer.setS
+		
 		setXAixs(plot);
 		setYAixs(plot);
 
@@ -460,7 +464,7 @@ public class ChartUtils {
 		plot.setNoDataMessage(NO_DATA_MSG);
 		plot.setInsets(new RectangleInsets(10, 10, 5, 10));
 		PiePlot piePlot = (PiePlot) plot;
-		piePlot.setInsets(new RectangleInsets(60, 0, 60, 0));
+		piePlot.setInsets(new RectangleInsets(45, 0, 45, 0));
 //		piePlot.setCircular(true);// 圆形
 		piePlot.setCircular(false);// 椭圆形
 		

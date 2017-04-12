@@ -150,6 +150,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	private ArrayList<Automatic> collectLimit;
 	private ArrayList<Automatic> collectResult;
 	
+	private Automatic PerAutomaticResult;
+	private List<List<String>> listcases=new ArrayList<>();
+	
 	private String clockstate="否";
 	private int automatictimestate=0;//0-不带时间约束，1-带时间约束
 	
@@ -384,6 +387,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		else if(selectCover.equals("路径覆盖")){
 			selectCoverState=1;
 		}
+		else if(selectCover.equals("性能测试")){
+			selectCoverState=2;
+		}
 		
 		System.out.println(selectUppaalPath+"  ----------  "+selectCoverState);
 		
@@ -392,6 +398,11 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		stepAllProcessList=new ArrayList<>();
 		timeAllProcessList=new ArrayList<>();
 		resultAllProcessList=new ArrayList<>();
+		
+		testCase=new ArrayList<>();
+		collectResult=new ArrayList<>();
+		
+		listcases=new ArrayList<>();
 		
 		
 		maincallable=new Callable<Integer>() {
@@ -410,6 +421,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 							if(step==1){
 								if(automatictimestate==0){//不带时间约束，直接进行第三步
 									step=2;
+								}
+								if(selectCoverState==2){//性能测试，直接进行第三步
+									step=2;
+									automatictimestate=0;
 								}
 							}
 							System.out.println(step);
@@ -467,19 +482,20 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				tablepanel.add(copyupitpanel.getInforpanel());
 				
 				//获取数据
-//				String xml="UAVForXStreamXuanTing.xml";
-//				String xml="D:\\xml\\UAVForXStream3.1.6.xml";
-				
+
 				a = GetAutomatic.getAutomatic(selectUppaalPath);
 				type_a=AddType.addType(a);
-				
-				if(a.getClockSet().get(0).equals("t")){
+
+//				if(a.getClockSet().get(0).equals("t")){
+//					automatictimestate=1;
+//					clockstate="是";
+//				}
+				if(a.getClockSet().size()!=0){
 					automatictimestate=1;
 					clockstate="是";
 				}
 				
-				Thread.sleep(1000);
-				
+//				Thread.sleep(1000);
 				mainFrame.getStepThreeCenterTabbedPane().getUppaalParseInforTabbedPanel().getGeneralinforlabel1().setText("时间自动机名字："+a.getName());
 				mainFrame.getStepThreeCenterTabbedPane().getUppaalParseInforTabbedPanel().getGeneralinforlabel2().setText("是否含有时间约束："+clockstate);
 				mainFrame.getStepThreeCenterTabbedPane().getUppaalParseInforTabbedPanel().getGeneralinforlabel3().setText("模型中总状态个数："+a.getStateSet().size());
@@ -504,7 +520,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				while(migrateinfortablemodel.getRowCount()>0){
 					migrateinfortablemodel.removeRow(migrateinfortablemodel.getRowCount()-1);
 				}
-				
+
 				for(State s:type_a.getStateSet()){
 //					Object[] rowData={"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
 					Object[] rowData={s.getId()+"",s.getName(),s.getPosition(),s.isFinalState()+"",s.getType()};
@@ -659,7 +675,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					if(automatictimestate==0){
 						System.out.println("123456////************");
 						//获取数据
-						DFStree=StateCoverage__1.DFSTree(a);
+						DFStree=StateCoverage__1.DFSTree(type_a);
 						
 						//Automate数据转换为xml
 						AutomateTransformXml(DFStree);
@@ -676,8 +692,13 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					
 					
 				}
-				else{//路径覆盖
-					AutomateTransformXml(a);
+				else if(selectCoverState==1){//路径覆盖
+					AutomateTransformXml(type_a);
+				}
+				else if(selectCoverState==2){//性能测试
+					DFStree=GeneratePath.getPerformPathFromAutomatic(type_a);
+					//Automate数据转换为xml
+					AutomateTransformXml(DFStree);
 				}
 				
 				
@@ -759,8 +780,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					//获取数据
 					testCase=StateCoverage__1.testCase(DFStree);
 				}
-				else{
-					testCase=GeneratePath.getFormatPathFromAutomatic(a, 200);
+				else if(selectCoverState==1){//路径覆盖
+					testCase=GeneratePath.getFormatPathFromAutomatic(type_a, 10);
+				}
+				else if(selectCoverState==2){//性能测试
+					DFStree.setName("测试用例1");
+					testCase.add(DFStree);
 				}
 				
 				Thread.sleep(1000);
@@ -783,10 +808,15 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行状态覆盖，生成测试序列");
 					mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("状态覆盖");
 				}
-				else{
+				else if(selectCoverState==1){//路径覆盖
 					moviepanel.getMovieLabel().setText("正在进行路径覆盖，生成测试序列");
 					mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行路径覆盖，生成测试序列");
 					mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("路径覆盖");
+				}
+				else if(selectCoverState==2){//性能测试
+					moviepanel.getMovieLabel().setText("正在进行性能测试，生成测试序列");
+					mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行性能测试，生成测试序列");
+					mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("性能测试");
 				}
 				
 				//测试序列
@@ -816,14 +846,14 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				int copyi=0;
 				
 				for(Automatic am:testCase){
-					
+
 					TestCaseCoverPartPanel tccppanel=new TestCaseCoverPartPanel(mainFrame,am,workspace);//传入测试序列。包括路径信息，以及workspace
 					resultpanel.add(tccppanel);
 					layout.setConstraints(tccppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 					
 					coverpartlist.add(tccppanel);
 					
-					TestCaseCoverPartPanel copytccppanel=new TestCaseCoverPartPanel(mainFrame,am,workspace);//传入测试序列。包括路径信息，以及workspace
+					TestCaseCoverPartPanel copytccppanel=new TestCaseCoverPartPanel(mainFrame,am,copyworkspace);//传入测试序列。包括路径信息，以及workspace
 					copyresultpanel.add(copytccppanel);
 					copylayout.setConstraints(copytccppanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 				}
@@ -866,13 +896,16 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						stepAllProcessList.add("第四步：路径覆盖");
 					}
 				}
-				else{
+				else if(selectCoverState==1){
 					if(automatictimestate==0){
 						stepAllProcessList.add("第三步：路径覆盖");
 					}
 					else{
 						stepAllProcessList.add("第四步：路径覆盖");
 					}
+				}
+				else if(selectCoverState==2){
+					stepAllProcessList.add("第三步：性能测试");
 				}
 				timeAllProcessList.add(time2-time1+"ms");
 				resultAllProcessList.add("生成"+testCase.size()+"条路径，得到"+testCase.size()+"条测试序列");
@@ -979,8 +1012,15 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				moviepanel.getMovieLabel().setText("正在进行实例化测试用例");
 				
-				//获取数据
-				collectResult = forPlatform.collectResult(collectLimit);
+				if(selectCoverState==2){//性能测试
+					PerAutomaticResult=PerformanceXML.getPerformResultFromAutomatic(DFStree);
+					collectResult.add(PerAutomaticResult);
+				}
+				else{
+					//获取数据
+					collectResult = forPlatform.collectResult(collectLimit);
+				}
+				System.out.println("1----------------"+collectResult.size()+"   "+PerAutomaticResult.getTransitionSet().size());
 				Thread.sleep(1000);
 				
 				TestCaseInstantiationTabbedPanel copytcitpanel=new TestCaseInstantiationTabbedPanel(mainFrame);
@@ -1093,7 +1133,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				}
 				timeAllProcessList.add(time2-time1+"ms");
 				resultAllProcessList.add("得到"+collectResult.size()+"条测试用例");
-				
+				System.out.println("-------------------213546879213");
 				return 1;
 			}
 		};
@@ -1110,37 +1150,19 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				moviepanel.getMovieLabel().setText("正在进行实例化测试用例");
 				
-				Document doc = DocumentHelper.createDocument();
-				Element TCS=doc.addElement("TCS");
+				String name=selectUppaal.substring(0, selectUppaal.indexOf("ForXStream"));
+				String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+name+"TestCase.xml";
 				
-				for(Automatic am:collectResult){
-					Element testcase = TCS.addElement("testcase");
-					for(Transition t:am.getTransitionSet()){
-						Element process = testcase.addElement("process");
-						Element operation = process.addElement("operation");
-						Element input = process.addElement("input");
-
-						operation.setText(t.getName());
-						input.setText(t.getResult().toString());
+				if(selectCoverState==2){//性能测试
+					for(Transition t:PerAutomaticResult.getTransitionSet()){
+						listcases.add(t.getResult());
 					}
+					PerformanceXML.produceXML(listcases, path);
 				}
-
-				try {
-					// 定义输出流的目的地
-					String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\test.xml";
-					FileWriter fw = new FileWriter(path);
-
-					// 定义输出格式和字符集
-					OutputFormat format = OutputFormat.createPrettyPrint();
-					format.setEncoding("UTF-8");
-
-					// 定义用于输出xml文件的XMLWriter对象
-					XMLWriter xmlWriter = new XMLWriter(fw, format);
-					xmlWriter.write(doc);// *****
-					xmlWriter.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+				else{
+					AtutomaticProduceXML(collectResult, path);
 				}
+				
 				
 				time2=System.currentTimeMillis();
 				
@@ -1151,7 +1173,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					stepAllProcessList.add("第七步：存储测试用例");
 				}
 				timeAllProcessList.add(time2-time1+"ms");
-				resultAllProcessList.add("生成test.xml，保存路径：D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\test.xml");
+				resultAllProcessList.add("生成"+name+"TestCase.xml，保存路径："+path);
 				
 				return 1;
 			}
@@ -1284,6 +1306,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			transitionNameToIdMap.put(t.getId()+"<br>"+t.getName(), t.getId()+"");
 		}
 		
+		System.out.println(stateIdToNameMap);
+		System.out.println(transitionIdToNameMap);
+		
 		System.out.println("--------------------***********************************-----------------------------");
 		System.out.println(abStateList.size()+"  -  -  "+abTransList.size());
 		
@@ -1298,6 +1323,40 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			e.printStackTrace();
 		}
 		
+	}
+	
+	private void AtutomaticProduceXML(List<Automatic> listauto, String path){
+		Document doc = DocumentHelper.createDocument();
+		Element TCS=doc.addElement("TCS");
+		
+		for(Automatic am:listauto){
+			Element testcase = TCS.addElement("testcase");
+			for(Transition t:am.getTransitionSet()){
+				Element process = testcase.addElement("process");
+				Element operation = process.addElement("operation");
+				Element input = process.addElement("input");
+
+				operation.setText(t.getName());
+				input.setText(t.getResult().toString());
+			}
+		}
+
+		try {
+			// 定义输出流的目的地
+			
+			FileWriter fw = new FileWriter(path);
+
+			// 定义输出格式和字符集
+			OutputFormat format = OutputFormat.createPrettyPrint();
+			format.setEncoding("UTF-8");
+
+			// 定义用于输出xml文件的XMLWriter对象
+			XMLWriter xmlWriter = new XMLWriter(fw, format);
+			xmlWriter.write(doc);// *****
+			xmlWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void initMoviePanel() {
