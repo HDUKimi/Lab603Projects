@@ -24,7 +24,9 @@ public class TestXingNengOut {
 		File f=new File("D:\\test.txt");
 		Writer w=new FileWriter(f,false);
 		
-		String xml = "D:\\xml\\UAVForXStreamGAODU.xml";//性能测试，测高度，从Excel中读取高度值
+//		String xml = "D:\\xml\\UAVForXStreamGAODU.xml";//性能测试，测高度，从Excel中读取高度值
+		
+		String xml="D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\EA性能测试-起飞高度V2ForXStream.xml";
 		
 		Automatic auto=GetAutomatic.getAutomatic(xml);//获得原始的时间自动机
 		
@@ -82,40 +84,61 @@ public class TestXingNengOut {
 		writeStr(w,"3---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		
-		Automatic perauto=PerformanceXML.getPerformResultFromAutomatic(a);
-//		List<List<String>> result=PerformanceXML.cases;
-		
-		writeStr(w,perauto.getTransitionSet().size()+"");
-		
-		index=1;
-		
-		for(Transition t:perauto.getTransitionSet()){
-			writeStr(w,(index++)+"  "+t.getResult().toString().substring(t.getResult().toString().indexOf("%"))+"");
-		}
-		
-		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		writeStr(w,"4---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		
-		List<List<String>> listcases=new ArrayList<>();
-		for(Transition t:perauto.getTransitionSet()){
-			listcases.add(t.getResult());
-		}
-		
-		writeStr(w,listcases.size()+"");
-		
-		String path="E:\\XML\\UAVForXStreamGAODU+border+path+perform.xml";
-		
-		PerformanceXML.produceXML(listcases, path);
-		
-		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		writeStr(w,"5---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+//		Automatic perauto=PerformanceXML.getPerformResultFromAutomatic(a);
+////		List<List<String>> result=PerformanceXML.cases;
+//		
+//		writeStr(w,perauto.getTransitionSet().size()+"");
+//		
+//		index=1;
+//		
+//		for(Transition t:perauto.getTransitionSet()){
+//			
+//			String name;
+//			name=t.getName();
+//			if(name.indexOf("(")>0){
+//				name=name.substring(0, name.indexOf("("));
+//			}
+//			
+//					
+//			String result=t.getResult().toString();
+//			result=result.replaceAll("\\[|]", "");
+//			result=result.replace("%null", "");
+//			result=result.replace(name, "");
+//			result=result.replace("%", "");
+//			if(result.equals("")){
+//				result=null;
+//			}
+//			
+//			
+//			writeStr(w,(index++)+"  "+result+" "+t.getResult().size()+" "+t.getName());
+//		}
+//		
+//		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+//		writeStr(w,"4---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+//		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+//		
+//		List<List<String>> listcases=new ArrayList<>();
+//		for(Transition t:perauto.getTransitionSet()){
+//			listcases.add(t.getResult());
+//		}
+//		
+//		writeStr(w,listcases.size()+"");
+//		
+//		String path="E:\\XML\\UAVForXStreamGAODU+border+path+perform.xml";
+//		
+//		PerformanceXML.produceXML(listcases, path);
+//		
+//		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+//		writeStr(w,"5---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+//		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		
 		
 		System.out.println("END");
 		w.flush();//刷新输出流，强制清空缓存区
 		w.close();
+		
+		String str="setup%null%null";
+		System.out.println(str.replace("null", ""));
 		
 	}
 	

@@ -1,5 +1,6 @@
 package com.horstmann.violet.application.gui.util.tanchao;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,7 +38,8 @@ public class XMLToTree {
         	//获得SAXReader对象
             SAXReader saxReader=new SAXReader();
             //获得domcument的对象
-            doc=saxReader.read(path);     
+            File file=new File(path);
+            doc=saxReader.read(file);     
             //获得根节点
             root = doc.getRootElement();//使用dom4j提供的API获得XML的根节点
             //创建Jtree数据模型的根节点

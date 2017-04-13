@@ -43,9 +43,9 @@ public class ShowOnTableAndConsole {
 	//Ê±ÐòÍ¼
 	public static void timShow(Map<String,String> m1){
 
-		sequencetouppaalmap = m1;
+		timingtouppaalmap = m1;
 
-		sequencetouppaalset=sequencetouppaalmap.keySet();
+		timingtouppaalset=timingtouppaalmap.keySet();
 		
 	}
 	//.....

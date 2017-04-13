@@ -14,3 +14,8 @@ target/
 *.xml
 *.xml
 violetproduct-swing/1.xml
+*.xml
+violetproduct-swing/arm_motors_check.xml
+*.xml
+violetproduct-swing/failsafe_battery_event.xml
+violetproduct-swing/read_radio.xml

@@ -335,9 +335,11 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 								
 								System.out.println("SD2UppaalMain.getDiagramDataName():+++++++++"+SD2UppaalMain.getDiagramDataName()+" - - "+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml");//前者文件为时间自动机需要，后者文件为测试用例生成需要
 								
-								XMLCopy.SourceCopyToTarget(SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
+//								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\"+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
+								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\UAVForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
 								
-								LayoutUppaal.layout(SD2UppaalMain.getDiagramDataName()+".xml");
+//								LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\"+SD2UppaalMain.getDiagramDataName()+".xml");
+								LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\UAV.xml");
 								
 								filename1 = TransToVioletUppaal.TransToViolet(filename);//wujun的xml转换为平台显示的时间自动机xml
 								// String

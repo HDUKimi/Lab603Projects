@@ -9,6 +9,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -23,12 +25,18 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.gui.ButtonMouseListener;
+import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 
 public class TestCaseInequalitySolveInforPanel extends JPanel{
 
+	private MainFrame mainFrame;
+	private Transition limittransition;
+	private Transition resulttransition;
+	
 	private String id;
-	private List<String> limit;
-	private List<String> result;
+	private List<String> limit=new ArrayList<>();
+	private String result;
 	
 	private JPanel titlepanel;
 	private JPanel linepanel;
@@ -44,13 +52,18 @@ public class TestCaseInequalitySolveInforPanel extends JPanel{
 	private JTable attributetable;
 	private DefaultTableModel attributetablemodel;
 	
-	public TestCaseInequalitySolveInforPanel(String id,List<String> limit, List<String> result){
+//	public TestCaseInequalitySolveInforPanel(String id,List<String> limit, List<String> result){
+	public TestCaseInequalitySolveInforPanel(MainFrame mainFrame, Transition limittransition, Transition resulttransition){
 		
-		this.id=id;
+//		this.id=id;
+//		
+//		this.limit=limit;
+//		
+//		this.result=result;
 		
-		this.limit=limit;
-		
-		this.result=result;
+		this.mainFrame=mainFrame;
+		this.limittransition=limittransition;
+		this.resulttransition=resulttransition;
 		
 		init();
 		
@@ -197,6 +210,24 @@ public class TestCaseInequalitySolveInforPanel extends JPanel{
 //			attributetablemodel.addRow(rowData2);
 //        }
         
+        limit=Arrays.asList(limittransition.getLimit().split(","));
+        result=resulttransition.getResult().toString();
+        
+        if(mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().getSelectCoverState()==2){//性能测试
+    		String name;
+			name=resulttransition.getName();
+			if(name.indexOf("(")>0){
+				name=name.substring(0, name.indexOf("("));
+			}
+			result=result.replaceAll("\\[|]", "");
+			result=result.replace("%null", "");
+			result=result.replace(name, "");
+			result=result.replace("%", "");
+//			if(result.equals("")){
+//				result=null;
+//			}
+    	}
+        
         Object[] rowData={"+-+不等式："};
     	attributetablemodel.addRow(rowData);
         for(String l:limit){
@@ -212,18 +243,16 @@ public class TestCaseInequalitySolveInforPanel extends JPanel{
         Object[] rowData2={"+-+求解："};
     	attributetablemodel.addRow(rowData2);
     	
-    	if(result.toString().replaceAll("\\[|]", "").equals("null")){
+    	if(result.equals("")){
     		Object[] rowData3={"null"};
         	attributetablemodel.addRow(rowData3);
     	}
     	else{
-			for (String r : result) {
-				String[] rs = r.split(",");
+				String[] rs = result.split(",");
 				for (int i = 0; i < rs.length; i++) {
 					Object[] rowData3 = { rs[i] };
 					attributetablemodel.addRow(rowData3);
 				}
-			}
     	}
     	
 //        for(String r:result){

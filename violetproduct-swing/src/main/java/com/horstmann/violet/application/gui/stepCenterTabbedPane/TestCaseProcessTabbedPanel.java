@@ -395,6 +395,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 		automatictimestate=0;
 		
+		a=null;
+		type_a=null;
+		
 		stepAllProcessList=new ArrayList<>();
 		timeAllProcessList=new ArrayList<>();
 		resultAllProcessList=new ArrayList<>();
@@ -448,7 +451,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						progressbar.setValue(progressbar.getValue()+1);
 						progressbarlabel.setText(progressbar.getValue()+"%");
 					}
-					if(step==6){
+					if(step==6&&!futuretasklist.get(step-1).isDone()){
 						Thread.sleep(1000);
 					}
 					else{
@@ -673,15 +676,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				if(selectCoverState==0){//状态覆盖
 					
 					if(automatictimestate==0){
-						System.out.println("123456////************");
 						//获取数据
 						DFStree=StateCoverage__1.DFSTree(type_a);
-						
 						//Automate数据转换为xml
 						AutomateTransformXml(DFStree);
 					}
 					else{
-						System.out.println("123456---------------");
 						//获取数据,带时间约束
 //						DFStree=StateCoverage__1.DFSTree(aTDRTAutomatic);
 						DFStree=StateCoverage__1.DFSTree(type_aTDRTAutomatic);
@@ -690,17 +690,18 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						AutomateTransformXml(DFStree);
 					}
 					
-					
 				}
 				else if(selectCoverState==1){//路径覆盖
 					AutomateTransformXml(type_a);
 				}
 				else if(selectCoverState==2){//性能测试
+					System.out.println("+++++++++++-------------------");
 					DFStree=GeneratePath.getPerformPathFromAutomatic(type_a);
+					System.out.println("//////////++++++++++++++++++++");
 					//Automate数据转换为xml
 					AutomateTransformXml(DFStree);
 				}
-				
+				System.out.println("/////////////////********************");
 				
 				GraphFile absfGraphFile=ImportByDoubleClick.importFileByDoubleClick("UPPAAL","abs.uppaal.violet.xml");
 				IWorkspace workspace=new Workspace(absfGraphFile);
@@ -1020,7 +1021,6 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					//获取数据
 					collectResult = forPlatform.collectResult(collectLimit);
 				}
-				System.out.println("1----------------"+collectResult.size()+"   "+PerAutomaticResult.getTransitionSet().size());
 				Thread.sleep(1000);
 				
 				TestCaseInstantiationTabbedPanel copytcitpanel=new TestCaseInstantiationTabbedPanel(mainFrame);
@@ -1105,7 +1105,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						List<String> slimit=Arrays.asList(alimit.getTransitionSet().get(k).getLimit().split(","));
 						List<String> sresult=aresult.getTransitionSet().get(k).getResult();
 						
-						TestCaseInequalitySolveInforPanel tcisipanel=new TestCaseInequalitySolveInforPanel(alimit.getTransitionSet().get(k).getId()+"",slimit,sresult);
+//						TestCaseInequalitySolveInforPanel tcisipanel=new TestCaseInequalitySolveInforPanel(alimit.getTransitionSet().get(k).getId()+"",slimit,sresult);
+						TestCaseInequalitySolveInforPanel tcisipanel=new TestCaseInequalitySolveInforPanel(mainFrame, alimit.getTransitionSet().get(k),aresult.getTransitionSet().get(k));
 						processpanel.add(tcisipanel);
 						layout2.setConstraints(tcisipanel, new GBC(0, k, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 						
@@ -1398,6 +1399,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 
 	public Map<String, String> getTransitionNameToIdMap() {
 		return transitionNameToIdMap;
+	}
+
+	public int getSelectCoverState() {
+		return selectCoverState;
 	}
 	
 	

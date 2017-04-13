@@ -171,21 +171,24 @@ public class EditorPart extends JPanel implements IEditorPart
         Dimension parentSize = getParent().getSize();
         Rectangle2D bounds = graph.getClipBounds();
         
-        if(graphstart==0){
-          int zx,zy,pw,ph;
-          zx=(int) (zoom * bounds.getMaxX());
-          zy=(int) (zoom * bounds.getMaxY());
-          pw=(int) parentSize.getWidth();
-          ph=(int) parentSize.getHeight();
-          
-          if(pw!=0&&ph!=0){
-          	while(zx>pw||zy>ph){
-              	changeZoom(-1);
-              	graphstart=0;
-              	zx=(int) (zoom * bounds.getMaxX());
-                zy=(int) (zoom * bounds.getMaxY());
-              }
-          }
+		if (graphstart == 0) {
+			int zx, zy, pw, ph;
+			zx = (int) (zoom * bounds.getMaxX());
+			zy = (int) (zoom * bounds.getMaxY());
+			pw = (int) parentSize.getWidth();
+			ph = (int) parentSize.getHeight();
+
+			if (pw != 0 && ph != 0) {
+				while (zx > pw || zy > ph) {
+//					if(ALL_STEP<-MAX_STEP){
+//						break;
+//					}
+					changeZoom(-1);
+					graphstart = 0;
+					zx = (int) (zoom * bounds.getMaxX());
+					zy = (int) (zoom * bounds.getMaxY());
+				}
+			}
         }
         
         int width = Math.max((int) (zoom * bounds.getMaxX()), (int) parentSize.getWidth());
@@ -201,6 +204,8 @@ public class EditorPart extends JPanel implements IEditorPart
      */
     public void changeZoom(int steps)
     {
+    	ALL_STEP+=steps;
+
     	graphstart=1;
         final double FACTOR = Math.sqrt(Math.sqrt(2));
         for (int i = 1; i <= steps; i++)
@@ -321,5 +326,8 @@ public class EditorPart extends JPanel implements IEditorPart
      private static final double GROW_SCALE_FACTOR = Math.sqrt(2);
 
     private IEditorPartBehaviorManager behaviorManager = new EditorPartBehaviorManager();
+    
+    private static final int MAX_STEP=5;
+    private int ALL_STEP=0;
 
 }

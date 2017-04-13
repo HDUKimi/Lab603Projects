@@ -1,5 +1,6 @@
 package com.horstmann.violet.application.gui.util.wujun.SequenceTransfrom;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -65,7 +66,8 @@ public class SD2UppaalMain {
 		
 //   ---读取EA导出的---	0	
 		SAXReader reader=new SAXReader();//获取解析器
-	    Document dom= reader.read(path);//解析XML获取代表整个文档的dom对象
+		File file = new File(path);
+	    Document dom= reader.read(file);//解析XML获取代表整个文档的dom对象
 	    Element root=dom.getRootElement();//获取根节点
 	    
 	    Read uml=new Read();
@@ -762,11 +764,11 @@ public class SD2UppaalMain {
 		    value1="";
 		    mapTable.put(k1, value1);
 		    
-		    Write.creatXML(diagramDaraI.name+".xml",templates,template_names);//给我
+		    Write.creatXML("D:\\ModelDriverProjectFile\\WJXML\\"+diagramDaraI.name+".xml",templates,template_names);//给我
 		    setDiagramDataName(diagramDaraI.name);
 		    System.out.println("diagramDaraI.name-----"+diagramDaraI.name);
 		    //给ckt
-		    WriteForXStream.creatXML(diagramDaraI.name+"ForXStream.xml", templates, template_names);
+		    WriteForXStream.creatXML("D:\\ModelDriverProjectFile\\WJXML\\"+diagramDaraI.name+"ForXStream.xml", templates, template_names);
 		    Display.println(".....写入完成!\n");
 		    //map
 		    
