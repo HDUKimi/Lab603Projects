@@ -46,6 +46,19 @@ public class Read
 		ArrayList<Element> EAfragmentList = new ArrayList();
 		ArrayList<Element> EAmessagesList = new ArrayList();
 		
+		umlLifeLines=new ArrayList<WJLifeline>();
+		umlMessages=new ArrayList<MessageClass>();
+		umlConnectors=new ArrayList<ConnectorsClass>();
+		umlMessageComplete=new ArrayList<MessageComplete>();
+		umlFragment=new ArrayList<WJFragment>();
+		umlFragmentInner=new ArrayList<WJFragment>();
+		umlMessageFinal=new ArrayList<WJMessage>();
+		umlAllDiagramData = new ArrayList<WJDiagramsData>();
+		umlREF = new ArrayList<REF>();
+		displayDiagrams = new ArrayList<WJDiagramsData>();//展示用的图
+		findAltsFather = new HashMap<String , String>();
+		markId = 0;//标记第几个ref 用于重复id冲突z
+		
 		//新建一个hashMap用来存储遍历组合片段时得到的lastMessage（对应于diagram）
 		HashMap<String, String> lastMessageIDByKeyWithDiagramID = new HashMap<String, String>();
 		//新建一个hashMap来存储sourceID&targetID -》messageID （优化查找时间）

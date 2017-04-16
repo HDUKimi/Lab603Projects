@@ -336,7 +336,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 //								LayoutUppaal.layout(
 //										"D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\UseCase1-Sequence1-Normal.xml");// ("sequence.xml");
 								
-								XMLCopy.SourceCopyToTarget(SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
+//								XMLCopy.SourceCopyToTarget(SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
 								
 								LayoutUppaal.layout(TimingEAtoUppaal.getDiagramDataName()+".xml");
 								

@@ -17,8 +17,11 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.Vector;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -71,6 +74,8 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 	private JLabel progressbarlabel;
 	
 	private JProgressBar progressbar;
+	private int progressbarindex;
+	private int smallprogressbarindex;
 	
 	private DefaultTableModel sequencetouppaaltablemodel;
 	private JTable sequencetouppaaltable;
@@ -83,6 +88,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 	private int successcount;
 	
 	private int sequencelistindex;
+	private int oldsequencelistindex;
 	private List<String> sequencelists = new ArrayList<String>();
 	
 //	private List<String> uppaallists = new ArrayList<String>();
@@ -92,6 +98,19 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 	private Set<String> sequencetouppaalset;
 	
 	private List<UppaalProcessModel> uppaalprocesslists=new ArrayList<UppaalProcessModel>();
+	
+	private Callable<Integer> maincallable;
+	private FutureTask<Integer> maintask;
+	private Thread mainthread;
+	
+	private Callable<Integer> trancallable;
+	private FutureTask<Integer> trantask;
+	private Thread tranthread;
+	
+	private List<String> tranprocesslist=new ArrayList<>();
+	private int tranprocesslistindex;
+	private int tranprocessstate;
+	private String tranxmlname=null;
 	
 	public SequenceToUppaalTabbedPanel(MainFrame mainframe){
 		
@@ -161,7 +180,10 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //				}
 				
 				if(threadstate==0){
-					startSequenceToUppaal();
+//					startSequenceToUppaal();
+					initThread();
+					mainthread.start();
+					tranthread.start();
 					threadstate=1;
 					System.out.println("t is alive");
 				}
@@ -170,8 +192,10 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 				}
 				else if(threadstate==-1){
 					threadstate=1;
-					t.resume();
-					progreseethread.resume();
+//					t.resume();
+//					progreseethread.resume();
+					mainthread.resume();
+					tranthread.resume();
 					System.out.println("t is not alive");
 				}
 			   	
@@ -190,8 +214,13 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				t.suspend();
-				progreseethread.suspend();
+//				t.suspend();
+//				progreseethread.suspend();
+				mainthread.suspend();
+//				tranthread.suspend();
+				if(tranprocessstate==1){
+					tranthread.suspend();
+				}
 				threadstate=-1;
 				
 			}
@@ -210,8 +239,10 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				t.stop();
-				progreseethread.stop();
+//				t.stop();
+//				progreseethread.stop();
+				mainthread.stop();
+				tranthread.stop();
 				threadstate=0;
 				
 				progressbar.setValue(0);
@@ -276,6 +307,214 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 		
 	}
 
+	protected void initThread() {
+		// TODO Auto-generated method stub
+		
+		tranprocesslist=new ArrayList<>();
+		tranprocesslist.add("正在获取顺序图信息");
+		tranprocesslist.add("初始化数据");
+		tranprocesslist.add("创建状态");
+		tranprocesslist.add("根据消息所在的组合片段，构建组合片段嵌套表");
+		tranprocesslist.add("获取跳出loop的条件");
+		tranprocesslist.add("获取组合片段的取反条件");
+		tranprocesslist.add("得到邻接矩阵");
+		tranprocesslist.add("根据邻接矩阵连接状态");
+		tranprocesslist.add("完成顺序图到自动机的转换，正在写入xml");
+		tranprocesslist.add("写入完成");
+		
+		tranprocesslistindex=0;
+		
+		tranprocessstate=0;
+		
+		progressbarindex=0;
+		progressbar.setValue(0);
+		progressbarlabel.setText(" ");
+		
+		smallprogressbarindex=0;
+		
+		sequencelistindex=0;
+		oldsequencelistindex=-1;
+		
+		JCheckBox[] cb=mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getSequenceCheckBoxList();
+		sequencelists.clear();
+		
+		for(JCheckBox jcb:cb){
+			if(jcb.isSelected()){
+				sequencelists.add(jcb.getText());
+			}
+		}
+		
+		while(sequencetouppaaltablemodel.getRowCount()>0){
+			sequencetouppaaltablemodel.removeRow(sequencetouppaaltablemodel.getRowCount()-1);
+		}
+		
+		final JTextArea StepTwoArea= mainFrame.getConsolePartPanel().getTextarea();
+		
+		StepTwoArea.append("UML模型正在转换中......\n");	
+		
+		maincallable=new Callable<Integer>() {
+
+			@Override
+			public Integer call() throws Exception {
+				// TODO Auto-generated method stub
+				
+//				while(progressbarindex<=100){
+				while(!trantask.isDone()&&progressbarindex<=100){
+					
+					if(smallprogressbarindex==0){
+						Object[] tableRowData = { sequencelistindex+1, 0, sequencelists.get(sequencelistindex), tranprocesslist.get(tranprocesslistindex), smallprogressbarindex, smallprogressbarindex, "" };
+						sequencetouppaaltablemodel.addRow(tableRowData);
+						sequencetouppaaltablemodel.fireTableDataChanged();
+					}
+					System.out.println(progressbarindex + " - " + (int) (((double) 100 / sequencelists.size()) * (sequencelistindex + 1) + 0.5));
+					if (progressbarindex == (int) (((double) 100 / sequencelists.size()) * (sequencelistindex + 1) + 0.5)) {
+
+						sequencetouppaaltablemodel.setValueAt(1, sequencelistindex, 1);
+						sequencetouppaaltablemodel.setValueAt(100 + "%", sequencelistindex, 4);
+						sequencetouppaaltablemodel.setValueAt(100, sequencelistindex, 5);
+						SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						sequencetouppaaltablemodel.setValueAt(df.format(new Date()), sequencelistindex, 6);
+
+						sequencetouppaaltablemodel.fireTableDataChanged();
+						
+						Object[] rowData = { tranxmlname.substring(0, tranxmlname.lastIndexOf(".uppaal.violet.xml")) };
+						mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel()
+								.addRow(rowData);
+
+						sequencelistindex++;
+						smallprogressbarindex = 0;
+						tranprocesslistindex = 0;
+
+						while (progressbarindex == 100) {
+							progressbarindex++;
+						}
+					}
+					else{
+						for(int k=0;k<sequencelists.size();k++){
+							if(smallprogressbarindex==100){
+								break;
+							}
+							if(smallprogressbarindex/tranprocesslist.size()!=tranprocesslistindex){
+								tranprocesslistindex=smallprogressbarindex/tranprocesslist.size();
+								sequencetouppaaltablemodel.setValueAt(tranprocesslist.get(tranprocesslistindex), sequencelistindex, 3);
+							}
+							
+							sequencetouppaaltablemodel.setValueAt(smallprogressbarindex + "%", sequencelistindex, 4);
+							sequencetouppaaltablemodel.setValueAt(smallprogressbarindex, sequencelistindex, 5);
+							smallprogressbarindex++;
+							
+							Random rand=new Random();
+//							int sleeptime=(rand.nextInt(10)+1)*10;
+							int sleeptime;
+							if(SD2UppaalMain.diagramslistsize<10){
+								sleeptime=100;
+							}
+							else{
+								sleeptime=SD2UppaalMain.diagramslistsize*4;
+							}
+							if(tranprocessstate==1){
+								sleeptime=100;
+							}
+							Thread.sleep(sleeptime);
+						}
+						
+						progressbarindex++;
+						progressbar.setValue(progressbar.getValue()+1);
+						progressbarlabel.setText(progressbar.getValue()+"%");
+					}
+				}
+				
+				moviepanel.getMovieLabel().setText("所有顺序图全部转换完成，总共有"+sequencelists.size()+"张顺序图，转换成功了"+successcount+"张顺序图，转换率为："+(double)successcount/sequencelists.size()*100+"%");
+				StepTwoArea.append("UML模型转换完成......\n");
+				threadstate=0;
+				
+				return 1;
+			}
+		};
+		maintask=new FutureTask<>(maincallable);
+		mainthread=new Thread(maintask);
+		
+		trancallable=new Callable<Integer>() {
+
+			@Override
+			public Integer call() throws Exception {
+				// TODO Auto-generated method stub
+				
+//				String filename1 = null;
+				
+				successcount=0;
+				
+//				for (String filename : sequencelists) {
+				
+				while(sequencelistindex<sequencelists.size()){
+					if(oldsequencelistindex==sequencelistindex){
+						Thread.sleep(100);
+						tranprocessstate=1;
+					}
+					else{
+						tranprocessstate=0;
+						oldsequencelistindex=sequencelistindex;
+						String filename=sequencelists.get(oldsequencelistindex);
+//						sequencelistindex=sequencelists.indexOf(filename);
+						
+						String baseUrl = "D:\\ModelDriverProjectFile\\SequenceDiagram\\Violet\\";
+						System.out.println(sequencelistindex+"   "+sequencelists.size()+"   "+baseUrl + filename);
+						String path = baseUrl + filename + ".seq.violet.xml";
+
+						if (filename.contains("EA")) {// 打开ea平台的xml文件
+							
+							moviepanel.getMovieLabel().setText("正在转换顺序图 "+filename+"...");
+							
+//							path="D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\EATiming2.timing.violet.xml";
+							
+							SD2UppaalMain.transEA(path, mainFrame);// 主要是将ea的xml转换成我们的wujun的xml(里面有他的路径)
+							
+//							tranprocessstate=1;
+							
+							System.out.println("*************************+++++++++++++++++++++++"+SD2UppaalMain.diagramslistsize);
+							
+							if(SD2UppaalMain.diagramslistsize==1){
+								System.out.println("-------------------------123");
+								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\"+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
+								LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\"+SD2UppaalMain.getDiagramDataName()+".xml");
+							}
+							else{
+								System.out.println("*************************456");
+								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\UAVForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
+								LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\UAV.xml");
+							}
+							
+							System.out.println("SD2UppaalMain.getDiagramDataName():+++++++++"+SD2UppaalMain.getDiagramDataName());
+							
+							tranxmlname = TransToVioletUppaal.TransToViolet(filename);
+//							uppaallists.add(filename1);
+							
+							GraphFile fGraphFile1 = ImportByDoubleClick.importFileByDoubleClick("UPPAAL", tranxmlname);
+							IWorkspace workspace1 = new Workspace(fGraphFile1);
+							mainFrame.addTabbedPane(workspace1, 21);
+
+							mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()
+									.get(mainFrame.getModelTransformationPanel().getModelSequenceTreePanel()
+											.getUppaaltablemodel().getRowCount())
+									.setVisible(false);
+							
+							successcount++;
+
+						} else {// 打开我们平台的xml文件
+
+						}
+					}
+				}
+				System.out.println("----------------"+sequencelistindex);
+				
+				return 1;
+			}
+		};
+		trantask=new FutureTask<>(trancallable);
+		tranthread=new Thread(trantask);
+		
+	}
+
 	protected void startSequenceToUppaal() {
 		// TODO Auto-generated method stub
 		
@@ -333,7 +572,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //								LayoutUppaal.layout(
 //										"UseCase4-Sequence1-Normal.xml");// ("sequence.xml");
 								
-								System.out.println("SD2UppaalMain.getDiagramDataName():+++++++++"+SD2UppaalMain.getDiagramDataName()+" - - "+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml");//前者文件为时间自动机需要，后者文件为测试用例生成需要
+//								System.out.println("SD2UppaalMain.getDiagramDataName():+++++++++"+SD2UppaalMain.getDiagramDataName()+" - - "+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml");//前者文件为时间自动机需要，后者文件为测试用例生成需要
 								
 //								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\"+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
 								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\UAVForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
@@ -637,8 +876,8 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 		sequencetouppaaltable.getColumn("序号").setMinWidth(50);
 		sequencetouppaaltable.getColumn("状态").setPreferredWidth(50);
 		sequencetouppaaltable.getColumn("状态").setMinWidth(50);
-		sequencetouppaaltable.getColumn("顺序图").setPreferredWidth(100);
-		sequencetouppaaltable.getColumn("顺序图").setMinWidth(100);
+		sequencetouppaaltable.getColumn("顺序图").setPreferredWidth(150);
+		sequencetouppaaltable.getColumn("顺序图").setMinWidth(150);
 		sequencetouppaaltable.getColumn("操作").setPreferredWidth((int) (mainFrame.getStepOneCenterTabbedPane().size().getWidth()-500));
 		sequencetouppaaltable.getColumn("进度").setPreferredWidth(50);
 		sequencetouppaaltable.getColumn("进度").setMinWidth(50);

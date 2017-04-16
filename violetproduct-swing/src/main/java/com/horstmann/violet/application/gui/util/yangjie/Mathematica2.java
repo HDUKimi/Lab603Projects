@@ -19,7 +19,7 @@ public class Mathematica2 {
 
 		KernelLink ml = null;
 
-		String path = "-linkmode launch -linkname 'D:\\Mathematica\\10.2\\MathKernel.exe'";
+		String path = "-linkmode launch -linkname 'D:\\coding\\10.2\\MathKernel.exe'";
 		try {
 
 			ml = MathLinkFactory.createKernelLink(path);
@@ -72,7 +72,7 @@ public class Mathematica2 {
 
 		KernelLink ml = null;
 
-		String path = "-linkmode launch -linkname 'D:\\Mathematica\\10.2\\MathKernel.exe'";
+		String path = "-linkmode launch -linkname 'D:\\coding\\10.2\\MathKernel.exe'";
 		try {
 
 			ml = MathLinkFactory.createKernelLink(path);
@@ -131,7 +131,7 @@ public class Mathematica2 {
 
 		KernelLink ml = null;
 
-		String path = "-linkmode launch -linkname 'D:\\Mathematica\\10.2\\MathKernel.exe'";
+		String path = "-linkmode launch -linkname 'D:\\coding\\10.2\\MathKernel.exe'";
 		try {
 
 			ml = MathLinkFactory.createKernelLink(path);

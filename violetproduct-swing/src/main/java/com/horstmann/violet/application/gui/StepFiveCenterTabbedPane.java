@@ -21,8 +21,6 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.FixedButtonTabb
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseChartTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseReportTabbedPanel;
 
-import chrriis.dj.nativeswing.swtimpl.NativeInterface;
-
 public class StepFiveCenterTabbedPane extends JPanel{
 	
 	private MainFrame mainFrame;
@@ -119,28 +117,28 @@ public class StepFiveCenterTabbedPane extends JPanel{
 //        });  
 //        NativeInterface.runEventPump();
         
-		Thread t = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				NativeInterface.open();
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						webframe = new WebFrame();
-						webframe.invalidate();
-						webframe.pack();
-						// webframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-						// webframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
-						// webframe.setLocationByPlatform(true);
-						 webframe.setVisible(false);
-					}
-				});
-				NativeInterface.runEventPump();
-			}
-		});
-
-		t.start();
+//		Thread t = new Thread(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				NativeInterface.open();
+//				SwingUtilities.invokeLater(new Runnable() {
+//					public void run() {
+//						webframe = new WebFrame();
+//						webframe.invalidate();
+//						webframe.pack();
+//						// webframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//						// webframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//						// webframe.setLocationByPlatform(true);
+//						 webframe.setVisible(false);
+//					}
+//				});
+//				NativeInterface.runEventPump();
+//			}
+//		});
+//
+//		t.start();
 		
 	}
 

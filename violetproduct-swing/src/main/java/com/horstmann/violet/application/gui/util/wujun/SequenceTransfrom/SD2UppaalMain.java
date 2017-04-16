@@ -21,7 +21,7 @@ import com.horstmann.violet.application.gui.util.wujun.SD2AutomataForPlatform.ut
 
 public class SD2UppaalMain {
 	private static HashMap<String , WJFragment> id_fragment = new HashMap<String , WJFragment>();
-	private MainFrame mainFrame;
+	private static MainFrame mainFrame;
 	private static ArrayList<WJMessage> messageList=new ArrayList<WJMessage>();//这个生命线所有message
 	private static ArrayList<WJFragment> fragmentList=new ArrayList<WJFragment>();//这个生命线所有fragment
 	private static ArrayList<ArrayList<WJFragment>> table = new ArrayList<ArrayList<WJFragment>>();//表
@@ -44,15 +44,15 @@ public class SD2UppaalMain {
 //	private static ArrayList<ArrayList<HashSet<String>>> jumpConditions;
 	private static String[][] falseConditions;// outLoopConditon + jumpCodition
 	
-	//定义一个map<String,String>用于传给table和桌面的展示
-	static Map<String,String> mapTable=new LinkedHashMap<String,String>();
-	static String k1;
-	static String value1;
-	
+	public static int diagramslistsize;
 	public static String diagramDataName=null;
 	
 	public static void transEA(String path,MainFrame mainframe) throws Exception 
 	{
+		
+		mainFrame=mainframe;
+		diagramslistsize=0;
+		
 		//所有图
 		ArrayList<WJDiagramsData> DiagramsDataList = new ArrayList<WJDiagramsData>();
 		
@@ -72,9 +72,12 @@ public class SD2UppaalMain {
 	    
 	    Read uml=new Read();
 	    
-	    DiagramsDataList = uml.getUmlAllDiagramData();
-	    DiagramsDataList.clear();
-	    uml.setUmlAllDiagramData(DiagramsDataList);
+//	    DiagramsDataList = uml.getUmlAllDiagramData();
+//	    System.out.println("----------"+uml.getUmlAllDiagramData().size());
+//	    DiagramsDataList.removeAll(DiagramsDataList);
+//	    uml.setUmlAllDiagramData(DiagramsDataList);
+	    
+//	    System.out.println("++++++++++"+uml.getUmlAllDiagramData().size());
 	    
 	    uml.load(root);
 	    
@@ -82,6 +85,8 @@ public class SD2UppaalMain {
 	    // 得到所有图对应的所有数据
 	    
 	    DiagramsDataList = uml.getUmlAllDiagramData();
+	    
+	    diagramslistsize=DiagramsDataList.size();
 //   ***END***
 		
 		
@@ -110,7 +115,6 @@ public class SD2UppaalMain {
 //		}
 //   ***END***	    
 	
-	    mapTable.clear();
 	    
 	    // 遍历图DiagramsDataList
 	    Iterator<WJDiagramsData> DiagramsDataListIterator = DiagramsDataList.iterator();  
@@ -121,17 +125,9 @@ public class SD2UppaalMain {
 	    	
 	    	Display.println("================================正在获取顺序图信息================================");
 		    Display.println("===>  图名为:"+diagramDaraI.name + "\n");
-		    //map1
-			String k1="================================正在获取顺序图信息================================";
-			String value1="===>  图名为:"+diagramDaraI.name + "\n";
-			mapTable.put(k1, value1);
 		    
 			//初始化
 		    Display.println("初始化数据...\n");
-		    //map2
-			k1="初始化数据...";
-			value1="";
-			mapTable.put(k1, value1);
 			
 		    lifeLines.clear();
 		    messages.clear();
@@ -189,17 +185,9 @@ public class SD2UppaalMain {
 			    {//有消息
 			    	Display.println("-------------------------创建状态-------------------------");
 			    	
-			    	//map2
-					k1="-------------------------创建状态-------------------------";
-					
 			    	//创建Q0
 			    	Display.println("创建初始状态Q0\n");
 			    	
-			    	//map2
-					value1="创建初始状态Q0\n";
-					mapTable.put(k1, value1);
-					
-					
 				    String q_id = "_init" ;
 				    m_id=0;
 				    
@@ -245,10 +233,6 @@ public class SD2UppaalMain {
 		//添加location
 				    		Display.println("创建"+ messageI.getName() + "消息发送后到达的状态\n");
 				    		
-				    		//map2
-							value1+="创建"+ messageI.getName() + "消息发送后到达的状态\n";
-							
-							
 			    			UppaalLocation location = setLocation(messageI.getConnectorId().substring(4),messageI.getName());
 			    			//下一个消息的DCBM
 			    			if (messageIndex != messages.size() - 1) {
@@ -292,7 +276,6 @@ public class SD2UppaalMain {
 			        			}
 			        			//map
 			        		}	
-			        		mapTable.put(k1, value1);
 			        		
 			        		// 对par交接处的处理	        		 标记map
 			        		if(I != 0 && hasPar(table.get(I-1))&&hasPar(table.get(I)))//两个都有par   不能添加par中的交接处
@@ -364,15 +347,10 @@ public class SD2UppaalMain {
 		    	parEndTo = new int[table.size() * 2];
 		    	Display.println("\n-------------------------根据消息所在的组合片段，构建组合片段嵌套表-------------------------");
 	//打印table  并且找出所有交接处i的出alt位置放入altEndTo 出的位置又是alt的交接处 while（altEndTo[altEndTo[i]]!=0）{i=altEndTo[i]}return altEndTo[i]
-		    	//map
-		    	k1="\n-------------------------根据消息所在的组合片段，构建组合片段嵌套表-------------------------";
-		    	value1="";
 		    	//
 		    	for(int i = 0;i<table.size();i++)
 		    	{
 		    		Display.print(String.format("%-2d:", i));
-		    		//map
-		    		value1+=String.format("%-2d:", i);
 		    		
 		    		for(int c = 0;c<table.get(i).size();c++)
 		    		{
@@ -391,16 +369,11 @@ public class SD2UppaalMain {
 		    			parEndTo[i] = findOutOfAlt(i,c);//找到出par的位置  findOutOfAlt适用于par
 		    			
 		    			Display.print(String.format("%-6s", table.get(i).get(c).getFragType()));
-		    			//map
-		    			value1+=String.format("%-6s", table.get(i).get(c).getFragType());
 		    		}
 		    		Display.println();
-		    		value1+="\n";
 		    	}
 		    	Display.println();
 		    	Display.println();
-		    	//map
-		    	mapTable.put(k1, value1);
 		    	loopFragment = new ArrayList <WJLoopFragment> ();
 		    	parFragment.clear();
 	//主要算法
@@ -588,11 +561,7 @@ public class SD2UppaalMain {
 			    // 设置出loop的取反条件
 			    outOfLoopCondition = new String[table.size()][table.size()];
 			    Display.println("-------------------------获取跳出loop的条件-------------------------");
-			    //map
-			    k1="-------------------------获取跳出loop的条件-------------------------";
 			    setOutOfLoopCondition();
-			    //map
-			    mapTable.put(k1, value1);
 			    Display.println();
 //			   // 初始化falseConditions
 //			    jumpConditions = new ArrayList<>();
@@ -607,11 +576,7 @@ public class SD2UppaalMain {
 			
 	//最后的     跳跃条件	
 			    Display.println("-------------------------获取组合片段的取反条件-------------------------");
-			    //map
-			    k1="-------------------------获取组合片段的取反条件-------------------------";
 			    fixF1ForFalseCondition();
-			    //map
-			    mapTable.put(k1, value1);
 			    Display.println();
 	//在此处设置终态 
 			    for(int i=0;i<locationList.size();i++)
@@ -623,31 +588,19 @@ public class SD2UppaalMain {
 			    
 	//打印map
 			    Display.println("-------------------------得到邻接矩阵-------------------------");
-			    //map
-			    k1="-------------------------得到邻接矩阵-------------------------";
-			    value1="";
 			    for(int i=0;i<locationList.size()+1;i++)		
 			    {	
 			    	Display.print(String.format("%-2d:", i));
-			    	value1+=String.format("%-2d:", i);
 			    	for(int j=0;j<locationList.size()+1;j++){
 			    		
 			    		Display.print(String.format("%-3d", map[i][j]));
-			    		//map
-			    		value1+=(String.format("%-3d", map[i][j]));
 			    	}
 			    	Display.println();
-			    	value1+="\n";
 			    }
 			    //table
-			    value1+="\n";
-			    mapTable.put(k1, value1);
 			   Display.println("\n");
 	//连接map
 			   Display.println("--------------------------根据邻接矩阵连接状态--------------------------");
-			   //map
-			   k1="--------------------------根据邻接矩阵连接状态--------------------------";
-			   value1="";
 			    //Queue receiveAndSend = new LinkedList();
 			    boolean isSelfMessage = false;
 			    for(int i=0;i<locationList.size();i++) {
@@ -741,12 +694,8 @@ public class SD2UppaalMain {
 							Display.println("连接状态" + i +"到状态" + j + "\n" +  
 									"消息名：" + transition.getNameText()  + 
 									"\n消息的所在的组合片段以及条件" +transition.getTypeAndCondition() + "\n");
-		    	    		value1+="连接状态" + i +"到状态" + j + "\n" +  
-									"消息名：" + transition.getNameText()  + 
-									"\n消息的所在的组合片段以及条件" +transition.getTypeAndCondition() + "\n";
 		    			}
 		    		}
-		    		mapTable.put(k1, value1);
 			    }
 	//在最后根据map添加transition
 			    
@@ -759,32 +708,21 @@ public class SD2UppaalMain {
 			    templates.add(template);  
 		    Display.println("\n------------------------------------------------------------------");
 		    Display.println("完成顺序图到自动机的转换，正在写入图名为"+diagramDaraI.name+"的xml");
-		    //map
-		    k1="完成顺序图到自动机的转换，正在写入图名为"+diagramDaraI.name+"的xml";
-		    value1="";
-		    mapTable.put(k1, value1);
 		    
 		    Write.creatXML("D:\\ModelDriverProjectFile\\WJXML\\"+diagramDaraI.name+".xml",templates,template_names);//给我
 		    setDiagramDataName(diagramDaraI.name);
-		    System.out.println("diagramDaraI.name-----"+diagramDaraI.name);
+//		    System.out.println("diagramDaraI.name-----"+diagramDaraI.name);
 		    //给ckt
 		    WriteForXStream.creatXML("D:\\ModelDriverProjectFile\\WJXML\\"+diagramDaraI.name+"ForXStream.xml", templates, template_names);
 		    Display.println(".....写入完成!\n");
-		    //map
 		    
-		    //map
-		    k1="....写入完成!";
-		    value1="";
-		    mapTable.put(k1, value1);
 	    }//遍历diagram结束
 	    Display.println("================================所有顺序图转换完成================================");
-		ShowOnTableAndConsole.seqShow(mapTable,mainframe);
 	}//end
 	
 	private static void setOutOfLoopCondition() {
 		
 		boolean isDisplayed = false;
-		value1="";
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 				if (map[i][j] > 0) {
@@ -819,8 +757,6 @@ public class SD2UppaalMain {
 					Display.println("消息" + i + "直接到消息" + j + "跳出了loop,所需的条件为：");
 					Display.println(allConditionsOutOfLoop + "\n");
 					
-					//map
-					value1+="消息" + i + "直接到消息" + j + "跳出了loop,所需的条件为：\n"+allConditionsOutOfLoop + "\n";
 					isDisplayed = true;
 				}
 			}
@@ -831,7 +767,6 @@ public class SD2UppaalMain {
 	}
 
 	private static void fixF1ForFalseCondition() {
-		value1="";
 		boolean isDisplayed  = false;
 		falseConditions = new String[table.size()][table.size()];
 		
@@ -870,8 +805,6 @@ public class SD2UppaalMain {
 							if (jumpCondition[i][k] != null) {
 								Display.println("执行第" + i + "条消息后可跳过第" + j +"条消息，到达第" + k + "条消息，其条件为：");
 								Display.println(jumpCondition[i][k] + "\n");
-								//map
-								value1+="执行第" + i + "条消息后可跳过第" + j +"条消息，到达第" + k + "条消息，其条件为：\n"+jumpCondition[i][k] + "\n";
 								isDisplayed = true;
 							}
 							
@@ -902,8 +835,6 @@ public class SD2UppaalMain {
 		}
 		if (!isDisplayed) {
 			Display.println("----> 没有需要取反条件的情况\n");
-			//map
-			value1="----> 没有需要取反条件的情况\n";
 		}
 	}
 
@@ -1357,6 +1288,16 @@ public class SD2UppaalMain {
 	public static void setDiagramDataName(String diagramDataName) {
 		SD2UppaalMain.diagramDataName = diagramDataName;
 	}
+
+	public static MainFrame getMainFrame() {
+		return mainFrame;
+	}
+
+	public static int getDiagramslistsize() {
+		return diagramslistsize;
+	}
+	
+	
 	
 	
 }
