@@ -377,9 +377,6 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		selectCover=mainFrame.getTestCaseGenerationPanel().getSelectCoverCheckBox().getText();
 		System.out.println(selectUppaal+"  ------  "+selectCover);
 		
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
-		selectUppaalPath = baseUrl + selectUppaal + ".xml";
-		
 		selectCoverState=0;
 		if(selectCover.equals("状态覆盖")){
 			selectCoverState=0;
@@ -387,9 +384,21 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		else if(selectCover.equals("路径覆盖")){
 			selectCoverState=1;
 		}
-		else if(selectCover.equals("性能测试")){
+//		else if(selectCover.equals("性能测试")){
+//			selectCoverState=2;
+//		}
+		
+		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
+		
+		int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+		if(starttype == 1){
+			baseUrl += "\\FunctionalTest\\";
+		} else if (starttype == 2) {
+			baseUrl += "\\PerformanceTest\\";
 			selectCoverState=2;
 		}
+		
+		selectUppaalPath = baseUrl + selectUppaal + ".xml";
 		
 		System.out.println(selectUppaalPath+"  ----------  "+selectCoverState);
 		
@@ -429,6 +438,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 									step=2;
 									automatictimestate=0;
 								}
+								
+								step=2;
+								automatictimestate=0;
 							}
 							System.out.println(step);
 //							if(step==5){
@@ -1152,7 +1164,16 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				moviepanel.getMovieLabel().setText("正在进行实例化测试用例");
 				
 				String name=selectUppaal.substring(0, selectUppaal.indexOf("ForXStream"));
-				String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+name+"TestCase.xml";
+				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+				
+				int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+				if(starttype == 1){
+					baseUrl += "\\FunctionalTest\\";
+				} else if (starttype == 2) {
+					baseUrl += "\\PerformanceTest\\";
+				}
+				
+				String path=baseUrl+name+"TestCase.xml";
 				
 				if(selectCoverState==2){//性能测试
 					for(Transition t:PerAutomaticResult.getTransitionSet()){

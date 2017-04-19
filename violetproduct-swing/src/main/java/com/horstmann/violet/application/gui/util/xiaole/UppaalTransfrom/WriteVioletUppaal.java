@@ -160,9 +160,9 @@ public class WriteVioletUppaal {
     		Element angle=TransitionEdge.addElement("angle");
     		angle.setText("10.0");
     		Element labelText=TransitionEdge.addElement("labelText");
-    		if(temp.getLabelText()!=null){
-    			labelText.setText(temp.getLabelText());	
-    		}
+//    		if(temp.getLabelText()!=null){
+//    			labelText.setText(temp.getLabelText());	
+//    		}
 //    		labelText.setText(temp.getLabelText());
     	}
     	outputXml(doc,filename);

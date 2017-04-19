@@ -112,6 +112,8 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 	private int tranprocessstate;
 	private String tranxmlname=null;
 	
+	private IWorkspace workspace1;
+	
 	public SequenceToUppaalTabbedPanel(MainFrame mainframe){
 		
 		this.mainFrame=mainframe;
@@ -377,6 +379,13 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 
 						sequencetouppaaltablemodel.fireTableDataChanged();
 						
+						mainFrame.addTabbedPane(workspace1, 21);
+
+						mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()
+								.get(mainFrame.getModelTransformationPanel().getModelSequenceTreePanel()
+										.getUppaaltablemodel().getRowCount())
+								.setVisible(false);
+						
 						Object[] rowData = { tranxmlname.substring(0, tranxmlname.lastIndexOf(".uppaal.violet.xml")) };
 						mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel()
 								.addRow(rowData);
@@ -458,6 +467,20 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //						sequencelistindex=sequencelists.indexOf(filename);
 						
 						String baseUrl = "D:\\ModelDriverProjectFile\\SequenceDiagram\\Violet\\";
+						String baseUrl2 = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\";
+						String baseUrl3 = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
+						
+						int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+						if(starttype == 1){
+							baseUrl += "\\FunctionalTest\\";
+							baseUrl2 += "\\FunctionalTest\\";
+							baseUrl3 += "\\FunctionalTest\\";
+						} else if (starttype == 2) {
+							baseUrl += "\\PerformanceTest\\";
+							baseUrl2 += "\\PerformanceTest\\";
+							baseUrl3 += "\\PerformanceTest\\";
+						}
+						
 						System.out.println(sequencelistindex+"   "+sequencelists.size()+"   "+baseUrl + filename);
 						String path = baseUrl + filename + ".seq.violet.xml";
 
@@ -475,12 +498,12 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							
 							if(SD2UppaalMain.diagramslistsize==1){
 								System.out.println("-------------------------123");
-								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\"+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
+								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\"+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", baseUrl3+filename+"ForXStream.xml");
 								LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\"+SD2UppaalMain.getDiagramDataName()+".xml");
 							}
 							else{
 								System.out.println("*************************456");
-								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\UAVForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
+								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\UAVForXStream.xml", baseUrl3+filename+"ForXStream.xml");
 								LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\UAV.xml");
 							}
 							
@@ -490,13 +513,13 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //							uppaallists.add(filename1);
 							
 							GraphFile fGraphFile1 = ImportByDoubleClick.importFileByDoubleClick("UPPAAL", tranxmlname);
-							IWorkspace workspace1 = new Workspace(fGraphFile1);
-							mainFrame.addTabbedPane(workspace1, 21);
-
-							mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()
-									.get(mainFrame.getModelTransformationPanel().getModelSequenceTreePanel()
-											.getUppaaltablemodel().getRowCount())
-									.setVisible(false);
+							workspace1 = new Workspace(fGraphFile1);
+//							mainFrame.addTabbedPane(workspace1, 21);
+//
+//							mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()
+//									.get(mainFrame.getModelTransformationPanel().getModelSequenceTreePanel()
+//											.getUppaaltablemodel().getRowCount())
+//									.setVisible(false);
 							
 							successcount++;
 

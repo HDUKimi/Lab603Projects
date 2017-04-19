@@ -711,7 +711,7 @@ public class SD2UppaalMain {
 		    
 		    Write.creatXML("D:\\ModelDriverProjectFile\\WJXML\\"+diagramDaraI.name+".xml",templates,template_names);//给我
 		    setDiagramDataName(diagramDaraI.name);
-//		    System.out.println("diagramDaraI.name-----"+diagramDaraI.name);
+		    System.out.println("diagramDaraI.name-----"+diagramDaraI.name);
 		    //给ckt
 		    WriteForXStream.creatXML("D:\\ModelDriverProjectFile\\WJXML\\"+diagramDaraI.name+"ForXStream.xml", templates, template_names);
 		    Display.println(".....写入完成!\n");

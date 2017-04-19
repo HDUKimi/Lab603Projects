@@ -78,6 +78,7 @@ import com.horstmann.violet.application.consolepart.TestCaseConfirmResultPanel;
 import com.horstmann.violet.application.consolepart.TestCaseInstantiationResultPanel;
 import com.horstmann.violet.application.consolepart.ValidationResultPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.TestCaseGenerationPanel;
+import com.horstmann.violet.application.gui.homeTabbedPanel.HomeAllTabbedPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.ModelExistValidationPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.ModelTransformationPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.ProjectTree;
@@ -647,6 +648,7 @@ public class MainFrame extends JFrame
      		}
      		
      		int index=this.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel().getRowCount();
+     		System.err.println(index+" - "+this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().size());
 
      		if(index==0){
 				this.SequenceToUppaalWorkspaceList.clear();
@@ -657,8 +659,9 @@ public class MainFrame extends JFrame
 			
 			this.getStepTwoCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
 			
-			
-			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
+//			System.err.println(workspace.getTitle());
+//			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
+			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().replace(".uppaal.violet.xml", "")));
 			this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().add(buttontabbedpanel);
 			this.getStepTwoCenterTabbedPane().getButtonPanel().add(buttontabbedpanel);
 			
@@ -1000,11 +1003,11 @@ public class MainFrame extends JFrame
         }
         return this.welcomePanel;
     }
-   public HomePanel getHomePanel()
+   public HomeAllTabbedPanel getHomeAllTabbedPanel()
    {
    	if(this.homepanel==null)
    	{
-   		this.homepanel=new HomePanel();
+   		this.homepanel=new HomeAllTabbedPanel(this);
    	}
    	return this.homepanel;
    }
@@ -1153,7 +1156,7 @@ public class MainFrame extends JFrame
 //			this.getOpreationPart().setBackground(new Color(53, 73, 105));
 			this.getCenterPanel().setLayout(new GridLayout(1, 1));
 			this.getCenterPanel().setBackground(new Color(53, 73, 105));
-			this.getCenterPanel().add(this.getHomePanel());// 默认添加首页
+			this.getCenterPanel().add(this.getHomeAllTabbedPanel());// 默认添加首页
 			this.setStepindex(0);
 			this.getCenterTabPanel().setLayout(new GridLayout(1, 1));
 			this.getCenterTabPanel().setBackground(new Color(53, 73, 105));
@@ -1435,7 +1438,7 @@ public class MainFrame extends JFrame
      * Panel added is not diagram is opened
      */
     private WelcomePanel welcomePanel;
-    private HomePanel homepanel;
+    private HomeAllTabbedPanel homepanel;
     private JPanel stepJLabel=new JPanel();
     
     private ProjectTree projectTree;

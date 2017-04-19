@@ -94,7 +94,7 @@ public class StepButtonPanel extends JPanel {
 	@InjectedBean
 	private FileNamingService fileNamingService;
 	private JPanel homebuttonpanel;
-	private static JPanel step1buttonpanel;
+	private JPanel step1buttonpanel;
 	private JPanel step2buttonpanel;
 	private JPanel step3buttonpanel;
 	private JPanel step4buttonpanel;
@@ -105,7 +105,7 @@ public class StepButtonPanel extends JPanel {
 	private int firstclickstep1button=0;
 	
 	private JButton homebutton;
-	private static JButton step1button;
+	private JButton step1button;
 	private JButton step2button;
 	private JButton step3button;
 	private JButton step4button;
@@ -154,11 +154,6 @@ public class StepButtonPanel extends JPanel {
 	
 	List<TestCaseReportPartPanel> testcasereportlist=new ArrayList<TestCaseReportPartPanel>();
 	
-	
-	public static JButton getStep1button() {
-		return step1button;
-	}
-
 	public StepButtonPanel(MainFrame mainFrame) {
 //		this.setBackground(new Color(174,199,225));
 		this.mainFrame=mainFrame;
@@ -735,10 +730,10 @@ public class StepButtonPanel extends JPanel {
 		attributePanel.setLayout(new GridLayout(1,1));
 //		consolePart=mainFrame.getConsolePart();	
 		// TODO Auto-generated method stub
-        step2button.setEnabled(false);//初始其他步骤按钮都不可点击
-        step3button.setEnabled(false);
-        step4button.setEnabled(false);
-        step5button.setEnabled(false);
+//        step2button.setEnabled(false);//初始其他步骤按钮都不可点击
+//        step3button.setEnabled(false);
+//        step4button.setEnabled(false);
+//        step5button.setEnabled(false);
 	}
 	protected void setstepbuttonpanelrepaint() {
 		// TODO Auto-generated method stub
@@ -1093,7 +1088,7 @@ Sixstart.addActionListener(new ActionListener() {
 				labelpanel.removeAll();
 				labelpanel.add(jLabel,new GBC(0, 0).setWeight(1, 0));				     				
 			    mainFrame.getCenterPanel().removeAll();
-				mainFrame.getCenterPanel().add(mainFrame.getHomePanel());
+				mainFrame.getCenterPanel().add(mainFrame.getHomeAllTabbedPanel());
 				mainFrame.setStepindex(0);
 				mainFrame.getConsolePartPanel().setVisible(false);
 				mainFrame.getOpreationPart().setVisible(false);	
@@ -1226,7 +1221,11 @@ Sixstart.addActionListener(new ActionListener() {
 //					// TODO Auto-generated catch block
 //					e1.printStackTrace();
 //				}
-//				consolePart.add(new ConsoleMessageTabbedPane("详细信息",new JTextArea("UML模型正在建立中......\n\n\n\n\n\n")));				
+//				consolePart.add(new ConsoleMessageTabbedPane("详细信息",new JTextArea("UML模型正在建立中......\n\n\n\n\n\n")));
+				
+				setstepbuttonpanelrepaint();
+				step1buttonpanel.setBackground(new Color(53,55,59));
+				
 				wakeupUI();
 				mainFrame.setVisible(false);
 				mainFrame.getContentPane().repaint();
@@ -1285,6 +1284,10 @@ Sixstart.addActionListener(new ActionListener() {
 				mainFrame.getCenterTabPanel().removeAll();
 				mainFrame.getCenterTabPanel().add(mainFrame.getStepTwoCenterTabbedPane());
 			
+				setstepbuttonpanelrepaint();
+				step2buttonpanel.setBackground(new Color(53,55,59));
+				index=2;
+
 				mainFrame.setStepindex(2);
 				wakeupUI();
 				mainFrame.setVisible(false);
@@ -1779,4 +1782,14 @@ Sixstart.addActionListener(new ActionListener() {
 
 	}
 
+	public JButton getStep1button() {
+		return step1button;
+	}
+	
+	public JButton getStep2button() {
+		return step2button;
+	}
+
+	
+	
 }

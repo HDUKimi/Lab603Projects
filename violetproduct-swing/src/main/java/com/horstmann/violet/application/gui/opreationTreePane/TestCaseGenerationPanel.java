@@ -478,7 +478,7 @@ public class TestCaseGenerationPanel extends JPanel {
 
 		coverlists.add("状态覆盖");
 		coverlists.add("路径覆盖");
-		coverlists.add("性能测试");
+//		coverlists.add("性能测试");
 		
 		addCheckBoxToCovercheckboxpanel();
 		
@@ -538,7 +538,10 @@ public class TestCaseGenerationPanel extends JPanel {
 
 
 	public void initFileList() {
-		File[] filelists=new File("D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase").listFiles();
+		
+		int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+		
+		File[] filelists=getAllFileByDiagramType(starttype);
 	    for(File file : filelists)
 	    {
 	    	String fileName=file.getName();
@@ -553,49 +556,24 @@ public class TestCaseGenerationPanel extends JPanel {
 	  * @param type
 	  * @return
 	  */
-	 public   File[] getAllFileByDiagramType(String type){
-//		 File f =FileSystemView.getFileSystemView().getHomeDirectory();
-//		String s =f .getAbsolutePath();
-		 String baseUrl ="D://ModelDriverProjectFile";
-//		String baseUrl =s+"//ModelDriverProjectFile";
-//		File bFile = new File(baseUrl);
-//		if(!bFile.exists()){
-//			bFile.mkdirs();
-//		}
-		 File[] fList =null;
-		 File file=null;
-		 if("sequence".equals(type)){
-			 file =new File(baseUrl+"\\SequenceDiagram\\Violet");
-			 fList= file.listFiles();
-		 }else if("timing".equals(type)){
-			file =new File(baseUrl+"\\TimingDiagram\\Violet");
-			 fList= file.listFiles();
-		 }else if("UPPAAL2".equals(type)){
-			 //第二步的UPPAAL涉及的自动机
-			 file =new File(baseUrl+"\\UPPAAL\\2.UML Model Transfer");
-			 fList=file.listFiles();
-		 }else if("UPPAAL3".equals(type)){
-			 //第三步的UPPAAL涉及的自动机
-			 file =new File(baseUrl+"\\UPPAAL\\3.Abstract TestCase");
-			 fList= file.listFiles();
-		 }else if("UPPAAL4".equals(type)){
-			 //第四步的UPPAAL涉及的自动机
-			 file =new File(baseUrl+"\\UPPAAL\\4.Real TestCase");
-			 fList=file.listFiles();
-		 }else if("state".equals(type)){
-			 file =new File(baseUrl+"\\StateDiagram\\Violet");
-			 fList=file.listFiles();
-		 }else if("usecase".equals(type)){
-			 file =new File(baseUrl+"\\UsecaseDiagram\\Violet");
-			 fList= file.listFiles();
-		 }else if("class".equals(type)){
-			 file =new File(baseUrl+"\\ClassDiagram\\Violet");
-			 fList= file.listFiles();
-		 }else if("activity".equals(type)){
-			 file =new File(baseUrl+"\\ActivityDiagram\\Violet");
-			 fList=file.listFiles();
-		 }
-		 return fList;
+	public File[] getAllFileByDiagramType(int starttype) {
+		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase";
+
+		File[] fList = null;
+		File file = null;
+
+		if (starttype == 1) {
+			file = new File(baseUrl + "\\FunctionalTest");
+			fList = file.listFiles();
+		} else if (starttype == 2) {
+			file = new File(baseUrl + "\\PerformanceTest");
+			fList = file.listFiles();
+		} else {
+			file = new File(baseUrl);
+			fList = file.listFiles();
+		}
+
+		return fList;
 	}
 	
 	public void ChangeRepaint() {
@@ -623,6 +601,11 @@ public class TestCaseGenerationPanel extends JPanel {
 
 	public JCheckBox[] getCoverCheckBoxList() {
 		return coverCheckBoxList;
+	}
+
+
+	public JPanel getCoverpanel() {
+		return coverpanel;
 	}
 
 	

@@ -137,6 +137,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		
 		diagramPanel.setLayout(new GridLayout());
 		diagramPanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
+		diagramPanel.add(testCaseProcessTabbedPanel);
 		
 	}
 

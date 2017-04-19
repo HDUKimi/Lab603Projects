@@ -360,6 +360,14 @@ public class TestCaseConfirmationPanel extends JPanel{
 				if(e.getClickCount()==2){
 					
 					String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+					
+					int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+					if(starttype == 1){
+						baseUrl += "\\FunctionalTest\\";
+					} else if (starttype == 2) {
+						baseUrl += "\\PerformanceTest\\";
+					}
+					
 					String filename=(String) testcasetablemodel.getValueAt(testcasetable.getSelectedRow(), testcasetable.getSelectedColumn());
 					String path = baseUrl + filename + ".xml";
 					
@@ -428,19 +436,36 @@ public class TestCaseConfirmationPanel extends JPanel{
 
 	public void initFileList() {
 		
-		String baseUrl = "D://ModelDriverProjectFile//UPPAL//4.Real_TestCase";
-		File[] testcaseFilelists = null;
-		File file = new File(baseUrl);
-		testcaseFilelists = file.listFiles();
+		int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+		
+		File[] filelists=getAllFileByDiagramType(starttype);
 
-		for (File testcaseFile : testcaseFilelists) {
-			String fileName = testcaseFile.getName();
-			// fileName.substring(0, fileName.lastIndexOf(".xml"));
-//			if (fileName.lastIndexOf(".testcase.violet.xml") > 0) {
-//				testcaselists.add(fileName.substring(0, fileName.lastIndexOf(".testcase.violet.xml")));
-//			}
-			testcasefilenamelists.add(fileName.substring(0, fileName.lastIndexOf(".xml")));
+		for (File file : filelists) {
+			String fileName=file.getName();
+	    	if(fileName.lastIndexOf(".xml")>0){
+	    		testcasefilenamelists.add(fileName.substring(0, fileName.lastIndexOf(".xml")));
+	    	}
 	    }
+	}
+	
+	public File[] getAllFileByDiagramType(int starttype) {
+		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase";
+
+		File[] fList = null;
+		File file = null;
+
+		if (starttype == 1) {
+			file = new File(baseUrl + "\\FunctionalTest");
+			fList = file.listFiles();
+		} else if (starttype == 2) {
+			file = new File(baseUrl + "\\PerformanceTest");
+			fList = file.listFiles();
+		} else {
+			file = new File(baseUrl);
+			fList = file.listFiles();
+		}
+
+		return fList;
 	}
 	
 	public List<TestCase> extractDataFromXml(String path){

@@ -488,7 +488,10 @@ public class ModelSequenceTreePanel extends JPanel{
 	}
 
 	public void initFileList() {
-		File[] sequenceFilelists = getAllFileByDiagramType("sequence");
+		
+		int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+		
+		File[] sequenceFilelists = getAllFileByDiagramType(starttype);
 	//	File[] tdFilelists= getAllFileByDiagramType("timing");	
 	   // File[] uppaalFilelists=getAllFileByDiagramType("UPPAAL2");
 	    for(File sequenceFile : sequenceFilelists)
@@ -516,48 +519,25 @@ public class ModelSequenceTreePanel extends JPanel{
 	  * @param type
 	  * @return
 	  */
-	 public   File[] getAllFileByDiagramType(String type){
-//		 File f =FileSystemView.getFileSystemView().getHomeDirectory();
-//		String s =f .getAbsolutePath();
-		 String baseUrl ="D://ModelDriverProjectFile";
-//		String baseUrl =s+"//ModelDriverProjectFile";
-//		File bFile = new File(baseUrl);
-//		if(!bFile.exists()){
-//			bFile.mkdirs();
-//		}
+	 public   File[] getAllFileByDiagramType(int starttype){
+		 String baseUrl ="D:\\ModelDriverProjectFile\\SequenceDiagram\\Violet";
+		 
 		 File[] fList =null;
 		 File file=null;
-		 if("sequence".equals(type)){
-			 file =new File(baseUrl+"\\SequenceDiagram\\Violet");
+		 
+		 if(starttype==1){
+			 file =new File(baseUrl+"\\FunctionalTest");
 			 fList= file.listFiles();
-		 }else if("timing".equals(type)){
-			file =new File(baseUrl+"\\TimingDiagram\\Violet");
-			 fList= file.listFiles();
-		 }else if("UPPAAL2".equals(type)){
-			 //第二步的UPPAAL涉及的自动机
-			 file =new File(baseUrl+"\\UPPAAL\\2.UML Model Transfer");
-			 fList=file.listFiles();
-		 }else if("UPPAAL3".equals(type)){
-			 //第三步的UPPAAL涉及的自动机
-			 file =new File(baseUrl+"\\UPPAAL\\3.Abstract TestCase");
-			 fList= file.listFiles();
-		 }else if("UPPAAL4".equals(type)){
-			 //第四步的UPPAAL涉及的自动机
-			 file =new File(baseUrl+"\\UPPAAL\\4.Real TestCase");
-			 fList=file.listFiles();
-		 }else if("state".equals(type)){
-			 file =new File(baseUrl+"\\StateDiagram\\Violet");
-			 fList=file.listFiles();
-		 }else if("usecase".equals(type)){
-			 file =new File(baseUrl+"\\UsecaseDiagram\\Violet");
-			 fList= file.listFiles();
-		 }else if("class".equals(type)){
-			 file =new File(baseUrl+"\\ClassDiagram\\Violet");
-			 fList= file.listFiles();
-		 }else if("activity".equals(type)){
-			 file =new File(baseUrl+"\\ActivityDiagram\\Violet");
-			 fList=file.listFiles();
 		 }
+		 else if(starttype==2){
+			 file =new File(baseUrl+"\\PerformanceTest");
+			 fList= file.listFiles();
+		 }
+		 else{
+			 file =new File(baseUrl);
+			 fList= file.listFiles();
+		 }
+		 
 		 return fList;
 	}
 
