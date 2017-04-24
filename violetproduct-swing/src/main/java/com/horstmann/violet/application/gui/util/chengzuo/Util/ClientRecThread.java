@@ -3,7 +3,12 @@ package com.horstmann.violet.application.gui.util.chengzuo.Util;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 
 public class ClientRecThread implements Runnable {
 
@@ -11,7 +16,8 @@ public class ClientRecThread implements Runnable {
 	// 该线程所处理的socket所对应的输入流
 	private DataInputStream dis = null;
 	private String content = "";
-
+	
+	public static List<TestCase> testCaseList = Collections.synchronizedList(new ArrayList<TestCase>());
 	public ClientRecThread(Socket socket) {
 		try {
 			this.dis = new DataInputStream(socket.getInputStream());
@@ -39,8 +45,13 @@ public class ClientRecThread implements Runnable {
 	 *
 	 */
 	public void string2model() throws IOException, InterruptedException {
-//		TestCaseUtil.string2File(content);
-		ClientSocket.testCaseList = TestCaseUtil.buildTestCaseList(content);
+		TestCaseConvertUtil.buildTestCaseList(testCaseList,content);
+	}
+	
+	public static synchronized List<TestCase> getTestCaseList(){
+		synchronized (testCaseList) {
+			return testCaseList;
+		}
 	}
 
 	@Override
@@ -52,15 +63,17 @@ public class ClientRecThread implements Runnable {
 		try {
 			// 接受线程的接受缓冲区不为空时候
 			while (keepRunning) {
-				while (dis.read(buf) != -1) {
-					// 1.接受来自服务器的字符串
-					tmp = new String(buf, "UTF-8").trim();
-					content += tmp;
-					// 2.清空字节数组
-					Arrays.fill(buf, (byte) 0);
+				synchronized (testCaseList) {
+					while (dis.read(buf) != -1) {
+						// 1.接受来自服务器的字符串
+						tmp = new String(buf, "UTF-8").trim();
+						content += tmp;
+						// 2.清空字节数组
+						Arrays.fill(buf, (byte) 0);
+					}
+					// 3.字符串处理封装成模型，并存储在List中
+					string2model();
 				}
-				// 3.字符串处理封装成模型，并存储在List中
-				string2model();
 				break;
 			}
 			System.out.println("接收进程结束");

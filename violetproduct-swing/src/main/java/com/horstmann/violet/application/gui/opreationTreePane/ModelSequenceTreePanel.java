@@ -405,9 +405,11 @@ public class ModelSequenceTreePanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				sequencelists.clear();
-				initFileList();
-				addCheckBoxToSequencecheckboxpanel();
+				updateFileList();
+				
+//				sequencelists.clear();
+//				initFileList();
+//				addCheckBoxToSequencecheckboxpanel();
 				
 			}
 		});
@@ -445,6 +447,15 @@ public class ModelSequenceTreePanel extends JPanel{
 		sequencetoolpanel.add(sequencetoolbutton3);
 		sequencetoolpanel.add(sequencetoolbutton4);
 		
+	}
+
+	public void updateFileList() {
+		// TODO Auto-generated method stub
+		
+		sequencelists.clear();
+		initFileList();
+		addCheckBoxToSequencecheckboxpanel();
+
 	}
 
 //	private void initSequenceTree() {

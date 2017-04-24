@@ -80,6 +80,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 	private DefaultTableModel testcasetablemodel;
 	private JTable testcasetable;
 	
+	private String testcasename=null;
 	private List<TestCase> testcaselist=new ArrayList<TestCase>();
 	private List<TestCaseReportPartPanel> testcasereportlist=new ArrayList<TestCaseReportPartPanel>();
 	
@@ -280,9 +281,11 @@ public class TestCaseConfirmationPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				testcasefilenamelists.clear();
-				initFileList();
-				addDataTotestcaseTable();
+				updateFileList();
+				
+//				testcasefilenamelists.clear();
+//				initFileList();
+//				addDataTotestcaseTable();
 				
 			}
 		});
@@ -300,6 +303,15 @@ public class TestCaseConfirmationPanel extends JPanel{
 		toolpanel.setPreferredSize(new Dimension(100, 29));
 		toolpanel.setMaximumSize(new Dimension(100, 29));
 		toolpanel.setMinimumSize(new Dimension(100, 29));
+		
+	}
+
+	public void updateFileList() {
+		// TODO Auto-generated method stub
+		
+		testcasefilenamelists.clear();
+		initFileList();
+		addDataTotestcaseTable();
 		
 	}
 
@@ -371,6 +383,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 					String filename=(String) testcasetablemodel.getValueAt(testcasetable.getSelectedRow(), testcasetable.getSelectedColumn());
 					String path = baseUrl + filename + ".xml";
 					
+					setTestcasename(filename);
 					testcaselist = extractDataFromXml(path);
 
 					JPanel resultpanel=new JPanel();
@@ -547,6 +560,14 @@ public class TestCaseConfirmationPanel extends JPanel{
 
 	public List<TestCaseReportPartPanel> getTestcasereportlist() {
 		return testcasereportlist;
+	}
+
+	public String getTestcasename() {
+		return testcasename;
+	}
+
+	public void setTestcasename(String testcasename) {
+		this.testcasename = testcasename;
 	}
 	
 	

@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCaseResult;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
 
 /**
@@ -17,7 +18,7 @@ import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
  * 
  * @author geek
  */
-public class TestCaseUtil {
+public class TestCaseConvertUtil {
 
 	/**
 	 * 对字符串进行 正则匹配，获取结果
@@ -78,8 +79,7 @@ public class TestCaseUtil {
 	 * @param str 从服务器获取的字符串
 	 * @return
 	 */
-	public static List<TestCase> buildTestCaseList(String str) {
-		List<TestCase> list = new ArrayList<TestCase>();
+	public static void buildTestCaseList(List<TestCase> list,String str) {
 		// 1.按*号将测试用例划分
 		String[] tmp = str.split("\\*");
 		// 2.对每个测试用例字符串进行解析封装
@@ -95,21 +95,29 @@ public class TestCaseUtil {
 			// 2.4.测试用例执行状态
 			// 类型 说明 : 1.测试用例有误,无法对应到执行程序，且测试耗时:[不准确] 2.测试耗时:
 			// 3.程序执行过程中出现死循环或者抛出异常!
+			TestCaseResult testCaseResult = new TestCaseResult();
 			String exeState = "", t = stringRegEx(s, "execStatus:([\\s|\\S]*?)-->resultStatus:").get(0);
 			if (t.contains(":")) {
 				String[] r = t.split(":");
 				switch (r[0]) {
-				case "1":
-					exeState = "测试用例有误,无法对应到执行程序，且测试耗时:" + r[1] + "[不准确]";
-					break;
-				case "2":
-					exeState = "测试耗时:" + r[1];
-					break;
+					case "1":
+						exeState = "测试用例有误,无法对应到执行程序，且测试耗时:" + r[1] + "[不准确]";
+						break;
+					case "2":
+						exeState = "测试耗时:" + r[1];
+						break;
 				}
+				
+				testCaseResult.setExeTime(Double.valueOf(r[1]));
+				testCaseResult.setTakeoff_alt(Double.valueOf(r[2].substring("takeoff_alt".length())));
+				testCaseResult.setBattery_remaining(Double.valueOf(r[3].substring("battery_remaining".length())));
+				testCaseResult.setTime(Double.valueOf(r[4].substring("time".length())));
+				testCaseResult.setWind_speed(Double.valueOf(r[5].substring("wind_speed".length())));
 			} else {
 				exeState = "程序执行过程中出现死循环或者抛出异常!";
 			}
-			testCase.setState(exeState);
+			testCaseResult.setResultDetail(exeState);
+			testCase.setResult(testCaseResult);
 			// 2.5.测试用例结果
 			// 类型 说明 : 1.测试用例有误,无法对应到执行程序! 2.测试执行成功!耗时: 3.程序出现出现死循环或者抛出异常!
 			String result = "";
@@ -126,14 +134,12 @@ public class TestCaseUtil {
 			} else {
 				result = "测试执行成功!耗时:" + t.split(":")[1];
 			}
-			testCase.setResult(result);
+			testCase.setState(result);
 			//2.6.测试用例表现格式
 			testCase.setDetail(testCase.showTestCase());
 			//2.7.加入测试用例链表
-			System.out.println(testCase.showTestCase());
 			list.add(testCase);
 		}
-		return list;
 	}
 
 	/**

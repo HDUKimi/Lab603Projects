@@ -56,6 +56,10 @@ public class TestCaseChartTabbedPanel extends JPanel{
 	private DefaultTableModel attributetablemodel;
 	
 	private JPanel chartpanel;
+	private JPanel barpanel;
+	private JPanel linepanel;
+	private JPanel piepanel;
+	
 	private BarChart barchart;
 	private LineChart linechart;
 	private PieChart piechart;
@@ -268,7 +272,8 @@ public class TestCaseChartTabbedPanel extends JPanel{
 	private void initTablePanel() {
 		// TODO Auto-generated method stub
 		
-		String[] columnNames = { "模块名称", "通过数", "不通过数", "首轮命中用例数", "执行用例数", "未执行用例数", "变更用例数", "测试用例总数"};
+//		String[] columnNames = { "模块名称", "通过数", "不通过数", "首轮命中用例数", "执行用例数", "未执行用例数", "变更用例数", "测试用例总数"};
+		String[] columnNames = { "测试ID", "風速","起飞高度", "剩余电量", "所用时间"};
 		String[][] tabelValues = {};
 
 		attributetablemodel = new DefaultTableModel(tabelValues, columnNames) {
@@ -298,27 +303,28 @@ public class TestCaseChartTabbedPanel extends JPanel{
 		attributetable.getColumnModel().getColumn(2).setCellRenderer(new MyAllLabelRenderer());
 		attributetable.getColumnModel().getColumn(3).setCellRenderer(new MyAllLabelRenderer());
 		attributetable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
-		attributetable.getColumnModel().getColumn(5).setCellRenderer(new MyAllLabelRenderer());
-		attributetable.getColumnModel().getColumn(6).setCellRenderer(new MyAllLabelRenderer());
-		attributetable.getColumnModel().getColumn(7).setCellRenderer(new MyAllLabelRenderer());
+//		attributetable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
+//		attributetable.getColumnModel().getColumn(5).setCellRenderer(new MyAllLabelRenderer());
+//		attributetable.getColumnModel().getColumn(6).setCellRenderer(new MyAllLabelRenderer());
+//		attributetable.getColumnModel().getColumn(7).setCellRenderer(new MyAllLabelRenderer());
 		
-		attributetable.getColumn("模块名称").setPreferredWidth(100);
-		attributetable.getColumn("模块名称").setMinWidth(100);
-		attributetable.getColumn("模块名称").setMaxWidth(100);
-		attributetable.getColumn("通过数").setPreferredWidth(50);
-		attributetable.getColumn("通过数").setMinWidth(50);
-		attributetable.getColumn("不通过数").setPreferredWidth(50);
-		attributetable.getColumn("不通过数").setMinWidth(50);
-		attributetable.getColumn("首轮命中用例数").setPreferredWidth(80);
-		attributetable.getColumn("首轮命中用例数").setMinWidth(80);
-		attributetable.getColumn("执行用例数").setPreferredWidth(50);
-		attributetable.getColumn("执行用例数").setMinWidth(50);
-		attributetable.getColumn("未执行用例数").setPreferredWidth(50);
-		attributetable.getColumn("未执行用例数").setMinWidth(50);
-		attributetable.getColumn("变更用例数").setPreferredWidth(50);
-		attributetable.getColumn("变更用例数").setMinWidth(50);
-		attributetable.getColumn("测试用例总数").setPreferredWidth(50);
-		attributetable.getColumn("测试用例总数").setMinWidth(50);
+//		attributetable.getColumn("模块名称").setPreferredWidth(100);
+//		attributetable.getColumn("模块名称").setMinWidth(100);
+//		attributetable.getColumn("模块名称").setMaxWidth(100);
+//		attributetable.getColumn("通过数").setPreferredWidth(50);
+//		attributetable.getColumn("通过数").setMinWidth(50);
+//		attributetable.getColumn("不通过数").setPreferredWidth(50);
+//		attributetable.getColumn("不通过数").setMinWidth(50);
+//		attributetable.getColumn("首轮命中用例数").setPreferredWidth(80);
+//		attributetable.getColumn("首轮命中用例数").setMinWidth(80);
+//		attributetable.getColumn("执行用例数").setPreferredWidth(50);
+//		attributetable.getColumn("执行用例数").setMinWidth(50);
+//		attributetable.getColumn("未执行用例数").setPreferredWidth(50);
+//		attributetable.getColumn("未执行用例数").setMinWidth(50);
+//		attributetable.getColumn("变更用例数").setPreferredWidth(50);
+//		attributetable.getColumn("变更用例数").setMinWidth(50);
+//		attributetable.getColumn("测试用例总数").setPreferredWidth(50);
+//		attributetable.getColumn("测试用例总数").setMinWidth(50);
 
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setBackground(new Color(71, 80, 93));
@@ -338,17 +344,17 @@ public class TestCaseChartTabbedPanel extends JPanel{
 		tablepanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		tablepanel.setOpaque(false);
 		
-		String[] strname={"setup","init","loop","update","set_range","run"};
-		Random rand=new Random();
-		for(int i=0;i<10;i++){
-			int index=rand.nextInt(6);
-			Object[] rowData={strname[index],rand.nextInt(100),rand.nextInt(100),rand.nextInt(100),rand.nextInt(100),rand.nextInt(100),rand.nextInt(100),rand.nextInt(100)};
-			attributetablemodel.addRow(rowData);
-		}
-		Object[] rowData1={"合计:",rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000)};
-		attributetablemodel.addRow(rowData1);
-		Object[] rowData2={"百分比:",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%"};
-		attributetablemodel.addRow(rowData2);
+//		String[] strname={"setup","init","loop","update","set_range","run"};
+//		Random rand=new Random();
+//		for(int i=0;i<10;i++){
+//			int index=rand.nextInt(6);
+//			Object[] rowData={strname[index],rand.nextInt(100),rand.nextInt(100),rand.nextInt(100),rand.nextInt(100),rand.nextInt(100),rand.nextInt(100),rand.nextInt(100)};
+//			attributetablemodel.addRow(rowData);
+//		}
+//		Object[] rowData1={"合计:",rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000)};
+//		attributetablemodel.addRow(rowData1);
+//		Object[] rowData2={"百分比:",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%"};
+//		attributetablemodel.addRow(rowData2);
 		
 	}
 
@@ -362,6 +368,10 @@ public class TestCaseChartTabbedPanel extends JPanel{
 //		barchartpanel=barchart.getChartpanel();
 //		linechartpanel=linechart.getChartpanel();
 //		piechartpanel=piechart.getChartpanel();
+		
+		barpanel=new JPanel();
+		linepanel=new JPanel();
+		piepanel=new JPanel();
 		
 		leftemptypanel1=new JPanel();
 		leftemptypanel2=new JPanel();
@@ -383,21 +393,32 @@ public class TestCaseChartTabbedPanel extends JPanel{
 		linechartpanel=new LineChart().createChart();
 		piechartpanel=new PieChart().createChart();
 		
-		barchartpanel.setPreferredSize(new Dimension(300, 300));
+//		barchartpanel.setPreferredSize(new Dimension(300, 300));
 //		barchartpanel.setMaximumSize(new Dimension(300, 300));
 //		barchartpanel.setMinimumSize(new Dimension(300, 300));
-		linechartpanel.setPreferredSize(new Dimension(300, 300));
+//		linechartpanel.setPreferredSize(new Dimension(300, 300));
 //		linechartpanel.setMaximumSize(new Dimension(300, 300));
 //		linechartpanel.setMinimumSize(new Dimension(300, 300));
-		piechartpanel.setPreferredSize(new Dimension(300, 300));
+//		piechartpanel.setPreferredSize(new Dimension(300, 300));
 //		piechartpanel.setMaximumSize(new Dimension(300, 300));
 //		piechartpanel.setMinimumSize(new Dimension(300, 300));
 		
+		
+		barpanel.setLayout(new GridLayout());
+		barpanel.add(barchartpanel);
+		
+		linepanel.setLayout(new GridLayout());
+		linepanel.add(linechartpanel);
+		
+		piepanel.setLayout(new GridLayout());
+		piepanel.add(piechartpanel);
+		
+		
 		GridBagLayout layout = new GridBagLayout();
 		chartpanel.setLayout(layout);
-		chartpanel.add(barchartpanel);
-		chartpanel.add(linechartpanel);
-		chartpanel.add(piechartpanel);
+		chartpanel.add(barpanel);
+		chartpanel.add(linepanel);
+		chartpanel.add(piepanel);
 		
 		chartpanel.add(leftemptypanel1);
 		chartpanel.add(leftemptypanel2);
@@ -406,16 +427,16 @@ public class TestCaseChartTabbedPanel extends JPanel{
 		chartpanel.add(rightemptypanel2);
 		chartpanel.add(rightemptypanel3);
 		
-		layout.setConstraints(barchartpanel, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.6, 1));
-		layout.setConstraints(linechartpanel, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.6, 1));
-		layout.setConstraints(piechartpanel, new GBC(1, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.6, 1));
+		layout.setConstraints(barpanel, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
+		layout.setConstraints(linepanel, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
+		layout.setConstraints(piepanel, new GBC(1, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
 		
-		layout.setConstraints(leftemptypanel1, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.2, 1));
-		layout.setConstraints(leftemptypanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.2, 1));
-		layout.setConstraints(leftemptypanel3, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.2, 1));
-		layout.setConstraints(rightemptypanel1, new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.2, 1));
-		layout.setConstraints(rightemptypanel2, new GBC(2, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.2, 1));
-		layout.setConstraints(rightemptypanel3, new GBC(2, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.2, 1));
+		layout.setConstraints(leftemptypanel1, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+		layout.setConstraints(leftemptypanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+		layout.setConstraints(leftemptypanel3, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+		layout.setConstraints(rightemptypanel1, new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+		layout.setConstraints(rightemptypanel2, new GBC(2, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+		layout.setConstraints(rightemptypanel3, new GBC(2, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 		
 		chartpanel.setBackground(new Color(255, 255, 255));
 		
@@ -427,5 +448,28 @@ public class TestCaseChartTabbedPanel extends JPanel{
 		this.getRootPane().repaint();
 		this.setVisible(true);
 	}
+
+	public JPanel getBarpanel() {
+		return barpanel;
+	}
+
+	public JPanel getLinepanel() {
+		return linepanel;
+	}
+
+	public JPanel getPiepanel() {
+		return piepanel;
+	}
+
+	public JTable getAttributetable() {
+		return attributetable;
+	}
+
+	public DefaultTableModel getAttributetablemodel() {
+		return attributetablemodel;
+	}
+
+	
+	
 	
 }

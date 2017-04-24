@@ -71,6 +71,7 @@ public class ClientFileThread implements Runnable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+			System.out.println("文件传输完成\n");
 			try {
 				fis.close();
 				System.out.println("文件传输完成\n");

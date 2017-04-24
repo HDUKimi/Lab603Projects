@@ -1752,7 +1752,7 @@ Sixstart.addActionListener(new ActionListener() {
 						tc.setTestCaseID(testCaseID);
 						tc.setProcessList(processList);
 						tc.setState(state);
-						tc.setResult(result);
+//						tc.setResult(result);
 
 						testcaseList.add(tc);
 

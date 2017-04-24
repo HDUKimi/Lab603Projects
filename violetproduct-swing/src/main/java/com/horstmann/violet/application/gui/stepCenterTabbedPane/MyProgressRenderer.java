@@ -38,8 +38,8 @@ public class MyProgressRenderer extends JProgressBar implements TableCellRendere
 		setBorderPainted(false);
 //		setBorderPainted(true);
 		
-		setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
-//		setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
+//		setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+		setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.ORANGE));
 		
 		setUI(new ProgressUI(this,new Color(58,145,159)));
 		

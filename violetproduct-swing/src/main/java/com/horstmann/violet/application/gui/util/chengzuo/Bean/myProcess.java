@@ -1,7 +1,13 @@
 package com.horstmann.violet.application.gui.util.chengzuo.Bean;
 
-public class myProcess {
+import java.io.Serializable;
 
+public class myProcess implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5505096620733312497L;
 	// ¼¤ÀøID
 	public int processID;
 	// ¼¤ÀøÃû³Æ

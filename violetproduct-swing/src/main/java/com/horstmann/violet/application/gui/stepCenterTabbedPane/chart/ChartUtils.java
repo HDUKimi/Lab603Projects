@@ -15,6 +15,7 @@ import java.util.Vector;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
+import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.DateTickUnit;
 import org.jfree.chart.axis.DateTickUnitType;
@@ -394,6 +395,10 @@ public class ChartUtils {
 	 */
 	public static void setXAixs(CategoryPlot plot) {
 		Color lineColor = new Color(31, 121, 170);
+		
+		CategoryAxis dateaxis=plot.getDomainAxis();
+		dateaxis.setLowerMargin(0.01D);
+        dateaxis.setUpperMargin(0.01D);
 //		plot.getDomainAxis().setAxisLinePaint(lineColor);// X坐标轴颜色
 //		plot.getDomainAxis().setTickMarkPaint(lineColor);// X坐标轴标记|竖线颜色
 

@@ -124,6 +124,10 @@ public class HomePerformanceTestTabbedPanel extends JPanel{
 				mainFrame.getHomeAllTabbedPanel().setStarttype(2);
 				mainFrame.getStepButton().getStep2button().doClick();
 				
+				mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().updateFileList();
+				mainFrame.getTestCaseGenerationPanel().updateFileList();
+				mainFrame.getTestCaseConfirmationPanel().updateFileList();
+				
 				mainFrame.getTestCaseGenerationPanel().getCoverpanel().setVisible(false);
 				
 			}

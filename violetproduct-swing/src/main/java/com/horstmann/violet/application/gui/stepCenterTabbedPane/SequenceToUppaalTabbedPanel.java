@@ -385,7 +385,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 								.get(mainFrame.getModelTransformationPanel().getModelSequenceTreePanel()
 										.getUppaaltablemodel().getRowCount())
 								.setVisible(false);
-						
+						System.err.println(tranxmlname);
 						Object[] rowData = { tranxmlname.substring(0, tranxmlname.lastIndexOf(".uppaal.violet.xml")) };
 						mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel()
 								.addRow(rowData);
@@ -422,7 +422,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 								sleeptime=SD2UppaalMain.diagramslistsize*4;
 							}
 							if(tranprocessstate==1){
-								sleeptime=100;
+								sleeptime=10;
 							}
 							Thread.sleep(sleeptime);
 						}

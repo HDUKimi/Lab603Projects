@@ -14,9 +14,14 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -24,6 +29,7 @@ import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -46,12 +52,16 @@ import org.dom4j.io.XMLWriter;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.PerformanceLineChart;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseBarChartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseLineChartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCasePieChartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseStackedBarChartPanel;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCaseResult;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
+import com.horstmann.violet.application.gui.util.chengzuo.Util.ClientRecThread;
+import com.horstmann.violet.application.gui.util.chengzuo.Util.ClientSocket;
 
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 
@@ -91,6 +101,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private JScrollPane tablescrollpanel;
 	private JPanel tableresultpanel;
 	
+	private String testcasename;
 	private List<TestCaseReportPartPanel> testcasereportlist=new ArrayList<TestCaseReportPartPanel>();
 	private List<TestCaseReportPartPanel> checkedtestcasereportlist=new ArrayList<TestCaseReportPartPanel>();
 	private List<TestCase> testcaselist=new ArrayList<TestCase>();
@@ -410,22 +421,48 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private void startConfirmation() {
 		// TODO Auto-generated method stub
 		
-//		ClientSocket clientSocket = new ClientSocket("192.168.150.117", 5555);
+//		ClientSocket clientSocket = new ClientSocket("192.168.149.103", 5555);
 //		clientSocket.Connection();
 //		JFileChooser jfc = new JFileChooser();
 //		jfc.setMultiSelectionEnabled(true);
 //		jfc.showDialog(new JLabel(), "选择测试用例");
 //		File[] files = jfc.getSelectedFiles();
-//		StepFiveArea.append("正在发送数据.....\n");
 //		clientSocket.sendFile(files);
-//		StepFiveArea.append("发送数据完成!\n");
-//		StepFiveArea.append("正在获得数据.....\n");
+//		
+//		List<TestCase> list = ClientRecThread.getTestCaseList();
+		
+//		File f=new File("D:\\test.txt");
 //		try {
-//			Thread.sleep(10000);
-//		} catch (InterruptedException e) {
+//			Writer w=new FileWriter(f,false);
+//			for(TestCase tc:list){
+//				System.out.println(tc.toString());
+//				w.write(tc.toString());
+//				w.write("\n");
+//			}
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
 //		}
-//		List<TestCase> list = clientSocket.getTestCaseList();
-//		StepFiveArea.append("数据已经获得!\n");
+//		
+//		
+//		try {
+//			String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\serialtestcase.txt";
+//			FileOutputStream fos = new FileOutputStream(path);
+//			ObjectOutputStream oos=new ObjectOutputStream(fos);
+//			
+//			for(TestCase tc:list){
+//				System.out.println(tc.toString());
+//				oos.writeObject(tc);
+//			}
+//			
+//			oos.close();
+//			fos.close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		
 
 		t = new Thread(new Runnable() {
 
@@ -447,19 +484,101 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					
 				}
 				
-				extractDataToXml(testcaselist);//生成测试用例xml
+				testcasename=mainFrame.getTestCaseConfirmationPanel().getTestcasename();
 				
-				//接收到测试结果list
+				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"selected.xml";
+				extractDataToXml(extraxmlpath, testcaselist);//生成测试用例xml
+				File file=new File(extraxmlpath);
 				
-				startRunProgressbar();//显示进度条
+//				//接收到测试结果list
+//				ClientSocket clientSocket = new ClientSocket("192.168.150.117", 5555);
+//				clientSocket.Connection();
+////				JFileChooser jfc = new JFileChooser();
+////				jfc.setMultiSelectionEnabled(true);
+////				jfc.showDialog(new JLabel(), "选择测试用例");
+////				File[] files = jfc.getSelectedFiles();
+//				File[] files = {file};
+//				clientSocket.sendFile(files);
+//				
+//				List<TestCase> testcaselist = ClientRecThread.getTestCaseList();
+//				
+//				File f=new File("D:\\test.txt");
+//				try {
+//					Writer w=new FileWriter(f,false);
+//					for(TestCase tc:testcaselist){
+//						System.out.println(tc.toString());
+//						w.write(tc.toString());
+//						w.write("\n");
+//					}
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//				
+//				
+//				try {
+//					String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
+//					FileOutputStream fos = new FileOutputStream(path);
+//					ObjectOutputStream oos=new ObjectOutputStream(fos);
+//					
+//					for(TestCase tc:testcaselist){
+//						System.out.println(tc.toString());
+//						oos.writeObject(tc);
+//					}
+//					
+//					oos.close();
+//					fos.close();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 				
-				changeDataInTable(extractData());//显示测试结果
+				List<TestCase> testcaselist=new ArrayList<>();
+				try {
+					String serialpath = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
+					FileInputStream fis = new FileInputStream(serialpath);
+					ObjectInputStream ois = new ObjectInputStream(fis);
+
+					while(true){//使用处理异常的方式来判断文件是否结束
+						try {
+							TestCase tc=(TestCase) ois.readObject();//文件读取完毕后，会抛异常
+							testcaselist.add(tc);
+						} catch (Exception  e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							System.out.println("文件读取完毕!");  
+			                break;  
+						}
+					}
+
+					ois.close();
+					fis.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+//				for(TestCase tc:testcaselist){
+//					System.out.println(tc.getTestCaseID()+" - "+tc.getState()+" - "+tc.getResult().toString());
+//				}
 				
-//				initWebBrowser();
+				startRunProgressbar();// 显示进度条
+
+				changeDataInTable(testcaselist);//显示测试结果
 				
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().removeAll();
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().setLayout(new GridLayout());
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().add(webframe.getContentPane());
+				
+				DefaultTableModel tabelmodel=mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getAttributetablemodel();
+				
+				for(TestCase tc:testcaselist){
+					TestCaseResult tcr=tc.getResult();
+					Object[] rowData={tc.getTestCaseID(),tcr.getWind_speed()+" m/s" ,tcr.getTakeoff_alt(),tcr.getBattery_remaining()+" %",tcr.getTime()+" s"};
+					tabelmodel.addRow(rowData);
+				}
+				
+//				PerformanceLineChart plc=new PerformanceLineChart(testcaselist);
+//				
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getLinepanel().removeAll();
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getLinepanel().add(plc.createChart());
 				
 //				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().removeAll();
 //				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().add(new TestCasePieChartPanel(testcasecount));
@@ -652,7 +771,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
 			title+=testcase.getState()+"     ";
 //			title+="执行结果:"+testcase.getResult().substring(0, testcase.getResult().indexOf("耗时"));
-			title+="执行结果:"+testcase.getResult();
+//			title+="执行结果:"+testcase.getResult();
+			title+=testcase.getResult();
 			
 			tcrpp.getTitlelabel().setText(title);
 			
@@ -664,22 +784,22 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			ImageIcon icon2 = new ImageIcon(path + "cross.png");
 			icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
 			
-			if(testcase.getResult().contains("成功")){
-				tcrpp.getIconlabel().setIcon(icon1);
-			}
-			else{
-				tcrpp.getIconlabel().setIcon(icon2);
-			}
-			
-			if(testcase.getResult().contains("成功")){
-				testcasecount[0]++;
-			}
-			else if(testcase.getResult().contains("死循环")){
-				testcasecount[1]++;
-			}
-			else if(testcase.getResult().contains("用例有误")){
-				testcasecount[2]++;
-			}
+//			if(testcase.getResult().contains("成功")){
+//				tcrpp.getIconlabel().setIcon(icon1);
+//			}
+//			else{
+//				tcrpp.getIconlabel().setIcon(icon2);
+//			}
+//			
+//			if(testcase.getResult().contains("成功")){
+//				testcasecount[0]++;
+//			}
+//			else if(testcase.getResult().contains("死循环")){
+//				testcasecount[1]++;
+//			}
+//			else if(testcase.getResult().contains("用例有误")){
+//				testcasecount[2]++;
+//			}
 			
 			testcasecountlist.add(truecount);
 			testcasecountlist.add(falsecount);
@@ -688,7 +808,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 	}
 	
-	private void extractDataToXml(List<TestCase> list) {
+	private void extractDataToXml(String path, List<TestCase> list) {
 		// TODO Auto-generated method stub
 		
 		Document doc = DocumentHelper.createDocument();
@@ -709,7 +829,6 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		try {
 			// 定义输出流的目的地
 //			String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase";
-			String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\test.xml";
 			FileWriter fw = new FileWriter(path);
 
 			// 定义输出格式和字符集
@@ -727,176 +846,176 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	}
 
 	
-	public List<TestCase> extractData() {
-
-		// 测试用例ID
-		String testCaseID = null;
-		// 测试用例 激励链表
-		List<myProcess> processList = new ArrayList<myProcess>();
-		// 测试用例执行状态
-		String state = null;
-		// 测试用例执行结果
-		String result = null;
-
-		String process;
-
-		// 激励ID
-		int processID;
-		// 激励名称
-		String processName;
-		// 激励参数
-		String processParam;
-		// 激励状态
-		String processStatus;
-		// 激励执行情况
-		boolean processExec;
-
-		int startendstate = 0;
-
-		List<TestCase> testcaseList = new ArrayList<TestCase>();
-
-		try {
-
-//			 String encoding = "utf-8";
-			String encoding = "GBK";
-
-			String filePath="D:\\123.txt";
-			
-			File file = new File(filePath);
-			if (file.isFile() && file.exists()) { // 判断文件是否存在
-				InputStreamReader read = new InputStreamReader(new FileInputStream(file), encoding);// 考虑到编码格式
-				BufferedReader bufferedReader = new BufferedReader(read);
-				String lineTxt = null;
-				
-				int max=20;
-		        int min=1;
-		        Random random = new Random();
-		        int num1 = 0,num2,fstate=0;
-		        int k=0;
-				
-				while ((lineTxt = bufferedReader.readLine()) != null) {
-
-					if (startendstate == 1) {
-
-						processList = new ArrayList<myProcess>();
-						startendstate = 0;
-						
-						num1= random.nextInt(max)%(max-min+1) + min;
-
-					}
-
-					if (lineTxt.substring(0, 8).equals("TestCase")) {
-
-						testCaseID = lineTxt.substring(lineTxt.indexOf("testCaseID=") + 11, lineTxt.indexOf(","));
-
-					} else if (lineTxt.substring(1, 10).equals("myProcess")) {
-
-						process = lineTxt.substring(lineTxt.indexOf("[") + 1, lineTxt.indexOf("]"));
-						processID = Integer.valueOf(process.substring(process.indexOf("processID=") + 10,
-								process.indexOf(", processName=")));
-						processName = process.substring(process.indexOf("processName=") + 12,
-								process.indexOf(", processParam="));
-						processParam = process.substring(process.indexOf("processParam=") + 13,
-								process.indexOf(", processStatus="));
-						processStatus = process.substring(process.indexOf("processStatus=") + 14,
-								process.indexOf(", processExec="));
-//						if(process.substring(process.indexOf("processExec=")+12, process.length()).equals("true")){
-//							processExec=true;
+//	public List<TestCase> extractData() {
+//
+//		// 测试用例ID
+//		String testCaseID = null;
+//		// 测试用例 激励链表
+//		List<myProcess> processList = new ArrayList<myProcess>();
+//		// 测试用例执行状态
+//		String state = null;
+//		// 测试用例执行结果
+//		String result = null;
+//
+//		String process;
+//
+//		// 激励ID
+//		int processID;
+//		// 激励名称
+//		String processName;
+//		// 激励参数
+//		String processParam;
+//		// 激励状态
+//		String processStatus;
+//		// 激励执行情况
+//		boolean processExec;
+//
+//		int startendstate = 0;
+//
+//		List<TestCase> testcaseList = new ArrayList<TestCase>();
+//
+//		try {
+//
+////			 String encoding = "utf-8";
+//			String encoding = "GBK";
+//
+//			String filePath="D:\\123.txt";
+//			
+//			File file = new File(filePath);
+//			if (file.isFile() && file.exists()) { // 判断文件是否存在
+//				InputStreamReader read = new InputStreamReader(new FileInputStream(file), encoding);// 考虑到编码格式
+//				BufferedReader bufferedReader = new BufferedReader(read);
+//				String lineTxt = null;
+//				
+//				int max=20;
+//		        int min=1;
+//		        Random random = new Random();
+//		        int num1 = 0,num2,fstate=0;
+//		        int k=0;
+//				
+//				while ((lineTxt = bufferedReader.readLine()) != null) {
+//
+//					if (startendstate == 1) {
+//
+//						processList = new ArrayList<myProcess>();
+//						startendstate = 0;
+//						
+//						num1= random.nextInt(max)%(max-min+1) + min;
+//
+//					}
+//
+//					if (lineTxt.substring(0, 8).equals("TestCase")) {
+//
+//						testCaseID = lineTxt.substring(lineTxt.indexOf("testCaseID=") + 11, lineTxt.indexOf(","));
+//
+//					} else if (lineTxt.substring(1, 10).equals("myProcess")) {
+//
+//						process = lineTxt.substring(lineTxt.indexOf("[") + 1, lineTxt.indexOf("]"));
+//						processID = Integer.valueOf(process.substring(process.indexOf("processID=") + 10,
+//								process.indexOf(", processName=")));
+//						processName = process.substring(process.indexOf("processName=") + 12,
+//								process.indexOf(", processParam="));
+//						processParam = process.substring(process.indexOf("processParam=") + 13,
+//								process.indexOf(", processStatus="));
+//						processStatus = process.substring(process.indexOf("processStatus=") + 14,
+//								process.indexOf(", processExec="));
+////						if(process.substring(process.indexOf("processExec=")+12, process.length()).equals("true")){
+////							processExec=true;
+////						}
+////						else{
+////							processExec=false;
+////						}
+//						
+//						if(num1>18){
+//							num2= random.nextInt(max)%(max-min+1) + min;
+//							if(num2>15){
+//								processExec=false;
+//								fstate=1;
+//							}
+//							else{
+//								processExec=true;
+//							}
 //						}
 //						else{
-//							processExec=false;
+//							processExec=true;
 //						}
-						
-						if(num1>18){
-							num2= random.nextInt(max)%(max-min+1) + min;
-							if(num2>15){
-								processExec=false;
-								fstate=1;
-							}
-							else{
-								processExec=true;
-							}
-						}
-						else{
-							processExec=true;
-						}
-
-						myProcess p = new myProcess();
-						p.setProcessID(processID);
-						p.setProcessName(processName);
-						p.setProcessParam(processParam);
-						p.setProcessStatus(processStatus);
-						p.setProcessExec(processExec);
-
-						processList.add(p);
-						
-						fstate=0;
-
-					} else if (lineTxt.substring(0, 2).equals(", ")) {
-
-						state = lineTxt.substring(lineTxt.indexOf("state=") + 6, lineTxt.indexOf(", result="));
-						result = lineTxt.substring(lineTxt.indexOf("result=") + 7, lineTxt.indexOf(", detail="));
-						
-				        if(num1>19){
-				        	state="程序执行过程中出现死循环或者抛出异常!";
-				        	result="程序出现出现死循环或者抛出异常!";
-				        	
-				        	if(fstate==0){
-				        		processList.get(random.nextInt(processList.size()-1)%(processList.size())).setProcessExec(false);
-//				        		System.out.println(k++);
-				        	}
-				        	
-				        }
-				        else if(num1>18){
-				        	state="测试用例有误,无法对应到执行程序，且测试耗时:0[不准确]";
-				        	result="测试用例有误,无法对应到执行程序!";
-				        	
-				        	if(fstate==0){
-				        		processList.get(random.nextInt(processList.size()-1)%(processList.size())).setProcessExec(false);
-//				        		System.out.println(k++);
-				        	}
-				        	
-				        }
-				        else{
-				        	state="测试耗时:0";
-				        	result="测试执行成功!耗时:0";
-				        }
-						
-
-					} else if (lineTxt.substring(lineTxt.length() - 2, lineTxt.length()).equals("]]")) {
-
-						TestCase tc = new TestCase();
-						tc.setTestCaseID(testCaseID);
-						tc.setProcessList(processList);
-						tc.setState(state);
-						tc.setResult(result);
-
-						testcaseList.add(tc);
-
-						startendstate = 1;
-
-					}
-
-				}
-				read.close();
-			} else {
-				System.out.println("找不到指定的文件");
-			}
-		} catch (Exception e) {
-			System.out.println("读取文件内容出错");
-			e.printStackTrace();
-		}
-
-//		System.out.println(testcaseList.size());
 //
-//		for (TestCase tc : testcaseList) {
+//						myProcess p = new myProcess();
+//						p.setProcessID(processID);
+//						p.setProcessName(processName);
+//						p.setProcessParam(processParam);
+//						p.setProcessStatus(processStatus);
+//						p.setProcessExec(processExec);
 //
-//			System.out.println(tc.toString());
+//						processList.add(p);
+//						
+//						fstate=0;
 //
+//					} else if (lineTxt.substring(0, 2).equals(", ")) {
+//
+//						state = lineTxt.substring(lineTxt.indexOf("state=") + 6, lineTxt.indexOf(", result="));
+//						result = lineTxt.substring(lineTxt.indexOf("result=") + 7, lineTxt.indexOf(", detail="));
+//						
+//				        if(num1>19){
+//				        	state="程序执行过程中出现死循环或者抛出异常!";
+//				        	result="程序出现出现死循环或者抛出异常!";
+//				        	
+//				        	if(fstate==0){
+//				        		processList.get(random.nextInt(processList.size()-1)%(processList.size())).setProcessExec(false);
+////				        		System.out.println(k++);
+//				        	}
+//				        	
+//				        }
+//				        else if(num1>18){
+//				        	state="测试用例有误,无法对应到执行程序，且测试耗时:0[不准确]";
+//				        	result="测试用例有误,无法对应到执行程序!";
+//				        	
+//				        	if(fstate==0){
+//				        		processList.get(random.nextInt(processList.size()-1)%(processList.size())).setProcessExec(false);
+////				        		System.out.println(k++);
+//				        	}
+//				        	
+//				        }
+//				        else{
+//				        	state="测试耗时:0";
+//				        	result="测试执行成功!耗时:0";
+//				        }
+//						
+//
+//					} else if (lineTxt.substring(lineTxt.length() - 2, lineTxt.length()).equals("]]")) {
+//
+//						TestCase tc = new TestCase();
+//						tc.setTestCaseID(testCaseID);
+//						tc.setProcessList(processList);
+//						tc.setState(state);
+//						tc.setResult(result);
+//
+//						testcaseList.add(tc);
+//
+//						startendstate = 1;
+//
+//					}
+//
+//				}
+//				read.close();
+//			} else {
+//				System.out.println("找不到指定的文件");
+//			}
+//		} catch (Exception e) {
+//			System.out.println("读取文件内容出错");
+//			e.printStackTrace();
 //		}
-		
-		return testcaseList;
-
-	}
+//
+////		System.out.println(testcaseList.size());
+////
+////		for (TestCase tc : testcaseList) {
+////
+////			System.out.println(tc.toString());
+////
+////		}
+//		
+//		return testcaseList;
+//
+//	}
 
 }

@@ -344,9 +344,11 @@ public class TestCaseGenerationPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				uppaallists.clear();
-				initFileList();
-				addCheckBoxToUppaalcheckboxpanel();
+				updateFileList();
+				
+//				uppaallists.clear();
+//				initFileList();
+//				addCheckBoxToUppaalcheckboxpanel();
 				
 			}
 		});
@@ -380,6 +382,16 @@ public class TestCaseGenerationPanel extends JPanel {
 		uppaaltoolpanel.add(uppaaltoolbutton3);
 		uppaaltoolpanel.add(uppaaltoolbutton4);
 		
+		
+	}
+
+
+	public void updateFileList() {
+		// TODO Auto-generated method stub
+		
+		uppaallists.clear();
+		initFileList();
+		addCheckBoxToUppaalcheckboxpanel();
 		
 	}
 

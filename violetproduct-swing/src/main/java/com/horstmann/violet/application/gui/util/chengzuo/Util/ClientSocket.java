@@ -1,11 +1,15 @@
 package com.horstmann.violet.application.gui.util.chengzuo.Util;
+
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
+import com.mysql.fabric.xmlrpc.base.Array;
 
 public class ClientSocket {
 
@@ -13,7 +17,7 @@ public class ClientSocket {
 	protected String IP;
 	protected int PORT;
 
-	public static List<TestCase> testCaseList = null;
+//	public static List<TestCase> testCaseList = Collections.synchronizedList(new ArrayList<TestCase>());
 
 	// 创建套接字
 	private Socket socket = null;
@@ -33,10 +37,12 @@ public class ClientSocket {
 		this.IP = ip;
 		this.PORT = port;
 	}
-	
-	public static synchronized List<TestCase> getTestCaseList() {
-		return testCaseList;
-	}
+
+//	public static synchronized List<TestCase> getTestCaseList() {
+//		synchronized(testCaseList){
+//			return testCaseList;
+//		}
+//	}
 
 	// 初始化所有线程
 	public void initThread() {
@@ -48,6 +54,7 @@ public class ClientSocket {
 		clientFileThread = new ClientFileThread(socket);
 		fileThread = new Thread(clientFileThread);
 	}
+
 	/**
 	 * 判断连接函数
 	 */
