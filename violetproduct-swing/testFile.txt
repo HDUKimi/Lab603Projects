@@ -1,0 +1,165 @@
+testcCaseID:1
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=true	ProcessStatus:NULL ) 
+	# ProcessID:3	ProcessName:set_pwm ( 	ProcessParameter:roll_pwm=2200,pitch_pwm=2200,throttle_pwm=2200,yaw_pwm=2200,mode_pwm=2200	ProcessStatus:NULL ) 
+	# ProcessID:4	ProcessName:set_throttle_and_failsafe ( 	ProcessParameter:channel_throttle=0.00,radio_in=-1.00	ProcessStatus:NULL ) 
+	# ProcessID:5	ProcessName:set_throttle_zero_flag ( 	ProcessParameter:null	ProcessStatus:NULL ) ]
+-->execStatus:[2:0]
+-->resultStatus:[2:0]
+*
+testcCaseID:2
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=true	ProcessStatus:NULL ) 
+	# ProcessID:3	ProcessName:set_pwm ( 	ProcessParameter:roll_pwm=2200,pitch_pwm=2200,throttle_pwm=2200,yaw_pwm=2200,mode_pwm=2200	ProcessStatus:NULL) 
+	# ProcessID:4	ProcessName:set_throttle_and_failsafe ( 	ProcessParameter:channel_throttle=0.00,radio_in=-1.00	ProcessStatus:NULL ) 
+	# ProcessID:5	ProcessName:set_throttle_zero_flag ( 	ProcessParameter:null	ProcessStatus:NULL ) ]
+-->execStatus:[2:0]
+-->resultStatus:[2:0]
+*
+testcCaseID:3
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=true	ProcessStatus:NULL ) 
+	# ProcessID:3	ProcessName:set_pwm ( 	ProcessParameter:roll_pwm=2200,pitch_pwm=2200,throttle_pwm=2200,yaw_pwm=2200,mode_pwm=2200	ProcessStatus:NULL ) 
+	# ProcessID:4	ProcessName:set_throttle_and_failsafe ( 	ProcessParameter:channel_throttle=0.00,radio_in=-1.00	ProcessStatus:NULL ) 
+	# ProcessID:5	ProcessName:set_throttle_zero_flag ( 	ProcessParameter:null	ProcessStatus:NULL ) ]
+-->execStatus:[2:0]
+-->resultStatus:[2:0]
+*
+testcCaseID:4
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=true	ProcessStatus:NULL ) 
+	# ProcessID:3	ProcessName:set_pwm ( 	ProcessParameter:roll_pwm=2200,pitch_pwm=2200,throttle_pwm=2200,yaw_pwm=2200,mode_pwm=2200	ProcessStatus:NULL ) 
+	# ProcessID:4	ProcessName:set_throttle_and_failsafe ( 	ProcessParameter:channel_throttle=0.00,radio_in=-1.00	ProcessStatus:NULL ) 
+	# ProcessID:5	ProcessName:set_throttle_zero_flag ( 	ProcessParameter:null	ProcessStatus:NULL ) ]
+-->execStatus:[2:0]
+-->resultStatus:[2:0]
+*
+testcCaseID:5
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=true	ProcessStatus:NULL ) 
+	# ProcessID:3	ProcessName:set_pwm ( 	ProcessParameter:roll_pwm=2200,pitch_pwm=2200,throttle_pwm=2200,yaw_pwm=2200,mode_pwm=2200	ProcessStatus:NULL ) 
+	# ProcessID:4	ProcessName:set_throttle_and_failsafe ( 	ProcessParameter:channel_throttle=0.00,radio_in=-1.00	ProcessStatus:NULL ) 
+	# ProcessID:5	ProcessName:set_throttle_zero_flag ( 	ProcessParameter:null	ProcessStatus:NULL ) ]
+-->execStatus:[2:0]
+-->resultStatus:[2:0]
+*
+testcCaseID:6
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=true	ProcessStatus:NULL ) 
+	# ProcessID:3	ProcessName:set_pwm ( 	ProcessParameter:roll_pwm=2200,pitch_pwm=2200,throttle_pwm=2200,yaw_pwm=2200,mode_pwm=2200	ProcessStatus:NULL ) 
+	# ProcessID:4	ProcessName:set_throttle_and_failsafe ( 	ProcessParameter:channel_throttle=0.00,radio_in=-1.00	ProcessStatus:NULL ) 
+	# ProcessID:5	ProcessName:set_throttle_zero_flag ( 	ProcessParameter:null	ProcessStatus:NULL ) ]
+-->execStatus:[2:0]
+-->resultStatus:[2:0]
+*
+testcCaseID:7
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=true	ProcessStatus:NULL ) 
+	# ProcessID:3	ProcessName:set_pwm ( 	ProcessParameter:roll_pwm=2200,pitch_pwm=2200,throttle_pwm=2200,yaw_pwm=2200,mode_pwm=2200	ProcessStatus:NULL ) 
+	# ProcessID:4	ProcessName:set_throttle_and_failsafe ( 	ProcessParameter:channel_throttle=0.00,radio_in=-1.00	ProcessStatus:NULL ) 
+	# ProcessID:5	ProcessName:set_throttle_zero_flag ( 	ProcessParameter:null	ProcessStatus:NULL ) ]
+-->execStatus:[2:0]
+-->resultStatus:[2:0]
+*
+testcCaseID:8
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=true	ProcessStatus:NULL ) 
+	# ProcessID:3	ProcessName:set_pwm ( 	ProcessParameter:roll_pwm=2200,pitch_pwm=2200,throttle_pwm=2200,yaw_pwm=2200,mode_pwm=2200	ProcessStatus:NULL ) 
+	# ProcessID:4	ProcessName:set_throttle_and_failsafe ( 	ProcessParameter:channel_throttle=0.00,radio_in=-1.00	ProcessStatus:NULL ) 
+	# ProcessID:5	ProcessName:set_throttle_zero_flag ( 	ProcessParameter:null	ProcessStatus:NULL ) ]
+-->execStatus:[2:0]
+-->resultStatus:[2:0]
+*
+testcCaseID:9
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=true	ProcessStatus:NULL ) 
+	# ProcessID:3	ProcessName:set_pwm ( 	ProcessParameter:roll_pwm=2200,pitch_pwm=2200,throttle_pwm=2200,yaw_pwm=2200,mode_pwm=2200	ProcessStatus:NULL ) 
+	# ProcessID:4	ProcessName:set_throttle_and_failsafe ( 	ProcessParameter:channel_throttle=0.00,radio_in=-1.00	ProcessStatus:NULL ) 
+	# ProcessID:5	ProcessName:set_throttle_zero_flag ( 	ProcessParameter:null	ProcessStatus:NULL ) ]
+-->execStatus:[2:0]
+-->resultStatus:[2:0]
+*
+testcCaseID:10
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=true	ProcessStatus:NULL ) 
+	# ProcessID:3	ProcessName:set_pwm( 	ProcessParameter:roll_pwm=2200,pitch_pwm=2200,throttle_pwm=2200,yaw_pwm=2200,mode_pwm=2200	ProcessStatus:NULL ) 
+	# ProcessID:4	ProcessName:set_throttle_and_failsafe ( 	ProcessParameter:channel_throttle=0.00,radio_in=-1.00	ProcessStatus:NULL ) 
+	# ProcessID:5	ProcessName:set_throttle_zero_flag ( 	ProcessParameter:null	ProcessStatus:NULL ) ]
+-->execStatus:[2:0]
+-->resultStatus:[2:0]
+*
+testcCaseID:11
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=true	ProcessStatus:NULL ) 
+	# ProcessID:3	ProcessName:set_pwm ( 	ProcessParameter:roll_pwm=2200,pitch_pwm=2200,throttle_pwm=2200,yaw_pwm=2200,mode_pwm=2200	ProcessStatus:NULL ) 
+	# ProcessID:4	ProcessName:set_throttle_and_failsafe ( 	ProcessParameter:channel_throttle=0.00,radio_in=-1.00	ProcessStatus:NULL ) 
+	# ProcessID:5	ProcessName:set_throttle_zero_flag ( 	ProcessParameter:null	ProcessStatus:NULL ) ]
+-->execStatus:[2:0]
+-->resultStatus:[2:0]
+*
+testcCaseID:12
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=true	ProcessStatus:NULL ) 
+	# ProcessID:3	ProcessName:set_pwm ( 	ProcessParameter:roll_pwm=2200,pitch_pwm=2200,throttle_pwm=2200,yaw_pwm=2200,mode_pwm=2200	ProcessStatus:NULL ) 
+	# ProcessID:4	ProcessName:set_throttle_and_failsafe ( 	ProcessParameter:channel_throttle=0.00,radio_in=-1.00	ProcessStatus:NULL ) 
+	# ProcessID:5	ProcessName:set_throttle_zero_flag ( 	ProcessParameter:null	ProcessStatus:NULL ) ]
+-->execStatus:[2:0]
+-->resultStatus:[2:0]
+*
+testcCaseID:13
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=true	ProcessStatus:NULL ) 
+	# ProcessID:3	ProcessName:set_pwm ( 	ProcessParameter:roll_pwm=2200,pitch_pwm=2200,throttle_pwm=2200,yaw_pwm=2200,mode_pwm=2200	ProcessStatus:NULL ) 
+	# ProcessID:4	ProcessName:set_throttle_and_failsafe ( 	ProcessParameter:channel_throttle=0.00,radio_in=-1.00	ProcessStatus:NULL ) 
+	# ProcessID:5	ProcessName:set_throttle_zero_flag ( 	ProcessParameter:null	ProcessStatus:NULL ) ]
+-->execStatus:[2:0]
+-->resultStatus:[2:0]
+*
+testcCaseID:14
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=true	ProcessStatus:NULL ) 
+	# ProcessID:3	ProcessName:set_pwm ( 	ProcessParameter:roll_pwm=2200,pitch_pwm=2200,throttle_pwm=2200,yaw_pwm=2200,mode_pwm=2200	ProcessStatus:NULL ) 
+	# ProcessID:4	ProcessName:set_throttle_and_failsafe ( 	ProcessParameter:channel_throttle=0.00,radio_in=-1.00	ProcessStatus:NULL ) 
+	# ProcessID:5	ProcessName:set_throttle_zero_flag ( 	ProcessParameter:null	ProcessStatus:NULL ) ]
+-->execStatus:[2:0]
+-->resultStatus:[2:0]
+*
+testcCaseID:15
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=true	ProcessStatus:NULL ) 
+	# ProcessID:3	ProcessName:set_pwm ( 	ProcessParameter:roll_pwm=2200,pitch_pwm=2200,throttle_pwm=2200,yaw_pwm=2200,mode_pwm=2200	ProcessStatus:NULL ) 
+	# ProcessID:4	ProcessName:set_throttle_and_failsafe ( 	ProcessParameter:channel_throttle=0.00,radio_in=-1.00	ProcessStatus:NULL ) 
+	# ProcessID:5	ProcessName:set_throttle_zero_flag ( 	ProcessParameter:null	ProcessStatus:NULL ) ]
+-->execStatus:[2:0]
+-->resultStatus:[2:0]
+*
+testcCaseID:16
+-->processList:[
+	& ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=false	ProcessStatus:NULL ) 
+	& ProcessID:3	ProcessName:set_failsafe_radio ( 	ProcessParameter:elapsed=501.00,g.failsafe_throttle=1.00,has_new_input=false,failsafe.radio=true,flag=true	ProcessStatus:NULL ) ]
+-->execStatus:[3]
+-->resultStatus:[3]
+*
+testcCaseID:17
+-->processList:[
+	# ProcessID:1	ProcessName:read_radio ( 	ProcessParameter:null	ProcessStatus:NULL ) 
+	# ProcessID:2	ProcessName:has_new_input ( 	ProcessParameter:new_input=false	ProcessStatus:NULL ) 
+	& ProcessID:3	ProcessName:set_failsafe_radio ( 	ProcessParameter:elapsed=501.00,g.failsafe_throttle=1.00,has_new_input=false,failsafe.radio=true	ProcessStatus:NULL ) ]
+-->execStatus:[1:0]
+-->resultStatus:[1]

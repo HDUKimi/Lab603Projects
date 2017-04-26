@@ -32,6 +32,7 @@ import javax.swing.event.ChangeListener;
 import com.horstmann.violet.application.consolepart.ConsolePartDetailInfoTable;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.chengzuo.Util.ClientRecThread;
 import com.horstmann.violet.application.gui.util.chengzuo.Util.ClientSocket;
 import com.horstmann.violet.application.gui.util.chengzuo.View.ConsolePartTestCaseInfoTable;
 import com.horstmann.violet.application.gui.util.chengzuo.View.JFreeChartTest;
@@ -931,7 +932,7 @@ public class StepButtonPanel extends JPanel {
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override
 					public void run() {
-						ClientSocket clientSocket = new ClientSocket("192.168.150.117", 5555);
+						ClientSocket clientSocket = new ClientSocket("192.168.149.118", 5555);
 						clientSocket.Connection();
 						JFileChooser jfc = new JFileChooser();
 						jfc.setMultiSelectionEnabled(true);
@@ -941,13 +942,9 @@ public class StepButtonPanel extends JPanel {
 						clientSocket.sendFile(files);
 						StepFiveArea.append("发送数据完成!\n");
 						StepFiveArea.append("正在获得数据.....\n");
-						try {
-							Thread.sleep(10000);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						List<TestCase> list = clientSocket.getTestCaseList();
+						List<TestCase> list = ClientRecThread.getTestCaseList();
 						StepFiveArea.append("数据已经获得!\n");
+						System.out.println(list.size());
 						// 获得root的容器
 						JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestcaseFile();
 						// 获得报表的容器

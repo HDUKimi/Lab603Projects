@@ -6,6 +6,7 @@ import java.util.List;
  * @author tiffy
  */
 public class TestCase {
+	
 	//²âÊÔÓÃÀýID
 	String  testCaseID;
 	//²âÊÔÓÃÀý ¼¤ÀøÁ´±í
@@ -13,14 +14,14 @@ public class TestCase {
 	//²âÊÔÓÃÀýÖ´ÐÐ×´Ì¬
 	String  state;
 	//²âÊÔÓÃÀýÖ´ÐÐ½á¹û
-	String  result;
+	TestCaseResult  result;
 	//²âÊÔÓÃÀýÏ¸½Ú
 	String  detail;
 	
 	public TestCase() {
 	}
 
-	public TestCase(String testCaseID, String state, String result, String detail) {
+	public TestCase(String testCaseID, String state, TestCaseResult result, String detail) {
 		this.testCaseID = testCaseID;
 		this.state = state;
 		this.result = result;
@@ -51,11 +52,13 @@ public class TestCase {
 		this.state = state;
 	}
 
-	public String getResult() {
+	
+
+	public TestCaseResult getResult() {
 		return result;
 	}
 
-	public void setResult(String result) {
+	public void setResult(TestCaseResult result) {
 		this.result = result;
 	}
 
@@ -91,7 +94,7 @@ public class TestCase {
 					+ " ¼¤Àø×´Ì¬ :" + ((m.processStatus == "NULL")?"¿Õ":m.getProcessStatus())
 					+")";
 		}
-		tmp = tmp + " ]\n  -->²âÊÔÖ´ÐÐ×´Ì¬: [ " + state + " ]\n  -->½á¹û×´Ì¬: [ "+ result+" ]";
+		tmp = tmp + " ]\n  -->²âÊÔÖ´ÐÐ×´Ì¬: [ " + state + " ]\n  -->½á¹û×´Ì¬: [ "+ result.getResultDetail()+" ]";
 		return tmp;
 	}
 }
