@@ -286,7 +286,8 @@ public class TranMessageColorize {
 		
 		CleanColorize(workspace);
 		
-		int trantextstate=mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getTrantextstate();
+//		int trantextstate=mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getTrantextstate();
+		int trantextstate=1;
 		
 		for (Transition t : automatic.getTransitionSet()) {
 			String id;

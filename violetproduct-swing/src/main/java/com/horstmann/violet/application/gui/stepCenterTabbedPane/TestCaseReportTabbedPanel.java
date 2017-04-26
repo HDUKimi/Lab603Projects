@@ -24,6 +24,7 @@ import java.io.ObjectOutputStream;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
@@ -53,16 +54,22 @@ import org.dom4j.io.XMLWriter;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.PerformanceHighBatteryLineChart;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.PerformanceHighSpeedBarChart;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.PerformanceHighTimeLineChart;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.PerformanceLineChart;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.PerformanceTimeSpeedBarChart;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseBarChartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseLineChartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCasePieChartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseStackedBarChartPanel;
+import com.horstmann.violet.application.gui.util.chengzuo.Bean.Pair;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCaseResult;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
 import com.horstmann.violet.application.gui.util.chengzuo.Util.ClientRecThread;
 import com.horstmann.violet.application.gui.util.chengzuo.Util.ClientSocket;
+import com.horstmann.violet.application.gui.util.chengzuo.Util.TestCaseConvertUtil;
 
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 
@@ -598,6 +605,42 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+				Map testcasemap=TestCaseConvertUtil.testCaseStatistics(testcaselist);
+				for(Object s:testcasemap.keySet()){
+					System.out.println(s.toString());
+				}
+
+				List<Pair> highspeeddata=(List<Pair>) testcasemap.get("high-speed");
+				List<Pair> timespeeddata=(List<Pair>) testcasemap.get("time-speed");
+				Map<String, List<Pair>> highbatterydata=(Map<String, List<Pair>>) testcasemap.get("high-battery");
+				Map<String, List<Pair>> hightimedata=(Map<String, List<Pair>>) testcasemap.get("high-time");
+				
+//				System.out.println(highspeeddata.size());
+//				for(Pair p:highspeeddata){
+//					System.out.println(p.getFirst()+" - - "+p.getSecond());
+//				}
+//				
+//				System.out.println(timespeeddata.size());
+//				for(Pair p:timespeeddata){
+//					System.out.println(p.getFirst()+" - - "+p.getSecond());
+//				}
+//				
+//				System.out.println(highbatterydata.size());
+//				for(Map.Entry<String, List<Pair>> entry:highbatterydata.entrySet()){
+//					System.out.println(entry.getKey()+"  "+entry.getValue().size());
+//					for(Pair p:entry.getValue()){
+//						System.out.println(p.getFirst()+" - - "+p.getSecond());
+//					}
+//				}
+//				
+//				System.out.println(hightimedata.size());
+//				for(Map.Entry<String, List<Pair>> entry:hightimedata.entrySet()){
+//					System.out.println(entry.getKey()+"  "+entry.getValue().size());
+//					for(Pair p:entry.getValue()){
+//						System.out.println(p.getFirst()+" - - "+p.getSecond());
+//					}
+//				}
 
 //				for(TestCase tc:testcaselist){
 //					System.out.println(tc.getTestCaseID()+" - "+tc.getState()+" - "+tc.getResult().toString());
@@ -617,9 +660,22 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				}
 				
 //				PerformanceLineChart plc=new PerformanceLineChart(testcaselist);
-//				
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getLinepanel().removeAll();
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getLinepanel().add(plc.createChart());
+				
+				PerformanceHighBatteryLineChart phblc=new PerformanceHighBatteryLineChart(highbatterydata);
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getHighbatterylinepanel().removeAll();
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getHighbatterylinepanel().add(phblc.createChart());
+				
+				PerformanceHighTimeLineChart phtlc=new PerformanceHighTimeLineChart(hightimedata);
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getHightimelinepanel().removeAll();
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getHightimelinepanel().add(phtlc.createChart());
+				
+				PerformanceHighSpeedBarChart phsbc=new PerformanceHighSpeedBarChart(highspeeddata);
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getHighspeedbarpanel().removeAll();
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getHighspeedbarpanel().add(phsbc.createChart());
+				
+				PerformanceTimeSpeedBarChart ptsbc=new PerformanceTimeSpeedBarChart(timespeeddata);
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getTimespeedbarpanel().removeAll();
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getTimespeedbarpanel().add(ptsbc.createChart());
 				
 //				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().removeAll();
 //				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().add(new TestCasePieChartPanel(testcasecount));

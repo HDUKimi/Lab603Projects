@@ -360,8 +360,9 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 			public Integer call() throws Exception {
 				// TODO Auto-generated method stub
 				
-//				while(progressbarindex<=100){
-				while(!trantask.isDone()&&progressbarindex<=100){
+				while(progressbarindex<=100){
+//				while(!trantask.isDone()&&progressbarindex<=100){
+					System.err.println(trantask.isDone()+" - - "+progressbarindex+" + + "+(!trantask.isDone()||progressbarindex<=100));
 					
 					if(smallprogressbarindex==0){
 						Object[] tableRowData = { sequencelistindex+1, 0, sequencelists.get(sequencelistindex), tranprocesslist.get(tranprocesslistindex), smallprogressbarindex, smallprogressbarindex, "" };
@@ -422,7 +423,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 								sleeptime=SD2UppaalMain.diagramslistsize*4;
 							}
 							if(tranprocessstate==1){
-								sleeptime=10;
+								sleeptime=100;
 							}
 							Thread.sleep(sleeptime);
 						}
@@ -432,7 +433,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 						progressbarlabel.setText(progressbar.getValue()+"%");
 					}
 				}
-				
+				System.err.println(trantask.isDone()+" - - "+progressbarindex+" + + "+(!trantask.isDone()||progressbarindex<=100));
 				moviepanel.getMovieLabel().setText("所有顺序图全部转换完成，总共有"+sequencelists.size()+"张顺序图，转换成功了"+successcount+"张顺序图，转换率为："+(double)successcount/sequencelists.size()*100+"%");
 				StepTwoArea.append("UML模型转换完成......\n");
 				threadstate=0;

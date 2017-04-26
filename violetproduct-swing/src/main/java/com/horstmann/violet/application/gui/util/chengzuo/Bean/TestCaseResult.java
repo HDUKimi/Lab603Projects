@@ -66,7 +66,11 @@ public class TestCaseResult implements Serializable{
 	}
 
 	public String getBattery_remaining() {
-		return decimalFormat.format(battery_remaining)+"%";
+		String tmp = decimalFormat.format(battery_remaining);
+		if(tmp.equals("-0"))
+			tmp = "0";
+		return tmp+"%";
+//		return tmp;
 	}
 
 	public void setBattery_remaining(double battery_remaining) {
@@ -91,10 +95,12 @@ public class TestCaseResult implements Serializable{
 
 	@Override
 	public String toString() {
-
-		return "测试结果: [执行时间=" + decimalFormat.format(exeTime) + ", 风速=" + decimalFormat.format(wind_speed) + ", 起飞高度="
-				+ decimalFormat.format(takeoff_alt) + ", 剩余电量=" + decimalFormat.format(battery_remaining) + "%, 所用时间 ="
-				+ decimalFormat.format(time) + "]";
+		
+		return "测试结果: [执行时间=" + decimalFormat.format(exeTime) 
+				+ ", 风速=" + decimalFormat.format(wind_speed) 
+				+ ", 起飞高度=" + decimalFormat.format(takeoff_alt) 
+				+ ", 剩余电量="+ decimalFormat.format(battery_remaining) 
+				+ "%, 所用时间 =" + decimalFormat.format(time) + "]";
 	}
 	
 }

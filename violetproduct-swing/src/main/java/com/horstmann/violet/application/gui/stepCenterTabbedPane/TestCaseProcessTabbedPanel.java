@@ -70,6 +70,7 @@ import com.horstmann.violet.application.gui.util.ckt.output.TestAutoDiagram;
 import com.horstmann.violet.application.gui.util.ckt.output.forPlatform;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML2;
+import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
 import com.horstmann.violet.application.gui.util.wj.util.GeneratePath;
 
 public class TestCaseProcessTabbedPanel extends JPanel{
@@ -713,16 +714,24 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					DFStree=GeneratePath.getPerformPathFromAutomatic(type_a);
 					System.out.println("//////////++++++++++++++++++++");
 					//Automate数据转换为xml
-					AutomateTransformXml(DFStree);
+//					AutomateTransformXml(DFStree);
 				}
 				System.out.println("/////////////////********************");
 				
+//				String xmlname="EA性能测试-起飞高度V9Uppaal.uppaal.violet.xml";
+				AutomateTransformXml(type_a);
+				
 				GraphFile absfGraphFile=ImportByDoubleClick.importFileByDoubleClick("UPPAAL","abs.uppaal.violet.xml");
+//				GraphFile absfGraphFile=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",xmlname);
 				IWorkspace workspace=new Workspace(absfGraphFile);
 				TestCaseUppaalTabbedPanel tcutpanel=new TestCaseUppaalTabbedPanel(mainFrame, workspace);
 				
 				IWorkspace copyworkspace=new Workspace(absfGraphFile);
 				TestCaseUppaalTabbedPanel copytcutpanel=new TestCaseUppaalTabbedPanel(mainFrame, copyworkspace);
+				
+				TranMessageColorize tmc=new TranMessageColorize();
+				tmc.ColorizeDFSPath(DFStree,mainFrame,workspace);
+				tmc.ColorizeDFSPath(DFStree,mainFrame,copyworkspace);
 				
 				mainFrame.getStepThreeCenterTabbedPane().setTestCaseUppaalTabbedPanel(tcutpanel);
 				

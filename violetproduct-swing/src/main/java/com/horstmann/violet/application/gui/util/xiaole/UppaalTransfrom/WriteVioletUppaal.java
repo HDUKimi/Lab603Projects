@@ -100,6 +100,7 @@ public class WriteVioletUppaal {
     				}
     			j++;
     		}
+    		System.err.println("-*----------------------- "+locations.size()+" - - "+transitions.size());
     	}	
     	//(将我们读取的信息)生成事件自动机的xml(按照我们的标准)
     public void writeVioletUppaal(String filename){
@@ -164,6 +165,7 @@ public class WriteVioletUppaal {
 //    			labelText.setText(temp.getLabelText());	
 //    		}
 //    		labelText.setText(temp.getLabelText());
+//    		labelText.setText(temp.getId());
     	}
     	outputXml(doc,filename);
     }	

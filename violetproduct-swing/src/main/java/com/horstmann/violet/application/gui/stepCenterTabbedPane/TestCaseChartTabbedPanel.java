@@ -47,6 +47,8 @@ public class TestCaseChartTabbedPanel extends JPanel{
 	private JCheckBox checkbox2;
 	private JCheckBox checkbox3;
 	private JCheckBox checkbox4;
+	private JCheckBox checkbox5;
+	private JCheckBox checkbox6;
 	
 	private JScrollPane reportscrollpanel;
 	private JPanel reportresultpanel;
@@ -60,6 +62,12 @@ public class TestCaseChartTabbedPanel extends JPanel{
 	private JPanel linepanel;
 	private JPanel piepanel;
 	
+	private JPanel highspeedbarpanel;
+	private JPanel timespeedbarpanel;
+	
+	private JPanel highbatterylinepanel;
+	private JPanel hightimelinepanel;
+	
 	private BarChart barchart;
 	private LineChart linechart;
 	private PieChart piechart;
@@ -70,9 +78,15 @@ public class TestCaseChartTabbedPanel extends JPanel{
 	private JPanel leftemptypanel1;
 	private JPanel leftemptypanel2;
 	private JPanel leftemptypanel3;
+	private JPanel leftemptypanel4;
+	private JPanel leftemptypanel5;
+	private JPanel leftemptypanel6;
 	private JPanel rightemptypanel1;
 	private JPanel rightemptypanel2;
 	private JPanel rightemptypanel3;
+	private JPanel rightemptypanel4;
+	private JPanel rightemptypanel5;
+	private JPanel rightemptypanel6;
 	
 	private JPanel emptypanel;
 
@@ -130,6 +144,8 @@ public class TestCaseChartTabbedPanel extends JPanel{
 		checkbox2=new JCheckBox();
 		checkbox3=new JCheckBox();
 		checkbox4=new JCheckBox();
+		checkbox5=new JCheckBox();
+		checkbox6=new JCheckBox();
 		
 		checkbox1.setText("表格");
 		checkbox1.setOpaque(false);
@@ -150,7 +166,7 @@ public class TestCaseChartTabbedPanel extends JPanel{
 			}
 		});
 		
-		checkbox2.setText("柱状图");
+		checkbox2.setText("风速-高度柱状图");
 		checkbox2.setOpaque(false);
 		checkbox2.setSelected(true);
 		checkbox2.addActionListener(new ActionListener() {
@@ -159,17 +175,17 @@ public class TestCaseChartTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(checkbox2.isSelected()){
-					barchartpanel.setVisible(true);
+					highspeedbarpanel.setVisible(true);
 					ChangeRepaint();
 				}
 				else{
-					barchartpanel.setVisible(false);
+					highspeedbarpanel.setVisible(false);
 					ChangeRepaint();
 				}
 			}
 		});
 		
-		checkbox3.setText("折线图");
+		checkbox3.setText("风速-时间柱状图");
 		checkbox3.setOpaque(false);
 		checkbox3.setSelected(true);
 		checkbox3.addActionListener(new ActionListener() {
@@ -178,17 +194,17 @@ public class TestCaseChartTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(checkbox3.isSelected()){
-					linechartpanel.setVisible(true);
+					timespeedbarpanel.setVisible(true);
 					ChangeRepaint();
 				}
 				else{
-					linechartpanel.setVisible(false);
+					timespeedbarpanel.setVisible(false);
 					ChangeRepaint();
 				}
 			}
 		});
 		
-		checkbox4.setText("饼状图");
+		checkbox4.setText("高度-电量折线图");
 		checkbox4.setOpaque(false);
 		checkbox4.setSelected(true);
 		checkbox4.addActionListener(new ActionListener() {
@@ -197,6 +213,44 @@ public class TestCaseChartTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(checkbox4.isSelected()){
+					highbatterylinepanel.setVisible(true);
+					ChangeRepaint();
+				}
+				else{
+					highbatterylinepanel.setVisible(false);
+					ChangeRepaint();
+				}
+			}
+		});
+		
+		checkbox5.setText("高度-时间折线图");
+		checkbox5.setOpaque(false);
+		checkbox5.setSelected(true);
+		checkbox5.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(checkbox5.isSelected()){
+					hightimelinepanel.setVisible(true);
+					ChangeRepaint();
+				}
+				else{
+					hightimelinepanel.setVisible(false);
+					ChangeRepaint();
+				}
+			}
+		});
+		
+		checkbox6.setText("饼状图");
+		checkbox6.setOpaque(false);
+		checkbox6.setSelected(true);
+		checkbox6.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(checkbox6.isSelected()){
 					piechartpanel.setVisible(true);
 					ChangeRepaint();
 				}
@@ -216,6 +270,8 @@ public class TestCaseChartTabbedPanel extends JPanel{
 		toolpanel.add(checkbox2);
 		toolpanel.add(checkbox3);
 		toolpanel.add(checkbox4);
+		toolpanel.add(checkbox5);
+		toolpanel.add(checkbox6);
 		
 		toolpanel.setPreferredSize(new Dimension(100, 29));
 		toolpanel.setMaximumSize(new Dimension(100, 29));
@@ -373,21 +429,39 @@ public class TestCaseChartTabbedPanel extends JPanel{
 		linepanel=new JPanel();
 		piepanel=new JPanel();
 		
+		highspeedbarpanel=new JPanel();
+		timespeedbarpanel=new JPanel();
+		
+		highbatterylinepanel=new JPanel();
+		hightimelinepanel=new JPanel();
+		
 		leftemptypanel1=new JPanel();
 		leftemptypanel2=new JPanel();
 		leftemptypanel3=new JPanel();
+		leftemptypanel4=new JPanel();
+		leftemptypanel5=new JPanel();
+		leftemptypanel6=new JPanel();
 		
 		rightemptypanel1=new JPanel();
 		rightemptypanel2=new JPanel();
 		rightemptypanel3=new JPanel();
+		rightemptypanel4=new JPanel();
+		rightemptypanel5=new JPanel();
+		rightemptypanel6=new JPanel();
 		
 		leftemptypanel1.setOpaque(false);
 		leftemptypanel2.setOpaque(false);
 		leftemptypanel3.setOpaque(false);
+		leftemptypanel4.setOpaque(false);
+		leftemptypanel5.setOpaque(false);
+		leftemptypanel6.setOpaque(false);
 		
 		rightemptypanel1.setOpaque(false);
 		rightemptypanel2.setOpaque(false);
 		rightemptypanel3.setOpaque(false);
+		rightemptypanel4.setOpaque(false);
+		rightemptypanel5.setOpaque(false);
+		rightemptypanel6.setOpaque(false);
 		
 		barchartpanel=new BarChart().createChart();
 		linechartpanel=new LineChart().createChart();
@@ -413,30 +487,52 @@ public class TestCaseChartTabbedPanel extends JPanel{
 		piepanel.setLayout(new GridLayout());
 		piepanel.add(piechartpanel);
 		
+		highspeedbarpanel.setLayout(new GridLayout());
+		timespeedbarpanel.setLayout(new GridLayout());
+		
+		highbatterylinepanel.setLayout(new GridLayout());
+		hightimelinepanel.setLayout(new GridLayout());
+		
 		
 		GridBagLayout layout = new GridBagLayout();
 		chartpanel.setLayout(layout);
-		chartpanel.add(barpanel);
-		chartpanel.add(linepanel);
+//		chartpanel.add(barpanel);
+//		chartpanel.add(linepanel);
+		chartpanel.add(highspeedbarpanel);
+		chartpanel.add(timespeedbarpanel);
+		chartpanel.add(highbatterylinepanel);
+		chartpanel.add(hightimelinepanel);
 		chartpanel.add(piepanel);
 		
 		chartpanel.add(leftemptypanel1);
 		chartpanel.add(leftemptypanel2);
 		chartpanel.add(leftemptypanel3);
+		chartpanel.add(leftemptypanel4);
+		chartpanel.add(leftemptypanel5);
 		chartpanel.add(rightemptypanel1);
 		chartpanel.add(rightemptypanel2);
 		chartpanel.add(rightemptypanel3);
+		chartpanel.add(rightemptypanel4);
+		chartpanel.add(rightemptypanel5);
 		
-		layout.setConstraints(barpanel, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
-		layout.setConstraints(linepanel, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
-		layout.setConstraints(piepanel, new GBC(1, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
+//		layout.setConstraints(barpanel, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
+//		layout.setConstraints(linepanel, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
+		layout.setConstraints(highspeedbarpanel, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
+		layout.setConstraints(timespeedbarpanel, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
+		layout.setConstraints(highbatterylinepanel, new GBC(1, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
+		layout.setConstraints(hightimelinepanel, new GBC(1, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
+		layout.setConstraints(piepanel, new GBC(1, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
 		
 		layout.setConstraints(leftemptypanel1, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 		layout.setConstraints(leftemptypanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 		layout.setConstraints(leftemptypanel3, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+		layout.setConstraints(leftemptypanel4, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+		layout.setConstraints(leftemptypanel5, new GBC(0, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 		layout.setConstraints(rightemptypanel1, new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 		layout.setConstraints(rightemptypanel2, new GBC(2, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 		layout.setConstraints(rightemptypanel3, new GBC(2, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+		layout.setConstraints(rightemptypanel4, new GBC(2, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+		layout.setConstraints(rightemptypanel5, new GBC(2, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 		
 		chartpanel.setBackground(new Color(255, 255, 255));
 		
@@ -467,6 +563,22 @@ public class TestCaseChartTabbedPanel extends JPanel{
 
 	public DefaultTableModel getAttributetablemodel() {
 		return attributetablemodel;
+	}
+
+	public JPanel getHighbatterylinepanel() {
+		return highbatterylinepanel;
+	}
+
+	public JPanel getHightimelinepanel() {
+		return hightimelinepanel;
+	}
+
+	public JPanel getHighspeedbarpanel() {
+		return highspeedbarpanel;
+	}
+
+	public JPanel getTimespeedbarpanel() {
+		return timespeedbarpanel;
 	}
 
 	
