@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Set;
  * @author ckt
  *
  */
-public class Result1 {
+public class Result_2 {
 	/**
 	 * 处理条件，得到多组解
 	 * @param condition
@@ -528,8 +529,8 @@ public class Result1 {
 			}	
 			if((flag==1)&&!(result.toString().equals("[null]"))){
 				List<String> results = new ArrayList<String>();
-				for(int i=0;i<result.size();i++){
-					results.add("flag=1"+result.get(i).replace("{", "").replace("}", ""));
+				for(int i=0;i<result.size();i++){					
+					results.add("flag=1"+result.get(i));
 				}
 				return results;
 			}else{
@@ -629,7 +630,7 @@ public class Result1 {
 	 * @param s
 	 * @return
 	 */
-	public static List<String> preInResult(String s){
+	public static List<String> preInResult(String s,int Fspeed){
 		List<String> high = new ArrayList<String>();//存放高度的解
 		List<String> speed = new ArrayList<String>();//存放风速的解
 		List<String> direction = new ArrayList<String>();//存放风向的解
@@ -647,31 +648,35 @@ public class Result1 {
 						if(s1.contains("takeoff_alt_cm")){
 							//高度,1000组解
 							//high = Result1.PerformanceResult(s1,1000);
-							high = Result1.In_Result(s1, 10);
+							//y=-8.8506x+872.8 x是电量 y是高度
+							//int y = (int) (840.118-8.817*Fspeed);
+							int y = (int) (0.0347*Fspeed*Fspeed*Fspeed-1.3535*Fspeed*Fspeed-0.4519*Fspeed+884.5);							
+							s1 = ("0<=takeoff_alt_cm<="+y).toString();
+							high = Result_2.In_Result(s1, 5);//5代表以5递增
 							if((high.size()>0)&&!(high.get(0).equals(null))){
 								in_result.add(high);
-							}
-							
-							
+							}	
 						}else{									
 							if(s1.contains("_sitl.wind_speed")){
 								//风速，10组解
 								//speed = Result1.PerformanceResult(s1,20);
-								speed = Result1.In_Result(s1, 20);
+								/*speed = Result_2.In_Result(s1, 10);
 								if((speed.size()>0)&&!(speed.get(0).equals(null))){
 									in_result.add(speed);
-								}
+								}*/
+								speed.add(("_sitl.wind_speed="+Fspeed).toString());
+								in_result.add(speed);
 							}else{
 								if(s1.contains("_sitl.wind_direction")){
 									//风向，10组解
 									//direction = Result1.PerformanceResult(s1,60);
-									direction = Result1.In_Result(s1, 20);
+									direction = Result_2.In_Result(s1, 5);
 									if((direction.size()>0)&&!(direction.get(0).equals(null))){
 										in_result.add(direction);
 									}
 								}else{
 									if(!(inn.contains("takeoff_alt_cm"))&&!(inn.contains("_sitl.wind_speed"))&&!(inn.contains("_sitl.wind_direction"))){
-										otherResult = Result1.getResult(inn);
+										otherResult = Result_2.getResult(inn);
 										if((otherResult.size()>0)&&!(otherResult.get(0).equals(null))){
 											in_result.add(otherResult);
 										}	
@@ -682,13 +687,26 @@ public class Result1 {
 					}																					
 				}
 			}
-			if((in_result.size()>0)&&!(in_result.get(0).equals(null))){							
+			/*if((in_result.size()>0)&&!(in_result.get(0).equals(null))){							
 				System.out.println("in_result.size()--->"+in_result.size());
 				dis(0,in_result);
 				result1 = re;
 				List<String> ret = new ArrayList<String>();
 				re = ret;
+			}*/
+			/////////////////////除了高度其他随机取值 存进去
+			for (int i = 0; i < in_result.get(0).size(); i++) {
+				String si=in_result.get(0).get(i);
+				for (int j = 1; j <in_result.size(); j++) {
+					int random = -1;
+					if (random == -1) {
+						random = new Random().nextInt(in_result.get(j).size());
+					}
+					si=si+","+in_result.get(j).get(random);
+				}
+				result1.add(si);				
 			}
+			
 		}else{
 			List<List<String>> inResult = new ArrayList<List<String>>();
 			if(!(GetMap.get_inMap(s)==null)){//map里面不为空，有参数
@@ -701,30 +719,33 @@ public class Result1 {
 				for(String s1:in){								
 					if(s1.contains("takeoff_alt_cm")){
 						//高度,10组解
-						//high = Result1.PerformanceResult(s1,100);
-						high = Result1.In_Result(s1, 10);
+						//y=-8.8506x+872.8 x是电量 y是高度
+						//int y = (int) (840.118-8.817*Fspeed);
+						int y = (int) (0.0347*Fspeed*Fspeed*Fspeed-1.3535*Fspeed*Fspeed-0.4519*Fspeed+884.5);
+						s1 = ("0<=takeoff_alt_cm<="+y).toString();
+						high = Result_2.In_Result(s1,5);//1代表以1递增
 						if((high.size()>0)&&!(high.get(0).equals(null))){
 							inResult.add(high);
 						}
 					}else{									
 						if(s1.contains("_sitl.wind_speed")){
 							//风速，10组解
-							//speed = Result1.PerformanceResult(s1,20);
-							speed = Result1.In_Result(s1, 20);
+							/*speed = Result_2.In_Result(s1,20);
 							if((speed.size()>0)&&!(speed.get(0).equals(null))){
 								inResult.add(speed);
-							}
+							}*/
+							speed.add(("_sitl.wind_speed="+Fspeed).toString());
+							inResult.add(speed);
 						}else{
 							if(s1.contains("_sitl.wind_direction")){
 								//风向，10组解
-								//direction = Result1.PerformanceResult(s1,60);
-								direction = Result1.In_Result(s1, 20);
+								direction = Result_2.In_Result(s1,5);
 								if((direction.size()>0)&&!(direction.get(0).equals(null))){
 									inResult.add(direction);
 								}
 							}else{
 								if(!(inn.contains("takeoff_alt_cm"))&&!(inn.contains("_sitl.wind_speed"))&&!(inn.contains("_sitl.wind_direction"))){
-									otherResult = Result1.getResult(inn);
+									otherResult = Result_2.getResult(inn);
 									if((otherResult.size()>0)&&!(otherResult.get(0).equals(null))){
 										inResult.add(otherResult);
 									}
@@ -734,11 +755,22 @@ public class Result1 {
 					}																
 				}
 				if((inResult.size()>0)&&!(inResult.get(0).equals(null))){
-					System.out.println("in_result.size()--->"+inResult.size());				
+					/*System.out.println("in_result.size()--->"+inResult.size());				
 					dis(0,inResult);
 					result1 = re;
 					List<String> ret = new ArrayList<String>();
-					re = ret;
+					re = ret;*/
+					for (int i = 0; i < inResult.get(0).size(); i++) {
+						String si=inResult.get(0).get(i);
+						for (int j = 1; j <inResult.size(); j++) {
+							int random = -1;
+							if (random == -1) {
+								random = new Random().nextInt(inResult.get(j).size());
+							}
+							si=si+","+inResult.get(j).get(random);
+						}
+						result1.add(si);				
+					}
 				}
 			}else{
 				if((GetMap.get_inMap(s)==null)){//map里面为空，即没有参数
@@ -990,10 +1022,13 @@ public class Result1 {
 				cs = strs[1];	
 				result.add(cs+"="+strs[0]);
 				int y = Integer.parseInt(strs[0]);
-				for(;y+n<=Integer.parseInt(strs[2]);){//以n为递增数字，求出解
+				for(;y+n<Integer.parseInt(strs[2]);){//以n为递增数字，求出解
 					y = y+n;
 					result.add(cs+"="+y);				
-				}				
+				}
+				//添加边界
+				y = Integer.parseInt(strs[2]);
+				result.add(cs+"="+y);
 			} else{ 
 				if (strs[0].contains("<")||strs[1].contains("<")) {
 					//System.out.println("     例如1<x<=7或1<=x<7");//
@@ -1002,20 +1037,26 @@ public class Result1 {
 						cs = strs[1].split("<")[0];
 						result.add(cs+"="+strs[0]);
 						int y = Integer.parseInt(strs[0]);
-						for(;y+n<Integer.parseInt(strs[1].split("<")[1]);){//以n为递增数字，求出解
+						for(;y+n<Integer.parseInt(strs[1].split("<")[1])-1;){//以n为递增数字，求出解
 							y = y+n;
 							result.add(cs+"="+y);				
 						}	
+						//添加边界-1
+						y = Integer.parseInt(strs[1].split("<")[1])-1;
+						result.add(cs+"="+y);
 					} else {
 						if (strs[0].contains("<")) {
 							//System.out.println("     例如1<x<=7");//
 							cs = strs[0].split("<")[1];
 							int y = Integer.parseInt(strs[0].split("<")[0])+1;//为了达到边界测试，把边界+1
 							result.add(cs+"="+y);
-							for(;y+n<=Integer.parseInt(strs[1]);){ //除边界还需要求出解的个数
+							for(;y+n<Integer.parseInt(strs[1]);){ //除边界还需要求出解的个数
 								y = y+n;
 								result.add(cs+"="+y);				
 							}
+							//添加边界
+							y = Integer.parseInt(strs[1]);
+							result.add(cs+"="+y);
 						}						
 					}
 				} else {
@@ -1026,19 +1067,25 @@ public class Result1 {
 						cs = strs[0];
 						result.add(cs+"="+0);
 						int y = 0;
-						for(;y+n<=Integer.parseInt(strs[1]);){ //除边界还需要求出解的个数
+						for(;y+n<Integer.parseInt(strs[1]);){ //除边界还需要求出解的个数
 							y = y+n;
 							result.add(cs+"="+y);				
 						}
+						//添加边界
+						y = Integer.parseInt(strs[1]);
+						result.add(cs+"="+y);
 					}else{
 						//System.out.println("     例如1<=x");//
 						cs = strs[1];
 						result.add(cs+"="+strs[0]);
 						int y = Integer.parseInt(strs[0]);
-						for(;y+n<=1000;){ //1到5000以递增数n往上叠加
+						for(;y+n<1000;){ //1到1000以递增数n往上叠加
 							y = y+n;
 							result.add(cs+"="+y);				
 						}
+						//添加边界
+						y = 1000;
+						result.add(cs+"="+y);
 					}					
 				}
 			}
@@ -1051,10 +1098,13 @@ public class Result1 {
 					cs = strs[1];
 					int y = Integer.parseInt(strs[2]);
 					result.add(cs+"="+y);
-					for(;y+n<=Integer.parseInt(strs[0]);){//除边界还需要求出解的个数
+					for(;y+n<Integer.parseInt(strs[0]);){//除边界还需要求出解的个数
 						y = y+n;
 						result.add(cs+"="+y);				
-					}	
+					}
+					//添加边界
+					y = Integer.parseInt(strs[0]);
+					result.add(cs+"="+y);
 				} else{ 
 					if (strs[0].contains(">")||strs[1].contains(">")) {
 						//System.out.println("     例如7>=x>1或7>x>=1");//
@@ -1063,20 +1113,26 @@ public class Result1 {
 							cs = strs[1].split(">")[0];
 							int y = Integer.parseInt(strs[1].split(">")[1])+1;
 							result.add(cs+"="+y);
-							for(;y+n<=Integer.parseInt(strs[0]);){ //除边界还需要求出解的个数
+							for(;y+n<Integer.parseInt(strs[0]);){ //除边界还需要求出解的个数
 								y = y+n;
 								result.add(cs+"="+y);				
 							}
+							//添加边界
+							y = Integer.parseInt(strs[0]);
+							result.add(cs+"="+y);
 						} else {
 							if (strs[0].contains(">")) {
 								//System.out.println("     例如7>x>=1");//
 								cs = strs[0].split(">")[1];
 								result.add(cs+"="+strs[1]);
 								int y = Integer.parseInt(strs[1]);
-								for(;y+n<Integer.parseInt(strs[0].split(">")[0]);){ //除边界还需要求出解的个数
+								for(;y+n<Integer.parseInt(strs[0].split(">")[0])-1;){ //除边界还需要求出解的个数
 									y = y+n;
 									result.add(cs+"="+y);				
-								}									
+								}
+								//添加边界
+								y = Integer.parseInt(strs[0].split(">")[0])-1;
+								result.add(cs+"="+y);
 							}						
 						}
 					}else{
@@ -1087,19 +1143,25 @@ public class Result1 {
 							cs = domain.split(">=")[0];
 							result.add(cs+"="+domain.split(">=")[1]);
 							int y = Integer.parseInt(domain.split(">=")[1]);
-							for(;y+n<=1000;){ //除边界还需要求出解的个数
+							for(;y+n<1000;){ //除边界还需要求出解的个数
 								y = y+n;
 								result.add(cs+"="+y);				
 							}	
+							//添加边界
+							y = 1000;
+							result.add(cs+"="+y);
 						}else{
 							//System.out.println("     例如7>=x");//						
 							cs = domain.split(">=")[1];								
 							result.add(cs+"="+0);
 							int y = 0;
-							for(;y+n<=Integer.parseInt(domain.split(">=")[0]);){ //除边界还需要求出解的个数
+							for(;y+n<Integer.parseInt(domain.split(">=")[0]);){ //除边界还需要求出解的个数
 								y = y+n;
 								result.add(cs+"="+y);				
-							}	
+							}
+							//添加边界
+							y = Integer.parseInt(domain.split(">=")[0]);
+							result.add(cs+"="+y);
 						}	
 					}
 				}		
@@ -1113,10 +1175,13 @@ public class Result1 {
 						cs = strs[1];
 						int y = Integer.parseInt(strs[0])+1;
 						result.add(cs+"="+y);
-						for(;y+n<Integer.parseInt(strs[2]);){ //除边界还需要求出解的个数
+						for(;y+n<Integer.parseInt(strs[2])-1;){ //除边界还需要求出解的个数
 							y=y+n;
 							result.add(cs+"="+y);				
 						}	
+						//添加边界
+						y = Integer.parseInt(strs[2])-1;
+						result.add(cs+"="+y);
 					} else {
 						int s1=domain.substring(0,1).toCharArray()[0];
 						if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
@@ -1124,19 +1189,25 @@ public class Result1 {
 							cs = strs[0];
 							int y = 0;
 							result.add(cs+"="+y);
-							for(;y+n<Integer.parseInt(strs[1]);){ //除边界还需要求出解的个数
+							for(;y+n<Integer.parseInt(strs[1])-1;){ //除边界还需要求出解的个数
 								y=y+n;
 								result.add(cs+"="+y);				
-							}	
+							}
+							//添加边界
+							y = Integer.parseInt(strs[1])-1;
+							result.add(cs+"="+y);
 						}else{
 							//System.out.println("     例如1<x");//					
 							cs = strs[1]; 
 							int y = Integer.parseInt(strs[0])+1;
 							result.add(cs+"="+y);
-							for(;y+n<=1000;){ //除边界还需要求出解的个数
+							for(;y+n<1000;){ //除边界还需要求出解的个数
 								y = y+n;
 								result.add(cs+"="+y);				
 							}	
+							//添加边界
+							y = 1000;
+							result.add(cs+"="+y);
 						}					
 					}
 				} else{ 
@@ -1149,10 +1220,13 @@ public class Result1 {
 							cs = strs[1];
 							int y = Integer.parseInt(strs[2])+1;
 							result.add(cs+"="+y);
-							for(;y+n<Integer.parseInt(strs[0]);){ //除边界还需要求出解的个数
+							for(;y+n<Integer.parseInt(strs[0])-1;){ //除边界还需要求出解的个数
 								y = y+n;
 								result.add(cs+"="+y);				
 							}	
+							//添加边界
+							y = Integer.parseInt(strs[0])-1;
+							result.add(cs+"="+y);
 						} else {
 							int s1=domain.substring(0,1).toCharArray()[0];
 							if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
@@ -1160,19 +1234,25 @@ public class Result1 {
 								cs = strs[0]; 
 								int y = Integer.parseInt(strs[1])+1;
 								result.add(cs+"="+y);
-								for(;y+n<=1000;){ //除边界还需要求出解的个数
+								for(;y+n<1000;){ //除边界还需要求出解的个数
 									y = y+n;
 									result.add(cs+"="+y);				
 								}	
+								//添加边界
+								y = 1000;
+								result.add(cs+"="+y);
 							}else{
 								//System.out.println("     例如7>x");//								
 								cs = strs[1];  
 								int y = 0;
 								result.add(cs+"="+y);						
-								for(;y+n<Integer.parseInt(strs[0]);){ //除边界还需要求出解的个数
+								for(;y+n<Integer.parseInt(strs[0])-1;){ //除边界还需要求出解的个数
 									y=y+n;
 									result.add(cs+"="+y);				
 								}	
+								//添加边界
+								y = Integer.parseInt(strs[0])-1;
+								result.add(cs+"="+y);
 							}
 						}
 					}
@@ -1184,11 +1264,11 @@ public class Result1 {
 		}else  return result;
 	}
 	
-//	/**
-//	 * 利用poi方法来解析excel文件
-//	 * @param s
-//	 * @return
-//	 */
+	/**
+	 * 利用poi方法来解析excel文件
+	 * @param s
+	 * @return
+	 */
 //	public static List<String> PoiReadExcel(File file){
 //		List<String> string = new ArrayList<String>();
 //		//需要解析的excel文件

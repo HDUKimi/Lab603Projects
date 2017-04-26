@@ -48,8 +48,10 @@ import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEditor;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseReportPartPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseReportTableHeaderPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCasePieChartPanel;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCaseResult;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
 import com.l2fprod.common.swing.JTaskPane;
 import com.l2fprod.common.swing.JTaskPaneGroup;
@@ -394,6 +396,11 @@ public class TestCaseConfirmationPanel extends JPanel{
 					GridBagLayout layout = new GridBagLayout();
 					resultpanel.setLayout(layout);
 					int i=0;
+					
+					TestCaseReportTableHeaderPanel tcrthpanel=new TestCaseReportTableHeaderPanel();
+					resultpanel.add(tcrthpanel);
+					layout.setConstraints(tcrthpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+					
 					testcasereportlist.clear();
 					for(TestCase tc:testcaselist){
 						TestCaseReportPartPanel tcrppanel=new TestCaseReportPartPanel(tc);
@@ -481,7 +488,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		return fList;
 	}
 	
-	public List<TestCase> extractDataFromXml(String path){
+	public static List<TestCase> extractDataFromXml(String path){
 		
 		int i=1,j=1;
 		
@@ -503,6 +510,9 @@ public class TestCaseConfirmationPanel extends JPanel{
 			List<Element> testcaseElements=TCS.elements("testcase");
 			for(Element testcase:testcaseElements){
 				
+				double highcm = 0;
+				double windspeed = 0;
+				
 				List<Element> processElements=testcase.elements("process");
 				
 				for(Element process:processElements){
@@ -511,12 +521,28 @@ public class TestCaseConfirmationPanel extends JPanel{
 					
 					Element input=process.element("input");
 					
+					String operationdata=operation.getData().toString();
+					String inputdata=input.getData().toString();
+					
 					myProcess p = new myProcess();
 					p.setProcessID(j++);
-					p.setProcessName(operation.getData().toString());
-					p.setProcessParam(input.getData().toString());
+					p.setProcessName(operationdata);
+					p.setProcessParam(inputdata);
 //					p.setProcessStatus(processStatus);
 //					p.setProcessExec(processExec);
+					
+					if(operationdata.equals("do_user_takeoff")){
+						String str1,str2;
+						str1=inputdata.substring(inputdata.indexOf("takeoff_alt_cm=")+15);
+						str2=str1.substring(0, str1.indexOf(","));
+						highcm=Integer.parseInt(str2);
+					}
+					else if(operationdata.equals("_simulator_servos")){
+						String str1,str2;
+						str1=inputdata.substring(inputdata.indexOf("_sitl.wind_speed=")+17);
+						str2=str1.substring(0, str1.indexOf(","));
+						windspeed=Integer.parseInt(str2);
+					}
 
 					processList.add(p);
 					
@@ -529,6 +555,11 @@ public class TestCaseConfirmationPanel extends JPanel{
 				tc.setProcessList(processList);
 //				tc.setState(state);
 //				tc.setResult(result);
+				
+				TestCaseResult tcr=new TestCaseResult();
+				tcr.setTakeoff_alt(highcm);
+				tcr.setWind_speed(windspeed);
+				tc.setResult(tcr);
 
 				testcaseList.add(tc);
 				

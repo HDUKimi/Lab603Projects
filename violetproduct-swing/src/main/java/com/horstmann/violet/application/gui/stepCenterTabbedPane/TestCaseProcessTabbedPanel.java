@@ -46,6 +46,7 @@ import com.horstmann.violet.application.consolepart.TestCasePathPanel;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.opreationTreePane.TestCaseConfirmationPanel;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
 import com.horstmann.violet.application.gui.util.ckt.handle.ATDTR__1;
@@ -68,6 +69,7 @@ import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 import com.horstmann.violet.application.gui.util.ckt.output.TestAutoDiagram;
 import com.horstmann.violet.application.gui.util.ckt.output.forPlatform;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML;
+import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML2;
 import com.horstmann.violet.application.gui.util.wj.util.GeneratePath;
 
 public class TestCaseProcessTabbedPanel extends JPanel{
@@ -1026,7 +1028,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				moviepanel.getMovieLabel().setText("正在进行实例化测试用例");
 				
 				if(selectCoverState==2){//性能测试
-					PerAutomaticResult=PerformanceXML.getPerformResultFromAutomatic(DFStree);
+					PerAutomaticResult=PerformanceXML2.getPerformResultFromAutomatic(DFStree);
 					collectResult.add(PerAutomaticResult);
 				}
 				else{
@@ -1176,10 +1178,47 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				String path=baseUrl+name+"TestCase.xml";
 				
 				if(selectCoverState==2){//性能测试
-					for(Transition t:PerAutomaticResult.getTransitionSet()){
-						listcases.add(t.getResult());
+//					for(Transition t:PerAutomaticResult.getTransitionSet()){
+//						listcases.add(t.getResult());
+//					}
+//					PerformanceXML.produceXML(listcases, path);
+					PerformanceXML2.produceXML(path);
+					
+					List<TestCase> testcaselist=new ArrayList<>();
+					List<TestCaseReportPartPanel> reportpartlist=new ArrayList<>();
+					
+					testcaselist=TestCaseConfirmationPanel.extractDataFromXml(path);
+					
+					JPanel resultpanel=new JPanel();
+					JPanel emptypanel=new JPanel();
+					resultpanel.setOpaque(false);
+					emptypanel.setOpaque(false);
+					
+					GridBagLayout layout = new GridBagLayout();
+					resultpanel.setLayout(layout);
+					int i=0;
+					
+					TestCaseReportTableHeaderPanel tcrthpanel=new TestCaseReportTableHeaderPanel();
+					resultpanel.add(tcrthpanel);
+					layout.setConstraints(tcrthpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+					
+					for(TestCase tc:testcaselist){
+						TestCaseReportPartPanel tcrppanel=new TestCaseReportPartPanel(tc);
+						resultpanel.add(tcrppanel);
+						layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+						reportpartlist.add(tcrppanel);
 					}
-					PerformanceXML.produceXML(listcases, path);
+					resultpanel.add(emptypanel);
+					layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+					
+					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().setTestCaseReportPartPanelList(reportpartlist);
+					
+					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().removeAll();
+					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().add(resultpanel);
+					
+					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowButtonPanel().setVisible(true);
+					
+					
 				}
 				else{
 					AtutomaticProduceXML(collectResult, path);

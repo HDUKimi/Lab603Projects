@@ -40,6 +40,9 @@ public class TestCaseReportPartPanel extends JPanel {
 	private JLabel iconlabel;
 	private JLabel titlelabel;
 	private JButton toolbutton;
+	
+	private JTable titletable;
+	private DefaultTableModel titletablemodel;
 
 	private JLabel linelabel;
 
@@ -54,7 +57,7 @@ public class TestCaseReportPartPanel extends JPanel {
 		
 		init();
 
-		this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		this.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 
 		this.setBackground(new Color(255, 255, 255));
 
@@ -77,13 +80,13 @@ public class TestCaseReportPartPanel extends JPanel {
 
 		initTitlePanel();
 
-		initLinePanel();
+//		initLinePanel();
 
 		initAttributePanel();
 
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.add(titlepanel);
-		this.add(linepanel);
+//		this.add(linepanel);
 		this.add(attributepanel);
 
 	}
@@ -148,14 +151,84 @@ public class TestCaseReportPartPanel extends JPanel {
 				}
 			}
 		});
+		
+		initTitleTable();
 
 		titlepanel.setLayout(new BorderLayout());
-		titlepanel.add(titlelabelpanel, BorderLayout.WEST);
+//		titlepanel.add(titlelabelpanel, BorderLayout.WEST);
+		titlepanel.add(titletable, BorderLayout.CENTER);
 		titlepanel.add(toolbutton, BorderLayout.EAST);
 		// titlepanel.setPreferredSize(new Dimension(100, 30));
 
 		titlepanel.setOpaque(false);
+		titlepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(224, 225, 220)));
 
+	}
+
+	private void initTitleTable() {
+		// TODO Auto-generated method stub
+		
+		String[] columnNames = { "测试ID", "风速", "起飞高度", "剩余电量", "所用时间"};
+		String[][] tabelValues = {};
+
+		titletablemodel = new DefaultTableModel(tabelValues, columnNames) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+
+		titletable = new JTable(titletablemodel);
+		
+		titletable.setName("TestCaseReportPartPanelTitleTable");
+
+		titletable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//		titletable.setSelectionBackground(new Color(250, 248, 236));
+		titletable.setSelectionBackground(new Color(255, 255, 255));
+		titletable.setSelectionForeground(new Color(115, 110, 102));
+		titletable.setGridColor(new Color(224, 226, 220));
+		titletable.setShowGrid(false);
+		titletable.setShowHorizontalLines(false);
+		titletable.setShowVerticalLines(false);
+		titletable.setFillsViewportHeight(true);
+		titletable.setRowHeight(22);
+		titletable.doLayout();
+		titletable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+		titletable.getColumnModel().getColumn(0).setCellRenderer(new MyAllLabelRenderer());
+		titletable.getColumnModel().getColumn(1).setCellRenderer(new MyAllLabelRenderer());
+		titletable.getColumnModel().getColumn(2).setCellRenderer(new MyAllLabelRenderer());
+		titletable.getColumnModel().getColumn(3).setCellRenderer(new MyAllLabelRenderer());
+		titletable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
+
+		titletable.getColumn("测试ID").setPreferredWidth(50);
+		titletable.getColumn("测试ID").setMinWidth(50);
+		titletable.getColumn("测试ID").setMaxWidth(50);
+		titletable.getColumn("风速").setPreferredWidth(100);
+		titletable.getColumn("风速").setMinWidth(100);
+		titletable.getColumn("起飞高度").setPreferredWidth(100);
+		titletable.getColumn("起飞高度").setMinWidth(100);
+		titletable.getColumn("剩余电量").setPreferredWidth(100);
+		titletable.getColumn("剩余电量").setMinWidth(100);
+		titletable.getColumn("所用时间").setPreferredWidth(100);
+		titletable.getColumn("所用时间").setMinWidth(100);
+
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+		renderer.setBackground(new Color(71, 80, 93));
+		renderer.setForeground(new Color(255, 255, 255));
+		renderer.setFont(new Font("微软雅黑", Font.PLAIN, 13));
+		renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+		titletable.getTableHeader().setDefaultRenderer(renderer);
+
+		titletable.getTableHeader().setPreferredSize(new Dimension(100, 27));
+
+
+//		titletable.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(224, 225, 220)));
+		
+		Object[] rowData={testcase.getTestCaseID(),testcase.getResult().getWind_speed(),testcase.getResult().getTakeoff_alt(),"",""};
+		titletablemodel.addRow(rowData);
+
+		
 	}
 
 	private void initLinePanel() {
@@ -196,7 +269,7 @@ public class TestCaseReportPartPanel extends JPanel {
 		attributetable.setShowHorizontalLines(true);
 		attributetable.setShowVerticalLines(false);
 		attributetable.setFillsViewportHeight(true);
-		attributetable.setRowHeight(27);
+		attributetable.setRowHeight(19);
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
@@ -219,13 +292,15 @@ public class TestCaseReportPartPanel extends JPanel {
 		attributetable.getColumn("激励执行情况").setMinWidth(60);
 
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setBackground(new Color(71, 80, 93));
-		renderer.setForeground(new Color(255, 255, 255));
-		renderer.setFont(new Font("微软雅黑", Font.PLAIN, 13));
+//		renderer.setBackground(new Color(71, 80, 93));
+//		renderer.setForeground(new Color(255, 255, 255));
+		renderer.setForeground(new Color(71, 80, 93));
+		renderer.setBackground(new Color(250, 248, 236));
+		renderer.setFont(new Font("微软雅黑", Font.BOLD, 13));
 		renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
 		attributetable.getTableHeader().setDefaultRenderer(renderer);
 
-		attributetable.getTableHeader().setPreferredSize(new Dimension(100, 27));
+		attributetable.getTableHeader().setPreferredSize(new Dimension(100, 23));
 
 //		DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer(){
 //
@@ -263,7 +338,7 @@ public class TestCaseReportPartPanel extends JPanel {
 //			attributetable.getColumn(attributetable.getColumnName(i)).setCellRenderer(renderer1);  
 //        }
 
-		attributetable.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(224, 225, 220)));
+		attributetable.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, new Color(224, 225, 220)));
 
 //		attributetable.setBackground(new Color(255, 255, 255));
 //		attributetable.setBackground(Color.BLUE);
@@ -275,7 +350,7 @@ public class TestCaseReportPartPanel extends JPanel {
 		attributepanel.add(attributetable.getTableHeader(), BorderLayout.NORTH);
 		attributepanel.add(attributetable, BorderLayout.CENTER);
 
-		attributepanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+		attributepanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		attributepanel.setOpaque(false);
 
 		for(myProcess p:testcase.getProcessList()){
@@ -329,6 +404,14 @@ public class TestCaseReportPartPanel extends JPanel {
 
 	public void setAttributetablemodel(DefaultTableModel attributetablemodel) {
 		this.attributetablemodel = attributetablemodel;
+	}
+
+	public JTable getTitletable() {
+		return titletable;
+	}
+
+	public DefaultTableModel getTitletablemodel() {
+		return titletablemodel;
 	}
 
 	

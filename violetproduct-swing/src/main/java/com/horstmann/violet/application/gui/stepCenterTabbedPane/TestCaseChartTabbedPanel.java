@@ -273,7 +273,7 @@ public class TestCaseChartTabbedPanel extends JPanel{
 		// TODO Auto-generated method stub
 		
 //		String[] columnNames = { "模块名称", "通过数", "不通过数", "首轮命中用例数", "执行用例数", "未执行用例数", "变更用例数", "测试用例总数"};
-		String[] columnNames = { "测试ID", "風速","起飞高度", "剩余电量", "所用时间"};
+		String[] columnNames = { "测试ID", "风速","起飞高度", "剩余电量", "所用时间"};
 		String[][] tabelValues = {};
 
 		attributetablemodel = new DefaultTableModel(tabelValues, columnNames) {

@@ -26,6 +26,7 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseCoverTa
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseInstantiationTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseProcessTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseProduceTabbedPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseShowTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseUppaalTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.UppaalOptimizationTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.UppaalParseInforTabbedPanel;
@@ -62,6 +63,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 	private FixedButtonTabbedPanel testCaseCoverButtonPanel;
 	private FixedButtonTabbedPanel testCaseProduceButtonPanel;
 	private FixedButtonTabbedPanel testCaseInstantiationButtonPanel;
+	private FixedButtonTabbedPanel testCaseShowButtonPanel;
 	
 	private JButton testCaseProcessButton;
 	private JButton uppaalParseInforButton;
@@ -73,6 +75,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 	private JButton testCaseCoverButton;
 	private JButton testCaseProduceButton;
 	private JButton testCaseInstantiationButton;
+	private JButton testCaseShowButton;
 	
 	private TestCaseProcessTabbedPanel testCaseProcessTabbedPanel;
 	private UppaalParseInforTabbedPanel uppaalParseInforTabbedPanel;
@@ -84,6 +87,8 @@ public class StepThreeCenterTabbedPane extends JPanel {
 	private TestCaseCoverTabbedPanel testCaseCoverTabbedPanel;
 	private TestCaseProduceTabbedPanel testCaseProduceTabbedPanel;
 	private TestCaseInstantiationTabbedPanel testCaseInstantiationTabbedPanel;
+	private TestCaseShowTabbedPanel testCaseShowTabbedPanel;
+	
 	
 	public StepThreeCenterTabbedPane(MainFrame mainFrame) {
 		
@@ -99,6 +104,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		testCaseCoverTabbedPanel=new TestCaseCoverTabbedPanel(mainFrame,workspace);
 		testCaseProduceTabbedPanel=new TestCaseProduceTabbedPanel(mainFrame);
 		testCaseInstantiationTabbedPanel=new TestCaseInstantiationTabbedPanel(mainFrame);
+		testCaseShowTabbedPanel=new TestCaseShowTabbedPanel(mainFrame);
 
 		buttonPanel = new JPanel();
 		diagramPanel = new JPanel();
@@ -188,6 +194,9 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		
 		testCaseInstantiationButtonPanel = new FixedButtonTabbedPanel("实例化",150);
 		testCaseInstantiationButton = testCaseInstantiationButtonPanel.getTabbedbutton();
+		
+		testCaseShowButtonPanel = new FixedButtonTabbedPanel("生成测试用例", 150);
+		testCaseShowButton = testCaseShowButtonPanel.getTabbedbutton();
 
 
 		buttonTabbedPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -205,6 +214,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		buttonTabbedPanel.add(testCaseCoverButtonPanel);
 		buttonTabbedPanel.add(testCaseProduceButtonPanel);
 		buttonTabbedPanel.add(testCaseInstantiationButtonPanel);
+		buttonTabbedPanel.add(testCaseShowButtonPanel);
 
 		setButtonActionListener();
 				
@@ -218,6 +228,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		fixButtonTabbedPanelList.add(testCaseCoverButtonPanel);
 		fixButtonTabbedPanelList.add(testCaseProduceButtonPanel);
 		fixButtonTabbedPanelList.add(testCaseInstantiationButtonPanel);
+		fixButtonTabbedPanelList.add(testCaseShowButtonPanel);
 
 		setFixButtonTabbedPanelVisible();
 		
@@ -517,6 +528,22 @@ public class StepThreeCenterTabbedPane extends JPanel {
 				ChangeRepaint();
 			}
 		});
+		testCaseShowButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				getDiagramPanel().removeAll();
+				getDiagramPanel().add(testCaseShowTabbedPanel);
+
+				ChangeAllButtonPanelState();
+				testCaseShowButtonPanel.setBackground(new Color(58, 105, 190));
+				
+				fixButtonTabbedPanelSelectedIndex=7;
+
+				ChangeRepaint();
+			}
+		});
 	}
 
 	protected void ChangeAllButtonPanelState() {
@@ -532,6 +559,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		testCaseCoverButtonPanel.setBackground(new Color(77, 96, 130));
 		testCaseProduceButtonPanel.setBackground(new Color(77, 96, 130));
 		testCaseInstantiationButtonPanel.setBackground(new Color(77, 96, 130));
+		testCaseShowButtonPanel.setBackground(new Color(77, 96, 130));
 		
 	}
 
@@ -684,6 +712,18 @@ public class StepThreeCenterTabbedPane extends JPanel {
 
 	public FixedButtonTabbedPanel getTestCaseInstantiationButtonPanel() {
 		return testCaseInstantiationButtonPanel;
+	}
+
+	public FixedButtonTabbedPanel getTestCaseShowButtonPanel() {
+		return testCaseShowButtonPanel;
+	}
+
+	public JButton getTestCaseShowButton() {
+		return testCaseShowButton;
+	}
+
+	public TestCaseShowTabbedPanel getTestCaseShowTabbedPanel() {
+		return testCaseShowTabbedPanel;
 	}
 
 	

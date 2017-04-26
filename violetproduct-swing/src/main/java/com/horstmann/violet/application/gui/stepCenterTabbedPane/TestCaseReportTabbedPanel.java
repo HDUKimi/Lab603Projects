@@ -29,6 +29,7 @@ import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -94,6 +95,10 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private JProgressBar progressbar;
 	private int progressbarindex;
 	
+	private JCheckBox[] windCheckBoxList;
+	private JPanel windcheckboxpanel;
+	private int windcheckboxpanelstate=0;
+	
 	private Thread t;
 	private Thread progreseethread;
 	private int threadstate=0;
@@ -119,6 +124,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 		initToolPanel();
 		
+		initWindCheckBoxPanel();
+		
 		initMoviePanel();
 		
 		initTablePanel();
@@ -126,11 +133,13 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		GridBagLayout layout = new GridBagLayout();
 		this.setLayout(layout);
 		this.add(toolpanel);
+		this.add(windcheckboxpanel);
 		this.add(moviepanel);
 		this.add(tablepanel);
 		layout.setConstraints(toolpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(moviepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(tablepanel,new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(windcheckboxpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(moviepanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(tablepanel,new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		this.setBackground(new Color(255, 255, 255));
 		
@@ -336,9 +345,18 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				testcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTestcasereportlist();
-				for(TestCaseReportPartPanel tcrpp:testcasereportlist){
-					tcrpp.getToolcheckbox().setSelected(false);
+//				testcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTestcasereportlist();
+//				for(TestCaseReportPartPanel tcrpp:testcasereportlist){
+//					tcrpp.getToolcheckbox().setSelected(false);
+//				}
+				
+				if(windcheckboxpanelstate==0){
+					windcheckboxpanel.setVisible(true);
+					windcheckboxpanelstate=1;
+				}
+				else if(windcheckboxpanelstate==1){
+					windcheckboxpanel.setVisible(false);
+					windcheckboxpanelstate=0;
 				}
 				
 			}
@@ -404,7 +422,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		toolpanel.add(toolbuttonpanel2);
 		toolpanel.add(toolbuttonpanel3);
 		toolpanel.add(emptypanel1);
-		toolpanel.add(toolbuttonpanel6);
+//		toolpanel.add(toolbuttonpanel6);
 		toolpanel.add(toolbuttonpanel7);
 		toolpanel.add(toolbuttonpanel4);
 		toolpanel.add(toolbuttonpanel5);
@@ -415,6 +433,27 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		toolpanel.setPreferredSize(new Dimension(100, 29));
 		toolpanel.setMaximumSize(new Dimension(100, 29));
 		toolpanel.setMinimumSize(new Dimension(100, 29));
+		
+	}
+
+	private void initWindCheckBoxPanel() {
+		// TODO Auto-generated method stub
+		
+		int level=10;
+		
+		windcheckboxpanel=new JPanel();
+		windcheckboxpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		
+		windCheckBoxList=new JCheckBox[level+1];
+		for(int i=0;i<=level;i++){
+			windCheckBoxList[i]=new JCheckBox("风速"+i*2+"级");
+			windCheckBoxList[i].setOpaque(false);
+			windCheckBoxList[i].setSelected(true);
+			windcheckboxpanel.add(windCheckBoxList[i]);
+		}
+		
+		windcheckboxpanel.setBackground(new Color(207, 214, 229));
+		windcheckboxpanel.setVisible(false);
 		
 	}
 
@@ -477,12 +516,14 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				for(TestCaseReportPartPanel tcrpp:testcasereportlist){
 					
-					if(tcrpp.getToolcheckbox().isSelected()){
+//					if(tcrpp.getToolcheckbox().isSelected()){
 						checkedtestcasereportlist.add(tcrpp);
 						testcaselist.add(tcrpp.getTestcase());
-					}
+//					}
 					
 				}
+				
+				System.err.println(testcasereportlist);
 				
 				testcasename=mainFrame.getTestCaseConfirmationPanel().getTestcasename();
 				
@@ -767,14 +808,18 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			
 			attributetablemodel.fireTableDataChanged();
 			
-			String title = "";
-			title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
-			title+=testcase.getState()+"     ";
-//			title+="执行结果:"+testcase.getResult().substring(0, testcase.getResult().indexOf("耗时"));
-//			title+="执行结果:"+testcase.getResult();
-			title+=testcase.getResult();
+//			String title = "";
+//			title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
+//			title+=testcase.getState()+"     ";
+////			title+="执行结果:"+testcase.getResult().substring(0, testcase.getResult().indexOf("耗时"));
+////			title+="执行结果:"+testcase.getResult();
+//			title+=testcase.getResult();
+//			
+//			tcrpp.getTitlelabel().setText(title);
 			
-			tcrpp.getTitlelabel().setText(title);
+			DefaultTableModel dtm=tcrpp.getTitletablemodel();
+			dtm.setValueAt(testcase.getResult().getBattery_remaining(), 0, 3);
+			dtm.setValueAt(testcase.getResult().getTime(), 0, 4);
 			
 			String absolutePath = System.getProperty("user.dir");
 			String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
