@@ -12,6 +12,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.block.BlockBorder;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
@@ -75,6 +76,9 @@ public class PerformanceHighBatteryLineChart {
 
 //		CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();
 //		domainAxis.setTickLabelPaint(new Color(255, 255, 255)); // 字体颜色
+		
+		XYPlot plot=(XYPlot) chart.getPlot();
+		plot.setDomainGridlinesVisible(false);
 
 		// 6:使用chartPanel接收
 		ChartPanel chartPanel = new ChartPanel(chart);

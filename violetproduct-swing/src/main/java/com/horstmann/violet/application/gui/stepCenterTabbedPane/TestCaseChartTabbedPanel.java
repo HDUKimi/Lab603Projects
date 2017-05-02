@@ -344,7 +344,7 @@ public class TestCaseChartTabbedPanel extends JPanel{
 		attributetable.setName("TestCaseChartTabbedPanel");
 
 		attributetable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		attributetable.setSelectionBackground(new Color(250, 248, 236));
+//		attributetable.setSelectionBackground(new Color(250, 248, 236));
 		attributetable.setGridColor(new Color(224, 226, 220));
 		attributetable.setShowGrid(false);
 		attributetable.setShowHorizontalLines(true);
@@ -477,12 +477,29 @@ public class TestCaseChartTabbedPanel extends JPanel{
 //		piechartpanel.setMaximumSize(new Dimension(300, 300));
 //		piechartpanel.setMinimumSize(new Dimension(300, 300));
 		
+		highspeedbarpanel.setPreferredSize(new Dimension(300, 300));
+		highspeedbarpanel.setMaximumSize(new Dimension(300, 300));
+		highspeedbarpanel.setMinimumSize(new Dimension(300, 300));
+		timespeedbarpanel.setPreferredSize(new Dimension(300, 300));
+		timespeedbarpanel.setMaximumSize(new Dimension(300, 300));
+		timespeedbarpanel.setMinimumSize(new Dimension(300, 300));
+		highbatterylinepanel.setPreferredSize(new Dimension(300, 300));
+		highbatterylinepanel.setMaximumSize(new Dimension(300, 300));
+		highbatterylinepanel.setMinimumSize(new Dimension(300, 300));
+		hightimelinepanel.setPreferredSize(new Dimension(300, 300));
+		hightimelinepanel.setMaximumSize(new Dimension(300, 300));
+		hightimelinepanel.setMinimumSize(new Dimension(300, 300));
+		piepanel.setPreferredSize(new Dimension(300, 300));
+		piepanel.setMaximumSize(new Dimension(300, 300));
+		piepanel.setMinimumSize(new Dimension(300, 300));
 		
-		barpanel.setLayout(new GridLayout());
-		barpanel.add(barchartpanel);
 		
-		linepanel.setLayout(new GridLayout());
-		linepanel.add(linechartpanel);
+		
+//		barpanel.setLayout(new GridLayout());
+//		barpanel.add(barchartpanel);
+//		
+//		linepanel.setLayout(new GridLayout());
+//		linepanel.add(linechartpanel);
 		
 		piepanel.setLayout(new GridLayout());
 		piepanel.add(piechartpanel);
@@ -504,35 +521,53 @@ public class TestCaseChartTabbedPanel extends JPanel{
 		chartpanel.add(hightimelinepanel);
 		chartpanel.add(piepanel);
 		
-		chartpanel.add(leftemptypanel1);
-		chartpanel.add(leftemptypanel2);
-		chartpanel.add(leftemptypanel3);
-		chartpanel.add(leftemptypanel4);
-		chartpanel.add(leftemptypanel5);
-		chartpanel.add(rightemptypanel1);
-		chartpanel.add(rightemptypanel2);
-		chartpanel.add(rightemptypanel3);
-		chartpanel.add(rightemptypanel4);
-		chartpanel.add(rightemptypanel5);
+//		chartpanel.add(leftemptypanel1);
+//		chartpanel.add(leftemptypanel2);
+//		chartpanel.add(leftemptypanel3);
+//		chartpanel.add(leftemptypanel4);
+//		chartpanel.add(leftemptypanel5);
+//		chartpanel.add(rightemptypanel1);
+//		chartpanel.add(rightemptypanel2);
+//		chartpanel.add(rightemptypanel3);
+//		chartpanel.add(rightemptypanel4);
+//		chartpanel.add(rightemptypanel5);
 		
 //		layout.setConstraints(barpanel, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
 //		layout.setConstraints(linepanel, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
-		layout.setConstraints(highspeedbarpanel, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
-		layout.setConstraints(timespeedbarpanel, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
-		layout.setConstraints(highbatterylinepanel, new GBC(1, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
-		layout.setConstraints(hightimelinepanel, new GBC(1, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
-		layout.setConstraints(piepanel, new GBC(1, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
 		
-		layout.setConstraints(leftemptypanel1, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-		layout.setConstraints(leftemptypanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-		layout.setConstraints(leftemptypanel3, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-		layout.setConstraints(leftemptypanel4, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-		layout.setConstraints(leftemptypanel5, new GBC(0, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-		layout.setConstraints(rightemptypanel1, new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-		layout.setConstraints(rightemptypanel2, new GBC(2, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-		layout.setConstraints(rightemptypanel3, new GBC(2, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-		layout.setConstraints(rightemptypanel4, new GBC(2, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-		layout.setConstraints(rightemptypanel5, new GBC(2, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+//		layout.setConstraints(highspeedbarpanel, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
+//		layout.setConstraints(timespeedbarpanel, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
+//		layout.setConstraints(highbatterylinepanel, new GBC(1, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
+//		layout.setConstraints(hightimelinepanel, new GBC(1, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
+//		layout.setConstraints(piepanel, new GBC(1, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
+//		
+//		layout.setConstraints(leftemptypanel1, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+//		layout.setConstraints(leftemptypanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+//		layout.setConstraints(leftemptypanel3, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+//		layout.setConstraints(leftemptypanel4, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+//		layout.setConstraints(leftemptypanel5, new GBC(0, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+//		layout.setConstraints(rightemptypanel1, new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+//		layout.setConstraints(rightemptypanel2, new GBC(2, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+//		layout.setConstraints(rightemptypanel3, new GBC(2, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+//		layout.setConstraints(rightemptypanel4, new GBC(2, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+//		layout.setConstraints(rightemptypanel5, new GBC(2, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+		
+		layout.setConstraints(highspeedbarpanel, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(timespeedbarpanel, new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(highbatterylinepanel, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(hightimelinepanel, new GBC(2, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(piepanel, new GBC(1, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+//		layout.setConstraints(leftemptypanel1, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.1, 1));
+//		layout.setConstraints(leftemptypanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.1, 1));
+//		layout.setConstraints(leftemptypanel3, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.1, 1));
+//		layout.setConstraints(leftemptypanel4, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+//		layout.setConstraints(leftemptypanel5, new GBC(0, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+//		layout.setConstraints(rightemptypanel1, new GBC(3, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.1, 1));
+//		layout.setConstraints(rightemptypanel2, new GBC(3, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.1, 1));
+//		layout.setConstraints(rightemptypanel3, new GBC(3, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.1, 1));
+//		layout.setConstraints(rightemptypanel4, new GBC(2, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+//		layout.setConstraints(rightemptypanel5, new GBC(2, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 		
 		chartpanel.setBackground(new Color(255, 255, 255));
 		

@@ -655,7 +655,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				for(TestCase tc:testcaselist){
 					TestCaseResult tcr=tc.getResult();
-					Object[] rowData={tc.getTestCaseID(),tcr.getWind_speed()+" m/s" ,tcr.getTakeoff_alt(),tcr.getBattery_remaining()+" %",tcr.getTime()+" s"};
+					Object[] rowData={tc.getTestCaseID(),tcr.getWind_speed(),tcr.getTakeoff_alt(),tcr.getBattery_remaining(),tcr.getTime()};
 					tabelmodel.addRow(rowData);
 				}
 				

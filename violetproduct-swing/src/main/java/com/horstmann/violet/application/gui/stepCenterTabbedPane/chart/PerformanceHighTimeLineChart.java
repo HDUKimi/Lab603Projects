@@ -9,6 +9,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.block.BlockBorder;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RectangleEdge;
@@ -63,6 +64,9 @@ public class PerformanceHighTimeLineChart {
 //		CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();
 //		domainAxis.setTickLabelPaint(new Color(255, 255, 255)); // 字体颜色
 
+		XYPlot plot=(XYPlot) chart.getPlot();
+		plot.setDomainGridlinesVisible(false);
+		
 		// 6:使用chartPanel接收
 		ChartPanel chartPanel = new ChartPanel(chart);
 		return chartPanel;

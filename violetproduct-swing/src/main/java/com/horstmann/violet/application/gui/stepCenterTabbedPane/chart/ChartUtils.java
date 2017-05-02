@@ -117,6 +117,8 @@ public class ChartUtils {
 		chartTheme.setLabelLinkStyle(PieLabelLinkStyle.CUBIC_CURVE);
 
 		chartTheme.setAxisOffset(new RectangleInsets(5, 12, 5, 12));
+//		chartTheme.setAxisOffset(new RectangleInsets(0, 0, 0, 0));
+//		chartTheme.set
 		chartTheme.setDomainGridlinePaint(new Color(192, 208, 224));// X坐标轴垂直网格颜色
 		chartTheme.setRangeGridlinePaint(new Color(192, 192, 192));// Y坐标轴水平网格颜色
 

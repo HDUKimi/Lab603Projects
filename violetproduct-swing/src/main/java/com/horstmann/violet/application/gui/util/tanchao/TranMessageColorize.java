@@ -127,7 +127,11 @@
 
 package com.horstmann.violet.application.gui.util.tanchao;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.Stroke;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -159,7 +163,7 @@ public class TranMessageColorize {
 		// 用于回复最初的颜色
 		for (IEdge edge : edges) {
 			IEdgeColorable colorableEdge = (IEdgeColorable) edge;
-			colorableEdge.setEdgeColor(Color.BLACK);
+			colorableEdge.setEdgeColor(Color.GRAY);
 		}
 		// 用于恢复最初的颜色
 		for (INode node : nodes) {// (Color.WHITE, new Color(191,191,191), new
@@ -277,6 +281,94 @@ public class TranMessageColorize {
 			}
 		}
 
+	}
+	
+	public void ColorizeDFSTree(Automatic automatic, MainFrame mainFrame, IWorkspace workspace){
+		
+		Collection<IEdge> edges = workspace.getGraphFile().getGraph().getAllEdges();
+		Collection<INode> nodes = workspace.getGraphFile().getGraph().getAllNodes();
+		
+		CleanColorize(workspace);
+		
+//		int trantextstate=mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getTrantextstate();
+		int trantextstate=1;
+		
+		for (Transition t : automatic.getTransitionSet()) {
+			String id;
+			
+			if(trantextstate==1){
+				id = t.getId() + "";
+			}
+			else{
+				id = t.getId()+"<br>"+t.getName();
+			}
+
+			for (IEdge edge : edges) {
+				String labelName = ((TransitionEdge) edge).getLabel();
+//				System.out.println(id+" - "+labelName+" - "+id.equals(labelName)+" - "+(index++)+" - "+(edge==null));
+//				if (id.equals(labelName)) {
+				if (labelName.contains(id)) {
+					if (edge != null && IEdgeColorable.class.isInstance(edge)) {
+						
+						IEdgeColorable colorableEdge = (IEdgeColorable) edge;
+						colorableEdge.setEdgeColor(Color.RED);
+						
+//						Graphics2D g2=new 
+						
+//						((TransitionEdge) edge).getLineStyle().setStroke(new BasicStroke(20));
+//						edge.getL
+						
+						break;
+					}
+				}
+			}
+		}
+		
+		for(State s:automatic.getStateSet()){
+			String id;
+			
+			if(trantextstate==1){
+				id = s.getId() + "";
+			}
+			else{
+				id = s.getId()+" "+s.getName();
+			}
+			
+			
+			for (INode node : nodes) {
+				// 第一个node
+				if (CircularStartNode.class.isInstance(node)) {
+					String startName = ((CircularStartNode) node).getName();
+					if (id.equals(startName)) {
+						if (node != null && IColorable.class.isInstance(node)) {
+							IColorable colorableNode = (IColorable) node;
+							colorableNode.setBackgroundColor(Color.RED);
+							colorableNode.setBorderColor(Color.RED);
+							colorableNode.setTextColor(Color.RED);
+							
+							break;
+						}
+					}
+				}
+
+				// 除了第一个之外的其他node
+				if (CircularNode.class.isInstance(node)) {
+					String labelName = ((CircularNode) node).getName();
+					if (id.equals(labelName)) {
+						if (node != null && IColorable.class.isInstance(node)) {
+							IColorable colorableNode = (IColorable) node;
+							colorableNode.setBackgroundColor(Color.BLUE);
+							colorableNode.setBorderColor(Color.BLUE);
+							colorableNode.setTextColor(Color.BLUE);
+							
+							break;
+						}
+					}
+				}
+
+			}
+		}
+		
 	}
 	
 	public void ColorizeDFSPath(Automatic automatic,MainFrame mainFrame,IWorkspace workspace){

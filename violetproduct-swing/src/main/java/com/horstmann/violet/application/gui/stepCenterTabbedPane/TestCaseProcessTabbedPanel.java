@@ -730,8 +730,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				TestCaseUppaalTabbedPanel copytcutpanel=new TestCaseUppaalTabbedPanel(mainFrame, copyworkspace);
 				
 				TranMessageColorize tmc=new TranMessageColorize();
-				tmc.ColorizeDFSPath(DFStree,mainFrame,workspace);
-				tmc.ColorizeDFSPath(DFStree,mainFrame,copyworkspace);
+				tmc.ColorizeDFSTree(DFStree,mainFrame,workspace);
+				tmc.ColorizeDFSTree(DFStree,mainFrame,copyworkspace);
 				
 				mainFrame.getStepThreeCenterTabbedPane().setTestCaseUppaalTabbedPanel(tcutpanel);
 				
@@ -803,6 +803,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				if(selectCoverState==0){//状态覆盖
 					//获取数据
 					testCase=StateCoverage__1.testCase(DFStree);
+					AutomateTransformXml(DFStree);
+					
 				}
 				else if(selectCoverState==1){//路径覆盖
 					testCase=GeneratePath.getFormatPathFromAutomatic(type_a, 10);
@@ -1285,6 +1287,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		tablepanel.removeAll();
 		tablepanel.add(tcpepanel);
 		
+		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButtonPanel().setVisible(true);
+		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButton().doClick();
+		
 		
 //		String path;
 //		PerformanceXML.createXML(collectResult, path);
@@ -1407,7 +1412,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				Element input = process.addElement("input");
 
 				operation.setText(t.getName());
-				input.setText(t.getResult().toString());
+				input.setText(t.getResult().toString().replaceAll("\\[|]", ""));
 			}
 		}
 

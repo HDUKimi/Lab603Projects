@@ -29,6 +29,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import com.horstmann.violet.product.diagram.abstracts.IEdgeColorable;
+import com.horstmann.violet.product.diagram.abstracts.property.LineStyle;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 /**
@@ -75,4 +76,29 @@ public abstract class ShapeEdge extends AbstractEdge implements IEdgeColorable
 	public void setEdgeColor(Color edgeColor) {
 		this.edgeColor = edgeColor;
 	}
+    /**
+     * Sets the line style property.
+     * 
+     * @param newValue the new value
+     */
+    public void setLineStyle(LineStyle newValue)
+    {
+        this.lineStyle = newValue;
+    }
+
+    /**
+     * Gets the line style property.
+     * 
+     * @return the line style
+     */
+    public LineStyle getLineStyle()
+    {
+        if (this.lineStyle == null)
+        {
+            this.lineStyle = LineStyle.SOLID;
+        }
+        return this.lineStyle;
+    }
+	   @XStreamOmitField
+	    private LineStyle lineStyle;
 }

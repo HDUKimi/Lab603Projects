@@ -37,7 +37,10 @@ public class LineStyle extends SerializableEnumeration
     private LineStyle()
     {
     }
-
+     
+    public void setStroke(Stroke stroke){
+    	solidStroke=stroke;
+    }
     /**
      * Gets a stroke with which to draw this line style.
      * 

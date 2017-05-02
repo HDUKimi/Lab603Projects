@@ -158,7 +158,7 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 //			}
 			
 			setBackground(new Color(250, 248, 236));
-			if(table.getColumnName(column).equals("激励ID")){
+			if(table.getColumnName(column).equals("激励ID")||table.getColumnName(column).equals("激励状态")||table.getColumnName(column).equals("激励执行情况")){
 				setHorizontalAlignment(JLabel.CENTER);
 				setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 			}
@@ -188,14 +188,12 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 		else if(tablename.equals("TestCaseChartTabbedPanel")){
 //			String[] columnNames = { "模块名称", "通过数", "不通过数", "首轮命中用例数", "执行用例数", "未执行用例数", "变更用例数", "测试用例总数"};
 //			setFont(new Font("微软雅黑", Font.PLAIN, 10));
-//			if(table.getColumnName(column).equals("模块名称")){
-//				setHorizontalAlignment(JLabel.LEFT);
-//				setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
-//			}
-//			else{
-//				setHorizontalAlignment(JLabel.CENTER);
-//				setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-//			}
+//			setForeground(new Color(0,0,0));
+//			setBackground(new Color(255, 255, 255));
+			if(Integer.parseInt(table.getValueAt(row, 1).toString())%4!=0){
+//				setForeground(new Color(177, 177, 177));
+				setBackground(new Color(250, 248, 236));
+			}
 			setHorizontalAlignment(JLabel.CENTER);
 			setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		}
