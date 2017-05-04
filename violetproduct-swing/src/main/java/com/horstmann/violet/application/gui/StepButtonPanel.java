@@ -56,7 +56,7 @@ import com.horstmann.violet.application.consolepart.ConsolePartTextArea;
 import com.horstmann.violet.application.gui.opreationTreePane.TestCaseConfirmationPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MoviePanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseReportPartPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.PerformanceTestCaseReportPartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ValidationToolPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCasePieChartPanel;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
@@ -152,7 +152,7 @@ public class StepButtonPanel extends JPanel {
 	JScrollPane StepSixScrollTree;
 	
 	
-	List<TestCaseReportPartPanel> testcasereportlist=new ArrayList<TestCaseReportPartPanel>();
+	List<PerformanceTestCaseReportPartPanel> testcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
 	
 	public StepButtonPanel(MainFrame mainFrame) {
 //		this.setBackground(new Color(174,199,225));
@@ -1006,7 +1006,7 @@ Fourstart.addActionListener(new ActionListener() {
 						int i=0;
 						testcasereportlist.clear();
 						for(TestCase tc:list){
-							TestCaseReportPartPanel tcrppanel=new TestCaseReportPartPanel(tc);
+							PerformanceTestCaseReportPartPanel tcrppanel=new PerformanceTestCaseReportPartPanel(tc);
 							resultpanel.add(tcrppanel);
 							layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 							testcasereportlist.add(tcrppanel);
@@ -1585,7 +1585,7 @@ Sixstart.addActionListener(new ActionListener() {
 		return Twostart;
 	}
 
-	public List<TestCaseReportPartPanel> getTestcasereportlist() {
+	public List<PerformanceTestCaseReportPartPanel> getTestcasereportlist() {
 		return testcasereportlist;
 	}
 	

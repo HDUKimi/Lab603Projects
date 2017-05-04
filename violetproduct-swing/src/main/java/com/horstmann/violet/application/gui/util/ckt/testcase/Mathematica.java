@@ -271,10 +271,15 @@ public class Mathematica {
 			replace(param1, param2);
 			//System.out.println(parameter1 + "======" + parameter2);
 			//			System.out.println("不等式："+parameter1 + "----》所求参数：" + parameter2);
+//			String strResult = ml.evaluateToOutputForm(
+//					"SetAccuracy[FindInstance[{" + parameter1 + "}, {"
+//							+ parameter2 + "}, 1], 3]", 0);////////////////////////////////////////////////
+
 			String strResult = ml.evaluateToOutputForm(
-					"SetAccuracy[FindInstance[{" + parameter1 + "}, {"
-							+ parameter2 + "}, 1], 3]", 0);////////////////////////////////////////////////
-//			System.out.println("mma中小数不等式"+parameter1);
+					"FindInstance[{" + parameter1 + "}, {"
+							+ parameter2 + "}, 1]", 0);
+			
+			//			System.out.println("mma中小数不等式"+parameter1);
 //			System.out.println("mma中小数参数"+parameter2);
 			// System.out.println(strResult);
 			// 再将替换的参数标识符替换回原样

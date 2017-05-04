@@ -729,9 +729,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				IWorkspace copyworkspace=new Workspace(absfGraphFile);
 				TestCaseUppaalTabbedPanel copytcutpanel=new TestCaseUppaalTabbedPanel(mainFrame, copyworkspace);
 				
-				TranMessageColorize tmc=new TranMessageColorize();
-				tmc.ColorizeDFSTree(DFStree,mainFrame,workspace);
-				tmc.ColorizeDFSTree(DFStree,mainFrame,copyworkspace);
+				if(selectCoverState!=1){
+					TranMessageColorize tmc=new TranMessageColorize();
+					tmc.ColorizeDFSTree(DFStree,mainFrame,workspace);
+					tmc.ColorizeDFSTree(DFStree,mainFrame,copyworkspace);
+				}
+				
 				
 				mainFrame.getStepThreeCenterTabbedPane().setTestCaseUppaalTabbedPanel(tcutpanel);
 				
@@ -807,7 +810,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					
 				}
 				else if(selectCoverState==1){//路径覆盖
-					testCase=GeneratePath.getFormatPathFromAutomatic(type_a, 10);
+					testCase=GeneratePath.getFormatPathFromAutomatic(a, 100);
 				}
 				else if(selectCoverState==2){//性能测试
 					DFStree.setName("测试用例1");
@@ -825,6 +828,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				TestCaseCoverTabbedPanel copytcctpanel=new TestCaseCoverTabbedPanel(mainFrame, copyworkspace);
 				
 				mainFrame.getStepThreeCenterTabbedPane().setTestCaseCoverTabbedPanel(tcctpanel);
+				
+				TranMessageColorize tmc=new TranMessageColorize();
+				tmc.CleanColorize(workspace);
+				tmc.CleanColorize(copyworkspace);
 				
 				tablepanel.removeAll();
 				tablepanel.add(copytcctpanel.getResultpanel());
@@ -1174,7 +1181,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在进行实例化测试用例");
+				moviepanel.getMovieLabel().setText("正在生成测试用例xml");
 				
 				String name=selectUppaal.substring(0, selectUppaal.indexOf("ForXStream"));
 				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
@@ -1186,7 +1193,16 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					baseUrl += "\\PerformanceTest\\";
 				}
 				
+				if(selectCoverState==0){
+					name+="zhuangtai";
+				}
+				else if(selectCoverState==1){
+					name+="lujing";
+				}
+				
 				String path=baseUrl+name+"TestCase.xml";
+				
+				System.err.println(path);
 				
 				if(selectCoverState==2){//性能测试
 //					for(Transition t:PerAutomaticResult.getTransitionSet()){
@@ -1196,9 +1212,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					PerformanceXML2.produceXML(path);
 					
 					List<TestCase> testcaselist=new ArrayList<>();
-					List<TestCaseReportPartPanel> reportpartlist=new ArrayList<>();
+					List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<>();
 					
-					testcaselist=TestCaseConfirmationPanel.extractDataFromXml(path);
+					testcaselist=TestCaseConfirmationPanel.extractPerformanceTestDataFromXml(path);
 					
 					JPanel resultpanel=new JPanel();
 					JPanel emptypanel=new JPanel();
@@ -1209,20 +1225,20 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					resultpanel.setLayout(layout);
 					int i=0;
 					
-					TestCaseReportTableHeaderPanel tcrthpanel=new TestCaseReportTableHeaderPanel();
+					PerformanceTestCaseReportTableHeaderPanel tcrthpanel=new PerformanceTestCaseReportTableHeaderPanel();
 					resultpanel.add(tcrthpanel);
 					layout.setConstraints(tcrthpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 					
 					for(TestCase tc:testcaselist){
-						TestCaseReportPartPanel tcrppanel=new TestCaseReportPartPanel(tc);
+						PerformanceTestCaseReportPartPanel tcrppanel=new PerformanceTestCaseReportPartPanel(tc);
 						resultpanel.add(tcrppanel);
 						layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-						reportpartlist.add(tcrppanel);
+						performancetestcasereportlist.add(tcrppanel);
 					}
 					resultpanel.add(emptypanel);
 					layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 					
-					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().setTestCaseReportPartPanelList(reportpartlist);
+					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().setPerformancetestcasereportlist(performancetestcasereportlist);
 					
 					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().removeAll();
 					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().add(resultpanel);
@@ -1231,8 +1247,41 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					
 					
 				}
-				else{
-					AtutomaticProduceXML(collectResult, path);
+				else{//功能测试
+					
+//					AtutomaticProduceXML(collectResult, path);
+					forPlatform.produceXML(path,collectResult);
+					
+					List<TestCase> testcaselist=new ArrayList<>();
+					List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<>();
+					
+					testcaselist=TestCaseConfirmationPanel.extractPerformanceTestDataFromXml(path);
+					
+					JPanel resultpanel=new JPanel();
+					JPanel emptypanel=new JPanel();
+					resultpanel.setOpaque(false);
+					emptypanel.setOpaque(false);
+					
+					GridBagLayout layout = new GridBagLayout();
+					resultpanel.setLayout(layout);
+					int i=0;
+
+					for(TestCase tc:testcaselist){
+						FunctionalTestCaseReportPartPanel tcrppanel=new FunctionalTestCaseReportPartPanel(tc);
+						resultpanel.add(tcrppanel);
+						layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+						functionaltestcasereportlist.add(tcrppanel);
+					}
+					resultpanel.add(emptypanel);
+					layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+					
+					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().setFunctionaltestcasereportlist(functionaltestcasereportlist);
+					
+					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().removeAll();
+					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().add(resultpanel);
+					
+					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowButtonPanel().setVisible(true);
+					
 				}
 				
 				

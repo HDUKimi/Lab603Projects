@@ -29,7 +29,7 @@ import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
 
-public class TestCaseReportPartPanel extends JPanel {
+public class PerformanceTestCaseReportPartPanel extends JPanel {
 
 	private JPanel titlepanel;
 	private JPanel linepanel;
@@ -51,7 +51,7 @@ public class TestCaseReportPartPanel extends JPanel {
 	
 	private TestCase testcase;
 
-	public TestCaseReportPartPanel(TestCase testcase) {
+	public PerformanceTestCaseReportPartPanel(TestCase testcase) {
 
 		this.testcase=testcase;
 		
@@ -180,7 +180,7 @@ public class TestCaseReportPartPanel extends JPanel {
 
 		titletable = new JTable(titletablemodel);
 		
-		titletable.setName("TestCaseReportPartPanelTitleTable");
+		titletable.setName("PerformanceTestCaseReportPartPanelTitleTable");
 
 		titletable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 //		titletable.setSelectionBackground(new Color(250, 248, 236));
@@ -260,7 +260,7 @@ public class TestCaseReportPartPanel extends JPanel {
 
 		attributetable = new JTable(attributetablemodel);
 		
-		attributetable.setName("TestCaseReportPartPanel");
+		attributetable.setName("PerformanceTestCaseReportPartPanel");
 
 		attributetable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		attributetable.setSelectionBackground(new Color(250, 248, 236));

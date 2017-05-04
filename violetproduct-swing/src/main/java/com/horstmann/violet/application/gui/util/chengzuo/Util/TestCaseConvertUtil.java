@@ -15,6 +15,7 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.horstmann.violet.application.gui.homeTabbedPanel.HomeAllTabbedPanel;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.Pair;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCaseResult;
@@ -145,6 +146,10 @@ public class TestCaseConvertUtil {
 	 * @return
 	 */
 	public static void buildTestCaseList(List<TestCase> list, String str) {
+		
+		int starttype=HomeAllTabbedPanel.getStarttype();
+		System.err.println(starttype);
+		
 		// 1.按*号将测试用例划分
 		String[] tmp = str.split("\\*");
 		// 2.对每个测试用例字符串进行解析封装
@@ -172,12 +177,16 @@ public class TestCaseConvertUtil {
 					exeState = "测试耗时:" + r[1];
 					break;
 				}
-
-				testCaseResult.setExeTime(Double.valueOf(r[1]));
-				testCaseResult.setTakeoff_alt(Double.valueOf(r[2].substring("takeoff_alt".length())));
-				testCaseResult.setBattery_remaining(Double.valueOf(r[3].substring("battery_remaining".length())));
-				testCaseResult.setTime(Double.valueOf(r[4].substring("time".length())));
-				testCaseResult.setWind_speed(Double.valueOf(r[5].substring("wind_speed".length())));
+				if(starttype == 2){
+					testCaseResult.setExeTime(Double.valueOf(r[1]));
+					testCaseResult.setTakeoff_alt(Double.valueOf(r[2].substring("takeoff_alt".length())));
+					testCaseResult.setBattery_remaining(Double.valueOf(r[3].substring("battery_remaining".length())));
+					testCaseResult.setTime(Double.valueOf(r[4].substring("time".length())));
+					testCaseResult.setWind_speed(Double.valueOf(r[5].substring("wind_speed".length())));
+				}else{
+					testCaseResult.setExeTime(Double.valueOf(r[1]));
+				}
+				
 			} else {
 				exeState = "程序执行过程中出现死循环或者抛出异常!";
 			}
@@ -205,12 +214,14 @@ public class TestCaseConvertUtil {
 			// 2.7.加入测试用例链表
 			list.add(testCase);
 		}
-		//处理多个0%
-		for(int i=0;i<list.size();i++){
-			if(i+1 <list.size()){
-				if(list.get(i).getResult().getBattery_remaining().equals("0%") &&
-					list.get(i+1).getResult().getBattery_remaining().equals("0%")){
-					list.remove(i);
+		if(starttype == 2){
+			//处理多个0%
+			for(int i=0;i<list.size();i++){
+				if(i+1 <list.size()){
+					if(list.get(i).getResult().getBattery_remaining().equals("0%") &&
+						list.get(i+1).getResult().getBattery_remaining().equals("0%")){
+						list.remove(i);
+					}
 				}
 			}
 		}

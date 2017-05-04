@@ -40,6 +40,7 @@ public class ButtonTabbedPanel extends JPanel{
 	
 	private JPanel labelpanel;
 	
+	private int width=150;
 	
 //	private List<ButtonTabbedPanel> buttonTabbedPanelLists;
 	
@@ -49,6 +50,9 @@ public class ButtonTabbedPanel extends JPanel{
 		this.workspace=workspace;
 		this.buttontabbedpanelindex=buttontabbedpanelindex;
 		this.tabbedbuttontext=tabbedbuttontext;
+		
+		width=tabbedbuttontext.length()*12+60;
+//		System.err.println(tabbedbuttontext+" - - - "+tabbedbuttontext.length()+" - - - "+width);
 		
 		tabbedbutton=new JButton();
 		fixedlabel=new JLabel();
@@ -90,7 +94,7 @@ public class ButtonTabbedPanel extends JPanel{
 		
 		this.setLayout(new BorderLayout());
 		this.setBackground(new Color(77, 96, 130));
-		this.setPreferredSize(new Dimension(150, 23));
+		this.setPreferredSize(new Dimension(width, 23));
 		this.setBorder(BorderFactory.createEmptyBorder(2, 0, 1, 0));
 		this.add(tabbedbutton, BorderLayout.WEST);
 		this.add(labelpanel, BorderLayout.EAST);

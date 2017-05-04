@@ -26,6 +26,8 @@ public class UppaalTransition
 	
 	String RESET="null";//时钟复位
 	
+	boolean isEndOfPath;// 性能测试路径 的结束标志
+	
 	String use="null";
 	String def="null";
 	

@@ -28,6 +28,9 @@ public class FixedButtonTabbedPanel extends JPanel{
 		
 		this.tabbedbuttontext=tabbedbuttontext;
 		
+		width=tabbedbuttontext.length()*12+60;
+//		System.err.println(tabbedbuttontext+" - - - "+tabbedbuttontext.length()+" - - - "+width);
+		
 		tabbedbutton=new JButton();
 		fixedlabel=new JLabel();
 		delectlabel=new JLabel();
@@ -36,18 +39,21 @@ public class FixedButtonTabbedPanel extends JPanel{
 		init();
 	}
 	
-	public FixedButtonTabbedPanel(String tabbedbuttontext,int width){
-		
-		this.tabbedbuttontext=tabbedbuttontext;
-		this.width=width;
-		
-		tabbedbutton=new JButton();
-		fixedlabel=new JLabel();
-		delectlabel=new JLabel();
-		labelpanel=new JPanel();
-		
-		init();
-	}
+//	public FixedButtonTabbedPanel(String tabbedbuttontext,int width){
+//		
+//		this.tabbedbuttontext=tabbedbuttontext;
+//		this.width=width;
+//		
+//		this.width=tabbedbuttontext.length()*15+50;
+//		System.err.println(tabbedbuttontext+" - - - "+tabbedbuttontext.length());
+//		
+//		tabbedbutton=new JButton();
+//		fixedlabel=new JLabel();
+//		delectlabel=new JLabel();
+//		labelpanel=new JPanel();
+//		
+//		init();
+//	}
 
 	private void init() {
 		// TODO Auto-generated method stub

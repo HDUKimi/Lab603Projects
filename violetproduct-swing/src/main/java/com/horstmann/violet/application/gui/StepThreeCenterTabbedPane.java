@@ -165,37 +165,37 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		
 		initleftrightbuttonpanel();
 
-		testCaseProcessButtonPanel = new FixedButtonTabbedPanel("测试用例生成进程",150);
+		testCaseProcessButtonPanel = new FixedButtonTabbedPanel("测试用例生成进程");
 		testCaseProcessButton = testCaseProcessButtonPanel.getTabbedbutton();
 		
-		uppaalParseInforButtonPanel = new FixedButtonTabbedPanel("解析时间自动机",150);
+		uppaalParseInforButtonPanel = new FixedButtonTabbedPanel("解析时间自动机");
 		uppaalParseInforButton = uppaalParseInforButtonPanel.getTabbedbutton();
 		
-		uppaalOptimizationButtonPanel = new FixedButtonTabbedPanel("时间自动机优化约简",180);
+		uppaalOptimizationButtonPanel = new FixedButtonTabbedPanel("时间自动机优化约简");
 		uppaalOptimizationButton = uppaalOptimizationButtonPanel.getTabbedbutton();
 
-		uppaalSplitStateButtonPanel = new FixedButtonTabbedPanel("符号状态拆分", 150);
+		uppaalSplitStateButtonPanel = new FixedButtonTabbedPanel("符号状态拆分");
 		uppaalSplitStateButton = uppaalSplitStateButtonPanel.getTabbedbutton();
 
-		uppaalRemoveMigrateButtonPanel = new FixedButtonTabbedPanel("抽象时间延迟迁移去除", 180);
+		uppaalRemoveMigrateButtonPanel = new FixedButtonTabbedPanel("抽象时间延迟迁移去除");
 		uppaalRemoveMigrateButton = uppaalRemoveMigrateButtonPanel.getTabbedbutton();
 
-		testCaseConstraintButtonPanel = new FixedButtonTabbedPanel("抽象时间延迟迁移", 150);
+		testCaseConstraintButtonPanel = new FixedButtonTabbedPanel("抽象时间延迟迁移");
 		testCaseConstraintButton = testCaseConstraintButtonPanel.getTabbedbutton();
 
-		testCaseUppaalButtonPanel = new FixedButtonTabbedPanel("深度优先生成树",150);
+		testCaseUppaalButtonPanel = new FixedButtonTabbedPanel("深度优先生成树");
 		testCaseUppaalButton = testCaseUppaalButtonPanel.getTabbedbutton();
 		
-		testCaseCoverButtonPanel = new FixedButtonTabbedPanel("路径覆盖",150);
+		testCaseCoverButtonPanel = new FixedButtonTabbedPanel("路径覆盖");
 		testCaseCoverButton = testCaseCoverButtonPanel.getTabbedbutton();
 
-		testCaseProduceButtonPanel = new FixedButtonTabbedPanel("添加约束条件",150);
+		testCaseProduceButtonPanel = new FixedButtonTabbedPanel("添加约束条件");
 		testCaseProduceButton = testCaseProduceButtonPanel.getTabbedbutton();
 		
-		testCaseInstantiationButtonPanel = new FixedButtonTabbedPanel("实例化",150);
+		testCaseInstantiationButtonPanel = new FixedButtonTabbedPanel("实例化");
 		testCaseInstantiationButton = testCaseInstantiationButtonPanel.getTabbedbutton();
 		
-		testCaseShowButtonPanel = new FixedButtonTabbedPanel("生成测试用例", 150);
+		testCaseShowButtonPanel = new FixedButtonTabbedPanel("生成测试用例");
 		testCaseShowButton = testCaseShowButtonPanel.getTabbedbutton();
 
 

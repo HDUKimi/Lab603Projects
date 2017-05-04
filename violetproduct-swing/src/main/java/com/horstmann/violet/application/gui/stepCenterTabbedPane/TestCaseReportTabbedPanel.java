@@ -38,6 +38,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.ProgressBarUI;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -114,9 +115,11 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private JPanel tableresultpanel;
 	
 	private String testcasename;
-	private List<TestCaseReportPartPanel> testcasereportlist=new ArrayList<TestCaseReportPartPanel>();
-	private List<TestCaseReportPartPanel> checkedtestcasereportlist=new ArrayList<TestCaseReportPartPanel>();
-	private List<TestCase> testcaselist=new ArrayList<TestCase>();
+	private List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
+	private List<FunctionalTestCaseReportPartPanel> checkedfunctionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
+	private List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
+	private List<PerformanceTestCaseReportPartPanel> checkedperformancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
+	private List<TestCase> selectedtestcaselist=new ArrayList<TestCase>();
 	
 	private int[] testcasecount=new int[3];
 	private List<Integer> testcasecountlist=new ArrayList<Integer>();
@@ -207,7 +210,13 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					
 					progressbarindex=0;
 					
-					startConfirmation();
+					int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+					if(starttype==1){
+						startFunctionalTestConfirmation();
+					}
+					else if(starttype==2){
+						startPerformanceTestConfirmation();
+					}
 					
 					threadstate=1;
 					
@@ -281,15 +290,33 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				testcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTestcasereportlist();
+				int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
 				
-				for(TestCaseReportPartPanel tcrpp:testcasereportlist){
+				if(starttype==1){
 					
-					if (tcrpp.getAttributepanel().isVisible()) {
-						tcrpp.getAttributepanel().setVisible(false);
+					functionaltestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getFunctionaltestcasereportlist();
+					
+					for(FunctionalTestCaseReportPartPanel ftcrpp:functionaltestcasereportlist){
+						if(ftcrpp.getAttributepanel().isVisible()){
+							ftcrpp.getAttributepanel().setVisible(false);
+						}
 					}
 					
 				}
+				else if(starttype==2){
+					performancetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getPerformancetestcasereportlist();
+					
+					for(PerformanceTestCaseReportPartPanel ptcrpp:performancetestcasereportlist){
+						
+						if (ptcrpp.getAttributepanel().isVisible()) {
+							ptcrpp.getAttributepanel().setVisible(false);
+						}
+						
+					}
+				}
+				
+				
+				
 				
 			}
 		});
@@ -306,15 +333,32 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 
-				testcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTestcasereportlist();
-				
-				for(TestCaseReportPartPanel tcrpp:testcasereportlist){
-					
-					if (!tcrpp.getAttributepanel().isVisible()) {
-						tcrpp.getAttributepanel().setVisible(true);
+				int starttype = mainFrame.getHomeAllTabbedPanel().getStarttype();
+
+				if (starttype == 1) {
+
+					functionaltestcasereportlist = mainFrame.getTestCaseConfirmationPanel()
+							.getFunctionaltestcasereportlist();
+
+					for (FunctionalTestCaseReportPartPanel ftcrpp : functionaltestcasereportlist) {
+						if (!ftcrpp.getAttributepanel().isVisible()) {
+							ftcrpp.getAttributepanel().setVisible(true);
+						}
 					}
-					
+
+				} else if (starttype == 2) {
+					performancetestcasereportlist = mainFrame.getTestCaseConfirmationPanel()
+							.getPerformancetestcasereportlist();
+
+					for (PerformanceTestCaseReportPartPanel ptcrpp : performancetestcasereportlist) {
+
+						if (!ptcrpp.getAttributepanel().isVisible()) {
+							ptcrpp.getAttributepanel().setVisible(true);
+						}
+
+					}
 				}
+
 				
 			}
 		});
@@ -331,10 +375,20 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				testcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTestcasereportlist();
-				
-				for(TestCaseReportPartPanel tcrpp:testcasereportlist){
-					tcrpp.getToolcheckbox().setSelected(true);
+				int starttype = mainFrame.getHomeAllTabbedPanel().getStarttype();
+
+				if(starttype==1){
+					functionaltestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getFunctionaltestcasereportlist();
+					for(FunctionalTestCaseReportPartPanel ftcrpp:functionaltestcasereportlist){
+						ftcrpp.getToolcheckbox().setSelected(true);
+					}
+				}
+				else if(starttype==2){
+					performancetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getPerformancetestcasereportlist();
+					
+					for(PerformanceTestCaseReportPartPanel ptcrpp:performancetestcasereportlist){
+						ptcrpp.getToolcheckbox().setSelected(true);
+					}
 				}
 				
 			}
@@ -351,20 +405,30 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+
+				int starttype = mainFrame.getHomeAllTabbedPanel().getStarttype();
+
+				if (starttype==1){
+					functionaltestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getFunctionaltestcasereportlist();
+					for(FunctionalTestCaseReportPartPanel ftcrpp:functionaltestcasereportlist){
+						ftcrpp.getToolcheckbox().setSelected(false);
+					}
+				}
+				else if(starttype==2){
+					if(windcheckboxpanelstate==0){
+						windcheckboxpanel.setVisible(true);
+						windcheckboxpanelstate=1;
+					}
+					else if(windcheckboxpanelstate==1){
+						windcheckboxpanel.setVisible(false);
+						windcheckboxpanelstate=0;
+					}
+				}
 				
 //				testcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTestcasereportlist();
-//				for(TestCaseReportPartPanel tcrpp:testcasereportlist){
+//				for(TestCaseReportPartPanel ptcrpp:testcasereportlist){
 //					tcrpp.getToolcheckbox().setSelected(false);
 //				}
-				
-				if(windcheckboxpanelstate==0){
-					windcheckboxpanel.setVisible(true);
-					windcheckboxpanelstate=1;
-				}
-				else if(windcheckboxpanelstate==1){
-					windcheckboxpanel.setVisible(false);
-					windcheckboxpanelstate=0;
-				}
 				
 			}
 		});
@@ -429,7 +493,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		toolpanel.add(toolbuttonpanel2);
 		toolpanel.add(toolbuttonpanel3);
 		toolpanel.add(emptypanel1);
-//		toolpanel.add(toolbuttonpanel6);
+		toolpanel.add(toolbuttonpanel6);
 		toolpanel.add(toolbuttonpanel7);
 		toolpanel.add(toolbuttonpanel4);
 		toolpanel.add(toolbuttonpanel5);
@@ -463,8 +527,223 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		windcheckboxpanel.setVisible(false);
 		
 	}
+	
+	private void startFunctionalTestConfirmation(){
+		
+		t = new Thread(new Runnable() {
 
-	private void startConfirmation() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				checkedfunctionaltestcasereportlist.removeAll(checkedfunctionaltestcasereportlist);
+				selectedtestcaselist.removeAll(selectedtestcaselist);
+				
+				functionaltestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getFunctionaltestcasereportlist();
+				
+				for(FunctionalTestCaseReportPartPanel ftcrpp:functionaltestcasereportlist){
+					
+//					if(tcrpp.getToolcheckbox().isSelected()){
+					checkedfunctionaltestcasereportlist.add(ftcrpp);
+					selectedtestcaselist.add(ftcrpp.getTestcase());
+//					}
+					
+				}
+				
+				testcasename=mainFrame.getTestCaseConfirmationPanel().getTestcasename();
+				
+				System.err.println(selectedtestcaselist.size());
+
+				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"selected.xml";
+				extractDataToXml(extraxmlpath, selectedtestcaselist);//生成测试用例xml
+				File file=new File(extraxmlpath);
+				
+//				//接收到测试结果list
+//				ClientSocket clientSocket = new ClientSocket("192.168.0.103", 5555);
+//				clientSocket.Connection();
+////				JFileChooser jfc = new JFileChooser();
+////				jfc.setMultiSelectionEnabled(true);
+////				jfc.showDialog(new JLabel(), "选择测试用例");
+////				File[] files = jfc.getSelectedFiles();
+//				File[] files = {file};
+//				clientSocket.sendFile(files);
+//				
+//				List<TestCase> testcaselist = ClientRecThread.getTestCaseList();
+//				
+//				File f=new File("D:\\test.txt");
+//				try {
+//					Writer w=new FileWriter(f,false);
+//					for(TestCase tc:testcaselist){
+//						System.out.println(tc.toString());
+//						w.write(tc.toString());
+//						w.write("\n");
+//					}
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//				
+//				
+//				try {
+//					String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
+//					FileOutputStream fos = new FileOutputStream(path);
+//					ObjectOutputStream oos=new ObjectOutputStream(fos);
+//					
+//					for(TestCase tc:testcaselist){
+//						System.out.println(tc.toString());
+//						oos.writeObject(tc);
+//					}
+//					
+//					oos.close();
+//					fos.close();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				
+				List<TestCase> testcaselist=new ArrayList<>();
+				try {
+					String serialpath = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
+					FileInputStream fis = new FileInputStream(serialpath);
+					ObjectInputStream ois = new ObjectInputStream(fis);
+
+					while(true){//使用处理异常的方式来判断文件是否结束
+						try {
+							TestCase tc=(TestCase) ois.readObject();//文件读取完毕后，会抛异常
+							testcaselist.add(tc);
+						} catch (Exception  e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							System.out.println("文件读取完毕!");  
+			                break;  
+						}
+					}
+
+					ois.close();
+					fis.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+
+//				for(TestCase tc:testcaselist){
+//					System.out.println(tc.getTestCaseID()+" - "+tc.getState()+" - "+tc.getResult().toString());
+//				}
+				
+				startFunctionalRunProgressbar(testcaselist);// 显示进度条
+
+//				changeDataInTable(testcaselist);//显示测试结果
+				
+				
+				threadstate=0;
+			}
+			
+		});
+		t.start();
+		
+	}
+
+	protected void startFunctionalRunProgressbar(final List<TestCase> list) {
+		// TODO Auto-generated method stub
+		
+		try {
+			progreseethread=new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					
+					int index=0;
+					for(FunctionalTestCaseReportPartPanel ftcrpp:checkedfunctionaltestcasereportlist){
+						
+						
+//						TestCase testcase=list.get(Integer.parseInt(ftcrpp.getTestcase().getTestCaseID())-1);
+						while(!list.get(index).getTestCaseID().equals(ftcrpp.getTestcase().getTestCaseID())){
+							index++;
+						}
+						TestCase testcase=list.get(index);
+						
+						JTable attributetable;
+						DefaultTableModel attributetablemodel;
+						
+						attributetable=ftcrpp.getAttributetable();
+						attributetablemodel=ftcrpp.getAttributetablemodel();
+						
+						for(myProcess p:testcase.getProcessList()){
+							
+							attributetablemodel.setValueAt(p.getProcessStatus(), p.getProcessID()-1, 3);
+							attributetablemodel.setValueAt(p.isProcessExec(), p.getProcessID()-1, 4);
+							
+						}
+						
+						attributetablemodel.fireTableDataChanged();
+						
+						String title = "";
+						title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
+//						title+=testcase.getState()+"     ";
+//						title+="执行结果:"+testcase.getResult().substring(0, testcase.getResult().indexOf("耗时"));
+						title+="执行结果:"+testcase.getResult().getResultDetail();
+						
+						ftcrpp.getTitlelabel().setText(title);
+						
+						String absolutePath = System.getProperty("user.dir");
+						String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
+
+						ImageIcon icon1 = new ImageIcon(path + "tick.png");
+						icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+						ImageIcon icon2 = new ImageIcon(path + "cross.png");
+						icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+						
+						if(testcase.getResult().getResultDetail().contains("成功")){
+							ftcrpp.getIconlabel().setIcon(icon1);
+						}
+						else{
+							ftcrpp.getIconlabel().setIcon(icon2);
+						}
+						
+						JTextArea textarea=mainFrame.getConsolePartPanel().getTextarea();
+						textarea.append(testcase.toString()+"\n");
+						textarea.setCaretPosition(textarea.getDocument().getLength());
+						
+						
+						
+						int startprogressbar = (int) ((double) 100 / list.size() * index);
+						int endprogressbar = (int) ((double) 100 / list.size() * (index + 1));
+						
+						index++;
+						System.out.println(index);
+						
+						for(int i=startprogressbar;i<endprogressbar;i++){
+							progressbar.setValue(progressbar.getValue()+1);
+							progressbarlabel.setText(progressbar.getValue()+"%");
+							
+							try {
+								Thread.sleep(100);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+						}
+						
+					}
+					
+				}
+				
+			});
+			
+			progreseethread.start();
+			progreseethread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	private void startPerformanceTestConfirmation() {
 		// TODO Auto-generated method stub
 		
 //		ClientSocket clientSocket = new ClientSocket("192.168.149.103", 5555);
@@ -516,26 +795,24 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void run() {
 				// TODO Auto-generated method stub
 				
-				checkedtestcasereportlist.removeAll(checkedtestcasereportlist);
-				testcaselist.removeAll(testcaselist);
+				checkedperformancetestcasereportlist.removeAll(checkedperformancetestcasereportlist);
+				selectedtestcaselist.removeAll(selectedtestcaselist);
 				
-				testcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTestcasereportlist();
+				performancetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getPerformancetestcasereportlist();
 				
-				for(TestCaseReportPartPanel tcrpp:testcasereportlist){
+				for(PerformanceTestCaseReportPartPanel tcrpp:performancetestcasereportlist){
 					
 //					if(tcrpp.getToolcheckbox().isSelected()){
-						checkedtestcasereportlist.add(tcrpp);
-						testcaselist.add(tcrpp.getTestcase());
+						checkedperformancetestcasereportlist.add(tcrpp);
+						selectedtestcaselist.add(tcrpp.getTestcase());
 //					}
 					
 				}
 				
-				System.err.println(testcasereportlist);
-				
 				testcasename=mainFrame.getTestCaseConfirmationPanel().getTestcasename();
 				
 				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"selected.xml";
-				extractDataToXml(extraxmlpath, testcaselist);//生成测试用例xml
+				extractDataToXml(extraxmlpath, selectedtestcaselist);//生成测试用例xml
 				File file=new File(extraxmlpath);
 				
 //				//接收到测试结果list
@@ -646,9 +923,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //					System.out.println(tc.getTestCaseID()+" - "+tc.getState()+" - "+tc.getResult().toString());
 //				}
 				
-				startRunProgressbar();// 显示进度条
+				startPerformanceRunProgressbar(testcaselist);// 显示进度条
 
-				changeDataInTable(testcaselist);//显示测试结果
+//				changeDataInTable(testcaselist);//显示测试结果
 				
 				
 				DefaultTableModel tabelmodel=mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getAttributetablemodel();
@@ -706,7 +983,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 	}
 
-	protected void startRunProgressbar() {
+	protected void startPerformanceRunProgressbar(final List<TestCase> list) {
 		// TODO Auto-generated method stub
 		
 		try {
@@ -715,18 +992,70 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					for(int index=0;index<testcaselist.size();index++){
-						int startprogressbar = (int) ((double) 100 / testcaselist.size() * progressbarindex);
-						int endprogressbar = (int) ((double) 100 / testcaselist.size() * (progressbarindex + 1));
+//					for(int index=0;index<testcaselist.size();index++){
+//						int startprogressbar = (int) ((double) 100 / testcaselist.size() * index);
+//						int endprogressbar = (int) ((double) 100 / testcaselist.size() * (index + 1));
+//						
+//						index++;
+//						System.out.println(index);
+////						System.out.println(startprogressbar+"  "+endprogressbar);
+//						
+//						for(int i=startprogressbar;i<endprogressbar;i++){
+//							progressbar.setValue(progressbar.getValue()+1);
+//							progressbarlabel.setText(progressbar.getValue()+"%");
+////							ChangeRepaint();
+//							
+//							try {
+//								Thread.sleep(100);
+//							} catch (InterruptedException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}
+//							
+//						}
+//					}
+					
+					int index=0;
+					for(PerformanceTestCaseReportPartPanel tcrpp:checkedperformancetestcasereportlist){
 						
-						progressbarindex++;
-						System.out.println(progressbarindex);
-//						System.out.println(startprogressbar+"  "+endprogressbar);
+						
+//						TestCase testcase=list.get(Integer.parseInt(tcrpp.getTestcase().getTestCaseID())-1);
+						TestCase testcase=list.get(index);
+						
+						JTable attributetable;
+						DefaultTableModel attributetablemodel;
+						
+						attributetable=tcrpp.getAttributetable();
+						attributetablemodel=tcrpp.getAttributetablemodel();
+						
+						for(myProcess p:testcase.getProcessList()){
+							
+							attributetablemodel.setValueAt(p.getProcessStatus(), p.getProcessID()-1, 3);
+							attributetablemodel.setValueAt(p.isProcessExec(), p.getProcessID()-1, 4);
+							
+						}
+						
+						attributetablemodel.fireTableDataChanged();
+						
+						DefaultTableModel dtm=tcrpp.getTitletablemodel();
+						dtm.setValueAt(testcase.getResult().getBattery_remaining(), 0, 3);
+						dtm.setValueAt(testcase.getResult().getTime(), 0, 4);
+						
+						JTextArea textarea=mainFrame.getConsolePartPanel().getTextarea();
+						textarea.append(testcase.toString()+"\n");
+						textarea.setCaretPosition(textarea.getDocument().getLength());
+						
+						
+						
+						int startprogressbar = (int) ((double) 100 / list.size() * index);
+						int endprogressbar = (int) ((double) 100 / list.size() * (index + 1));
+						
+						index++;
+						System.out.println(index);
 						
 						for(int i=startprogressbar;i<endprogressbar;i++){
 							progressbar.setValue(progressbar.getValue()+1);
 							progressbarlabel.setText(progressbar.getValue()+"%");
-//							ChangeRepaint();
 							
 							try {
 								Thread.sleep(100);
@@ -736,6 +1065,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 							}
 							
 						}
+						
 					}
 					
 				}
@@ -802,7 +1132,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 		int truecount,falsecount;
 		
-		for(TestCaseReportPartPanel tcrpp:checkedtestcasereportlist){
+		for(PerformanceTestCaseReportPartPanel tcrpp:checkedperformancetestcasereportlist){
 			
 			truecount=0;
 			falsecount=0;

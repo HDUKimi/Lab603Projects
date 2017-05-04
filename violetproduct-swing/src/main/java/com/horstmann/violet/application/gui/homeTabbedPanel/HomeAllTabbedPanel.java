@@ -60,7 +60,7 @@ public class HomeAllTabbedPanel extends JPanel{
 	private JLabel inforleftlabel1;
 	private JLabel inforleftlabel2;
 	
-	private int starttype=0;//1是功能测试，2是性能测试
+	private static int starttype=0;//1是功能测试，2是性能测试
 	
 	
 	public HomeAllTabbedPanel(MainFrame mainFrame){
@@ -493,7 +493,7 @@ public class HomeAllTabbedPanel extends JPanel{
 		return inforpanel;
 	}
 
-	public int getStarttype() {
+	public static int getStarttype() {
 		return starttype;
 	}
 

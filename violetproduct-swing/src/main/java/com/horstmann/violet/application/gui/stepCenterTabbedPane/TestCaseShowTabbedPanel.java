@@ -36,7 +36,8 @@ public class TestCaseShowTabbedPanel extends JPanel{
 	private JScrollPane tabelscrollpanel;
 	private JPanel tableresultpanel;
 	
-	private List<TestCaseReportPartPanel> testCaseReportPartPanelList=new ArrayList<>();
+	private List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
+	private List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
 
 	public TestCaseShowTabbedPanel(MainFrame mainframe) {
 
@@ -95,9 +96,28 @@ public class TestCaseShowTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				for(TestCaseReportPartPanel tcrpp:testCaseReportPartPanelList){
-					tcrpp.getAttributepanel().setVisible(false);
+				int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+				
+				if(starttype==1){
+					
+					for(FunctionalTestCaseReportPartPanel ftcrpp:functionaltestcasereportlist){
+						if(ftcrpp.getAttributepanel().isVisible()){
+							ftcrpp.getAttributepanel().setVisible(false);
+						}
+					}
+					
 				}
+				else if(starttype==2){
+
+					for(PerformanceTestCaseReportPartPanel ptcrpp:performancetestcasereportlist){
+						
+						if (ptcrpp.getAttributepanel().isVisible()) {
+							ptcrpp.getAttributepanel().setVisible(false);
+						}
+						
+					}
+				}
+				
 			}
 		});
 		
@@ -113,8 +133,25 @@ public class TestCaseShowTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				for(TestCaseReportPartPanel tcrpp:testCaseReportPartPanelList){
-					tcrpp.getAttributepanel().setVisible(true);
+				int starttype = mainFrame.getHomeAllTabbedPanel().getStarttype();
+
+				if (starttype == 1) {
+
+					for (FunctionalTestCaseReportPartPanel ftcrpp : functionaltestcasereportlist) {
+						if (!ftcrpp.getAttributepanel().isVisible()) {
+							ftcrpp.getAttributepanel().setVisible(true);
+						}
+					}
+
+				} else if (starttype == 2) {
+
+					for (PerformanceTestCaseReportPartPanel ptcrpp : performancetestcasereportlist) {
+
+						if (!ptcrpp.getAttributepanel().isVisible()) {
+							ptcrpp.getAttributepanel().setVisible(true);
+						}
+
+					}
 				}
 			}
 		});
@@ -140,7 +177,7 @@ public class TestCaseShowTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("正在进行实例化");
+		moviepanel.getMovieLabel().setText("正在生成测试用例xml");
 		
 	}
 
@@ -169,12 +206,20 @@ public class TestCaseShowTabbedPanel extends JPanel{
 		this.setVisible(true);
 	}
 
-	public List<TestCaseReportPartPanel> getTestCaseReportPartPanelList() {
-		return testCaseReportPartPanelList;
+	public List<FunctionalTestCaseReportPartPanel> getFunctionaltestcasereportlist() {
+		return functionaltestcasereportlist;
 	}
 
-	public void setTestCaseReportPartPanelList(List<TestCaseReportPartPanel> testCaseReportPartPanelList) {
-		this.testCaseReportPartPanelList = testCaseReportPartPanelList;
+	public void setFunctionaltestcasereportlist(List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist) {
+		this.functionaltestcasereportlist = functionaltestcasereportlist;
+	}
+
+	public List<PerformanceTestCaseReportPartPanel> getPerformancetestcasereportlist() {
+		return performancetestcasereportlist;
+	}
+
+	public void setPerformancetestcasereportlist(List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist) {
+		this.performancetestcasereportlist = performancetestcasereportlist;
 	}
 
 	public MoviePanel getMoviepanel() {

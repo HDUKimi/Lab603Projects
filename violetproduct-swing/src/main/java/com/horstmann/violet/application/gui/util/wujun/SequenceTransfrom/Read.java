@@ -122,10 +122,10 @@ public class Read
 			Element elLifeLine=lifeLineIterator.next();
 			WJLifeline lifeLine=new WJLifeline();
 			lifeLine.setLifeLineId(elLifeLine.attribute("id").getValue());
-			lifeLine.setlifeLineName(elLifeLine.attribute("name").getValue());
+			lifeLine.setLifeLineName(elLifeLine.attribute("name").getValue());
 			umlLifeLines.add(lifeLine);
 		}
-		//读取message信息
+		//读取message信息				读取消息第一部分
 		for(Iterator<Element> EAmessagesIterator=EAmessagesList.iterator();EAmessagesIterator.hasNext();)
 		{
 			Element elmessage=EAmessagesIterator.next();
@@ -137,7 +137,7 @@ public class Read
 			message.setMessageSort(elmessage.attribute("messageSort").getValue());
 			umlMessages.add(message);
 		}
-		//读取connectors信息
+		//读取connectors信息                            读取消息第二部分
 		for(Iterator<Element> connectorIterator=EAconnectorList.iterator();connectorIterator.hasNext();)
 		{
 			Element elConnector=connectorIterator.next();
@@ -146,8 +146,13 @@ public class Read
 			connectorsMsg.setSourceId(elConnector.element("source").attribute("idref").getValue());
 			connectorsMsg.setTragetId(elConnector.element("target").attribute("idref").getValue());
 			connectorsMsg.setPointY(FixFragmentTool.pointYFromValueString(elConnector.element("extendedProperties").attributeValue("sequence_points")));
-			if(elConnector.element("properties").attribute("name") != null)
-			connectorsMsg.setName(elConnector.element("properties").attribute("name").getValue());
+			if(elConnector.element("properties").attribute("name") != null) {
+				connectorsMsg.setName(elConnector.element("properties").attribute("name").getValue());
+				System.out.println(elConnector.element("properties").attribute("name"));
+				if (elConnector.element("properties").attribute("name").getValue().equals("read_radio()")) {
+					System.out.println(1);
+				}
+			}
 			connectorsMsg.use = "null";
 			connectorsMsg.def = "null";
 			if (elConnector.element("style").attribute("value")!=null) {//io信息
@@ -161,19 +166,43 @@ public class Read
 				String parameters = "null";
 				String argument = "null";
 				String returnValue = "null";
+				
 				try {
+					// 参数
 					parameters = elConnector.element("extendedProperties").attributeValue("privatedata2").split(";paramsDlg=")[1].split(";")[0];
-					connectorsMsg.use = parameters;
+				} catch(Exception e) {
+					
+				}
+				try {
+					// 输入
 					argument = styleValue.split(";paramvalues=")[1].split(";")[0];
-					connectorsMsg.def = argument;
+					connectorsMsg.def = argument;//def
+				} catch(Exception e) {
+					
+				}
+				try {
+					// 输出
+					returnValue = elConnector.element("extendedProperties").attributeValue("privatedata2").split("retval=")[1].split(";")[0];
+				} catch(Exception e) {
+					
+				}
+				
+				try {// use
+					connectorsMsg.use = parameters;
 					if (io == null) {
-						returnValue = elConnector.element("extendedProperties").attributeValue("privatedata2").split("retval=")[1].split(";")[0];
-						connectorsMsg.use += "," + returnValue;
+						connectorsMsg.use += returnValue;
 					}
 					
 				} catch(Exception e) {
 					
 				}
+				
+				
+				
+				
+				
+				
+				
 				// 只有当有io=in/out 时 outstring和instring才进行设置
 				outString = returnValue;
 				inString = argument;
@@ -189,7 +218,7 @@ public class Read
 			} 
 			umlConnectors.add(connectorsMsg);
 		}
-		//整合message和connectors的信息 ，把connectors中的source和targetID 读入到新类中
+		//整合message和connectors的信息 ，把connectors中的source和targetID 读入到新类中                        读取消息第三部分
 		for(Iterator<MessageClass> umlMessagesIterator=umlMessages.iterator();umlMessagesIterator.hasNext();)
 		{
 			MessageClass messageI = umlMessagesIterator.next();
@@ -576,7 +605,6 @@ public class Read
 			message.setR1(EAmessage.getR1());
 			message.setR2(EAmessage.getR2());
 			message.setPointY(EAmessage.getPointY());
-			
 			message.use = EAmessage.use;
 			message.def = EAmessage.def;
 			message.RESET = EAmessage.RESET;
@@ -975,6 +1003,7 @@ public class Read
 	}
 
 	public ArrayList<MessageClass> getUmlMessages() {
+		
 		return umlMessages;
 	}
 
@@ -987,6 +1016,7 @@ public class Read
 	}
 
 	public void setUmlFragment(ArrayList<WJFragment> umlFragment) {
+		
 		this.umlFragment = umlFragment;
 	}
 
@@ -995,6 +1025,7 @@ public class Read
 	}
 
 	public ArrayList<WJMessage> getUmlMessageFinal() {
+
 		return umlMessageFinal;
 	}
 

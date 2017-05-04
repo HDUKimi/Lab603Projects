@@ -13,7 +13,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-public class TestCaseReportTableHeaderPanel extends JPanel{
+public class PerformanceTestCaseReportTableHeaderPanel extends JPanel{
 	
 	private JPanel attributepanel;
 
@@ -22,7 +22,7 @@ public class TestCaseReportTableHeaderPanel extends JPanel{
 	
 	private JPanel emptypanel;
 
-	public TestCaseReportTableHeaderPanel() {
+	public PerformanceTestCaseReportTableHeaderPanel() {
 		
 		init();
 
@@ -68,7 +68,7 @@ public class TestCaseReportTableHeaderPanel extends JPanel{
 
 		attributetable = new JTable(attributetablemodel);
 		
-		attributetable.setName("TestCaseReportTableHeaderPanel");
+		attributetable.setName("PerformanceTestCaseReportTableHeaderPanel");
 
 		attributetable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		attributetable.setSelectionBackground(new Color(250, 248, 236));

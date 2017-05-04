@@ -46,9 +46,10 @@ import org.dom4j.io.SAXReader;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.FunctionalTestCaseReportPartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEditor;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseReportPartPanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseReportTableHeaderPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.PerformanceTestCaseReportPartPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.PerformanceTestCaseReportTableHeaderPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCasePieChartPanel;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCaseResult;
@@ -84,7 +85,8 @@ public class TestCaseConfirmationPanel extends JPanel{
 	
 	private String testcasename=null;
 	private List<TestCase> testcaselist=new ArrayList<TestCase>();
-	private List<TestCaseReportPartPanel> testcasereportlist=new ArrayList<TestCaseReportPartPanel>();
+	private List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
+	private List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
 	
     private List<String> testcasefilenamelists=new ArrayList<String>();
     
@@ -386,35 +388,17 @@ public class TestCaseConfirmationPanel extends JPanel{
 					String path = baseUrl + filename + ".xml";
 					
 					setTestcasename(filename);
-					testcaselist = extractDataFromXml(path);
-
-					JPanel resultpanel=new JPanel();
-					JPanel emptypanel=new JPanel();
-					resultpanel.setOpaque(false);
-					emptypanel.setOpaque(false);
+//					testcaselist = extractPerformanceTestDataFromXml(path);
 					
-					GridBagLayout layout = new GridBagLayout();
-					resultpanel.setLayout(layout);
-					int i=0;
-					
-					TestCaseReportTableHeaderPanel tcrthpanel=new TestCaseReportTableHeaderPanel();
-					resultpanel.add(tcrthpanel);
-					layout.setConstraints(tcrthpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-					
-					testcasereportlist.clear();
-					for(TestCase tc:testcaselist){
-						TestCaseReportPartPanel tcrppanel=new TestCaseReportPartPanel(tc);
-						resultpanel.add(tcrppanel);
-						layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-						testcasereportlist.add(tcrppanel);
+					if(starttype==1){
+						testcaselist = extractFunctionalTestDataFromXml(path);
+						showFunctionalTestCase();
 					}
-					resultpanel.add(emptypanel);
-					layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-					
-					JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getTableresultpanel();
-					jp.removeAll();
-					jp.add(resultpanel);
-					
+					else if(starttype==2){
+						testcaselist = extractPerformanceTestDataFromXml(path);
+						showPerformanceTestCase();
+					}
+
 					mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().updateUI();
 					
 				}
@@ -435,6 +419,216 @@ public class TestCaseConfirmationPanel extends JPanel{
 		testcasescrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         
 		
+	}
+
+	protected List<TestCase> extractFunctionalTestDataFromXml(String path) {
+		// TODO Auto-generated method stub
+		
+int i=1,j=1;
+		
+		List<TestCase> testcaseList = new ArrayList<TestCase>();
+		List<myProcess> processList = new ArrayList<myProcess>();
+		
+		SAXReader reader = new SAXReader();
+		
+//		String path="D:\\rc_loopForXStream1.0.1.xml";
+//		String path="D:\\789.xml";
+		
+		File file=new File(path);
+		
+		try {
+			
+			Document dom = reader.read(file);
+			
+			Element TCS=dom.getRootElement();
+			List<Element> testcaseElements=TCS.elements("testcase");
+			for(Element testcase:testcaseElements){
+				
+				List<Element> processElements=testcase.elements("process");
+				
+				for(Element process:processElements){
+
+					Element operation=process.element("operation");
+					
+					Element input=process.element("input");
+					
+					myProcess p = new myProcess();
+					p.setProcessID(j++);
+					p.setProcessName(operation.getData().toString());
+					p.setProcessParam(input.getData().toString());
+//					p.setProcessStatus(processStatus);
+//					p.setProcessExec(processExec);
+
+					processList.add(p);
+					
+				}
+				
+				j=1;
+				
+				TestCase tc = new TestCase();
+				tc.setTestCaseID(String.valueOf(i++));
+				tc.setProcessList(processList);
+//				tc.setState(state);
+//				tc.setResult(result);
+
+				testcaseList.add(tc);
+				
+				processList = new ArrayList<myProcess>();
+				
+			}
+			
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return testcaseList;
+	}
+
+	protected void showFunctionalTestCase() {
+		// TODO Auto-generated method stub
+
+		JPanel resultpanel=new JPanel();
+		JPanel emptypanel=new JPanel();
+		resultpanel.setOpaque(false);
+		emptypanel.setOpaque(false);
+		
+		GridBagLayout layout = new GridBagLayout();
+		resultpanel.setLayout(layout);
+		int i=0;
+		functionaltestcasereportlist.clear();
+		for(TestCase tc:testcaselist){
+			FunctionalTestCaseReportPartPanel tcrppanel=new FunctionalTestCaseReportPartPanel(tc);
+			resultpanel.add(tcrppanel);
+			layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+			functionaltestcasereportlist.add(tcrppanel);
+		}
+		resultpanel.add(emptypanel);
+		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+		JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getTableresultpanel();
+		jp.removeAll();
+		jp.add(resultpanel);
+		
+	}
+
+	public static List<TestCase> extractPerformanceTestDataFromXml(String path) {
+
+		int i = 1, j = 1;
+
+		List<TestCase> testcaseList = new ArrayList<TestCase>();
+		List<myProcess> processList = new ArrayList<myProcess>();
+
+		SAXReader reader = new SAXReader();
+
+		// String path="D:\\rc_loopForXStream1.0.1.xml";
+		// String path="D:\\789.xml";
+
+		File file = new File(path);
+
+		try {
+
+			Document dom = reader.read(file);
+
+			Element TCS = dom.getRootElement();
+			List<Element> testcaseElements = TCS.elements("testcase");
+			for (Element testcase : testcaseElements) {
+
+				double highcm = 0;
+				double windspeed = 0;
+
+				List<Element> processElements = testcase.elements("process");
+
+				for (Element process : processElements) {
+
+					Element operation = process.element("operation");
+
+					Element input = process.element("input");
+
+					String operationdata = operation.getData().toString();
+					String inputdata = input.getData().toString();
+
+					myProcess p = new myProcess();
+					p.setProcessID(j++);
+					p.setProcessName(operationdata);
+					p.setProcessParam(inputdata);
+					// p.setProcessStatus(processStatus);
+					// p.setProcessExec(processExec);
+
+					if (operationdata.equals("do_user_takeoff")) {
+						String str1, str2;
+						str1 = inputdata.substring(inputdata.indexOf("takeoff_alt_cm=") + 15);
+						str2 = str1.substring(0, str1.indexOf(","));
+						highcm = Integer.parseInt(str2);
+					} else if (operationdata.equals("_simulator_servos")) {
+						String str1, str2;
+						str1 = inputdata.substring(inputdata.indexOf("_sitl.wind_speed=") + 17);
+						str2 = str1.substring(0, str1.indexOf(","));
+						windspeed = Integer.parseInt(str2);
+					}
+
+					processList.add(p);
+
+				}
+
+				j = 1;
+
+				TestCase tc = new TestCase();
+				tc.setTestCaseID(String.valueOf(i++));
+				tc.setProcessList(processList);
+				// tc.setState(state);
+				// tc.setResult(result);
+
+				TestCaseResult tcr = new TestCaseResult();
+				tcr.setTakeoff_alt(highcm);
+				tcr.setWind_speed(windspeed);
+				tc.setResult(tcr);
+
+				testcaseList.add(tc);
+
+				processList = new ArrayList<myProcess>();
+
+			}
+
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return testcaseList;
+
+	}
+
+	protected void showPerformanceTestCase() {
+		// TODO Auto-generated method stub
+
+		JPanel resultpanel = new JPanel();
+		JPanel emptypanel = new JPanel();
+		resultpanel.setOpaque(false);
+		emptypanel.setOpaque(false);
+
+		GridBagLayout layout = new GridBagLayout();
+		resultpanel.setLayout(layout);
+		int i = 0;
+
+		PerformanceTestCaseReportTableHeaderPanel tcrthpanel = new PerformanceTestCaseReportTableHeaderPanel();
+		resultpanel.add(tcrthpanel);
+		layout.setConstraints(tcrthpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+
+		performancetestcasereportlist.clear();
+		for (TestCase tc : testcaselist) {
+			PerformanceTestCaseReportPartPanel tcrppanel = new PerformanceTestCaseReportPartPanel(tc);
+			resultpanel.add(tcrppanel);
+			layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+			performancetestcasereportlist.add(tcrppanel);
+		}
+		resultpanel.add(emptypanel);
+		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+
+		JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getTableresultpanel();
+		jp.removeAll();
+		jp.add(resultpanel);
+
 	}
 
 //	private void initUI() {
@@ -488,94 +682,6 @@ public class TestCaseConfirmationPanel extends JPanel{
 		return fList;
 	}
 	
-	public static List<TestCase> extractDataFromXml(String path){
-		
-		int i=1,j=1;
-		
-		List<TestCase> testcaseList = new ArrayList<TestCase>();
-		List<myProcess> processList = new ArrayList<myProcess>();
-		
-		SAXReader reader = new SAXReader();
-		
-//		String path="D:\\rc_loopForXStream1.0.1.xml";
-//		String path="D:\\789.xml";
-		
-		File file=new File(path);
-		
-		try {
-			
-			Document dom = reader.read(file);
-			
-			Element TCS=dom.getRootElement();
-			List<Element> testcaseElements=TCS.elements("testcase");
-			for(Element testcase:testcaseElements){
-				
-				double highcm = 0;
-				double windspeed = 0;
-				
-				List<Element> processElements=testcase.elements("process");
-				
-				for(Element process:processElements){
-
-					Element operation=process.element("operation");
-					
-					Element input=process.element("input");
-					
-					String operationdata=operation.getData().toString();
-					String inputdata=input.getData().toString();
-					
-					myProcess p = new myProcess();
-					p.setProcessID(j++);
-					p.setProcessName(operationdata);
-					p.setProcessParam(inputdata);
-//					p.setProcessStatus(processStatus);
-//					p.setProcessExec(processExec);
-					
-					if(operationdata.equals("do_user_takeoff")){
-						String str1,str2;
-						str1=inputdata.substring(inputdata.indexOf("takeoff_alt_cm=")+15);
-						str2=str1.substring(0, str1.indexOf(","));
-						highcm=Integer.parseInt(str2);
-					}
-					else if(operationdata.equals("_simulator_servos")){
-						String str1,str2;
-						str1=inputdata.substring(inputdata.indexOf("_sitl.wind_speed=")+17);
-						str2=str1.substring(0, str1.indexOf(","));
-						windspeed=Integer.parseInt(str2);
-					}
-
-					processList.add(p);
-					
-				}
-				
-				j=1;
-				
-				TestCase tc = new TestCase();
-				tc.setTestCaseID(String.valueOf(i++));
-				tc.setProcessList(processList);
-//				tc.setState(state);
-//				tc.setResult(result);
-				
-				TestCaseResult tcr=new TestCaseResult();
-				tcr.setTakeoff_alt(highcm);
-				tcr.setWind_speed(windspeed);
-				tc.setResult(tcr);
-
-				testcaseList.add(tc);
-				
-				processList = new ArrayList<myProcess>();
-				
-			}
-			
-		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return testcaseList;
-		
-	}
-	
 	public void ChangeRepaint() {
 		// TODO Auto-generated method stub
 		
@@ -589,8 +695,12 @@ public class TestCaseConfirmationPanel extends JPanel{
 		return testcaselist;
 	}
 
-	public List<TestCaseReportPartPanel> getTestcasereportlist() {
-		return testcasereportlist;
+	public List<FunctionalTestCaseReportPartPanel> getFunctionaltestcasereportlist() {
+		return functionaltestcasereportlist;
+	}
+
+	public List<PerformanceTestCaseReportPartPanel> getPerformancetestcasereportlist() {
+		return performancetestcasereportlist;
 	}
 
 	public String getTestcasename() {

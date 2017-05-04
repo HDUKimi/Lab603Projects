@@ -44,7 +44,7 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 //			final String[] columnNames={"步骤","耗时","运行结果"};
 			setFont(new Font("微软雅黑", Font.PLAIN, 12));
 			if(table.getColumnName(column).equals("耗时")){
-				setHorizontalAlignment(JLabel.CENTER);
+				setHorizontalAlignment(JLabel.RIGHT);
 				setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 			}
 			else{
@@ -149,7 +149,25 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 				setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 			}
 		}
-		else if(tablename.equals("TestCaseReportPartPanel")){
+		else if(tablename.equals("FunctionalTestCaseReportPartPanel")){
+//			String[] columnNames = { "激励ID", "激励名称", "激励参数", "激励状态", "激励执行情况" };
+//			setFont(new Font("微软雅黑", Font.PLAIN, 10));
+//			if(table.getValueAt(row, 4).toString().equals("false")){
+//				setForeground(new Color(115, 110, 102));
+//				setBackground(new Color(255, 135, 135));
+//			}
+			
+//			setBackground(new Color(250, 248, 236));
+			if(table.getColumnName(column).equals("激励ID")||table.getColumnName(column).equals("激励状态")||table.getColumnName(column).equals("激励执行情况")){
+				setHorizontalAlignment(JLabel.CENTER);
+				setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+			}
+			else{
+				setHorizontalAlignment(JLabel.LEFT);
+				setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+			}
+		}
+		else if(tablename.equals("PerformanceTestCaseReportPartPanel")){
 //			String[] columnNames = { "激励ID", "激励名称", "激励参数", "激励状态", "激励执行情况" };
 //			setFont(new Font("微软雅黑", Font.PLAIN, 10));
 //			if(table.getValueAt(row, 4).toString().equals("false")){
@@ -167,7 +185,7 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 				setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 			}
 		}
-		else if(tablename.equals("TestCaseReportPartPanelTitleTable")){
+		else if(tablename.equals("PerformanceTestCaseReportPartPanelTitleTable")){
 //			String[] columnNames = { "测试ID", "风速", "起飞高度", "剩余电量", "所用时间"};
 //			setFont(new Font("微软雅黑", Font.PLAIN, 10));
 //			if(table.getValueAt(row, 4).toString().equals("false")){

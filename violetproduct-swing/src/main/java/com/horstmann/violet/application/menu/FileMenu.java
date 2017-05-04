@@ -1067,6 +1067,9 @@ public class FileMenu extends JMenu
                             	tabbutton.setText(str);
                             	tabbutton.doClick();
                             	
+                            	int width=str.length()*12+60;
+                            	usecaseDiagramButtonTabbedPanelLists.get(usecaseDiagramButtonTabbedPanelLists.size()-1).setPreferredSize(new Dimension(width, 23));
+                            	
                             	JTree usecasetree=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetree();
                             	DefaultTreeModel usecasetreemodel=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetreemodel();
                             	DefaultMutableTreeNode usecasetreerootnode=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetreerootnode();
@@ -1086,6 +1089,9 @@ public class FileMenu extends JMenu
                             	tabbutton=stateDiagramButtonTabbedPanelLists.get(stateDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
                             	tabbutton.setText(str);
                             	tabbutton.doClick();
+                            	
+                            	int width=str.length()*12+60;
+                            	stateDiagramButtonTabbedPanelLists.get(stateDiagramButtonTabbedPanelLists.size()-1).setPreferredSize(new Dimension(width, 23));
                             	
                             	JTree statetree=mainFrame.getProjectTree().getStateTreePanel().getStatetree();
                             	DefaultTreeModel statetreemodel=mainFrame.getProjectTree().getStateTreePanel().getStatetreemodel();
@@ -1107,6 +1113,9 @@ public class FileMenu extends JMenu
                             	tabbutton.setText(str);
                             	tabbutton.doClick();
                             	
+                            	int width=str.length()*12+60;
+                            	sequenceDiagramButtonTabbedPanelLists.get(sequenceDiagramButtonTabbedPanelLists.size()-1).setPreferredSize(new Dimension(width, 23));
+                            	
                             	JTree sequencetree=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetree();
         						DefaultTreeModel sequencetreemodel=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetreemodel();
         						DefaultMutableTreeNode sequencetreerootnode=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetreerootnode();
@@ -1126,6 +1135,9 @@ public class FileMenu extends JMenu
                             	tabbutton=timingDiagramButtonTabbedPanelLists.get(timingDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
                             	tabbutton.setText(str);
                             	tabbutton.doClick();
+                            	
+                            	int width=str.length()*12+60;
+                            	timingDiagramButtonTabbedPanelLists.get(timingDiagramButtonTabbedPanelLists.size()-1).setPreferredSize(new Dimension(width, 23));
                             	
                             	JTree timingtree=mainFrame.getProjectTree().getTimingTreePanel().getTimingtree();
                             	DefaultTreeModel timingtreemodel=mainFrame.getProjectTree().getTimingTreePanel().getTimingtreemodel();

@@ -1,6 +1,6 @@
 package com.horstmann.violet.application.gui.util.wujun.SequenceTransfrom;
 
-public class WJParFragment {
+public class WJParFragment extends WJFragment{
 	int start;
 	int end;
 	int c;

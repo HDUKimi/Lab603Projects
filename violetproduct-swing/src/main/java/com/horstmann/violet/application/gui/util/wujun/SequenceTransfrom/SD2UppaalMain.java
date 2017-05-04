@@ -43,7 +43,7 @@ public class SD2UppaalMain {
 	private static String[][] jumpCondition;//（i - 1）->j是不满足opt loop break 进行跳跃的取反条件（(i - 1) j 之间可能是一个或多个单域组合片段）
 //	private static ArrayList<ArrayList<HashSet<String>>> jumpConditions;
 	private static String[][] falseConditions;// outLoopConditon + jumpCodition
-	
+	private static String[][] breakIgnoreLoopCondition;
 	public static int diagramslistsize;
 	public static String diagramDataName=null;
 	
@@ -391,7 +391,7 @@ public class SD2UppaalMain {
 		    	
 		    	//初始化 falseCondition
 		    	jumpCondition = new String[table.size()][table.size()];
-		    	
+		    	breakIgnoreLoopCondition = new String[table.size()][table.size()];
 			    for(int i = 1; i < table.size()-1; i++)
 			    {
 			    	Fi = new HashSet <Integer>();
@@ -406,7 +406,7 @@ public class SD2UppaalMain {
 			    	for(int c = 2; c < table.get(i).size();c++ )
 			    	{
 			    		if(table.get(i).get(c).getFragType() .equals( "none"))
-			    			continue;
+			    			break;
 			    				    		
 			    		if(table.get(i).get(c).getFragId() != table.get(i-1).get(c).getFragId())//是组合片段的第一个消息
 			    		{
@@ -720,6 +720,56 @@ public class SD2UppaalMain {
 	    Display.println("================================所有顺序图转换完成================================");
 	}//end
 	
+
+
+	private static void setMessagePreName(ArrayList<WJMessage> messages, ArrayList<WJLifeline> lifeLines) {
+		HashMap<String, WJLifeline> findLifeLineByID = new HashMap<>();
+		for(WJLifeline lifeline : lifeLines) {
+			findLifeLineByID.put(lifeline.getLifeLineId().substring(13), lifeline);
+		}
+		for(WJMessage message : messages) {
+	    	WJLifeline lifeline = findLifeLineByID.get(message.getToId().substring(13));
+	    	message.setName(lifeline.getlifeLineName() + "." +message.getName());
+	    }
+	}
+
+
+
+	private static String getFilePath() throws Exception {
+		File file = new File(".\\");
+		String fileNames[];
+		fileNames = file.list();
+		String readFileName = "0";
+		for(String fileName : fileNames) {
+			if (Character.isDigit(fileName.charAt(0)) && fileName.charAt(1) == '.') {
+				if (compareVersion(fileName.replace(".xml", ""), readFileName.replace(".xml", "")) > 0) {
+					readFileName = fileName;
+				}
+			}
+		}
+		return readFileName;
+	}
+	public static int compareVersion(String version1, String version2) throws Exception {  
+		
+	    if (version1 == null || version2 == null) {  
+	        throw new Exception("compareVersion error:illegal params.");  
+	    }  
+	    String[] versionArray1 = version1.split("\\.");//注意此处为正则匹配，不能用"."；  
+	    String[] versionArray2 = version2.split("\\.");  
+	    int idx = 0;  
+	    int minLength = Math.min(versionArray1.length, versionArray2.length);//取最小长度值  
+	    int diff = 0;  
+	    while (idx < minLength  
+	            && (diff = versionArray1[idx].length() - versionArray2[idx].length()) == 0//先比较长度  
+	            && (diff = versionArray1[idx].compareTo(versionArray2[idx])) == 0) {//再比较字符  
+	        ++idx;  
+	    }  
+	    //如果已经分出大小，则直接返回，如果未分出大小，则再比较位数，有子版本的为大；  
+	    diff = (diff != 0) ? diff : versionArray1.length - versionArray2.length;  
+	    return diff;  
+	}  
+
+
 	private static void setOutOfLoopCondition() {
 		
 		boolean isDisplayed = false;
@@ -742,6 +792,9 @@ public class SD2UppaalMain {
 					}
 					// 获得I中有 J中没有的loop 说明I到J跳出了这些loop
 					loopConditionsI.removeAll(loopConditionsJ);
+					if (breakIgnoreLoopCondition[i][j] != null) {// 如果i到j是因为break跳出的 则可以无视loop的condition
+						loopConditionsI.remove(breakIgnoreLoopCondition[i][j]);
+					}
 					if (loopConditionsI.size() == 0) {
 						continue;
 					}
@@ -756,7 +809,6 @@ public class SD2UppaalMain {
 					outOfLoopCondition[i][j] = allConditionsOutOfLoop;
 					Display.println("消息" + i + "直接到消息" + j + "跳出了loop,所需的条件为：");
 					Display.println(allConditionsOutOfLoop + "\n");
-					
 					isDisplayed = true;
 				}
 			}
@@ -765,6 +817,8 @@ public class SD2UppaalMain {
 			Display.println("----> 未找到跳出组合片段的情况\n");
 		}
 	}
+
+
 
 	private static void fixF1ForFalseCondition() {
 		boolean isDisplayed  = false;
@@ -936,14 +990,24 @@ public class SD2UppaalMain {
 			{	
 				rt.add(table.size()-1);//到达终态
 				return rt;
+			} 
+			boolean breakOfLoop = false;
+			String breakCondtion = new String();
+			if(table.get(i).get(c).getFragType().equals("loop")) {
+				breakOfLoop = true;
+				breakCondtion = table.get(i).get(c).getFragCondition();
 			}
 			if(!table.get(i).get(c).getFragType().equals("alt") && !table.get(i).get(c).getFragType().equals("par"))
 				i=findOutOfFrag(i,c);//找到出组合片段的i
 			else
 				i=findOutOfAlt(i, c);
 			
+			
 			int righti = findRightI(i);
 			rt.add(righti);//遇到alt交接点 往下找
+			if (breakOfLoop) {
+				breakIgnoreLoopCondition[I][righti] = breakCondtion;
+			}
 			// 添加 goCondition   A && b && c
 		}else if(fragType.equals ("alt") || fragType.equals ("par"))
 		{

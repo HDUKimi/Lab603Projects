@@ -58,14 +58,22 @@ public class WriteForXStream
 		    for(UppaalTransition transitionData : uppaalTemplate.transitions) {
 		    	Element transition = transitionList.addElement("transition");
 		    	transition.addElement("id").setText("tran_id"+transitionData.getSourceId()+transitionData.getTargetId());
+		    	if (transitionData.getNameText().contains("->")) {
+					transitionData.setNameText(transitionData.getNameText().replaceAll("->", "."));
+				}
 		    	transition.addElement("name").setText("" + transitionData.getNameText());
 		    	transition.addElement("source").setText("loc_id"+transitionData.getSourceId());
 		    	transition.addElement("target").setText("loc_id"+transitionData.getTargetId());
 		    	transition.addElement("timeDuration").setText(""+transitionData.getSEQDO());
+		    	if (transitionData.getTypeAndCondition().contains("->")) {
+					transitionData.setTypeAndCondition(transitionData.getTypeAndCondition().replaceAll("->", "."));
+				}
 		    	transition.addElement("typeAndCondition").setText(""+transitionData.getTypeAndCondition());
+		    	
 		    	transition.addElement("in").setText(""+transitionData.getInString());
 		    	transition.addElement("out").setText(""+transitionData.getOutString());
 		    	transition.addElement("RESET").setText(""+transitionData.getRESET());
+		    	transition.addElement("isEndOfPath").setText(""+transitionData.isEndOfPath);
 		    	if (transitionData.getTypeId() == null) {
 		    		transition.addElement("typeId").setText("null");
 				} else {

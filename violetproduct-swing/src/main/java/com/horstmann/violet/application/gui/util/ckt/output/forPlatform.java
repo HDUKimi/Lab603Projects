@@ -1,10 +1,17 @@
 package com.horstmann.violet.application.gui.util.ckt.output;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
 
 import com.horstmann.violet.application.gui.util.ckt.handle.*;
 import com.horstmann.violet.application.gui.util.ckt.testcase.*;
@@ -262,13 +269,20 @@ public class forPlatform {
 				List<String> result=new ArrayList<String>();//存放一条迁移上的结果
 				String res = new String();
 				if((result1.toString().equals("[null]"))&&(result2.toString().equals("[null]"))){
-					res = null;
+					res = sss+"%"+null;
+					//res = null;
 					result.add(res);
 				}else{
 					if(!(result1.toString().equals("[null]"))&&(result2.toString().equals("[null]"))){
 						for(String ttt2:result1){
 							if(ttt2!=null){
-								res = ttt2;
+								if(ttt2.contains("flag=1")){
+									res = sss+"flag=1"+"%"+ttt2.replace("flag=1", "");
+								}else{
+									res = sss+"%"+ttt2;
+								}
+								
+								//res = ttt2;
 								result.add(res.toString());
 							}
 						}
@@ -276,7 +290,14 @@ public class forPlatform {
 					if((result1.toString().equals("[null]"))&&!(result2.toString().equals("[null]"))){
 						for(String ttt3:result2){
 							if(ttt3!=null){
-								res = ttt3;
+								if(ttt3.contains("flag=1")){
+									res = sss+"flag=1"+"%"+ttt3.replace("flag=1", "");
+								}else{
+									res = sss+"%"+ttt3;
+								}
+								
+								//res = sss+"%"+ttt3;
+								//res = ttt3;
 								result.add(res.toString());
 							}
 						}
@@ -285,7 +306,17 @@ public class forPlatform {
 						for(String ttt2:result1){
 							for(String ttt3:result2){
 								if(ttt2!=null&&ttt3!=null){
-									res = ttt2+","+ttt3;
+									if((ttt2.contains("flag=1"))||(ttt3.contains("flag=1"))){
+										res = sss+"flag=1"+"%"+ttt2.replace("flag=1", "")+","+ttt3.replace("flag=1", "");
+									}else{
+										if(!(ttt2.contains("flag=1"))&&!(ttt3.contains("flag=1"))){
+											res = sss+"%"+ttt2+","+ttt3;
+										}
+									}
+									
+									
+									//res = sss+"%"+ttt2+","+ttt3;
+									//res = ttt2+","+ttt3;
 									result.add(res.toString());
 								}									
 							}
@@ -296,7 +327,100 @@ public class forPlatform {
 			}//for(Transition tran:a.getTransitionSet())				
 		}
 		return testcase;
-	}	
+	}
+	
+	public static void produceXML(String path,List<Automatic> testcaseresult){
+		
+		// 1、创建document对象，代表整个xml文档
+		Document dom = DocumentHelper.createDocument();
+		// 2、创建根节点TCS
+		org.dom4j.Element tcs = dom.addElement("TCS");
+		// 3、向TCS节点中添加version属性
+		
+		int index=1;
+		for(Automatic auto:testcaseresult){
+			
+			List<List<String>> cases=new ArrayList<>();
+			
+			for(Transition t:auto.getTransitionSet()){
+				cases.add(t.getResult());
+			}
+			
+			//cases里放的是一条测试用例上上每条迁移上的解，result放的是一条迁移上的多组解
+			/////
+			int numm=1;
+			for(int nn=0;nn<cases.size();nn++){
+				int n = cases.get(nn).size();
+				numm = numm*n;
+				//System.out.println("第"+nn+"条迁移上解个数为："+cases.get(nn).size());
+			}
+			System.out.println("第"+index+++"条测试路径上解个数"+numm);
+//			if(num>5000){ //测试用例个数保持5000条以内
+//				num = 5000;
+//			}
+			int num=1;//一条路径100个测试用例///////////////////////////////////////////////////////////////////////////////////
+			if(num>numm){   //如果一条路径上解小于100，则选取真实个数
+				num = numm;
+			}
+			for(int n1=0;n1<num;n1++){
+				// 4、生成子节点及节点内容
+				Element testcase = tcs.addElement("testcase");
+				//System.out.println("---------------------testcase"+n1);
+				for(int nn=0;nn<cases.size();nn++){//cases.size表示边的个数
+					//添加节点
+					Element process = testcase.addElement("process");
+					Element operation = process.addElement("operation");
+
+					int random = -1;
+					if (random == -1) {
+						random = new Random().nextInt(cases.get(nn).size());
+					}
+					//System.out.println("random-->"+random);
+					String value = cases.get(nn).get(random);
+					//System.out.println("解value-->"+value);
+					String[] cs =value.toString().split("%");
+					//System.out.println("operation-->"+cs[0]);
+					if(cs[0].contains("flag=1")){
+						String name = cs[0].replace("flag=1", "");
+						operation.setText(name);
+					}else{
+						if(!cs[0].contains("flag=1")){
+							operation.setText(cs[0]);
+						}
+					}
+					
+					Element input = process.addElement("input");
+					if(cs[0].contains("flag=1")){
+						input.addAttribute("border","1");
+						input.setText(cs[1]);
+					}else{
+						input.setText(cs[1]);
+					}
+					//input.setText(cs[1]);
+					//System.out.println("input-->"+cs[1]);
+				}
+				//System.out.println("---------------------testcase");
+				//System.out.println(a.getName());
+			}
+			
+		}
+		
+		OutputFormat format = OutputFormat.createPrettyPrint();
+		//6、生成xml文件
+		File file = new File(path);
+   
+		XMLWriter writer;
+		try {
+			writer = new XMLWriter(new FileOutputStream(file), format);
+			writer.write(dom);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 	/**
 	 * 深度组合解
 	 */
