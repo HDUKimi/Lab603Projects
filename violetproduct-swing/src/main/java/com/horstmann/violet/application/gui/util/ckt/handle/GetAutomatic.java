@@ -222,7 +222,9 @@ public class GetAutomatic {
 						event+=e+";";   //////
 					}
 					events.add(event);
-				}
+				}/*else{
+					events.add("null");
+				}*/
 				transition.setIn(tran.getIn());
 				transition.setOut(tran.getOut());
 				//////////////////////////////////
@@ -236,6 +238,7 @@ public class GetAutomatic {
 					transition.setCondition(tran.getCondition());
 				}												
 				//transition.setCondition(tran.getCondition());
+				
 				transition.setEventSet(events);
 				transition.setName(tran.getName());
 				transition.setResetClockSet(tran.getResetClocks());

@@ -694,7 +694,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						//获取数据
 						DFStree=StateCoverage__1.DFSTree(type_a);
 						//Automate数据转换为xml
-						AutomateTransformXml(DFStree);
+//						AutomateTransformXml(DFStree);
 					}
 					else{
 						//获取数据,带时间约束
@@ -702,12 +702,13 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						DFStree=StateCoverage__1.DFSTree(type_aTDRTAutomatic);
 						
 						//Automate数据转换为xml
-						AutomateTransformXml(DFStree);
+//						AutomateTransformXml(DFStree);
 					}
 					
 				}
 				else if(selectCoverState==1){//路径覆盖
-					AutomateTransformXml(type_a);
+					
+					AutomateTransformXml(type_aTDRTAutomatic);
 				}
 				else if(selectCoverState==2){//性能测试
 					System.out.println("+++++++++++-------------------");
@@ -719,7 +720,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				System.out.println("/////////////////********************");
 				
 //				String xmlname="EA性能测试-起飞高度V9Uppaal.uppaal.violet.xml";
-				AutomateTransformXml(type_a);
+//				AutomateTransformXml(type_a);
+				if(selectCoverState!=1){
+					AutomateTransformXml(type_a);
+				}
 				
 				GraphFile absfGraphFile=ImportByDoubleClick.importFileByDoubleClick("UPPAAL","abs.uppaal.violet.xml");
 //				GraphFile absfGraphFile=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",xmlname);

@@ -23,13 +23,12 @@ import com.horstmann.violet.application.gui.util.ckt.testcase.*;
 public class XMLGet {
 	public static void main(String[] args) {
 		//String xml="UAVForXStream3.8.2.0.xml";
-//		String xml = "UAVForXStreamPerfromTestV2.xml";
-		String xml = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\FunctionalTest\\EA4.1.0 功能场景1ForXStream.xml";
+		String xml = "UAVForXStreamPerfromTestV2.xml";
 		//Automatic automatic = GetAutomatic.getAutomatic("UAVForXStream3.8.0.xml");
 		//GeneratePath.getFormatPathFromAutomatic(automatic, 8000);
 		//
 		Automatic auto=GetAutomatic.getAutomatic(xml);//获得原始的时间自动机
-		ArrayList<Automatic> testCase=GeneratePath.getFormatPathFromAutomatic(auto, 10);//获得满足状态覆盖的抽象测试序列
+		ArrayList<Automatic> testCase=GeneratePath.getFormatPathFromAutomatic(auto, 2000);//获得满足状态覆盖的抽象测试序列
 
 		// 1、创建document对象，代表整个xml文档
 		Document dom = DocumentHelper.createDocument();

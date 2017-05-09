@@ -272,6 +272,10 @@ public class PerformanceTestCaseReportPartPanel extends JPanel {
 		attributetable.setRowHeight(19);
 		attributetable.doLayout();
 		attributetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		
+//		Dimension intercellspacing=attributetable.getIntercellSpacing();
+//		intercellspacing.setSize(0, 1);//列间距，行间距
+//		attributetable.setIntercellSpacing(intercellspacing);
 
 		attributetable.getColumnModel().getColumn(0).setCellRenderer(new MyAllLabelRenderer());
 		attributetable.getColumnModel().getColumn(1).setCellRenderer(new MyAllLabelRenderer());
@@ -341,7 +345,6 @@ public class PerformanceTestCaseReportPartPanel extends JPanel {
 		attributetable.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, new Color(224, 225, 220)));
 
 //		attributetable.setBackground(new Color(255, 255, 255));
-//		attributetable.setBackground(Color.BLUE);
 
 		// attributepanel.setLayout(new GridLayout());
 		// attributepanel.add(attributetable);

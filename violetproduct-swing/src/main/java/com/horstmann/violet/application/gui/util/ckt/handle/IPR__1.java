@@ -1,5 +1,6 @@
 package com.horstmann.violet.application.gui.util.ckt.handle;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
@@ -13,7 +14,18 @@ public class IPR__1 {
 	 运用最小化算法构造一个新的时间自动机
 	 */
 	public static Automatic iPR(Automatic automatic) {
+		
+//		SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		String TimeString = time.format(new java.util.Date());
+//		System.out.println("  拆分开始计算时间"+TimeString);
+		
+		long time=System.currentTimeMillis();
+		System.out.println("  IPR内部开始计算时间-----"+time+"ms");
+		
 		ArrayList<State> new_stateSet=Minimization__1.minimization(automatic);
+		
+		long time1=System.currentTimeMillis();
+		System.out.println("  Minimization所用总时间-----"+(time1-time)+"ms");
 		//System.out.println("拆分后的状态总数： "+new_stateSet.size());
 		/*for(State s:new_stateSet){
 			System.out.println("状态name: "+s.getName());
@@ -32,8 +44,12 @@ public class IPR__1 {
 			System.out.println("*******************************");
 		}*/
 		
+		long time2=System.currentTimeMillis();
+		System.out.println("  bulidRelation开始计算时间-----"+time2+"ms");
+		ArrayList<Transition> transitions=BuildRelation__1.bulidRelation(automatic,new_stateSet);
+		long time3=System.currentTimeMillis();
+		System.out.println("  bulidRelation总耗时-----"+(time3-time2)+"ms");
 		
-		ArrayList<Transition> transitions=BuildRelation__1.bulidRelation(automatic);
 		/*System.out.println("边的数量："+transitions.size());
 		for(Transition t:transitions){
 			System.out.println(t.getSource());
@@ -71,7 +87,13 @@ public class IPR__1 {
 		newaotu.setStateSet(new_stateSet);
 		newaotu.setTransitionSet(transitions);
 		newaotu.setName("G");
-		 
+		
+//		TimeString = time.format(new java.util.Date());
+//		System.out.println("  拆分结束后时间"+TimeString);
+		System.out.println("  Minimization所用总时间-----"+(time1-time)+"ms");
+		long time4=System.currentTimeMillis();
+		System.out.println("  IPR内部总耗时间-----"+(time4-time)+"ms");
+		
 		return newaotu;
 	}
 }

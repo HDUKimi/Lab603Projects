@@ -15,6 +15,10 @@ public class Get_inequality__1 {
 		for(Automatic a:as){
 			ArrayList<String> Inequalitys=Get_inequality__1.get_Inequalitys(a);
 			all_inequalitys.add(Inequalitys);
+			for(Transition t:a.getTransitionSet()){				
+				System.out.println("==="+t.getName()+"==="+t.getTranTimeName());
+				//System.out.println("==="+t.getName()+"==="+t.getTNumSet());				
+			}	
 		}
 		return all_inequalitys;
 	}
@@ -25,6 +29,13 @@ public class Get_inequality__1 {
 	 * @return
 	 */
 	public static ArrayList<String> get_Inequalitys(Automatic auto){
+		System.out.println("-----------------");
+		/*for(Transition t:auto.getTransitionSet()){
+			System.out.println("迁移名称："+t.getName());
+			System.out.println("迁移约束："+t.getEventSet());
+			
+		}	*/
+		System.out.println("-----------------");
 		ArrayList<String> clockset=auto.getClockSet();//测试序列的时钟集合
 		int clock_number=clockset.size();//测试序列的时钟个数
 		ArrayList<Transition> TransitionSet=auto.getTransitionSet();//测试序列的边集合

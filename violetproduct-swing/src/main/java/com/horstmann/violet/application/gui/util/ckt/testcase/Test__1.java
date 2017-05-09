@@ -17,15 +17,17 @@ public class Test__1 {
 	public static void main(String[] args) {
 		Automatic automatic=getAutomatic();
 		Automatic new_automatic=IPR__1.iPR(automatic);
-		print(new_automatic);
+		//print(new_automatic);
 		
-		/*Automatic aTDRTAutomatic=ATDTR__1.aTDRT(new_automatic,automatic);  
+		Automatic aTDRTAutomatic=ATDTR__1.aTDRT(new_automatic,automatic);  
+		print(aTDRTAutomatic);
+		
 		//Automatic DFStree=StateCoverage__1.DFSTree(aTDRTAutomatic);
 		ArrayList<Automatic> testCase=StateCoverage__1.testCase(aTDRTAutomatic);
-		ArrayList<ArrayList<String>> all_inequalitys=Get_inequality__1.get_AllInequalitys(testCase);*/
+		ArrayList<ArrayList<String>> all_inequalitys=Get_inequality__1.get_AllInequalitys(testCase);
 		
 		
-		/*System.out.println("总共"+all_inequalitys.size()+"个不等式组");
+		System.out.println("总共"+all_inequalitys.size()+"个不等式组");
 		int e=1;
 		for(ArrayList<String> inequalitys:all_inequalitys){
 			System.out.println("第"+e+"个不等式组");
@@ -34,7 +36,7 @@ public class Test__1 {
 			}
 			System.out.println("***************");
 			e++;
-		}*/
+		}
 		
 		/*for(Automatic a:testCase){
 			for(Transition tran:a.getTransitionSet()){
@@ -63,17 +65,19 @@ public class Test__1 {
 	 */
 	public static void  print(Automatic a){
 		int i = 1;
+		System.out.println("状态个数"+a.getStateSet().size());
 		for(State state:a.getStateSet()){
 			System.out.println("*****************第"+(i++)+"个状态*****************");
 			System.out.println("状态名称："+state.getName());
-			System.out.println("状态Id："+state.getId());
+			//System.out.println("状态Id："+state.getId());
 			
 		}
 		i=1;
+		System.out.println("迁移个数"+a.getTransitionSet().size());
 		for(Transition t:a.getTransitionSet()){
 			System.out.println("*****************第"+(i++)+"个迁移*****************");
 			System.out.println("迁移名称："+t.getName());
-			System.out.println("迁移Id："+t.getId());
+			//System.out.println("迁移Id："+t.getId());
 			System.out.println("迁移总约束："+t.getEventSet());
 			System.out.println("迁移in："+t.getIn());
 			System.out.println("迁移condition："+t.getCondition());

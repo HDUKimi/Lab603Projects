@@ -18,8 +18,14 @@ public class Transition {
 	private ArrayList<String> typeIds;
 	private List<String> result;//迁移结果集合   
 	private String limit;//迁移条件集合
-	
+	private String tranTimeName;//去除抽象时间延迟迁移再迁移上添加的t；
 
+	public String getTranTimeName() {
+		return tranTimeName;
+	}
+	public void setTranTimeName(String tranTimeName) {
+		this.tranTimeName = tranTimeName;
+	}
 	public List<String> getResult() {
 		return result;
 	}

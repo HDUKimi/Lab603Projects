@@ -29,9 +29,9 @@ public class Test {
 		Automatic aTDRTAutomatic=ATDTR__1.aTDRT(new_automatic,automatic);//获得去除抽象时间迁移后的时间自动机
 		print(aTDRTAutomatic);
 		//Automatic DFStree=StateCoverage__1.DFSTree(aTDRTAutomatic);
-		/*ArrayList<Automatic> testCase=StateCoverage__1.testCase(aTDRTAutomatic);//获得满足状态覆盖的抽象测试序列
+		ArrayList<Automatic> testCase=StateCoverage__1.testCase(aTDRTAutomatic);//获得满足状态覆盖的抽象测试序列
 		ArrayList<ArrayList<String>> all_inequalitys=Get_inequality__1.get_AllInequalitys(testCase);//每个抽象测试序列有一个不等式组
-		*/
+		
 		/*System.out.println("时间自动机名字:"+automatic.getName());
 		System.out.println("时间自动机时钟集合：");
 		for(String c:automatic.getClockSet()){
@@ -565,7 +565,7 @@ public class Test {
 		
 		
 		
-		/*System.out.println("总共"+all_inequalitys.size()+"个不等式组");
+		System.out.println("总共"+all_inequalitys.size()+"个不等式组");
 		int e=1;
 		for(ArrayList<String> inequalitys:all_inequalitys){
 			System.out.println("第"+e+"个不等式组");
@@ -574,7 +574,7 @@ public class Test {
 			}
 			System.out.println("***************");
 			e++;
-		}*/
+		}
 		
 	}
 	/**

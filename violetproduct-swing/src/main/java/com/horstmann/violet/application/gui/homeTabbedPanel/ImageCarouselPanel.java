@@ -3,6 +3,7 @@ package com.horstmann.violet.application.gui.homeTabbedPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -10,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -23,6 +25,8 @@ import javax.swing.ScrollPaneConstants;
 import com.horstmann.violet.application.gui.GBC;
 
 public class ImageCarouselPanel extends JPanel{
+	
+	private String path;
 
 	private JScrollPane imagescrollpanel;
 	private JPanel imagepanel;
@@ -38,8 +42,10 @@ public class ImageCarouselPanel extends JPanel{
 	private JButton leftbutton;
 	private JButton rightbutton;
 	
-	public ImageCarouselPanel() {
+	public ImageCarouselPanel(String path) {
 		// TODO Auto-generated constructor stub
+		
+		this.path=path;
 		
 		initImagePanel();
 		
@@ -70,42 +76,64 @@ public class ImageCarouselPanel extends JPanel{
 		imagescrollpanel=new JScrollPane();
 		imagepanel=new JPanel();
 		
-		String path = "D:\\image\\";
+//		String path = "D:\\image\\";
+		
+		File f=new File(path);
+		int count=f.list().length;
+		
+		System.out.println(path+" - - - "+count);
+		
+//		imagepanel.setLayout(new GridLayout(1, 4));
+		imagepanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		
+		for(int i=1;i<=count;i++){
+			
+			ImageIcon icon = new ImageIcon(path + i + ".jpg");
+			icon.setImage(icon.getImage().getScaledInstance(500, 400, Image.SCALE_DEFAULT));
+			
+			JLabel imagelabel=new JLabel();
+			imagelabel.setIcon(icon);
+			imagelabel.setOpaque(false);
+			imagelabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+			
+			imagepanel.add(imagelabel);
+			
+		}
 
-		ImageIcon icon1 = new ImageIcon(path + "1.jpg");
-		icon1.setImage(icon1.getImage().getScaledInstance(500, 300, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "2.jpg");
-		icon2.setImage(icon2.getImage().getScaledInstance(500, 300, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(path + "3.jpg");
-		icon3.setImage(icon3.getImage().getScaledInstance(500, 300, Image.SCALE_DEFAULT));
-		ImageIcon icon4 = new ImageIcon(path + "4.jpg");
-		icon4.setImage(icon4.getImage().getScaledInstance(500, 300, Image.SCALE_DEFAULT));
-		
-		imagelabel1=new JLabel();
-		imagelabel1.setIcon(icon1);
-		imagelabel1.setOpaque(false);
-		imagelabel1.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-		
-		imagelabel2=new JLabel();
-		imagelabel2.setIcon(icon2);
-		imagelabel2.setOpaque(false);
-		imagelabel2.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-		
-		imagelabel3=new JLabel();
-		imagelabel3.setIcon(icon3);
-		imagelabel3.setOpaque(false);
-		imagelabel3.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-		
-		imagelabel4=new JLabel();
-		imagelabel4.setIcon(icon4);
-		imagelabel4.setOpaque(false);
-		imagelabel4.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-		
-		imagepanel.setLayout(new GridLayout(1, 4));
-		imagepanel.add(imagelabel1);
-		imagepanel.add(imagelabel2);
-		imagepanel.add(imagelabel3);
-		imagepanel.add(imagelabel4);
+//		ImageIcon icon1 = new ImageIcon(path + "1.jpg");
+//		icon1.setImage(icon1.getImage().getScaledInstance(500, 300, Image.SCALE_DEFAULT));
+//		ImageIcon icon2 = new ImageIcon(path + "2.jpg");
+//		icon2.setImage(icon2.getImage().getScaledInstance(500, 300, Image.SCALE_DEFAULT));
+//		ImageIcon icon3 = new ImageIcon(path + "3.jpg");
+//		icon3.setImage(icon3.getImage().getScaledInstance(500, 300, Image.SCALE_DEFAULT));
+//		ImageIcon icon4 = new ImageIcon(path + "4.jpg");
+//		icon4.setImage(icon4.getImage().getScaledInstance(500, 300, Image.SCALE_DEFAULT));
+//		
+//		imagelabel1=new JLabel();
+//		imagelabel1.setIcon(icon1);
+//		imagelabel1.setOpaque(false);
+//		imagelabel1.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+//		
+//		imagelabel2=new JLabel();
+//		imagelabel2.setIcon(icon2);
+//		imagelabel2.setOpaque(false);
+//		imagelabel2.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+//		
+//		imagelabel3=new JLabel();
+//		imagelabel3.setIcon(icon3);
+//		imagelabel3.setOpaque(false);
+//		imagelabel3.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+//		
+//		imagelabel4=new JLabel();
+//		imagelabel4.setIcon(icon4);
+//		imagelabel4.setOpaque(false);
+//		imagelabel4.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+//		
+//		imagepanel.setLayout(new GridLayout(1, 4));
+//		imagepanel.add(imagelabel1);
+//		imagepanel.add(imagelabel2);
+//		imagepanel.add(imagelabel3);
+//		imagepanel.add(imagelabel4);
 		
 		imagepanel.setBackground(new Color(255, 255, 255));
 		
@@ -126,15 +154,16 @@ public class ImageCarouselPanel extends JPanel{
 		leftbutton=new JButton();
 		rightbutton=new JButton();
 		
-		String path = "D:\\image\\";
+		String absolutePath=System.getProperty("user.dir");
+		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		final ImageIcon icon1 = new ImageIcon(path + "left1.png");
+		final ImageIcon icon1 = new ImageIcon(path + "image_left1.png");
 		icon1.setImage(icon1.getImage().getScaledInstance(50, 60, Image.SCALE_DEFAULT));
-		final ImageIcon icon2 = new ImageIcon(path + "left2.png");
+		final ImageIcon icon2 = new ImageIcon(path + "image_left2.png");
 		icon2.setImage(icon2.getImage().getScaledInstance(50, 60, Image.SCALE_DEFAULT));
-		final ImageIcon icon3 = new ImageIcon(path + "right1.png");
+		final ImageIcon icon3 = new ImageIcon(path + "image_right1.png");
 		icon3.setImage(icon3.getImage().getScaledInstance(50, 60, Image.SCALE_DEFAULT));
-		final ImageIcon icon4 = new ImageIcon(path + "right2.png");
+		final ImageIcon icon4 = new ImageIcon(path + "image_right2.png");
 		icon4.setImage(icon4.getImage().getScaledInstance(50, 60, Image.SCALE_DEFAULT));
 		
 		leftbutton.setIcon(icon1);

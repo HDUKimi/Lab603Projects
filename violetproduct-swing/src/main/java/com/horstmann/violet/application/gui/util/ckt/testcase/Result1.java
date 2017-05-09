@@ -15,6 +15,13 @@ import java.util.Set;
  *
  */
 public class Result1 {
+	public static void main(String[] args) {
+		List<String> result1=new ArrayList<String>();//存放in里面最终实例化结果
+		result1 = getResult("g.throttle_min#g.throttle_min:int16_t");
+		System.out.println(result1.toString());
+	}
+	
+	
 	/**
 	 * 处理条件，得到多组解
 	 * @param condition

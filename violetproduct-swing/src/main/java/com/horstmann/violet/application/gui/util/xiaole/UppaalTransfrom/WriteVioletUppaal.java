@@ -164,6 +164,8 @@ public class WriteVioletUppaal {
 //    		if(temp.getLabelText()!=null){
 //    			labelText.setText(temp.getLabelText());	
 //    		}
+//    		String time=temp.getLabelText().toString().split("#")[4];
+//    		labelText.setText(time);
 //    		labelText.setText(temp.getLabelText());
 //    		labelText.setText(temp.getId());
     	}

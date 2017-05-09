@@ -279,6 +279,7 @@ public class Mathematica {
 					"FindInstance[{" + parameter1 + "}, {"
 							+ parameter2 + "}, 1]", 0);
 			
+			
 			//			System.out.println("mma中小数不等式"+parameter1);
 //			System.out.println("mma中小数参数"+parameter2);
 			// System.out.println(strResult);

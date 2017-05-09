@@ -1,4 +1,5 @@
 package com.horstmann.violet.application.gui.util.ckt.handle;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -32,6 +33,13 @@ public class Minimization__1 {
 	 * @return
 	 */
 	public static ArrayList<State> minimization(Automatic automatic) {
+		
+//		SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		String TimeString = time.format(new java.util.Date());
+//		System.out.println("    拆分开始计算时间-mimimization"+TimeString);
+		long time=System.currentTimeMillis();
+		
+		
 		State Init_State=automatic.getInitState();//获得时间自动机初始状态
 		ArrayList<State> StateSet=automatic.getStateSet();//获得时间自动机状态集合
 		ArrayList<Transition> TransitionSet=automatic.getTransitionSet();//获得时间自动机迁移集合
@@ -58,9 +66,27 @@ public class Minimization__1 {
 
 		ArrayList<State> stable=new ArrayList<State>();//稳定的状态集合
 
+//		TimeString = time.format(new java.util.Date());
+//		System.out.println("     可达集合、稳定集合"+TimeString);
+		long time1=System.currentTimeMillis();
+		System.out.println("  可达集与稳定集循环之前所用时间-----"+(time1-time)+"ms");
+		
+		int i1 = 0;
 		while(accessible.size()!=stable.size()){//当可达集合和稳定集合不相同时
+			i1++;
+			System.out.println("       集合相等第"+i1+"次循环");
 			State x=accessibleNostable(accessible, stable);//选取可达集合中第一个不在稳定集合的状态进行拆分
+//			TimeString = time.format(new java.util.Date());
+//			System.out.println("       拆分前时间："+TimeString);
+			long time2=System.currentTimeMillis();
+
 			ArrayList<State> new_X=SplitSuseSs_new1__1.splitSuseSs(x, P, TransitionSet, ClockSet);//new_x为x被拆分后的状态集合
+			
+			long time3=System.currentTimeMillis();
+			System.out.println("  split拆分所用时间-----"+(time3-time2)+"ms");
+			
+			//			TimeString = time.format(new java.util.Date());
+//			System.out.println("       拆分后时间："+TimeString);
 			//x拆分后的状态集合
 			/*System.out.println("new_X size: "+new_X.size());
 			for(State s:new_X){
@@ -153,16 +179,47 @@ public class Minimization__1 {
 					}
 					System.out.println("*******************************");
 				}*/
-				
-//				for(int i=0;i<stable.size();i++){//稳定集中删除x的前驱集合（稳定集一定包含前驱状态）
-//					for(int j=0;j<pres.size();j++){
-//						if(stable.get(i).getName().equals(pres.get(j).getName())){
-//							stable.remove(i);
+				//////
+//				Iterator<State> stableiterator=stable.iterator();
+//				while (stableiterator.hasNext()) {
+//					State stablestate = (State) stableiterator.next();
+//					Iterator<State> presiterator=pres.iterator();
+//					while (presiterator.hasNext()) {
+//						State presstate = (State) presiterator.next();
+//						if(stablestate.getName().equals(presstate.getName())){
+//							stableiterator.remove();
+//							break;
 //						}
 //					}
 //				}
-				
-				Iterator<State> stableiterator=stable.iterator();
+//				System.out.println("123456789123456798987654321");
+
+				/////
+				//System.out.println(stable.size()+"------"+pres.size());
+				ArrayList<State> stable11=new ArrayList<State>();
+				for(int ii=0;ii<stable.size();ii++){
+					State s = stable.get(ii);
+					stable11.add(s);
+				}
+				//stable11 = stable;
+				for(int i=0;i<stable.size();i++){//稳定集中删除x的前驱集合（稳定集一定包含前驱状态）
+					for(int j=0;(j<pres.size());j++){
+						//System.out.println("------"+stable.size()+"------"+pres.size());
+						if((stable.get(i).getName()).equals((pres.get(j).getName()))){
+							//stable.remove(i);
+							stable11.remove(stable.get(i));
+							//System.out.println(stable11+"-----ooooo----"+stable);
+						}
+					}
+				}
+				stable = new ArrayList<State>();
+				for(int ii=0;ii<stable11.size();ii++){
+					State s = stable11.get(ii);
+					stable.add(s);
+				}
+				//stable = stable11;
+				//System.out.println("------"+stable.size()+"------"+pres.size());
+				/*Iterator<State> stableiterator=stable.iterator();
 				while (stableiterator.hasNext()) {
 					State stablestate = (State) stableiterator.next();
 					Iterator<State> presiterator=pres.iterator();
@@ -170,10 +227,14 @@ public class Minimization__1 {
 						State presstate = (State) presiterator.next();
 						if(stablestate.getName().equals(presstate.getName())){
 							stableiterator.remove();
+							break;
 						}
 					}
 				}
+				System.out.println(stable.size()+"--++++---"+stable11.size());
+				stable = stable11;
 				System.out.println("123456789123456798987654321");
+				*/
 				
 				for(int i=0;i<P.size();i++){//状态集中删除x
 					if(P.get(i).getName().equals(x.getName())){
@@ -257,7 +318,17 @@ public class Minimization__1 {
 				}
 				System.out.println("*******************************");
 			}*/
+		
 		}
+		System.out.println("  可达与稳定执行循环次数"+i1);
+		System.out.println("  可达集与稳定集循环之前所用时间-----"+(time1-time)+"ms");
+		long time4=System.currentTimeMillis();
+		System.out.println("  可达集与稳定集循环所用时间-----"+(time4-time1)+"ms");
+		
+//		TimeString = time.format(new java.util.Date());
+//		System.out.println("     ----可达集合、稳定集合"+TimeString);
+//		System.out.println("     ----minimization结束"+TimeString);
+		
 
 		return stable;
 	}

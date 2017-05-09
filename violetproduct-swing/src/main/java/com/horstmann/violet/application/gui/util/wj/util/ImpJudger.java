@@ -81,6 +81,9 @@ public class ImpJudger {
 		for(Transition tran : mAutomatic.getTransitionSet()) {
 			State sourceState = findStateByID.get(tran.getSource());
 			State targetState = findStateByID.get(tran.getTarget());
+//			if((sourceState!=null)&&(targetState!=null)){
+//				map[sourceState.getId()][targetState.getId()] = 1;
+//			}
 			map[sourceState.getId()][targetState.getId()] = 1;
 		}
 	}

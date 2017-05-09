@@ -76,7 +76,11 @@ public class ATDTR__1 {
 						tran.setSource(X.getSource());
 						tran.setTarget(tt.getTarget());
 						ArrayList<String> events=new ArrayList<String>();
-						events.add(tt.getEventSet().get(0));
+						//System.out.println("1111111111111111"+tt.getEventSet().get(0));
+						if((tt.getEventSet().size()>0)){
+							events.add(tt.getEventSet().get(0));
+						}
+						//events.add(tt.getEventSet().get(0));
 						tran.setEventSet(events);
 						tran.setTypeIds(tt.getTypeIds());
 						tran.setTypes(tt.getTypes());
@@ -88,9 +92,14 @@ public class ATDTR__1 {
 						//////////////////
 						
 						TransitionSet.add(tran);//将新边加入迁移集合
-						if(tran.getEventSet().get(0).equals("*")){//如果新边是含抽象时间迁移的边，则加入ET	
-							ET_iterator.add(tran);
-						}//将含有*的新边加入ET	
+						if((tt.getEventSet().size()>0)){
+							if(tran.getEventSet().get(0).equals("*")){//如果新边是含抽象时间迁移的边，则加入ET	
+								ET_iterator.add(tran);
+							}//将含有*的新边加入ET	
+						}
+//						if(tran.getEventSet().get(0).equals("*")){//如果新边是含抽象时间迁移的边，则加入ET	
+//							ET_iterator.add(tran);
+//						}//将含有*的新边加入ET	
 						
 					}
 				}
@@ -171,6 +180,7 @@ public class ATDTR__1 {
 			}
 			
 			String e="t"+k;
+			tran.setTranTimeName(e);
 			es.add(e);
 			tran.setEventSet(es);
 			k++;

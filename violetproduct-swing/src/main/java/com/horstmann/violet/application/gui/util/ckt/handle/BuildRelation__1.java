@@ -17,21 +17,30 @@ public class BuildRelation__1 {
 		}*/
 	}
 	
-	public static ArrayList<Transition> bulidRelation(Automatic automatic) {
+	public static ArrayList<Transition> bulidRelation(Automatic automatic,ArrayList<State> new_stateSet) {
+		long time=System.currentTimeMillis();
+		System.out.println("  bulidRelation内开始时间-----"+time+"ms");
 		ArrayList<Transition> TransitionSet=automatic.getTransitionSet();//获得时间自动机迁移集合
 		ArrayList<String> ClockSet=automatic.getClockSet();//获得时间自动机时钟集合
 
-		ArrayList<State> new_stateSet=Minimization__1.minimization(automatic);//拆分时间自动机
+		//ArrayList<State> new_stateSet=Minimization__1.minimization(automatic);//拆分时间自动机
 		
 		ArrayList<Transition> transitions=new ArrayList<Transition>();//要返回的迁移集合
-		
-		for(State source:new_stateSet){//遍历状态集合			
+		long time1=System.currentTimeMillis();
+		System.out.println("  遍历状态集合前所用时间-----"+(time1-time)+"ms");
+		for(State source:new_stateSet){//遍历状态集合	
+			long time2=System.currentTimeMillis();
+			System.out.println("  获得后继前所用时间-----"+(time2-time)+"ms");
+			
 			ArrayList<State> posts=PostAndPre__1.post(source, new_stateSet, TransitionSet, ClockSet);//获得source后继
+			long time3=System.currentTimeMillis();
+			System.out.println("  获得后继所用时间-----"+(time3-time2)+"ms");
+			
 			for(State target:posts){//遍历后继集合，建立迁移
 				Transition tran=new Transition();
 				tran.setSource(source.getName());
 				tran.setTarget(target.getName());
-				//////////////////////////////////////////////////////////ckt添加
+				//////////////////////////////////////////////////////////
 
 				//////////////////////////////////////////////////////////				
 				if(source.getPosition().equals(target.getPosition())){//如果源和目的相同，则迁移上为*
@@ -63,6 +72,10 @@ public class BuildRelation__1 {
 				transitions.add(tran);
 			}
 		}
+
+		System.out.println("  遍历状态集合前所用时间-----"+(time1-time)+"ms");
+		long time2=System.currentTimeMillis();
+		System.out.println("  遍历状态集合所用时间-----"+(time2-time1)+"ms");
 		return transitions;
 	}
 }
