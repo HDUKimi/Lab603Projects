@@ -16,6 +16,13 @@ public class SplitSuseSs_new1__1 {
 			updatePosts(x, posts, trans, ClockSet);//将x的后继们加入时钟复位信息
 			
 			ArrayList<DBM_element[][]> Zs=getZs(x, posts, trans, ClockSet);//根据后继，获取拆分x的Zs
+			
+			System.err.println(Zs.size());
+			if(Zs.size()<=0){
+				States.add(x);
+				return States;
+			}
+			
 			ArrayList<DBM_element[][]> X_DBMs=SplitZuseZs_2.splitZuseZs(x_DBM, Zs);
 			
 			int size=X_DBMs.size();
@@ -199,9 +206,12 @@ public class SplitSuseSs_new1__1 {
 				}
 				if(t.getSource().equals(x_name)&&t.getTarget().equals(p_name)){//存在x-->p
 					DBM_element[][] zi=difference(t_DBM, p_DBM, ClockSet, clock);//求t_DBM ∩ a-1(p_DBM)
-					if(IsEmpty.isEmpty(zi)==-1){
-						Zs.add(zi);
+					if(zi!=null){
+						if(IsEmpty.isEmpty(zi)==-1){
+							Zs.add(zi);
+						}
 					}
+					
 					
 				}
 				else{//不存在x-->p

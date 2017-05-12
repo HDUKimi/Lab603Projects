@@ -580,6 +580,9 @@ public class TestCaseGenerationPanel extends JPanel {
 		} else if (starttype == 2) {
 			file = new File(baseUrl + "\\PerformanceTest");
 			fList = file.listFiles();
+		} else if (starttype == 3) {
+			file = new File(baseUrl + "\\TimeTest");
+			fList = file.listFiles();
 		} else {
 			file = new File(baseUrl);
 			fList = file.listFiles();

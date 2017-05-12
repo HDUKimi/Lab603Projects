@@ -16,7 +16,6 @@ import com.horstmann.violet.product.diagram.abstracts.Direction;
 import com.horstmann.violet.product.diagram.abstracts.edge.ShapeEdge;
 import com.horstmann.violet.product.diagram.abstracts.node.INode;
 import com.horstmann.violet.product.diagram.abstracts.property.ArrowHead;
-import com.horstmann.violet.product.diagram.abstracts.property.LineStyle;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class TransitionEdge extends ShapeEdge
@@ -48,7 +47,7 @@ public class TransitionEdge extends ShapeEdge
     public void draw(Graphics2D g2)
     {   g2.setColor(getEdgeColor());
 //    System.out.println("color11----------"+getEdgeColor());
-        g2.setStroke(getLineStyle().getStroke());
+        g2.setStroke(getEdgeStroke());
         g2.draw(getShape());
         //g2.drawString(labelText,(int)labelbounds.getX(),(int)labelbounds.getY());
         drawLabel(g2);

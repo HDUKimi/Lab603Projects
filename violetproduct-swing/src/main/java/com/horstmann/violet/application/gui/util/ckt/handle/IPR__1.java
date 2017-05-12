@@ -75,13 +75,10 @@ public class IPR__1 {
 				//System.out.println(intiState.getPosition());
 			}
 		}
-		/*///////////////////////cktÌí¼Ó
-		for(Transition tran:automatic.getTransitionSet()){
-			
-		}
+		
 			
 		////////////////////////////////////////////
-*/			
+		
 		newaotu.setClockSet(automatic.getClockSet());
 		newaotu.setInitState(intiState);
 		newaotu.setStateSet(new_stateSet);

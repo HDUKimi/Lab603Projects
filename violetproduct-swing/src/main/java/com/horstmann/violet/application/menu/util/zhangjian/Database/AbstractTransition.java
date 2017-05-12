@@ -16,7 +16,14 @@ public class AbstractTransition  implements Serializable{
 	private String constraintDBM;
 	private String type;//标记消息属于哪一类型的组合片段
 	private String resetClockSet;//标注消息上的时钟复位集合
+	private String tranTimeName;//去除抽象时间延迟迁移再迁移上添加的t；
 	
+	public String getTranTimeName() {
+		return tranTimeName;
+	}
+	public void setTranTimeName(String tranTimeName) {
+		this.tranTimeName = tranTimeName;
+	}
 	public String getType() {
 		return type;
 	}

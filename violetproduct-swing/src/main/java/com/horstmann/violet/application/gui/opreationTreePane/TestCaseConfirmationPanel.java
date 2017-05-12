@@ -50,6 +50,7 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.FunctionalTestC
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEditor;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.PerformanceTestCaseReportPartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.PerformanceTestCaseReportTableHeaderPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.TimeTestCaseReportPartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCasePieChartPanel;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCaseResult;
@@ -87,6 +88,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 	private List<TestCase> testcaselist=new ArrayList<TestCase>();
 	private List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
 	private List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
+	private List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
 	
     private List<String> testcasefilenamelists=new ArrayList<String>();
     
@@ -382,6 +384,8 @@ public class TestCaseConfirmationPanel extends JPanel{
 						baseUrl += "\\FunctionalTest\\";
 					} else if (starttype == 2) {
 						baseUrl += "\\PerformanceTest\\";
+					} else if (starttype == 3) {
+						baseUrl += "\\TimeTest\\";
 					}
 					
 					String filename=(String) testcasetablemodel.getValueAt(testcasetable.getSelectedRow(), testcasetable.getSelectedColumn());
@@ -397,6 +401,10 @@ public class TestCaseConfirmationPanel extends JPanel{
 					else if(starttype==2){
 						testcaselist = extractPerformanceTestDataFromXml(path);
 						showPerformanceTestCase();
+					}
+					else if(starttype==3){
+						testcaselist = extractTimeTestDataFromXml(path);
+						showTimeTestCase();
 					}
 
 					mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().updateUI();
@@ -421,11 +429,11 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 	}
 
-	protected List<TestCase> extractFunctionalTestDataFromXml(String path) {
+	public static List<TestCase> extractFunctionalTestDataFromXml(String path) {
 		// TODO Auto-generated method stub
-		
-int i=1,j=1;
-		
+
+		int i = 1, j = 1;
+
 		List<TestCase> testcaseList = new ArrayList<TestCase>();
 		List<myProcess> processList = new ArrayList<myProcess>();
 		
@@ -498,10 +506,10 @@ int i=1,j=1;
 		int i=0;
 		functionaltestcasereportlist.clear();
 		for(TestCase tc:testcaselist){
-			FunctionalTestCaseReportPartPanel tcrppanel=new FunctionalTestCaseReportPartPanel(tc);
-			resultpanel.add(tcrppanel);
-			layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-			functionaltestcasereportlist.add(tcrppanel);
+			FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(tc);
+			resultpanel.add(ftcrppanel);
+			layout.setConstraints(ftcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+			functionaltestcasereportlist.add(ftcrppanel);
 		}
 		resultpanel.add(emptypanel);
 		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
@@ -611,16 +619,16 @@ int i=1,j=1;
 		resultpanel.setLayout(layout);
 		int i = 0;
 
-		PerformanceTestCaseReportTableHeaderPanel tcrthpanel = new PerformanceTestCaseReportTableHeaderPanel();
-		resultpanel.add(tcrthpanel);
-		layout.setConstraints(tcrthpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		PerformanceTestCaseReportTableHeaderPanel ptcrthpanel = new PerformanceTestCaseReportTableHeaderPanel();
+		resultpanel.add(ptcrthpanel);
+		layout.setConstraints(ptcrthpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 
 		performancetestcasereportlist.clear();
 		for (TestCase tc : testcaselist) {
-			PerformanceTestCaseReportPartPanel tcrppanel = new PerformanceTestCaseReportPartPanel(tc);
-			resultpanel.add(tcrppanel);
-			layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-			performancetestcasereportlist.add(tcrppanel);
+			PerformanceTestCaseReportPartPanel ptcrppanel = new PerformanceTestCaseReportPartPanel(tc);
+			resultpanel.add(ptcrppanel);
+			layout.setConstraints(ptcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+			performancetestcasereportlist.add(ptcrppanel);
 		}
 		resultpanel.add(emptypanel);
 		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
@@ -629,6 +637,94 @@ int i=1,j=1;
 		jp.removeAll();
 		jp.add(resultpanel);
 
+	}
+	
+	public static List<TestCase> extractTimeTestDataFromXml(String path) {
+		// TODO Auto-generated method stub
+
+		int i = 1, j = 1;
+
+		List<TestCase> testcaseList = new ArrayList<TestCase>();
+		List<myProcess> processList = new ArrayList<myProcess>();
+		
+		SAXReader reader = new SAXReader();
+		
+		File file=new File(path);
+		
+		try {
+			
+			Document dom = reader.read(file);
+			
+			Element TCS=dom.getRootElement();
+			List<Element> testcaseElements=TCS.elements("testcase");
+			for(Element testcase:testcaseElements){
+				
+				List<Element> processElements=testcase.elements("process");
+				
+				for(Element process:processElements){
+
+					Element operation=process.element("operation");
+					
+					Element input=process.element("input");
+					
+					myProcess p = new myProcess();
+					p.setProcessID(j++);
+					p.setProcessName(operation.getData().toString());
+					p.setProcessParam(input.getData().toString());
+//					p.setProcessStatus(processStatus);
+//					p.setProcessExec(processExec);
+
+					processList.add(p);
+					
+				}
+				
+				j=1;
+				
+				TestCase tc = new TestCase();
+				tc.setTestCaseID(String.valueOf(i++));
+				tc.setProcessList(processList);
+//				tc.setState(state);
+//				tc.setResult(result);
+
+				testcaseList.add(tc);
+				
+				processList = new ArrayList<myProcess>();
+				
+			}
+			
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return testcaseList;
+	}
+
+	protected void showTimeTestCase() {
+		// TODO Auto-generated method stub
+
+		JPanel resultpanel=new JPanel();
+		JPanel emptypanel=new JPanel();
+		resultpanel.setOpaque(false);
+		emptypanel.setOpaque(false);
+		
+		GridBagLayout layout = new GridBagLayout();
+		resultpanel.setLayout(layout);
+		int i=0;
+		timetestcasereportlist.clear();
+		for(TestCase tc:testcaselist){
+			TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(tc);
+			resultpanel.add(ttcrppanel);
+			layout.setConstraints(ttcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+			timetestcasereportlist.add(ttcrppanel);
+		}
+		resultpanel.add(emptypanel);
+		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+		JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getTableresultpanel();
+		jp.removeAll();
+		jp.add(resultpanel);
+		
 	}
 
 //	private void initUI() {
@@ -674,6 +770,9 @@ int i=1,j=1;
 		} else if (starttype == 2) {
 			file = new File(baseUrl + "\\PerformanceTest");
 			fList = file.listFiles();
+		} else if (starttype == 3) {
+			file = new File(baseUrl + "\\TimeTest");
+			fList = file.listFiles();
 		} else {
 			file = new File(baseUrl);
 			fList = file.listFiles();
@@ -701,6 +800,10 @@ int i=1,j=1;
 
 	public List<PerformanceTestCaseReportPartPanel> getPerformancetestcasereportlist() {
 		return performancetestcasereportlist;
+	}
+	
+	public List<TimeTestCaseReportPartPanel> getTimetestcasereportlist() {
+		return timetestcasereportlist;
 	}
 
 	public String getTestcasename() {

@@ -12,7 +12,14 @@ public class State {
 	private String position;//判断两个状态位置是否相同的标志位
 	private String type;//后期可能添加的状态类型属性（是不是初始状态）
 	boolean finalState;//标志状态是否为终止状态
+	boolean starState;
 	
+	public boolean isStarState() {
+		return starState;
+	}
+	public void setStarState(boolean starState) {
+		this.starState = starState;
+	}
 	public int getId() {
 		return id;
 	}

@@ -52,7 +52,7 @@ public class HomeFunctionalTestTabbedPanel extends JPanel {
 	private JPanel inforrighttoppanel;
 	private JPanel inforrightdetailpanel;
 
-	private int detaileindex=1;
+	private int detailindex=1;
 	private FunctionTestSituationDetailPanel detailpanel1;
 	private FunctionTestSituationDetailPanel detailpanel2;
 
@@ -70,6 +70,17 @@ public class HomeFunctionalTestTabbedPanel extends JPanel {
 		this.setLayout(layout);
 		this.add(inforpanel);
 		layout.setConstraints(inforpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+		
+//		String absolutePath=System.getProperty("user.dir");
+//		String imagepath = absolutePath+"\\src\\site\\resources\\icons\\HomePage\\Ê±¼äÔ¼Êø\\";
+//		
+//		ImageCarouselPanel icpanel=new ImageCarouselPanel(imagepath);
+//		GridBagLayout layout = new GridBagLayout();
+//		this.setLayout(layout);
+//		this.add(icpanel);
+//		layout.setConstraints(icpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
 
 	}
 
@@ -230,7 +241,7 @@ public class HomeFunctionalTestTabbedPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				detaileindex=1;
+				detailindex=1;
 				
 				inforrightdetailpanel.removeAll();
 				inforrightdetailpanel.add(detailpanel1);
@@ -275,7 +286,7 @@ public class HomeFunctionalTestTabbedPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				detaileindex=2;
+				detailindex=2;
 				
 				inforrightdetailpanel.removeAll();
 				inforrightdetailpanel.add(detailpanel2);
@@ -312,10 +323,10 @@ public class HomeFunctionalTestTabbedPanel extends JPanel {
 		// TODO Auto-generated method stub
 		inforleftnamelabel1.setForeground(new Color(0, 0, 0));
 		inforleftnamelabel2.setForeground(new Color(0, 0, 0));
-		if(detaileindex==1){
+		if(detailindex==1){
 			inforleftnamelabel1.setForeground(new Color(104, 33, 122));
 		}
-		else if(detaileindex==2){
+		else if(detailindex==2){
 			inforleftnamelabel2.setForeground(new Color(104, 33, 122));
 		}
 	}

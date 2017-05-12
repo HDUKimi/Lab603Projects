@@ -73,8 +73,8 @@ public class testTime {
 		// Automatic DFStree=StateCoverage__1.DFSTree(aTDRTAutomatic);
 		long time6=System.currentTimeMillis();
 		
-		//ArrayList<Automatic> testCase = StateCoverage__1.testCase(aTDRTAutomatic);// 获得满足状态覆盖的抽象测试序列
-		ArrayList<Automatic> testCase=GeneratePath.getFormatPathFromAutomatic(aTDRTAutomatic,1);//获得满足路径覆盖的抽象测试序列
+		ArrayList<Automatic> testCase = StateCoverage__1.testCase(aTDRTAutomatic);// 获得满足状态覆盖的抽象测试序列
+		//ArrayList<Automatic> testCase=GeneratePath.getFormatPathFromAutomatic(aTDRTAutomatic,1);//获得满足路径覆盖的抽象测试序列
 		
 		
 		long time7=System.currentTimeMillis();

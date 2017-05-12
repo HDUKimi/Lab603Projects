@@ -130,6 +130,10 @@ public class StringToDBM_element__1 {
 				}	
 				constraints.add(constraint);
 			}
+			//第七种情况  x-y=20
+			
+			//第八种情况，x=40
+			
 		}
 		
 		/*for(String cons:constraintANDinvariant){

@@ -21,6 +21,9 @@ public class Floyds {
 	 * @return
 	 */
 	public static DBM_element[][] floyds(DBM_element[][] DBM){
+		/*if((DBM==null)){
+			return null;
+		}*/
 		int size=DBM.length;
 		DBM_element[][] newDBM = new DBM_element[size][size];
 		for(int i=0;i<size;i++){//³õÊ¼»¯newDBM

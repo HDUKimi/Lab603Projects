@@ -24,6 +24,7 @@ package com.horstmann.violet.product.diagram.abstracts.edge;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -76,29 +77,45 @@ public abstract class ShapeEdge extends AbstractEdge implements IEdgeColorable
 	public void setEdgeColor(Color edgeColor) {
 		this.edgeColor = edgeColor;
 	}
-    /**
-     * Sets the line style property.
-     * 
-     * @param newValue the new value
-     */
-    public void setLineStyle(LineStyle newValue)
-    {
-        this.lineStyle = newValue;
+	
+	  //用于改变消息的粗细
+    public Stroke getEdgeStroke(){
+    	if(edgeStroke==null)
+    		return new BasicStroke(5.0f);
+    	return edgeStroke;
     }
-
-    /**
-     * Gets the line style property.
-     * 
-     * @return the line style
-     */
-    public LineStyle getLineStyle()
-    {
-        if (this.lineStyle == null)
-        {
-            this.lineStyle = LineStyle.SOLID;
-        }
-        return this.lineStyle;
+    public void setEdgeStroke(Stroke edgeStroke){
+    	this.edgeStroke=edgeStroke;
     }
-	   @XStreamOmitField
-	    private LineStyle lineStyle;
+    float[] dash = new float[]
+            {
+                    3.0f,
+                    3.0f
+            };
+    private Stroke edgeStroke=new BasicStroke(5.0f);
+//    /**
+//     * Sets the line style property.
+//     * 
+//     * @param newValue the new value
+//     */
+//    public void setLineStyle(LineStyle newValue)
+//    {
+//        this.lineStyle = newValue;
+//    }
+//
+//    /**
+//     * Gets the line style property.
+//     * 
+//     * @return the line style
+//     */
+//    public LineStyle getLineStyle()
+//    {
+//        if (this.lineStyle == null)
+//        {
+//            this.lineStyle = LineStyle.SOLID;
+//        }
+//        return this.lineStyle;
+//    }
+//	   @XStreamOmitField
+//	    private LineStyle lineStyle;
 }

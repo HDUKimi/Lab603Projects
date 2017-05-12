@@ -115,6 +115,9 @@ public class StateCoverage__1 {
 		aaa.setStateSet(StateSet);
 		aaa.setTransitionSet(TransitionSet);
 		for(State s:StateSet){
+			if(s.finalState){
+				
+			}
 			if(s.getName().equals(auto.getInitState().getName())&&Minimization__1.includeZero(s.getInvariantDBM())==1){
 				aaa.setInitState(s);//设置时间自动机的初始状态
 			}

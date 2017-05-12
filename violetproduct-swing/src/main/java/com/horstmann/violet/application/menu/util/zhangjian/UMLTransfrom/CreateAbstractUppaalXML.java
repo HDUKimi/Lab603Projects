@@ -162,6 +162,7 @@ public class CreateAbstractUppaalXML {
 			// TransitionEdge.addElement("labelText").addText(edge.getTname());
 
 			TransitionEdge.addElement("labelText").addText(edge.getTid() + "");
+//			TransitionEdge.addElement("labelText").addText(edge.getTranTimeName() + "");
 
 			k = k + 4;
 		}

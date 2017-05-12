@@ -9,7 +9,10 @@ public class IsEmpty {
 	 * @return
 	 */
 	public static int isEmpty(DBM_element[][] DBM){
-		DBM_element[][] fDBM=Floyds.floyds(DBM);//将DBM规范化后再判断是否为空
+		/*if(DBM==null){
+			return -1;
+		}*/
+		DBM_element[][] fDBM=Floyds.floyds(DBM);//将DBM规范化后再判断是否为空		
 		int len=DBM.length;
 		for(int i=0;i<len;i++){
 			if(fDBM[i][i].getValue()!=0||fDBM[i][i].isStrictness()!=true){

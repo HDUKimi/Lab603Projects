@@ -480,6 +480,10 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							baseUrl += "\\PerformanceTest\\";
 							baseUrl2 += "\\PerformanceTest\\";
 							baseUrl3 += "\\PerformanceTest\\";
+						} else if (starttype == 3) {
+							baseUrl += "\\TimeTest\\";
+							baseUrl2 += "\\TimeTest\\";
+							baseUrl3 += "\\TimeTest\\";
 						}
 						
 						System.out.println(sequencelistindex+"   "+sequencelists.size()+"   "+baseUrl + filename);
@@ -898,15 +902,20 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 		
 		sequencetouppaaltable.getColumn("序号").setPreferredWidth(50);
 		sequencetouppaaltable.getColumn("序号").setMinWidth(50);
+		sequencetouppaaltable.getColumn("序号").setMaxWidth(50);
 		sequencetouppaaltable.getColumn("状态").setPreferredWidth(50);
 		sequencetouppaaltable.getColumn("状态").setMinWidth(50);
+		sequencetouppaaltable.getColumn("状态").setMaxWidth(50);
 		sequencetouppaaltable.getColumn("顺序图").setPreferredWidth(150);
 		sequencetouppaaltable.getColumn("顺序图").setMinWidth(150);
-		sequencetouppaaltable.getColumn("操作").setPreferredWidth((int) (mainFrame.getStepOneCenterTabbedPane().size().getWidth()-500));
+		sequencetouppaaltable.getColumn("操作").setPreferredWidth(450);
+		sequencetouppaaltable.getColumn("操作").setMinWidth(450);
 		sequencetouppaaltable.getColumn("进度").setPreferredWidth(50);
 		sequencetouppaaltable.getColumn("进度").setMinWidth(50);
-		sequencetouppaaltable.getColumn("").setPreferredWidth(80);
-		sequencetouppaaltable.getColumn("").setMinWidth(80);
+		sequencetouppaaltable.getColumn("进度").setMaxWidth(50);
+		sequencetouppaaltable.getColumn("").setPreferredWidth(100);
+		sequencetouppaaltable.getColumn("").setMinWidth(100);
+		sequencetouppaaltable.getColumn("").setMaxWidth(100);
 		sequencetouppaaltable.getColumn("完成时间").setPreferredWidth(150);
 		sequencetouppaaltable.getColumn("完成时间").setMinWidth(150);
         

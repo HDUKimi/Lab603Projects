@@ -38,6 +38,7 @@ public class TestCaseShowTabbedPanel extends JPanel{
 	
 	private List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
 	private List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
+	private List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
 
 	public TestCaseShowTabbedPanel(MainFrame mainframe) {
 
@@ -117,6 +118,16 @@ public class TestCaseShowTabbedPanel extends JPanel{
 						
 					}
 				}
+				else if(starttype==3){
+
+					for(TimeTestCaseReportPartPanel ttcrpp:timetestcasereportlist){
+						
+						if (ttcrpp.getAttributepanel().isVisible()) {
+							ttcrpp.getAttributepanel().setVisible(false);
+						}
+						
+					}
+				}
 				
 			}
 		});
@@ -153,6 +164,17 @@ public class TestCaseShowTabbedPanel extends JPanel{
 
 					}
 				}
+				else if(starttype==3){
+
+					for(TimeTestCaseReportPartPanel ttcrpp:timetestcasereportlist){
+						
+						if (!ttcrpp.getAttributepanel().isVisible()) {
+							ttcrpp.getAttributepanel().setVisible(true);
+						}
+						
+					}
+				}
+				
 			}
 		});
 
@@ -220,6 +242,14 @@ public class TestCaseShowTabbedPanel extends JPanel{
 
 	public void setPerformancetestcasereportlist(List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist) {
 		this.performancetestcasereportlist = performancetestcasereportlist;
+	}
+
+	public List<TimeTestCaseReportPartPanel> getTimetestcasereportlist() {
+		return timetestcasereportlist;
+	}
+
+	public void setTimetestcasereportlist(List<TimeTestCaseReportPartPanel> timetestcasereportlist) {
+		this.timetestcasereportlist = timetestcasereportlist;
 	}
 
 	public MoviePanel getMoviepanel() {

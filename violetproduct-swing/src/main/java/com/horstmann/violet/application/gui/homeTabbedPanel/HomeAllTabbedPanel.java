@@ -26,6 +26,7 @@ public class HomeAllTabbedPanel extends JPanel{
 	
 	private HomeFunctionalTestTabbedPanel functionalTestTabbedPanel; 
 	private HomePerformanceTestTabbedPanel performanceTestTabbedPanel;
+	private HomeTimeTestTabbedPanel timeTestTabbedPanel;
 	
 	private InforGeneralizePanel inforGeneralizePanel1;
 	private InforGeneralizePanel inforGeneralizePanel2;
@@ -69,6 +70,7 @@ public class HomeAllTabbedPanel extends JPanel{
 		
 		functionalTestTabbedPanel=new HomeFunctionalTestTabbedPanel(mainFrame);
 		performanceTestTabbedPanel=new HomePerformanceTestTabbedPanel(mainFrame);
+		timeTestTabbedPanel=new HomeTimeTestTabbedPanel(mainFrame);
 		
 		optiontabpanel = new JPanel();
 		inforresultpanel=new JPanel();
@@ -435,7 +437,7 @@ public class HomeAllTabbedPanel extends JPanel{
 				// TODO Auto-generated method stub
 
 				inforresultpanel.removeAll();
-				inforresultpanel.add(performanceTestTabbedPanel);
+				inforresultpanel.add(timeTestTabbedPanel);
 				ChangeRepaint();
 			}
 		});

@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.util.wj.util;
+package com.horstmann.violet.application.gui.util.ckt.xml;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,11 +14,9 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
-import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
-import com.horstmann.violet.application.gui.util.ckt.handle.GetAutomatic;
-import com.horstmann.violet.application.gui.util.ckt.handle.StateCoverage__1;
-import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
+import com.horstmann.violet.application.gui.util.ckt.handle.*;
 import com.horstmann.violet.application.gui.util.ckt.testcase.*;
+import com.horstmann.violet.application.gui.util.wj.util.*;
 
 public class XMLGet {
 	public static void main(String[] args) {
