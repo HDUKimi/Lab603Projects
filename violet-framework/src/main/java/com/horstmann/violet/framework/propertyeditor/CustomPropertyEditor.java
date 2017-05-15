@@ -100,6 +100,10 @@ public class CustomPropertyEditor implements ICustomPropertyEditor
             BeanInfo info = Introspector.getBeanInfo(bean.getClass());
             //通过BeanIndo进行内省
             PropertyDescriptor[] descriptors = (PropertyDescriptor[]) info.getPropertyDescriptors().clone();
+            for(PropertyDescriptor pro:descriptors)
+            {
+            	System.out.println(pro.getValue("name"));
+            }
             Arrays.sort(descriptors, new Comparator<PropertyDescriptor>()
             {
                 public int compare(PropertyDescriptor d1, PropertyDescriptor d2)

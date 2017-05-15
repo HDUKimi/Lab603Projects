@@ -28,7 +28,7 @@ import java.beans.SimpleBeanInfo;
 /**
  * The bean info for the CallEdge type.
  */
-public class CallEdgeBeanInfo extends SimpleBeanInfo
+public class ReturnEdgeBeanInfo extends SimpleBeanInfo
 {
     @Override
     public PropertyDescriptor[] getPropertyDescriptors()
@@ -36,20 +36,13 @@ public class CallEdgeBeanInfo extends SimpleBeanInfo
         try
         {
             
-        	PropertyDescriptor name = new PropertyDescriptor("name", CallEdge.class);
-        	name.setValue("priority", new Integer(1));
-        	PropertyDescriptor input = new PropertyDescriptor("input", CallEdge.class);
-        	input.setValue("priority", new Integer(2));
-        	PropertyDescriptor parameter = new PropertyDescriptor("parameter", CallEdge.class);
-        	parameter.setValue("priority", new Integer(3));
-        	PropertyDescriptor output = new PropertyDescriptor("output", CallEdge.class);
-        	output.setValue("priority", new Integer(4));
-        	PropertyDescriptor timing = new PropertyDescriptor("timing", CallEdge.class);
-        	timing.setValue("priority", new Integer(5));
-        	PropertyDescriptor timereset = new PropertyDescriptor("timereset", CallEdge.class);
-        	timereset.setValue("priority", new Integer(6));
-        	PropertyDescriptor signal = new PropertyDescriptor("signal", CallEdge.class);
-        	signal.setValue("priority", new Integer(7));
+        	PropertyDescriptor name = new PropertyDescriptor("name", ReturnEdge.class);
+        	PropertyDescriptor input = new PropertyDescriptor("input", ReturnEdge.class);
+        	PropertyDescriptor parameter = new PropertyDescriptor("parameter", ReturnEdge.class);
+        	PropertyDescriptor output = new PropertyDescriptor("output", ReturnEdge.class);
+        	PropertyDescriptor timing = new PropertyDescriptor("timing", ReturnEdge.class);
+        	PropertyDescriptor timereset = new PropertyDescriptor("timereset", ReturnEdge.class);
+        	PropertyDescriptor signal = new PropertyDescriptor("signal", ReturnEdge.class);
         	return new PropertyDescriptor[]
     	            {
     	            	name,

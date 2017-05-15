@@ -11,7 +11,6 @@ public class LifeLineNodeInfo {
 	private String name; 
 	private List<ActivationBarNodeInfo> activationBarNodes=new ArrayList<ActivationBarNodeInfo>();
 	private List<CallEdgeInfo> callEdges = new ArrayList<CallEdgeInfo>(); 
-
 	public String getId() {
 		return Id;
 	}

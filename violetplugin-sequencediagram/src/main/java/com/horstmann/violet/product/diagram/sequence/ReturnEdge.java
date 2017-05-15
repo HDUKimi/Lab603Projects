@@ -34,7 +34,7 @@ import com.horstmann.violet.product.diagram.abstracts.property.LineStyle;
 /**
  * An edge that joins two call nodes.
  */
-public class ReturnEdge extends SegmentedLineEdge
+public class ReturnEdge extends SegmentedLineEdgeByCai
 {
 
 	@Override
