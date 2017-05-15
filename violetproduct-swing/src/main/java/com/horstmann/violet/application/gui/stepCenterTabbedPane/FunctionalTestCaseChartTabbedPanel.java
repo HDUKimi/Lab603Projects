@@ -7,14 +7,10 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -25,14 +21,13 @@ import javax.swing.table.DefaultTableModel;
 
 import org.jfree.chart.ChartPanel;
 
-import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.BarChart;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.LineChart;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.PieChart;
 
-public class TestCaseChartTabbedPanel extends JPanel{
+public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 	
 	private MainFrame mainFrame;
 	
@@ -90,7 +85,7 @@ public class TestCaseChartTabbedPanel extends JPanel{
 	
 	private JPanel emptypanel;
 
-	public TestCaseChartTabbedPanel(MainFrame mainFrame){ 
+	public FunctionalTestCaseChartTabbedPanel(MainFrame mainFrame){ 
 		
 		this.mainFrame=mainFrame;
 		
@@ -268,10 +263,10 @@ public class TestCaseChartTabbedPanel extends JPanel{
 		
 		toolpanel.add(checkbox1);
 		toolpanel.add(checkbox2);
-		toolpanel.add(checkbox3);
-		toolpanel.add(checkbox4);
-		toolpanel.add(checkbox5);
-		toolpanel.add(checkbox6);
+//		toolpanel.add(checkbox3);
+//		toolpanel.add(checkbox4);
+//		toolpanel.add(checkbox5);
+//		toolpanel.add(checkbox6);
 		
 		toolpanel.setPreferredSize(new Dimension(100, 29));
 		toolpanel.setMaximumSize(new Dimension(100, 29));

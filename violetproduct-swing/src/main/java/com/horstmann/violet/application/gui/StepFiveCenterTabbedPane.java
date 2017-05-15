@@ -18,7 +18,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.FixedButtonTabbedPanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseChartTabbedPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.FunctionalTestCaseChartTabbedPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.PerformanceTestCaseChartTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseReportTabbedPanel;
 
 public class StepFiveCenterTabbedPane extends JPanel{
@@ -34,7 +35,10 @@ public class StepFiveCenterTabbedPane extends JPanel{
 	
 	private JButton testCaseChartDiagramButton;
 	private FixedButtonTabbedPanel testCaseChartDiagramButtonPanel;
-	private TestCaseChartTabbedPanel testCaseChartTabbedPane;
+	private JPanel testCaseChartTabbedPanel;
+	
+	private PerformanceTestCaseChartTabbedPanel performanceTestCaseChartTabbedPanel;
+	private FunctionalTestCaseChartTabbedPanel functionalTestCaseChartTabbedPanel;
 	
 //	private JButton testCasePieChartDiagramButton;
 //	private FixedButtonTabbedPanel testCasePieChartDiagramButtonPanel;
@@ -59,7 +63,11 @@ public class StepFiveCenterTabbedPane extends JPanel{
 		
 		testCaseReportTabbedPane=new TestCaseReportTabbedPanel(mainFrame);
 		
-		testCaseChartTabbedPane=new TestCaseChartTabbedPanel(mainFrame);
+		testCaseChartTabbedPanel=new JPanel();
+		testCaseChartTabbedPanel.setLayout(new GridLayout());
+		
+		performanceTestCaseChartTabbedPanel=new PerformanceTestCaseChartTabbedPanel(mainFrame);
+		functionalTestCaseChartTabbedPanel =new FunctionalTestCaseChartTabbedPanel(mainFrame);
 		
 //		testCasePieChartTabbedPane=new JPanel();
 //		testCasePieChartTabbedPane.setLayout(new GridLayout());
@@ -178,6 +186,8 @@ public class StepFiveCenterTabbedPane extends JPanel{
 		
 		setButtonActionListener();
 		
+		testCaseChartDiagramButtonPanel.setVisible(false);
+		
 	}
 
 	private void setButtonActionListener() {
@@ -211,7 +221,7 @@ public class StepFiveCenterTabbedPane extends JPanel{
 				selectedIndex=2;
 				getDiagramPanel().removeAll();
 				getDiagramPanel().setLayout(new GridLayout());
-				getDiagramPanel().add(testCaseChartTabbedPane);
+				getDiagramPanel().add(testCaseChartTabbedPanel);
 				
 				testCaseChartDiagramButtonPanel.setBackground(new Color(58, 105, 190));
 				testCaseReportDiagramButtonPanel.setBackground(new Color(77, 96, 130));
@@ -335,8 +345,16 @@ public class StepFiveCenterTabbedPane extends JPanel{
 		return testCaseChartDiagramButtonPanel;
 	}
 
-	public TestCaseChartTabbedPanel getTestCaseChartTabbedPane() {
-		return testCaseChartTabbedPane;
+	public JPanel getTestCaseChartTabbedPanel() {
+		return testCaseChartTabbedPanel;
+	}
+
+	public PerformanceTestCaseChartTabbedPanel getPerformanceTestCaseChartTabbedPanel() {
+		return performanceTestCaseChartTabbedPanel;
+	}
+	
+	public FunctionalTestCaseChartTabbedPanel getFunctionalTestCaseChartTabbedPanel() {
+		return functionalTestCaseChartTabbedPanel;
 	}
 
 	public int getSelectedIndex() {

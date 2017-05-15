@@ -248,21 +248,28 @@ public class TranMessageColorize {
 		
 		CleanColorize(workspace);
 		
-//		int trantextstate=mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getTrantextstate();
-		int trantextstate=1;
+		int trantextstate=mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getTrantextstate();
+//		int trantextstate=1;
 		
 		for (Transition t : automatic.getTransitionSet()) {
 			String id;
+			String endid;
 			
 			if(trantextstate==1){
 				id = t.getId() + "";
+				endid=t.getTarget();
 			}
 			else{
 				id = t.getId()+"<br>"+t.getName();
+				endid=t.getTarget();
 			}
 
+			
+			
 			for (IEdge edge : edges) {
 				String labelName = ((TransitionEdge) edge).getLabel();
+				String endName=((CircularNode)((TransitionEdge) edge).getEnd()).getName();
+				System.out.println(id+" - ********* - "+endid+"    "+labelName+" - - - - "+endName);
 //				System.out.println(id+" - "+labelName+" - "+id.equals(labelName)+" - "+(index++)+" - "+(edge==null));
 //				if (id.equals(labelName)) {
 				if (labelName.contains(id)) {

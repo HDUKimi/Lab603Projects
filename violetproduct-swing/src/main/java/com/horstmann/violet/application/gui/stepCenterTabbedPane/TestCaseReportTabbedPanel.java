@@ -109,6 +109,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	
 	private Thread t;
 	private Thread progreseethread;
+	private Thread gaindatathread;
 	private int threadstate=0;
 	
 	private JScrollPane tablescrollpanel;
@@ -212,6 +213,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					
 					progressbarindex=0;
 					
+					mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(false);
+					
 					int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
 					if(starttype==1){
 						startFunctionalTestConfirmation();
@@ -231,6 +234,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					threadstate = 1;
 					t.resume();
 					progreseethread.resume();
+					gaindatathread.resume();
 					System.out.println("t is not alive");
 				}
 				
@@ -251,6 +255,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				t.suspend();
 				progreseethread.suspend();
+				gaindatathread.suspend();
 				threadstate=-1;
 				
 			}
@@ -271,6 +276,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				t.stop();
 				progreseethread.stop();
+				gaindatathread.stop();
 				threadstate=0;
 				
 				progressbar.setValue(0);
@@ -672,6 +678,11 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				startFunctionalRunProgressbar(testcaselist);// 显示进度条
 
 //				changeDataInTable(testcaselist);//显示测试结果
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(true);
+				
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPanel().removeAll();
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPanel().add(mainFrame.getStepFiveCenterTabbedPane().getFunctionalTestCaseChartTabbedPanel());
+				
 				
 				
 				threadstate=0;
@@ -961,12 +972,24 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //					System.out.println(tc.getTestCaseID()+" - "+tc.getState()+" - "+tc.getResult().toString());
 //				}
 				
+				while(progressbar.getValue()<50){
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
 				startPerformanceRunProgressbar(testcaselist);// 显示进度条
 
 //				changeDataInTable(testcaselist);//显示测试结果
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(true);
 				
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPanel().removeAll();
+				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPanel().add(mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel());
 				
-				DefaultTableModel tabelmodel=mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getAttributetablemodel();
+				DefaultTableModel tabelmodel=mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getAttributetablemodel();
 				
 				for(TestCase tc:testcaselist){
 					TestCaseResult tcr=tc.getResult();
@@ -977,39 +1000,20 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				PerformanceLineChart plc=new PerformanceLineChart(testcaselist);
 				
 				PerformanceHighBatteryLineChart phblc=new PerformanceHighBatteryLineChart(highbatterydata);
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getHighbatterylinepanel().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getHighbatterylinepanel().add(phblc.createChart());
+				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getHighbatterylinepanel().removeAll();
+				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getHighbatterylinepanel().add(phblc.createChart());
 				
 				PerformanceHighTimeLineChart phtlc=new PerformanceHighTimeLineChart(hightimedata);
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getHightimelinepanel().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getHightimelinepanel().add(phtlc.createChart());
+				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getHightimelinepanel().removeAll();
+				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getHightimelinepanel().add(phtlc.createChart());
 				
 				PerformanceHighSpeedBarChart phsbc=new PerformanceHighSpeedBarChart(highspeeddata);
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getHighspeedbarpanel().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getHighspeedbarpanel().add(phsbc.createChart());
+				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getHighspeedbarpanel().removeAll();
+				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getHighspeedbarpanel().add(phsbc.createChart());
 				
 				PerformanceTimeSpeedBarChart ptsbc=new PerformanceTimeSpeedBarChart(timespeeddata);
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getTimespeedbarpanel().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().getTimespeedbarpanel().add(ptsbc.createChart());
-				
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().removeAll();
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().add(new TestCasePieChartPanel(testcasecount));
-				
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().removeAll();
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCasePieChartTabbedPane().add(new TestCasePieChartPanel(testcasecount));
-				
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().removeAll();
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().add(new TestCaseBarChartPanel(testcasecount));
-//				
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseLineChartTabbedPane().removeAll();
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseLineChartTabbedPane().add(new JScrollPane(new TestCaseLineChartPanel(testcasecountlist)));
-//				
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().removeAll();
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().add(new JScrollPane(new TestCaseStackedBarChartPanel(testcasecountlist)));
-				
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().removeAll();
-//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseBarChartTabbedPane().add(new JScrollPane(new TestCaseAreaChartPanel(testcasecountlist)));
-				
+				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getTimespeedbarpanel().removeAll();
+				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getTimespeedbarpanel().add(ptsbc.createChart());
 				
 //				changeDataInTable(list);
 				
@@ -1017,7 +1021,28 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			}
 			
 		});
+		
+		gaindatathread=new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				for(int i=0;i<50;i++){
+					progressbar.setValue(progressbar.getValue()+1);
+					progressbarlabel.setText(progressbar.getValue()+"%");
+					
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		
 		t.start();
+		gaindatathread.start();
 		
 	}
 

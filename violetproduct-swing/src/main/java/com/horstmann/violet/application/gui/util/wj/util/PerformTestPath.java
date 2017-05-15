@@ -2,6 +2,7 @@ package com.horstmann.violet.application.gui.util.wj.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
 import com.horstmann.violet.application.gui.util.ckt.handle.State;
@@ -45,13 +46,17 @@ public class PerformTestPath {
 				break;
 			}
 		}
+		
 		return performTestPath;
 	}
 	
 	// 找出有标记的路径
 	private static boolean dfsMarkedPath(Transition tran, int[] visitedTran, ArrayList<Transition> path, Transition endTran) throws Exception {
+		
 		path.add(tran);
+		System.out.println("-------11111111111111---------------"+visitedTran.length+"  "+tran.getId());
 		visitedTran[tran.getId()] = 1;
+		System.out.println("-------2222222222222222---------------");
 		if (tran == endTran) {
 			System.out.println("搜索性能测试路径 到达目标迁移");
 			return true;
@@ -125,16 +130,28 @@ public class PerformTestPath {
 	// 去掉回路的transition
 	private static void removeCircleTran() {
 		int removeCount = 0;
-		for(int i = 0; i < transitions.size(); i++) {
-			Transition tran = transitions.get(i);
+//		for(int i = 0; i < transitions.size(); i++) {
+//			Transition tran = transitions.get(i);
+//			State sourceState = findStateByID.get(tran.getSource());
+//			State targetState = findStateByID.get(tran.getTarget());
+//			if (sourceState.getId() >= targetState.getId()) {
+//				transitions.remove(i);
+//				removeCount++;
+//				i--;
+//			}
+//		}
+		
+		Iterator<Transition> iterator=transitions.iterator();
+		while (iterator.hasNext()) {
+			Transition tran = (Transition) iterator.next();
 			State sourceState = findStateByID.get(tran.getSource());
 			State targetState = findStateByID.get(tran.getTarget());
 			if (sourceState.getId() >= targetState.getId()) {
-				transitions.remove(i);
+				iterator.remove();
 				removeCount++;
-				i--;
 			}
 		}
+		
 	}
 	
 }

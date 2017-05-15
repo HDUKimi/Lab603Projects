@@ -50,6 +50,8 @@ public class ConsolePartPanel extends JPanel {
 	private JLabel titlelabel;
 	private JTextArea textarea;
 	
+	private JScrollPane textscrollpanel;
+	
 	private JPanel titleiconlabelpanel;
 	private JLabel titleiconlabel1;
 	private JLabel titleiconlabel2;
@@ -101,11 +103,11 @@ public class ConsolePartPanel extends JPanel {
 		initTitlePanel();
 		
 		textpanel.setLayout(new GridLayout());
-		JScrollPane jspanel=new JScrollPane(textarea);
-		textpanel.add(jspanel);
+		textscrollpanel=new JScrollPane(textarea);
+		textpanel.add(textscrollpanel);
 		textarea.setEditable(false);
 		textarea.setBorder(null);
-		jspanel.setBorder(null);
+		textscrollpanel.setBorder(null);
 
 		initToolButton();
 
@@ -605,6 +607,14 @@ public class ConsolePartPanel extends JPanel {
 
 	public void setTextarea(JTextArea textarea) {
 		this.textarea = textarea;
+	}
+	
+	public void setTextscrollpanel(JScrollPane textscrollpanel) {
+		this.textscrollpanel = textscrollpanel;
+	}
+
+	public JScrollPane getTextscrollpanel() {
+		return textscrollpanel;
 	}
 
 	public JPanel getTextpanel() {

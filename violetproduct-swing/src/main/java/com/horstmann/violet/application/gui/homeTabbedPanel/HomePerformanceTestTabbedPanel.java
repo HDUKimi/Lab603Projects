@@ -168,7 +168,7 @@ public class HomePerformanceTestTabbedPanel extends JPanel{
 		startbuttonpanel.add(startbutton);
 		startbuttonpanel.setLayout(new FlowLayout(0, 0, 0));
 		startbuttonpanel.setOpaque(false);
-		startbuttonpanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 0, 0));
+		startbuttonpanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 0));
 		
 		emptypanel.setOpaque(false);
 		

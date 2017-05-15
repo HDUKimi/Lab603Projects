@@ -290,22 +290,22 @@ public class TestCaseInstantiationPartPanel extends JPanel{
         for(Transition t:automatic.getTransitionSet()){
 //			Object[] rowData={"48","set_pwm","loc_id_41F2D344_CCE6_4e2a_A417_9245889CE58C_4_5","yaw_pwm=2200,_num_tasks=255,dt=65535,_task_time_allowed=4294967295,i=0,time_available=4294967295,interval_ticks=65535,has_new_input=True"};
         	
-        	String result=t.getResult().toString().replaceAll("\\[|]", "");
+        	String result=t.getResult().toString().replaceAll("\\[|]", "").split("%")[1];
         	
-        	if(mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().getSelectCoverState()==2){//性能测试
-        		String name;
-    			name=t.getName();
-    			if(name.indexOf("(")>0){
-    				name=name.substring(0, name.indexOf("("));
-    			}
-    			result=result.replaceAll("\\[|]", "");
-    			result=result.replace("%null", "");
-    			result=result.replace(name, "");
-    			result=result.replace("%", "");
-    			if(result.equals("")){
-    				result=null;
-    			}
-        	}
+//        	if(mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().getSelectCoverState()==2){//性能测试
+//        		String name;
+//    			name=t.getName();
+//    			if(name.indexOf("(")>0){
+//    				name=name.substring(0, name.indexOf("("));
+//    			}
+//    			result=result.replaceAll("\\[|]", "");
+//    			result=result.replace("%null", "");
+//    			result=result.replace(name, "");
+//    			result=result.replace("%", "");
+//    			if(result.equals("")){
+//    				result=null;
+//    			}
+//        	}
         	
 			Object[] rowData={t.getId()+"",t.getName(),t.getSource(),t.getTarget(),result+""};
 			attributetablemodel.addRow(rowData);

@@ -211,22 +211,22 @@ public class TestCaseInequalitySolveInforPanel extends JPanel{
 //        }
         
         limit=Arrays.asList(limittransition.getLimit().split(","));
-        result=resulttransition.getResult().toString();
+        result=resulttransition.getResult().toString().replaceAll("\\[|]", "").split("%")[1];
         
-        if(mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().getSelectCoverState()==2){//性能测试
-    		String name;
-			name=resulttransition.getName();
-			if(name.indexOf("(")>0){
-				name=name.substring(0, name.indexOf("("));
-			}
-			result=result.replaceAll("\\[|]", "");
-			result=result.replace("%null", "");
-			result=result.replace(name, "");
-			result=result.replace("%", "");
-//			if(result.equals("")){
-//				result=null;
+//        if(mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().getSelectCoverState()==2){//性能测试
+//    		String name;
+//			name=resulttransition.getName();
+//			if(name.indexOf("(")>0){
+//				name=name.substring(0, name.indexOf("("));
 //			}
-    	}
+//			result=result.replaceAll("\\[|]", "");
+//			result=result.replace("%null", "");
+//			result=result.replace(name, "");
+//			result=result.replace("%", "");
+////			if(result.equals("")){
+////				result=null;
+////			}
+//    	}
         
         Object[] rowData={"+-+不等式："};
     	attributetablemodel.addRow(rowData);

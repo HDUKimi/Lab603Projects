@@ -81,18 +81,13 @@ public abstract class ShapeEdge extends AbstractEdge implements IEdgeColorable
 	  //用于改变消息的粗细
     public Stroke getEdgeStroke(){
     	if(edgeStroke==null)
-    		return new BasicStroke(5.0f);
+    		return new BasicStroke(1.0f);
     	return edgeStroke;
     }
     public void setEdgeStroke(Stroke edgeStroke){
     	this.edgeStroke=edgeStroke;
     }
-    float[] dash = new float[]
-            {
-                    3.0f,
-                    3.0f
-            };
-    private Stroke edgeStroke=new BasicStroke(5.0f);
+    private Stroke edgeStroke=new BasicStroke(1.0f);
 //    /**
 //     * Sets the line style property.
 //     * 

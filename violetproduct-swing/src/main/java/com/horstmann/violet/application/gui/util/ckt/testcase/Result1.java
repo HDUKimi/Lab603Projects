@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseProcessTabbedPanel;
+
 /**
  * 功能:处理条件，得到最后的mathematica解，返回的是多组解,border 添加边界后的等式求出的结果
  * 
@@ -19,6 +21,7 @@ public class Result1 {
 		List<String> result1=new ArrayList<String>();//存放in里面最终实例化结果
 		result1 = getResult("g.throttle_min#g.throttle_min:int16_t");
 		System.out.println(result1.toString());
+		TestCaseProcessTabbedPanel.TextAreaPrint(result1.toString());
 	}
 	
 	
@@ -320,7 +323,9 @@ public class Result1 {
 
 						solution1 = Mathematica.getSolution2(bbb, cs1);
 						System.out.println("删除矛盾后不等式"+bbb);
+						TestCaseProcessTabbedPanel.TextAreaPrint("删除矛盾后不等式"+bbb);
 						System.out.println("删除矛盾后解"+solution1);
+						TestCaseProcessTabbedPanel.TextAreaPrint("删除矛盾后解"+solution1);
 					}
 					/*if(solution1.contains("ndInstance")){
 						System.out.println("----------------------求解异常----------------------");
@@ -333,6 +338,7 @@ public class Result1 {
 					//ttt=bbb.toString();
 					//					
 					System.out.println("整数型解"+solution1);
+					TestCaseProcessTabbedPanel.TextAreaPrint("整数型解"+solution1);
 					results = solution1.substring(2, solution1.length() - 2).split("\\}, \\{");
 
 					//System.out.println("condition整数型约束解为："+solution1);
@@ -365,11 +371,13 @@ public class Result1 {
 					//System.out.println("condition上小数型数值不等式："+s2);
 					//System.out.println("condition上小数型数值参数："+cs2);
 					System.out.println("小数不等式："+bds2);
+					TestCaseProcessTabbedPanel.TextAreaPrint("小数不等式："+bds2);
 					if(Border.getDoubleBorder(bds2)!=null){
 						bds2 = bds2+","+Border.getDoubleBorder(bds2);
 						flag =1;
 					}	
 					System.out.println("加入边界后小数不等式："+bds2);
+					TestCaseProcessTabbedPanel.TextAreaPrint("加入边界后小数不等式："+bds2);
 					String bb = bds2+","+s2;
 					//System.out.println("小数不等式:"+bb);
 					//System.out.println("小数参数："+cs2);
@@ -554,6 +562,7 @@ public class Result1 {
 	 */
 	public static String Remove11(String bbb){
 		System.out.println("原处理不等式："+bbb);
+		TestCaseProcessTabbedPanel.TextAreaPrint("原处理不等式："+bbb);
 		String cs1 = null;
 		String cs2 = null;
 		String bds[] = bbb.replace("||", ",").split(",");
@@ -599,6 +608,7 @@ public class Result1 {
 			}
 		}
 		System.out.println("处理后的不等式"+bbb);
+		TestCaseProcessTabbedPanel.TextAreaPrint("处理后的不等式"+bbb);
 		return bbb;
 	}
 
@@ -691,6 +701,7 @@ public class Result1 {
 			}
 			if((in_result.size()>0)&&!(in_result.get(0).equals(null))){							
 				System.out.println("in_result.size()--->"+in_result.size());
+				TestCaseProcessTabbedPanel.TextAreaPrint("in_result.size()--->"+in_result.size());
 				dis(0,in_result);
 				result1 = re;
 				List<String> ret = new ArrayList<String>();
@@ -741,7 +752,8 @@ public class Result1 {
 					}																
 				}
 				if((inResult.size()>0)&&!(inResult.get(0).equals(null))){
-					System.out.println("in_result.size()--->"+inResult.size());				
+					System.out.println("in_result.size()--->"+inResult.size());	
+					TestCaseProcessTabbedPanel.TextAreaPrint("in_result.size()--->"+inResult.size());
 					dis(0,inResult);
 					result1 = re;
 					List<String> ret = new ArrayList<String>();
@@ -774,6 +786,7 @@ public class Result1 {
 		if (domain.contains("<=")){
 			String[] strs = domain.split("<=");				
 			System.out.println("需处理（有<=）："+domain);
+			TestCaseProcessTabbedPanel.TextAreaPrint("需处理（有<=）："+domain);
 			if (strs.length == 3) {	
 				//System.out.println("例如1<=x<=7");//
 				cs = strs[1];
@@ -839,6 +852,7 @@ public class Result1 {
 		}else{			 
 			if (domain.contains(">=")) {
 				System.out.println("需处理（有>=）："+domain);
+				TestCaseProcessTabbedPanel.TextAreaPrint("需处理（有>=）："+domain);
 				String[] strs = domain.split(">=");
 				if (strs.length == 3) {	
 					//System.out.println("例如7>=x>=1");//		
@@ -905,6 +919,7 @@ public class Result1 {
 			} else{ 					
 				if (domain.contains("<")) { //不包含<=也不包含>=
 					System.out.println("需处理（有<）："+domain);
+					TestCaseProcessTabbedPanel.TextAreaPrint("需处理（有<）："+domain);
 					String[] strs = domain.split("<");
 					//System.out.println("     例如1<x<7或x<7或1<x");//
 					if (strs.length == 3) {
@@ -939,6 +954,7 @@ public class Result1 {
 				} else{ 
 					if (domain.contains(">")) { //不包含<=也不包含>=也不包含<
 						System.out.println("需处理（有>）："+domain);
+						TestCaseProcessTabbedPanel.TextAreaPrint("需处理（有>）："+domain);
 						//System.out.println("     例如7>x>1或x>1或7>x");//
 						String[] strs = domain.split(">");
 						if (strs.length == 3) {

@@ -243,12 +243,12 @@ public class ModelTransformationPanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "diagrambutton1.png");
-		icon1.setImage(icon1.getImage().getScaledInstance(16, 15, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "diagrambutton2.png");
-		icon2.setImage(icon2.getImage().getScaledInstance(16,15, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(path + "diagrambutton3.png");
-		icon3.setImage(icon3.getImage().getScaledInstance(16,15, Image.SCALE_DEFAULT));
+		ImageIcon icon1 = new ImageIcon(path + "sequence_diagram.png");
+		icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+		ImageIcon icon2 = new ImageIcon(path + "timing_diagram.png");
+		icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+		ImageIcon icon3 = new ImageIcon(path + "usecase_diagram.png");
+		icon3.setImage(icon3.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
 
 		diagrambutton1.setIcon(icon1);
 		diagrambutton1.setFocusable(false);
@@ -481,11 +481,14 @@ public class ModelTransformationPanel extends JPanel{
 		diagrambuttonpanel3.add(diagrambutton3);
 
 		diagrampanel.setLayout(new GridLayout(1, 3));
-		diagrampanel.setBackground(new Color(77, 96, 130));
+//		diagrampanel.setBackground(new Color(77, 96, 130));
+		diagrampanel.setBackground(new Color(41, 56, 85));
 		// diagrampanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
 		diagrampanel.add(diagrambuttonpanel1);
 		diagrampanel.add(diagrambuttonpanel2);
 		diagrampanel.add(diagrambuttonpanel3);
+		
+		diagrambuttonpanel3.setVisible(false);
 		
 		diagrampanel.setPreferredSize(new Dimension(100, 22));
 		diagrampanel.setMinimumSize(new Dimension(100, 22));

@@ -1267,7 +1267,9 @@ Sixstart.addActionListener(new ActionListener() {
 		            }
 		        });
 			    mainFrame.getConsolePartPanel().setTextarea(StepTwoArea);
-			    mainFrame.getConsolePartPanel().getTextpanel().add(new JScrollPane(StepTwoArea));
+			    JScrollPane jsp=new JScrollPane(StepTwoArea);
+			    mainFrame.getConsolePartPanel().setTextscrollpanel(jsp);
+			    mainFrame.getConsolePartPanel().getTextpanel().add(jsp);
 			    
 			    ClearAttributePanel();
 			    attributePanel.add(mainFrame.getAttributePartPanel());

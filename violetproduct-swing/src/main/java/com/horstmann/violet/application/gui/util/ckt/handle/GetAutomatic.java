@@ -141,6 +141,10 @@ public class GetAutomatic {
 	private static int stateNum=1;//用于标识state的id
 	private static int tranNum=1;//用于标识transition的id
 	public static Automatic getAutomatic(String xml) {
+		
+		stateNum=1;
+		tranNum=1;
+		
 		XML2UppaalUtil util = new XML2UppaalUtil(new File(xml));
 		UppaalTemPlate temPlate = util.getTemplates().get(0);
 		

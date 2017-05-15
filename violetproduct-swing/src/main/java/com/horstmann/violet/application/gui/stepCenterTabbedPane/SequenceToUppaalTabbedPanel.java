@@ -431,6 +431,16 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 						progressbarindex++;
 						progressbar.setValue(progressbar.getValue()+1);
 						progressbarlabel.setText(progressbar.getValue()+"%");
+						
+						JTextArea textarea=mainFrame.getConsolePartPanel().getTextarea();
+						textarea.setCaretPosition(textarea.getDocument().getLength()*progressbar.getValue()/100);
+						
+//						JScrollBar bar=mainFrame.getConsolePartPanel().getTextscrollpanel().getVerticalScrollBar();
+//						System.out.println(bar.getValue()+" -******- "+bar.getMaximum()+"   "+bar.getMaximum()*progressbar.getValue()/100);
+//						bar.setValue(bar.getMaximum()*progressbar.getValue()/100);
+//						
+//						ChangeRepaint();
+						
 					}
 				}
 				System.err.println(trantask.isDone()+" - - "+progressbarindex+" + + "+(!trantask.isDone()||progressbarindex<=100));
