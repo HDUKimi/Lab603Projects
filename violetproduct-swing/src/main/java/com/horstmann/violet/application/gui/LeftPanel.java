@@ -53,8 +53,8 @@ public class LeftPanel extends JPanel{
 		
 		mainpanel.setLayout(new BorderLayout());
 		mainpanel.add(mainFrame.getStepButton(),BorderLayout.NORTH);
-		mainpanel.add(mainFrame.getStepJLabel(),BorderLayout.SOUTH);
-		mainFrame.getStepJLabel().setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(110, 110, 110)));
+//		mainpanel.add(mainFrame.getStepJLabel(),BorderLayout.SOUTH);
+//		mainFrame.getStepJLabel().setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(110, 110, 110)));
 		
 		this.setLayout(new BorderLayout());
 //		this.add(emptypanel,BorderLayout.NORTH);

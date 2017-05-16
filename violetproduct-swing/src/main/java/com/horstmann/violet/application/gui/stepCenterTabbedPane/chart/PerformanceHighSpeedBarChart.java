@@ -31,7 +31,7 @@ public class PerformanceHighSpeedBarChart {
 		
 		int index=0;
 		for(Pair p:resultlist){
-			System.out.println(p.getFirst()+" - - "+p.getSecond());
+//			System.out.println(p.getFirst()+" - - "+p.getSecond());
 			categories[index]=p.getFirst();
 			highdata[index]=Integer.parseInt(p.getSecond());
 			index++;
@@ -53,7 +53,7 @@ public class PerformanceHighSpeedBarChart {
 	
 	public ChartPanel createChart() {
 		// 2：创建Chart
-		JFreeChart chart = ChartFactory.createBarChart("", "风速", "高度", createDataset());
+		JFreeChart chart = ChartFactory.createBarChart("某风速下可飞行的最大高度柱状图", "风速", "高度", createDataset());
 		// 3:设置抗锯齿，防止字体显示不清楚
 		ChartUtils.setAntiAlias(chart);// 抗锯齿
 		// 4:对柱子进行渲染

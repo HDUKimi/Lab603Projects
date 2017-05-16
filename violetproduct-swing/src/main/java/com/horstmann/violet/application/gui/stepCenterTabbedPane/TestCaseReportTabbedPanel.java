@@ -972,7 +972,18 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //					System.out.println(tc.getTestCaseID()+" - "+tc.getState()+" - "+tc.getResult().toString());
 //				}
 				
+				for(int i=0;i<50;i++){
+					System.out.println("++++ file "+i);
+					try {
+						Thread.sleep(600);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
 				while(progressbar.getValue()<50){
+					System.out.println("123456789123456789");
 					try {
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
@@ -980,7 +991,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						e.printStackTrace();
 					}
 				}
-				
+				System.out.println("------------------*******************");
 				startPerformanceRunProgressbar(testcaselist);// 显示进度条
 
 //				changeDataInTable(testcaselist);//显示测试结果
@@ -1030,9 +1041,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				for(int i=0;i<50;i++){
 					progressbar.setValue(progressbar.getValue()+1);
 					progressbarlabel.setText(progressbar.getValue()+"%");
-					
+					System.out.println("---- progressbar "+progressbar.getValue());
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(500);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -1110,8 +1121,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						
 						
 						
-						int startprogressbar = (int) ((double) 100 / list.size() * index);
-						int endprogressbar = (int) ((double) 100 / list.size() * (index + 1));
+						int startprogressbar = (int) ((double) 50 / list.size() * index);
+						int endprogressbar = (int) ((double) 50 / list.size() * (index + 1));
 						
 						index++;
 						System.out.println(index);

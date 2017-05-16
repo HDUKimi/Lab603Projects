@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseProcessTabbedPanel;
+import com.horstmann.violet.application.gui.util.ckt.output.ShowInfor;
 
 /**
  * 功能:处理条件，得到最后的mathematica解，返回的是多组解,border 添加边界后的等式求出的结果
@@ -20,8 +21,7 @@ public class Result1 {
 	public static void main(String[] args) {
 		List<String> result1=new ArrayList<String>();//存放in里面最终实例化结果
 		result1 = getResult("g.throttle_min#g.throttle_min:int16_t");
-		System.out.println(result1.toString());
-		TestCaseProcessTabbedPanel.TextAreaPrint(result1.toString());
+		ShowInfor.print(result1.toString());
 	}
 	
 	
@@ -45,15 +45,15 @@ public class Result1 {
 		//String ttt3[]=null;
 		List<String> result=new ArrayList<String>();//存放最终实例化结果
 		List<String> tt3=new ArrayList<String>();//存放除了=0的小数不等式外的实例化结果
-		//System.out.println("condition----->"+condition);
-		//System.out.println("keySet集合3："+GetMap.get_condMap(condition));
+		//ShowInfor.print("condition----->"+condition);
+		//ShowInfor.print("keySet集合3："+GetMap.get_condMap(condition));
 		if(GetMap.get_condMap(condition)==null){
-			//System.out.println("keySet集合3："+GetMap.get_condMap(condition));
+			//ShowInfor.print("keySet集合3："+GetMap.get_condMap(condition));
 			return null;
 		}else{
 			if(!(GetMap.get_condMap(condition)==null)){
 				map1 = GetMap.get_condMap(condition);//必须有，要不结果错误
-				//System.out.println("==================================");
+				//ShowInfor.print("==================================");
 				//Set<String> set =map1.keySet();
 
 				String cs1 = AddBdsType.getcs(map1);
@@ -67,18 +67,18 @@ public class Result1 {
 				//数字型不等式和参数
 				String bds1=GetBds.get_bds(condition.toString());
 
-				//System.out.println("bds1:"+bds1);
+				//ShowInfor.print("bds1:"+bds1);
 
 				/////////////////输出
-				/*System.out.println("=================================");
-				System.out.println("整数------>不等式，即："+bds1);  //condition上数字不等式				
-				System.out.println("整数------>参数，即："+cs1);
-				System.out.println("小数=0---->不等式，即："+bds00);
-				System.out.println("小数------>不等式，即："+bds2);
-				System.out.println("小数------>参数前，即："+cs2);
-				System.out.println("add------>整数不等式为："+s1);
-				System.out.println("add------>小数不等式前为："+s20);
-				System.out.println("=================================");*/
+				/*ShowInfor.print("=================================");
+				ShowInfor.print("整数------>不等式，即："+bds1);  //condition上数字不等式				
+				ShowInfor.print("整数------>参数，即："+cs1);
+				ShowInfor.print("小数=0---->不等式，即："+bds00);
+				ShowInfor.print("小数------>不等式，即："+bds2);
+				ShowInfor.print("小数------>参数前，即："+cs2);
+				ShowInfor.print("add------>整数不等式为："+s1);
+				ShowInfor.print("add------>小数不等式前为："+s20);
+				ShowInfor.print("=================================");*/
 
 				///////////////////////////////////
 				if(cs2!=null){  //cs2是小数------>参数
@@ -194,7 +194,7 @@ public class Result1 {
 							cs=list.get(0);
 						}
 						bds1=cs;
-						//System.out.println("整数不等式为----->"+cs);
+						//ShowInfor.print("整数不等式为----->"+cs);
 
 						//除=0的小数不等式
 						String css = null;
@@ -210,7 +210,7 @@ public class Result1 {
 						}
 						bds2=css;
 
-						//System.out.println("小数不等式为----->"+css);
+						//ShowInfor.print("小数不等式为----->"+css);
 
 						//=0的小数不等式
 						String csss = null;
@@ -237,8 +237,8 @@ public class Result1 {
 					}//if(bds1!=null)
 					else{
 						if(bds1==null){
-							//System.out.println("整数不等式为----->"+null);
-							//System.out.println("小数不等式为----->"+null);
+							//ShowInfor.print("整数不等式为----->"+null);
+							//ShowInfor.print("小数不等式为----->"+null);
 						}										
 					}
 
@@ -246,8 +246,8 @@ public class Result1 {
 				}//if(cs2!=null)
 				else{
 					//没有小数参数
-					//System.out.println("整数不等式为----->"+bds1);
-					//System.out.println("小数不等式为----->"+null);
+					//ShowInfor.print("整数不等式为----->"+bds1);
+					//ShowInfor.print("小数不等式为----->"+null);
 
 				}
 				//////////////////////
@@ -269,15 +269,15 @@ public class Result1 {
 
 
 				/////////////////输出
-				/*System.out.println("=================================");
-				System.out.println("整数------>不等式，即："+bds1);  //condition上数字不等式			
-				System.out.println("整数------>参数，即："+cs1);
-				System.out.println("小数=0---->不等式，即："+bds00);
-				System.out.println("小数------>不等式，即："+bds2);
-				System.out.println("小数------>参数后，即："+cs2);
-				System.out.println("add------>整数不等式为："+s1);
-				System.out.println("add------>小数不等式后为："+s2);
-				System.out.println("=================================");*/
+				/*ShowInfor.print("=================================");
+				ShowInfor.print("整数------>不等式，即："+bds1);  //condition上数字不等式			
+				ShowInfor.print("整数------>参数，即："+cs1);
+				ShowInfor.print("小数=0---->不等式，即："+bds00);
+				ShowInfor.print("小数------>不等式，即："+bds2);
+				ShowInfor.print("小数------>参数后，即："+cs2);
+				ShowInfor.print("add------>整数不等式为："+s1);
+				ShowInfor.print("add------>小数不等式后为："+s2);
+				ShowInfor.print("=================================");*/
 
 
 				//布尔型不等式和参数
@@ -285,9 +285,9 @@ public class Result1 {
 				if(cs3!=null&&boolbds==null){
 					boolbds = AddBdsType.add_boolbds(cs3);
 				}
-				//System.out.println("布尔型------>不等式，即："+boolbds);//condition上布尔不等式
-				//System.out.println("小数=0---->不等式，即："+bds00);
-				//			System.out.println("布尔型------>参数，即："+cs3);
+				//ShowInfor.print("布尔型------>不等式，即："+boolbds);//condition上布尔不等式
+				//ShowInfor.print("小数=0---->不等式，即："+bds00);
+				//			ShowInfor.print("布尔型------>参数，即："+cs3);
 
 
 				/////////////////////////////////////////
@@ -296,7 +296,7 @@ public class Result1 {
 				String[] results1 = null;
 				//String[] ttt3 = null;
 				if(((bds1==null)&&(cs1==null))&&(s2==null)){
-					//System.out.println("        ===>  condition上没有约束即为：null");
+					//ShowInfor.print("        ===>  condition上没有约束即为：null");
 					//input.setText("null");
 				}
 				if((bds1!=null)&&(cs1!=null)){
@@ -305,14 +305,14 @@ public class Result1 {
 						flag = 1;
 					}	
 					String bbb = bds1+","+s1;
-					//System.out.println("        ===>  condition上整数型数值不等式："+bbb);
-					//										System.out.println("        ===>  condition上整数型数值参数："+cs1);
-					//System.out.println("整数不等式:"+bbb);
-					//System.out.println("整数数参数："+cs1);
+					//ShowInfor.print("        ===>  condition上整数型数值不等式："+bbb);
+					//										ShowInfor.print("        ===>  condition上整数型数值参数："+cs1);
+					//ShowInfor.print("整数不等式:"+bbb);
+					//ShowInfor.print("整数数参数："+cs1);
 					String solution1 = Mathematica.getSolution2(bbb, cs1);					
 					if(solution1.equals("{}")){
-						System.out.println("原求得矛盾空解"+solution1);
-						System.out.println("原求得矛盾不等式"+bds1);
+						ShowInfor.print("原求得矛盾空解"+solution1);
+						ShowInfor.print("原求得矛盾不等式"+bds1);
 						//bbb = Remove11(bds1);
 						if(Border.getBorder(bds1)!=null){
 							bds1 = Remove11(bds1)+","+Border.getBorder(bds1);//边界等式加入
@@ -322,41 +322,38 @@ public class Result1 {
 
 
 						solution1 = Mathematica.getSolution2(bbb, cs1);
-						System.out.println("删除矛盾后不等式"+bbb);
-						TestCaseProcessTabbedPanel.TextAreaPrint("删除矛盾后不等式"+bbb);
-						System.out.println("删除矛盾后解"+solution1);
-						TestCaseProcessTabbedPanel.TextAreaPrint("删除矛盾后解"+solution1);
+						ShowInfor.print("删除矛盾后不等式"+bbb);
+						ShowInfor.print("删除矛盾后解"+solution1);
 					}
 					/*if(solution1.contains("ndInstance")){
-						System.out.println("----------------------求解异常----------------------");
-						System.out.println("----------------------求解异常----------------------");
-						System.out.println("----------------------求解异常----------------------");
-						System.out.println("----------------------求解异常----------------------");
-						System.out.println("----------------------求解异常----------------------");
+						ShowInfor.print("----------------------求解异常----------------------");
+						ShowInfor.print("----------------------求解异常----------------------");
+						ShowInfor.print("----------------------求解异常----------------------");
+						ShowInfor.print("----------------------求解异常----------------------");
+						ShowInfor.print("----------------------求解异常----------------------");
 					}*/
 					ttt=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 					//ttt=bbb.toString();
 					//					
-					System.out.println("整数型解"+solution1);
-					TestCaseProcessTabbedPanel.TextAreaPrint("整数型解"+solution1);
+					ShowInfor.print("整数型解"+solution1);
 					results = solution1.substring(2, solution1.length() - 2).split("\\}, \\{");
 
-					//System.out.println("condition整数型约束解为："+solution1);
+					//ShowInfor.print("condition整数型约束解为："+solution1);
 				}
 				else{
 					if(s1!=null){
-						//System.out.println("        ===>  condition上整数型数值不等式："+s1);
-						//System.out.println("        ===>  condition上整数型数值参数："+cs1);
-						//System.out.println("整数不等式:"+s1);
-						//System.out.println("整数数参数："+cs1);
+						//ShowInfor.print("        ===>  condition上整数型数值不等式："+s1);
+						//ShowInfor.print("        ===>  condition上整数型数值参数："+cs1);
+						//ShowInfor.print("整数不等式:"+s1);
+						//ShowInfor.print("整数数参数："+cs1);
 						String solution1 = Mathematica.getSolution2(s1, cs1);
 
 						if(solution1.contains("ndInstance")){
-							System.out.println("----------------------求解异常----------------------");
-							System.out.println("----------------------求解异常----------------------");
-							System.out.println("----------------------求解异常----------------------");
-							System.out.println("----------------------求解异常----------------------");
-							System.out.println("----------------------求解异常----------------------");
+							ShowInfor.print("----------------------求解异常----------------------");
+							ShowInfor.print("----------------------求解异常----------------------");
+							ShowInfor.print("----------------------求解异常----------------------");
+							ShowInfor.print("----------------------求解异常----------------------");
+							ShowInfor.print("----------------------求解异常----------------------");
 						}
 
 						ttt=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
@@ -364,23 +361,21 @@ public class Result1 {
 						//						
 						results = solution1.substring(2, solution1.length() - 2).split("\\}, \\{");
 
-						//System.out.println("condition上整数型约束解为："+solution1);
+						//ShowInfor.print("condition上整数型约束解为："+solution1);
 					}
 				}
 				if((bds2!=null)&&(s2!=null)){
-					//System.out.println("condition上小数型数值不等式："+s2);
-					//System.out.println("condition上小数型数值参数："+cs2);
-					System.out.println("小数不等式："+bds2);
-					TestCaseProcessTabbedPanel.TextAreaPrint("小数不等式："+bds2);
+					//ShowInfor.print("condition上小数型数值不等式："+s2);
+					//ShowInfor.print("condition上小数型数值参数："+cs2);
+					ShowInfor.print("小数不等式："+bds2);
 					if(Border.getDoubleBorder(bds2)!=null){
 						bds2 = bds2+","+Border.getDoubleBorder(bds2);
 						flag =1;
 					}	
-					System.out.println("加入边界后小数不等式："+bds2);
-					TestCaseProcessTabbedPanel.TextAreaPrint("加入边界后小数不等式："+bds2);
+					ShowInfor.print("加入边界后小数不等式："+bds2);
 					String bb = bds2+","+s2;
-					//System.out.println("小数不等式:"+bb);
-					//System.out.println("小数参数："+cs2);
+					//ShowInfor.print("小数不等式:"+bb);
+					//ShowInfor.print("小数参数："+cs2);
 					String solution2 = Mathematica.getSolution4(bb, cs2);
 					if(solution2.equals("{}")){
 						//bb = Remove11(bb);
@@ -393,11 +388,11 @@ public class Result1 {
 					}
 
 					if(solution2.contains("ndInstance")){
-						System.out.println("----------------------求解异常----------------------");
-						System.out.println("----------------------求解异常----------------------");
-						System.out.println("----------------------求解异常----------------------");
-						System.out.println("----------------------求解异常----------------------");
-						System.out.println("----------------------求解异常----------------------");
+						ShowInfor.print("----------------------求解异常----------------------");
+						ShowInfor.print("----------------------求解异常----------------------");
+						ShowInfor.print("----------------------求解异常----------------------");
+						ShowInfor.print("----------------------求解异常----------------------");
+						ShowInfor.print("----------------------求解异常----------------------");
 					}
 
 					ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
@@ -405,11 +400,11 @@ public class Result1 {
 					//					
 					results1 = solution2.substring(2, solution2.length() - 2).split("\\}, \\{");
 
-					//System.out.println("condition上小数型约束解为："+solution2);
+					//ShowInfor.print("condition上小数型约束解为："+solution2);
 				}else{
 					if((s2!=null)){
-						//System.out.println("小数不等式:"+s2);
-						//System.out.println("小数参数："+cs2);
+						//ShowInfor.print("小数不等式:"+s2);
+						//ShowInfor.print("小数参数："+cs2);
 						String solution2 = Mathematica.getSolution4(s2, cs2);
 						if(solution2.equals("{}")){
 							s2 = Remove11(s2);
@@ -418,24 +413,24 @@ public class Result1 {
 
 
 						if(solution2.contains("ndInstance")){
-							System.out.println("----------------------求解异常----------------------");
-							System.out.println("----------------------求解异常----------------------");
-							System.out.println("----------------------求解异常----------------------");
-							System.out.println("----------------------求解异常----------------------");
-							System.out.println("----------------------求解异常----------------------");
+							ShowInfor.print("----------------------求解异常----------------------");
+							ShowInfor.print("----------------------求解异常----------------------");
+							ShowInfor.print("----------------------求解异常----------------------");
+							ShowInfor.print("----------------------求解异常----------------------");
+							ShowInfor.print("----------------------求解异常----------------------");
 						}
 
 						ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 						//						
 						results1 = solution2.substring(2, solution2.length() - 2).split("\\}, \\{");
 
-						//System.out.println("condition上小数型约束解为："+solution2);
+						//ShowInfor.print("condition上小数型约束解为："+solution2);
 					}
 				}
 
-				//System.out.println("condition布尔型值解为："+boolbds);//condition上布尔不等式	
+				//ShowInfor.print("condition布尔型值解为："+boolbds);//condition上布尔不等式	
 				if(boolbds!=null){
-					//System.out.println("        ===>  condition上布尔型的不等式："+boolbds);
+					//ShowInfor.print("        ===>  condition上布尔型的不等式："+boolbds);
 					if((results!=null)&&(results1!=null)){
 						//Object results;
 						//for(int i=0;;i++){
@@ -470,7 +465,7 @@ public class Result1 {
 						//}
 						//ttt3=ttt1+","+boolbds;
 					}
-					//System.out.println("condition上解为："+ttt3);
+					//ShowInfor.print("condition上解为："+ttt3);
 					if((results==null)&&(results1==null)){
 						//for(int i=0;;i++){						
 						String t3=boolbds;
@@ -513,10 +508,10 @@ public class Result1 {
 
 				}
 				for(int i=0;i<tt3.size();i++){
-					//System.out.println("list中解:"+tt3.get(i));
+					//ShowInfor.print("list中解:"+tt3.get(i));
 				}
 				if(bds00!=null){
-					//System.out.println("bds00:"+bds00);
+					//ShowInfor.print("bds00:"+bds00);
 					for(int i=0;i<tt3.size();i++){	
 						String t = tt3.get(i)+","+bds00;
 						t = t.replace(" ", "").replaceAll("->", "=").replace("(", "").replace(")", "").replace("$", "->");
@@ -530,11 +525,11 @@ public class Result1 {
 					}
 				}
 				/*for(int i=0;i<tt3.size();i++){
-					System.out.println("解"+i+"为:"+tt3.get(i));
+					ShowInfor.print("解"+i+"为:"+tt3.get(i));
 				}*/
 
 				/*for(int i=0;i<result.size();i++){					
-					System.out.println("解"+i+"为:"+result.get(i));
+					ShowInfor.print("解"+i+"为:"+result.get(i));
 				}*/
 
 				//////////////////////////////////////
@@ -561,17 +556,16 @@ public class Result1 {
 	 * 移出矛盾的不等式，取后一个不等式
 	 */
 	public static String Remove11(String bbb){
-		System.out.println("原处理不等式："+bbb);
-		TestCaseProcessTabbedPanel.TextAreaPrint("原处理不等式："+bbb);
+		ShowInfor.print("原处理不等式："+bbb);
 		String cs1 = null;
 		String cs2 = null;
 		String bds[] = bbb.replace("||", ",").split(",");
 
 		for(int i=0;i<bds.length-1;i++){
 			for(int j=i+1;j<bds.length;j++){
-				//System.out.println(bds[i]+"------"+bds[j]);
-				//System.out.println(getNumber(bds[i]));
-				//System.out.println(getNumber(bds[j]));
+				//ShowInfor.print(bds[i]+"------"+bds[j]);
+				//ShowInfor.print(getNumber(bds[i]));
+				//ShowInfor.print(getNumber(bds[j]));
 				if(getNumber(bds[i]) && getNumber(bds[j])){					
 					String[] css = bds[i].trim().split("[-!+<>=]=?");
 					for(String cs:css){						
@@ -579,7 +573,7 @@ public class Result1 {
 							int s1=cs.trim().substring(0,1).toCharArray()[0];
 							if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
 								cs1 = cs;
-								//System.out.println("第一个不等式参数："+cs);
+								//ShowInfor.print("第一个不等式参数："+cs);
 							}
 						}				
 					}
@@ -590,7 +584,7 @@ public class Result1 {
 							int s1=cs.trim().substring(0,1).toCharArray()[0];
 							if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
 								cs2 = cs;
-								//System.out.println("第二个不等式参数："+cs);
+								//ShowInfor.print("第二个不等式参数："+cs);
 							}
 						}				
 					}
@@ -599,7 +593,7 @@ public class Result1 {
 						String cs = cs1;
 						//if()
 						String solution = Mathematica.getSolution2(bds1, cs);
-						//System.out.println("solution---"+solution);
+						//ShowInfor.print("solution---"+solution);
 						if(solution.equals("{}")){
 							bbb=bbb.replaceAll(bds[i]+",", "");								
 						}						
@@ -607,8 +601,7 @@ public class Result1 {
 				}
 			}
 		}
-		System.out.println("处理后的不等式"+bbb);
-		TestCaseProcessTabbedPanel.TextAreaPrint("处理后的不等式"+bbb);
+		ShowInfor.print("处理后的不等式"+bbb);
 		return bbb;
 	}
 
@@ -630,10 +623,10 @@ public class Result1 {
 			}				
 		}
 		if(number<=1){
-			//System.out.println("一个参数");
+			//ShowInfor.print("一个参数");
 			return true;
 		}else{
-			//System.out.println("多个参数");
+			//ShowInfor.print("多个参数");
 			return false;
 		}
 
@@ -700,8 +693,7 @@ public class Result1 {
 				}
 			}
 			if((in_result.size()>0)&&!(in_result.get(0).equals(null))){							
-				System.out.println("in_result.size()--->"+in_result.size());
-				TestCaseProcessTabbedPanel.TextAreaPrint("in_result.size()--->"+in_result.size());
+				ShowInfor.print("in_result.size()--->"+in_result.size());
 				dis(0,in_result);
 				result1 = re;
 				List<String> ret = new ArrayList<String>();
@@ -752,8 +744,7 @@ public class Result1 {
 					}																
 				}
 				if((inResult.size()>0)&&!(inResult.get(0).equals(null))){
-					System.out.println("in_result.size()--->"+inResult.size());	
-					TestCaseProcessTabbedPanel.TextAreaPrint("in_result.size()--->"+inResult.size());
+					ShowInfor.print("in_result.size()--->"+inResult.size());	
 					dis(0,inResult);
 					result1 = re;
 					List<String> ret = new ArrayList<String>();
@@ -785,10 +776,9 @@ public class Result1 {
 		String cs = null;
 		if (domain.contains("<=")){
 			String[] strs = domain.split("<=");				
-			System.out.println("需处理（有<=）："+domain);
-			TestCaseProcessTabbedPanel.TextAreaPrint("需处理（有<=）："+domain);
+			ShowInfor.print("需处理（有<=）："+domain);
 			if (strs.length == 3) {	
-				//System.out.println("例如1<=x<=7");//
+				//ShowInfor.print("例如1<=x<=7");//
 				cs = strs[1];
 				float x = Float.parseFloat(strs[2])-Float.parseFloat(strs[0]);
 				float value = x/(n-1);   //解每次递增的值，n是要求出的测试用例个数			
@@ -800,9 +790,9 @@ public class Result1 {
 				result.add(cs+"="+strs[2]);				
 			} else{ 
 				if (strs[0].contains("<")||strs[1].contains("<")) {
-					//System.out.println("     例如1<x<=7或1<=x<7");//
+					//ShowInfor.print("     例如1<x<=7或1<=x<7");//
 					if (strs[1].contains("<")) {  //1<=x<7
-						//System.out.println("     例如1<=x<7");//
+						//ShowInfor.print("     例如1<=x<7");//
 						cs = strs[1].split("<")[0];
 						float x = Float.parseFloat(strs[1].split("<")[1])-Float.parseFloat(strs[0]);
 						float value = x/n;   //解每次递增的值，n是要求出的测试用例个数
@@ -813,7 +803,7 @@ public class Result1 {
 						}
 					} else {
 						if (strs[0].contains("<")) {
-							//System.out.println("     例如1<x<=7");//
+							//ShowInfor.print("     例如1<x<=7");//
 							cs = strs[0].split("<")[1];
 							float x = Float.parseFloat(strs[1])-Float.parseFloat(strs[0].split("<")[0]);
 							float value = x/n;   //解每次递增的值，n是要求出的测试用例个数
@@ -825,10 +815,10 @@ public class Result1 {
 						}						
 					}
 				} else {
-					//System.out.println("     例如1<=x或x<=7");//
+					//ShowInfor.print("     例如1<=x或x<=7");//
 					int s1=domain.substring(0,1).toCharArray()[0];
 					if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
-						//System.out.println("     例如x<=7");//
+						//ShowInfor.print("     例如x<=7");//
 						cs = strs[0];
 						float x = Float.parseFloat(strs[1])-0;
 						float value = x/(n-1);   //解每次递增的值，n是要求出的测试用例个数
@@ -839,7 +829,7 @@ public class Result1 {
 						}
 						result.add(cs+"="+strs[1]);
 					}else{
-						//System.out.println("     例如1<=x");//
+						//ShowInfor.print("     例如1<=x");//
 						cs = strs[1];
 						result.add(cs+"="+strs[0]);
 						for(int i=1;i<=n-1;i++){ //除边界还需要求出解的个数
@@ -851,11 +841,10 @@ public class Result1 {
 			}
 		}else{			 
 			if (domain.contains(">=")) {
-				System.out.println("需处理（有>=）："+domain);
-				TestCaseProcessTabbedPanel.TextAreaPrint("需处理（有>=）："+domain);
+				ShowInfor.print("需处理（有>=）："+domain);
 				String[] strs = domain.split(">=");
 				if (strs.length == 3) {	
-					//System.out.println("例如7>=x>=1");//		
+					//ShowInfor.print("例如7>=x>=1");//		
 					cs = strs[1];
 					float x = Float.parseFloat(strs[0])-Float.parseFloat(strs[2]);
 					float value = x/(n-1);   //解每次递增的值，n是要求出的测试用例个数
@@ -867,9 +856,9 @@ public class Result1 {
 					result.add(cs+"="+strs[0]);	
 				} else{ 
 					if (strs[0].contains(">")||strs[1].contains(">")) {
-						//System.out.println("     例如7>=x>1或7>x>=1");//
+						//ShowInfor.print("     例如7>=x>1或7>x>=1");//
 						if (strs[1].contains(">")) {  //1<=x<7
-							//System.out.println("     例如7>=x>1");//
+							//ShowInfor.print("     例如7>=x>1");//
 							cs = strs[1].split(">")[0];
 							float x = Float.parseFloat(strs[0])-Float.parseFloat(strs[1].split(">")[1]);
 							float value = x/n;   //解每次递增的值，n是要求出的测试用例个数
@@ -880,7 +869,7 @@ public class Result1 {
 							result.add(cs+"="+strs[0]);
 						} else {
 							if (strs[0].contains(">")) {
-								//System.out.println("     例如7>x>=1");//
+								//ShowInfor.print("     例如7>x>=1");//
 								cs = strs[0].split(">")[1];
 								float x = Float.parseFloat(strs[0])-Float.parseFloat(strs[1].split(">")[1]);
 								float value = x/n;   //解每次递增的值，n是要求出的测试用例个数
@@ -892,10 +881,10 @@ public class Result1 {
 							}						
 						}
 					}else{
-						//System.out.println("     例如x>=1或7>=x");//
+						//ShowInfor.print("     例如x>=1或7>=x");//
 						int s1=domain.substring(0,1).toCharArray()[0];
 						if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
-							//System.out.println("     例如x>=1");//
+							//ShowInfor.print("     例如x>=1");//
 							cs = domain.split(">=")[0];
 							result.add(cs+"="+domain.split(">=")[1]);
 							for(int i=1;i<=n-1;i++){ //除边界还需要求出解的个数
@@ -903,7 +892,7 @@ public class Result1 {
 								result.add(cs+"="+y);				
 							}	
 						}else{
-							//System.out.println("     例如7>=x");//						
+							//ShowInfor.print("     例如7>=x");//						
 							cs = domain.split(">=")[1];	
 							float x = Float.parseFloat(domain.split(">=")[0])-0;
 							float value = x/(n-1);   //解每次递增的值，n是要求出的测试用例个数
@@ -918,12 +907,11 @@ public class Result1 {
 				}		
 			} else{ 					
 				if (domain.contains("<")) { //不包含<=也不包含>=
-					System.out.println("需处理（有<）："+domain);
-					TestCaseProcessTabbedPanel.TextAreaPrint("需处理（有<）："+domain);
+					ShowInfor.print("需处理（有<）："+domain);
 					String[] strs = domain.split("<");
-					//System.out.println("     例如1<x<7或x<7或1<x");//
+					//ShowInfor.print("     例如1<x<7或x<7或1<x");//
 					if (strs.length == 3) {
-						//System.out.println("     例如1<x<7");//
+						//ShowInfor.print("     例如1<x<7");//
 						cs = strs[1];
 						float x = Float.parseFloat(strs[2])-Float.parseFloat(strs[0]);
 						float value = x/(n+1);   //解每次递增的值，n是要求出的测试用例个数
@@ -934,7 +922,7 @@ public class Result1 {
 					} else {
 						int s1=domain.substring(0,1).toCharArray()[0];
 						if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
-							//System.out.println("     例如x<7");//
+							//ShowInfor.print("     例如x<7");//
 							cs = strs[0];
 							float x = Float.parseFloat(strs[1])-0;
 							float value = x/(n+1);   //解每次递增的值，n是要求出的测试用例个数
@@ -943,7 +931,7 @@ public class Result1 {
 								result.add(cs+"="+y);				
 							}	
 						}else{
-							//System.out.println("     例如1<x");//					
+							//ShowInfor.print("     例如1<x");//					
 							cs = strs[1]; 
 							for(int i=1;i<=n;i++){ //除边界还需要求出解的个数
 								float y = Float.parseFloat(strs[0])+10*i;
@@ -953,12 +941,11 @@ public class Result1 {
 					}
 				} else{ 
 					if (domain.contains(">")) { //不包含<=也不包含>=也不包含<
-						System.out.println("需处理（有>）："+domain);
-						TestCaseProcessTabbedPanel.TextAreaPrint("需处理（有>）："+domain);
-						//System.out.println("     例如7>x>1或x>1或7>x");//
+						ShowInfor.print("需处理（有>）："+domain);
+						//ShowInfor.print("     例如7>x>1或x>1或7>x");//
 						String[] strs = domain.split(">");
 						if (strs.length == 3) {
-							//System.out.println("     例如7>x>1");//
+							//ShowInfor.print("     例如7>x>1");//
 							cs = strs[1];
 							float x = Float.parseFloat(strs[0])-Float.parseFloat(strs[2]);
 							float value = x/(n+1);   //解每次递增的值，n是要求出的测试用例个数
@@ -969,14 +956,14 @@ public class Result1 {
 						} else {
 							int s1=domain.substring(0,1).toCharArray()[0];
 							if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
-								//System.out.println("     例如x>1");//								
+								//ShowInfor.print("     例如x>1");//								
 								cs = strs[0]; 
 								for(int i=1;i<=n;i++){ //除边界还需要求出解的个数
 									float y = Float.parseFloat(strs[1])+10*i;
 									result.add(cs+"="+y);				
 								}	
 							}else{
-								//System.out.println("     例如7>x");//								
+								//ShowInfor.print("     例如7>x");//								
 								cs = strs[1];  
 								float x = Float.parseFloat(strs[0])-0;
 								float value = x/n;   //解每次递增的值，n是要求出的测试用例个数
@@ -1007,9 +994,9 @@ public class Result1 {
 		String cs = null;
 		if (domain.contains("<=")){
 			String[] strs = domain.split("<=");				
-			System.out.println("需处理（有<=）："+domain);
+			ShowInfor.print("需处理（有<=）："+domain);
 			if (strs.length == 3) {	
-				//System.out.println("例如1<=x<=7");//
+				//ShowInfor.print("例如1<=x<=7");//
 				cs = strs[1];	
 				result.add(cs+"="+strs[0]);
 				int y = Integer.parseInt(strs[0]);
@@ -1019,9 +1006,9 @@ public class Result1 {
 				}				
 			} else{ 
 				if (strs[0].contains("<")||strs[1].contains("<")) {
-					//System.out.println("     例如1<x<=7或1<=x<7");//
+					//ShowInfor.print("     例如1<x<=7或1<=x<7");//
 					if (strs[1].contains("<")) {  //1<=x<7
-						//System.out.println("     例如1<=x<7");//
+						//ShowInfor.print("     例如1<=x<7");//
 						cs = strs[1].split("<")[0];
 						result.add(cs+"="+strs[0]);
 						int y = Integer.parseInt(strs[0]);
@@ -1031,7 +1018,7 @@ public class Result1 {
 						}	
 					} else {
 						if (strs[0].contains("<")) {
-							//System.out.println("     例如1<x<=7");//
+							//ShowInfor.print("     例如1<x<=7");//
 							cs = strs[0].split("<")[1];
 							int y = Integer.parseInt(strs[0].split("<")[0])+1;//为了达到边界测试，把边界+1
 							result.add(cs+"="+y);
@@ -1042,10 +1029,10 @@ public class Result1 {
 						}						
 					}
 				} else {
-					//System.out.println("     例如1<=x或x<=7");//
+					//ShowInfor.print("     例如1<=x或x<=7");//
 					int s1=domain.substring(0,1).toCharArray()[0];
 					if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
-						//System.out.println("     例如x<=7");//
+						//ShowInfor.print("     例如x<=7");//
 						cs = strs[0];
 						result.add(cs+"="+0);
 						int y = 0;
@@ -1054,7 +1041,7 @@ public class Result1 {
 							result.add(cs+"="+y);				
 						}
 					}else{
-						//System.out.println("     例如1<=x");//
+						//ShowInfor.print("     例如1<=x");//
 						cs = strs[1];
 						result.add(cs+"="+strs[0]);
 						int y = Integer.parseInt(strs[0]);
@@ -1067,10 +1054,10 @@ public class Result1 {
 			}
 		}else{			 
 			if (domain.contains(">=")) {
-				System.out.println("需处理（有>=）："+domain);
+				ShowInfor.print("需处理（有>=）："+domain);
 				String[] strs = domain.split(">=");
 				if (strs.length == 3) {	
-					//System.out.println("例如7>=x>=1");//		
+					//ShowInfor.print("例如7>=x>=1");//		
 					cs = strs[1];
 					int y = Integer.parseInt(strs[2]);
 					result.add(cs+"="+y);
@@ -1080,9 +1067,9 @@ public class Result1 {
 					}	
 				} else{ 
 					if (strs[0].contains(">")||strs[1].contains(">")) {
-						//System.out.println("     例如7>=x>1或7>x>=1");//
+						//ShowInfor.print("     例如7>=x>1或7>x>=1");//
 						if (strs[1].contains(">")) {  //1<=x<7
-							//System.out.println("     例如7>=x>1");//
+							//ShowInfor.print("     例如7>=x>1");//
 							cs = strs[1].split(">")[0];
 							int y = Integer.parseInt(strs[1].split(">")[1])+1;
 							result.add(cs+"="+y);
@@ -1092,7 +1079,7 @@ public class Result1 {
 							}
 						} else {
 							if (strs[0].contains(">")) {
-								//System.out.println("     例如7>x>=1");//
+								//ShowInfor.print("     例如7>x>=1");//
 								cs = strs[0].split(">")[1];
 								result.add(cs+"="+strs[1]);
 								int y = Integer.parseInt(strs[1]);
@@ -1103,10 +1090,10 @@ public class Result1 {
 							}						
 						}
 					}else{
-						//System.out.println("     例如x>=1或7>=x");//
+						//ShowInfor.print("     例如x>=1或7>=x");//
 						int s1=domain.substring(0,1).toCharArray()[0];
 						if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
-							//System.out.println("     例如x>=1");//
+							//ShowInfor.print("     例如x>=1");//
 							cs = domain.split(">=")[0];
 							result.add(cs+"="+domain.split(">=")[1]);
 							int y = Integer.parseInt(domain.split(">=")[1]);
@@ -1115,7 +1102,7 @@ public class Result1 {
 								result.add(cs+"="+y);				
 							}	
 						}else{
-							//System.out.println("     例如7>=x");//						
+							//ShowInfor.print("     例如7>=x");//						
 							cs = domain.split(">=")[1];								
 							result.add(cs+"="+0);
 							int y = 0;
@@ -1128,11 +1115,11 @@ public class Result1 {
 				}		
 			} else{ 					
 				if (domain.contains("<")) { //不包含<=也不包含>=
-					System.out.println("需处理（有<）："+domain);
+					ShowInfor.print("需处理（有<）："+domain);
 					String[] strs = domain.split("<");
-					//System.out.println("     例如1<x<7或x<7或1<x");//
+					//ShowInfor.print("     例如1<x<7或x<7或1<x");//
 					if (strs.length == 3) {
-						//System.out.println("     例如1<x<7");//
+						//ShowInfor.print("     例如1<x<7");//
 						cs = strs[1];
 						int y = Integer.parseInt(strs[0])+1;
 						result.add(cs+"="+y);
@@ -1143,7 +1130,7 @@ public class Result1 {
 					} else {
 						int s1=domain.substring(0,1).toCharArray()[0];
 						if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
-							//System.out.println("     例如x<7");//
+							//ShowInfor.print("     例如x<7");//
 							cs = strs[0];
 							int y = 0;
 							result.add(cs+"="+y);
@@ -1152,7 +1139,7 @@ public class Result1 {
 								result.add(cs+"="+y);				
 							}	
 						}else{
-							//System.out.println("     例如1<x");//					
+							//ShowInfor.print("     例如1<x");//					
 							cs = strs[1]; 
 							int y = Integer.parseInt(strs[0])+1;
 							result.add(cs+"="+y);
@@ -1164,11 +1151,11 @@ public class Result1 {
 					}
 				} else{ 
 					if (domain.contains(">")) { //不包含<=也不包含>=也不包含<
-						System.out.println("需处理（有>）："+domain);
-						//System.out.println("     例如7>x>1或x>1或7>x");//
+						ShowInfor.print("需处理（有>）："+domain);
+						//ShowInfor.print("     例如7>x>1或x>1或7>x");//
 						String[] strs = domain.split(">");
 						if (strs.length == 3) {
-							//System.out.println("     例如7>x>1");//
+							//ShowInfor.print("     例如7>x>1");//
 							cs = strs[1];
 							int y = Integer.parseInt(strs[2])+1;
 							result.add(cs+"="+y);
@@ -1179,7 +1166,7 @@ public class Result1 {
 						} else {
 							int s1=domain.substring(0,1).toCharArray()[0];
 							if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
-								//System.out.println("     例如x>1");//								
+								//ShowInfor.print("     例如x>1");//								
 								cs = strs[0]; 
 								int y = Integer.parseInt(strs[1])+1;
 								result.add(cs+"="+y);
@@ -1188,7 +1175,7 @@ public class Result1 {
 									result.add(cs+"="+y);				
 								}	
 							}else{
-								//System.out.println("     例如7>x");//								
+								//ShowInfor.print("     例如7>x");//								
 								cs = strs[1];  
 								int y = 0;
 								result.add(cs+"="+y);						
@@ -1242,7 +1229,7 @@ public class Result1 {
 //						String value1 = (int) cell.getNumericCellValue() + "";
 //						System.out.print(value1 + "    ");
 //						string.add(value1);
-//						System.out.println();
+//						ShowInfor.print();
 //					}	
 //				} catch (IOException e) {
 //					e.printStackTrace();

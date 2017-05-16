@@ -53,22 +53,22 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 	private DefaultTableModel attributetablemodel;
 	
 	private JPanel chartpanel;
-	private JPanel barpanel;
-	private JPanel linepanel;
-	private JPanel piepanel;
-	
-	private JPanel highspeedbarpanel;
-	private JPanel timespeedbarpanel;
-	
-	private JPanel highbatterylinepanel;
-	private JPanel hightimelinepanel;
-	
+	private JPanel barpanel1;
+	private JPanel linepanel1;
+	private JPanel piepanel1;
+	private JPanel barpanel2;
+	private JPanel linepanel2;
+	private JPanel piepanel2;
+
 	private BarChart barchart;
 	private LineChart linechart;
 	private PieChart piechart;
-	private ChartPanel barchartpanel;
-	private ChartPanel linechartpanel;
-	private ChartPanel piechartpanel;
+	private ChartPanel barchartpanel1;
+	private ChartPanel linechartpanel1;
+	private ChartPanel piechartpanel1;
+	private ChartPanel barchartpanel2;
+	private ChartPanel linechartpanel2;
+	private ChartPanel piechartpanel2;
 	
 	private JPanel leftemptypanel1;
 	private JPanel leftemptypanel2;
@@ -142,7 +142,7 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		checkbox5=new JCheckBox();
 		checkbox6=new JCheckBox();
 		
-		checkbox1.setText("表格");
+		checkbox1.setText("柱状图");
 		checkbox1.setOpaque(false);
 		checkbox1.setSelected(true);
 		checkbox1.addActionListener(new ActionListener() {
@@ -150,18 +150,10 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(checkbox1.isSelected()){
-					tablepanel.setVisible(true);
-					ChangeRepaint();
-				}
-				else{
-					tablepanel.setVisible(false);
-					ChangeRepaint();
-				}
 			}
 		});
 		
-		checkbox2.setText("风速-高度柱状图");
+		checkbox2.setText("柱状图");
 		checkbox2.setOpaque(false);
 		checkbox2.setSelected(true);
 		checkbox2.addActionListener(new ActionListener() {
@@ -169,18 +161,10 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(checkbox2.isSelected()){
-					highspeedbarpanel.setVisible(true);
-					ChangeRepaint();
-				}
-				else{
-					highspeedbarpanel.setVisible(false);
-					ChangeRepaint();
-				}
 			}
 		});
 		
-		checkbox3.setText("风速-时间柱状图");
+		checkbox3.setText("折线图");
 		checkbox3.setOpaque(false);
 		checkbox3.setSelected(true);
 		checkbox3.addActionListener(new ActionListener() {
@@ -188,18 +172,10 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(checkbox3.isSelected()){
-					timespeedbarpanel.setVisible(true);
-					ChangeRepaint();
-				}
-				else{
-					timespeedbarpanel.setVisible(false);
-					ChangeRepaint();
-				}
 			}
 		});
 		
-		checkbox4.setText("高度-电量折线图");
+		checkbox4.setText("折线图");
 		checkbox4.setOpaque(false);
 		checkbox4.setSelected(true);
 		checkbox4.addActionListener(new ActionListener() {
@@ -207,18 +183,10 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(checkbox4.isSelected()){
-					highbatterylinepanel.setVisible(true);
-					ChangeRepaint();
-				}
-				else{
-					highbatterylinepanel.setVisible(false);
-					ChangeRepaint();
-				}
 			}
 		});
 		
-		checkbox5.setText("高度-时间折线图");
+		checkbox5.setText("饼状图");
 		checkbox5.setOpaque(false);
 		checkbox5.setSelected(true);
 		checkbox5.addActionListener(new ActionListener() {
@@ -226,14 +194,6 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(checkbox5.isSelected()){
-					hightimelinepanel.setVisible(true);
-					ChangeRepaint();
-				}
-				else{
-					hightimelinepanel.setVisible(false);
-					ChangeRepaint();
-				}
 			}
 		});
 		
@@ -245,14 +205,6 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(checkbox6.isSelected()){
-					piechartpanel.setVisible(true);
-					ChangeRepaint();
-				}
-				else{
-					piechartpanel.setVisible(false);
-					ChangeRepaint();
-				}
 			}
 		});
 		
@@ -263,10 +215,10 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		
 		toolpanel.add(checkbox1);
 		toolpanel.add(checkbox2);
-//		toolpanel.add(checkbox3);
-//		toolpanel.add(checkbox4);
-//		toolpanel.add(checkbox5);
-//		toolpanel.add(checkbox6);
+		toolpanel.add(checkbox3);
+		toolpanel.add(checkbox4);
+		toolpanel.add(checkbox5);
+		toolpanel.add(checkbox6);
 		
 		toolpanel.setPreferredSize(new Dimension(100, 29));
 		toolpanel.setMaximumSize(new Dimension(100, 29));
@@ -289,7 +241,7 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		emptypanel=new JPanel();
 		emptypanel.setOpaque(false);
 		
-		initTablePanel();
+//		initTablePanel();
 		
 		initChartPanel();
 		
@@ -298,12 +250,12 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		
 		GridBagLayout layout = new GridBagLayout();
 		reportresultpanel.setLayout(layout);
-		reportresultpanel.add(tablepanel);
+//		reportresultpanel.add(tablepanel);
 		reportresultpanel.add(chartpanel);
 		reportresultpanel.add(emptypanel);
-		layout.setConstraints(tablepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(chartpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(emptypanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(tablepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(chartpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(emptypanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		reportresultpanel.setBorder(null);
 		reportresultpanel.setBackground(new Color(255, 255, 255));
@@ -416,19 +368,16 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 //		linechart=new LineChart();
 //		piechart=new PieChart();
 //		
-//		barchartpanel=barchart.getChartpanel();
-//		linechartpanel=linechart.getChartpanel();
-//		piechartpanel=piechart.getChartpanel();
+//		barchartpanel=barchart.createChart();
+//		linechartpanel=linechart.createChart();
+//		piechartpanel=piechart.createChart();
 		
-		barpanel=new JPanel();
-		linepanel=new JPanel();
-		piepanel=new JPanel();
-		
-		highspeedbarpanel=new JPanel();
-		timespeedbarpanel=new JPanel();
-		
-		highbatterylinepanel=new JPanel();
-		hightimelinepanel=new JPanel();
+		barpanel1=new JPanel();
+		linepanel1=new JPanel();
+		piepanel1=new JPanel();
+		barpanel2=new JPanel();
+		linepanel2=new JPanel();
+		piepanel2=new JPanel();
 		
 		leftemptypanel1=new JPanel();
 		leftemptypanel2=new JPanel();
@@ -458,63 +407,61 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		rightemptypanel5.setOpaque(false);
 		rightemptypanel6.setOpaque(false);
 		
-		barchartpanel=new BarChart().createChart();
-		linechartpanel=new LineChart().createChart();
-		piechartpanel=new PieChart().createChart();
+		barchartpanel1=new BarChart().createChart();
+		linechartpanel1=new LineChart().createChart();
+		piechartpanel1=new PieChart().createChart();
+		barchartpanel2=new BarChart().createChart();
+		linechartpanel2=new LineChart().createChart();
+		piechartpanel2=new PieChart().createChart();
 		
-//		barchartpanel.setPreferredSize(new Dimension(300, 300));
-//		barchartpanel.setMaximumSize(new Dimension(300, 300));
-//		barchartpanel.setMinimumSize(new Dimension(300, 300));
-//		linechartpanel.setPreferredSize(new Dimension(300, 300));
-//		linechartpanel.setMaximumSize(new Dimension(300, 300));
-//		linechartpanel.setMinimumSize(new Dimension(300, 300));
-//		piechartpanel.setPreferredSize(new Dimension(300, 300));
-//		piechartpanel.setMaximumSize(new Dimension(300, 300));
-//		piechartpanel.setMinimumSize(new Dimension(300, 300));
+		barchartpanel1.setPreferredSize(new Dimension(300, 300));
+		barchartpanel1.setMaximumSize(new Dimension(300, 300));
+		barchartpanel1.setMinimumSize(new Dimension(300, 300));
+		linechartpanel1.setPreferredSize(new Dimension(300, 300));
+		linechartpanel1.setMaximumSize(new Dimension(300, 300));
+		linechartpanel1.setMinimumSize(new Dimension(300, 300));
+		piechartpanel1.setPreferredSize(new Dimension(300, 300));
+		piechartpanel1.setMaximumSize(new Dimension(300, 300));
+		piechartpanel1.setMinimumSize(new Dimension(300, 300));
 		
-		highspeedbarpanel.setPreferredSize(new Dimension(300, 300));
-		highspeedbarpanel.setMaximumSize(new Dimension(300, 300));
-		highspeedbarpanel.setMinimumSize(new Dimension(300, 300));
-		timespeedbarpanel.setPreferredSize(new Dimension(300, 300));
-		timespeedbarpanel.setMaximumSize(new Dimension(300, 300));
-		timespeedbarpanel.setMinimumSize(new Dimension(300, 300));
-		highbatterylinepanel.setPreferredSize(new Dimension(300, 300));
-		highbatterylinepanel.setMaximumSize(new Dimension(300, 300));
-		highbatterylinepanel.setMinimumSize(new Dimension(300, 300));
-		hightimelinepanel.setPreferredSize(new Dimension(300, 300));
-		hightimelinepanel.setMaximumSize(new Dimension(300, 300));
-		hightimelinepanel.setMinimumSize(new Dimension(300, 300));
-		piepanel.setPreferredSize(new Dimension(300, 300));
-		piepanel.setMaximumSize(new Dimension(300, 300));
-		piepanel.setMinimumSize(new Dimension(300, 300));
+		barchartpanel2.setPreferredSize(new Dimension(300, 300));
+		barchartpanel2.setMaximumSize(new Dimension(300, 300));
+		barchartpanel2.setMinimumSize(new Dimension(300, 300));
+		linechartpanel2.setPreferredSize(new Dimension(300, 300));
+		linechartpanel2.setMaximumSize(new Dimension(300, 300));
+		linechartpanel2.setMinimumSize(new Dimension(300, 300));
+		piechartpanel2.setPreferredSize(new Dimension(300, 300));
+		piechartpanel2.setMaximumSize(new Dimension(300, 300));
+		piechartpanel2.setMinimumSize(new Dimension(300, 300));
+		
+//		piepanel.setPreferredSize(new Dimension(300, 300));
+//		piepanel.setMaximumSize(new Dimension(300, 300));
+//		piepanel.setMinimumSize(new Dimension(300, 300));
 		
 		
 		
-//		barpanel.setLayout(new GridLayout());
-//		barpanel.add(barchartpanel);
-//		
-//		linepanel.setLayout(new GridLayout());
-//		linepanel.add(linechartpanel);
+		barpanel1.setLayout(new GridLayout());
+		barpanel1.add(barchartpanel1);
+		linepanel1.setLayout(new GridLayout());
+		linepanel1.add(linechartpanel1);
+		piepanel1.setLayout(new GridLayout());
+		piepanel1.add(piechartpanel1);
 		
-		piepanel.setLayout(new GridLayout());
-		piepanel.add(piechartpanel);
-		
-		highspeedbarpanel.setLayout(new GridLayout());
-		timespeedbarpanel.setLayout(new GridLayout());
-		
-		highbatterylinepanel.setLayout(new GridLayout());
-		hightimelinepanel.setLayout(new GridLayout());
-		
+		barpanel2.setLayout(new GridLayout());
+		barpanel2.add(barchartpanel2);
+		linepanel2.setLayout(new GridLayout());
+		linepanel2.add(linechartpanel2);
+		piepanel2.setLayout(new GridLayout());
+		piepanel2.add(piechartpanel2);
 		
 		GridBagLayout layout = new GridBagLayout();
 		chartpanel.setLayout(layout);
-//		chartpanel.add(barpanel);
-//		chartpanel.add(linepanel);
-		chartpanel.add(highspeedbarpanel);
-		chartpanel.add(timespeedbarpanel);
-		chartpanel.add(highbatterylinepanel);
-		chartpanel.add(hightimelinepanel);
-		chartpanel.add(piepanel);
+		chartpanel.add(barpanel1);
+		chartpanel.add(linepanel1);
+		chartpanel.add(piepanel1);
+		chartpanel.add(barpanel2);
+		chartpanel.add(linepanel2);
+		chartpanel.add(piepanel2);
 		
 //		chartpanel.add(leftemptypanel1);
 //		chartpanel.add(leftemptypanel2);
@@ -527,40 +474,22 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 //		chartpanel.add(rightemptypanel4);
 //		chartpanel.add(rightemptypanel5);
 		
-//		layout.setConstraints(barpanel, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
-//		layout.setConstraints(linepanel, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
-		
-//		layout.setConstraints(highspeedbarpanel, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
-//		layout.setConstraints(timespeedbarpanel, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
-//		layout.setConstraints(highbatterylinepanel, new GBC(1, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
-//		layout.setConstraints(hightimelinepanel, new GBC(1, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
-//		layout.setConstraints(piepanel, new GBC(1, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.4, 1));
-//		
+		layout.setConstraints(barpanel1, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(linepanel1, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(piepanel1, new GBC(1, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+
+		layout.setConstraints(barpanel2, new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(linepanel2, new GBC(2, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(piepanel2, new GBC(2, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+
 //		layout.setConstraints(leftemptypanel1, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 //		layout.setConstraints(leftemptypanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 //		layout.setConstraints(leftemptypanel3, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 //		layout.setConstraints(leftemptypanel4, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 //		layout.setConstraints(leftemptypanel5, new GBC(0, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-//		layout.setConstraints(rightemptypanel1, new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-//		layout.setConstraints(rightemptypanel2, new GBC(2, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-//		layout.setConstraints(rightemptypanel3, new GBC(2, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-//		layout.setConstraints(rightemptypanel4, new GBC(2, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-//		layout.setConstraints(rightemptypanel5, new GBC(2, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-		
-		layout.setConstraints(highspeedbarpanel, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(timespeedbarpanel, new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(highbatterylinepanel, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(hightimelinepanel, new GBC(2, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(piepanel, new GBC(1, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		
-//		layout.setConstraints(leftemptypanel1, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.1, 1));
-//		layout.setConstraints(leftemptypanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.1, 1));
-//		layout.setConstraints(leftemptypanel3, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.1, 1));
-//		layout.setConstraints(leftemptypanel4, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-//		layout.setConstraints(leftemptypanel5, new GBC(0, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
-//		layout.setConstraints(rightemptypanel1, new GBC(3, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.1, 1));
-//		layout.setConstraints(rightemptypanel2, new GBC(3, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.1, 1));
-//		layout.setConstraints(rightemptypanel3, new GBC(3, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.1, 1));
+//		layout.setConstraints(rightemptypanel1, new GBC(3, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+//		layout.setConstraints(rightemptypanel2, new GBC(3, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
+//		layout.setConstraints(rightemptypanel3, new GBC(3, 3, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 //		layout.setConstraints(rightemptypanel4, new GBC(2, 4, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 //		layout.setConstraints(rightemptypanel5, new GBC(2, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 		
@@ -575,18 +504,6 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		this.setVisible(true);
 	}
 
-	public JPanel getBarpanel() {
-		return barpanel;
-	}
-
-	public JPanel getLinepanel() {
-		return linepanel;
-	}
-
-	public JPanel getPiepanel() {
-		return piepanel;
-	}
-
 	public JTable getAttributetable() {
 		return attributetable;
 	}
@@ -595,23 +512,4 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		return attributetablemodel;
 	}
 
-	public JPanel getHighbatterylinepanel() {
-		return highbatterylinepanel;
-	}
-
-	public JPanel getHightimelinepanel() {
-		return hightimelinepanel;
-	}
-
-	public JPanel getHighspeedbarpanel() {
-		return highspeedbarpanel;
-	}
-
-	public JPanel getTimespeedbarpanel() {
-		return timespeedbarpanel;
-	}
-
-	
-	
-	
 }

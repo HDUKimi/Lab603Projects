@@ -7,6 +7,7 @@ import java.util.HashSet;
 import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
 import com.horstmann.violet.application.gui.util.ckt.handle.State;
 import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
+import com.horstmann.violet.application.gui.util.ckt.output.ShowInfor;
 
 public class TranCoverUtil {
 	private static Automatic mAutomatic;
@@ -54,7 +55,7 @@ public class TranCoverUtil {
 		// 去掉回路的边
 		removeCircleTran();
 		
-		System.out.println("去掉回路的边剩余" + transitions.size());
+		ShowInfor.print("去掉回路的边剩余" + transitions.size());
 		
 		
 		// 找出开始节点到终止节点的路径
@@ -79,7 +80,7 @@ public class TranCoverUtil {
 			transitions.removeAll(trans);
 		}
 		
-		System.out.println("去掉终止节点路径的所有tran后剩余" + transitions.size());
+		ShowInfor.print("去掉终止节点路径的所有tran后剩余" + transitions.size());
 		// 找出剩下的tran组成的部分路径 -------------------------
 		while(true) {
 			if (transitions.size() == 0) {
@@ -176,9 +177,9 @@ public class TranCoverUtil {
 		onePath.add(tran);
 		if (targetState == finalState) { // 到达目标节点
 			directPaths.add(new ArrayList<>(onePath));
-			System.out.println("得到一条路径到状态" +finalState.getId() + "----count :" +count++);
+			ShowInfor.print("得到一条路径到状态" +finalState.getId() + "----count :" +count++);
 			for(Transition tran1 : onePath) {
-				System.out.println(tran1.getName());
+				ShowInfor.print(tran1.getName());
 			}
 			onePath.remove(tran);
 			visited[tran.getId()] = 0;
@@ -251,7 +252,7 @@ public class TranCoverUtil {
 				i--;
 			}
 		}
-		System.out.println("去掉了" + removeCount + "/" + originTranSize + "条循环迁移");
+		ShowInfor.print("去掉了" + removeCount + "/" + originTranSize + "条循环迁移");
 	}
 	
 

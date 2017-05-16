@@ -10,6 +10,7 @@ import java.util.HashSet;
 import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
 import com.horstmann.violet.application.gui.util.ckt.handle.State;
 import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
+import com.horstmann.violet.application.gui.util.ckt.output.ShowInfor;
 
 public class GeneratePath {
 	private static Automatic mAutomatic;
@@ -61,7 +62,7 @@ public class GeneratePath {
 		ArrayList<ArrayList<Transition>> paths = 
 				TranCoverUtil.getTranCoverTestCaseFromAutomatic(automatic, wantedSize, statePoints);
 		
-		System.out.println("共有" + paths.size() + "条路径");
+		ShowInfor.print("共有" + paths.size() + "条路径");
 		
 		int i=1;
 		ArrayList<Automatic> res = new ArrayList<>();
@@ -83,9 +84,10 @@ public class GeneratePath {
 		for(Transition tran : tranList) {
 			
 			
-			System.out.println();
-			System.out.println(tran.getName());
-			System.out.println("condition:" + tran.getCondition());
+			ShowInfor.print();
+			ShowInfor.print(tran.getName());
+			ShowInfor.print("condition:" + tran.getCondition());
+			
 		}
 		return GeneratePath.fromTranListToAuto(tranList);
 	}

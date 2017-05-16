@@ -1267,11 +1267,24 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					baseUrl += "\\TimeTest\\";
 				}
 				
-				if(selectCoverState==0){
-					name+="zhuangtai";
+				if(starttype==1){//¹¦ÄÜ²âÊÔ
+					if(selectCoverState==0){//×´Ì¬¸²¸Ç
+						name+="×´Ì¬¸²¸Ç";
+					}
+					else if(selectCoverState==1){//Â·¾¶¸²¸Ç
+						name+="Â·¾¶¸²¸Ç";
+					}
 				}
-				else if(selectCoverState==1){
-					name+="lujing";
+				else if(starttype==2){//ÐÔÄÜ²âÊÔ
+					
+				}
+				else if(starttype==3){//Ê±¼äÔ¼Êø²âÊÔ
+					if(selectCoverState==0){//×´Ì¬¸²¸Ç
+						name+="×´Ì¬¸²¸Ç";
+					}
+					else if(selectCoverState==1){//Â·¾¶¸²¸Ç
+						name+="Â·¾¶¸²¸Ç";
+					}
 				}
 				
 				String path=baseUrl+name+"TestCase.xml";

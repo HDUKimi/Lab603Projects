@@ -14,6 +14,7 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
 import com.horstmann.violet.application.gui.util.ckt.handle.*;
+import com.horstmann.violet.application.gui.util.ckt.output.ShowInfor;
 import com.horstmann.violet.application.gui.util.ckt.testcase.*;
 import com.horstmann.violet.application.gui.util.wj.util.*;
 
@@ -37,51 +38,51 @@ public class PerformanceXML2 {
 			List<List<String>> cases = new ArrayList<List<String>>(); // 测试用例集合
 			List<String> outtt=new ArrayList<String>();//out输出
 			List<List<String>> syso=new ArrayList<List<String>>();
-			System.out.println("===========================正在读取第"+i+"条测试用例");
-			System.out.println("  ===>  测试用例名字:"+a.getName());
+			ShowInfor.print("===========================正在读取第"+i+"条测试用例");
+			ShowInfor.print("  ===>  测试用例名字:"+a.getName());
 			int j = 1;
 			for(Transition tran:a.getTransitionSet()){
-				System.out.println();
-				System.out.println("======第"+j+"条迁移开始======");
-				System.out.println("迁移内容:"+tran.getIn()+"---"+tran.getCondition());
+				ShowInfor.print();
+				ShowInfor.print("======第"+j+"条迁移开始======");
+				ShowInfor.print("迁移内容:"+tran.getIn()+"---"+tran.getCondition());
 				String sss = new String();
 				List<String> result1=new ArrayList<String>();//存放in里面最终实例化结果			
 				List<String> result2=new ArrayList<String>();//存放condition里面最终实例化结果
 				if(tran.getName().contains("(")){
 					int index11=tran.getName().replace("!", "").replace("?", "").indexOf("(");
 					sss=tran.getName().substring(0,index11);
-					System.out.println("迁移(激励)名称："+sss);
+					ShowInfor.print("迁移(激励)名称："+sss);
 				}
 				else{
 					sss = tran.getName().replace("!", "").replace("?", "");
-					System.out.println("迁移(激励)名称："+sss);
+					ShowInfor.print("迁移(激励)名称："+sss);
 				}
-				System.out.println("迁移Id："+tran.getId());								
-				//System.out.println("源状态名称："+tran.getSource());
-				//System.out.println("目的状态名称："+tran.getTarget());
+				ShowInfor.print("迁移Id："+tran.getId());								
+				//ShowInfor.print("源状态名称："+tran.getSource());
+				//ShowInfor.print("目的状态名称："+tran.getTarget());
 				//未处理的约束条件	
-				//System.out.println("约束："+tran.getEventSet());//约束不等式
+				//ShowInfor.print("约束："+tran.getEventSet());//约束不等式
 
 
 				/**
 				 * 处理in里面的不等式和参数，实例化in
 				 */
 				//处理in里面的不等式和参数，得到参数类型与参数一一对应的map，进行添加不等式操作
-				//System.out.println("========================in========================");	
-				System.out.println("in---->"+tran.getIn());	//in里面的内容
+				//ShowInfor.print("========================in========================");	
+				ShowInfor.print("in---->"+tran.getIn());	//in里面的内容
 				if(tran.getIn().equals("null")){	
 					result1.add(null);
 				}else{	
 					result1=Result_2.preInResult(tran.getIn(),Fspeed);
 					syso.add(result1);
 				}
-				System.out.println("-------------------"+result1.toString());
+				ShowInfor.print("-------------------"+result1.toString());
 
 				/**
 				 * 处理condition里面的不等式和参数，实例化condition
 				 */
 
-				//System.out.println("condition---->"+tran.getCondition());
+				//ShowInfor.print("condition---->"+tran.getCondition());
 				if(tran.getCondition().equals("null")){	
 					result2.add(null);
 				}else{
@@ -92,11 +93,11 @@ public class PerformanceXML2 {
 							if(!(GetMap.get_condMap(tran.getCondition())==null)){
 								String tra = tran.getCondition().replace("false", "False").replace("true", "True").replace("->", "$");
 								//result2 = Result.getResult(tra);
-								System.out.println("tra----"+tra);
+								ShowInfor.print("tra----"+tra);
 								result2 = Result1.getResult(tra);
 								//result2 = testbdscs.getResult(tra);						
 								for(int ii=0;ii<result2.size();ii++){
-									//System.out.println("condition里解"+ii+"为:"+result2.get(ii));
+									//ShowInfor.print("condition里解"+ii+"为:"+result2.get(ii));
 								}
 							}
 						}
@@ -217,13 +218,13 @@ public class PerformanceXML2 {
 						}
 					}
 				}	
-//				System.out.println("result--------------"+result);
+//				ShowInfor.print("result--------------"+result);
 				if(result.size()==0){
 					//input.setText("解1为:"+null);
 				}else{
 					if(result.get(0).contains("takeoff_alt_cm")){
 						for(int ii=1;ii<=result.size();ii++){
-							System.out.println("解==========="+ii+"为:"+result.get(ii-1));//输出所有解
+							ShowInfor.print("解==========="+ii+"为:"+result.get(ii-1));//输出所有解
 							String s = "解==========="+ii+"为:"+result.get(ii-1);
 						}
 					}
@@ -231,7 +232,7 @@ public class PerformanceXML2 {
 				}
 				cases.add(result);
 				////////////////////////////////////////////////////////////////////////////////////
-				//System.out.println("                 ======第"+j+"条迁移结束======");
+				//ShowInfor.print("                 ======第"+j+"条迁移结束======");
 				j++;
 			}//for(Transition tran:a.getTransitionSet())
 			/**
@@ -264,17 +265,17 @@ public class PerformanceXML2 {
 			for(int nn=0;nn<cases.size();nn++){
 				int n = cases.get(nn).size();
 				numm = numm*n;
-				//System.out.println("第"+nn+"条迁移上解个数为："+cases.get(nn).size());
+				//ShowInfor.print("第"+nn+"条迁移上解个数为："+cases.get(nn).size());
 			}*/
 			/*int numm = casess.size();
-			System.out.println("第"+i+"条测试路径上解个数"+numm);
+			ShowInfor.print("第"+i+"条测试路径上解个数"+numm);
 			int num=1000;//一条路径100个测试用例///////////////////////////////////////////////////////////////////////////////////
 			if(num>numm){   //如果一条路径上解小于100，则选取真实个数
 				num = numm;
 			}*/
 			for (int j2 = 0; j2 < syso.size(); j2++) {
 				//if(syso.get(j2).get(0).contains("takeoff_alt_cm")){
-					System.out.println("============================="+syso.get(j2).size()+"-----"+syso.get(j2).toString());
+					ShowInfor.print("============================="+syso.get(j2).size()+"-----"+syso.get(j2).toString());
 				//}
 				
 			}
@@ -284,20 +285,20 @@ public class PerformanceXML2 {
 			//生成测试用例个数是含有高度迁移的组合数
 			for(int n = 0;n<cases.size();n++){			
 				if(cases.get(n).get(0).contains("takeoff_alt_cm")){	
-					System.out.println("里面解个数："+cases.get(n).size());
+					ShowInfor.print("里面解个数："+cases.get(n).size());
 					min = cases.get(n).size();
 					if(num<min){
 						num = min;
 					}
 				}
 			}
-			//System.out.println("测试用例的个数为："+num);
-			//System.out.println("in里面解个数："+cases);
+			//ShowInfor.print("测试用例的个数为："+num);
+			//ShowInfor.print("in里面解个数："+cases);
 			for(int n1=0;n1<num;n1++){
 				// 4、生成子节点及节点内容
 				Element testcase = tcs.addElement("testcase");
 				int m = n1;
-				//System.out.println("---------------------testcase"+n1);
+				//ShowInfor.print("---------------------testcase"+n1);
 				for(int nn=0;nn<cases.size();nn++){//cases.size表示边的个数
 					//添加节点
 					Element process = testcase.addElement("process");
@@ -308,7 +309,7 @@ public class PerformanceXML2 {
 						if (random == -1) {
 							random = new Random().nextInt(cases.get(nn).size());
 						}
-						//System.out.println("random-->"+random);
+						//ShowInfor.print("random-->"+random);
 						value = cases.get(nn).get(random);
 					}else{
 						//cases.get(nn).get(0).substring(18).contains("takeoff_alt_cm")
@@ -320,16 +321,16 @@ public class PerformanceXML2 {
 								}
 								value = cases.get(nn).get(random);	
 							}else{
-								//System.out.println("第"+n1+"个测试用例");
-								//System.out.println("======"+n1);
-								//System.out.println(cases.get(nn).size());
+								//ShowInfor.print("第"+n1+"个测试用例");
+								//ShowInfor.print("======"+n1);
+								//ShowInfor.print(cases.get(nn).size());
 								value = cases.get(nn).get(m);
 							}						
 						}					
 					}
-					//System.out.println("解value-->"+value);
+					//ShowInfor.print("解value-->"+value);
 					String[] cs =value.toString().split("%");
-					//System.out.println("operation-->"+cs[0]);
+					//ShowInfor.print("operation-->"+cs[0]);
 					if(cs[0].contains("flag=1")){
 						String name = cs[0].replace("flag=1", "");
 						operation.setText(name);
@@ -347,24 +348,24 @@ public class PerformanceXML2 {
 						input.setText(cs[1]);
 					}
 					//input.setText(cs[1]);
-					//System.out.println("input-->"+cs[1]);
+					//ShowInfor.print("input-->"+cs[1]);
 					Element output = process.addElement("output");
-					//System.out.println(outtt.get(nn).toString());
+					//ShowInfor.print(outtt.get(nn).toString());
 					output.setText(cs[2]);
 
 				}
-				//System.out.println("---------------------testcase");
-				//System.out.println(a.getName());
+				//ShowInfor.print("---------------------testcase");
+				//ShowInfor.print(a.getName());
 			}
 			////////
-			//System.out.println("===========================第"+i+"条测试用例读取完成");
+			//ShowInfor.print("===========================第"+i+"条测试用例读取完成");
 			i++;
 
 
 			//}//for(Automatic a:testCase)
 
-			//System.out.println("抽象测试序列个数："+testCase.size());
-			System.out.println();
+			//ShowInfor.print("抽象测试序列个数："+testCase.size());
+			ShowInfor.print();
 			/////////////////////
 			/////////////////////
 		}
@@ -414,51 +415,51 @@ public class PerformanceXML2 {
 			List<List<String>> cases = new ArrayList<List<String>>(); // 测试用例集合
 			List<String> outtt=new ArrayList<String>();//out输出
 			List<List<String>> syso=new ArrayList<List<String>>();
-			System.out.println("===========================正在读取第"+i+"条测试用例");
-			System.out.println("  ===>  测试用例名字:"+automatic.getName());
+			ShowInfor.print("===========================正在读取第"+i+"条测试用例");
+			ShowInfor.print("  ===>  测试用例名字:"+automatic.getName());
 			int j = 1;
 			for(Transition tran:automatic.getTransitionSet()){
-				System.out.println();
-				System.out.println("======第"+j+"条迁移开始======");
-				System.out.println("迁移内容:"+tran.getIn()+"---"+tran.getCondition());
+				ShowInfor.print();
+				ShowInfor.print("======第"+j+"条迁移开始======");
+				ShowInfor.print("迁移内容:"+tran.getIn()+"---"+tran.getCondition());
 				String sss = new String();
 				List<String> result1=new ArrayList<String>();//存放in里面最终实例化结果			
 				List<String> result2=new ArrayList<String>();//存放condition里面最终实例化结果
 				if(tran.getName().contains("(")){
 					int index11=tran.getName().replace("!", "").replace("?", "").indexOf("(");
 					sss=tran.getName().substring(0,index11);
-					System.out.println("迁移(激励)名称："+sss);
+					ShowInfor.print("迁移(激励)名称："+sss);
 				}
 				else{
 					sss = tran.getName().replace("!", "").replace("?", "");
-					System.out.println("迁移(激励)名称："+sss);
+					ShowInfor.print("迁移(激励)名称："+sss);
 				}
-				System.out.println("迁移Id："+tran.getId());								
-				//System.out.println("源状态名称："+tran.getSource());
-				//System.out.println("目的状态名称："+tran.getTarget());
+				ShowInfor.print("迁移Id："+tran.getId());								
+				//ShowInfor.print("源状态名称："+tran.getSource());
+				//ShowInfor.print("目的状态名称："+tran.getTarget());
 				//未处理的约束条件	
-				//System.out.println("约束："+tran.getEventSet());//约束不等式
+				//ShowInfor.print("约束："+tran.getEventSet());//约束不等式
 
 
 				/**
 				 * 处理in里面的不等式和参数，实例化in
 				 */
 				//处理in里面的不等式和参数，得到参数类型与参数一一对应的map，进行添加不等式操作
-				//System.out.println("========================in========================");	
-				System.out.println("in---->"+tran.getIn());	//in里面的内容
+				//ShowInfor.print("========================in========================");	
+				ShowInfor.print("in---->"+tran.getIn());	//in里面的内容
 				if(tran.getIn().equals("null")){	
 					result1.add(null);
 				}else{	
 					result1=Result_2.preInResult(tran.getIn(),Fspeed);
 					syso.add(result1);
 				}
-				System.out.println("-------------------"+result1.toString());
+				ShowInfor.print("-------------------"+result1.toString());
 
 				/**
 				 * 处理condition里面的不等式和参数，实例化condition
 				 */
 
-				//System.out.println("condition---->"+tran.getCondition());
+				//ShowInfor.print("condition---->"+tran.getCondition());
 				if(tran.getCondition().equals("null")){	
 					result2.add(null);
 				}else{
@@ -469,11 +470,11 @@ public class PerformanceXML2 {
 							if(!(GetMap.get_condMap(tran.getCondition())==null)){
 								String tra = tran.getCondition().replace("false", "False").replace("true", "True").replace("->", "$");
 								//result2 = Result.getResult(tra);
-								System.out.println("tra----"+tra);
+								ShowInfor.print("tra----"+tra);
 								result2 = Result1.getResult(tra);
 								//result2 = testbdscs.getResult(tra);						
 								for(int ii=0;ii<result2.size();ii++){
-									//System.out.println("condition里解"+ii+"为:"+result2.get(ii));
+									//ShowInfor.print("condition里解"+ii+"为:"+result2.get(ii));
 								}
 							}
 						}
@@ -594,13 +595,13 @@ public class PerformanceXML2 {
 						}
 					}
 				}	
-//				System.out.println("result--------------"+result);
+//				ShowInfor.print("result--------------"+result);
 				if(result.size()==0){
 					//input.setText("解1为:"+null);
 				}else{
 					if(result.get(0).contains("takeoff_alt_cm")){
 						for(int ii=1;ii<=result.size();ii++){
-							System.out.println("解==========="+ii+"为:"+result.get(ii-1));//输出所有解
+							ShowInfor.print("解==========="+ii+"为:"+result.get(ii-1));//输出所有解
 							String s = "解==========="+ii+"为:"+result.get(ii-1);
 						}
 					}
@@ -608,7 +609,7 @@ public class PerformanceXML2 {
 				}
 				cases.add(result);
 				////////////////////////////////////////////////////////////////////////////////////
-				//System.out.println("                 ======第"+j+"条迁移结束======");
+				//ShowInfor.print("                 ======第"+j+"条迁移结束======");
 				j++;
 				
 				tran.setResult(result);
@@ -639,20 +640,20 @@ public class PerformanceXML2 {
 			//生成测试用例个数是含有高度迁移的组合数
 			for(int n = 0;n<cases.size();n++){			
 				if(cases.get(n).get(0).contains("takeoff_alt_cm")){	
-					System.out.println("里面解个数："+cases.get(n).size());
+					ShowInfor.print("里面解个数："+cases.get(n).size());
 					min = cases.get(n).size();
 					if(num<min){
 						num = min;
 					}
 				}
 			}
-			//System.out.println("测试用例的个数为："+num);
-			//System.out.println("in里面解个数："+cases);
+			//ShowInfor.print("测试用例的个数为："+num);
+			//ShowInfor.print("in里面解个数："+cases);
 			for(int n1=0;n1<num;n1++){
 				// 4、生成子节点及节点内容
 				Element testcase = tcs.addElement("testcase");
 				int m = n1;
-				//System.out.println("---------------------testcase"+n1);
+				//ShowInfor.print("---------------------testcase"+n1);
 				for(int nn=0;nn<cases.size();nn++){//cases.size表示边的个数
 					//添加节点
 					Element process = testcase.addElement("process");
@@ -663,7 +664,7 @@ public class PerformanceXML2 {
 						if (random == -1) {
 							random = new Random().nextInt(cases.get(nn).size());
 						}
-						//System.out.println("random-->"+random);
+						//ShowInfor.print("random-->"+random);
 						value = cases.get(nn).get(random);
 					}else{
 						//cases.get(nn).get(0).substring(18).contains("takeoff_alt_cm")
@@ -675,16 +676,16 @@ public class PerformanceXML2 {
 								}
 								value = cases.get(nn).get(random);	
 							}else{
-								//System.out.println("第"+n1+"个测试用例");
-								//System.out.println("======"+n1);
-								//System.out.println(cases.get(nn).size());
+								//ShowInfor.print("第"+n1+"个测试用例");
+								//ShowInfor.print("======"+n1);
+								//ShowInfor.print(cases.get(nn).size());
 								value = cases.get(nn).get(m);
 							}						
 						}					
 					}
-					//System.out.println("解value-->"+value);
+					//ShowInfor.print("解value-->"+value);
 					String[] cs =value.toString().split("%");
-					//System.out.println("operation-->"+cs[0]);
+					//ShowInfor.print("operation-->"+cs[0]);
 					if(cs[0].contains("flag=1")){
 						String name = cs[0].replace("flag=1", "");
 						operation.setText(name);
@@ -702,22 +703,22 @@ public class PerformanceXML2 {
 						input.setText(cs[1]);
 					}
 					//input.setText(cs[1]);
-					//System.out.println("input-->"+cs[1]);
+					//ShowInfor.print("input-->"+cs[1]);
 					Element output = process.addElement("output");
-					//System.out.println(outtt.get(nn).toString());
+					//ShowInfor.print(outtt.get(nn).toString());
 					output.setText(cs[2]);
 
 				}
-				//System.out.println("---------------------testcase");
-				//System.out.println(a.getName());
+				//ShowInfor.print("---------------------testcase");
+				//ShowInfor.print(a.getName());
 			}
 			////////
-			//System.out.println("===========================第"+i+"条测试用例读取完成");
+			//ShowInfor.print("===========================第"+i+"条测试用例读取完成");
 			
 			//}//for(Automatic a:testCase)
 
-			//System.out.println("抽象测试序列个数："+testCase.size());
-			System.out.println();
+			//ShowInfor.print("抽象测试序列个数："+testCase.size());
+			ShowInfor.print();
 			/////////////////////
 			/////////////////////
 			

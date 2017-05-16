@@ -32,10 +32,10 @@ public class PerformanceHighTimeLineChart {
 		
 		System.out.println(resultmap.size());
 		for(Map.Entry<String, List<Pair>> entry:resultmap.entrySet()){
-			System.out.println(entry.getKey()+"  "+entry.getValue().size());
+//			System.out.println(entry.getKey()+"  "+entry.getValue().size());
 			XYSeries xyseries=new XYSeries(entry.getKey());
 			for(Pair p:entry.getValue()){
-				System.out.println(p.getFirst()+" - - "+p.getSecond());
+//				System.out.println(p.getFirst()+" - - "+p.getSecond());
 				xyseries.add(Double.parseDouble(p.getFirst()), Double.parseDouble(p.getSecond()));
 			}
 			xyseriescollection.addSeries(xyseries);

@@ -48,7 +48,7 @@ public class PerformanceHighBatteryLineChart {
 			System.out.println(entry.getKey()+"  "+entry.getValue().size());
 			XYSeries xyseries=new XYSeries(entry.getKey());
 			for(Pair p:entry.getValue()){
-				System.out.println(p.getFirst()+" - - "+p.getSecond());
+//				System.out.println(p.getFirst()+" - - "+p.getSecond());
 				xyseries.add(Double.parseDouble(p.getFirst().replaceAll("%", "")), Double.parseDouble(p.getSecond().replaceAll("%", "")));
 			}
 			xyseriescollection.addSeries(xyseries);

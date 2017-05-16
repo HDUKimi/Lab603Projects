@@ -428,6 +428,8 @@ public class StepButtonPanel extends JPanel {
 				setstepbuttonpanelrepaint();
 				step2buttonpanel.setBackground(new Color(53,55,59));
 				index=2;
+				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
+				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			}
 		});
 		step3button.setIcon(icon3);
@@ -477,6 +479,8 @@ public class StepButtonPanel extends JPanel {
 				setstepbuttonpanelrepaint();
 				step3buttonpanel.setBackground(new Color(53,55,59));
 				index=3;
+				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
+				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			}
 		});
 		step4button.setIcon(icon4);
@@ -526,6 +530,8 @@ public class StepButtonPanel extends JPanel {
 				setstepbuttonpanelrepaint();
 				step4buttonpanel.setBackground(new Color(53,55,59));
 				index=4;
+				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
+				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			}
 		});
 		step5button.setIcon(icon5);
@@ -575,6 +581,8 @@ public class StepButtonPanel extends JPanel {
 				setstepbuttonpanelrepaint();
 				step5buttonpanel.setBackground(new Color(53,55,59));
 				index=5;
+				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
+				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			}
 		});
 		step6button.setIcon(icon6);
@@ -624,6 +632,8 @@ public class StepButtonPanel extends JPanel {
 				setstepbuttonpanelrepaint();
 				step6buttonpanel.setBackground(new Color(53,55,59));
 				index=6;
+				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
+				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			}
 		});
 //		homebutton.addMouseListener(new ButtonMouseListener());
