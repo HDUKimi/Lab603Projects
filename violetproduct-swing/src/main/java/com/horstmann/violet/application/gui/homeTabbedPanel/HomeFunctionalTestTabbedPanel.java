@@ -153,7 +153,7 @@ public class HomeFunctionalTestTabbedPanel extends JPanel {
 				// TODO Auto-generated method stub
 
 				mainFrame.getHomeAllTabbedPanel().setStarttype(1);
-				mainFrame.getStepButton().getStep2button().doClick();
+				mainFrame.getStepButton().getStep1button().doClick();
 				
 				mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().updateFileList();
 				mainFrame.getTestCaseGenerationPanel().updateFileList();

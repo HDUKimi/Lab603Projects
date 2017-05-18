@@ -30,10 +30,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.ProgressBarUI;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -432,20 +434,27 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 						progressbar.setValue(progressbar.getValue()+1);
 						progressbarlabel.setText(progressbar.getValue()+"%");
 						
-						JTextArea textarea=mainFrame.getConsolePartPanel().getTextarea();
-						textarea.setCaretPosition(textarea.getDocument().getLength()*progressbar.getValue()/100);
+						int count=StepTwoArea.getLineCount();
+						int index=count*progressbar.getValue()/100;
+						if(index==count){
+							index-=1;
+						}
+						int startindex=StepTwoArea.getLineStartOffset(index);
+//						int endindex=StepTwoArea.getLineEndOffset(index);
+						StepTwoArea.requestFocus();
+						StepTwoArea.setSelectionStart(startindex);
+						StepTwoArea.setSelectionEnd(startindex);
+//						System.err.println("---"+count+"--"+index+"--"+startindex+"--"+endindex+"--");
 						
-//						JScrollBar bar=mainFrame.getConsolePartPanel().getTextscrollpanel().getVerticalScrollBar();
-//						System.out.println(bar.getValue()+" -******- "+bar.getMaximum()+"   "+bar.getMaximum()*progressbar.getValue()/100);
-//						bar.setValue(bar.getMaximum()*progressbar.getValue()/100);
-//						
-//						ChangeRepaint();
+						ChangeRepaint();
 						
 					}
 				}
 				System.err.println(trantask.isDone()+" - - "+progressbarindex+" + + "+(!trantask.isDone()||progressbarindex<=100));
 				moviepanel.getMovieLabel().setText("所有顺序图全部转换完成，总共有"+sequencelists.size()+"张顺序图，转换成功了"+successcount+"张顺序图，转换率为："+(double)successcount/sequencelists.size()*100+"%");
 				StepTwoArea.append("UML模型转换完成......\n");
+				StepTwoArea.setCaretPosition(StepTwoArea.getDocument().getLength()*progressbar.getValue()/100);
+
 				threadstate=0;
 				
 				return 1;
@@ -957,6 +966,13 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 		tabelpanel.setLayout(new GridLayout());
 		tabelpanel.add(tabelscrollpanel);
 		tabelpanel.setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
+	}
+	
+	public void ChangeRepaint() {
+		// TODO Auto-generated method stub
+		this.setVisible(false);
+		this.getRootPane().repaint();
+		this.setVisible(true);
 	}
 	
 	public DefaultTableModel getSequencetouppaaltablemodel() {

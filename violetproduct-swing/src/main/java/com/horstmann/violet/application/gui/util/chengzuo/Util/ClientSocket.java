@@ -68,35 +68,28 @@ public class ClientSocket {
 	/**
 	 * 创建socket连接
 	 */
-	public void Connection() {
+	public boolean Connection() {
 		// 1.创建 socket
 		try {
 			socket = new Socket(IP, PORT);
+			if(isConnect()){
+				// 2.初始化线程
+				initThread();
+				// 3.弹框提示
+				JOptionPane.showMessageDialog(null, "成功连接到服务器", null, JOptionPane.OK_CANCEL_OPTION);
+				return true;
+			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "服务器未开启", null, JOptionPane.CANCEL_OPTION);
 		}
-		// 2.初始化线程
-		initThread();
-		// 3.弹框提示
-		JOptionPane.showMessageDialog(null, "成功连接到服务器", null, JOptionPane.OK_CANCEL_OPTION);
+		return false;
 	}
 
-	/**
-	 * 关闭socket连接
-	 */
-	public void ConnectionClose() {
+	public void close(){
+		// 2.socket关闭
 		try {
-			// 0.发送关闭信号，关闭服务器端连接
-			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-			out.write("exit".getBytes());
-			out.flush();
-			clientRecThread.keepRunning = false;
-			// 1. 输入流、输出流的关闭
-			out.close();
-			clientFileThread.close();
-			clientRecThread.close();
-			// 2.socket关闭
 			socket.close();
+			System.out.println("socket close!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

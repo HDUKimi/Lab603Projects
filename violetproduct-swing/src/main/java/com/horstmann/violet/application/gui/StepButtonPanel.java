@@ -1235,7 +1235,10 @@ Sixstart.addActionListener(new ActionListener() {
 				
 				setstepbuttonpanelrepaint();
 				step1buttonpanel.setBackground(new Color(53,55,59));
-				
+				index=1;
+				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
+				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
+
 				wakeupUI();
 				mainFrame.setVisible(false);
 				mainFrame.getContentPane().repaint();
@@ -1299,6 +1302,8 @@ Sixstart.addActionListener(new ActionListener() {
 				setstepbuttonpanelrepaint();
 				step2buttonpanel.setBackground(new Color(53,55,59));
 				index=2;
+				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
+				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 
 				mainFrame.setStepindex(2);
 				wakeupUI();

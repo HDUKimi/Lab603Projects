@@ -145,87 +145,90 @@ public class TestCaseConvertUtil {
 	 *            从服务器获取的字符串
 	 * @return
 	 */
-	public static void buildTestCaseList(List<TestCase> list, String str) {
+		public static void buildTestCaseList(List<TestCase> list, String str) {
+			int starttype=HomeAllTabbedPanel.getStarttype();
+			System.err.println(starttype);
 		
-		int starttype=HomeAllTabbedPanel.getStarttype();
-		System.err.println(starttype);
-		
-		// 1.按*号将测试用例划分
-		String[] tmp = str.split("\\*");
-		// 2.对每个测试用例字符串进行解析封装
-		for (String s : tmp) {
-			TestCase testCase = new TestCase();
-			// 2.1.字符串格式处理
-			s = s.replace("\n", "");
-			// 2.2.获取测试用例ID
-			testCase.setTestCaseID(stringRegEx(s, "testcCaseID:([\\s|\\S]*?)-->processList:").get(0));
-			// 2.3.构造激励链表
-			String processList = stringRegEx(s, "processList:([\\s|\\S]*?)-->execStatus").get(0);
-			testCase.setProcessList(string2ProcessList(processList));
-			// 2.4.测试用例执行状态
-			// 类型 说明 : 1.测试用例有误,无法对应到执行程序，且测试耗时:[不准确] 2.测试耗时:
-			// 3.程序执行过程中出现死循环或者抛出异常!
-			TestCaseResult testCaseResult = new TestCaseResult();
-			String exeState = "", t = stringRegEx(s, "execStatus:([\\s|\\S]*?)-->resultStatus:").get(0);
-			if (t.contains(":")) {
-				String[] r = t.split(":");
-				switch (r[0]) {
-				case "1":
-					exeState = "测试用例有误,无法对应到执行程序，且测试耗时:" + r[1] + "[不准确]";
-					break;
-				case "2":
-					exeState = "测试耗时:" + r[1];
-					break;
-				}
-				if(starttype == 2){
-					testCaseResult.setExeTime(Double.valueOf(r[1]));
-					testCaseResult.setTakeoff_alt(Double.valueOf(r[2].substring("takeoff_alt".length())));
-					testCaseResult.setBattery_remaining(Double.valueOf(r[3].substring("battery_remaining".length())));
-					testCaseResult.setTime(Double.valueOf(r[4].substring("time".length())));
-					testCaseResult.setWind_speed(Double.valueOf(r[5].substring("wind_speed".length())));
-				}else{
-					testCaseResult.setExeTime(Double.valueOf(r[1]));
-				}
-				
-			} else {
-				exeState = "程序执行过程中出现死循环或者抛出异常!";
+			String type = null ;
+			if(starttype==1){
+				type="function";
+			}else if(starttype==2){
+				type="performance";
 			}
-			testCaseResult.setResultDetail(exeState);
-			testCase.setResult(testCaseResult);
-			// 2.5.测试用例结果
-			// 类型 说明 : 1.测试用例有误,无法对应到执行程序! 2.测试执行成功!耗时: 3.程序出现出现死循环或者抛出异常!
-			String result = "";
-			t = stringRegEx(s, "resultStatus:([\\s|\\S]*?)]").get(0);
-			if (!t.contains(":")) {
-				switch (t) {
-				case "1":
-					result = "测试用例有误,无法对应到执行程序!";
-					break;
-				case "3":
-					result = "程序出现出现死循环或者抛出异常!";
-					break;
+			
+			// 1.按*号将测试用例划分
+			String[] tmp = str.split("\\*");
+			// 2.对每个测试用例字符串进行解析封装
+			for (String s : tmp) {
+				TestCase testCase = new TestCase();
+				// 2.1.字符串格式处理
+				s = s.replace("\n", "");
+				// 2.2.获取测试用例ID
+				testCase.setTestCaseID(stringRegEx(s, "testcCaseID:([\\s|\\S]*?)-->processList:").get(0));
+				// 2.3.构造激励链表
+				String processList = stringRegEx(s, "processList:([\\s|\\S]*?)-->execStatus").get(0);
+				testCase.setProcessList(string2ProcessList(processList));
+				// 2.4.测试用例执行状态
+				// 类型 说明 : 1.测试用例有误,无法对应到执行程序，且测试耗时:[不准确] 2.测试耗时:
+				// 3.程序执行过程中出现死循环或者抛出异常!
+				TestCaseResult testCaseResult = new TestCaseResult();
+				String exeState = "", t = stringRegEx(s, "execStatus:([\\s|\\S]*?)-->resultStatus:").get(0);
+				if (t.contains(":")) {
+					String[] r = t.split(":");
+					switch (r[0]) {
+					case "1":
+						exeState = "测试用例有误,无法对应到执行程序，且测试耗时:" + r[1] + "[不准确]";
+						break;
+					case "2":
+						exeState = "测试耗时:" + r[1];
+						break;
+					}
+					if (type != "function") {
+						testCaseResult.setExeTime(Double.valueOf(r[1]));
+						testCaseResult.setTakeoff_alt(Double.valueOf(r[2].substring("takeoff_alt".length())));
+						testCaseResult.setBattery_remaining(Double.valueOf(r[3].substring("battery_remaining".length())));
+						testCaseResult.setTime(Double.valueOf(r[4].substring("time".length())));
+						testCaseResult.setWind_speed(Double.valueOf(r[5].substring("wind_speed".length())));
+					}
+				} else {
+					exeState = "程序执行过程中出现死循环或者抛出异常!";
 				}
-			} else {
-				result = "测试执行成功!耗时:" + t.split(":")[1];
+				testCase.setState(exeState);
+				// 2.5.测试用例结果
+				// 类型 说明 : 1.测试用例有误,无法对应到执行程序! 2.测试执行成功!耗时: 3.程序出现出现死循环或者抛出异常!
+				String result = "";
+				t = stringRegEx(s, "resultStatus:([\\s|\\S]*?)]").get(0);
+				if (!t.contains(":")) {
+					switch (t) {
+					case "1":
+						result = "测试用例有误,无法对应到执行程序!";
+						break;
+					case "3":
+						result = "程序出现出现死循环或者抛出异常!";
+						break;
+					}
+				} else {
+					result = "测试执行成功!耗时:" + t.split(":")[1];
+				}
+				testCaseResult.setResultDetail(result);
+				testCase.setResult(testCaseResult);
+				// 2.6.测试用例表现格式
+				testCase.setDetail(testCase.showTestCase());
+				// 2.7.加入测试用例链表
+				list.add(testCase);
 			}
-			testCase.setState(result);
-			// 2.6.测试用例表现格式
-			testCase.setDetail(testCase.showTestCase());
-			// 2.7.加入测试用例链表
-			list.add(testCase);
-		}
-		if(starttype == 2){
-			//处理多个0%
-			for(int i=0;i<list.size();i++){
-				if(i+1 <list.size()){
-					if(list.get(i).getResult().getBattery_remaining().equals("0%") &&
-						list.get(i+1).getResult().getBattery_remaining().equals("0%")){
-						list.remove(i);
+			if (type != "function") {
+				// 处理多个0%
+				for (int i = 0; i < list.size(); i++) {
+					if (i + 1 < list.size()) {
+						if (list.get(i).getResult().getBattery_remaining().equals("0%")
+								&& list.get(i + 1).getResult().getBattery_remaining().equals("0%")) {
+							list.remove(i);
+						}
 					}
 				}
 			}
 		}
-	}
 
 	/**
 	 * 字符串写入文件 由于测试数据太大需要通过保存在文件的形式查看

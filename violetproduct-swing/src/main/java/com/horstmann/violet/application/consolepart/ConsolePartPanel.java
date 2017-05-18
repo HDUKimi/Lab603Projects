@@ -106,6 +106,8 @@ public class ConsolePartPanel extends JPanel {
 		textscrollpanel=new JScrollPane(textarea);
 		textpanel.add(textscrollpanel);
 		textarea.setEditable(false);
+		textarea.setLineWrap(true);
+		textarea.setWrapStyleWord(true);
 		textarea.setBorder(null);
 		textscrollpanel.setBorder(null);
 

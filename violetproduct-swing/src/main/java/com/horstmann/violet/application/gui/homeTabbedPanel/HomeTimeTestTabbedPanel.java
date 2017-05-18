@@ -118,7 +118,7 @@ public class HomeTimeTestTabbedPanel extends JPanel{
 				// TODO Auto-generated method stub
 				
 				mainFrame.getHomeAllTabbedPanel().setStarttype(3);
-				mainFrame.getStepButton().getStep2button().doClick();
+				mainFrame.getStepButton().getStep1button().doClick();
 				
 				mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().updateFileList();
 				mainFrame.getTestCaseGenerationPanel().updateFileList();
