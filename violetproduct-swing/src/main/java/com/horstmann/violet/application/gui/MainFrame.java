@@ -664,9 +664,20 @@ public class MainFrame extends JFrame
 //			System.err.println(workspace.getTitle());
 //			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
 			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().replace(".uppaal.violet.xml", "")));
+			System.out.println("this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()  "+this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().size());
+			for(ButtonTabbedPanel btp:this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()){
+				System.out.println("btp.getTabbedbutton().getText() "+btp.getTabbedbutton().getText()+"  workspace.getTitle().toString().replace "+workspace.getTitle().toString().replace(".uppaal.violet.xml", ""));
+				if(btp.getTabbedbutton().getText().equals(workspace.getTitle().toString().replace(".uppaal.violet.xml", ""))){
+					btp.setVisible(false);
+					this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().remove(btp);
+					System.out.println("123456789++++++++++++++++++++");
+					break;
+				}
+			}
+			System.out.println("this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()  "+this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().size());
 			this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().add(buttontabbedpanel);
 			this.getStepTwoCenterTabbedPane().getButtonPanel().add(buttontabbedpanel);
-			
+			System.out.println("this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()  "+this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().size());
      		listenToDiagramPanelEvents(workspace,SequenceToUppaalWorkspaceList);    	  
      	    repaint();     		    
      	}

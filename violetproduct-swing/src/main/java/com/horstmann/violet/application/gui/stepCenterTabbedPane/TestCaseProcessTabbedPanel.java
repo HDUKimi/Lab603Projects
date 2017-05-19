@@ -251,8 +251,6 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					threadstate=1;
 				}
 				
-				
-				
 			}
 		});
 		
@@ -288,26 +286,16 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				mainthread.stop();
-				for(Thread t:threadlist){
-					t.stop();
+				if(threadstate!=0){
+					mainthread.stop();
+					for(Thread t:threadlist){
+						t.stop();
+					}
 				}
 				threadstate=0;
 				step=1;
 				
-				progressbarindex=0;
-				progressbar.setValue(0);
-				progressbarlabel.setText("");
-				
-				for(FixedButtonTabbedPanel fbtpanel:mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelList()){
-					fbtpanel.setVisible(false);
-				}
-				mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButtonPanel().setVisible(true);
-				mainFrame.getStepThreeCenterTabbedPane().setFixButtonTabbedPanelStartIndex(0);
-				tablepanel.removeAll();
-				ChangeRepaint();
-				
-				moviepanel.getMovieLabel().setText("等待进行测试用例生成");
+				initUIPanel();
 				
 			}
 		});
@@ -364,14 +352,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 	}
 
-	protected void initThread() {
+	public void initUIPanel() {
 		// TODO Auto-generated method stub
-		
-		//初始化线程，数据
 		
 		progressbarindex=0;
 		progressbar.setValue(0);
-		progressbarlabel.setText(" ");
+		progressbarlabel.setText("");
 		
 		for(FixedButtonTabbedPanel fbtpanel:mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelList()){
 			fbtpanel.setVisible(false);
@@ -379,6 +365,27 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButtonPanel().setVisible(true);
 		mainFrame.getStepThreeCenterTabbedPane().setFixButtonTabbedPanelStartIndex(0);
 		tablepanel.removeAll();
+		
+		moviepanel.getMovieLabel().setText("等待进行测试用例生成");
+		
+		DefaultTableModel dtm=mainFrame.getAbstractTestCaseResultPanel().getTestcaseinfortablemodel();
+		while(dtm.getRowCount()>0){
+			dtm.removeRow(dtm.getRowCount()-1);
+		}
+		dtm.fireTableDataChanged();
+		mainFrame.getAbstractTestCaseResultPanel().getOnenamelabel().setText("");
+		mainFrame.getAbstractTestCaseResultPanel().getTworesultpanel().removeAll();
+		mainFrame.getAbstractTestCaseResultPanel().getThreeresultpanel().removeAll();
+		mainFrame.getAbstractTestCaseResultPanel().getThreenamelabel().setText("");
+		
+		ChangeRepaint();
+	}
+
+	protected void initThread() {
+		// TODO Auto-generated method stub
+		
+		//初始化线程，数据
+		initUIPanel();
 		
 		selectUppaal=mainFrame.getTestCaseGenerationPanel().getSelectUppaalCheckBox().getText();
 		selectCover=mainFrame.getTestCaseGenerationPanel().getSelectCoverCheckBox().getText();

@@ -139,6 +139,8 @@ public class StepTwoCenterTabbedPane extends JPanel{
 		
 		setButtonActionListener();
 		
+		timingToUppaalDiagramButtonPanel.setVisible(false);
+		
 	}
 
 	private void setButtonActionListener() {

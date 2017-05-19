@@ -383,16 +383,29 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 						sequencetouppaaltablemodel.fireTableDataChanged();
 						
 						mainFrame.addTabbedPane(workspace1, 21);
+						
+						System.out.println("mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel().getRowCount()  "+mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel().getRowCount());
+						DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel();
+						for(int i=0;i<dtm.getRowCount();i++){
+							System.out.println("dtm.getValueAt(i, 0).toString() "+dtm.getValueAt(i, 0).toString()+"  tranxmlname.lastIndexOf "+tranxmlname.substring(0, tranxmlname.lastIndexOf(".uppaal.violet.xml")));
+							if(dtm.getValueAt(i, 0).toString().equals(tranxmlname.substring(0, tranxmlname.lastIndexOf(".uppaal.violet.xml")))){
+								dtm.removeRow(i);
+								System.out.println("123456789------------------");
+								break;
+							}
+						}
+						System.out.println("mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel().getRowCount()  "+mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel().getRowCount());
+						dtm.fireTableDataChanged();
 
 						mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()
 								.get(mainFrame.getModelTransformationPanel().getModelSequenceTreePanel()
 										.getUppaaltablemodel().getRowCount())
 								.setVisible(false);
-						System.err.println(tranxmlname);
+
 						Object[] rowData = { tranxmlname.substring(0, tranxmlname.lastIndexOf(".uppaal.violet.xml")) };
 						mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel()
 								.addRow(rowData);
-
+						System.out.println("mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel().getRowCount()  "+mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel().getRowCount());
 						sequencelistindex++;
 						smallprogressbarindex = 0;
 						tranprocesslistindex = 0;

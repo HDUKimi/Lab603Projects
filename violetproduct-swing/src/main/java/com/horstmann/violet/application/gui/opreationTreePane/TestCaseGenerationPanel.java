@@ -408,9 +408,17 @@ public class TestCaseGenerationPanel extends JPanel {
 			uppaalCheckBoxList[i].setOpaque(false);
 			uppaalcheckboxpanel.add(Box.createVerticalStrut(7));
 			uppaalcheckboxpanel.add(uppaalCheckBoxList[i]);
+			if(i==0){
+				uppaalCheckBoxList[i].setSelected(true);
+			}
 		}
 		
-		selectUppaalCheckBox=new JCheckBox();
+		if(uppaalCheckBoxList.length>0){
+			selectUppaalCheckBox=uppaalCheckBoxList[0];
+		}
+		else{
+			selectUppaalCheckBox=new JCheckBox();
+		}
 		
 		for(final JCheckBox jcb:uppaalCheckBoxList){
 			

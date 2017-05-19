@@ -219,6 +219,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					
 					clientSocket = new ClientSocket("10.1.16.89", 5555);
 					Boolean connectstate=clientSocket.Connection();
+					connectstate=true;
 					if(connectstate){
 						TextAreaPrint("连接服务器成功");
 						
@@ -267,15 +268,16 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
-				t.suspend();
-				if(progressbar.getValue()>50){
-					progreseethread.suspend();
+				if(threadstate==1){
+					t.suspend();
+					if(progressbar.getValue()>50){
+						progreseethread.suspend();
+					}
+					else{
+						gaindatathread.suspend();
+					}
+					threadstate=-1;
 				}
-				else{
-					gaindatathread.suspend();
-				}
-				threadstate=-1;
 				
 			}
 		});
@@ -293,22 +295,23 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				t.stop();
-				if(progressbar.getValue()>50){
-					progreseethread.stop();
+				if(threadstate!=0){
+					t.stop();
+					if(progressbar.getValue()>50){
+						progreseethread.stop();
+					}
+					else{
+						gaindatathread.stop();
+					}
 				}
-				else{
-					gaindatathread.stop();
-				}
+				
 				threadstate=0;
 				
 				progressbar.setValue(0);
 				progressbarlabel.setText("0%");
-//				
-//				while(sequencetouppaaltablemodel.getRowCount()>0){
-//					sequencetouppaaltablemodel.removeRow(sequencetouppaaltablemodel.getRowCount()-1);
-//				}
-//				
+				
+				initUIPanel();
+				
 			}
 		});
 		
@@ -574,6 +577,16 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 	}
 
+	protected void initUIPanel() {
+		// TODO Auto-generated method stub
+		
+		mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(false);
+		
+		tableresultpanel.removeAll();
+		
+		ChangeRepaint();
+	}
+
 	private void initWindCheckBoxPanel() {
 		// TODO Auto-generated method stub
 		
@@ -624,67 +637,67 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				File file=new File(extraxmlpath);
 				
 				//接收到测试结果list
-				File[] files = {file};
-				clientSocket.sendFile(files);
-				TextAreaPrint("发送测试用例数据...");
+//				File[] files = {file};
+//				clientSocket.sendFile(files);
+//				TextAreaPrint("发送测试用例数据...");
 				gaindatathread.start();
-				List<TestCase> testcaselist= ClientRecThread.getTestCaseList();
-				
-				File f=new File("D:\\test.txt");
-				try {
-					Writer w=new FileWriter(f,false);
-					for(TestCase tc:testcaselist){
-//						System.out.println(tc.toString());
-						w.write(tc.toString());
-						w.write("\n");
-					}
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				
-				try {
-					String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
-					FileOutputStream fos = new FileOutputStream(path);
-					ObjectOutputStream oos=new ObjectOutputStream(fos);
-					
-					for(TestCase tc:testcaselist){
-//						System.out.println(tc.toString());
-						oos.writeObject(tc);
-					}
-					
-					oos.close();
-					fos.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-//				List<TestCase> testcaselist=new ArrayList<>();
+//				List<TestCase> testcaselist= ClientRecThread.getTestCaseList();
+//				
+//				File f=new File("D:\\test.txt");
 //				try {
-//					String serialpath = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
-//					FileInputStream fis = new FileInputStream(serialpath);
-//					ObjectInputStream ois = new ObjectInputStream(fis);
-//
-//					while(true){//使用处理异常的方式来判断文件是否结束
-//						try {
-//							TestCase tc=(TestCase) ois.readObject();//文件读取完毕后，会抛异常
-//							testcaselist.add(tc);
-//						} catch (Exception  e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//							System.out.println("文件读取完毕!");  
-//			                break;  
-//						}
+//					Writer w=new FileWriter(f,false);
+//					for(TestCase tc:testcaselist){
+////						System.out.println(tc.toString());
+//						w.write(tc.toString());
+//						w.write("\n");
 //					}
-//
-//					ois.close();
-//					fis.close();
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//				
+//				
+//				try {
+//					String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
+//					FileOutputStream fos = new FileOutputStream(path);
+//					ObjectOutputStream oos=new ObjectOutputStream(fos);
+//					
+//					for(TestCase tc:testcaselist){
+////						System.out.println(tc.toString());
+//						oos.writeObject(tc);
+//					}
+//					
+//					oos.close();
+//					fos.close();
 //				} catch (IOException e) {
 //					// TODO Auto-generated catch block
 //					e.printStackTrace();
 //				}
+				
+				List<TestCase> testcaselist=new ArrayList<>();
+				try {
+					String serialpath = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
+					FileInputStream fis = new FileInputStream(serialpath);
+					ObjectInputStream ois = new ObjectInputStream(fis);
+
+					while(true){//使用处理异常的方式来判断文件是否结束
+						try {
+							TestCase tc=(TestCase) ois.readObject();//文件读取完毕后，会抛异常
+							testcaselist.add(tc);
+						} catch (Exception  e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							System.out.println("文件读取完毕!");  
+			                break;  
+						}
+					}
+
+					ois.close();
+					fis.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				while(progressbar.getValue()<50){
 					try {

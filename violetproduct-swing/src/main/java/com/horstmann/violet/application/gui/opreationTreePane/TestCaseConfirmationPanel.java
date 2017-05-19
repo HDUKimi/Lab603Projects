@@ -409,6 +409,8 @@ public class TestCaseConfirmationPanel extends JPanel{
 
 					mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().updateUI();
 					
+					mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(false);
+					
 				}
 			}
         	

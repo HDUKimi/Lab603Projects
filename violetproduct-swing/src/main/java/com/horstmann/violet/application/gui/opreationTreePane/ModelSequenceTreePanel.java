@@ -336,6 +336,9 @@ public class ModelSequenceTreePanel extends JPanel{
 //			dtmDemo.addRow(data);
 			sequencecheckboxpanel.add(Box.createVerticalStrut(7));
 			sequencecheckboxpanel.add(sequenceCheckBoxList[i]);
+			if(i==0){
+				sequenceCheckBoxList[i].setSelected(true);
+			}
 		}
 		
 	}

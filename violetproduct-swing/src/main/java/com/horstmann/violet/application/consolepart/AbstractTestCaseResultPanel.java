@@ -895,6 +895,10 @@ public class AbstractTestCaseResultPanel extends JPanel{
 		this.setVisible(true);
 	}
 
+	public JPanel getOneresultpanel() {
+		return oneresultpanel;
+	}
+
 	public JLabel getOnenamelabel() {
 		return onenamelabel;
 	}

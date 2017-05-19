@@ -635,15 +635,20 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 		
 		timingtouppaaltable.getColumn("序号").setPreferredWidth(50);
 		timingtouppaaltable.getColumn("序号").setMinWidth(50);
+		timingtouppaaltable.getColumn("序号").setMaxWidth(50);
 		timingtouppaaltable.getColumn("状态").setPreferredWidth(50);
 		timingtouppaaltable.getColumn("状态").setMinWidth(50);
-		timingtouppaaltable.getColumn("时序图").setPreferredWidth(100);
-		timingtouppaaltable.getColumn("时序图").setMinWidth(100);
-		timingtouppaaltable.getColumn("操作").setPreferredWidth((int) (mainFrame.getStepOneCenterTabbedPane().size().getWidth()-500));
+		timingtouppaaltable.getColumn("状态").setMaxWidth(50);
+		timingtouppaaltable.getColumn("时序图").setPreferredWidth(150);
+		timingtouppaaltable.getColumn("时序图").setMinWidth(150);
+		timingtouppaaltable.getColumn("操作").setPreferredWidth(450);
+		timingtouppaaltable.getColumn("操作").setMinWidth(450);
 		timingtouppaaltable.getColumn("进度").setPreferredWidth(50);
 		timingtouppaaltable.getColumn("进度").setMinWidth(50);
-		timingtouppaaltable.getColumn("").setPreferredWidth(80);
-		timingtouppaaltable.getColumn("").setMinWidth(80);
+		timingtouppaaltable.getColumn("进度").setMaxWidth(50);
+		timingtouppaaltable.getColumn("").setPreferredWidth(100);
+		timingtouppaaltable.getColumn("").setMinWidth(100);
+		timingtouppaaltable.getColumn("").setMaxWidth(100);
 		timingtouppaaltable.getColumn("完成时间").setPreferredWidth(150);
 		timingtouppaaltable.getColumn("完成时间").setMinWidth(150);
         

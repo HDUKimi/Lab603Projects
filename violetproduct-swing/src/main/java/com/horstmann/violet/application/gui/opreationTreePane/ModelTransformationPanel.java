@@ -300,6 +300,9 @@ public class ModelTransformationPanel extends JPanel{
 				treepanel.removeAll();
 				treepanel.add(modelSequenceTreePanel);
 				
+				mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonPanel().setVisible(false);
+				mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonPanel().setVisible(true);
+				
 				if (mainFrame.getStepTwoCenterTabbedPane().getSelectedIndex() != 1) {
 					mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButton().doClick();
 				}
@@ -322,6 +325,9 @@ public class ModelTransformationPanel extends JPanel{
 				
 				treepanel.removeAll();
 				treepanel.add(modelSequenceTreePanel);
+				
+				mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonPanel().setVisible(false);
+				mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonPanel().setVisible(true);
 				
 				if(mainFrame.getStepTwoCenterTabbedPane().getSelectedIndex()!=1){
 					mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButton().doClick();
@@ -377,6 +383,9 @@ public class ModelTransformationPanel extends JPanel{
 				
 				treepanel.removeAll();
 				treepanel.add(modelTimingTreePanel);
+				
+				mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonPanel().setVisible(true);
+				mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonPanel().setVisible(false);
 
 				if (mainFrame.getStepTwoCenterTabbedPane().getSelectedIndex() != 2) {
 					mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButton().doClick();
@@ -401,6 +410,9 @@ public class ModelTransformationPanel extends JPanel{
 				
 				treepanel.removeAll();
 				treepanel.add(modelTimingTreePanel);
+				
+				mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonPanel().setVisible(true);
+				mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonPanel().setVisible(false);
 				
 				if (mainFrame.getStepTwoCenterTabbedPane().getSelectedIndex() != 2) {
 					mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButton().doClick();
