@@ -276,7 +276,8 @@ public class HomePanel extends JPanel
 		titlepanel.setBackground(new Color(255, 242, 157));
 		titlepanel.setPreferredSize(new Dimension(90, 23));
 		
-		String path = "D:\\ÏîÄ¿´úÂë\\violetumleditor-master\\violetproduct-swing\\src\\site\\resources\\icons\\OpreationPart\\";
+		String absolutePath=System.getProperty("user.dir");
+		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
 		ImageIcon icon1 = new ImageIcon(path + "yleftarrow.png");
 		icon1.setImage(icon1.getImage().getScaledInstance(8,7, Image.SCALE_DEFAULT));

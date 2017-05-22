@@ -28,6 +28,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -48,9 +50,19 @@ public class ConsolePartPanel extends JPanel {
 	private JPanel textpanel;
 	private JPanel toolpanel;
 	private JLabel titlelabel;
-	private JTextArea textarea;
 	
-	private JScrollPane textscrollpanel;
+	private JTextArea textarea1;
+	private JTextArea textarea2;
+	private JTextArea textarea3;
+	private JTextArea textarea4;
+	private JTextArea textarea5;
+	private JTextArea textarea6;
+	private JScrollPane textscrollpanel1;
+	private JScrollPane textscrollpanel2;
+	private JScrollPane textscrollpanel3;
+	private JScrollPane textscrollpanel4;
+	private JScrollPane textscrollpanel5;
+	private JScrollPane textscrollpanel6;
 	
 	private JPanel titleiconlabelpanel;
 	private JLabel titleiconlabel1;
@@ -89,7 +101,6 @@ public class ConsolePartPanel extends JPanel {
 		textpanel = new JPanel();
 		toolpanel = new JPanel();
 		titlelabel = new JLabel();
-		textarea = new JTextArea();
 		titleiconlabelpanel=new JPanel();
 		titleiconlabel1 = new JLabel();
 		titleiconlabel2 = new JLabel();
@@ -102,15 +113,8 @@ public class ConsolePartPanel extends JPanel {
 
 		initTitlePanel();
 		
-		textpanel.setLayout(new GridLayout());
-		textscrollpanel=new JScrollPane(textarea);
-		textpanel.add(textscrollpanel);
-		textarea.setEditable(false);
-		textarea.setLineWrap(true);
-		textarea.setWrapStyleWord(true);
-		textarea.setBorder(null);
-		textscrollpanel.setBorder(null);
-
+		initTextPanel();
+		
 		initToolButton();
 
 //		this.setLayout(new BorderLayout());
@@ -142,6 +146,86 @@ public class ConsolePartPanel extends JPanel {
 		int screenHeight = (int) screenSize.getHeight();
 		
 		this.setMinimumSize(new Dimension(screenWidth*2/5, screenHeight/5));
+		
+	}
+
+	private void initTextPanel() {
+		// TODO Auto-generated method stub
+		
+		textarea1=new JTextArea();
+		textarea1.setEditable(false);
+		textarea1.setBorder(null);
+		textarea1.getCaret().addChangeListener(new ChangeListener()   {
+            public void stateChanged(ChangeEvent e)   {
+            	textarea1.getCaret().setVisible(true);   //ʹText�����ı������ʾ
+            }
+        });
+		
+		textarea2=new JTextArea();
+		textarea2.setEditable(false);
+		textarea2.setBorder(null);
+		textarea2.getCaret().addChangeListener(new ChangeListener()   {
+            public void stateChanged(ChangeEvent e)   {
+            	textarea2.getCaret().setVisible(true);   //ʹText�����ı������ʾ
+            }
+        });
+		
+		textarea3=new JTextArea();
+		textarea3.setEditable(false);
+		textarea3.setBorder(null);
+		textarea3.getCaret().addChangeListener(new ChangeListener()   {
+            public void stateChanged(ChangeEvent e)   {
+            	textarea3.getCaret().setVisible(true);   //ʹText�����ı������ʾ
+            }
+        });
+		
+		textarea4=new JTextArea();
+		textarea4.setEditable(false);
+		textarea4.setBorder(null);
+		textarea4.getCaret().addChangeListener(new ChangeListener()   {
+            public void stateChanged(ChangeEvent e)   {
+            	textarea4.getCaret().setVisible(true);   //ʹText�����ı������ʾ
+            }
+        });
+		
+		textarea5=new JTextArea();
+		textarea5.setEditable(false);
+		textarea5.setBorder(null);
+		textarea5.getCaret().addChangeListener(new ChangeListener()   {
+            public void stateChanged(ChangeEvent e)   {
+            	textarea5.getCaret().setVisible(true);   //ʹText�����ı������ʾ
+            }
+        });
+		
+		textarea6=new JTextArea();
+		textarea6.setEditable(false);
+		textarea6.setBorder(null);
+		textarea6.getCaret().addChangeListener(new ChangeListener()   {
+            public void stateChanged(ChangeEvent e)   {
+            	textarea6.getCaret().setVisible(true);   //ʹText�����ı������ʾ
+            }
+        });
+		
+		textscrollpanel1=new JScrollPane(textarea1);	
+		textscrollpanel1.setBorder(null);
+		
+		textscrollpanel2=new JScrollPane(textarea2);	
+		textscrollpanel2.setBorder(null);
+		
+		textscrollpanel3=new JScrollPane(textarea3);	
+		textscrollpanel3.setBorder(null);
+		
+		textscrollpanel4=new JScrollPane(textarea4);	
+		textscrollpanel4.setBorder(null);
+		
+		textscrollpanel5=new JScrollPane(textarea5);	
+		textscrollpanel5.setBorder(null);
+
+		textscrollpanel6=new JScrollPane(textarea6);	
+		textscrollpanel6.setBorder(null);
+		
+		textpanel.setLayout(new GridLayout());
+//		textpanel.add(textscrollpanel1);
 		
 	}
 
@@ -243,7 +327,25 @@ public class ConsolePartPanel extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				getTextarea().setText("");
+				int stepindex=mainFrame.getStepindex();
+				if(stepindex==1){
+					getTextarea1().setText("");
+				}
+				else if(stepindex==2){
+					getTextarea2().setText("");
+				}
+				else if(stepindex==3){
+					getTextarea3().setText("");
+				}
+				else if(stepindex==4){
+					getTextarea4().setText("");
+				}
+				else if(stepindex==5){
+					getTextarea5().setText("");
+				}
+				else if(stepindex==6){
+					getTextarea6().setText("");
+				}
 				
 			}
 		});
@@ -312,7 +414,25 @@ public class ConsolePartPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				getTextarea().setText("");
+				int stepindex=mainFrame.getStepindex();
+				if(stepindex==1){
+					getTextarea1().setText("");
+				}
+				else if(stepindex==2){
+					getTextarea2().setText("");
+				}
+				else if(stepindex==3){
+					getTextarea3().setText("");
+				}
+				else if(stepindex==4){
+					getTextarea4().setText("");
+				}
+				else if(stepindex==5){
+					getTextarea5().setText("");
+				}
+				else if(stepindex==6){
+					getTextarea6().setText("");
+				}
 			}
 		});
 		
@@ -379,8 +499,29 @@ public class ConsolePartPanel extends JPanel {
 			File file=new File(filepath);
 			
 			try {
+				String textresult="";
+				int stepindex=mainFrame.getStepindex();
+				if(stepindex==1){
+					textresult=textarea1.getText();
+				}
+				else if(stepindex==2){
+					textresult=textarea2.getText();
+				}
+				else if(stepindex==3){
+					textresult=textarea3.getText();
+				}
+				else if(stepindex==4){
+					textresult=textarea4.getText();
+				}
+				else if(stepindex==5){
+					textresult=textarea5.getText();
+				}
+				else if(stepindex==6){
+					textresult=textarea6.getText();
+				}
+				
 				FileWriter out=new FileWriter(file);
-				out.write(getTextarea().getText());
+				out.write(textresult);
 				out.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -603,21 +744,21 @@ public class ConsolePartPanel extends JPanel {
 		this.titlelabel = titlelabel;
 	}
 
-	public JTextArea getTextarea() {
-		return textarea;
-	}
-
-	public void setTextarea(JTextArea textarea) {
-		this.textarea = textarea;
-	}
-	
-	public void setTextscrollpanel(JScrollPane textscrollpanel) {
-		this.textscrollpanel = textscrollpanel;
-	}
-
-	public JScrollPane getTextscrollpanel() {
-		return textscrollpanel;
-	}
+//	public JTextArea getTextarea() {
+//		return textarea;
+//	}
+//
+//	public void setTextarea(JTextArea textarea) {
+//		this.textarea = textarea;
+//	}
+//	
+//	public void setTextscrollpanel(JScrollPane textscrollpanel) {
+//		this.textscrollpanel = textscrollpanel;
+//	}
+//
+//	public JScrollPane getTextscrollpanel() {
+//		return textscrollpanel;
+//	}
 
 	public JPanel getTextpanel() {
 		return textpanel;
@@ -627,4 +768,53 @@ public class ConsolePartPanel extends JPanel {
 		this.textpanel = textpanel;
 	}
 
+	public JTextArea getTextarea1() {
+		return textarea1;
+	}
+	
+	public JTextArea getTextarea2() {
+		return textarea2;
+	}
+
+	public JTextArea getTextarea3() {
+		return textarea3;
+	}
+
+	public JTextArea getTextarea4() {
+		return textarea4;
+	}
+
+	public JTextArea getTextarea5() {
+		return textarea5;
+	}
+	
+	public JTextArea getTextarea6() {
+		return textarea6;
+	}
+
+	public JScrollPane getTextscrollpanel1() {
+		return textscrollpanel1;
+	}
+
+	public JScrollPane getTextscrollpanel2() {
+		return textscrollpanel2;
+	}
+
+	public JScrollPane getTextscrollpanel3() {
+		return textscrollpanel3;
+	}
+
+	public JScrollPane getTextscrollpanel4() {
+		return textscrollpanel4;
+	}
+
+	public JScrollPane getTextscrollpanel5() {
+		return textscrollpanel5;
+	}
+	
+	public JScrollPane getTextscrollpanel6() {
+		return textscrollpanel6;
+	}
+
+	
 }

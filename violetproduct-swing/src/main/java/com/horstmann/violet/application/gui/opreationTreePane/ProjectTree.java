@@ -373,7 +373,7 @@ public class ProjectTree extends JPanel {
 				treepanel.removeAll();
 				treepanel.add(usecaseTreePanel);
 				
-				mainFrame.getConsolePartPanel().getTextarea().append("打开用例图列表\n");
+				mainFrame.getConsolePartPanel().getTextarea1().append("打开用例图列表\n");
 				
 				ChangeRepaint();
 			}
@@ -428,7 +428,7 @@ public class ProjectTree extends JPanel {
 				treepanel.removeAll();
 				treepanel.add(stateTreePanel);
 				
-				mainFrame.getConsolePartPanel().getTextarea().append("打开状态图列表\n");
+				mainFrame.getConsolePartPanel().getTextarea1().append("打开状态图列表\n");
 				
 				ChangeRepaint();
 				
@@ -484,7 +484,7 @@ public class ProjectTree extends JPanel {
 				treepanel.removeAll();
 				treepanel.add(sequenceTreePanel);
 				
-				mainFrame.getConsolePartPanel().getTextarea().append("打开顺序图列表\n");
+				mainFrame.getConsolePartPanel().getTextarea1().append("打开顺序图列表\n");
 				
 				ChangeRepaint();
 				
@@ -540,7 +540,7 @@ public class ProjectTree extends JPanel {
 				treepanel.removeAll();
 				treepanel.add(timingTreePanel);
 				
-				mainFrame.getConsolePartPanel().getTextarea().append("打开时序图列表\n");
+				mainFrame.getConsolePartPanel().getTextarea1().append("打开时序图列表\n");
 				
 				ChangeRepaint();
 				

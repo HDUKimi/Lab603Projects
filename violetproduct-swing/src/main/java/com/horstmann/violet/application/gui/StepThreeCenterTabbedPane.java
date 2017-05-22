@@ -247,6 +247,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 			fbtpanel.setVisible(false);
 		}
 		testCaseProcessButtonPanel.setVisible(true);
+		testCaseProcessButtonPanel.setBackground(new Color(58, 105, 190));
 		fixButtonTabbedPanelStartIndex=0;
 		
 	}
@@ -386,7 +387,9 @@ public class StepThreeCenterTabbedPane extends JPanel {
 				
 				fixButtonTabbedPanelSelectedIndex=0;
 
-				ChangeRepaint();
+				if(mainFrame.getStepindex()==3){
+					ChangeRepaint();
+				}
 			}
 		});
 		uppaalParseInforButton.addActionListener(new ActionListener() {

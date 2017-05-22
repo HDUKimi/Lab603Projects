@@ -71,7 +71,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import com.horstmann.violet.application.consolepart.AbstractTestCaseResultPanel;
-import com.horstmann.violet.application.consolepart.AttributePartPanel;
+import com.horstmann.violet.application.consolepart.AttributePartOnePanel;
+import com.horstmann.violet.application.consolepart.AttributePartTwoPanel;
 import com.horstmann.violet.application.consolepart.ConsolePart;
 import com.horstmann.violet.application.consolepart.ConsolePartPanel;
 import com.horstmann.violet.application.consolepart.TestCaseConfirmResultPanel;
@@ -664,20 +665,15 @@ public class MainFrame extends JFrame
 //			System.err.println(workspace.getTitle());
 //			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
 			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().replace(".uppaal.violet.xml", "")));
-			System.out.println("this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()  "+this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().size());
 			for(ButtonTabbedPanel btp:this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()){
-				System.out.println("btp.getTabbedbutton().getText() "+btp.getTabbedbutton().getText()+"  workspace.getTitle().toString().replace "+workspace.getTitle().toString().replace(".uppaal.violet.xml", ""));
 				if(btp.getTabbedbutton().getText().equals(workspace.getTitle().toString().replace(".uppaal.violet.xml", ""))){
 					btp.setVisible(false);
 					this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().remove(btp);
-					System.out.println("123456789++++++++++++++++++++");
 					break;
 				}
 			}
-			System.out.println("this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()  "+this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().size());
 			this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().add(buttontabbedpanel);
 			this.getStepTwoCenterTabbedPane().getButtonPanel().add(buttontabbedpanel);
-			System.out.println("this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()  "+this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().size());
      		listenToDiagramPanelEvents(workspace,SequenceToUppaalWorkspaceList);    	  
      	    repaint();     		    
      	}
@@ -1046,11 +1042,18 @@ public class MainFrame extends JFrame
 		return this.consolePartPanel;
 	}
 	
-	public AttributePartPanel getAttributePartPanel() {
-		if (this.attributePartPanel == null) {
-			this.attributePartPanel = new AttributePartPanel(this);
+	public AttributePartOnePanel getAttributePartOnePanel() {
+		if (this.attributePartOnePanel == null) {
+			this.attributePartOnePanel = new AttributePartOnePanel(this);
 		}
-		return this.attributePartPanel;
+		return this.attributePartOnePanel;
+	}
+	
+	public AttributePartTwoPanel getAttributePartTwoPanel() {
+		if (this.attributePartTwoPanel == null) {
+			this.attributePartTwoPanel = new AttributePartTwoPanel(this);
+		}
+		return this.attributePartTwoPanel;
 	}
 	
 	public ValidationResultPanel getValidationResultPanel(){
@@ -1469,7 +1472,8 @@ public class MainFrame extends JFrame
     private StepSixCenterTabbedPane stepSixCenterTabbedPane;
     
 	private ConsolePartPanel consolePartPanel;
-	private AttributePartPanel attributePartPanel;
+	private AttributePartOnePanel attributePartOnePanel;
+	private AttributePartTwoPanel attributePartTwoPanel;
 	private ValidationResultPanel validationResultPanel;
 	private AbstractTestCaseResultPanel abstractTestCaseResultPanel; 
 	private TestCaseInstantiationResultPanel testCaseInstantiationResultPanel;

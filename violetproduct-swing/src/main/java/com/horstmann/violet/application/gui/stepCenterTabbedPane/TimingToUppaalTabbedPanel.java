@@ -295,7 +295,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 			timingtouppaaltablemodel.removeRow(timingtouppaaltablemodel.getRowCount()-1);
 		}
 		
-		final JTextArea StepTwoArea= mainFrame.getConsolePartPanel().getTextarea();
+		final JTextArea StepTwoArea= mainFrame.getConsolePartPanel().getTextarea2();
 		
 		StepTwoArea.append("UML模型正在转换中......\n");	
 		// TODO Auto-generated method stub
@@ -501,9 +501,9 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 
 			timingtouppaaltablemodel.fireTableDataChanged();
 
-			mainFrame.getConsolePartPanel().getTextarea().append(upm.getOperation() + "\n");
+			mainFrame.getConsolePartPanel().getTextarea2().append(upm.getOperation() + "\n");
 
-			mainFrame.getConsolePartPanel().getTextarea().append(timingtouppaalmap.get(upm.getOperation()));
+			mainFrame.getConsolePartPanel().getTextarea2().append(timingtouppaalmap.get(upm.getOperation()));
 
 			try {
 				progreseethread = new Thread(new Runnable() {

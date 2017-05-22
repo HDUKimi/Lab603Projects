@@ -120,7 +120,7 @@ public class EditorToolPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				workspace.getSideBar().getEditorToolsBar().getUndoButton().doClick();
-				mainFrame.getConsolePartPanel().getTextarea().append("撤销当前操作\n");
+				mainFrame.getConsolePartPanel().getTextarea1().append("撤销当前操作\n");
 			}
 		});
 		
@@ -136,7 +136,7 @@ public class EditorToolPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				workspace.getSideBar().getEditorToolsBar().getRedoButton().doClick();
-				mainFrame.getConsolePartPanel().getTextarea().append("返回上一步操作\n");
+				mainFrame.getConsolePartPanel().getTextarea1().append("返回上一步操作\n");
 			}
 		});
 		
@@ -152,7 +152,7 @@ public class EditorToolPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				workspace.getSideBar().getEditorToolsBar().getZoomInButton().doClick();
-				mainFrame.getConsolePartPanel().getTextarea().append("放大一倍视图\n");
+				mainFrame.getConsolePartPanel().getTextarea1().append("放大一倍视图\n");
 			}
 		});
 		
@@ -168,7 +168,7 @@ public class EditorToolPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				workspace.getSideBar().getEditorToolsBar().getZoomOutButton().doClick();
-				mainFrame.getConsolePartPanel().getTextarea().append("缩小一倍视图\n");
+				mainFrame.getConsolePartPanel().getTextarea1().append("缩小一倍视图\n");
 			}
 		});
 		
@@ -184,7 +184,7 @@ public class EditorToolPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				workspace.getSideBar().getEditorToolsBar().getDeleteButton().doClick();
-				mainFrame.getConsolePartPanel().getTextarea().append("删除组件\n");
+				mainFrame.getConsolePartPanel().getTextarea1().append("删除组件\n");
 			}
 		});
 		
@@ -200,7 +200,7 @@ public class EditorToolPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				workspace.getSideBar().getEditorToolsBar().getCutButton().doClick();
-				mainFrame.getConsolePartPanel().getTextarea().append("剪切组件\n");
+				mainFrame.getConsolePartPanel().getTextarea1().append("剪切组件\n");
 			}
 		});
 		
@@ -216,7 +216,7 @@ public class EditorToolPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				workspace.getSideBar().getEditorToolsBar().getCopyButton().doClick();
-				mainFrame.getConsolePartPanel().getTextarea().append("复制组件\n");
+				mainFrame.getConsolePartPanel().getTextarea1().append("复制组件\n");
 			}
 		});
 		
@@ -232,7 +232,7 @@ public class EditorToolPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				workspace.getSideBar().getEditorToolsBar().getPasteButton().doClick();
-				mainFrame.getConsolePartPanel().getTextarea().append("粘贴组件\n");
+				mainFrame.getConsolePartPanel().getTextarea1().append("粘贴组件\n");
 			}
 		});
 

@@ -80,7 +80,7 @@ public class GraphToolPanel extends JPanel {
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
 					((GraphToolsBarPanel) workspace.getSideBar().getGraphToolsBar().getAWTComponent()).setOnClickSelectedButton(gtb);
-					mainFrame.getConsolePartPanel().getTextarea().append("选中了 "+gtb.getTool().getLabel()+"\n");
+					mainFrame.getConsolePartPanel().getTextarea1().append("选中了 "+gtb.getTool().getLabel()+"\n");
 				}
 			});
 		}
@@ -98,7 +98,7 @@ public class GraphToolPanel extends JPanel {
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
 					((GraphToolsBarPanel) workspace.getSideBar().getGraphToolsBar().getAWTComponent()).setOnClickSelectedButton(gtb);
-					mainFrame.getConsolePartPanel().getTextarea().append("选中了 "+gtb.getTool().getLabel()+"\n");
+					mainFrame.getConsolePartPanel().getTextarea1().append("选中了 "+gtb.getTool().getLabel()+"\n");
 				}
 			});
 		}

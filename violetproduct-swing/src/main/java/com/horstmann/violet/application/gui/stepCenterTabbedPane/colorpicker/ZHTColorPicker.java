@@ -143,7 +143,7 @@ public class ZHTColorPicker extends JComponent {
 		textColor=new Color(51,51,51);
 //		System.out.println(old+" + "+old.getRed()+" + "+old.getGreen()+" + "+old.getBlue());
 		ColorChoice c=new ColorChoice(backgroundColor,borderColor,textColor);
-		ColorPickerDemo.getMainFrame().getConsolePartPanel().getTextarea().append("选中了颜色: "+backgroundColor.toString()+"\n");
+		ColorPickerDemo.getMainFrame().getConsolePartPanel().getTextarea1().append("选中了颜色: "+backgroundColor.toString()+"\n");
 		((ColorToolsBarPanel)ColorPickerDemo.getWorkspace().getSideBar().getColorChoiceBar().getAWTComponent()).fireColorChoiceChanged(c);
 //		System.out.println("---------------");
 //		System.out.println("---"+selectedColor);

@@ -125,7 +125,7 @@ public class TimingTreePanel extends JPanel{
 									mainFrame.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().get(timingtreerootnode.getIndex(parentNode)).getTabbedbutton().doClick();
 									fileMenu.fileCloseItem.doClick();
 									mainFrame.deleteTabbedPane(mainFrame.getTimingWorkspaceList().get(timingtreerootnode.getIndex(parentNode)));
-									mainFrame.getConsolePartPanel().getTextarea().append("É¾³ýË³ÐòÍ¼ "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" µÄ»æÍ¼Ãæ°å\n");
+									mainFrame.getConsolePartPanel().getTextarea1().append("É¾³ýË³ÐòÍ¼ "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" µÄ»æÍ¼Ãæ°å\n");
 								}
 								
 							}

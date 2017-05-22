@@ -145,9 +145,9 @@ public class ButtonTabbedPanel extends JPanel{
 				if(mainFrame.getStepindex()==1){
 					mainFrame.getMenuFactory().getFileMenu(mainFrame).fileCloseItem.doClick();
 					
-					mainFrame.getAttributePartPanel().getSteponenamelabel().setText("");
+					mainFrame.getAttributePartOnePanel().getNamelabel().setText("");
 
-					mainFrame.getAttributePartPanel().getAttributepanel().removeAll();
+					mainFrame.getAttributePartOnePanel().getAttributepanel().removeAll();
 					
 //					mainFrame.getAttributePartPanel().ChangeRepaint();
 					
@@ -157,9 +157,9 @@ public class ButtonTabbedPanel extends JPanel{
 //					this.getStepOneCenterTabbedPane().getButtonPanel().remove(this.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel());
 					mainFrame.getStepTwoCenterTabbedPane().getDiagramPanel().removeAll();
 					
-					mainFrame.getAttributePartPanel().getSteptwonamelabel().setText("");
+					mainFrame.getAttributePartTwoPanel().getNamelabel().setText("");
 
-					mainFrame.getAttributePartPanel().getAttributepanel().removeAll();
+					mainFrame.getAttributePartTwoPanel().getAttributepanel().removeAll();
 					
 					mainFrame.setVisible(false);
 					mainFrame.getContentPane().repaint();
@@ -242,7 +242,7 @@ public class ButtonTabbedPanel extends JPanel{
 						
 						mainFrame.getStepOneCenterTabbedPane().ChangeRepaint();
 						
-						mainFrame.getConsolePartPanel().getTextarea().append("打开顺序图 "+tabbedbutton.getText()+" 的绘图面板\n");
+						mainFrame.getConsolePartPanel().getTextarea1().append("打开顺序图 "+tabbedbutton.getText()+" 的绘图面板\n");
 						
 //						mainFrame.getAttributePartPanel().getTreepanel().removeAll();
 //						if(workspace.getGraphFile().getDirectory()!=null){
@@ -289,7 +289,7 @@ public class ButtonTabbedPanel extends JPanel{
 						
 						mainFrame.getStepOneCenterTabbedPane().ChangeRepaint();
 						
-						mainFrame.getConsolePartPanel().getTextarea().append("打开用例图 "+tabbedbutton.getText()+" 的绘图面板\n");
+						mainFrame.getConsolePartPanel().getTextarea1().append("打开用例图 "+tabbedbutton.getText()+" 的绘图面板\n");
 						
 					}
 					else if (workspace.getTitle().toString().endsWith(".timing.violet.xml")
@@ -324,7 +324,7 @@ public class ButtonTabbedPanel extends JPanel{
 						
 						mainFrame.getStepOneCenterTabbedPane().ChangeRepaint();
 						
-						mainFrame.getConsolePartPanel().getTextarea().append("打开时序图 "+tabbedbutton.getText()+" 的绘图面板\n");
+						mainFrame.getConsolePartPanel().getTextarea1().append("打开时序图 "+tabbedbutton.getText()+" 的绘图面板\n");
 						
 					}
 					else if (workspace.getTitle().toString().endsWith(".state.violet.xml")
@@ -359,24 +359,24 @@ public class ButtonTabbedPanel extends JPanel{
 						
 						mainFrame.getStepOneCenterTabbedPane().ChangeRepaint();
 						
-						mainFrame.getConsolePartPanel().getTextarea().append("打开状态图 "+tabbedbutton.getText()+" 的绘图面板\n");
+						mainFrame.getConsolePartPanel().getTextarea1().append("打开状态图 "+tabbedbutton.getText()+" 的绘图面板\n");
 						
 					}
 					
-					mainFrame.getAttributePartPanel().getSteponenamelabel().setText(tabbedbutton.getText());
+					mainFrame.getAttributePartOnePanel().getNamelabel().setText(tabbedbutton.getText());
 
-					mainFrame.getAttributePartPanel().getAttributepanel().removeAll();
+					mainFrame.getAttributePartOnePanel().getAttributepanel().removeAll();
 					if(workspace.getGraphFile().getDirectory()!=null){
-						mainFrame.getAttributePartPanel().setSteponeattributetree(XMLToTree.getTree(workspace.getGraphFile().getDirectory()+"\\"+workspace.getGraphFile().getFilename()));
+						mainFrame.getAttributePartOnePanel().setAttributetree(XMLToTree.getTree(workspace.getGraphFile().getDirectory()+"\\"+workspace.getGraphFile().getFilename()));
 					}
 					JScrollPane StepOneScrollTree = new JScrollPane(
-							mainFrame.getAttributePartPanel().getSteponeattributetree());
+							mainFrame.getAttributePartOnePanel().getAttributetree());
 					StepOneScrollTree.setBorder(null);
 					StepOneScrollTree.setBackground(new Color(255, 255, 255));
 
-					mainFrame.getAttributePartPanel().getAttributepanel().add(StepOneScrollTree);
+					mainFrame.getAttributePartOnePanel().getAttributepanel().add(StepOneScrollTree);
 					
-					mainFrame.getAttributePartPanel().ChangeRepaint();
+					mainFrame.getAttributePartOnePanel().ChangeRepaint();
 					
 				}
 				else if(mainFrame.getStepindex()==2){
@@ -426,21 +426,21 @@ public class ButtonTabbedPanel extends JPanel{
 					
 					mainFrame.getStepTwoCenterTabbedPane().ChangeRepaint();
 					
-					mainFrame.getConsolePartPanel().getTextarea().append("打开时间自动机"+tabbedbutton.getText()+"\n");
+					mainFrame.getConsolePartPanel().getTextarea2().append("打开时间自动机"+tabbedbutton.getText()+"\n");
 					
-					mainFrame.getAttributePartPanel().getSteptwonamelabel().setText(tabbedbutton.getText());
+					mainFrame.getAttributePartTwoPanel().getNamelabel().setText(tabbedbutton.getText());
 
-					mainFrame.getAttributePartPanel().getAttributepanel().removeAll();
-					mainFrame.getAttributePartPanel().setSteptwoattributetree(XMLToTree.getTree(workspace.getGraphFile().getDirectory()+"\\"+workspace.getGraphFile().getFilename()));
+					mainFrame.getAttributePartTwoPanel().getAttributepanel().removeAll();
+					mainFrame.getAttributePartTwoPanel().setAttributetree(XMLToTree.getTree(workspace.getGraphFile().getDirectory()+"\\"+workspace.getGraphFile().getFilename()));
 					
 					JScrollPane StepTwoScrollTree = new JScrollPane(
-							mainFrame.getAttributePartPanel().getSteptwoattributetree());
+							mainFrame.getAttributePartTwoPanel().getAttributetree());
 					StepTwoScrollTree.setBorder(null);
 					StepTwoScrollTree.setBackground(new Color(255, 255, 255));
 
-					mainFrame.getAttributePartPanel().getAttributepanel().add(StepTwoScrollTree);
+					mainFrame.getAttributePartTwoPanel().getAttributepanel().add(StepTwoScrollTree);
 					
-					mainFrame.getAttributePartPanel().ChangeRepaint();
+					mainFrame.getAttributePartTwoPanel().ChangeRepaint();
 					
 //					mainFrame.setVisible(false);
 //					mainFrame.getContentPane().repaint();

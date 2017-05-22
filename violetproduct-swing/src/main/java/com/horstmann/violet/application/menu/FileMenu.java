@@ -370,7 +370,7 @@ public class FileMenu extends JMenu
 					i++;
 				}
          	
-         	mainFrame.getConsolePartPanel().getTextarea().append("保存用例图文件 "+graphFile.getFilename()+" 到 "+graphFile.getDirectory()+"\n");
+         	mainFrame.getConsolePartPanel().getTextarea1().append("保存用例图文件 "+graphFile.getFilename()+" 到 "+graphFile.getDirectory()+"\n");
  		}
  		if (workspace.getTitle().toString().endsWith(".timing.violet.xml")
  				|| workspace.getTitle().toString().substring(2, 4).equals("Ti"))// 时序图
@@ -390,7 +390,7 @@ public class FileMenu extends JMenu
 					i++;
 				}
 				
- 			mainFrame.getConsolePartPanel().getTextarea().append("保存时序图文件 "+graphFile.getFilename()+" 到 "+graphFile.getDirectory()+"\n");
+ 			mainFrame.getConsolePartPanel().getTextarea1().append("保存时序图文件 "+graphFile.getFilename()+" 到 "+graphFile.getDirectory()+"\n");
  		}
  		if (workspace.getTitle().toString().endsWith(".seq.violet.xml")
  				|| workspace.getTitle().toString().substring(2, 4).equals("Se"))// 如果是顺序图
@@ -410,7 +410,7 @@ public class FileMenu extends JMenu
 					i++;
 				}
 				
- 			mainFrame.getConsolePartPanel().getTextarea().append("保存顺序图文件 "+graphFile.getFilename()+" 到 "+graphFile.getDirectory()+"\n");
+ 			mainFrame.getConsolePartPanel().getTextarea1().append("保存顺序图文件 "+graphFile.getFilename()+" 到 "+graphFile.getDirectory()+"\n");
  		}
  		if (workspace.getTitle().toString().endsWith(".state.violet.xml")
  				|| workspace.getTitle().toString().substring(2, 4).equals("St"))// 如果是状态图
@@ -430,7 +430,7 @@ public class FileMenu extends JMenu
 					i++;
 				}
 				
- 			mainFrame.getConsolePartPanel().getTextarea().append("保存状态图文件 "+graphFile.getFilename()+" 到 "+graphFile.getDirectory()+"\n");
+ 			mainFrame.getConsolePartPanel().getTextarea1().append("保存状态图文件 "+graphFile.getFilename()+" 到 "+graphFile.getDirectory()+"\n");
  		}
 	}
 
@@ -556,22 +556,22 @@ public class FileMenu extends JMenu
                     if (workspace.getTitle().toString().endsWith(".ucase.violet.xml")
             				|| workspace.getTitle().toString().substring(2, 4).equals("Us"))// 如果是用例图
             		{
-                    	mainFrame.getConsolePartPanel().getTextarea().append("关闭用例图 "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" 的绘图面板\n");
+                    	mainFrame.getConsolePartPanel().getTextarea1().append("关闭用例图 "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" 的绘图面板\n");
             		}
             		if (workspace.getTitle().toString().endsWith(".timing.violet.xml")
             				|| workspace.getTitle().toString().substring(2, 4).equals("Ti"))// 时序图
             		{
-            			mainFrame.getConsolePartPanel().getTextarea().append("关闭时序图 "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" 的绘图面板\n");
+            			mainFrame.getConsolePartPanel().getTextarea1().append("关闭时序图 "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" 的绘图面板\n");
             		}
             		if (workspace.getTitle().toString().endsWith(".seq.violet.xml")
             				|| workspace.getTitle().toString().substring(2, 4).equals("Se"))// 如果是顺序图
             		{
-            			mainFrame.getConsolePartPanel().getTextarea().append("关闭顺序图 "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" 的绘图面板\n");
+            			mainFrame.getConsolePartPanel().getTextarea1().append("关闭顺序图 "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" 的绘图面板\n");
             		}
             		if (workspace.getTitle().toString().endsWith(".state.violet.xml")
             				|| workspace.getTitle().toString().substring(2, 4).equals("St"))// 如果是状态图
             		{
-            			mainFrame.getConsolePartPanel().getTextarea().append("关闭状态图 "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" 的绘图面板\n");
+            			mainFrame.getConsolePartPanel().getTextarea1().append("关闭状态图 "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" 的绘图面板\n");
             		}
                     
                 }
@@ -887,7 +887,7 @@ public class FileMenu extends JMenu
 						tabbutton = usecaseDiagramButtonTabbedPanelLists.get(usecaseDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
 						stepbutton.doClick();
 						
-						mainFrame.getConsolePartPanel().getTextarea().append("导入用例图: "+selectedFile.getFilename()+"\n");
+						mainFrame.getConsolePartPanel().getTextarea1().append("导入用例图: "+selectedFile.getFilename()+"\n");
 						
 						tabbutton.doClick();
 						
@@ -909,7 +909,7 @@ public class FileMenu extends JMenu
 						tabbutton = stateDiagramButtonTabbedPanelLists.get(stateDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
 						stepbutton.doClick();
 						
-						mainFrame.getConsolePartPanel().getTextarea().append("导入状态图: "+selectedFile.getFilename()+"\n");
+						mainFrame.getConsolePartPanel().getTextarea1().append("导入状态图: "+selectedFile.getFilename()+"\n");
 						
 						tabbutton.doClick();
 						
@@ -931,7 +931,7 @@ public class FileMenu extends JMenu
 						tabbutton = sequenceDiagramButtonTabbedPanelLists.get(sequenceDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
 						stepbutton.doClick();
 
-						mainFrame.getConsolePartPanel().getTextarea().append("导入顺序图: "+selectedFile.getFilename()+"\n");
+						mainFrame.getConsolePartPanel().getTextarea1().append("导入顺序图: "+selectedFile.getFilename()+"\n");
 						
 						tabbutton.doClick();
 						
@@ -953,7 +953,7 @@ public class FileMenu extends JMenu
 						tabbutton = timingDiagramButtonTabbedPanelLists.get(timingDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
 						stepbutton.doClick();
 
-						mainFrame.getConsolePartPanel().getTextarea().append("导入时序图: "+selectedFile.getFilename()+"\n");
+						mainFrame.getConsolePartPanel().getTextarea1().append("导入时序图: "+selectedFile.getFilename()+"\n");
 						
 						tabbutton.doClick();
 						
@@ -1061,7 +1061,7 @@ public class FileMenu extends JMenu
                             
                             if(itemname.equals("Us")){
                             	
-                            	mainFrame.getConsolePartPanel().getTextarea().append("新建用例图: "+str+".seq.violet.xml\n");
+                            	mainFrame.getConsolePartPanel().getTextarea1().append("新建用例图: "+str+".seq.violet.xml\n");
                             	
                             	tabbutton=usecaseDiagramButtonTabbedPanelLists.get(usecaseDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
                             	tabbutton.setText(str);
@@ -1084,7 +1084,7 @@ public class FileMenu extends JMenu
                             	
                             }else if(itemname.equals("St")){
                             	
-                            	mainFrame.getConsolePartPanel().getTextarea().append("新建状态图: "+str+".state.violet.xml\n");
+                            	mainFrame.getConsolePartPanel().getTextarea1().append("新建状态图: "+str+".state.violet.xml\n");
                             	
                             	tabbutton=stateDiagramButtonTabbedPanelLists.get(stateDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
                             	tabbutton.setText(str);
@@ -1107,7 +1107,7 @@ public class FileMenu extends JMenu
     							
                             }else if(itemname.equals("Se")){
                             	
-                            	mainFrame.getConsolePartPanel().getTextarea().append("新建顺序图: "+str+".seq.violet.xml\n");
+                            	mainFrame.getConsolePartPanel().getTextarea1().append("新建顺序图: "+str+".seq.violet.xml\n");
                             	
                             	tabbutton=sequenceDiagramButtonTabbedPanelLists.get(sequenceDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
                             	tabbutton.setText(str);
@@ -1130,7 +1130,7 @@ public class FileMenu extends JMenu
                             	
                             }else if(itemname.equals("Ti")){
                             	
-                            	mainFrame.getConsolePartPanel().getTextarea().append("新建时序图: "+str+".timing.violet.xml\n");
+                            	mainFrame.getConsolePartPanel().getTextarea1().append("新建时序图: "+str+".timing.violet.xml\n");
                             	
                             	tabbutton=timingDiagramButtonTabbedPanelLists.get(timingDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
                             	tabbutton.setText(str);
@@ -1226,7 +1226,7 @@ public class FileMenu extends JMenu
     						tabbutton = usecaseDiagramButtonTabbedPanelLists.get(usecaseDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
     						stepbutton.doClick();
 
-    						mainFrame.getConsolePartPanel().getTextarea().append("打开最近用例图文件: "+aFile.getFilename()+"\n");
+    						mainFrame.getConsolePartPanel().getTextarea1().append("打开最近用例图文件: "+aFile.getFilename()+"\n");
     						
     						tabbutton.doClick();
     						
@@ -1248,7 +1248,7 @@ public class FileMenu extends JMenu
     						tabbutton = stateDiagramButtonTabbedPanelLists.get(stateDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
     						stepbutton.doClick();
 
-    						mainFrame.getConsolePartPanel().getTextarea().append("打开最近状态图文件: "+aFile.getFilename()+"\n");
+    						mainFrame.getConsolePartPanel().getTextarea1().append("打开最近状态图文件: "+aFile.getFilename()+"\n");
     						
     						tabbutton.doClick();
     						
@@ -1270,7 +1270,7 @@ public class FileMenu extends JMenu
     						tabbutton = sequenceDiagramButtonTabbedPanelLists.get(sequenceDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
     						stepbutton.doClick();
 
-    						mainFrame.getConsolePartPanel().getTextarea().append("打开最近顺序图文件: "+aFile.getFilename()+"\n");
+    						mainFrame.getConsolePartPanel().getTextarea1().append("打开最近顺序图文件: "+aFile.getFilename()+"\n");
     						
     						tabbutton.doClick();
     						
@@ -1292,7 +1292,7 @@ public class FileMenu extends JMenu
     						tabbutton = timingDiagramButtonTabbedPanelLists.get(timingDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
     						stepbutton.doClick();
 
-    						mainFrame.getConsolePartPanel().getTextarea().append("打开最近时序图文件: "+aFile.getFilename()+"\n");
+    						mainFrame.getConsolePartPanel().getTextarea1().append("打开最近时序图文件: "+aFile.getFilename()+"\n");
     						
     						tabbutton.doClick();
     						

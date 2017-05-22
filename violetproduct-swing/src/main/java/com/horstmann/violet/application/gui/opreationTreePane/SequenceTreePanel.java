@@ -151,7 +151,7 @@ public class SequenceTreePanel extends JPanel{
 									mainFrame.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists().get(sequencetreerootnode.getIndex(parentNode)).getTabbedbutton().doClick();
 									fileMenu.fileCloseItem.doClick();
 									mainFrame.deleteTabbedPane(mainFrame.getSequenceWorkspaceList().get(sequencetreerootnode.getIndex(parentNode)));
-									mainFrame.getConsolePartPanel().getTextarea().append("É¾³ýË³ÐòÍ¼ "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" µÄ»æÍ¼Ãæ°å\n");
+									mainFrame.getConsolePartPanel().getTextarea1().append("É¾³ýË³ÐòÍ¼ "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" µÄ»æÍ¼Ãæ°å\n");
 								}
 								
 							}

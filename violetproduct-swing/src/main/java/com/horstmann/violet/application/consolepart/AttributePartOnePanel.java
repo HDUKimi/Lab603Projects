@@ -31,7 +31,7 @@ import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 
-public class AttributePartPanel  extends JPanel {
+public class AttributePartOnePanel  extends JPanel {
 	
 	private MainFrame mainFrame;
 	
@@ -54,57 +54,13 @@ public class AttributePartPanel  extends JPanel {
 	
 	private JTree attributetree=null;
 	
-	private List<JLabel> stepNameLabelGroup;
-	private JLabel steponenamelabel;
-	private JLabel steptwonamelabel;
-	private JLabel stepthreenamelabel;
-	
-	private JTree steponeattributetree=null;
-	private JTree steptwoattributetree=null;
-	private JTree stepthreeattributetree=null;
-	
-	public AttributePartPanel(MainFrame mainFrame){
+	public AttributePartOnePanel(MainFrame mainFrame){
 		
 		this.mainFrame=mainFrame;
 		
 		this.setBackground(new Color(255, 255, 255));
 		
 		init();
-		
-		initStepNameLabel();
-		
-//		initStepAttributeTree();
-		
-	}
-
-	private void initStepAttributeTree() {
-		// TODO Auto-generated method stub
-		
-//		steponeattributetree=new JTree();
-//		steptwoattributetree=new JTree();
-//		stepthreeattributetree=new JTree();
-		
-	}
-
-	private void initStepNameLabel() {
-		// TODO Auto-generated method stub
-		
-		steponenamelabel=new JLabel();
-		steptwonamelabel=new JLabel();
-		stepthreenamelabel=new JLabel();
-		
-		stepNameLabelGroup=new ArrayList<JLabel>();
-		stepNameLabelGroup.add(steponenamelabel);
-		stepNameLabelGroup.add(steptwonamelabel);
-		stepNameLabelGroup.add(stepthreenamelabel);
-		
-		for(JLabel label:stepNameLabelGroup){
-			label.setText("  ");
-			label.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-			label.setForeground(new Color(0, 102, 204));
-			label.setBorder(BorderFactory.createEmptyBorder(2, 4, 2, 0));
-		}
-		
 		
 	}
 
@@ -212,14 +168,6 @@ public class AttributePartPanel  extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				if(mainFrame.getStepindex()==1){
-					attributetree=mainFrame.getAttributePartPanel().getSteponeattributetree();
-				}else if(mainFrame.getStepindex()==2){
-					attributetree=mainFrame.getAttributePartPanel().getSteptwoattributetree();
-				}else if(mainFrame.getStepindex()==3){
-					attributetree=mainFrame.getAttributePartPanel().getStepthreeattributetree();
-				}
-				
 				if(attributetree!=null){
 					TreeNode node = (TreeNode) attributetree.getModel().getRoot();
 			        expandAll(attributetree, new TreePath(node), true);
@@ -241,14 +189,6 @@ public class AttributePartPanel  extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
-				if(mainFrame.getStepindex()==1){
-					attributetree=mainFrame.getAttributePartPanel().getSteponeattributetree();
-				}else if(mainFrame.getStepindex()==2){
-					attributetree=mainFrame.getAttributePartPanel().getSteptwoattributetree();
-				}else if(mainFrame.getStepindex()==3){
-					attributetree=mainFrame.getAttributePartPanel().getStepthreeattributetree();
-				}
 				
 				if(attributetree!=null){
 					TreeNode node = (TreeNode) attributetree.getModel().getRoot();
@@ -347,7 +287,7 @@ public class AttributePartPanel  extends JPanel {
 				// TODO Auto-generated method stub
 				
 				mainFrame.getJs2().setDividerSize(0);
-				mainFrame.getAttributePartPanel().setVisible(false);
+				mainFrame.getAttributePart().setVisible(false);
 				mainFrame.getOneTouchExpandablePanel().setFlag3(0);
 				mainFrame.getOneTouchExpandablePanel().setLocation3(mainFrame.getJs2().getDividerLocation());
 				
@@ -402,43 +342,5 @@ public class AttributePartPanel  extends JPanel {
 	public JLabel getNamelabel() {
 		return namelabel;
 	}
-
-	public JLabel getSteponenamelabel() {
-		return steponenamelabel;
-	}
-
-	public JLabel getSteptwonamelabel() {
-		return steptwonamelabel;
-	}
-
-	public JLabel getStepthreenamelabel() {
-		return stepthreenamelabel;
-	}
-
-	public JTree getSteponeattributetree() {
-		return steponeattributetree;
-	}
-
-	public void setSteponeattributetree(JTree steponeattributetree) {
-		this.steponeattributetree = steponeattributetree;
-	}
-
-	public JTree getSteptwoattributetree() {
-		return steptwoattributetree;
-	}
-
-	public void setSteptwoattributetree(JTree steptwoattributetree) {
-		this.steptwoattributetree = steptwoattributetree;
-	}
-
-	public JTree getStepthreeattributetree() {
-		return stepthreeattributetree;
-	}
-
-	public void setStepthreeattributetree(JTree stepthreeattributetree) {
-		this.stepthreeattributetree = stepthreeattributetree;
-	}
-
-	
 
 }

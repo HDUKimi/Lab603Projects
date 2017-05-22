@@ -986,9 +986,11 @@ public class ValidationResultPanel extends JPanel{
 	
 	public void ChangeRepaint() {
 		// TODO Auto-generated method stub
-		this.setVisible(false);
-		this.getRootPane().repaint();
-		this.setVisible(true);
+		if(mainFrame.getStepindex()==6){
+			this.setVisible(false);
+			this.getRootPane().repaint();
+			this.setVisible(true);
+		}
 	}
 
 	

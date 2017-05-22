@@ -378,6 +378,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		mainFrame.getAbstractTestCaseResultPanel().getThreeresultpanel().removeAll();
 		mainFrame.getAbstractTestCaseResultPanel().getThreenamelabel().setText("");
 		
+		mainFrame.getConsolePartPanel().getTextarea3().setText("");
 		ChangeRepaint();
 	}
 
@@ -386,6 +387,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 		//初始化线程，数据
 		initUIPanel();
+		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
+		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
 		
 		selectUppaal=mainFrame.getTestCaseGenerationPanel().getSelectUppaalCheckBox().getText();
 		selectCover=mainFrame.getTestCaseGenerationPanel().getSelectCoverCheckBox().getText();
@@ -1671,16 +1674,18 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	}
 	
 	public static void TextAreaPrint(String word){
-		JTextArea textarea=mainFrame.getConsolePartPanel().getTextarea();
+		JTextArea textarea=mainFrame.getConsolePartPanel().getTextarea3();
 		textarea.append(word+"\n");
 		textarea.setCaretPosition(textarea.getDocument().getLength());
 	}
 	
 	public void ChangeRepaint() {
 		// TODO Auto-generated method stub
-		this.setVisible(false);
-		this.getRootPane().repaint();
-		this.setVisible(true);
+		if(mainFrame.getStepindex()==3){
+			this.setVisible(false);
+			this.getRootPane().repaint();
+			this.setVisible(true);
+		}
 	}
 
 	public Map<String, String> getStateIdToNameMap() {

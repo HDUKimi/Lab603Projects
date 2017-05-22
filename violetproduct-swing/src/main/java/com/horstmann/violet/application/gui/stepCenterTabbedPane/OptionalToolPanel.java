@@ -66,7 +66,7 @@ public class OptionalToolPanel extends JPanel{
 				// TODO Auto-generated method stub
 //				workspace.getSideBar().getOptionalToolsBar().getPrintButton().doClick();
 				workspace.getGraphFile().exportToPrinter();
-				mainFrame.getConsolePartPanel().getTextarea().append("预览打印\n");
+				mainFrame.getConsolePartPanel().getTextarea1().append("预览打印\n");
 			}
 		});
 		
@@ -82,7 +82,7 @@ public class OptionalToolPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				workspace.getGraphFile().exportToClipboard();
-				mainFrame.getConsolePartPanel().getTextarea().append("导出到剪贴板\n");
+				mainFrame.getConsolePartPanel().getTextarea1().append("导出到剪贴板\n");
 			}
 		});
 		

@@ -125,7 +125,7 @@ public class StateTreePanel extends JPanel{
 									mainFrame.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists().get(statetreerootnode.getIndex(parentNode)).getTabbedbutton().doClick();
 									fileMenu.fileCloseItem.doClick();
 									mainFrame.deleteTabbedPane(mainFrame.getStateWorkspaceList().get(statetreerootnode.getIndex(parentNode)));
-									mainFrame.getConsolePartPanel().getTextarea().append("É¾³ýË³ÐòÍ¼ "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" µÄ»æÍ¼Ãæ°å\n");
+									mainFrame.getConsolePartPanel().getTextarea1().append("É¾³ýË³ÐòÍ¼ "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" µÄ»æÍ¼Ãæ°å\n");
 								}
 								
 							}

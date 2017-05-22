@@ -137,7 +137,7 @@ public class ValidationToolPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				workspace.getSideBar().getEditorToolsBar().getZoomInButton().doClick();
-				mainFrame.getConsolePartPanel().getTextarea().append("放大一倍视图\n");
+				mainFrame.getConsolePartPanel().getTextarea6().append("放大一倍视图\n");
 			}
 		});
 		
@@ -153,7 +153,7 @@ public class ValidationToolPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				workspace.getSideBar().getEditorToolsBar().getZoomOutButton().doClick();
-				mainFrame.getConsolePartPanel().getTextarea().append("缩小一倍视图\n");
+				mainFrame.getConsolePartPanel().getTextarea6().append("缩小一倍视图\n");
 			}
 		});
 		

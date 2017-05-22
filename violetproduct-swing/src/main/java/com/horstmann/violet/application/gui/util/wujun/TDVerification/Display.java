@@ -15,7 +15,7 @@ public class Display {
 			ValidationToolPanel.startProcessCount();
 		}
 		
-		mainFrame.getConsolePartPanel().getTextarea().append(value+"\n");
+		mainFrame.getConsolePartPanel().getTextarea6().append(value+"\n");
 		
 	}
 	

@@ -207,7 +207,9 @@ public class StepFiveCenterTabbedPane extends JPanel{
 				testCaseReportDiagramButtonPanel.setBackground(new Color(58, 105, 190));
 				testCaseChartDiagramButtonPanel.setBackground(new Color(77, 96, 130));
 				
-				ChangeRepaint();
+				if(mainFrame.getStepindex()==5){
+					ChangeRepaint();
+				}
 				
 			}
 		});
