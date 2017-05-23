@@ -5,18 +5,18 @@ import com.horstmann.violet.application.gui.util.wujun.SequenceTransfrom.SD2Uppa
 public class Display {
 	public static void println(String value) {
 
-		System.out.println(value);
-		SD2UppaalMain.getMainFrame().getConsolePartPanel().getTextarea().append(value+"\n");
+//		System.out.println(value);
+		SD2UppaalMain.getMainFrame().getConsolePartPanel().getTextarea2().append(value+"\n");
 		
 	}
 	
 	public static void println() {
-		println("");
-		SD2UppaalMain.getMainFrame().getConsolePartPanel().getTextarea().append("\n");
+//		println("");
+		SD2UppaalMain.getMainFrame().getConsolePartPanel().getTextarea2().append("\n");
 	}
 	
 	public static void print(String value) {
-		System.out.print(value);
-		SD2UppaalMain.getMainFrame().getConsolePartPanel().getTextarea().append(value);
+//		System.out.print(value);
+		SD2UppaalMain.getMainFrame().getConsolePartPanel().getTextarea2().append(value);
 	}
 }

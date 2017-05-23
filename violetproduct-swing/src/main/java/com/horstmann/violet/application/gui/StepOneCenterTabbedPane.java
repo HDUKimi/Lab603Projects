@@ -24,6 +24,9 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
 
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MoviePanel;
@@ -103,6 +106,62 @@ public class StepOneCenterTabbedPane extends JPanel {
 		
 		this.setMinimumSize(new Dimension(screenWidth/2, screenHeight/2));
 
+	}
+	
+	public void initUIPanel(){
+		
+		int sequencecount=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetree().getRowCount();
+		int usecasecount=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetree().getRowCount();
+		int statecount=mainFrame.getProjectTree().getStateTreePanel().getStatetree().getRowCount();
+		int timingcount=mainFrame.getProjectTree().getTimingTreePanel().getTimingtree().getRowCount();
+		
+//		System.out.println("sequencecount "+sequencecount+"  mainFrame.getSequenceWorkspaceList()  "+mainFrame.getSequenceWorkspaceList().size());
+//		System.out.println("usecasecount "+usecasecount+" mainFrame.getUseCaseWorkspaceList().size()  "+mainFrame.getUseCaseWorkspaceList().size());
+//		System.out.println("statecount "+statecount+"  mainFrame.getStateWorkspaceList().size() "+mainFrame.getStateWorkspaceList().size());
+//		System.out.println("timingcount "+timingcount+" mainFrame.getTimingWorkspaceList().size() "+mainFrame.getTimingWorkspaceList().size());
+		
+		DefaultMutableTreeNode sequenceroot = mainFrame.getProjectTree().getSequenceTreePanel().getSequencetreerootnode();
+		DefaultMutableTreeNode usecaseroot = mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetreerootnode();
+		DefaultMutableTreeNode stateroot = mainFrame.getProjectTree().getStateTreePanel().getStatetreerootnode();
+		DefaultMutableTreeNode timingroot = mainFrame.getProjectTree().getTimingTreePanel().getTimingtreerootnode();
+				
+		
+		for(int se=0;se<sequencecount-1;se++){
+			MutableTreeNode node=sequenceroot.getFirstLeaf();
+			mainFrame.getProjectTree().getSequenceTreePanel().getSequencetreemodel().removeNodeFromParent(node);
+		}
+		mainFrame.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists().clear();
+		mainFrame.getSequenceWorkspaceList().clear();
+		
+		for(int uc=0;uc<usecasecount-1;uc++){
+			MutableTreeNode node=usecaseroot.getFirstLeaf();
+			mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetreemodel().removeNodeFromParent(node);
+		}
+		mainFrame.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists().clear();
+		mainFrame.getUseCaseWorkspaceList().clear();
+		
+		for(int st=0;st<statecount-1;st++){
+			MutableTreeNode node=stateroot.getFirstLeaf();
+			mainFrame.getProjectTree().getStateTreePanel().getStatetreemodel().removeNodeFromParent(node);
+		}
+		mainFrame.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists().clear();
+		mainFrame.getStateWorkspaceList().clear();
+		
+		for(int ti=0;ti<timingcount-1;ti++){
+			MutableTreeNode node=timingroot.getFirstLeaf();
+			mainFrame.getProjectTree().getTimingTreePanel().getTimingtreemodel().removeNodeFromParent(node);
+		}
+		mainFrame.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().clear();
+		mainFrame.getTimingWorkspaceList().clear();
+		
+		mainFrame.getStepOneCenterTabbedPane().getButtonPanel().removeAll();
+		mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().removeAll();
+		
+		mainFrame.getAttributePartOnePanel().getNamelabel().setText("");
+		mainFrame.getAttributePartOnePanel().getAttributepanel().removeAll();
+		
+		mainFrame.getConsolePartPanel().getTextarea1().setText("");
+		
 	}
 
 	private void initdiagrampanel() {

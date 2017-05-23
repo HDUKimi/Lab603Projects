@@ -117,14 +117,12 @@ public class HomeTimeTestTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				mainFrame.getHomeAllTabbedPanel().setStarttype(3);
-				mainFrame.getStepButton().getStep1button().doClick();
-				
-				mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().updateFileList();
-				mainFrame.getTestCaseGenerationPanel().updateFileList();
-				mainFrame.getTestCaseConfirmationPanel().updateFileList();
+				mainFrame.getHomeAllTabbedPanel().initAllUIPanelAndData();
 				
 				mainFrame.getTestCaseGenerationPanel().getCoverpanel().setVisible(true);
+				
+				mainFrame.getHomeAllTabbedPanel().setStarttype(3);
+				mainFrame.getStepButton().getStep1button().doClick();
 				
 			}
 		});
@@ -183,8 +181,6 @@ public class HomeTimeTestTabbedPanel extends JPanel{
 				mainFrame.getHomeAllTabbedPanel().getInforresultpanel().removeAll();
 				mainFrame.getHomeAllTabbedPanel().getInforresultpanel().add(mainFrame.getHomeAllTabbedPanel().getInforpanel());
 				mainFrame.getHomeAllTabbedPanel().ChangeRepaint();
-				
-				mainFrame.getHomeAllTabbedPanel().setStarttype(0);
 				
 			}
 		});

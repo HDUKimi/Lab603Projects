@@ -135,12 +135,12 @@ public class StepButtonPanel extends JPanel {
     
     private JButton tabbutton=new JButton();
 	
-    JTextArea StepOneArea=new JTextArea();
-	JTextArea StepTwoArea=new JTextArea();
-	JTextArea StepThreeArea=new JTextArea();
-	JTextArea StepFourArea=new JTextArea();
-	JTextArea StepFiveArea=new JTextArea();
-	JTextArea StepSixArea=new JTextArea();
+//    JTextArea StepOneArea=new JTextArea();
+//	JTextArea StepTwoArea=new JTextArea();
+//	JTextArea StepThreeArea=new JTextArea();
+//	JTextArea StepFourArea=new JTextArea();
+//	JTextArea StepFiveArea=new JTextArea();
+//	JTextArea StepSixArea=new JTextArea();
 	
 	JPanel StepOneTreePanel=new JPanel();
 	JPanel StepTwoTreePanel=new JPanel();
@@ -775,313 +775,313 @@ public class StepButtonPanel extends JPanel {
   }
     //设置监听器
 	private void SetButtonListener() {
-		Twostart.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				StepTwoArea.append("UML模型正在转换中......\n");	
-				// TODO Auto-generated method stub
-			   	try {
-			   		//事件分发线程(gum处理事件和画图的时候)
-			   		SwingUtilities.invokeLater(new Runnable() {
-						
-						@Override
-						public void run() {
-							try {
-								//uml转化成事件自动机
-                                 //用于获得当前工作的sequence
-								String name=FileMenu.getFileName();//sequence.getGraphFile().getFilename();
-								String directoryPath=FileMenu.getDirectory();
-								String path=directoryPath+"\\"+name;//菜单栏打开文件的路径
-								System.out.println(path+"路劲");
-								if(name.contains("EA")){//打开ea平台的xml文件
-//									System.out.println("++++"+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex()+"++++"+mainFrame.getSequenceWorkspaceList().get(mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex()).getGraphFile().getDirectory()+"++++"+mainFrame.getSequenceWorkspaceList().get(mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex()).getGraphFile().getFilename());
-//									path=mainFrame.getSequenceWorkspaceList().get(mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex()).getGraphFile().getDirectory()+"\\"+mainFrame.getSequenceWorkspaceList().get(mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex()).getGraphFile().getFilename();
-//									System.out.println("::::----"+path);
-									SD2UppaalMain.transEA(path,mainFrame);//主要是将ea的xml转换成我们的wujun的xml(里面有他的路径)
-									//以下d盘中写的文件是死的路径，但是上面是动态生成的需要修改
-									LayoutUppaal.layout("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\UseCase1-Sequence1-Normal.xml");//("sequence.xml");
-//								    String filename1=TransToVioletUppaal.TransToViolet();
-									//String filename1="uppaalTest1.uppaal.violet.xml";
-//								    GraphFile fGraphFile1=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename1);
-//				    			    IWorkspace workspace1=new Workspace(fGraphFile1);  
-//				    			    mainFrame.addTabbedPane(workspace1,2);
-				    			    mainFrame.repaint();
-				    			    Thread.sleep(5000);
-				    				//String filename2=TransToVioletUppaal.TransToViolet();
-				    			
-								   // GraphFile fGraphFile2=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename2);
-				    			    //IWorkspace workspace2=new Workspace(fGraphFile2);  			    			  
-				    			    StepTwoArea.append("UML模型到时间自动机模型已经转换完成!\n");
-								}
-								else{//打开我们平台的xml文件
-									
-								}
-//								SD2UppaalMain.transEA(path);//主要是将ea的xml转换成我们的wujun的xml(里面有他的路径)
-//							    String filename1=TransToVioletUppaal.TransToViolet();
-//							    GraphFile fGraphFile1=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename1);
-//			    			    IWorkspace workspace1=new Workspace(fGraphFile1);  
-//			    			    mainFrame.addTabbedPane(workspace1,2);
-//			    			    mainFrame.repaint();
-//			    			    Thread.sleep(5000);
-								//先进行布局
-			    			    //将时间自动机展示在我们的平台上
-//								LayoutUppaal.layout
-//								("C:\\Users\\Admin\\Desktop\\项目最新代码\\violetumleditor-master\\violetproduct-swing\\sequence.xml");//("stabilize_run.xml");
-//								String filename2=TransToVioletUppaal.TransToViolet();
-//							    GraphFile fGraphFile2=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename2);
-//			    			    IWorkspace workspace2=new Workspace(fGraphFile2);  			    			  
-//			    			    StepTwoArea.append("UML模型到时间自动机模型已经转换完成!\n");
-			    			    //mainFrame.addTabbedPane(workspace1,2);
-			    			   
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}	
-							StepTwoArea.append("UML模型转换完成......\n");	
-//							tabbutton=StepTwoCenterTabbedPane.getUppaalDiagramButton();
-//							tabbutton.doClick();
-					}});			   				  		   
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-Threestart.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				StepThreeArea.append("抽象时间迁移的时间自动机正在生成.....\n");
-				
-				SwingUtilities.invokeLater(new Runnable() {
-					
-					@Override
-					public void run() {
-						
-						//GetAutomatic.getAutomatic("Draw MoneyForXStream(2).xml");
-						//by tan 将抽象测试用例的state加入到数据库中
-						//new AbstractStateInsertByTan().wqq2zhangExchange("Draw MoneyForXStream(2).xml");
-						//BY TAN 强抽象测试的迁移trasition加入到数据库中
-						//new AbstractTrasitionAndStateInsertByTan().w2zExchange("Draw MoneyForXStream(2).xml");
-						
-						String absolutePath=System.getProperty("user.dir");
-						
-						System.out.println("----------------------------------");
-						try {
-							//获取第三步自动机的节点和边的信息，存放在squence。xml中，在调用布局算法，生成节点坐标。存放在stabilize_run.xml中。
-							new AbstractTestCaseUppaalSequenceCreate().createXML("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\UseCase1-Sequence1-NormalForXStream.xml");
-							LayoutUppaal.layout
-							(absolutePath+"\\sequence.xml");
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						};
-						System.out.println("-----------------------------------");
-						 //将信息存入数据库
-						new AbstractTestCaseUppaalCreate().createXML("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\UseCase1-Sequence1-NormalForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\abs.uppaal.violet.xml");
-						//new AbstractTestCaseInsertByTan().w2zAbstractTestCaseExchange("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\sequenceForXStream.xml");//已经整合到上面的方法中
-						//String absfilename="abs.uppaal.violet.xml";
-				        //String no_time_absfilename="no_time_abs.uppaal.violet.xml";
-					    
-					    //String filename2=TransToVioletUppaal.TransToViolet();
-						
-						GraphFile absfGraphFile=ImportByDoubleClick.importFileByDoubleClick("UPPAAL","abs.uppaal.violet.xml");
-						//GraphFile no_time_absfGraphFile=ImportByDoubleClick.importFileByDoubleClick("UPPAAL","a.xml");
-		 			    IWorkspace absworkspace=new Workspace(absfGraphFile);
-		 			    //IWorkspace no_time_absworkspace=new Workspace(no_time_absfGraphFile);
-		 			    //展示时间迁移的自动机
-//		 			    mainFrame.addTabbedPane(absworkspace,3);
-		 			    
-		 			    
-		 			    StepThreeArea.append("抽象时间迁移的时间自动机生成完成!\n");
-		 			    StepThreeArea.append("不含时间迁移的时间自动机正在生成.....\n");
-		 			    //展示去时间迁移的自动机
-		 			    //mainFrame.addTabbedPane(no_time_absworkspace,3);
-		 			    
-		 			    StepThreeArea.append("不含时间迁移的时间自动机生成完成!\n");
-		 			    StepThreeArea.append("抽象测试用例正在生成.....\n");
-						//展示抽象测试用例的生成
-//		 			    mainFrame.getStepThreeCenterTabbedPane().getConsolePartScrollPane()
-//						.getViewport().add(new ConsolePartDetailInfoTable(0));			
-//		 			   mainFrame.getStepThreeCenterTabbedPane().getConsolePartScrollPane().getViewport().repaint();
-					    
-		 			   mainFrame.getStepThreeCenterTabbedPane().getTestCaseProduceTabbedPanel().getTabelscrollpanel().setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
-		 			   mainFrame.getStepThreeCenterTabbedPane().getTestCaseProduceTabbedPanel().getTabelscrollpanel()
-						.getViewport().add(new ConsolePartDetailInfoTable(0));			
-		 			   mainFrame.getStepThreeCenterTabbedPane().getTestCaseProduceTabbedPanel().getTabelscrollpanel().getViewport().repaint();
-					    
-		 			    
-		 			    StepThreeArea.append("抽象测试用例生成完成!.....\n");
-					    
-//					    tabbutton=StepThreeCenterTabbedPane.getAbstractUppaalDiagramButton();
-//						tabbutton.doClick();
-						
-					}
-				});
-				
-			}
-		});
-Fourstart.addActionListener(new ActionListener() {
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		StepFourArea.append("实例化测试用例正在生成.....\n");
-//		SwingUtilities.invokeLater(new Runnable() {
+//		Twostart.addActionListener(new ActionListener() {
 //			
 //			@Override
-//			public void run() {
+//			public void actionPerformed(ActionEvent e) {
+//				StepTwoArea.append("UML模型正在转换中......\n");	
 //				// TODO Auto-generated method stub
-				new RealTestCaseXMLRead("tcs.xml");
-//				mainFrame.getStepFourCenterTabbedPane().getConsolePartScrollPane()
-//				.getViewport().add(new ConsolePartDetailInfoTable(1));			
-//				mainFrame.getStepFourCenterTabbedPane().getConsolePartScrollPane().getViewport().repaint();
-				
-				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().removeAll();
-				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().setLayout(new BorderLayout());
-				JTable jt=new ConsolePartDetailInfoTable(1);
-				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().add(jt.getTableHeader(),BorderLayout.NORTH);
-				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().add(jt, BorderLayout.CENTER);
-//				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().add(new ConsolePartDetailInfoTable(1));
-				
-//				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().removeAll();
-//				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
-//				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().getViewport().add(new ConsolePartDetailInfoTable(1));
-//				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().getViewport().repaint();
-//				
-				
-//				StartThread();
-				
-				
-			    StepFourArea.append("实例化测试用例生成成功!");
-			}
-
-		});
-		
-		
-//	}
-//});
-
-		Fivestart.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				StepFiveArea.append("实例化测试用例验证正在进行中.....\n");
-				StepFiveArea.append("正在导入测试用例.....\n");
-
-				SwingUtilities.invokeLater(new Runnable() {
-					@Override
-					public void run() {
-//						ClientSocket clientSocket = new ClientSocket("192.168.150.117", 5555);
-//						clientSocket.Connection();
-//						JFileChooser jfc = new JFileChooser();
-//						jfc.setMultiSelectionEnabled(true);
-//						jfc.showDialog(new JLabel(), "选择测试用例");
-//						File[] files = jfc.getSelectedFiles();
-//						StepFiveArea.append("正在发送数据.....\n");
-//						clientSocket.sendFile(files);
-//						StepFiveArea.append("发送数据完成!\n");
-//						StepFiveArea.append("正在获得数据.....\n");
-//						try {
-//							Thread.sleep(10000);
-//						} catch (InterruptedException e) {
-//						}
-//						List<TestCase> list = clientSocket.getTestCaseList();
-//						StepFiveArea.append("数据已经获得!\n");
-						// 获得root的容器
-
-						System.out.println("///////////////////////////////");
-						
-//						List<TestCase> list = extractData();
-						List<TestCase> list = extractDataToXml();
-						
-						for(TestCase tc:list){
-							System.out.println(tc.toString());
-						}
-
-						System.out.println("///////////////////////////////");
-
-						JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getTableresultpanel();
-						
-						System.out.println("++++++++++++++++++++");
-						
-						JPanel resultpanel=new JPanel();
-						JPanel emptypanel=new JPanel();
-						resultpanel.setOpaque(false);
-						emptypanel.setOpaque(false);
-						
-						GridBagLayout layout = new GridBagLayout();
-						resultpanel.setLayout(layout);
-						int i=0;
-						testcasereportlist.clear();
-						for(TestCase tc:list){
-							PerformanceTestCaseReportPartPanel tcrppanel=new PerformanceTestCaseReportPartPanel(tc);
-							resultpanel.add(tcrppanel);
-							layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-							testcasereportlist.add(tcrppanel);
-						}
-						resultpanel.add(emptypanel);
-						layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-						
-						jp.removeAll();
-						jp.add(resultpanel);
-						
-						System.out.println("++++++++++++++++++++");
-						
-						// 获得报表的容器
-//						JPanel jp1 = JFreeChartTest.getJFreeChartTest(list);
-//						// 将表格放到JScrollPane容器中
-//						JScrollPane jsp = new JScrollPane(new ConsolePartTestCaseInfoTable(list));
-//						JSplitPane js = new JSplitPane(JSplitPane.VERTICAL_SPLIT, jsp,
-//								new JScrollPane(new ConsolePartTestCaseInfoTable(list).getjTextArea()));
-//						js.setDividerLocation(300);
-//						jp.add(js);
-//						mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().updateUI();
+//			   	try {
+//			   		//事件分发线程(gum处理事件和画图的时候)
+//			   		SwingUtilities.invokeLater(new Runnable() {
 //						
-//						mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().removeAll();
-//						mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().add(new TestCaseChartPanel());
-						
-						// 第二个tab页
-//						JPanel jpTab2 = mainFrame.getStepFiveCenterTabbedPane().getTestcaseFile1();
-//						// 报表放到第二个tab页
-//						jpTab2.add(jp1);
-
-					}
-				});
-			}
-		});
-
-Sixstart.addActionListener(new ActionListener() {
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		StepSixArea.append("一致性测试正在进行.....\n");
-//		SwingUtilities.invokeLater(new Runnable() {
+//						@Override
+//						public void run() {
+//							try {
+//								//uml转化成事件自动机
+//                                 //用于获得当前工作的sequence
+//								String name=FileMenu.getFileName();//sequence.getGraphFile().getFilename();
+//								String directoryPath=FileMenu.getDirectory();
+//								String path=directoryPath+"\\"+name;//菜单栏打开文件的路径
+//								System.out.println(path+"路劲");
+//								if(name.contains("EA")){//打开ea平台的xml文件
+////									System.out.println("++++"+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex()+"++++"+mainFrame.getSequenceWorkspaceList().get(mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex()).getGraphFile().getDirectory()+"++++"+mainFrame.getSequenceWorkspaceList().get(mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex()).getGraphFile().getFilename());
+////									path=mainFrame.getSequenceWorkspaceList().get(mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex()).getGraphFile().getDirectory()+"\\"+mainFrame.getSequenceWorkspaceList().get(mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex()).getGraphFile().getFilename();
+////									System.out.println("::::----"+path);
+//									SD2UppaalMain.transEA(path,mainFrame);//主要是将ea的xml转换成我们的wujun的xml(里面有他的路径)
+//									//以下d盘中写的文件是死的路径，但是上面是动态生成的需要修改
+//									LayoutUppaal.layout("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\UseCase1-Sequence1-Normal.xml");//("sequence.xml");
+////								    String filename1=TransToVioletUppaal.TransToViolet();
+//									//String filename1="uppaalTest1.uppaal.violet.xml";
+////								    GraphFile fGraphFile1=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename1);
+////				    			    IWorkspace workspace1=new Workspace(fGraphFile1);  
+////				    			    mainFrame.addTabbedPane(workspace1,2);
+//				    			    mainFrame.repaint();
+//				    			    Thread.sleep(5000);
+//				    				//String filename2=TransToVioletUppaal.TransToViolet();
+//				    			
+//								   // GraphFile fGraphFile2=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename2);
+//				    			    //IWorkspace workspace2=new Workspace(fGraphFile2);  			    			  
+//				    			    StepTwoArea.append("UML模型到时间自动机模型已经转换完成!\n");
+//								}
+//								else{//打开我们平台的xml文件
+//									
+//								}
+////								SD2UppaalMain.transEA(path);//主要是将ea的xml转换成我们的wujun的xml(里面有他的路径)
+////							    String filename1=TransToVioletUppaal.TransToViolet();
+////							    GraphFile fGraphFile1=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename1);
+////			    			    IWorkspace workspace1=new Workspace(fGraphFile1);  
+////			    			    mainFrame.addTabbedPane(workspace1,2);
+////			    			    mainFrame.repaint();
+////			    			    Thread.sleep(5000);
+//								//先进行布局
+//			    			    //将时间自动机展示在我们的平台上
+////								LayoutUppaal.layout
+////								("C:\\Users\\Admin\\Desktop\\项目最新代码\\violetumleditor-master\\violetproduct-swing\\sequence.xml");//("stabilize_run.xml");
+////								String filename2=TransToVioletUppaal.TransToViolet();
+////							    GraphFile fGraphFile2=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename2);
+////			    			    IWorkspace workspace2=new Workspace(fGraphFile2);  			    			  
+////			    			    StepTwoArea.append("UML模型到时间自动机模型已经转换完成!\n");
+//			    			    //mainFrame.addTabbedPane(workspace1,2);
+//			    			   
+//							} catch (Exception e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}	
+//							StepTwoArea.append("UML模型转换完成......\n");	
+////							tabbutton=StepTwoCenterTabbedPane.getUppaalDiagramButton();
+////							tabbutton.doClick();
+//					}});			   				  		   
+//				} catch (Exception e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//			}
+//		});
+//Threestart.addActionListener(new ActionListener() {
+//			
 //			@Override
-//			public void run() {
-				try {
-//					JSplitPane jp=new ExistTest().existTest();
-//					mainFrame.getStepSixCenterTabbedPane().getConsolePartScrollPane().setLayout(new BorderLayout());
-//					mainFrame.getStepSixCenterTabbedPane().getConsolePartScrollPane().validate();
-//					mainFrame.getStepSixCenterTabbedPane().getConsolePartScrollPane().add(jp,BorderLayout.CENTER);
-//					mainFrame.getStepSixCenterTabbedPane().getConsolePartScrollPane().revalidate();
-					 StepSixArea.append("一致性测试测试成功!");
-//					 Thread.sleep(5000);
-					//System.out.println(jvp);
-					//.add(jp);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			
-			   
-			}
-		});
-		
-		
-//	}
-//});
+//			public void actionPerformed(ActionEvent e) {
+//				StepThreeArea.append("抽象时间迁移的时间自动机正在生成.....\n");
+//				
+//				SwingUtilities.invokeLater(new Runnable() {
+//					
+//					@Override
+//					public void run() {
+//						
+//						//GetAutomatic.getAutomatic("Draw MoneyForXStream(2).xml");
+//						//by tan 将抽象测试用例的state加入到数据库中
+//						//new AbstractStateInsertByTan().wqq2zhangExchange("Draw MoneyForXStream(2).xml");
+//						//BY TAN 强抽象测试的迁移trasition加入到数据库中
+//						//new AbstractTrasitionAndStateInsertByTan().w2zExchange("Draw MoneyForXStream(2).xml");
+//						
+//						String absolutePath=System.getProperty("user.dir");
+//						
+//						System.out.println("----------------------------------");
+//						try {
+//							//获取第三步自动机的节点和边的信息，存放在squence。xml中，在调用布局算法，生成节点坐标。存放在stabilize_run.xml中。
+//							new AbstractTestCaseUppaalSequenceCreate().createXML("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\UseCase1-Sequence1-NormalForXStream.xml");
+//							LayoutUppaal.layout
+//							(absolutePath+"\\sequence.xml");
+//						} catch (Exception e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						};
+//						System.out.println("-----------------------------------");
+//						 //将信息存入数据库
+//						new AbstractTestCaseUppaalCreate().createXML("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\UseCase1-Sequence1-NormalForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\abs.uppaal.violet.xml");
+//						//new AbstractTestCaseInsertByTan().w2zAbstractTestCaseExchange("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\sequenceForXStream.xml");//已经整合到上面的方法中
+//						//String absfilename="abs.uppaal.violet.xml";
+//				        //String no_time_absfilename="no_time_abs.uppaal.violet.xml";
+//					    
+//					    //String filename2=TransToVioletUppaal.TransToViolet();
+//						
+//						GraphFile absfGraphFile=ImportByDoubleClick.importFileByDoubleClick("UPPAAL","abs.uppaal.violet.xml");
+//						//GraphFile no_time_absfGraphFile=ImportByDoubleClick.importFileByDoubleClick("UPPAAL","a.xml");
+//		 			    IWorkspace absworkspace=new Workspace(absfGraphFile);
+//		 			    //IWorkspace no_time_absworkspace=new Workspace(no_time_absfGraphFile);
+//		 			    //展示时间迁移的自动机
+////		 			    mainFrame.addTabbedPane(absworkspace,3);
+//		 			    
+//		 			    
+//		 			    StepThreeArea.append("抽象时间迁移的时间自动机生成完成!\n");
+//		 			    StepThreeArea.append("不含时间迁移的时间自动机正在生成.....\n");
+//		 			    //展示去时间迁移的自动机
+//		 			    //mainFrame.addTabbedPane(no_time_absworkspace,3);
+//		 			    
+//		 			    StepThreeArea.append("不含时间迁移的时间自动机生成完成!\n");
+//		 			    StepThreeArea.append("抽象测试用例正在生成.....\n");
+//						//展示抽象测试用例的生成
+////		 			    mainFrame.getStepThreeCenterTabbedPane().getConsolePartScrollPane()
+////						.getViewport().add(new ConsolePartDetailInfoTable(0));			
+////		 			   mainFrame.getStepThreeCenterTabbedPane().getConsolePartScrollPane().getViewport().repaint();
+//					    
+//		 			   mainFrame.getStepThreeCenterTabbedPane().getTestCaseProduceTabbedPanel().getTabelscrollpanel().setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
+//		 			   mainFrame.getStepThreeCenterTabbedPane().getTestCaseProduceTabbedPanel().getTabelscrollpanel()
+//						.getViewport().add(new ConsolePartDetailInfoTable(0));			
+//		 			   mainFrame.getStepThreeCenterTabbedPane().getTestCaseProduceTabbedPanel().getTabelscrollpanel().getViewport().repaint();
+//					    
+//		 			    
+//		 			    StepThreeArea.append("抽象测试用例生成完成!.....\n");
+//					    
+////					    tabbutton=StepThreeCenterTabbedPane.getAbstractUppaalDiagramButton();
+////						tabbutton.doClick();
+//						
+//					}
+//				});
+//				
+//			}
+//		});
+//Fourstart.addActionListener(new ActionListener() {
+//	
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		// TODO Auto-generated method stub
+//		StepFourArea.append("实例化测试用例正在生成.....\n");
+////		SwingUtilities.invokeLater(new Runnable() {
+////			
+////			@Override
+////			public void run() {
+////				// TODO Auto-generated method stub
+//				new RealTestCaseXMLRead("tcs.xml");
+////				mainFrame.getStepFourCenterTabbedPane().getConsolePartScrollPane()
+////				.getViewport().add(new ConsolePartDetailInfoTable(1));			
+////				mainFrame.getStepFourCenterTabbedPane().getConsolePartScrollPane().getViewport().repaint();
+//				
+//				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().removeAll();
+//				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().setLayout(new BorderLayout());
+//				JTable jt=new ConsolePartDetailInfoTable(1);
+//				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().add(jt.getTableHeader(),BorderLayout.NORTH);
+//				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().add(jt, BorderLayout.CENTER);
+////				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().add(new ConsolePartDetailInfoTable(1));
+//				
+////				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().removeAll();
+////				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
+////				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().getViewport().add(new ConsolePartDetailInfoTable(1));
+////				mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().getViewport().repaint();
+////				
+//				
+////				StartThread();
+//				
+//				
+//			    StepFourArea.append("实例化测试用例生成成功!");
+//			}
+//
+//		});
+//		
+//		
+////	}
+////});
+//
+//		Fivestart.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				StepFiveArea.append("实例化测试用例验证正在进行中.....\n");
+//				StepFiveArea.append("正在导入测试用例.....\n");
+//
+//				SwingUtilities.invokeLater(new Runnable() {
+//					@Override
+//					public void run() {
+////						ClientSocket clientSocket = new ClientSocket("192.168.150.117", 5555);
+////						clientSocket.Connection();
+////						JFileChooser jfc = new JFileChooser();
+////						jfc.setMultiSelectionEnabled(true);
+////						jfc.showDialog(new JLabel(), "选择测试用例");
+////						File[] files = jfc.getSelectedFiles();
+////						StepFiveArea.append("正在发送数据.....\n");
+////						clientSocket.sendFile(files);
+////						StepFiveArea.append("发送数据完成!\n");
+////						StepFiveArea.append("正在获得数据.....\n");
+////						try {
+////							Thread.sleep(10000);
+////						} catch (InterruptedException e) {
+////						}
+////						List<TestCase> list = clientSocket.getTestCaseList();
+////						StepFiveArea.append("数据已经获得!\n");
+//						// 获得root的容器
+//
+//						System.out.println("///////////////////////////////");
+//						
+////						List<TestCase> list = extractData();
+//						List<TestCase> list = extractDataToXml();
+//						
+//						for(TestCase tc:list){
+//							System.out.println(tc.toString());
+//						}
+//
+//						System.out.println("///////////////////////////////");
+//
+//						JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getTableresultpanel();
+//						
+//						System.out.println("++++++++++++++++++++");
+//						
+//						JPanel resultpanel=new JPanel();
+//						JPanel emptypanel=new JPanel();
+//						resultpanel.setOpaque(false);
+//						emptypanel.setOpaque(false);
+//						
+//						GridBagLayout layout = new GridBagLayout();
+//						resultpanel.setLayout(layout);
+//						int i=0;
+//						testcasereportlist.clear();
+//						for(TestCase tc:list){
+//							PerformanceTestCaseReportPartPanel tcrppanel=new PerformanceTestCaseReportPartPanel(tc);
+//							resultpanel.add(tcrppanel);
+//							layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//							testcasereportlist.add(tcrppanel);
+//						}
+//						resultpanel.add(emptypanel);
+//						layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//						
+//						jp.removeAll();
+//						jp.add(resultpanel);
+//						
+//						System.out.println("++++++++++++++++++++");
+//						
+//						// 获得报表的容器
+////						JPanel jp1 = JFreeChartTest.getJFreeChartTest(list);
+////						// 将表格放到JScrollPane容器中
+////						JScrollPane jsp = new JScrollPane(new ConsolePartTestCaseInfoTable(list));
+////						JSplitPane js = new JSplitPane(JSplitPane.VERTICAL_SPLIT, jsp,
+////								new JScrollPane(new ConsolePartTestCaseInfoTable(list).getjTextArea()));
+////						js.setDividerLocation(300);
+////						jp.add(js);
+////						mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().updateUI();
+////						
+////						mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().removeAll();
+////						mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPane().add(new TestCaseChartPanel());
+//						
+//						// 第二个tab页
+////						JPanel jpTab2 = mainFrame.getStepFiveCenterTabbedPane().getTestcaseFile1();
+////						// 报表放到第二个tab页
+////						jpTab2.add(jp1);
+//
+//					}
+//				});
+//			}
+//		});
+//
+//Sixstart.addActionListener(new ActionListener() {
+//	
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		StepSixArea.append("一致性测试正在进行.....\n");
+////		SwingUtilities.invokeLater(new Runnable() {
+////			@Override
+////			public void run() {
+//				try {
+////					JSplitPane jp=new ExistTest().existTest();
+////					mainFrame.getStepSixCenterTabbedPane().getConsolePartScrollPane().setLayout(new BorderLayout());
+////					mainFrame.getStepSixCenterTabbedPane().getConsolePartScrollPane().validate();
+////					mainFrame.getStepSixCenterTabbedPane().getConsolePartScrollPane().add(jp,BorderLayout.CENTER);
+////					mainFrame.getStepSixCenterTabbedPane().getConsolePartScrollPane().revalidate();
+//					 StepSixArea.append("一致性测试测试成功!");
+////					 Thread.sleep(5000);
+//					//System.out.println(jvp);
+//					//.add(jp);
+//				} catch (Exception e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//			
+//			   
+//			}
+//		});
+//		
+//		
+////	}
+////});
 		homebutton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -1179,34 +1179,23 @@ Sixstart.addActionListener(new ActionListener() {
 				mainFrame.getCenterTabPanel().add(mainFrame.getStepOneCenterTabbedPane());	
 				
 				ClearAttributePanel();
-				attributePanel.add(mainFrame.getAttributePartPanel());
+				attributePanel.add(mainFrame.getAttributePartOnePanel());
 				
-				mainFrame.getAttributePartPanel().getNamepanel().removeAll();
-			    mainFrame.getAttributePartPanel().getNamepanel().add(mainFrame.getAttributePartPanel().getSteponenamelabel());
-				
-			    mainFrame.getAttributePartPanel().getAttributepanel().removeAll();
-			    StepOneScrollTree=new JScrollPane(mainFrame.getAttributePartPanel().getSteponeattributetree());
-			    StepOneScrollTree.setBorder(null);
-			    StepOneScrollTree.setBackground(new Color(255, 255, 255));
-			    mainFrame.getAttributePartPanel().getAttributepanel().add(StepOneScrollTree);
+//				mainFrame.getAttributePartPanel().getNamepanel().removeAll();
+//			    mainFrame.getAttributePartPanel().getNamepanel().add(mainFrame.getAttributePartPanel().getSteponenamelabel());
+//				
+//			    mainFrame.getAttributePartPanel().getAttributepanel().removeAll();
+//			    StepOneScrollTree=new JScrollPane(mainFrame.getAttributePartPanel().getSteponeattributetree());
+//			    StepOneScrollTree.setBorder(null);
+//			    StepOneScrollTree.setBackground(new Color(255, 255, 255));
+//			    mainFrame.getAttributePartPanel().getAttributepanel().add(StepOneScrollTree);
 			    
 				mainFrame.getConsolePartPanel().getTitlelabel().setText("UML模型建立过程信息");
 				mainFrame.getConsolePartPanel().getTextpanel().removeAll();
-				StepOneArea.setEditable(false);
-				StepOneArea.getCaret().addChangeListener(new ChangeListener()   {
-		            public void stateChanged(ChangeEvent e)   {
-		            	StepOneArea.getCaret().setVisible(true);   //使Text区的文本光标显示
-		            }
-		        });
-//				StepOneArea.setEnabled(true);
-//				StepOneArea.setFocusable(true);
-//				StepOneArea.setBorder(null);
-				mainFrame.getConsolePartPanel().setTextarea(StepOneArea);
-				JScrollPane StepOneScrollArea=new JScrollPane(StepOneArea);
-				StepOneScrollArea.setBorder(null);
-			    mainFrame.getConsolePartPanel().getTextpanel().add(StepOneScrollArea);
-//				mainFrame.getConsolePartPanel().getTextarea().setText("");
-				StepOneArea.append("UML模型正在建立中......\n");
+				
+			    mainFrame.getConsolePartPanel().getTextpanel().add(mainFrame.getConsolePartPanel().getTextscrollpanel1());
+			    mainFrame.getConsolePartPanel().getTextarea1().append("UML模型正在建立中......\n");
+			   
 			    //对点开的xml文件的处理 by tan
 //			    IFile selectedFile=null;
 //			    ExtensionFilter[] filters = fileNamingService.getFileFilters();
@@ -1268,44 +1257,37 @@ Sixstart.addActionListener(new ActionListener() {
 				mainFrame.getCenterPanel().removeAll();
 				mainFrame.getCenterPanel().add(mainFrame.getJs1());
 				
+				mainFrame.setStepindex(2);
+				
+				mainFrame.getCenterTabPanel().removeAll();
+				mainFrame.getCenterTabPanel().add(mainFrame.getStepTwoCenterTabbedPane());
+				
 				ClearOpreationPanel();
 			    operationPanel.add(mainFrame.getModelTransformationPanel());
+			    mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().updateFileList();
 			    
 			    mainFrame.getConsolePartPanel().getTitlelabel().setText("UML模型转化时间自动机过程信息");
 			    mainFrame.getConsolePartPanel().getTextpanel().removeAll();
-			    StepTwoArea.setEditable(false);
-			    StepTwoArea.getCaret().addChangeListener(new ChangeListener()   {
-		            public void stateChanged(ChangeEvent e)   {
-		            	StepTwoArea.getCaret().setVisible(true);   //使Text区的文本光标显示
-		            }
-		        });
-			    mainFrame.getConsolePartPanel().setTextarea(StepTwoArea);
-			    JScrollPane jsp=new JScrollPane(StepTwoArea);
-			    mainFrame.getConsolePartPanel().setTextscrollpanel(jsp);
-			    mainFrame.getConsolePartPanel().getTextpanel().add(jsp);
+			    mainFrame.getConsolePartPanel().getTextpanel().add(mainFrame.getConsolePartPanel().getTextscrollpanel2());
 			    
 			    ClearAttributePanel();
-			    attributePanel.add(mainFrame.getAttributePartPanel());
+			    attributePanel.add(mainFrame.getAttributePartTwoPanel());
 			    
-			    mainFrame.getAttributePartPanel().getNamepanel().removeAll();
-			    mainFrame.getAttributePartPanel().getNamepanel().add(mainFrame.getAttributePartPanel().getSteptwonamelabel());
-			    
-			    mainFrame.getAttributePartPanel().getAttributepanel().removeAll();
-			    StepTwoScrollTree=new JScrollPane(mainFrame.getAttributePartPanel().getSteptwoattributetree());
-			    StepTwoScrollTree.setBorder(null);
-				StepTwoScrollTree.setBackground(new Color(255, 255, 255));
-			    mainFrame.getAttributePartPanel().getAttributepanel().add(StepTwoScrollTree);
+//			    mainFrame.getAttributePartPanel().getNamepanel().removeAll();
+//			    mainFrame.getAttributePartPanel().getNamepanel().add(mainFrame.getAttributePartPanel().getSteptwonamelabel());
+//			    
+//			    mainFrame.getAttributePartPanel().getAttributepanel().removeAll();
+//			    StepTwoScrollTree=new JScrollPane(mainFrame.getAttributePartPanel().getSteptwoattributetree());
+//			    StepTwoScrollTree.setBorder(null);
+//				StepTwoScrollTree.setBackground(new Color(255, 255, 255));
+//			    mainFrame.getAttributePartPanel().getAttributepanel().add(StepTwoScrollTree);
 						
-				mainFrame.getCenterTabPanel().removeAll();
-				mainFrame.getCenterTabPanel().add(mainFrame.getStepTwoCenterTabbedPane());
-			
+				index=2;
 				setstepbuttonpanelrepaint();
 				step2buttonpanel.setBackground(new Color(53,55,59));
-				index=2;
 				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
 				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 
-				mainFrame.setStepindex(2);
 				wakeupUI();
 				mainFrame.setVisible(false);
 				mainFrame.getContentPane().repaint();
@@ -1344,17 +1326,12 @@ Sixstart.addActionListener(new ActionListener() {
 				
 				ClearOpreationPanel();
 				operationPanel.add(mainFrame.getTestCaseGenerationPanel());	
+				mainFrame.getTestCaseGenerationPanel().updateFileList();
 				
 //				clearConsolePart();		
 				mainFrame.getConsolePartPanel().getTitlelabel().setText("抽象测试用例生成过程信息");
-//				StepThreeArea=mainFrame.getConsolePartPanel().getTextarea();
-//				StepThreeArea.setText("");
 				mainFrame.getConsolePartPanel().getTextpanel().removeAll();
-				StepThreeArea.setEditable(false);
-				mainFrame.getConsolePartPanel().setTextarea(StepThreeArea);
-			    mainFrame.getConsolePartPanel().getTextpanel().add(new JScrollPane(StepThreeArea));
-//				consolePart.setTitle("抽象测试用例生成过程信息");
-//			    consolePart.add(new ConsoleMessageTabbedPane("详细信息",StepThreeArea));	
+				mainFrame.getConsolePartPanel().getTextpanel().add(mainFrame.getConsolePartPanel().getTextscrollpanel3());	
 			    
 //			    ClearAttributePanel();
 //			    attributePanel.add(mainFrame.getAttributePartPanel());
@@ -1411,17 +1388,10 @@ Sixstart.addActionListener(new ActionListener() {
 				mainFrame.getCenterTabPanel().removeAll();
 				mainFrame.getCenterTabPanel().add(mainFrame.getStepFourCenterTabbedPane());
 				
-//				clearConsolePart();	
 				mainFrame.getConsolePartPanel().getTitlelabel().setText("抽象测试用例实例化过程信息");
-//				StepFourArea=mainFrame.getConsolePartPanel().getTextarea();
-//				StepFourArea.setText("");
 				mainFrame.getConsolePartPanel().getTextpanel().removeAll();
-				StepFourArea.setEditable(false);
-				mainFrame.getConsolePartPanel().setTextarea(StepFourArea);
-			    mainFrame.getConsolePartPanel().getTextpanel().add(new JScrollPane(StepFourArea));
-//				consolePart.setTitle("抽象测试用例实例化过程信息");
-//				consolePart.add(new ConsoleMessageTabbedPane("详细信息",StepFourArea));
-			    
+				mainFrame.getConsolePartPanel().getTextpanel().add(mainFrame.getConsolePartPanel().getTextscrollpanel4());
+				
 			    ClearAttributePanel();
 			    attributePanel.add(mainFrame.getTestCaseInstantiationResultPanel());
 			    
@@ -1460,6 +1430,7 @@ Sixstart.addActionListener(new ActionListener() {
 				
 				ClearOpreationPanel();
 				operationPanel.add(mainFrame.getTestCaseConfirmationPanel());
+				mainFrame.getTestCaseConfirmationPanel().updateFileList();
 				
 				
 				mainFrame.getCenterTabPanel().removeAll();
@@ -1467,15 +1438,9 @@ Sixstart.addActionListener(new ActionListener() {
 //				clearConsolePart();
 			
 				mainFrame.getConsolePartPanel().getTitlelabel().setText("测试用例实例验证过程信息");
-//				StepFiveArea=mainFrame.getConsolePartPanel().getTextarea();
-//				StepFiveArea.setText("");
 				mainFrame.getConsolePartPanel().getTextpanel().removeAll();
-				StepFiveArea.setEditable(false);
-				mainFrame.getConsolePartPanel().setTextarea(StepFiveArea);
-			    mainFrame.getConsolePartPanel().getTextpanel().add(new JScrollPane(StepFiveArea));
-//				consolePart.setTitle("测试用例实例验证过程信息");
-//    			consolePart.add(new ConsoleMessageTabbedPane("详细信息",StepFiveArea));	
-			    
+				mainFrame.getConsolePartPanel().getTextpanel().add(mainFrame.getConsolePartPanel().getTextscrollpanel5());
+				
 			    ClearAttributePanel();
 			    attributePanel.add(mainFrame.getTestCaseConfirmResultPanel());
 							
@@ -1522,10 +1487,8 @@ Sixstart.addActionListener(new ActionListener() {
 			
 				mainFrame.getConsolePartPanel().getTitlelabel().setText("一致性的验证");
 				mainFrame.getConsolePartPanel().getTextpanel().removeAll();
-				StepSixArea.setEditable(false);
-				mainFrame.getConsolePartPanel().setTextarea(StepSixArea);
-			    mainFrame.getConsolePartPanel().getTextpanel().add(new JScrollPane(StepSixArea));
-							
+				mainFrame.getConsolePartPanel().getTextpanel().add(mainFrame.getConsolePartPanel().getTextscrollpanel6());
+				
 			    ClearAttributePanel();
 			    attributePanel.add(mainFrame.getValidationResultPanel());
 			    

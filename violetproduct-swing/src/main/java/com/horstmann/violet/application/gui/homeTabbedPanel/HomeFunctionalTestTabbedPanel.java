@@ -152,15 +152,13 @@ public class HomeFunctionalTestTabbedPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 
+				mainFrame.getHomeAllTabbedPanel().initAllUIPanelAndData();
+				
+				mainFrame.getTestCaseGenerationPanel().getCoverpanel().setVisible(true);
+				
 				mainFrame.getHomeAllTabbedPanel().setStarttype(1);
 				mainFrame.getStepButton().getStep1button().doClick();
 				
-				mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().updateFileList();
-				mainFrame.getTestCaseGenerationPanel().updateFileList();
-				mainFrame.getTestCaseConfirmationPanel().updateFileList();
-
-				mainFrame.getTestCaseGenerationPanel().getCoverpanel().setVisible(true);
-
 			}
 		});
 
@@ -352,8 +350,6 @@ public class HomeFunctionalTestTabbedPanel extends JPanel {
 				mainFrame.getHomeAllTabbedPanel().getInforresultpanel()
 						.add(mainFrame.getHomeAllTabbedPanel().getInforpanel());
 				mainFrame.getHomeAllTabbedPanel().ChangeRepaint();
-
-				mainFrame.getHomeAllTabbedPanel().setStarttype(0);
 
 			}
 		});

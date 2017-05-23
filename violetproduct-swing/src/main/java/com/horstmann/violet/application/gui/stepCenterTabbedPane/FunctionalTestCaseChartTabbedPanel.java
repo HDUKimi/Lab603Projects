@@ -213,10 +213,10 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		
 //		toolpanel.add(toolbuttonpanel1);
 		
-		toolpanel.add(checkbox1);
-		toolpanel.add(checkbox2);
-		toolpanel.add(checkbox3);
-		toolpanel.add(checkbox4);
+//		toolpanel.add(checkbox1);
+//		toolpanel.add(checkbox2);
+//		toolpanel.add(checkbox3);
+//		toolpanel.add(checkbox4);
 		toolpanel.add(checkbox5);
 		toolpanel.add(checkbox6);
 		
@@ -456,11 +456,11 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		
 		GridBagLayout layout = new GridBagLayout();
 		chartpanel.setLayout(layout);
-		chartpanel.add(barpanel1);
-		chartpanel.add(linepanel1);
+//		chartpanel.add(barpanel1);
+//		chartpanel.add(linepanel1);
 		chartpanel.add(piepanel1);
-		chartpanel.add(barpanel2);
-		chartpanel.add(linepanel2);
+//		chartpanel.add(barpanel2);
+//		chartpanel.add(linepanel2);
 		chartpanel.add(piepanel2);
 		
 //		chartpanel.add(leftemptypanel1);
@@ -474,13 +474,13 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 //		chartpanel.add(rightemptypanel4);
 //		chartpanel.add(rightemptypanel5);
 		
-		layout.setConstraints(barpanel1, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(linepanel1, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(piepanel1, new GBC(1, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(barpanel1, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(linepanel1, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(piepanel1, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 
-		layout.setConstraints(barpanel2, new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(linepanel2, new GBC(2, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(piepanel2, new GBC(2, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(barpanel2, new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(linepanel2, new GBC(2, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(piepanel2, new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 
 //		layout.setConstraints(leftemptypanel1, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 //		layout.setConstraints(leftemptypanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));

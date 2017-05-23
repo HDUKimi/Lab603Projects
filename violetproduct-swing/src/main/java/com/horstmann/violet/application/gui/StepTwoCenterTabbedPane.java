@@ -151,6 +151,12 @@ public class StepTwoCenterTabbedPane extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				selectedIndex=1;
+				
+//				if(sequenceToUppaalTabbedPane==null){
+//					System.err.println("-----------------------------------");
+//				}
+//				System.err.println("+++++++++++++++++++++++++++++++");
+				
 				getDiagramPanel().removeAll();
 				getDiagramPanel().setLayout(new GridLayout());
 				getDiagramPanel().add(sequenceToUppaalTabbedPane);
@@ -172,7 +178,13 @@ public class StepTwoCenterTabbedPane extends JPanel{
 				
 				System.out.println("mainFrame.getModelTransformationPanel().getIndex(): "+mainFrame.getModelTransformationPanel().getIndex());
 				
-				ChangeRepaint();
+				mainFrame.getAttributePartTwoPanel().getNamelabel().setText("");
+				mainFrame.getAttributePartTwoPanel().getAttributepanel().removeAll();
+				
+				if(mainFrame.getStepindex()==2){
+					ChangeRepaint();
+				}
+				
 			}
 		});
 		
@@ -201,10 +213,14 @@ public class StepTwoCenterTabbedPane extends JPanel{
 					mainFrame.getModelTransformationPanel().getDiagrambutton2().doClick();
 				}
 				
-				
 				System.out.println("mainFrame.getModelTransformationPanel().getIndex(): "+mainFrame.getModelTransformationPanel().getIndex());
 				
-				ChangeRepaint();
+				mainFrame.getAttributePartTwoPanel().getNamelabel().setText("");
+				mainFrame.getAttributePartTwoPanel().getAttributepanel().removeAll();
+				
+				if(mainFrame.getStepindex()==2){
+					ChangeRepaint();
+				}
 			}
 		});
 		

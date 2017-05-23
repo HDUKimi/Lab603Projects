@@ -35,8 +35,10 @@ public class PieChart {
 	}
 
 	public DefaultPieDataset createDataset() {
-		String[] categories = { "Active", "fixed", "postponed", "won't fix", "Not repro", "By design", "duplicate", "externa" };
-		Object[] datas = { 16, 12, 13, 10, 15, 8, 9, 10 };
+//		String[] categories = { "Active", "fixed", "postponed", "won't fix", "Not repro", "By design", "duplicate", "externa" };
+//		Object[] datas = { 16, 12, 13, 10, 15, 8, 9, 10 };
+		String[] categories = { "³É¹¦", "Ê§°Ü" };
+		Object[] datas = { 16, 2 };
 		DefaultPieDataset dataset = ChartUtils.createDefaultPieDataset(categories, datas);
 		return dataset;
 	}

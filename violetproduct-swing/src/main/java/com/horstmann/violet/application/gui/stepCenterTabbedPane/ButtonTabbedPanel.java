@@ -368,13 +368,14 @@ public class ButtonTabbedPanel extends JPanel{
 					mainFrame.getAttributePartOnePanel().getAttributepanel().removeAll();
 					if(workspace.getGraphFile().getDirectory()!=null){
 						mainFrame.getAttributePartOnePanel().setAttributetree(XMLToTree.getTree(workspace.getGraphFile().getDirectory()+"\\"+workspace.getGraphFile().getFilename()));
-					}
-					JScrollPane StepOneScrollTree = new JScrollPane(
-							mainFrame.getAttributePartOnePanel().getAttributetree());
-					StepOneScrollTree.setBorder(null);
-					StepOneScrollTree.setBackground(new Color(255, 255, 255));
+						
+						JScrollPane StepOneScrollTree = new JScrollPane(
+								mainFrame.getAttributePartOnePanel().getAttributetree());
+						StepOneScrollTree.setBorder(null);
+						StepOneScrollTree.setBackground(new Color(255, 255, 255));
 
-					mainFrame.getAttributePartOnePanel().getAttributepanel().add(StepOneScrollTree);
+						mainFrame.getAttributePartOnePanel().getAttributepanel().add(StepOneScrollTree);
+					}
 					
 					mainFrame.getAttributePartOnePanel().ChangeRepaint();
 					

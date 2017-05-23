@@ -154,55 +154,67 @@ public class ConsolePartPanel extends JPanel {
 		
 		textarea1=new JTextArea();
 		textarea1.setEditable(false);
+//		textarea1.setLineWrap(true);
+//		textarea1.setWrapStyleWord(true);
 		textarea1.setBorder(null);
 		textarea1.getCaret().addChangeListener(new ChangeListener()   {
             public void stateChanged(ChangeEvent e)   {
-            	textarea1.getCaret().setVisible(true);   //Ê¹Textï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+            	textarea1.getCaret().setVisible(true);   //Ê¹TextÇøµÄÎÄ±¾¹â±êÏÔÊ¾
             }
         });
 		
 		textarea2=new JTextArea();
 		textarea2.setEditable(false);
+//		textarea2.setLineWrap(true);
+//		textarea2.setWrapStyleWord(true);
 		textarea2.setBorder(null);
 		textarea2.getCaret().addChangeListener(new ChangeListener()   {
             public void stateChanged(ChangeEvent e)   {
-            	textarea2.getCaret().setVisible(true);   //Ê¹Textï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+            	textarea2.getCaret().setVisible(true);   //Ê¹TextÇøµÄÎÄ±¾¹â±êÏÔÊ¾
             }
         });
 		
 		textarea3=new JTextArea();
 		textarea3.setEditable(false);
+//		textarea3.setLineWrap(true);
+//		textarea3.setWrapStyleWord(true);
 		textarea3.setBorder(null);
 		textarea3.getCaret().addChangeListener(new ChangeListener()   {
             public void stateChanged(ChangeEvent e)   {
-            	textarea3.getCaret().setVisible(true);   //Ê¹Textï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+            	textarea3.getCaret().setVisible(true);   //Ê¹TextÇøµÄÎÄ±¾¹â±êÏÔÊ¾
             }
         });
 		
 		textarea4=new JTextArea();
 		textarea4.setEditable(false);
+//		textarea4.setLineWrap(true);
+//		textarea4.setWrapStyleWord(true);
 		textarea4.setBorder(null);
 		textarea4.getCaret().addChangeListener(new ChangeListener()   {
             public void stateChanged(ChangeEvent e)   {
-            	textarea4.getCaret().setVisible(true);   //Ê¹Textï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+            	textarea4.getCaret().setVisible(true);   //Ê¹TextÇøµÄÎÄ±¾¹â±êÏÔÊ¾
             }
         });
 		
 		textarea5=new JTextArea();
 		textarea5.setEditable(false);
+//		textarea5.setLineWrap(true);
+//		textarea5.setWrapStyleWord(true);
 		textarea5.setBorder(null);
 		textarea5.getCaret().addChangeListener(new ChangeListener()   {
             public void stateChanged(ChangeEvent e)   {
-            	textarea5.getCaret().setVisible(true);   //Ê¹Textï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+            	textarea5.getCaret().setVisible(true);   //Ê¹TextÇøµÄÎÄ±¾¹â±êÏÔÊ¾
             }
         });
 		
 		textarea6=new JTextArea();
 		textarea6.setEditable(false);
+//		textarea6.setLineWrap(true);
+//		textarea6.setWrapStyleWord(true);
 		textarea6.setBorder(null);
 		textarea6.getCaret().addChangeListener(new ChangeListener()   {
             public void stateChanged(ChangeEvent e)   {
-            	textarea6.getCaret().setVisible(true);   //Ê¹Textï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+            	textarea6.getCaret().setVisible(true);   //Ê¹TextÇøµÄÎÄ±¾¹â±êÏÔÊ¾
             }
         });
 		

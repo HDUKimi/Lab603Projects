@@ -61,7 +61,7 @@ public class HomeAllTabbedPanel extends JPanel{
 	private JLabel inforleftlabel1;
 	private JLabel inforleftlabel2;
 	
-	private static int starttype=0;//1是功能测试，2是性能测试
+	private static int starttype=0;//1是功能测试，2是性能测试，3是时间测试
 	
 	
 	public HomeAllTabbedPanel(MainFrame mainFrame){
@@ -86,6 +86,24 @@ public class HomeAllTabbedPanel extends JPanel{
 		layout.setConstraints(optiontabpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(inforresultpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
+	}
+	
+	public void initAllUIPanelAndData(){
+		
+//		mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().updateFileList();
+//		mainFrame.getTestCaseGenerationPanel().updateFileList();
+//		mainFrame.getTestCaseConfirmationPanel().updateFileList();
+		
+		if(starttype!=0){
+			mainFrame.getStepOneCenterTabbedPane().initUIPanel();
+			mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalTabbedPane().initUIPanel();
+			mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().initUIPanel();
+			mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
+			
+			mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButton().doClick();
+			mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButton().doClick();
+			mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
+		}
 	}
 
 	private void initInforResultPanel() {
@@ -499,6 +517,7 @@ public class HomeAllTabbedPanel extends JPanel{
 		return starttype;
 	}
 
+	@SuppressWarnings("static-access")
 	public void setStarttype(int starttype) {
 		this.starttype = starttype;
 	}

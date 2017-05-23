@@ -152,6 +152,9 @@ public class SequenceTreePanel extends JPanel{
 									fileMenu.fileCloseItem.doClick();
 									mainFrame.deleteTabbedPane(mainFrame.getSequenceWorkspaceList().get(sequencetreerootnode.getIndex(parentNode)));
 									mainFrame.getConsolePartPanel().getTextarea1().append("É¾³ýË³ÐòÍ¼ "+mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getTabbedbutton().getText()+" µÄ»æÍ¼Ãæ°å\n");
+									
+									mainFrame.getAttributePartOnePanel().getNamelabel().setText("");
+									mainFrame.getAttributePartOnePanel().getAttributepanel().removeAll();
 								}
 								
 							}
