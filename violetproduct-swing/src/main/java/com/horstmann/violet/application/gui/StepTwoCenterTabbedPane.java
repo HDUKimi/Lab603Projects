@@ -14,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
@@ -44,6 +47,11 @@ public class StepTwoCenterTabbedPane extends JPanel{
 
 	private JPanel buttonPanel;
 	public JPanel diagramPanel;
+	
+	private JPanel buttonTabbedPanel;
+	private JScrollPane buttonScrollPanel;
+	private JButton leftButton;
+	private JButton rightButton;
 	
 	private JButton sequenceToUppaalDiagramButton;
 	private FixedButtonTabbedPanel sequenceToUppaalDiagramButtonPanel;
@@ -79,9 +87,8 @@ public class StepTwoCenterTabbedPane extends JPanel{
 		
 		buttonPanel=new JPanel();
 		diagramPanel=new JPanel();
-		
-		buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		buttonPanel.setBackground(new Color(41, 57, 85));
+
+		buttonTabbedPanel=new JPanel();
 		
 		initbuttonpanel();
 		initdiagrampanel();
@@ -122,6 +129,8 @@ public class StepTwoCenterTabbedPane extends JPanel{
 	private void initbuttonpanel() {
 		// TODO Auto-generated method stub
 		
+		initleftrightbuttonpanel();
+		
 		sequenceToUppaalDiagramButtonPanel=new FixedButtonTabbedPanel("顺序图转时间自动机");
 		sequenceToUppaalDiagramButtonPanel.setBackground(new Color(58, 105, 190));
 		sequenceToUppaalDiagramButton=sequenceToUppaalDiagramButtonPanel.getTabbedbutton();
@@ -130,16 +139,145 @@ public class StepTwoCenterTabbedPane extends JPanel{
 		timingToUppaalDiagramButtonPanel.setBackground(new Color(77, 96, 130));
 		timingToUppaalDiagramButton=timingToUppaalDiagramButtonPanel.getTabbedbutton();
 		
-		buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		buttonPanel.setBackground(new Color(41, 57, 85));
-		buttonPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(58, 105, 190)));
+		buttonTabbedPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		buttonTabbedPanel.setBackground(new Color(41, 57, 85));
 		
-		buttonPanel.add(sequenceToUppaalDiagramButtonPanel);
-		buttonPanel.add(timingToUppaalDiagramButtonPanel);
+		buttonTabbedPanel.add(sequenceToUppaalDiagramButtonPanel);
+		buttonTabbedPanel.add(timingToUppaalDiagramButtonPanel);
 		
 		setButtonActionListener();
 		
 		timingToUppaalDiagramButtonPanel.setVisible(false);
+		
+		buttonScrollPanel=new JScrollPane(buttonTabbedPanel);
+		buttonScrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		buttonScrollPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		buttonScrollPanel.setBorder(null);
+
+		buttonPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(58, 105, 190)));
+		buttonPanel.setBackground(new Color(41, 57, 85));
+		buttonPanel.setLayout(new BorderLayout());
+		buttonPanel.add(leftButton, BorderLayout.WEST);
+		buttonPanel.add(buttonScrollPanel, BorderLayout.CENTER);
+		buttonPanel.add(rightButton, BorderLayout.EAST);
+	
+	}
+	
+	private void initleftrightbuttonpanel() {
+		// TODO Auto-generated method stub
+		
+		leftButton=new JButton();
+		rightButton=new JButton();
+		
+		String absolutePath=System.getProperty("user.dir");
+		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
+
+		final ImageIcon icon1 = new ImageIcon(path + "left1.png");
+		icon1.setImage(icon1.getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
+		final ImageIcon icon2 = new ImageIcon(path + "right1.png");
+		icon2.setImage(icon2.getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
+		final ImageIcon icon3 = new ImageIcon(path + "left3.png");
+		icon1.setImage(icon1.getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
+		final ImageIcon icon4 = new ImageIcon(path + "right3.png");
+		icon2.setImage(icon2.getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
+		
+		leftButton.setIcon(icon1);
+		leftButton.setFocusable(false);
+		leftButton.setContentAreaFilled(false);
+		leftButton.setBorderPainted(false);
+//		leftButton.addMouseListener(new ButtonMouseListener());
+		leftButton.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				leftButton.setIcon(icon3);
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				leftButton.setIcon(icon1);
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				leftButton.setIcon(icon3);
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		leftButton.setPreferredSize(new Dimension(21,21));
+		leftButton.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, new Color(41, 57, 85)));
+		leftButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				JScrollBar bar=buttonScrollPanel.getHorizontalScrollBar();
+				bar.setValue(bar.getValue()-100);
+			}
+		});
+		
+		rightButton.setIcon(icon2);
+		rightButton.setFocusable(false);
+		rightButton.setContentAreaFilled(false);
+		rightButton.setBorderPainted(false);
+//		rightButton.addMouseListener(new ButtonMouseListener());
+		rightButton.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				rightButton.setIcon(icon4);
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				rightButton.setIcon(icon2);
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				rightButton.setIcon(icon4);
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		rightButton.setPreferredSize(new Dimension(21,21));
+		rightButton.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, new Color(41, 57, 85)));
+		rightButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				JScrollBar bar=buttonScrollPanel.getHorizontalScrollBar();
+				bar.setValue(bar.getValue()+100);
+			}
+		});
 		
 	}
 
@@ -275,8 +413,8 @@ public class StepTwoCenterTabbedPane extends JPanel{
 		return timingToUppaalDiagramButtonTabbedPanelLists;
 	}
 
-	public JPanel getButtonPanel() {
-		return buttonPanel;
+	public JPanel getButtonTabbedPanel() {
+		return buttonTabbedPanel;
 	}
 
 	public JPanel getSequenceToUppaalDiagramButtonPanel() {

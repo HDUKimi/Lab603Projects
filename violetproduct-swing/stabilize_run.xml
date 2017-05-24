@@ -1,180 +1,397 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <nta>
-  <declaration>// Place global declarations here.</declaration>
+  <declaration>chan next, tea, nexta, cofford, coffee, teain, coffin, teaord;clock x;</declaration>
   <template>
-    <name x="30" y="30">template_</name>
+    <name x="30" y="30">1</name>
     <declaration/>
-    <location id="loc_id_init" x="48" y="486">
-      <name x="18" y="456">loc_id_init</name>
+    <location init="true" finl="true" id="id0" x="48" y="534">
+      <name x="18" y="504">startbt:Button</name>
+      <moment startTime="0" endTime="4" timeDuration="null"/>
+      <moment startTime="44" endTime="50" timeDuration="null"/>
+      <moment startTime="89" endTime="2147483647" timeDuration="null"/>
     </location>
-    <location id="loc_id_2994C157_4854_4351_A947_F4E7BC16C968" x="324" y="486">
-      <name x="294" y="456">loc_id_2994C157_4854_4351_A947_F4E7BC16C968</name>
+    <location init="false" finl="false" id="id1" x="324" y="300">
+      <name x="294" y="270">pinc:Button</name>
+      <urgent/>
+      <moment startTime="4" endTime="9" timeDuration="0"/>
     </location>
-    <location id="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087" x="600" y="486">
-      <name x="570" y="456">loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087</name>
+    <location init="false" finl="false" id="id2" x="2808" y="534">
+      <name x="2778" y="504">wait:Button</name>
+      <moment startTime="9" endTime="44" timeDuration="null"/>
+      <moment startTime="54" endTime="89" timeDuration="null"/>
     </location>
-    <location id="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3" x="876" y="486">
-      <name x="846" y="456">loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3</name>
+    <location init="false" finl="false" id="id3" x="324" y="525">
+      <name x="294" y="495">pint:Button</name>
+      <urgent/>
+      <moment startTime="50" endTime="54" timeDuration="0"/>
     </location>
-    <location id="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6" x="1152" y="486">
-      <name x="1122" y="456">loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6</name>
+    <location init="false" finl="false" id="id4" x="1152" y="300">
+      <name x="1122" y="270">startcoff:CoffeeBox</name>
+      <moment startTime="0" endTime="18" timeDuration="null"/>
+      <moment startTime="34" endTime="2147483647" timeDuration="null"/>
     </location>
-    <location id="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2" x="1428" y="351">
-      <name x="1398" y="321">loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2</name>
+    <location init="false" finl="false" id="id5" x="1428" y="300">
+      <name x="1398" y="270">cofforded:CoffeeBox</name>
+      <label kind="invariant" x="30" y="30">t...t+20</label>
+      <moment startTime="18" endTime="26" timeDuration="t...t+20"/>
     </location>
-    <location id="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC" x="2256" y="438">
-      <name x="2226" y="408">loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC</name>
+    <location init="false" finl="false" id="id6" x="1704" y="300">
+      <name x="1674" y="270">cupdelivered:CoffeeBox</name>
+      <urgent/>
+      <moment startTime="26" endTime="32" timeDuration="0"/>
     </location>
-    <location id="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5" x="1704" y="303">
-      <name x="1674" y="273">loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5</name>
+    <location init="false" finl="false" id="id7" x="1980" y="300">
+      <name x="1950" y="270">coffprepared:CoffeeBox</name>
+      <urgent/>
+      <moment startTime="32" endTime="34" timeDuration="0"/>
     </location>
-    <location id="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B" x="2532" y="303">
-      <name x="2502" y="273">loc_id_50B8F800_23CD_4431_9778_042103F2DA5B</name>
+    <location init="false" finl="false" id="id8" x="600" y="411">
+      <name x="570" y="381">Startcon:Controller</name>
+      <moment startTime="0" endTime="11" timeDuration="null"/>
+      <moment startTime="43" endTime="57" timeDuration="null"/>
+      <moment startTime="87" endTime="2147483647" timeDuration="null"/>
     </location>
-    <location id="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD" x="3084" y="438">
-      <name x="3054" y="408">loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</name>
+    <location init="false" finl="false" id="id9" x="876" y="300">
+      <name x="846" y="270">ReciveCoffeeOrder:Controller</name>
+      <urgent/>
+      <moment startTime="11" endTime="16" timeDuration="0"/>
     </location>
-    <location id="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE" x="3636" y="438">
-      <name x="3606" y="408">loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</name>
+    <location init="false" finl="false" id="id10" x="2256" y="300">
+      <name x="2226" y="270">GiveCoffee:Controller</name>
+      <label kind="invariant" x="30" y="30">t...t+30</label>
+      <moment startTime="16" endTime="38" timeDuration="t...t+30"/>
     </location>
-    <location id="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24" x="1980" y="303">
-      <name x="1950" y="273">loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24</name>
+    <location init="false" finl="false" id="id11" x="2532" y="300">
+      <name x="2502" y="270">CoffeeOffered:Controller</name>
+      <urgent/>
+      <moment startTime="38" endTime="43" timeDuration="0"/>
     </location>
-    <location id="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3" x="2808" y="303">
-      <name x="2778" y="273">loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3</name>
+    <location init="false" finl="false" id="id12" x="876" y="525">
+      <name x="846" y="495">ReceiveTeaOrder:Controller</name>
+      <urgent/>
+      <moment startTime="57" endTime="62" timeDuration="0"/>
     </location>
-    <location id="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7" x="3360" y="438">
-      <name x="3330" y="408">loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7</name>
+    <location init="false" finl="false" id="id13" x="2256" y="525">
+      <name x="2226" y="495">GiveTea:Controller</name>
+      <label kind="invariant" x="30" y="30">t...t+35</label>
+      <moment startTime="62" endTime="82" timeDuration="t...t+35"/>
     </location>
-    <location id="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4" x="3912" y="438">
-      <name x="3882" y="408">loc_id_3085365D_8B34_423f_B39A_463F262E5CF4</name>
+    <location init="false" finl="false" id="id14" x="2532" y="525">
+      <name x="2502" y="495">TeapreOffered:Controller</name>
+      <urgent/>
+      <moment startTime="82" endTime="87" timeDuration="0"/>
     </location>
-    <location id="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F" x="4188" y="438">
-      <name x="4158" y="408">loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F</name>
+    <location init="false" finl="true" id="id15" x="1152" y="525">
+      <name x="1122" y="495">starttea:TeaBox</name>
+      <moment startTime="0" endTime="63" timeDuration="null"/>
+      <moment startTime="80" endTime="2147483647" timeDuration="null"/>
     </location>
-    <location id="loc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED" x="4464" y="438">
-      <name x="4434" y="408">loc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED</name>
+    <location init="false" finl="false" id="id16" x="1428" y="525">
+      <name x="1398" y="495">teaorded:TeaBox</name>
+      <label kind="invariant" x="30" y="30">t...t+25</label>
+      <moment startTime="63" endTime="71" timeDuration="t...t+25"/>
     </location>
-    <transition id="tran_idloc_id_initloc_id_2994C157_4854_4351_A947_F4E7BC16C968">
-      <source ref="loc_id_init"/>
-      <target ref="loc_id_2994C157_4854_4351_A947_F4E7BC16C968"/>
-      <label kind="synchronisation" x="166" y="466">tran_idloc_id_initloc_id_2994C157_4854_4351_A947_F4E7BC16C968</label>
+    <location init="false" finl="false" id="id17" x="1704" y="525">
+      <name x="1674" y="495">cupdelivered:TeaBox</name>
+      <label kind="invariant" x="30" y="30">t...t+10</label>
+      <moment startTime="71" endTime="78" timeDuration="t...t+10"/>
+    </location>
+    <location init="false" finl="false" id="id18" x="1980" y="525">
+      <name x="1950" y="495">teaprepared:TeaBox</name>
+      <urgent/>
+      <moment startTime="78" endTime="80" timeDuration="0"/>
+    </location>
+    <init ref="id0"/>
+    <transition out="false">
+      <source ref="id0"/>
+      <target ref="id1"/>
+      <label kind="guard" x="166" y="397" startTime="4" endTime="4" duration="null">UserPush==ButtonCoffee</label>
     </transition>
-    <transition id="tran_idloc_id_2994C157_4854_4351_A947_F4E7BC16C968loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087">
-      <source ref="loc_id_2994C157_4854_4351_A947_F4E7BC16C968"/>
-      <target ref="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087"/>
-      <label kind="synchronisation" x="442" y="466">tran_idloc_id_2994C157_4854_4351_A947_F4E7BC16C968loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087</label>
+    <transition out="false">
+      <source ref="id2"/>
+      <target ref="id0"/>
+      <label kind="synchronisation" x="1408" y="514" startTime="44" endTime="44" from="Controller" to="Button" duration="null">nexta?</label>
     </transition>
-    <transition id="tran_idloc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3">
-      <source ref="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087"/>
-      <target ref="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3"/>
-      <label kind="synchronisation" x="718" y="466">tran_idloc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3</label>
+    <transition out="false">
+      <source ref="id0"/>
+      <target ref="id3"/>
+      <label kind="guard" x="166" y="509" startTime="50" endTime="50" duration="null">UserPush==ButtonTea</label>
     </transition>
-    <transition id="tran_idloc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6">
-      <source ref="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3"/>
-      <target ref="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6"/>
-      <label kind="synchronisation" x="994" y="466">tran_idloc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6</label>
+    <transition out="false">
+      <source ref="id2"/>
+      <target ref="id0"/>
+      <label kind="synchronisation" x="1408" y="514" startTime="89" endTime="89" from="Controller" to="Button" duration="null">next?</label>
     </transition>
-    <transition id="tran_idloc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2">
-      <source ref="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6"/>
-      <target ref="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2"/>
-      <label kind="synchronisation" x="1270" y="398">tran_idloc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2</label>
+    <transition out="false">
+      <source ref="id4"/>
+      <target ref="id5"/>
+      <label kind="guard" x="1270" y="280" startTime="18" endTime="18" from="Controller" to="CoffeeBox" duration="null">UserPush==ButtonCoffee</label>
+      <label kind="synchronisation" x="30" y="30" startTime="18" endTime="18" from="Controller" to="CoffeeBox" duration="null">cofford?</label>
     </transition>
-    <transition id="tran_idloc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC">
-      <source ref="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6"/>
-      <target ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <label kind="synchronisation" x="1684" y="442">tran_idloc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC</label>
+    <transition out="false">
+      <source ref="id5"/>
+      <target ref="id6"/>
+      <label kind="none" x="1546" y="280" startTime="26" endTime="26" duration="null">null</label>
     </transition>
-    <transition id="tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC">
-      <source ref="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2"/>
-      <target ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <label kind="synchronisation" x="1822" y="374">tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC</label>
+    <transition out="false">
+      <source ref="id6"/>
+      <target ref="id7"/>
+      <label kind="none" x="1822" y="280" startTime="32" endTime="32" duration="null">null</label>
     </transition>
-    <transition id="tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5">
-      <source ref="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2"/>
-      <target ref="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5"/>
-      <label kind="synchronisation" x="1546" y="307">tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5</label>
+    <transition out="false">
+      <source ref="id8"/>
+      <target ref="id9"/>
+      <label kind="guard" x="718" y="335" startTime="11" endTime="11" from="Button" to="Controller" duration="null">UserPush==ButtonCoffee</label>
+      <label kind="synchronisation" x="30" y="30" startTime="11" endTime="11" from="Button" to="Controller" duration="null">coffee?</label>
     </transition>
-    <transition id="tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_50B8F800_23CD_4431_9778_042103F2DA5B">
-      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <target ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
-      <label kind="synchronisation" x="2374" y="350">tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_50B8F800_23CD_4431_9778_042103F2DA5B</label>
+    <transition out="false">
+      <source ref="id10"/>
+      <target ref="id11"/>
+      <label kind="synchronisation" x="2374" y="280" startTime="38" endTime="38" from="CoffeeBox" to="Controller" duration="null">coffin?</label>
     </transition>
-    <transition id="tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD">
-      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <label kind="synchronisation" x="2650" y="418">tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</label>
+    <transition out="false">
+      <source ref="id8"/>
+      <target ref="id12"/>
+      <label kind="guard" x="718" y="448" startTime="57" endTime="57" from="Button" to="Controller" duration="null">UserPush==ButtonTea</label>
+      <label kind="synchronisation" x="30" y="30" startTime="57" endTime="57" from="Button" to="Controller" duration="null">tea?</label>
     </transition>
-    <transition id="tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE">
-      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <label kind="synchronisation" x="2926" y="418">tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</label>
+    <transition out="false">
+      <source ref="id13"/>
+      <target ref="id14"/>
+      <label kind="synchronisation" x="2374" y="505" startTime="82" endTime="82" from="TeaBox" to="Controller" duration="null">teain?</label>
     </transition>
-    <transition id="tran_idloc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24">
-      <source ref="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5"/>
-      <target ref="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24"/>
-      <label kind="synchronisation" x="1822" y="283">tran_idloc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24</label>
+    <transition out="false">
+      <source ref="id15"/>
+      <target ref="id16"/>
+      <label kind="guard" x="1270" y="505" startTime="63" endTime="63" from="Controller" to="TeaBox" duration="null">UserPush==ButtonTea</label>
+      <label kind="synchronisation" x="30" y="30" startTime="63" endTime="63" from="Controller" to="TeaBox" duration="null">teaord?</label>
     </transition>
-    <transition id="tran_idloc_id_50B8F800_23CD_4431_9778_042103F2DA5Bloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3">
-      <source ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
-      <target ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
-      <label kind="synchronisation" x="2670" y="323">tran_idloc_id_50B8F800_23CD_4431_9778_042103F2DA5Bloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3</label>
-      <nail y="323" x="2670"/>
+    <transition out="false">
+      <source ref="id16"/>
+      <target ref="id17"/>
+      <label kind="none" x="1546" y="505" startTime="71" endTime="71" duration="null">null</label>
     </transition>
-    <transition id="tran_idloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBDloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7">
-      <source ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <target ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
-      <label kind="synchronisation" x="3222" y="458">tran_idloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBDloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7</label>
-      <nail y="458" x="3222"/>
+    <transition out="false">
+      <source ref="id17"/>
+      <target ref="id18"/>
+      <label kind="none" x="1822" y="505" startTime="78" endTime="78" duration="null">null</label>
     </transition>
-    <transition id="tran_idloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EEloc_id_3085365D_8B34_423f_B39A_463F262E5CF4">
-      <source ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <target ref="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4"/>
-      <label kind="synchronisation" x="3754" y="418">tran_idloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EEloc_id_3085365D_8B34_423f_B39A_463F262E5CF4</label>
+    <transition out="true">
+      <source ref="id1"/>
+      <target ref="id8"/>
+      <label kind="synchronisation" x="442" y="335" startTime="9" endTime="11" from="Button" to="Controller" duration="null">coffee</label>
     </transition>
-    <transition id="tran_idloc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC">
-      <source ref="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24"/>
-      <target ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <label kind="synchronisation" x="2098" y="350">tran_idloc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC</label>
+    <transition out="true">
+      <source ref="id3"/>
+      <target ref="id8"/>
+      <label kind="synchronisation" x="442" y="448" startTime="54" endTime="57" from="Button" to="Controller" duration="null">tea</label>
     </transition>
-    <transition id="tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_50B8F800_23CD_4431_9778_042103F2DA5B">
-      <source ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
-      <target ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
-      <label kind="synchronisation" x="2670" y="283">tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_50B8F800_23CD_4431_9778_042103F2DA5B</label>
-      <nail y="283" x="2670"/>
+    <transition out="true">
+      <source ref="id7"/>
+      <target ref="id10"/>
+      <label kind="synchronisation" x="2098" y="280" startTime="34" endTime="38" from="CoffeeBox" to="Controller" duration="null">coffin</label>
     </transition>
-    <transition id="tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD">
-      <source ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
-      <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <label kind="synchronisation" x="2926" y="350">tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</label>
+    <transition out="true">
+      <source ref="id9"/>
+      <target ref="id4"/>
+      <label kind="synchronisation" x="994" y="280" startTime="16" endTime="18" from="Controller" to="CoffeeBox" duration="null">cofford</label>
     </transition>
-    <transition id="tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE">
-      <source ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
-      <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <label kind="synchronisation" x="3202" y="350">tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</label>
+    <transition out="true">
+      <source ref="id11"/>
+      <target ref="id2"/>
+      <label kind="synchronisation" x="2650" y="397" startTime="43" endTime="44" from="Controller" to="Button" duration="null">nexta</label>
     </transition>
-    <transition id="tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD">
-      <source ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
-      <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <label kind="synchronisation" x="3222" y="418">tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</label>
-      <nail y="418" x="3222"/>
+    <transition out="true">
+      <source ref="id12"/>
+      <target ref="id15"/>
+      <label kind="synchronisation" x="994" y="505" startTime="62" endTime="63" from="Controller" to="TeaBox" duration="null">teaord</label>
     </transition>
-    <transition id="tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE">
-      <source ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
-      <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <label kind="synchronisation" x="3478" y="418">tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</label>
+    <transition out="true">
+      <source ref="id14"/>
+      <target ref="id2"/>
+      <label kind="synchronisation" x="2650" y="509" startTime="87" endTime="89" from="Controller" to="Button" duration="null">next</label>
     </transition>
-    <transition id="tran_idloc_id_3085365D_8B34_423f_B39A_463F262E5CF4loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F">
-      <source ref="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4"/>
-      <target ref="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F"/>
-      <label kind="synchronisation" x="4030" y="418">tran_idloc_id_3085365D_8B34_423f_B39A_463F262E5CF4loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F</label>
-    </transition>
-    <transition id="tran_idloc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8Floc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED">
-      <source ref="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F"/>
-      <target ref="loc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED"/>
-      <label kind="synchronisation" x="4306" y="418">tran_idloc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8Floc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED</label>
+    <transition out="true">
+      <source ref="id18"/>
+      <target ref="id13"/>
+      <label kind="synchronisation" x="2098" y="505" startTime="80" endTime="82" from="TeaBox" to="Controller" duration="null">teain</label>
     </transition>
   </template>
-  <system/>
+  <temp>
+    <name x="31" y="31">CoffeeBox</name>
+    <declaration/>
+    <location init="false" finl="false" id="id4" x="31" y="31">
+      <name x="31" y="31">startcoff:CoffeeBox</name>
+      <moment startTime="0" endTime="18" timeDuration="null"/>
+      <moment startTime="34" endTime="2147483647" timeDuration="null"/>
+    </location>
+    <location init="false" finl="false" id="id5" x="31" y="31">
+      <name x="31" y="31">cofforded:CoffeeBox</name>
+      <label kind="invariant" x="31" y="31">t...t+20</label>
+      <moment startTime="18" endTime="26" timeDuration="t...t+20"/>
+    </location>
+    <location init="false" finl="false" id="id6" x="31" y="31">
+      <name x="31" y="31">cupdelivered:CoffeeBox</name>
+      <urgent/>
+      <moment startTime="26" endTime="32" timeDuration="0"/>
+    </location>
+    <location init="false" finl="false" id="id7" x="31" y="31">
+      <name x="31" y="31">coffprepared:CoffeeBox</name>
+      <urgent/>
+      <moment startTime="32" endTime="34" timeDuration="0"/>
+    </location>
+    <init ref="id-1"/>
+    <transition out="false">
+      <source ref="id4"/>
+      <target ref="id5"/>
+      <label kind="guard" x="31" y="31" startTime="18" endTime="18" from="Controller" to="CoffeeBox" duration="null">UserPush==ButtonCoffee</label>
+      <label kind="synchronisation" x="31" y="31" startTime="18" endTime="18" from="Controller" to="CoffeeBox" duration="null">cofford?</label>
+    </transition>
+    <transition out="false">
+      <source ref="id5"/>
+      <target ref="id6"/>
+      <label kind="none" x="31" y="31" startTime="26" endTime="26" duration="null">null</label>
+    </transition>
+    <transition out="false">
+      <source ref="id6"/>
+      <target ref="id7"/>
+      <label kind="none" x="31" y="31" startTime="32" endTime="32" duration="null">null</label>
+    </transition>
+    <transition out="true">
+      <source ref="id7"/>
+      <target ref="id4"/>
+      <label kind="synchronisation" x="31" y="31" startTime="34" endTime="38" from="CoffeeBox" to="Controller" duration="null">coffin!</label>
+    </transition>
+  </temp>
+  <temp>
+    <name x="32" y="32">Controller</name>
+    <declaration/>
+    <location init="false" finl="false" id="id8" x="32" y="32">
+      <name x="32" y="32">Startcon:Controller</name>
+      <moment startTime="0" endTime="11" timeDuration="null"/>
+      <moment startTime="43" endTime="57" timeDuration="null"/>
+      <moment startTime="87" endTime="2147483647" timeDuration="null"/>
+    </location>
+    <location init="false" finl="false" id="id9" x="32" y="32">
+      <name x="32" y="32">ReciveCoffeeOrder:Controller</name>
+      <urgent/>
+      <moment startTime="11" endTime="16" timeDuration="0"/>
+    </location>
+    <location init="false" finl="false" id="id10" x="32" y="32">
+      <name x="32" y="32">GiveCoffee:Controller</name>
+      <label kind="invariant" x="32" y="32">t...t+30</label>
+      <moment startTime="16" endTime="38" timeDuration="t...t+30"/>
+    </location>
+    <location init="false" finl="false" id="id11" x="32" y="32">
+      <name x="32" y="32">CoffeeOffered:Controller</name>
+      <urgent/>
+      <moment startTime="38" endTime="43" timeDuration="0"/>
+    </location>
+    <location init="false" finl="false" id="id12" x="32" y="32">
+      <name x="32" y="32">ReceiveTeaOrder:Controller</name>
+      <urgent/>
+      <moment startTime="57" endTime="62" timeDuration="0"/>
+    </location>
+    <location init="false" finl="false" id="id13" x="32" y="32">
+      <name x="32" y="32">GiveTea:Controller</name>
+      <label kind="invariant" x="32" y="32">t...t+35</label>
+      <moment startTime="62" endTime="82" timeDuration="t...t+35"/>
+    </location>
+    <location init="false" finl="false" id="id14" x="32" y="32">
+      <name x="32" y="32">TeapreOffered:Controller</name>
+      <urgent/>
+      <moment startTime="82" endTime="87" timeDuration="0"/>
+    </location>
+    <init ref="id-1"/>
+    <transition out="false">
+      <source ref="id8"/>
+      <target ref="id9"/>
+      <label kind="guard" x="32" y="32" startTime="11" endTime="11" from="Button" to="Controller" duration="null">UserPush==ButtonCoffee</label>
+      <label kind="synchronisation" x="32" y="32" startTime="11" endTime="11" from="Button" to="Controller" duration="null">coffee?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id9"/>
+      <target ref="id10"/>
+      <label kind="synchronisation" x="32" y="32" startTime="16" endTime="18" from="Controller" to="CoffeeBox" duration="null">cofford!</label>
+    </transition>
+    <transition out="false">
+      <source ref="id10"/>
+      <target ref="id11"/>
+      <label kind="synchronisation" x="32" y="32" startTime="38" endTime="38" from="CoffeeBox" to="Controller" duration="null">coffin?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id11"/>
+      <target ref="id8"/>
+      <label kind="synchronisation" x="32" y="32" startTime="43" endTime="44" from="Controller" to="Button" duration="null">nexta!</label>
+    </transition>
+    <transition out="false">
+      <source ref="id8"/>
+      <target ref="id12"/>
+      <label kind="guard" x="32" y="32" startTime="57" endTime="57" from="Button" to="Controller" duration="null">UserPush==ButtonTea</label>
+      <label kind="synchronisation" x="32" y="32" startTime="57" endTime="57" from="Button" to="Controller" duration="null">tea?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id12"/>
+      <target ref="id13"/>
+      <label kind="synchronisation" x="32" y="32" startTime="62" endTime="63" from="Controller" to="TeaBox" duration="null">teaord!</label>
+    </transition>
+    <transition out="false">
+      <source ref="id13"/>
+      <target ref="id14"/>
+      <label kind="synchronisation" x="32" y="32" startTime="82" endTime="82" from="TeaBox" to="Controller" duration="null">teain?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id14"/>
+      <target ref="id8"/>
+      <label kind="synchronisation" x="32" y="32" startTime="87" endTime="89" from="Controller" to="Button" duration="null">next!</label>
+    </transition>
+  </temp>
+  <temp>
+    <name x="33" y="33">TeaBox</name>
+    <declaration/>
+    <location init="false" finl="true" id="id15" x="33" y="33">
+      <name x="33" y="33">starttea:TeaBox</name>
+      <moment startTime="0" endTime="63" timeDuration="null"/>
+      <moment startTime="80" endTime="2147483647" timeDuration="null"/>
+    </location>
+    <location init="false" finl="false" id="id16" x="33" y="33">
+      <name x="33" y="33">teaorded:TeaBox</name>
+      <label kind="invariant" x="33" y="33">t...t+25</label>
+      <moment startTime="63" endTime="71" timeDuration="t...t+25"/>
+    </location>
+    <location init="false" finl="false" id="id17" x="33" y="33">
+      <name x="33" y="33">cupdelivered:TeaBox</name>
+      <label kind="invariant" x="33" y="33">t...t+10</label>
+      <moment startTime="71" endTime="78" timeDuration="t...t+10"/>
+    </location>
+    <location init="false" finl="false" id="id18" x="33" y="33">
+      <name x="33" y="33">teaprepared:TeaBox</name>
+      <urgent/>
+      <moment startTime="78" endTime="80" timeDuration="0"/>
+    </location>
+    <init ref="id-1"/>
+    <transition out="false">
+      <source ref="id15"/>
+      <target ref="id16"/>
+      <label kind="guard" x="33" y="33" startTime="63" endTime="63" from="Controller" to="TeaBox" duration="null">UserPush==ButtonTea</label>
+      <label kind="synchronisation" x="33" y="33" startTime="63" endTime="63" from="Controller" to="TeaBox" duration="null">teaord?</label>
+    </transition>
+    <transition out="false">
+      <source ref="id16"/>
+      <target ref="id17"/>
+      <label kind="none" x="33" y="33" startTime="71" endTime="71" duration="null">null</label>
+    </transition>
+    <transition out="false">
+      <source ref="id17"/>
+      <target ref="id18"/>
+      <label kind="none" x="33" y="33" startTime="78" endTime="78" duration="null">null</label>
+    </transition>
+    <transition out="true">
+      <source ref="id18"/>
+      <target ref="id15"/>
+      <label kind="synchronisation" x="33" y="33" startTime="80" endTime="82" from="TeaBox" to="Controller" duration="null">teain!</label>
+    </transition>
+  </temp>
+  <system>system Button, TeaBox, CoffeeBox, Controller;</system>
 </nta>

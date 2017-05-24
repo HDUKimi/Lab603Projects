@@ -650,7 +650,7 @@ public class ModelExistValidationPanel extends JPanel{
 
 			TimingEAtoUppaal.transEA(path);
 			LayoutUppaal.layout(TimingEAtoUppaal.getDiagramDataName() + ".xml");
-			String filename1 = TransToVioletUppaal.TransToViolet(filename);
+			String filename1 = TransToVioletUppaal.TransToViolet(filename,1);
 
 			System.out.println("filename1:" + filename1 + " TimingEAtoUppaal.getDiagramDataName():"
 					+ TimingEAtoUppaal.getDiagramDataName());
@@ -1529,6 +1529,14 @@ public class ModelExistValidationPanel extends JPanel{
 
 	public JButton getValidationlabeltab4() {
 		return validationlabeltab4;
+	}
+
+	public JPanel getValidationcheckboxpanel() {
+		return validationcheckboxpanel;
+	}
+
+	public JPanel getValidationinfopanel() {
+		return validationinfopanel;
 	}
 	
 	

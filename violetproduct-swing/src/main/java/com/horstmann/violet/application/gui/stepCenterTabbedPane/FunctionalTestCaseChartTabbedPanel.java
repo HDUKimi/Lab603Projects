@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
@@ -142,7 +143,7 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		checkbox5=new JCheckBox();
 		checkbox6=new JCheckBox();
 		
-		checkbox1.setText("柱状图");
+		checkbox1.setText("统计表格");
 		checkbox1.setOpaque(false);
 		checkbox1.setSelected(true);
 		checkbox1.addActionListener(new ActionListener() {
@@ -150,6 +151,7 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
 			}
 		});
 		
@@ -213,7 +215,7 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		
 //		toolpanel.add(toolbuttonpanel1);
 		
-//		toolpanel.add(checkbox1);
+		toolpanel.add(checkbox1);
 //		toolpanel.add(checkbox2);
 //		toolpanel.add(checkbox3);
 //		toolpanel.add(checkbox4);
@@ -241,7 +243,7 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		emptypanel=new JPanel();
 		emptypanel.setOpaque(false);
 		
-//		initTablePanel();
+		initTablePanel();
 		
 		initChartPanel();
 		
@@ -250,12 +252,12 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		
 		GridBagLayout layout = new GridBagLayout();
 		reportresultpanel.setLayout(layout);
-//		reportresultpanel.add(tablepanel);
+		reportresultpanel.add(tablepanel);
 		reportresultpanel.add(chartpanel);
 		reportresultpanel.add(emptypanel);
-//		layout.setConstraints(tablepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(chartpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(emptypanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(tablepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(chartpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(emptypanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		reportresultpanel.setBorder(null);
 		reportresultpanel.setBackground(new Color(255, 255, 255));
@@ -275,8 +277,7 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 	private void initTablePanel() {
 		// TODO Auto-generated method stub
 		
-//		String[] columnNames = { "模块名称", "通过数", "不通过数", "首轮命中用例数", "执行用例数", "未执行用例数", "变更用例数", "测试用例总数"};
-		String[] columnNames = { "测试ID", "风速","起飞高度", "剩余电量", "所用时间"};
+		String[] columnNames = { "模块名称", "通过数", "不通过数", "测试用例总数"};
 		String[][] tabelValues = {};
 
 		attributetablemodel = new DefaultTableModel(tabelValues, columnNames) {
@@ -288,7 +289,7 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 
 		attributetable = new JTable(attributetablemodel);
 
-		attributetable.setName("TestCaseChartTabbedPanel");
+		attributetable.setName("FunctionalTestCaseChartTabbedPanel");
 
 		attributetable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 //		attributetable.setSelectionBackground(new Color(250, 248, 236));
@@ -305,19 +306,19 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		attributetable.getColumnModel().getColumn(1).setCellRenderer(new MyAllLabelRenderer());
 		attributetable.getColumnModel().getColumn(2).setCellRenderer(new MyAllLabelRenderer());
 		attributetable.getColumnModel().getColumn(3).setCellRenderer(new MyAllLabelRenderer());
-		attributetable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
+//		attributetable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
 //		attributetable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
 //		attributetable.getColumnModel().getColumn(5).setCellRenderer(new MyAllLabelRenderer());
 //		attributetable.getColumnModel().getColumn(6).setCellRenderer(new MyAllLabelRenderer());
 //		attributetable.getColumnModel().getColumn(7).setCellRenderer(new MyAllLabelRenderer());
 		
-//		attributetable.getColumn("模块名称").setPreferredWidth(100);
-//		attributetable.getColumn("模块名称").setMinWidth(100);
-//		attributetable.getColumn("模块名称").setMaxWidth(100);
-//		attributetable.getColumn("通过数").setPreferredWidth(50);
-//		attributetable.getColumn("通过数").setMinWidth(50);
-//		attributetable.getColumn("不通过数").setPreferredWidth(50);
-//		attributetable.getColumn("不通过数").setMinWidth(50);
+		attributetable.getColumn("模块名称").setPreferredWidth(100);
+		attributetable.getColumn("模块名称").setMinWidth(100);
+		attributetable.getColumn("模块名称").setMaxWidth(100);
+		attributetable.getColumn("通过数").setPreferredWidth(50);
+		attributetable.getColumn("通过数").setMinWidth(50);
+		attributetable.getColumn("不通过数").setPreferredWidth(50);
+		attributetable.getColumn("不通过数").setMinWidth(50);
 //		attributetable.getColumn("首轮命中用例数").setPreferredWidth(80);
 //		attributetable.getColumn("首轮命中用例数").setMinWidth(80);
 //		attributetable.getColumn("执行用例数").setPreferredWidth(50);
@@ -326,8 +327,8 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 //		attributetable.getColumn("未执行用例数").setMinWidth(50);
 //		attributetable.getColumn("变更用例数").setPreferredWidth(50);
 //		attributetable.getColumn("变更用例数").setMinWidth(50);
-//		attributetable.getColumn("测试用例总数").setPreferredWidth(50);
-//		attributetable.getColumn("测试用例总数").setMinWidth(50);
+		attributetable.getColumn("测试用例总数").setPreferredWidth(50);
+		attributetable.getColumn("测试用例总数").setMinWidth(50);
 
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setBackground(new Color(71, 80, 93));
@@ -347,17 +348,17 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		tablepanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		tablepanel.setOpaque(false);
 		
-//		String[] strname={"setup","init","loop","update","set_range","run"};
-//		Random rand=new Random();
-//		for(int i=0;i<10;i++){
-//			int index=rand.nextInt(6);
-//			Object[] rowData={strname[index],rand.nextInt(100),rand.nextInt(100),rand.nextInt(100),rand.nextInt(100),rand.nextInt(100),rand.nextInt(100),rand.nextInt(100)};
-//			attributetablemodel.addRow(rowData);
-//		}
-//		Object[] rowData1={"合计:",rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000)};
-//		attributetablemodel.addRow(rowData1);
-//		Object[] rowData2={"百分比:",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%"};
-//		attributetablemodel.addRow(rowData2);
+		String[] strname={"setup","init","loop","update","set_range","run"};
+		Random rand=new Random();
+		for(int i=0;i<6;i++){
+			int index=rand.nextInt(6);
+			Object[] rowData={strname[index],rand.nextInt(100),rand.nextInt(100),rand.nextInt(100)};
+			attributetablemodel.addRow(rowData);
+		}
+		Object[] rowData1={"合计:",rand.nextInt(10000),rand.nextInt(10000),rand.nextInt(10000)};
+		attributetablemodel.addRow(rowData1);
+		Object[] rowData2={"百分比:",rand.nextInt(100)+"%",rand.nextInt(100)+"%",rand.nextInt(100)+"%"};
+		attributetablemodel.addRow(rowData2);
 		
 	}
 

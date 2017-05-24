@@ -19,6 +19,9 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.FixedButtonTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseConstraintTabbedPanel;
@@ -46,6 +49,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 	public JPanel diagramPanel;
 	
 	private JPanel buttonTabbedPanel;
+	private JScrollPane buttonScrollPanel;
 	private JButton leftButton;
 	private JButton rightButton;
 	
@@ -110,9 +114,6 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		diagramPanel = new JPanel();
 		diagramPanel.setLayout(new GridLayout());
 
-		buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		buttonPanel.setBackground(new Color(41, 57, 85));
-		
 		buttonTabbedPanel=new JPanel();
 
 		// initButton();
@@ -202,8 +203,6 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		buttonTabbedPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		buttonTabbedPanel.setBackground(new Color(41, 57, 85));
 		
-		buttonPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(58, 105, 190)));
-
 		buttonTabbedPanel.add(testCaseProcessButtonPanel);
 		buttonTabbedPanel.add(uppaalParseInforButtonPanel);
 		buttonTabbedPanel.add(uppaalOptimizationButtonPanel);
@@ -215,6 +214,11 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		buttonTabbedPanel.add(testCaseProduceButtonPanel);
 		buttonTabbedPanel.add(testCaseInstantiationButtonPanel);
 		buttonTabbedPanel.add(testCaseShowButtonPanel);
+		
+		buttonScrollPanel=new JScrollPane(buttonTabbedPanel);
+		buttonScrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		buttonScrollPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		buttonScrollPanel.setBorder(null);
 
 		setButtonActionListener();
 				
@@ -232,10 +236,11 @@ public class StepThreeCenterTabbedPane extends JPanel {
 
 		setFixButtonTabbedPanelVisible();
 		
-		
+		buttonPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(58, 105, 190)));
+		buttonPanel.setBackground(new Color(41, 57, 85));
 		buttonPanel.setLayout(new BorderLayout());
 		buttonPanel.add(leftButton, BorderLayout.WEST);
-		buttonPanel.add(buttonTabbedPanel, BorderLayout.CENTER);
+		buttonPanel.add(buttonScrollPanel, BorderLayout.CENTER);
 		buttonPanel.add(rightButton, BorderLayout.EAST);
 
 	}
@@ -314,9 +319,8 @@ public class StepThreeCenterTabbedPane extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				if(fixButtonTabbedPanelStartIndex>0){
-					fixButtonTabbedPanelList.get(--fixButtonTabbedPanelStartIndex).setVisible(true);
-				}
+				JScrollBar bar=buttonScrollPanel.getHorizontalScrollBar();
+				bar.setValue(bar.getValue()-100);
 			}
 		});
 		
@@ -364,9 +368,8 @@ public class StepThreeCenterTabbedPane extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				if(fixButtonTabbedPanelStartIndex<fixButtonTabbedPanelList.size()-1){
-					fixButtonTabbedPanelList.get(fixButtonTabbedPanelStartIndex++).setVisible(false);
-				}
+				JScrollBar bar=buttonScrollPanel.getHorizontalScrollBar();
+				bar.setValue(bar.getValue()+100);
 			}
 		});
 		

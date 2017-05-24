@@ -552,7 +552,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							
 							System.out.println("SD2UppaalMain.getDiagramDataName():+++++++++"+SD2UppaalMain.getDiagramDataName());
 							
-							tranxmlname = TransToVioletUppaal.TransToViolet(filename);
+							tranxmlname = TransToVioletUppaal.TransToViolet(filename,0);
 //							uppaallists.add(filename1);
 							
 							GraphFile fGraphFile1 = ImportByDoubleClick.importFileByDoubleClick("UPPAAL", tranxmlname);

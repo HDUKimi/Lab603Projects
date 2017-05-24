@@ -103,7 +103,7 @@ public class WriteVioletUppaal {
     		System.err.println("-*----------------------- "+locations.size()+" - - "+transitions.size());
     	}	
     	//(将我们读取的信息)生成事件自动机的xml(按照我们的标准)
-    public void writeVioletUppaal(String filename){
+    public void writeVioletUppaal(String filename,int flag){
     	Document doc = DocumentHelper.createDocument();
     	Element UppaalGraph=doc.addElement("UppaalGraph");
     	UppaalGraph.addAttribute("id", "1");
@@ -161,6 +161,13 @@ public class WriteVioletUppaal {
     		Element angle=TransitionEdge.addElement("angle");
     		angle.setText("10.0");
     		Element labelText=TransitionEdge.addElement("labelText");
+    		
+    		if(flag==1){
+				if (temp.getLabelText() != null) {
+					labelText.setText(temp.getLabelText());
+				}
+    		}
+    		
 //    		if(temp.getLabelText()!=null){
 //    			labelText.setText(temp.getLabelText());	
 //    		}

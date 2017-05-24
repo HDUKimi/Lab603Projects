@@ -341,7 +341,7 @@ public class MainFrame extends JFrame
 			int index=usecasetreerootnode.getIndex(parentNode);
 			usecasetreemodel.removeNodeFromParent(parentNode);
 			this.UseCaseWorkspaceList.remove(index);
-			this.getStepOneCenterTabbedPane().getButtonPanel().remove(this.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists().get(index));
+			this.getStepOneCenterTabbedPane().getButtonTabbedPanel().remove(this.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists().get(index));
 			this.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists().remove(index);
 			for(ButtonTabbedPanel buttonTabbedPanel:this.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists()){
 				if(buttonTabbedPanel.getButtontabbedpanelindex()>=index){
@@ -364,7 +364,7 @@ public class MainFrame extends JFrame
 			int index=timingtreerootnode.getIndex(parentNode);
 			timingtreemodel.removeNodeFromParent(parentNode);
 			this.TimingWorkspaceList.remove(index);
-			this.getStepOneCenterTabbedPane().getButtonPanel().remove(this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().get(index));
+			this.getStepOneCenterTabbedPane().getButtonTabbedPanel().remove(this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().get(index));
 			this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().remove(index);
 			for(ButtonTabbedPanel buttonTabbedPanel:this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists()){
 				if(buttonTabbedPanel.getButtontabbedpanelindex()>=index){
@@ -387,7 +387,7 @@ public class MainFrame extends JFrame
 			int index=sequencetreerootnode.getIndex(parentNode);
 			sequencetreemodel.removeNodeFromParent(parentNode);
 			this.SequenceWorkspaceList.remove(index);
-			this.getStepOneCenterTabbedPane().getButtonPanel().remove(this.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists().get(index));
+			this.getStepOneCenterTabbedPane().getButtonTabbedPanel().remove(this.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists().get(index));
 			this.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists().remove(index);
 			for(ButtonTabbedPanel buttonTabbedPanel:this.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists()){
 				if(buttonTabbedPanel.getButtontabbedpanelindex()>=index){
@@ -410,7 +410,7 @@ public class MainFrame extends JFrame
 			int index=statetreerootnode.getIndex(parentNode);
 			statetreemodel.removeNodeFromParent(parentNode);
 			this.StateWorkspaceList.remove(index);
-			this.getStepOneCenterTabbedPane().getButtonPanel().remove(this.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists().get(index));
+			this.getStepOneCenterTabbedPane().getButtonTabbedPanel().remove(this.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists().get(index));
 			this.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists().remove(index);
 			for(ButtonTabbedPanel buttonTabbedPanel:this.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists()){
 				if(buttonTabbedPanel.getButtontabbedpanelindex()>=index){
@@ -461,7 +461,7 @@ public class MainFrame extends JFrame
 			
 			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
 			this.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists().add(index,buttontabbedpanel);
-			this.getStepOneCenterTabbedPane().getButtonPanel().add(buttontabbedpanel);
+			this.getStepOneCenterTabbedPane().getButtonTabbedPanel().add(buttontabbedpanel);
 
 			listenToDiagramPanelEvents(workspace, UseCaseWorkspaceList);
      		
@@ -496,7 +496,7 @@ public class MainFrame extends JFrame
 			
 			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
 			this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().add(index,buttontabbedpanel);
-			this.getStepOneCenterTabbedPane().getButtonPanel().add(buttontabbedpanel);
+			this.getStepOneCenterTabbedPane().getButtonTabbedPanel().add(buttontabbedpanel);
 			
 			listenToDiagramPanelEvents(workspace, TimingWorkspaceList);
      		
@@ -533,7 +533,7 @@ public class MainFrame extends JFrame
 			
 			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
 			this.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists().add(index,buttontabbedpanel);
-			this.getStepOneCenterTabbedPane().getButtonPanel().add(buttontabbedpanel);
+			this.getStepOneCenterTabbedPane().getButtonTabbedPanel().add(buttontabbedpanel);
 			
 			listenToDiagramPanelEvents(workspace, SequenceWorkspaceList);
      	    repaint();    		              
@@ -567,7 +567,7 @@ public class MainFrame extends JFrame
 			
 			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
 			this.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists().add(index,buttontabbedpanel);
-			this.getStepOneCenterTabbedPane().getButtonPanel().add(buttontabbedpanel);
+			this.getStepOneCenterTabbedPane().getButtonTabbedPanel().add(buttontabbedpanel);
 
 			listenToDiagramPanelEvents(workspace, StateWorkspaceList);
      	  
@@ -673,7 +673,7 @@ public class MainFrame extends JFrame
 				}
 			}
 			this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().add(buttontabbedpanel);
-			this.getStepTwoCenterTabbedPane().getButtonPanel().add(buttontabbedpanel);
+			this.getStepTwoCenterTabbedPane().getButtonTabbedPanel().add(buttontabbedpanel);
      		listenToDiagramPanelEvents(workspace,SequenceToUppaalWorkspaceList);    	  
      	    repaint();     		    
      	}
@@ -701,7 +701,7 @@ public class MainFrame extends JFrame
 			
 			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
 			this.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists().add(buttontabbedpanel);
-			this.getStepTwoCenterTabbedPane().getButtonPanel().add(buttontabbedpanel);
+			this.getStepTwoCenterTabbedPane().getButtonTabbedPanel().add(buttontabbedpanel);
 			
      		listenToDiagramPanelEvents(workspace,TimingToUppaalWorkspaceList);    	  
      	    repaint();     		    

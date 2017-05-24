@@ -333,7 +333,10 @@ public class ModelTransformationPanel extends JPanel{
 					mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButton().doClick();
 				}
 				
-				ChangeRepaint();
+				if(mainFrame.getStepindex()==2){
+					ChangeRepaint();
+				}
+				
 			}
 		});
 		diagrambutton1.setPreferredSize(new Dimension(22,22));

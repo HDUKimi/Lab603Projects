@@ -340,7 +340,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 								
 								LayoutUppaal.layout(TimingEAtoUppaal.getDiagramDataName()+".xml");
 								
-								filename1 = TransToVioletUppaal.TransToViolet(filename);
+								filename1 = TransToVioletUppaal.TransToViolet(filename,1);
 								// String
 								// filename1="uppaalTest1.uppaal.violet.xml";
 								// GraphFile
