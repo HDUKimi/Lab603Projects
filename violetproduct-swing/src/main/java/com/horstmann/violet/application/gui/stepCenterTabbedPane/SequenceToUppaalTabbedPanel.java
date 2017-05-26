@@ -425,8 +425,8 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							if(smallprogressbarindex==100){
 								break;
 							}
-							if(smallprogressbarindex/tranprocesslist.size()!=tranprocesslistindex){
-								tranprocesslistindex=smallprogressbarindex/tranprocesslist.size();
+							if(smallprogressbarindex/(double)(100.0/tranprocesslist.size())!=tranprocesslistindex){
+								tranprocesslistindex=(int) (smallprogressbarindex/(double)(100.0/tranprocesslist.size()));
 								sequencetouppaaltablemodel.setValueAt(tranprocesslist.get(tranprocesslistindex), sequencelistindex, 3);
 							}
 							

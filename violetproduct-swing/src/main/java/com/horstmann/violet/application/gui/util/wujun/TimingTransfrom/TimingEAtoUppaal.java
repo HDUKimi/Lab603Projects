@@ -12,6 +12,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.util.wujun.TimingTransfrom.Display;
 import com.horstmann.violet.application.gui.util.wujun.TimingTransfrom.TimingDiagramGraph;
 import com.horstmann.violet.application.gui.util.wujun.TimingTransfrom.XML2xmlbeanUtil;
@@ -19,12 +20,17 @@ import com.horstmann.violet.application.gui.util.wujun.TimingTransfrom.XStreamBe
 
 public class TimingEAtoUppaal {
 
+	private static int state=0;
+	private static MainFrame mainFrame;
 	public static String diagramDataName = null;
 
-	public static void transEA(String path) throws Exception {
+	public static void transEA(String path,MainFrame mainframe,int state) throws Exception {
 		// TODO Auto-generated method stub
 		// Global global=new Global();
 
+		TimingEAtoUppaal.state=state;
+		mainFrame=mainframe;
+		
 		// 1.声明变量------------------------------------------------------------------------------------------------------
 		HashSet<String> template_instantiations = new HashSet<String>(); // 存储template的name
 		HashSet<String> global_declarations = new HashSet<String>(); // 存储channel的name
@@ -39,9 +45,10 @@ public class TimingEAtoUppaal {
 		Display.println("================================正在读取时序图xml信息================================");
 		// 2.读取uml.xml中的数据-------------------------------------------------------------------------------------------
 		SAXReader reader = new SAXReader();// 获取解析器
-
-		Document dom = reader.read(path);// 解析XML获取代表整个文档的dom对象
-
+System.out.println(path);
+File file = new File(path);
+Document dom= reader.read(file);// 解析XML获取代表整个文档的dom对象
+System.out.println("--------"+path);
 		Element root = dom.getRootElement();// 获取根节点
 
 		ReadTimingDiagram uml = new ReadTimingDiagram();
@@ -418,8 +425,8 @@ public class TimingEAtoUppaal {
 			temPlates.get(0).setName(diagramsData.getName());
 			Display.println("开始写入xml:" + diagramsData.getName() + ".xml");
 			// 4.写入到UPPAAL.xml中----------------------------------------------------------------------------------------------
-			Write.creatXML(diagramsData.getName() + ".xml", global_declarations, template_instantiations, temPlates);
-			Write2.creatXML(diagramsData.getName() + "UPPAAL.xml", global_declarations, template_instantiations, temPlates);
+			Write.creatXML("D:\\ModelDriverProjectFile\\WJXML\\"+diagramsData.getName() + ".xml", global_declarations, template_instantiations, temPlates);
+			Write2.creatXML("D:\\ModelDriverProjectFile\\WJXML\\"+diagramsData.getName() + "UPPAAL.xml", global_declarations, template_instantiations, temPlates);
 			setDiagramDataName(diagramsData.getName());
 			// 4.写入到UPPAAL.xml中end-------------------------------------------------------------------------------------------
 			Display.println(".....写入完成!");
@@ -630,4 +637,13 @@ public class TimingEAtoUppaal {
 	public static void setDiagramDataName(String diagramDataName) {
 		TimingEAtoUppaal.diagramDataName = diagramDataName;
 	}
+	
+	public static MainFrame getMainFrame() {
+		return mainFrame;
+	}
+	
+	public static int getState() {
+		return state;
+	}
+	
 }

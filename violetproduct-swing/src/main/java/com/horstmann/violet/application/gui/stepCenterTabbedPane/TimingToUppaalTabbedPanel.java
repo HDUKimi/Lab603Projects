@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.Callable;
@@ -74,6 +75,8 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 	private JLabel progressbarlabel;
 	
 	private JProgressBar progressbar;
+	private int progressbarindex;
+	private int smallprogressbarindex;
 	
 	private DefaultTableModel timingtouppaaltablemodel;
 	private JTable timingtouppaaltable;
@@ -86,16 +89,17 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 	private int successcount;
 	
 	private int timinglistindex;
+	private int oldtiminglistindex;
 	private List<String> timinglists = new ArrayList<String>();
 	
 //	private List<String> uppaallists = new ArrayList<String>();
 	
-	private static Map<String,String> timingtouppaalmap=new LinkedHashMap<String,String>();
-	
-	private Set<String> timingtouppaalset;
-	
-	private List<UppaalProcessModel> uppaalprocesslists=new ArrayList<UppaalProcessModel>();
-	
+//	private static Map<String,String> timingtouppaalmap=new LinkedHashMap<String,String>();
+//	
+//	private Set<String> timingtouppaalset;
+//	
+//	private List<UppaalProcessModel> uppaalprocesslists=new ArrayList<UppaalProcessModel>();
+//	
 	public Map<String, IWorkspace> timinganduppaalmap=new LinkedHashMap<String, IWorkspace>();
 	
 	private Callable<Integer> maincallable;
@@ -105,6 +109,13 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 	private Callable<Integer> trancallable;
 	private FutureTask<Integer> trantask;
 	private Thread tranthread;
+	
+	private List<String> tranprocesslist=new ArrayList<>();
+	private int tranprocesslistindex;
+	private int tranprocessstate;
+	private String tranxmlname=null;
+	
+	private IWorkspace workspace1;
 	
 	public TimingToUppaalTabbedPanel(MainFrame mainframe){
 		
@@ -208,8 +219,13 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				t.suspend();
-				progreseethread.suspend();
+//				t.suspend();
+//				progreseethread.suspend();
+				mainthread.suspend();
+//				tranthread.suspend();
+				if(tranprocessstate==1){
+					tranthread.suspend();
+				}
 				threadstate=-1;
 				
 			}
@@ -228,16 +244,21 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				t.stop();
-				progreseethread.stop();
+//				t.stop();
+//				progreseethread.stop();
+				mainthread.stop();
+				tranthread.stop();
 				threadstate=0;
 				
+				progressbarindex=0;
 				progressbar.setValue(0);
-				progressbarlabel.setText("");
+				progressbarlabel.setText("0%");
 				
 				while(timingtouppaaltablemodel.getRowCount()>0){
 					timingtouppaaltablemodel.removeRow(timingtouppaaltablemodel.getRowCount()-1);
 				}
+				
+				moviepanel.getMovieLabel().setText("正在读取导出的所有顺序图");
 				
 			}
 		});
@@ -293,19 +314,47 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 		toolpanel.setMinimumSize(new Dimension(100, 29));
 		
 	}
-
-	protected void startTimingToUppaal() {
+	
+	protected void initThread() {
 		// TODO Auto-generated method stub
+		
+//		initUIPanel();
+		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().initUIPanel();
+		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
+		
+		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButton().doClick();
+		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
+		
+		tranprocesslist=new ArrayList<>();
+		tranprocesslist.add("正在获取时序图信息");
+		tranprocesslist.add("初始化数据");
+		tranprocesslist.add("获取生命线信息");
+		tranprocesslist.add("合并template");
+		tranprocesslist.add("完成时序图到自动机的转换，正在写入xml");
+		tranprocesslist.add("写入完成");
+		
+		tranprocesslistindex=0;
+		
+		tranprocessstate=0;
+		
+		progressbarindex=0;
+		progressbar.setValue(0);
+		progressbarlabel.setText(" ");
+		
+		smallprogressbarindex=0;
+		
+		timinglistindex=0;
+		oldtiminglistindex=-1;
 		
 		JCheckBox[] cb=mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getTimingCheckBoxList();
 		timinglists.clear();
-//		uppaallists.clear();
-		progressbar.setValue(0);
+		
 		for(JCheckBox jcb:cb){
 			if(jcb.isSelected()){
 				timinglists.add(jcb.getText());
 			}
 		}
+		
 		while(timingtouppaaltablemodel.getRowCount()>0){
 			timingtouppaaltablemodel.removeRow(timingtouppaaltablemodel.getRowCount()-1);
 		}
@@ -313,299 +362,553 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 		final JTextArea StepTwoArea= mainFrame.getConsolePartPanel().getTextarea2();
 		
 		StepTwoArea.append("UML模型正在转换中......\n");	
-		// TODO Auto-generated method stub
-	   	try {
-	   		//事件分发线程(gum处理事件和画图的时候)
-//	   		SwingUtilities.invokeLater(new Runnable() {
-	   		t = new Thread(new Runnable(){
+		
+		maincallable=new Callable<Integer>() {
+
+			@Override
+			public Integer call() throws Exception {
+				// TODO Auto-generated method stub
 				
-				@Override
-				public void run() {
-					String filename1 = null;
-					try {
-						//uml转化成事件自动机
-                         //用于获得当前工作的timing
+				while(progressbarindex<=100){
+//				while(!trantask.isDone()&&progressbarindex<=100){
+					System.err.println(trantask.isDone()+" - - "+progressbarindex+" + + "+(!trantask.isDone()||progressbarindex<=100));
+					
+					if(smallprogressbarindex==0){
+						Object[] tableRowData = { timinglistindex+1, 0, timinglists.get(timinglistindex), tranprocesslist.get(tranprocesslistindex), smallprogressbarindex, smallprogressbarindex, "" };
+						timingtouppaaltablemodel.addRow(tableRowData);
+						timingtouppaaltablemodel.fireTableDataChanged();
+					}
+					System.out.println(progressbarindex + " - " + (int) (((double) 100 / timinglists.size()) * (timinglistindex + 1) + 0.5));
+					if (progressbarindex == (int) (((double) 100 / timinglists.size()) * (timinglistindex + 1) + 0.5)) {
+
+						timingtouppaaltablemodel.setValueAt(1, timinglistindex, 1);
+						timingtouppaaltablemodel.setValueAt(100 + "%", timinglistindex, 4);
+						timingtouppaaltablemodel.setValueAt(100, timinglistindex, 5);
+						SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						timingtouppaaltablemodel.setValueAt(df.format(new Date()), timinglistindex, 6);
+
+						timingtouppaaltablemodel.fireTableDataChanged();
 						
-						successcount=0;
-
-						for (String filename : timinglists) {
-							
-							timinglistindex=timinglists.indexOf(filename);
-							
-							String baseUrl = "D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\";
-							System.out.println(timinglistindex+"   "+timinglists.size()+"   "+baseUrl + filename);
-							String path = baseUrl + filename + ".timing.violet.xml";
-
-							if (filename.contains("EA")) {// 打开ea平台的xml文件
-								
-								moviepanel.getMovieLabel().setText("正在转换时序图 "+filename+"...");
-								
-//								path="D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\EATiming2.timing.violet.xml";
-								
-								TimingEAtoUppaal.transEA(path);
-								
-								ShowData();
-								
-								System.out.println("*************************+++++++++++++++++++++++");
-								// 以下d盘中写的文件是死的路径，但是上面是动态生成的需要修改
-//								LayoutUppaal.layout(
-//										"D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\UseCase1-Sequence1-Normal.xml");// ("sequence.xml");
-								
-//								XMLCopy.SourceCopyToTarget(SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
-								
-								LayoutUppaal.layout(TimingEAtoUppaal.getDiagramDataName()+".xml");
-								
-								filename1 = TransToVioletUppaal.TransToViolet(filename,1);
-								// String
-								// filename1="uppaalTest1.uppaal.violet.xml";
-								// GraphFile
-								// fGraphFile1=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename1);
-								// IWorkspace workspace1=new
-								// Workspace(fGraphFile1);
-								// mainFrame.addTabbedPane(workspace1,2);
-								// mainFrame.repaint();
-								// Thread.sleep(5000);
-								// String
-								// filename2=TransToVioletUppaal.TransToViolet();
-
-								// GraphFile
-								// fGraphFile2=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename2);
-								// IWorkspace workspace2=new
-								// Workspace(fGraphFile2);
-								// StepTwoArea.append("UML模型到时间自动机模型已经转换完成!\n");
-
-//								uppaallists.add(filename1);
-								
-								GraphFile fGraphFile1 = ImportByDoubleClick.importFileByDoubleClick("UPPAAL", filename1);
-								IWorkspace workspace1 = new Workspace(fGraphFile1);
-								mainFrame.addTabbedPane(workspace1, 22);
-								
-								timinganduppaalmap.put(filename, workspace1);
-
-								mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists()
-										.get(mainFrame.getModelTransformationPanel().getModelTimingTreePanel()
-												.getUppaaltablemodel().getRowCount())
-										.setVisible(false);
-								
-								Object[] rowData = { filename1.substring(0, filename1.lastIndexOf(".uppaal.violet.xml")) };
-								mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel()
-										.addRow(rowData);
-								
-								successcount++;
-								
-
-							} else {// 打开我们平台的xml文件
-
+						mainFrame.addTabbedPane(workspace1, 22);
+						
+						timinganduppaalmap.put(tranxmlname.substring(0, tranxmlname.lastIndexOf(".uppaal.violet.xml")), workspace1);
+						
+						DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel();
+						for(int i=0;i<dtm.getRowCount();i++){
+							if(dtm.getValueAt(i, 0).toString().equals(tranxmlname.substring(0, tranxmlname.lastIndexOf(".uppaal.violet.xml")))){
+								dtm.removeRow(i);
+								break;
 							}
-							// SD2UppaalMain.transEA(path);//主要是将ea的xml转换成我们的wujun的xml(里面有他的路径)
-							// String
-							// filename1=TransToVioletUppaal.TransToViolet();
-							// GraphFile
-							// fGraphFile1=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename1);
-							// IWorkspace workspace1=new Workspace(fGraphFile1);
-							// mainFrame.addTabbedPane(workspace1,2);
-							// mainFrame.repaint();
-							// Thread.sleep(5000);
-							// 先进行布局
-							// 将时间自动机展示在我们的平台上
-							// LayoutUppaal.layout
-							// ("C:\\Users\\Admin\\Desktop\\项目最新代码\\violetumleditor-master\\violetproduct-swing\\sequence.xml");//("stabilize_run.xml");
-							// String
-							// filename2=TransToVioletUppaal.TransToViolet();
-							// GraphFile
-							// fGraphFile2=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename2);
-							// IWorkspace workspace2=new Workspace(fGraphFile2);
-							// StepTwoArea.append("UML模型到时间自动机模型已经转换完成!\n");
-							// mainFrame.addTabbedPane(workspace1,2);
+						}
+						dtm.fireTableDataChanged();
+
+						mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists()
+								.get(mainFrame.getModelTransformationPanel().getModelTimingTreePanel()
+										.getUppaaltablemodel().getRowCount())
+								.setVisible(false);
+
+						Object[] rowData = { tranxmlname.substring(0, tranxmlname.lastIndexOf(".uppaal.violet.xml")) };
+						mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel()
+								.addRow(rowData);
+						
+						timinglistindex++;
+						smallprogressbarindex = 0;
+						tranprocesslistindex = 0;
+
+						while (progressbarindex == 100) {
+							progressbarindex++;
+						}
+					}
+					else{
+						for(int k=0;k<timinglists.size();k++){
+							if(smallprogressbarindex==100){
+								break;
+							}
+							if(smallprogressbarindex/(double)(100.0/tranprocesslist.size())!=tranprocesslistindex){
+								tranprocesslistindex=(int) (smallprogressbarindex/(double)(100.0/tranprocesslist.size()));
+								timingtouppaaltablemodel.setValueAt(tranprocesslist.get(tranprocesslistindex), timinglistindex, 3);
+							}
+							
+							timingtouppaaltablemodel.setValueAt(smallprogressbarindex + "%", timinglistindex, 4);
+							timingtouppaaltablemodel.setValueAt(smallprogressbarindex, timinglistindex, 5);
+							smallprogressbarindex++;
+							
+//							Random rand=new Random();
+//							int sleeptime=(rand.nextInt(10)+1)*10;
+							int sleeptime;
+							sleeptime=100;
+//							if(tranprocessstate==1){
+//								sleeptime=100;
+//							}
+							Thread.sleep(sleeptime);
 						}
 						
+						progressbarindex++;
+						progressbar.setValue(progressbar.getValue()+1);
+						progressbarlabel.setText(progressbar.getValue()+"%");
 						
-//						for (String s : uppaallists) {
-//							Object[] rowData = { s.substring(0, s.lastIndexOf(".uppaal.violet.xml")) };
-//							mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel()
-//									.addRow(rowData);
-//
-//							GraphFile fGraphFile1 = ImportByDoubleClick.importFileByDoubleClick("UPPAAL", s);
-//							IWorkspace workspace1 = new Workspace(fGraphFile1);
-//							mainFrame.addTabbedPane(workspace1, 2);
-//
-//							mainFrame.getStepTwoCenterTabbedPane().getUppaalDiagramButtonTabbedPanelLists()
-//									.get(mainFrame.getModelTransformationPanel().getModelTimingTreePanel()
-//											.getUppaaltablemodel().getRowCount() - 1)
-//									.setVisible(false);
+						int count=StepTwoArea.getLineCount();
+						int index=count*progressbar.getValue()/100;
+						if(index==count){
+							index-=1;
+						}
+						int startindex=StepTwoArea.getLineStartOffset(index);
+//						int endindex=StepTwoArea.getLineEndOffset(index);
+						StepTwoArea.requestFocus();
+						StepTwoArea.setSelectionStart(startindex);
+						StepTwoArea.setSelectionEnd(startindex);
+//						System.err.println("---"+count+"--"+index+"--"+startindex+"--"+endindex+"--");
+						
+						ChangeRepaint();
+						
+					}
+				}
+				System.err.println(trantask.isDone()+" - - "+progressbarindex+" + + "+(!trantask.isDone()||progressbarindex<=100));
+				moviepanel.getMovieLabel().setText("所有时序图全部转换完成，总共有"+timinglists.size()+"张时序图，转换成功了"+successcount+"张时序图，转换率为："+(double)successcount/timinglists.size()*100+"%");
+				StepTwoArea.append("UML模型转换完成......\n");
+				StepTwoArea.setCaretPosition(StepTwoArea.getDocument().getLength()*progressbar.getValue()/100);
+
+				threadstate=0;
+				
+				return 1;
+			}
+		};
+		maintask=new FutureTask<>(maincallable);
+		mainthread=new Thread(maintask);
+		
+		trancallable=new Callable<Integer>() {
+
+			@Override
+			public Integer call() throws Exception {
+				// TODO Auto-generated method stub
+				
+//				String filename1 = null;
+				
+				successcount=0;
+				
+//				for (String filename : timinglists) {
+				
+				while(timinglistindex<timinglists.size()){
+					if(oldtiminglistindex==timinglistindex){
+						Thread.sleep(100);
+						tranprocessstate=1;
+					}
+					else{
+						tranprocessstate=0;
+						oldtiminglistindex=timinglistindex;
+						String filename=timinglists.get(oldtiminglistindex);
+//						timinglistindex=timinglists.indexOf(filename);
+						
+						String baseUrl = "D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\";
+						String baseUrl2 = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\";
+						String baseUrl3 = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
+						
+//						int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+//						if(starttype == 1){
+//							baseUrl += "\\FunctionalTest\\";
+//							baseUrl2 += "\\FunctionalTest\\";
+//							baseUrl3 += "\\FunctionalTest\\";
+//						} else if (starttype == 2) {
+//							baseUrl += "\\PerformanceTest\\";
+//							baseUrl2 += "\\PerformanceTest\\";
+//							baseUrl3 += "\\PerformanceTest\\";
+//						} else if (starttype == 3) {
+//							baseUrl += "\\TimeTest\\";
+//							baseUrl2 += "\\TimeTest\\";
+//							baseUrl3 += "\\TimeTest\\";
 //						}
 						
-						System.out.println(
-								"-------------------------------------------------------------------------------------");
+						System.out.println(timinglistindex+"   "+timinglists.size()+"   "+baseUrl + filename);
+						String path = baseUrl + filename + ".timing.violet.xml";
 
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					moviepanel.getMovieLabel().setText("所有时序图全部转换完成，总共有"+timinglists.size()+"张时序图，转换成功了"+successcount+"张时序图，转换率为："+(double)successcount/timinglists.size()*100+"%");
-					StepTwoArea.append("UML模型转换完成......\n");
-					threadstate=0;
+						if (filename.contains("EA")) {// 打开ea平台的xml文件
+							
+							moviepanel.getMovieLabel().setText("正在转换顺序图 "+filename+"...");
+							
+//							path="D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\EATiming2.timing.violet.xml";
+							
+//							SD2UppaalMain.transEA(path, mainFrame);// 主要是将ea的xml转换成我们的wujun的xml(里面有他的路径)
+							TimingEAtoUppaal.transEA(path, mainFrame, 1);
+							
+//							tranprocessstate=1;
+							
+							System.out.println("-------------------------123");
+//							XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\"+TimingEAtoUppaal.getDiagramDataName()+"ForXStream.xml", baseUrl3+filename+"ForXStream.xml");
+							System.out.println(TimingEAtoUppaal.getDiagramDataName());
+							LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\"+TimingEAtoUppaal.getDiagramDataName()+".xml");
+						
+							System.out.println("TimingEAtoUppaal.getDiagramDataName():+++++++++"+TimingEAtoUppaal.getDiagramDataName());
+							
+							tranxmlname = TransToVioletUppaal.TransToViolet(filename,1);
+//							uppaallists.add(filename1);
+							
+							GraphFile fGraphFile1 = ImportByDoubleClick.importFileByDoubleClick("UPPAAL", tranxmlname);
+							workspace1 = new Workspace(fGraphFile1);
+//							mainFrame.addTabbedPane(workspace1, 21);
+//
+//							mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists()
+//									.get(mainFrame.getModelTransformationPanel().getModelTimingTreePanel()
+//											.getUppaaltablemodel().getRowCount())
+//									.setVisible(false);
+							
+							successcount++;
 
-				}
-
-			});   	
-	   		
-	   		t.start();
-	   		
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-	}
-
-	protected void ShowData() {
-		// TODO Auto-generated method stub
-		
-		timingtouppaalmap=ShowOnTableAndConsole.getTimingtouppaalmap();
-		
-		timingtouppaalset=timingtouppaalmap.keySet();
-		
-		uppaalprocesslists.clear();
-		
-		for(String str:timingtouppaalset){
-			
-			UppaalProcessModel upmodel=new UppaalProcessModel();
-			
-			upmodel.setId(timinglistindex+1);
-			upmodel.setState(0);
-			upmodel.setName(timinglists.get(timinglistindex));
-			upmodel.setOperation(str);
-			upmodel.setProgress(0);
-			upmodel.setTime("");
-			
-			uppaalprocesslists.add(upmodel);
-			
-		}
-
-		int id = -1;
-		for (final UppaalProcessModel upm : uppaalprocesslists) {
-
-			Object[] tableRowData = { upm.getId(), upm.getState(), upm.getName(), upm.getOperation(), upm.getProgress(),
-					upm.getProgress(), upm.getTime() };
-
-			if (id == -1) {
-				id = upm.getId();
-				timingtouppaaltablemodel.addRow(tableRowData);
-
-			} else if (id == upm.getId()) {
-				timingtouppaaltablemodel.setValueAt(upm.getState(), id - 1, 1);
-				timingtouppaaltablemodel.setValueAt(upm.getOperation(), id - 1, 3);
-				timingtouppaaltablemodel.setValueAt(upm.getTime(), id - 1, 6);
-
-			}
-			if(uppaalprocesslists.indexOf(upm)==uppaalprocesslists.size()-1){
-				
-				timingtouppaaltablemodel.setValueAt(1, id - 1, 1);
-				timingtouppaaltablemodel.setValueAt(upm.getOperation(), id - 1, 3);
-				
-				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				timingtouppaaltablemodel.setValueAt(df.format(new Date()), id - 1, 6);
-				
-				timingtouppaaltablemodel.fireTableDataChanged();
-				
-				break;
-				
-			}
-
-			timingtouppaaltablemodel.fireTableDataChanged();
-
-			mainFrame.getConsolePartPanel().getTextarea2().append(upm.getOperation() + "\n");
-
-			mainFrame.getConsolePartPanel().getTextarea2().append(timingtouppaalmap.get(upm.getOperation()));
-
-			try {
-				progreseethread = new Thread(new Runnable() {
-
-					@Override
-					public void run() {
-						// TODO Auto-generated
-						// method stub
-						while (true) {
-
-							int uppaalprocesslistindex = uppaalprocesslists.indexOf(upm);
-							int uppaalprocesslistsize = uppaalprocesslists.size()-1;
-
-							System.out.println("timinglistindex:" + timinglistindex + " uppaalprocesslistindex:"
-									+ uppaalprocesslistindex + " uppaalprocesslistsize:" + uppaalprocesslistsize
-									+ " uppaalprocesslists.size():" + uppaalprocesslists.size()
-									+ " timinglists.size():" + timinglists.size());
-
-							int startprogressbar = (int) ((double) 100 / timinglists.size() * timinglistindex);
-							int endprogressbar = (int) ((double) 100 / timinglists.size() * (timinglistindex + 1));
-							int totalprogressbar = endprogressbar - startprogressbar;
-
-							System.out.println("startprogressbar:" + startprogressbar + " endprogressbar:"
-									+ endprogressbar + " totalprogressbar:" + totalprogressbar);
-
-							int startprogressbarvalue = (int) ((double) totalprogressbar / uppaalprocesslistsize
-									* uppaalprocesslistindex) + 1 + startprogressbar;
-							int endprogressbarvalue = (int) ((double) totalprogressbar / uppaalprocesslistsize
-									* (uppaalprocesslistindex + 1)) + startprogressbar;// 每个小步骤所要的进度条值区间
-
-							// System.out.println("---------------------------------------------------------------");
-							System.out.println("startprogressbarvalue:" + startprogressbarvalue
-									+ " endprogressbarvalue:" + endprogressbarvalue);
-
-							for (int i = startprogressbarvalue, j = 0; i <= endprogressbarvalue; i++, j++) {
-								// System.out.println("++++"+i);
-								progressbar.setValue(i);
-								progressbarlabel.setText(i + "%");
-
-								double modelprocess = endprogressbarvalue - startprogressbarvalue + 1;// 进度条值区间
-								double avemodelprocess = 100 / (double) uppaalprocesslistsize;// 小步骤的总数值区间
-								int modelprocessindex = uppaalprocesslistindex % uppaalprocesslistsize;
-								// System.out.println("j:"+j+"
-								// modelprocess:"+modelprocess+"
-								// modelprocessindex:"+modelprocessindex+"
-								// avemodelprocess:"+avemodelprocess);
-								int startmodelprocess = (int) ((double) avemodelprocess * modelprocessindex
-										+ avemodelprocess / modelprocess * j) + 1;
-								int endmodelprocess = (int) ((double) avemodelprocess * modelprocessindex
-										+ avemodelprocess / modelprocess * (j + 1));// 通过小步骤的总数值区间，来计算进度条加1时，小步骤的数值须加多少
-								// System.out.println("startmodelprocess:"+startmodelprocess+"
-								// avemodelprocess/modelprocess*(j+1):"+avemodelprocess/modelprocess*(j+1)+"
-								// endmodelprocess:"+endmodelprocess);
-								for (int k = startmodelprocess; k <= endmodelprocess; k++) {
-									// System.out.println("k:"+k+"
-									// startmodelprocess:"+startmodelprocess+"
-									// endmodelprocess:"+endmodelprocess);
-									timingtouppaaltablemodel.setValueAt(k + "%", upm.getId() - 1, 4);
-									timingtouppaaltablemodel.setValueAt(k, upm.getId() - 1, 5);
-									timingtouppaaltablemodel.fireTableDataChanged();
-									try {
-										Thread.sleep(100);
-									} catch (InterruptedException e) {
-										// TODO
-										// Auto-generated
-										// catch block
-										e.printStackTrace();
-									}
-								}
-
-							}
-
-							break;
+						} else {// 打开我们平台的xml文件
 
 						}
 					}
-				});
-				progreseethread.start();
-				progreseethread.join();
-
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+				}
+				System.out.println("----------------"+timinglistindex);
+				
+				return 1;
 			}
-
-		}
+		};
+		trantask=new FutureTask<>(trancallable);
+		tranthread=new Thread(trantask);
 		
 	}
+	
+	public void initUIPanel() {
+		// TODO Auto-generated method stub
+		
+		progressbarindex=0;
+		progressbar.setValue(0);
+		progressbarlabel.setText("0%");
+		
+		while(timingtouppaaltablemodel.getRowCount()>0){
+			timingtouppaaltablemodel.removeRow(timingtouppaaltablemodel.getRowCount()-1);
+		}
+		
+		moviepanel.getMovieLabel().setText("正在读取导出的所有顺序图");
+		
+		DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel();
+		for (int i = 0; i < dtm.getRowCount(); i++) {
+			dtm.removeRow(i);
+		}
+		dtm.fireTableDataChanged();
+		
+		for(ButtonTabbedPanel btp:mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists()){
+			btp.setVisible(false);
+		}
+		
+		mainFrame.getAttributePartTwoPanel().getNamelabel().setText("");
+		mainFrame.getAttributePartTwoPanel().getAttributepanel().removeAll();
+		
+		mainFrame.getConsolePartPanel().getTextarea2().setText("");
+	}
+
+//	protected void startTimingToUppaal() {
+//		// TODO Auto-generated method stub
+//		
+//		JCheckBox[] cb=mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getTimingCheckBoxList();
+//		timinglists.clear();
+////		uppaallists.clear();
+//		progressbar.setValue(0);
+//		for(JCheckBox jcb:cb){
+//			if(jcb.isSelected()){
+//				timinglists.add(jcb.getText());
+//			}
+//		}
+//		while(timingtouppaaltablemodel.getRowCount()>0){
+//			timingtouppaaltablemodel.removeRow(timingtouppaaltablemodel.getRowCount()-1);
+//		}
+//		
+//		final JTextArea StepTwoArea= mainFrame.getConsolePartPanel().getTextarea2();
+//		
+//		StepTwoArea.append("UML模型正在转换中......\n");	
+//		// TODO Auto-generated method stub
+//	   	try {
+//	   		//事件分发线程(gum处理事件和画图的时候)
+////	   		SwingUtilities.invokeLater(new Runnable() {
+//	   		t = new Thread(new Runnable(){
+//				
+//				@Override
+//				public void run() {
+//					String filename1 = null;
+//					try {
+//						//uml转化成事件自动机
+//                         //用于获得当前工作的timing
+//						
+//						successcount=0;
+//
+//						for (String filename : timinglists) {
+//							
+//							timinglistindex=timinglists.indexOf(filename);
+//							
+//							String baseUrl = "D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\";
+//							System.out.println(timinglistindex+"   "+timinglists.size()+"   "+baseUrl + filename);
+//							String path = baseUrl + filename + ".timing.violet.xml";
+//
+//							if (filename.contains("EA")) {// 打开ea平台的xml文件
+//								
+//								moviepanel.getMovieLabel().setText("正在转换时序图 "+filename+"...");
+//								
+////								path="D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\EATiming2.timing.violet.xml";
+//								
+//								TimingEAtoUppaal.transEA(path);
+//								
+//								ShowData();
+//								
+//								System.out.println("*************************+++++++++++++++++++++++");
+//								// 以下d盘中写的文件是死的路径，但是上面是动态生成的需要修改
+////								LayoutUppaal.layout(
+////										"D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\UseCase1-Sequence1-Normal.xml");// timingce.xml");
+//								
+////								XMLCopy.SourceCopyToTarget(SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
+//								
+//								LayoutUppaal.layout(TimingEAtoUppaal.getDiagramDataName()+".xml");
+//								
+//								filename1 = TransToVioletUppaal.TransToViolet(filename,1);
+//								// String
+//								// filename1="uppaalTest1.uppaal.violet.xml";
+//								// GraphFile
+//								// fGraphFile1=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename1);
+//								// IWorkspace workspace1=new
+//								// Workspace(fGraphFile1);
+//								// mainFrame.addTabbedPane(workspace1,2);
+//								// mainFrame.repaint();
+//								// Thread.sleep(5000);
+//								// String
+//								// filename2=TransToVioletUppaal.TransToViolet();
+//
+//								// GraphFile
+//								// fGraphFile2=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename2);
+//								// IWorkspace workspace2=new
+//								// Workspace(fGraphFile2);
+//								// StepTwoArea.append("UML模型到时间自动机模型已经转换完成!\n");
+//
+////								uppaallists.add(filename1);
+//								
+//								GraphFile fGraphFile1 = ImportByDoubleClick.importFileByDoubleClick("UPPAAL", filename1);
+//								IWorkspace workspace1 = new Workspace(fGraphFile1);
+//								mainFrame.addTabbedPane(workspace1, 22);
+//								
+//								timinganduppaalmap.put(filename, workspace1);
+//
+//								mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists()
+//										.get(mainFrame.getModelTransformationPanel().getModelTimingTreePanel()
+//												.getUppaaltablemodel().getRowCount())
+//										.setVisible(false);
+//								
+//								Object[] rowData = { filename1.substring(0, filename1.lastIndexOf(".uppaal.violet.xml")) };
+//								mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel()
+//										.addRow(rowData);
+//								
+//								successcount++;
+//								
+//
+//							} else {// 打开我们平台的xml文件
+//
+//							}
+//							// SD2UppaalMain.transEA(path);//主要是将ea的xml转换成我们的wujun的xml(里面有他的路径)
+//							// String
+//							// filename1=TransToVioletUppaal.TransToViolet();
+//							// GraphFile
+//							// fGraphFile1=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename1);
+//							// IWorkspace workspace1=new Workspace(fGraphFile1);
+//							// mainFrame.addTabbedPane(workspace1,2);
+//							// mainFrame.repaint();
+//							// Thread.sleep(5000);
+//							// 先进行布局
+//							// 将时间自动机展示在我们的平台上
+//							// LayoutUppaal.layout
+//							// ("C:\\Users\\Admin\\Desktop\\项目最新代码\\violetumleditor-master\\violetproduct-swing\\sequence.xml");//("stabilize_run.xml");
+//							// String
+//							// filename2=TransToVioletUppaal.TransToViolet();
+//							// GraphFile
+//							// fGraphFile2=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename2);
+//							// IWorkspace workspace2=new Workspace(fGraphFile2);
+//							// StepTwoArea.append("UML模型到时间自动机模型已经转换完成!\n");
+//							// mainFrame.addTabbedPane(workspace1,2);
+//						}
+//						
+//						
+////						for (String s : uppaallists) {
+////							Object[] rowData = { s.substring(0, s.lastIndexOf(".uppaal.violet.xml")) };
+////							mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel()
+////									.addRow(rowData);
+////
+////							GraphFile fGraphFile1 = ImportByDoubleClick.importFileByDoubleClick("UPPAAL", s);
+////							IWorkspace workspace1 = new Workspace(fGraphFile1);
+////							mainFrame.addTabbedPane(workspace1, 2);
+////
+////							mainFrame.getStepTwoCenterTabbedPane().getUppaalDiagramButtonTabbedPanelLists()
+////									.get(mainFrame.getModelTransformationPanel().getModelTimingTreePanel()
+////											.getUppaaltablemodel().getRowCount() - 1)
+////									.setVisible(false);
+////						}
+//						
+//						System.out.println(
+//								"-------------------------------------------------------------------------------------");
+//
+//					} catch (Exception e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//					
+//					moviepanel.getMovieLabel().setText("所有时序图全部转换完成，总共有"+timinglists.size()+"张时序图，转换成功了"+successcount+"张时序图，转换率为："+(double)successcount/timinglists.size()*100+"%");
+//					StepTwoArea.append("UML模型转换完成......\n");
+//					threadstate=0;
+//
+//				}
+//
+//			});   	
+//	   		
+//	   		t.start();
+//	   		
+//		} catch (Exception e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		
+//	}
+//
+//	protected void ShowData() {
+//		// TODO Auto-generated method stub
+//		
+//		timingtouppaalmap=ShowOnTableAndConsole.getTimingtouppaalmap();
+//		
+//		timingtouppaalset=timingtouppaalmap.keySet();
+//		
+//		uppaalprocesslists.clear();
+//		
+//		for(String str:timingtouppaalset){
+//			
+//			UppaalProcessModel upmodel=new UppaalProcessModel();
+//			
+//			upmodel.setId(timinglistindex+1);
+//			upmodel.setState(0);
+//			upmodel.setName(timinglists.get(timinglistindex));
+//			upmodel.setOperation(str);
+//			upmodel.setProgress(0);
+//			upmodel.setTime("");
+//			
+//			uppaalprocesslists.add(upmodel);
+//			
+//		}
+//
+//		int id = -1;
+//		for (final UppaalProcessModel upm : uppaalprocesslists) {
+//
+//			Object[] tableRowData = { upm.getId(), upm.getState(), upm.getName(), upm.getOperation(), upm.getProgress(),
+//					upm.getProgress(), upm.getTime() };
+//
+//			if (id == -1) {
+//				id = upm.getId();
+//				timingtouppaaltablemodel.addRow(tableRowData);
+//
+//			} else if (id == upm.getId()) {
+//				timingtouppaaltablemodel.setValueAt(upm.getState(), id - 1, 1);
+//				timingtouppaaltablemodel.setValueAt(upm.getOperation(), id - 1, 3);
+//				timingtouppaaltablemodel.setValueAt(upm.getTime(), id - 1, 6);
+//
+//			}
+//			if(uppaalprocesslists.indexOf(upm)==uppaalprocesslists.size()-1){
+//				
+//				timingtouppaaltablemodel.setValueAt(1, id - 1, 1);
+//				timingtouppaaltablemodel.setValueAt(upm.getOperation(), id - 1, 3);
+//				
+//				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//				timingtouppaaltablemodel.setValueAt(df.format(new Date()), id - 1, 6);
+//				
+//				timingtouppaaltablemodel.fireTableDataChanged();
+//				
+//				break;
+//				
+//			}
+//
+//			timingtouppaaltablemodel.fireTableDataChanged();
+//
+//			mainFrame.getConsolePartPanel().getTextarea2().append(upm.getOperation() + "\n");
+//
+//			mainFrame.getConsolePartPanel().getTextarea2().append(timingtouppaalmap.get(upm.getOperation()));
+//
+//			try {
+//				progreseethread = new Thread(new Runnable() {
+//
+//					@Override
+//					public void run() {
+//						// TODO Auto-generated
+//						// method stub
+//						while (true) {
+//
+//							int uppaalprocesslistindex = uppaalprocesslists.indexOf(upm);
+//							int uppaalprocesslistsize = uppaalprocesslists.size()-1;
+//
+//							System.out.println("timinglistindex:" + timinglistindex + " uppaalprocesslistindex:"
+//									+ uppaalprocesslistindex + " uppaalprocesslistsize:" + uppaalprocesslistsize
+//									+ " uppaalprocesslists.size():" + uppaalprocesslists.size()
+//									+ " timinglists.size():" + timinglists.size());
+//
+//							int startprogressbar = (int) ((double) 100 / timinglists.size() * timinglistindex);
+//							int endprogressbar = (int) ((double) 100 / timinglists.size() * (timinglistindex + 1));
+//							int totalprogressbar = endprogressbar - startprogressbar;
+//
+//							System.out.println("startprogressbar:" + startprogressbar + " endprogressbar:"
+//									+ endprogressbar + " totalprogressbar:" + totalprogressbar);
+//
+//							int startprogressbarvalue = (int) ((double) totalprogressbar / uppaalprocesslistsize
+//									* uppaalprocesslistindex) + 1 + startprogressbar;
+//							int endprogressbarvalue = (int) ((double) totalprogressbar / uppaalprocesslistsize
+//									* (uppaalprocesslistindex + 1)) + startprogressbar;// 每个小步骤所要的进度条值区间
+//
+//							// System.out.println("---------------------------------------------------------------");
+//							System.out.println("startprogressbarvalue:" + startprogressbarvalue
+//									+ " endprogressbarvalue:" + endprogressbarvalue);
+//
+//							for (int i = startprogressbarvalue, j = 0; i <= endprogressbarvalue; i++, j++) {
+//								// System.out.println("++++"+i);
+//								progressbar.setValue(i);
+//								progressbarlabel.setText(i + "%");
+//
+//								double modelprocess = endprogressbarvalue - startprogressbarvalue + 1;// 进度条值区间
+//								double avemodelprocess = 100 / (double) uppaalprocesslistsize;// 小步骤的总数值区间
+//								int modelprocessindex = uppaalprocesslistindex % uppaalprocesslistsize;
+//								// System.out.println("j:"+j+"
+//								// modelprocess:"+modelprocess+"
+//								// modelprocessindex:"+modelprocessindex+"
+//								// avemodelprocess:"+avemodelprocess);
+//								int startmodelprocess = (int) ((double) avemodelprocess * modelprocessindex
+//										+ avemodelprocess / modelprocess * j) + 1;
+//								int endmodelprocess = (int) ((double) avemodelprocess * modelprocessindex
+//										+ avemodelprocess / modelprocess * (j + 1));// 通过小步骤的总数值区间，来计算进度条加1时，小步骤的数值须加多少
+//								// System.out.println("startmodelprocess:"+startmodelprocess+"
+//								// avemodelprocess/modelprocess*(j+1):"+avemodelprocess/modelprocess*(j+1)+"
+//								// endmodelprocess:"+endmodelprocess);
+//								for (int k = startmodelprocess; k <= endmodelprocess; k++) {
+//									// System.out.println("k:"+k+"
+//									// startmodelprocess:"+startmodelprocess+"
+//									// endmodelprocess:"+endmodelprocess);
+//									timingtouppaaltablemodel.setValueAt(k + "%", upm.getId() - 1, 4);
+//									timingtouppaaltablemodel.setValueAt(k, upm.getId() - 1, 5);
+//									timingtouppaaltablemodel.fireTableDataChanged();
+//									try {
+//										Thread.sleep(100);
+//									} catch (InterruptedException e) {
+//										// TODO
+//										// Auto-generated
+//										// catch block
+//										e.printStackTrace();
+//									}
+//								}
+//
+//							}
+//
+//							break;
+//
+//						}
+//					}
+//				});
+//				progreseethread.start();
+//				progreseethread.join();
+//
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//
+//		}
+//		
+//	}
 
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
@@ -697,6 +1000,15 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 		tabelpanel.setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
 	}
 	
+	public void ChangeRepaint() {
+		// TODO Auto-generated method stub
+		if(mainFrame.getStepindex()==2){
+			this.setVisible(false);
+			this.getRootPane().repaint();
+			this.setVisible(true);
+		}
+	}
+	
 	public DefaultTableModel getTimingtouppaaltablemodel() {
 		return timingtouppaaltablemodel;
 	}
@@ -728,7 +1040,6 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 	public Map<String, IWorkspace> getTiminganduppaalmap() {
 		return timinganduppaalmap;
 	}
-	
-	
+
 	
 }

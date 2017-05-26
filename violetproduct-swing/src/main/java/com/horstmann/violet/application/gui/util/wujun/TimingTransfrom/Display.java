@@ -5,9 +5,17 @@ public class Display {
 
 		System.out.println(value);
 		
+		if(TimingEAtoUppaal.getState()==1){
+			TimingEAtoUppaal.getMainFrame().getConsolePartPanel().getTextarea2().append(value+"\n");
+		}
+		
 	}
 	
 	public static void println() {
 		println(" ");
+		
+		if (TimingEAtoUppaal.getState() == 1) {
+			TimingEAtoUppaal.getMainFrame().getConsolePartPanel().getTextarea2().append("\n");
+		}
 	}
 }

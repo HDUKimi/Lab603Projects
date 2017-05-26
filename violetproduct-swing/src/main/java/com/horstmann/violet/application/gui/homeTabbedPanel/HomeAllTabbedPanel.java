@@ -97,6 +97,7 @@ public class HomeAllTabbedPanel extends JPanel{
 		if(starttype!=0){
 			mainFrame.getStepOneCenterTabbedPane().initUIPanel();
 			mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalTabbedPane().initUIPanel();
+			mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalTabbedPane().initUIPanel();
 			mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().initUIPanel();
 			mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
 			mainFrame.getStepSixCenterTabbedPane().initUIPanel();
