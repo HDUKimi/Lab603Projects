@@ -336,16 +336,19 @@ public class HomeAllTabbedPanel extends JPanel{
 //		inforrightpanel.add(inforGeneralizePanel3);
 //		inforrightpanel.add(inforGeneralizePanel4);
 		
+		JPanel emptypanel=new JPanel();
+		emptypanel.setOpaque(false);
+		
 		GridBagLayout layout=new GridBagLayout();
 		inforrightpanel.setLayout(layout);
 		inforrightpanel.add(inforGeneralizePanel1);
 		inforrightpanel.add(inforGeneralizePanel2);
 		inforrightpanel.add(inforGeneralizePanel3);
-		inforrightpanel.add(inforGeneralizePanel4);
+		inforrightpanel.add(emptypanel);
 		layout.setConstraints(inforGeneralizePanel1, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(inforGeneralizePanel2, new GBC(1, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(inforGeneralizePanel3, new GBC(2, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(inforGeneralizePanel4, new GBC(3, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(emptypanel, new GBC(3, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		
 		
 	}

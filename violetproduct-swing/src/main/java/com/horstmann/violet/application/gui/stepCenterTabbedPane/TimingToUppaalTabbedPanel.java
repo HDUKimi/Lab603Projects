@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -96,6 +98,14 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 	
 	public Map<String, IWorkspace> timinganduppaalmap=new LinkedHashMap<String, IWorkspace>();
 	
+	private Callable<Integer> maincallable;
+	private FutureTask<Integer> maintask;
+	private Thread mainthread;
+	
+	private Callable<Integer> trancallable;
+	private FutureTask<Integer> trantask;
+	private Thread tranthread;
+	
 	public TimingToUppaalTabbedPanel(MainFrame mainframe){
 		
 		this.mainFrame=mainframe;
@@ -164,7 +174,10 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 //				}
 				
 				if(threadstate==0){
-					startTimingToUppaal();
+//					startTimingToUppaal();
+					initThread();
+					mainthread.start();
+					tranthread.start();
 					threadstate=1;
 					System.out.println("t is alive");
 				}
@@ -173,8 +186,10 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 				}
 				else if(threadstate==-1){
 					threadstate=1;
-					t.resume();
-					progreseethread.resume();
+//					t.resume();
+//					progreseethread.resume();
+					mainthread.resume();
+					tranthread.resume();
 					System.out.println("t is not alive");
 				}
 			   	

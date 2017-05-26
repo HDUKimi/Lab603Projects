@@ -444,12 +444,18 @@ public class Get_inequality__1 {
 				if(reset==0){//第一条边到该边的边的集合中没有时钟复位  获得第一条边到 该边的不等式
 					ArrayList<String> label=new ArrayList<String>();//获得Ts中各边上的时间标号
 					for(Transition ts:Ts){
-						if(ts.getEventSet().size()==1){
+						//System.out.println("-----------================ts.getEventSet();"+ts.getEventSet());
+						/*if(ts.getEventSet().size()==1){							
 							label.add(ts.getEventSet().get(0));
+							//System.out.println("-----------================ts.getEventSet().get(0));"+ts.getEventSet().get(0));
 						}
 						else if(ts.getEventSet().size()==2){
 							label.add(ts.getEventSet().get(1));
-						}
+							//System.out.println("-----------================ts.getEventSet().get(1));"+ts.getEventSet().get(1));
+						}*/
+						//System.out.println("000000");
+						//System.out.println("000000000"+ts.getTranTimeName());
+						label.add(ts.getTranTimeName());
 					}
 					int upper=0;//时钟约束的上界
 					String upper_label=new String();
@@ -501,12 +507,15 @@ public class Get_inequality__1 {
 					if(tt.size()>0){//时钟复位的边到该边的集合如果存在
 						ArrayList<String> label=new ArrayList<String>();//获得从时钟复位的边到该边的集合中各边上的时间标号
 						for(Transition ts:tt){
+							/*System.out.println("=================ts.getEventSet();"+ts.getEventSet());
 							if(ts.getEventSet().size()==1){
 								label.add(ts.getEventSet().get(0));
 							}
 							else if(ts.getEventSet().size()==2){
 								label.add(ts.getEventSet().get(1));
 							}
+							System.out.println("================"+ts.getTranTimeName());*/
+							label.add(ts.getTranTimeName());
 						}
 						int upper=0;//时钟约束的上界
 						String upper_label=new String();
@@ -563,12 +572,13 @@ public class Get_inequality__1 {
 					if(tt.size()>0){//时钟复位的边到该边的集合如果存在
 						ArrayList<String> label=new ArrayList<String>();//获得从时钟复位的边到该边的集合中各边上的时间标号
 						for(Transition ts:tt){
-							if(ts.getEventSet().size()==1){
+							/*if(ts.getEventSet().size()==1){
 								label.add(ts.getEventSet().get(0));
 							}
 							else if(ts.getEventSet().size()==2){
 								label.add(ts.getEventSet().get(1));
-							}
+							}*/
+							label.add(ts.getTranTimeName());
 						}
 						int upper=0;//时钟约束的上界
 						String upper_label=new String();
@@ -1085,6 +1095,244 @@ public class Get_inequality__1 {
 				
 				}
 			}
+		}
+		//情况六：测试序列中有1个时钟，2个以上时钟复位
+		if(clock_number==1&&resetNumber>2){
+			for(Transition t1:TransitionSet){
+				ArrayList<Transition> Ts=new ArrayList<Transition>();//获取测试路径中第一条边到该边的边集合
+				for(Transition t2:TransitionSet){
+					if(!t1.getSource().equals(t2.getSource())&&!t1.getTarget().equals(t2.getTarget())){
+						Ts.add(t2);
+					}
+					if(t1.getSource().equals(t2.getSource())&&t1.getTarget().equals(t2.getTarget())){
+						break;
+					}
+				}
+				Ts.add(t1);
+				
+				
+				DBM_element[][] DBM=new DBM_element[clock_number+1][clock_number+1];//获得t1目标状态的时间约束矩阵
+				for(State s:StateSet){
+					if(t1.getTarget().equals(s.getName())){
+						DBM=Floyds.floyds(s.getInvariantDBM());
+					}
+				}
+				
+				int reset=0;//获得从第一条边到该边的路径上有几个时钟复位		
+				for(Transition ts:Ts){
+					  if(ts.getResetClockSet().size()!=0){
+						  reset++;
+					  }
+				}
+				if(reset==0){//第一条边到该边的边的集合中没有时钟复位  获得第一条边到 该边的不等式
+					ArrayList<String> label=new ArrayList<String>();//获得Ts中各边上的时间标号
+					for(Transition ts:Ts){
+						label.add(ts.getTranTimeName());
+					}
+					int upper=0;//时钟约束的上界
+					String upper_label=new String();
+					int lower=0;//时钟约束的下界
+					String lower_label=new String();
+					lower=-DBM[0][1].getValue();
+					if(DBM[0][1].isStrictness()==false){
+						lower_label=">";
+					}
+					else lower_label=">=";
+					
+					upper=DBM[1][0].getValue();
+					if(DBM[1][0].isStrictness()==false){
+						upper_label="<";
+					}
+					else upper_label="<=";
+					
+					
+					String Inequality1=new String();//表示上界的不等式
+					String Inequality2=new String();//表示下界的不等式
+					for(int i=0;i<label.size();i++){
+						if(i!=label.size()-1){
+							Inequality1=Inequality1+label.get(i)+"+";
+							Inequality2=Inequality2+label.get(i)+"+";
+						}
+						else{
+							Inequality1=Inequality1+label.get(i);
+							Inequality2=Inequality2+label.get(i);
+						}
+					}
+					
+					if(upper!=88888){
+						Inequality1=Inequality1+upper_label+upper;
+						Inequalitys.add(Inequality1);
+					}
+					Inequality2=Inequality2+lower_label+lower;
+					Inequalitys.add(Inequality2);
+				}
+				if(reset==1){//第一条边到该边的边的集合中有1个时钟复位
+					ArrayList<Transition> tt=new ArrayList<Transition>();//获得从时钟复位的边到该边的集合
+					for(int i=0;i<Ts.size();i++){
+						if(Ts.get(i).getResetClockSet().size()!=0){
+							for(int j=i;j<Ts.size();j++){
+								tt.add(Ts.get(j));
+							}
+						}
+					}
+					//获得从时钟复位的边到该边的不等式
+					if(tt.size()>0){//时钟复位的边到该边的集合如果存在
+						ArrayList<String> label=new ArrayList<String>();//获得从时钟复位的边到该边的集合中各边上的时间标号
+						for(Transition ts:tt){
+							label.add(ts.getTranTimeName());
+						}
+						int upper=0;//时钟约束的上界
+						String upper_label=new String();
+						int lower=0;//时钟约束的下界
+						String lower_label=new String();
+						
+						lower=-DBM[0][1].getValue();
+						if(DBM[0][1].isStrictness()==false){
+							lower_label=">";
+						}
+						else lower_label=">=";
+						upper=DBM[1][0].getValue();
+						if(DBM[1][0].isStrictness()==false){
+							upper_label="<";
+						}
+						else upper_label="<=";
+						
+						String Inequality1=new String();//表示上界的不等式
+						String Inequality2=new String();//表示下界的不等式
+						for(int i=0;i<label.size();i++){
+							if(i!=label.size()-1){
+								Inequality1=Inequality1+label.get(i)+"+";
+								Inequality2=Inequality2+label.get(i)+"+";
+							}
+							else{
+								Inequality1=Inequality1+label.get(i);
+								Inequality2=Inequality2+label.get(i);
+							}
+						}
+						
+						if(upper!=88888){
+							Inequality1=Inequality1+upper_label+upper;
+							Inequalitys.add(Inequality1);
+						}
+						Inequality2=Inequality2+lower_label+lower;
+						Inequalitys.add(Inequality2);
+					}
+				}
+				if(reset==2){//第一条边到该边的集合中有2个时钟复位
+					ArrayList<Transition> tt=new ArrayList<Transition>();//获得从第二个时钟复位的边到该边的集合
+					int r=0;
+					for(int i=0;i<Ts.size();i++){
+						if(Ts.get(i).getResetClockSet().size()!=0){
+							r=r+1;
+							if(r==2){
+								for(int j=i;j<Ts.size();j++){
+									tt.add(Ts.get(j));
+								}
+							}
+							
+						}
+					}
+					//获得从第二个时钟复位的边到该边的不等式
+					if(tt.size()>0){//时钟复位的边到该边的集合如果存在
+						ArrayList<String> label=new ArrayList<String>();//获得从时钟复位的边到该边的集合中各边上的时间标号
+						for(Transition ts:tt){
+							label.add(ts.getTranTimeName());
+						}
+						int upper=0;//时钟约束的上界
+						String upper_label=new String();
+						int lower=0;//时钟约束的下界
+						String lower_label=new String();
+						
+						lower=-DBM[0][1].getValue();
+						if(DBM[0][1].isStrictness()==false){
+							lower_label=">";
+						}
+						else lower_label=">=";
+						upper=DBM[1][0].getValue();
+						if(DBM[1][0].isStrictness()==false){
+							upper_label="<";
+						}
+						else upper_label="<=";
+						
+						String Inequality1=new String();//表示上界的不等式
+						String Inequality2=new String();//表示下界的不等式
+						for(int i=0;i<label.size();i++){
+							if(i!=label.size()-1){
+								Inequality1=Inequality1+label.get(i)+"+";
+								Inequality2=Inequality2+label.get(i)+"+";
+							}
+							else{
+								Inequality1=Inequality1+label.get(i);
+								Inequality2=Inequality2+label.get(i);
+							}
+						}
+						
+						if(upper!=88888){
+							Inequality1=Inequality1+upper_label+upper;
+							Inequalitys.add(Inequality1);
+						}
+						Inequality2=Inequality2+lower_label+lower;
+						Inequalitys.add(Inequality2);
+					}
+				}	
+				if(reset>2){//第一条边到该边的集合中有2个以上时钟复位
+					int m = reset;
+					ArrayList<Transition> tt=new ArrayList<Transition>();//获得从第m个时钟复位的边到该边的集合
+					int r=0;
+					for(int i=0;i<Ts.size();i++){
+						if(Ts.get(i).getResetClockSet().size()!=0){
+							r=r+1;
+							if(r==m){
+								for(int j=i;j<Ts.size();j++){
+									tt.add(Ts.get(j));
+								}
+							}							
+						}
+					}
+					//获得从第二个时钟复位的边到该边的不等式
+					if(tt.size()>0){//时钟复位的边到该边的集合如果存在
+						ArrayList<String> label=new ArrayList<String>();//获得从时钟复位的边到该边的集合中各边上的时间标号
+						for(Transition ts:tt){
+							label.add(ts.getTranTimeName());
+						}
+						int upper=0;//时钟约束的上界
+						String upper_label=new String();
+						int lower=0;//时钟约束的下界
+						String lower_label=new String();
+						
+						lower=-DBM[0][1].getValue();
+						if(DBM[0][1].isStrictness()==false){
+							lower_label=">";
+						}
+						else lower_label=">=";
+						upper=DBM[1][0].getValue();
+						if(DBM[1][0].isStrictness()==false){
+							upper_label="<";
+						}
+						else upper_label="<=";
+						
+						String Inequality1=new String();//表示上界的不等式
+						String Inequality2=new String();//表示下界的不等式
+						for(int i=0;i<label.size();i++){
+							if(i!=label.size()-1){
+								Inequality1=Inequality1+label.get(i)+"+";
+								Inequality2=Inequality2+label.get(i)+"+";
+							}
+							else{
+								Inequality1=Inequality1+label.get(i);
+								Inequality2=Inequality2+label.get(i);
+							}
+						}
+						
+						if(upper!=88888){
+							Inequality1=Inequality1+upper_label+upper;
+							Inequalitys.add(Inequality1);
+						}
+						Inequality2=Inequality2+lower_label+lower;
+						Inequalitys.add(Inequality2);
+					}
+				}
+			}			
 		}
 		
 		return Inequalitys;

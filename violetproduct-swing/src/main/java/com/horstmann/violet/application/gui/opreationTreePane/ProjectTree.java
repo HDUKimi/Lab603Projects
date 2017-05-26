@@ -837,7 +837,7 @@ public class ProjectTree extends JPanel {
 		toolpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5,4));
 //		toolpanel.setLayout(new BoxLayout(toolpanel, BoxLayout.X_AXIS));
 		
-		toolpanel.add(toolbutton1);
+//		toolpanel.add(toolbutton1);
 		toolpanel.add(toolbutton2);
 		toolpanel.add(toolbutton3);
 		toolpanel.add(toolbutton4);

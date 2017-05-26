@@ -740,10 +740,11 @@ public class StepButtonPanel extends JPanel {
 		attributePanel.setLayout(new GridLayout(1,1));
 //		consolePart=mainFrame.getConsolePart();	
 		// TODO Auto-generated method stub
-//        step2button.setEnabled(false);//初始其他步骤按钮都不可点击
-//        step3button.setEnabled(false);
-//        step4button.setEnabled(false);
-//        step5button.setEnabled(false);
+        step2button.setEnabled(false);//初始其他步骤按钮都不可点击
+        step3button.setEnabled(false);
+        step4button.setEnabled(false);
+        step5button.setEnabled(false);
+        step6button.setEnabled(false);
 	}
 	protected void setstepbuttonpanelrepaint() {
 		// TODO Auto-generated method stub
@@ -1293,6 +1294,7 @@ public class StepButtonPanel extends JPanel {
 				mainFrame.getContentPane().repaint();
 				mainFrame.setVisible(true);
 				step3button.setEnabled(true);
+				step6button.setEnabled(true);
 			}
 		});
 		step3button.addActionListener(new ActionListener() {

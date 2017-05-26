@@ -36,7 +36,12 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 		
 		setForeground(new Color(115, 110, 102));
 		setBackground(new Color(255, 255, 255));
-		setText(value.toString());
+		if(value==null){
+			
+		}
+		else{
+			setText(value.toString());
+		}
 
 		tablename=table.getName();
 		

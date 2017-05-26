@@ -1,150 +1,290 @@
-package com.horstmann.violet.application.gui.util.ckt.handle;
+package com.horstmann.violet.application.gui.util.ckt.testcase;
 
-
-import java.io.File;
 import java.util.ArrayList;
 
-import com.horstmann.violet.application.gui.util.wj.bean.UppaalLocation;
-import com.horstmann.violet.application.gui.util.wj.bean.UppaalTemPlate;
-import com.horstmann.violet.application.gui.util.wj.bean.UppaalTransition;
-import com.horstmann.violet.application.gui.util.wj.bean.XML2UppaalUtil;
+import com.horstmann.violet.application.gui.util.ckt.handle.*;
+import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
+import com.horstmann.violet.application.gui.util.ckt.testcase.*;
+import com.horstmann.violet.application.gui.util.wj.bean.*;
+import com.horstmann.violet.application.gui.util.wj.util.*;
 
-
-public class GetAutomatic {
+/**
+ * 验证l0有没有被正确拆分
+ * @author Seryna
+ *
+ */
+public class test_time {
 	public static void main(String[] args) {
-		//////////////////////////////////////////测试getAutomata
-		///////////////////////////////////////////////////////
-		//String xml="Draw MoneyForXStream(2).xml";
-		/*String xml="throttle_zero_flagForXStream.xml";
-		Automatic automatic=GetAutomatic.getAutomatic(xml);*/
-		//String xml="loop3ForXStream.xml";
-		String xml="loopForXStream3.1.5.2.z.xml";//有时间约束
-		//String xml="UAVForXStream3.1.5.3.xml";//有时间约束
-		Automatic automatic=GetAutomatic.getAutomatic(xml);
-		//Automatic automatic=AddType.addType(auto);//
-		/*for(State state:automatic.getStateSet()){
-			System.out.println("状态id个数"+state.getId()+"$$$$$$$$$$$");
+		Automatic automatic=getAutomatic();
+		for(Transition tran:automatic.getTransitionSet()){
+			System.out.println("========::"+tran.getName());
+		}
+		Automatic new_automatic=IPR__1.iPR(automatic);
+		//print(new_automatic);
+		
+		Automatic aTDRTAutomatic=ATDTR__1.aTDRT(new_automatic,automatic);  
+		//print(aTDRTAutomatic);
+		
+		//Automatic DFStree=StateCoverage__1.DFSTree(aTDRTAutomatic);
+		ArrayList<Automatic> testCase=StateCoverage__1.testCase(aTDRTAutomatic);
+		//ArrayList<Automatic> testCase=StateCoverage__1.testCase(automatic);
+		ArrayList<ArrayList<String>> all_inequalitys=Get_inequality__1.get_AllInequalitys(testCase);
+		
+		
+		System.out.println("总共"+all_inequalitys.size()+"个不等式组");
+		int e=1;
+		for(ArrayList<String> inequalitys:all_inequalitys){
+			System.out.println("第"+e+"个不等式组");
+			for(String s:inequalitys){
+				System.out.println(s);
+			}
+			System.out.println("***************");
+			e++;
+		}
+		
+		/*for(Automatic a:testCase){
+			for(Transition tran:a.getTransitionSet()){
+				System.out.println(tran.getSource()+"-->"+tran.getTarget());
+			}
+			System.out.println("*********");
 		}*/
-		for(Transition tran:automatic.getTransitionSet()){
-			//System.out.println("迁移id个数"+tran.getId()+"^^^^^^^^^^^");
-			//+tran.getSource()+"---->"+tran.getTarget()+"约束： "+tran.getEventSet());
-//////////			System.out.println("condition:"+tran.getCondition());
-//			System.out.println(/*tran.getSource()+"---->"+tran.getTarget()+*/"约束： "+tran.getEventSet());
-		}
-		System.out.println("时间自动机名字:"+automatic.getName());
-		System.out.println("时间自动机时钟集合：");
-		for(String c:automatic.getClockSet()){
-			System.out.println("时钟集合："+c);
-		}
-		State iniState=automatic.getInitState();
-//		System.out.println("初始状态名字："+iniState.getName());
-//		System.out.println(iniState.getPosition());
-//		System.out.println(iniState.isFinalState());
-//		System.out.println("初始状态Type为："+iniState.getType());
-//		System.out.println("初始状态id为："+iniState.getId());
-		DBM_element[][] DBM=iniState.getInvariantDBM();
-		for(int i=0;i<automatic.getClockSet().size()+1;i++){
-			for(int j=0;j<automatic.getClockSet().size()+1;j++){
-				DBM_element cons=DBM[i][j];
-				//System.out.println("DBM_i:"+cons.getDBM_i());
-				//System.out.println("DBM_j:"+cons.getDBM_j());
-//				System.out.println("value:"+cons.getValue());
-//				System.out.println("Strictness:"+cons.isStrictness());					
-			}
-		}
 		
-		System.out.println("状态个数："+automatic.getStateSet().size());
-		int k=0;
-		for(State state:automatic.getStateSet()){
-			System.out.println("第"+k+"个状态");
-			k++;
-			DBM_element[][] dbm=state.getInvariantDBM();
-			for(int i=0;i<automatic.getClockSet().size()+1;i++){
-				for(int j=0;j<automatic.getClockSet().size()+1;j++){
-					DBM_element cons=dbm[i][j];
-					//System.out.println("DBM_i:"+cons.getDBM_i());
-					//System.out.println("DBM_j:"+cons.getDBM_j());
-//					System.out.println("value:"+cons.getValue());
-//					System.out.println("Strictness:"+cons.isStrictness());					
-				}
+		/*int e=1;
+		for(Automatic a:testCase){
+			System.out.println("第"+e+"个不等式组");
+			ArrayList<String> Inequalitys=Get_inequality__1.get_Inequalitys(a);
+			for(String s:Inequalitys){
+				System.out.println(s);
 			}
-//			System.out.println(state.getName());
-//			System.out.println("状态Type:"+state.getType());//
-//			System.out.println("状态id："+state.getId());//
-			DBM_element[][] adddbm=state.getAddClockRelationDBM();
-			for(int i=0;i<automatic.getClockSet().size()+1;i++){
-				for(int j=0;j<automatic.getClockSet().size()+1;j++){
-					DBM_element cons=adddbm[i][j];
-					//System.out.println("DBM_i:"+cons.getDBM_i());
-					//System.out.println("DBM_j:"+cons.getDBM_j());
-//					System.out.println("value:"+cons.getValue());
-//					System.out.println("Strictness:"+cons.isStrictness());					
-				}
-			}
-//			System.out.println(state.getPosition());
-//			System.out.println(state.isFinalState());
-//			System.out.println("--------------------");
+			e++;
+			System.out.println("------------");
+		}*/
+	}
+	
+	
+	
+	/**
+	 * 打印时间自动机上的name和id
+	 * @param a
+	 */
+	public static void  print(Automatic a){
+		int i = 1;
+		System.out.println("状态个数"+a.getStateSet().size());
+		for(State state:a.getStateSet()){
+			System.out.println("*****************第"+(i++)+"个状态*****************");
+			System.out.println("状态名称："+state.getName());
+			//System.out.println("状态Id："+state.getId());
+			
 		}
-		
-		System.out.println("迁移个数"+automatic.getTransitionSet().size());
-		int p=0;
-		for(Transition tran:automatic.getTransitionSet()){
-			System.out.println(tran.getName()+"########### tran.getName #############");
-			System.out.println("第"+p+"条迁移");
-			System.out.println("迁移的id为："+tran.getId());//
-			p++;
-			DBM_element[][] dbm=tran.getConstraintDBM();
-//			for(int i=0;i<automatic.getClockSet().size()+1;i++){
-//				for(int j=0;j<automatic.getClockSet().size()+1;j++){
-//					DBM_element cons=dbm[i][j];
-//					//System.out.println("DBM_i:"+cons.getDBM_i());
-//					//System.out.println("DBM_j:"+cons.getDBM_j());
-//					System.out.println("value:"+cons.getValue());
-//					System.out.println("Strictness:"+cons.isStrictness());					
-//				}
-//			}
-			
-//			System.out.println("源:"+tran.getSource());
-//			System.out.println("目的："+tran.getTarget());
-			
-			ArrayList<String> events=tran.getEventSet();
-			//System.out.println(events.size());
-			for(String e:events){
-//				System.out.println("事件："+e);
-			}
-			
-			ArrayList<String> reset=tran.getResetClockSet();
-			for(String r:reset){
-				System.out.println("重置的时钟："+r);
-			}
-			
-			ArrayList<String> typeid=tran.getTypeIds();
-			for(String i:typeid){
-//				System.out.println("typeid:"+i);
-			}
-			
-			ArrayList<String> types=tran.getTypes();
-			for(String t:types){
-//				System.out.println("types:"+t);
-			}
-			
-			
-			System.out.println("********************");
+		i=1;
+		System.out.println("迁移个数"+a.getTransitionSet().size());
+		for(Transition t:a.getTransitionSet()){
+			System.out.println("*****************第"+(i++)+"个迁移*****************");
+			System.out.println("迁移名称："+t.getName());
+			//System.out.println("迁移Id："+t.getId());
+			System.out.println("迁移总约束："+t.getEventSet());
+			System.out.println("迁移in："+t.getIn());
+			System.out.println("迁移condition："+t.getCondition());
 		}
 	}
+	
+	
+	
+	
 	/**
-	 * 输入：xml文件名
-	 * 输出：Automatic实例（一个时间自动机）
-	 * @param xml
+	 * 获得 一个时间自动机
 	 * @return
 	 */
-	private static int stateNum=1;//用于标识state的id
-	private static int tranNum=1;//用于标识transition的id
-	public static Automatic getAutomatic(String xml) {
-		stateNum=1;//用于标识state的id
-		tranNum=1;//用于标识transition的id
-		XML2UppaalUtil util = new XML2UppaalUtil(new File(xml));
-		UppaalTemPlate temPlate = util.getTemplates().get(0);
+	public static Automatic getAutomatic(){
+		UppaalTemPlate temPlate=new UppaalTemPlate();
+		ArrayList<UppaalTransition> T_transitions=new ArrayList<UppaalTransition>();
+		ArrayList<UppaalLocation> T_locations=new ArrayList<UppaalLocation>();
+		UppaalLocation T_InitState=new UppaalLocation();
+		String T_name="第一个时间自动机";
+		ArrayList<String> T_Clocks=new ArrayList<String>();
+		T_Clocks.add("x");
+
+		ArrayList<String> ar1 =new ArrayList<String>();
+		ar1.add("x<2");
+		ar1.add("x>=0");
+		ArrayList<String> ar2 =new ArrayList<String>();
+		ar2.add("x>=2");
+		ar2.add("x<5");
+		ArrayList<String> ar3 =new ArrayList<String>();
+		ar3.add("x<=1");
+		ar3.add("x>=0");
+		ArrayList<String> ar4 =new ArrayList<String>();
+		ar4.add("x>=0");
+		ar4.add("x<=3");
+//		ar4.add("x>1");
+//		ar4.add("x<=3");
+		ArrayList<String> ar5 =new ArrayList<String>();
+		ar5.add("x>3");
+		ar5.add("x<5");
+		ArrayList<String> ar6 =new ArrayList<String>();
+		ar6.add("x>=0");
+		ar6.add("x<1");
+		ArrayList<String> ar7 =new ArrayList<String>();
+		ar7.add("x>=0");
+		ar7.add("x<3");
+//		ar7.add("x>=1");
+//		ar7.add("x<3");
+		
+		UppaalLocation l1=new UppaalLocation();
+		l1.setName("l1");
+		l1.setInvariant(ar1);
+		l1.setFinalState(false);
+		UppaalLocation l2=new UppaalLocation();
+		l2.setName("l2");
+		l2.setInvariant(ar2);
+		l2.setFinalState(false);
+		UppaalLocation l3=new UppaalLocation();
+		l3.setName("l3");
+		l3.setInvariant(ar3);
+		l3.setFinalState(false);
+		UppaalLocation l4=new UppaalLocation();
+		l4.setName("l4");
+		l4.setInvariant(ar4);
+		l4.setFinalState(false);
+		UppaalLocation l5=new UppaalLocation();
+		l5.setName("l5");
+		l5.setInvariant(ar5);
+		l5.setFinalState(false);
+		UppaalLocation l6=new UppaalLocation();
+		l6.setName("l6");
+		l6.setInvariant(ar6);
+		l6.setFinalState(false);
+		UppaalLocation l7=new UppaalLocation();
+		l7.setName("l7");
+		l7.setInvariant(ar7);
+		l7.setFinalState(false);
+			
+		
+		T_locations.add(l1);
+		T_locations.add(l2);
+		T_locations.add(l3);
+		T_locations.add(l4);
+		T_locations.add(l5);
+		T_locations.add(l6);
+		T_locations.add(l7);
+		
+		
+		UppaalTransition e1=new UppaalTransition();
+		e1.setName("e1");
+		e1.setSource(l1.getName());
+		e1.setTarget(l2.getName());
+		ArrayList<String> reset1 =new ArrayList<String>();
+		e1.setResetClocks(reset1);
+		ArrayList<String> constraint1 =new ArrayList<>();
+		e1.setConstraint(constraint1);
+		ArrayList<String> events1=new ArrayList<String>();
+		e1.setEvents(events1);
+		ArrayList<String> types1=new ArrayList<String>();
+		e1.setTypes(types1);
+		ArrayList<String> typeIds1=new ArrayList<String>();
+		e1.setTypeIds(typeIds1);
+		
+		UppaalTransition e2 =new UppaalTransition();
+		e2.setName("e2");
+		e2.setSource(l2.getName());
+		e2.setTarget(l3.getName());
+		ArrayList<String> reset2 =new ArrayList<String>();
+		reset2.add("x");
+		e2.setResetClocks(reset2);
+		ArrayList<String> constraint2 =new ArrayList<>();
+		e2.setConstraint(constraint2);
+		ArrayList<String> events2=new ArrayList<String>();
+		e2.setEvents(events2);
+		ArrayList<String> types2=new ArrayList<String>();
+		e2.setTypes(types2);
+		ArrayList<String> typeIds2=new ArrayList<String>();
+		e2.setTypeIds(typeIds2);
+		
+		UppaalTransition e3 =new UppaalTransition();
+		e3.setName("e3");
+		e3.setSource(l3.getName());
+		e3.setTarget(l4.getName());
+		ArrayList<String> reset3 =new ArrayList<String>();
+		reset3.add("x");
+		e3.setResetClocks(reset3);
+		ArrayList<String> constraint3 =new ArrayList<>();
+		e3.setConstraint(constraint3);
+		ArrayList<String> events3=new ArrayList<String>();
+		e3.setEvents(events3);
+		ArrayList<String> types3=new ArrayList<String>();
+		e3.setTypes(types3);
+		ArrayList<String> typeIds3=new ArrayList<String>();
+		e3.setTypeIds(typeIds3);
+		
+		UppaalTransition e4 =new UppaalTransition();
+		e4.setName("e4");
+		e4.setSource(l4.getName());
+		e4.setTarget(l5.getName());
+		ArrayList<String> reset4 =new ArrayList<String>();
+		e4.setResetClocks(reset4);
+		ArrayList<String> constraint4 =new ArrayList<>();
+		e4.setConstraint(constraint4);
+		ArrayList<String> events4=new ArrayList<String>();
+		e4.setEvents(events4);
+		ArrayList<String> types4=new ArrayList<String>();
+		e4.setTypes(types4);
+		ArrayList<String> typeIds4=new ArrayList<String>();
+		e4.setTypeIds(typeIds4);
+		
+		UppaalTransition e5 =new UppaalTransition();
+		e5.setName("e5");
+		e5.setSource(l5.getName());
+		e5.setTarget(l6.getName());
+		ArrayList<String> reset5 =new ArrayList<String>();
+		reset5.add("x");
+		e5.setResetClocks(reset5);
+		ArrayList<String> constraint5 =new ArrayList<>();
+		e5.setConstraint(constraint5);
+		ArrayList<String> events5=new ArrayList<String>();
+		e5.setEvents(events5);
+		ArrayList<String> types5=new ArrayList<String>();
+		e5.setTypes(types5);
+		ArrayList<String> typeIds5=new ArrayList<String>();
+		e5.setTypeIds(typeIds5);
+		
+		UppaalTransition e6 =new UppaalTransition();
+		e6.setName("e6");
+		e6.setSource(l6.getName());
+		e6.setTarget(l7.getName());
+		ArrayList<String> reset6 =new ArrayList<String>();
+		reset6.add("x");
+		e6.setResetClocks(reset6);
+		ArrayList<String> constraint6 =new ArrayList<>();
+		e6.setConstraint(constraint6);
+		ArrayList<String> events6=new ArrayList<String>();
+		e6.setEvents(events6);
+		ArrayList<String> types6=new ArrayList<String>();
+		e6.setTypes(types6);
+		ArrayList<String> typeIds6=new ArrayList<String>();
+		e6.setTypeIds(typeIds6);
+		
+		
+		
+		T_transitions.add(e1);
+		T_transitions.add(e2);
+		T_transitions.add(e3);
+		T_transitions.add(e4);
+		T_transitions.add(e5);
+		T_transitions.add(e6);
+
+		
+		temPlate.setTransitions(T_transitions);
+		temPlate.setLocations(T_locations);
+		temPlate.setClockSet(T_Clocks);
+		temPlate.setInitState(l1);
+		temPlate.setName(T_name);
+		
+//		for(UppaalTransition tran:T_transitions){
+//			System.out.println(tran.getName()+"=====");
+//		}
+		
+		T_InitState=l1;
+		temPlate.setInitState(T_InitState);
 		
 		Automatic automatic=new Automatic();
 		ArrayList<Transition> TransitionSet=new ArrayList<Transition>();//automatic中的转换集合
@@ -161,8 +301,6 @@ public class GetAutomatic {
 				ArrayList<String> invar=loc.getInvariant();
 				ArrayList<String> invariant=new ArrayList<String>();
 				for(String i:invar){
-//					String ss = i.replace("us", "");
-//					invariant.add(ss);
 					String[] s=i.split("s");
 					invariant.add(s[0]);
 				}
@@ -170,9 +308,6 @@ public class GetAutomatic {
 				DBM_element[][] DBM=DBM_elementToDBM.buildDBM(Clocks,StringToDBM_element__1.stringToDBM_element(Clocks, invariant));//将状态中的不变式转成DBM矩阵
 				
 				State state=new State();
-				if(new Integer(state.getId()).equals(null)){
-					state.setId(stateNum++);
-				}
 				state.setName(loc.getName());
 				state.setInvariantDBM(DBM);
 				//state.setFinalState(loc.isFinalState());
@@ -185,7 +320,6 @@ public class GetAutomatic {
 				DBM_element[][] DBM=DBM_elementToDBM.buildDBM(Clocks,StringToDBM_element.stringToDBM_element(Clocks, invariant));//将状态中的不变式为空，则DBM矩阵为全集
 				
 				State state=new State();
-				state.setId(stateNum++);
 				state.setName(loc.getName());
 				state.setInvariantDBM(DBM);
 				//state.setFinalState(loc.isFinalState());
@@ -199,21 +333,19 @@ public class GetAutomatic {
 		
 		ArrayList<UppaalTransition> transitions=temPlate.getTransitions();//获取template中的所有转换
 		for(UppaalTransition tran:transitions){//遍历转换集合
+			//System.out.println(tran.getName()+"========00");
 			if(tran.getConstraint().size()!=0){
 				ArrayList<String> cons=tran.getConstraint();//获取转换中的约束
 				ArrayList<String> constraint=new ArrayList<String>();
 				for(String c:cons){
 					String[] s=c.split("s");
 					constraint.add(s[0]);
-//					String ss = c.replace("us", "");
-//					constraint.add(ss);
 				}
 				
 				DBM_element[][] DBM=DBM_elementToDBM.buildDBM(Clocks,StringToDBM_element__1.stringToDBM_element(Clocks, constraint));//将转换中的约束转成DBM矩阵
 				
 				Transition transition=new Transition();
 				transition.setConstraintDBM(DBM);
-				
 						
 				ArrayList<String> events=new ArrayList<String>();
 				if(tran.getEvents().size()!=0){
@@ -221,26 +353,10 @@ public class GetAutomatic {
 					
 					for(String e:tran.getEvents())
 					{
-						event+=e+";";   //////
+						event+=e+";";
 					}
 					events.add(event);
-				}/*else{
-					events.add("null");
-				}*/
-				transition.setIn(tran.getIn());
-				transition.setOut(tran.getOut());
-				//////////////////////////////////
-				if(!(tran.getCondition().equals("null"))&&tran.getCondition().contains("/")){
-					//String[] t=tran.getCondition().split("/");
-					//transition.setCondition(t[1]);
-					String conditonValue = tran.getCondition().split("/")[1];
-					transition.setCondition(conditonValue);
 				}
-				else{
-					transition.setCondition(tran.getCondition());
-				}												
-				//transition.setCondition(tran.getCondition());
-				
 				transition.setEventSet(events);
 				transition.setName(tran.getName());
 				transition.setResetClockSet(tran.getResetClocks());
@@ -248,7 +364,6 @@ public class GetAutomatic {
 				transition.setTarget(tran.getTarget());
 				transition.setTypeIds(tran.getTypeIds());
 				transition.setTypes(tran.getTypes());
-				transition.setId(tranNum++);
 				//临时添加
 				//ArrayList<DBM_element[][]> com_constraint=Complement.complement(constraint, Clocks);
 				//transition.setCom_constraint(com_constraint);
@@ -268,35 +383,19 @@ public class GetAutomatic {
 					
 					for(String e:tran.getEvents())
 					{
-//						System.out.println(tran.getEvents()+"========tran.getEvents()========");
 						event+=e+";";
 					}
 					events.add(event);
 				}
-				transition.setIn(tran.getIn());
-				transition.setOut(tran.getOut());
-				////////////////////////////////////////////////////////
-				//System.out.println("tran.getCondition():::::"+tran.getCondition());
-				if(!(tran.getCondition().equals("null"))&&tran.getCondition().contains("/")){
-					//String[] t=tran.getCondition().split("/");
-					//transition.setCondition(t[1]);
-					String conditonValue = tran.getCondition().split("/")[1];
-					transition.setCondition(conditonValue);
-				}
-				else{
-					transition.setCondition(tran.getCondition());
-				}
-				
+				//System.out.println(tran.getName()+"========00");
 				transition.setEventSet(events);
-				//transition.setName(tran.getName().replace("(", "").replace(")", "").replace("!", "").replace("?", ""));
 				transition.setName(tran.getName());
 				transition.setResetClockSet(tran.getResetClocks());
 				transition.setSource(tran.getSource());
 				transition.setTarget(tran.getTarget());
+				TransitionSet.add(transition);
 				transition.setTypeIds(tran.getTypeIds());
 				transition.setTypes(tran.getTypes());
-				transition.setId(tranNum++);
-				TransitionSet.add(transition);
 			}
 			
 		}
@@ -306,13 +405,11 @@ public class GetAutomatic {
 		
 		ArrayList<String> ClockSet=temPlate.getClocks();
 		automatic.setClockSet(ClockSet);//设定autotimatic中的时钟集合
-		//////////////////////////////////////////
+		
 		//设定automatic中的初始状态
 		State initstate=new State();
 		initstate.setFinalState(temPlate.getInitState().isFinalState());
 		initstate.setName(temPlate.getInitState().getName());
-		initstate.setId(1);//////////////
-		initstate.setType("start");////////////
 		if(temPlate.getInitState().getInvariant().size()!=0){
 			initstate.setInvariantDBM(DBM_elementToDBM.buildDBM(Clocks,StringToDBM_element__1.stringToDBM_element(Clocks, temPlate.getInitState().getInvariant())));
 			initstate.setAddClockRelationDBM(initstate.getInvariantDBM());
@@ -326,7 +423,6 @@ public class GetAutomatic {
 			initstate.setPosition(temPlate.getInitState().getName());
 		}
 		automatic.setInitState(initstate);
-		////////////////////////////////////////////
 		//设定automatic的name
 		String name=temPlate.getName();
 		automatic.setName(name);
@@ -435,7 +531,8 @@ public class GetAutomatic {
 		}*/
 		
 		return automatic;
-		
-		
 	}
+	
+	
+	
 }

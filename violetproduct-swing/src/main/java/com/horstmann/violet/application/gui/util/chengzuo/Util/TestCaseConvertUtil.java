@@ -99,6 +99,74 @@ public class TestCaseConvertUtil {
 		return finallStatisticsResult;
 
 	}
+	
+	/**
+	 * 功能测试统计工具
+	 * 
+	 * @param testCases
+	 *            测试用例实体类
+	 * @return Map 类型 说明 : 1.测试用例有误,无法对应到执行程序! 2.测试执行成功!耗时: 3.程序出现出现死循环或者抛出异常!
+	 * 
+	 */
+	public static Map<String, Object> functionStatistics(List<TestCase> testCases){
+		// 存放总的统计结果
+		Map<String, Object> finallStatisticsResult = new HashMap<>();
+		//成功、失败用例的ID
+		List<Integer> caseSuccess = new ArrayList<>()
+					,caseFailed = new ArrayList<>();
+		Map<Integer,List<Integer>> tmpMap;
+		List<Map<Integer,List<Integer>>> tmpList;
+		/*
+		 * 出错类型统计 
+		 * Map格式:
+		 * Map<出错类型,LIST< MAP< 用例号,出错激励ID统计 > > >
+		 */
+		Map<String,List<Map<Integer,List<Integer>>>> failedStatistics = new HashMap<>();
+		
+		for (TestCase testCase : testCases) {
+			String tmpStr = testCase.getResult().getResultDetail();
+			int id = Integer.parseInt(testCase.getTestCaseID());
+			String keyTmp = null;
+			//出错用例 纪录并统计
+			if(tmpStr.contains("测试用例有误") || tmpStr.contains("程序出现出现死循环或者抛出异常")){
+				
+				//出错纪录
+				caseFailed.add(id);
+				
+				//出错统计
+				if(tmpStr.contains("测试用例有误")){
+					keyTmp = "测试用例有误";
+				}else{
+					keyTmp = "程序出现出现死循环或者抛出异常";
+				}
+				if (!failedStatistics.containsKey(keyTmp)) {
+					tmpList = new ArrayList<>();
+					failedStatistics.put(keyTmp, tmpList);
+				}
+				tmpList = failedStatistics.get(keyTmp);
+				// 处理对应用例所出现问题的激励ID，封装成List
+				tmpMap = new HashMap<>();
+				List<Integer> value = new ArrayList<>();
+				for (myProcess m : testCase.getProcessList()) {
+					if (!m.isProcessExec())
+						value.add(m.getProcessID());
+				}
+				tmpMap.put(id, value);
+				tmpList.add(tmpMap);
+				
+			}else{
+				//成功用例纪录
+				caseSuccess.add(id);
+			}
+		}
+		//成功用例
+		finallStatisticsResult.put("caseSuccess", caseSuccess);
+		//失败用例
+		finallStatisticsResult.put("caseFailed", caseFailed);
+		//出错情况统计
+		finallStatisticsResult.put("failedStatistics", failedStatistics);
+		return finallStatisticsResult;
+	}
 
 	/**
 	 * 将激励链表字符串转换成激励链表实体

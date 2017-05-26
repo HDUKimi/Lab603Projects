@@ -17,22 +17,53 @@ import org.dom4j.io.XMLWriter;
 
 import com.horstmann.violet.application.gui.util.ckt.handle.ATDTR__1;
 import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
+import com.horstmann.violet.application.gui.util.ckt.handle.DBM_element;
 import com.horstmann.violet.application.gui.util.ckt.handle.GetAutomatic;
 import com.horstmann.violet.application.gui.util.ckt.handle.Get_inequality__1;
 import com.horstmann.violet.application.gui.util.ckt.handle.IPR__1;
+import com.horstmann.violet.application.gui.util.ckt.handle.State;
 import com.horstmann.violet.application.gui.util.ckt.handle.StateCoverage__1;
+import com.horstmann.violet.application.gui.util.ckt.test.path;
 
 public class GetTimeXML {
 
 	public static void main(String[] args) throws Exception {
 		//String xml = "EASmallTime4ForXStream.xml";
-		String xml = "EASmallTime5ForXStream.xml";
+		//String xml = "EASmallTime5ForXStream.xml";
+		//String xml = "EASmallTime7ForXStream.xml";
+		//System.err.println("123232323");
+		String xml = "EAElevatorV1ForXStream.xml";
 		Automatic automatic = GetAutomatic.getAutomatic(xml);// 获得原始的时间自动机
 		Automatic new_automatic = IPR__1.iPR(automatic);// 获得拆分后的时间自动机
 		Automatic aTDRTAutomatic = ATDTR__1.aTDRT(new_automatic, automatic);// 获得去除抽象时间迁移后的时间自动机
 		ArrayList<Automatic> testCase = StateCoverage__1.testCase(aTDRTAutomatic);// 获得满足状态覆盖的抽象测试序列
+		//ArrayList<Automatic> testCase = path.testcase(aTDRTAutomatic);
+		System.out.println(testCase.size()+"-----测试路径的个数");
+		
 		ArrayList<ArrayList<String>> all_inequalitys = Get_inequality__1.get_AllInequalitys(testCase);// 每个抽象测试序列有一个不等式组
 
+		
+//		for(Automatic aa:testCase){
+//			for(State s:aa.getStateSet()){
+//				//System.out.println("---"+s.getInvariantDBM());
+//				
+//				DBM_element[][] DBM=s.getInvariantDBM();
+//				for(int i=0;i<aa.getClockSet().size()+1;i++){
+//					for(int j=0;j<aa.getClockSet().size()+1;j++){
+//						DBM_element cons=DBM[i][j];
+//						System.out.println("DBM_i:"+cons.getDBM_i());
+//						System.out.println("DBM_j:"+cons.getDBM_j());
+//						System.out.println("value:"+cons.getValue());
+//						System.out.println("Strictness:"+cons.isStrictness());
+//						System.out.println("--------");
+//					}
+//					System.out.println("======");
+//				}								
+//			}
+//			System.out.println("--------======");
+//		}
+		
+		
 		System.out.println("总共" + all_inequalitys.size() + "个不等式组");
 		int e = 1;
 		for (ArrayList<String> inequalitys : all_inequalitys) {
@@ -43,6 +74,26 @@ public class GetTimeXML {
 			System.out.println("***************");
 			e++;
 		}
+		System.out.println(testCase.size()+"-----测试路径的个数");
+		
+//		for(State s:automatic.getStateSet()){
+//			//System.out.println("---"+s.getInvariantDBM());
+//			System.out.println("状态："+s.getName());
+//			DBM_element[][] DBM=s.getInvariantDBM();
+//			for(int i=0;i<automatic.getClockSet().size()+1;i++){
+//				for(int j=0;j<automatic.getClockSet().size()+1;j++){
+//					DBM_element cons=DBM[i][j];
+//					System.out.println("DBM_i:"+cons.getDBM_i());
+//					System.out.println("DBM_j:"+cons.getDBM_j());
+//					System.out.println("value:"+cons.getValue());
+//					System.out.println("Strictness:"+cons.isStrictness());
+//					System.out.println("--------");
+//				}
+//				//System.out.println("======");
+//			}		
+//			System.out.println("===============");
+//		}
+//		System.out.println("--------======");
 		// 1、创建document对象，代表整个xml文档
 		Document dom = DocumentHelper.createDocument();
 		// 2、创建根节点TCS
@@ -66,21 +117,27 @@ public class GetTimeXML {
 			Element operation = limit.addElement("operation");
 			String s = null;
 			for(int k=0;k<all_inequalitys.get(i).size();k++){
-				s = all_inequalitys.get(i).get(0).toString();
-				if((all_inequalitys.get(i).size()>1)&&(k>0)){
+				if(k==0){
+					s = all_inequalitys.get(i).get(0).toString();
+				}				
+				//System.out.println("   "+all_inequalitys.get(i).get(k).toString());
+				if(/*(all_inequalitys.get(i).size()>1)&&*/(k>0)){
+					//System.out.println("--===");
 					s = s + "," + all_inequalitys.get(i).get(k).toString();
+					//System.out.println("sss:"+s);
 				}
-				s = s.replace("&lt;", "<").replace("&gt;", ">").replace("&lt;=", "<=").replace("&gt;=", ">=");
+				//s = s.replace("&lt;", "<").replace("&gt;", ">").replace("&lt;=", "<=").replace("&gt;=", ">=");
 				//String s = all_inequalitys.get(i).get(k);
 				
 			}
+			System.out.println("s:"+s);
 			operation.setText(s);			
 		}	
 		
 		
 		OutputFormat format = OutputFormat.createPrettyPrint();
         //6、生成xml文件
-		File file = new File("E:\\XML\\EASmallTime5ForXStream-time.xml");
+		File file = new File("E:\\XML\\EAElevatorV1ForXStream-time.xml");
 		//formatXML(file);
 		XMLWriter writer;
 		

@@ -54,9 +54,7 @@ public class PerformTestPath {
 	private static boolean dfsMarkedPath(Transition tran, int[] visitedTran, ArrayList<Transition> path, Transition endTran) throws Exception {
 		
 		path.add(tran);
-		System.out.println("-------11111111111111---------------"+visitedTran.length+"  "+tran.getId());
 		visitedTran[tran.getId()] = 1;
-		System.out.println("-------2222222222222222---------------");
 		if (tran == endTran) {
 			System.out.println("搜索性能测试路径 到达目标迁移");
 			return true;

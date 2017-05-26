@@ -17,7 +17,7 @@ public class SplitSuseSs_new1__1 {
 			
 			ArrayList<DBM_element[][]> Zs=getZs(x, posts, trans, ClockSet);//根据后继，获取拆分x的Zs
 			
-			System.err.println(Zs.size());
+			//System.err.println(Zs.size());
 			if(Zs.size()<=0){
 				States.add(x);
 				return States;
