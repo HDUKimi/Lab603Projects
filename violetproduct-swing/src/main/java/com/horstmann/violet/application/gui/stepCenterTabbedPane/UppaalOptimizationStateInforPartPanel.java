@@ -225,18 +225,22 @@ public class UppaalOptimizationStateInforPartPanel extends JPanel{
 		attributetable.getColumnModel().getColumn(5).setCellRenderer(new MyAllLabelRenderer());
 
 		
-		attributetable.getColumn("×´Ì¬").setPreferredWidth(20);
-		attributetable.getColumn("×´Ì¬").setMinWidth(20);
-		attributetable.getColumn("ĞòºÅ").setPreferredWidth(20);
-		attributetable.getColumn("ĞòºÅ").setMinWidth(20);
-		attributetable.getColumn("Ãû³Æ").setPreferredWidth(300);
-		attributetable.getColumn("Ãû³Æ").setMinWidth(300);
-		attributetable.getColumn("Î»ÖÃ").setPreferredWidth(300);
-		attributetable.getColumn("Î»ÖÃ").setMinWidth(300);
-		attributetable.getColumn("ÊÇ·ñÎªÖÕÖ¹×´Ì¬").setPreferredWidth(50);
-		attributetable.getColumn("ÊÇ·ñÎªÖÕÖ¹×´Ì¬").setMinWidth(50);
-		attributetable.getColumn("ÀàĞÍ").setPreferredWidth(50);
-		attributetable.getColumn("ÀàĞÍ").setMinWidth(50);
+		attributetable.getColumn("×´Ì¬").setPreferredWidth(50);
+		attributetable.getColumn("×´Ì¬").setMinWidth(50);
+		attributetable.getColumn("×´Ì¬").setMaxWidth(50);
+		attributetable.getColumn("ĞòºÅ").setPreferredWidth(50);
+		attributetable.getColumn("ĞòºÅ").setMinWidth(50);
+		attributetable.getColumn("ĞòºÅ").setMaxWidth(50);
+		attributetable.getColumn("Ãû³Æ").setPreferredWidth(180);
+		attributetable.getColumn("Ãû³Æ").setMinWidth(180);
+		attributetable.getColumn("Î»ÖÃ").setPreferredWidth(180);
+		attributetable.getColumn("Î»ÖÃ").setMinWidth(180);
+		attributetable.getColumn("ÊÇ·ñÎªÖÕÖ¹×´Ì¬").setPreferredWidth(120);
+		attributetable.getColumn("ÊÇ·ñÎªÖÕÖ¹×´Ì¬").setMinWidth(120);
+		attributetable.getColumn("ÊÇ·ñÎªÖÕÖ¹×´Ì¬").setMaxWidth(120);
+		attributetable.getColumn("ÀàĞÍ").setPreferredWidth(90);
+		attributetable.getColumn("ÀàĞÍ").setMinWidth(90);
+		attributetable.getColumn("ÀàĞÍ").setMaxWidth(90);
         
         DefaultTableCellRenderer renderer=new DefaultTableCellRenderer();
         renderer.setBackground(new Color(71, 80, 93));

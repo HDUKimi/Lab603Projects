@@ -204,16 +204,22 @@ public class GetTimeXML {
 			Element limit = testcase.addElement("limit");
 			Element operation = limit.addElement("operation");
 			String s = null;
-			for (int k = 0; k < all_inequalitys.get(i).size(); k++) {
-				s = all_inequalitys.get(i).get(0).toString();
-				if ((all_inequalitys.get(i).size() > 1) && (k > 0)) {
+			for(int k=0;k<all_inequalitys.get(i).size();k++){
+				if(k==0){
+					s = all_inequalitys.get(i).get(0).toString();
+				}				
+				//System.out.println("   "+all_inequalitys.get(i).get(k).toString());
+				if(/*(all_inequalitys.get(i).size()>1)&&*/(k>0)){
+					//System.out.println("--===");
 					s = s + "," + all_inequalitys.get(i).get(k).toString();
+					//System.out.println("sss:"+s);
 				}
-				s = s.replace("&lt;", "<").replace("&gt;", ">").replace("&lt;=", "<=").replace("&gt;=", ">=");
-				// String s = all_inequalitys.get(i).get(k);
-
+				//s = s.replace("&lt;", "<").replace("&gt;", ">").replace("&lt;=", "<=").replace("&gt;=", ">=");
+				//String s = all_inequalitys.get(i).get(k);
+				
 			}
-			operation.setText(s);
+			System.out.println("s:"+s);
+			operation.setText(s);	
 		}
 
 		OutputFormat format = OutputFormat.createPrettyPrint();

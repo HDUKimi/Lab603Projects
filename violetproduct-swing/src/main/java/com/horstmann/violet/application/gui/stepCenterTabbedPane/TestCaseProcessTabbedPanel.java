@@ -649,6 +649,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					if(index==2){
 						index=-1;
 					}
+					index=0;
 //					Object[] rowData={index,"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
 					Object[] rowData={index,s.getId()+"",s.getName(),s.getPosition(),s.isFinalState()+"",s.getType()};
 					copystatetablemodel.addRow(rowData);
@@ -673,6 +674,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					if(index==2){
 						index=-1;
 					}
+					index=0;
 //					index,t.getId()+"",t.getName(),t.getSource(),t.getTarget(),t.getIn(),t.getOut(),t.getCondition()};
 					Object[] rowData={index,t.getId()+"",t.getName(),t.getSource(),t.getTarget(),t.getIn(),t.getOut()+"",t.getCondition()};
 					copymigratetablemodel.addRow(rowData);
@@ -687,7 +689,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				stepAllProcessList.add("第二步：优化约简");
 				timeAllProcessList.add(time2-time1+"ms");
-				resultAllProcessList.add("得到"+aTDRTAutomatic.getStateSet().size()+"个状态，"+aTDRTAutomatic.getTransitionSet().size()+"个迁移，其中状态增加了50个，减少了20个，迁移增加了20个，减少了30个");
+//				resultAllProcessList.add("得到"+aTDRTAutomatic.getStateSet().size()+"个状态，"+aTDRTAutomatic.getTransitionSet().size()+"个迁移，其中状态增加了50个，减少了20个，迁移增加了20个，减少了30个");
+				resultAllProcessList.add("得到"+aTDRTAutomatic.getStateSet().size()+"个状态，"+aTDRTAutomatic.getTransitionSet().size()+"个迁移");
 				
 				return 1;
 			}
@@ -727,12 +730,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					AutomateTransformXml(type_a);
 				}
 				else if(starttype==3){//时间约束测试
-					if(selectCoverState==0){//状态覆盖
-						AutomateTransformXml(type_aTDRTAutomatic);
-					}
-					else if(selectCoverState==1){//路径覆盖
-						
-					}
+					AutomateTransformXml(type_aTDRTAutomatic);
 				}
 				
 				System.out.println("/////////////////********************");
@@ -1576,8 +1574,18 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 		for(Transition t :automatic.getTransitionSet()){
 			//将wqq的相关的信息--->转换为zhangjian的相关的信息(transition)
+			
+			int tid;
+			if(starttype==3){//时间约束拆分后，迁移id标号有重复，采用时间名字t1,t2
+				tid=Integer.valueOf(t.getTranTimeName().replace("t", ""));
+			}
+			else{
+				tid=t.getId();
+			}
+			
 			AbstractTransition abTrans =new AbstractTransition();
-			abTrans.setTid(t.getId());
+//			abTrans.setTid(t.getId());
+			abTrans.setTid(tid);
 			abTrans.setTname(t.getName());
 			abTrans.setSourceID(TestAutoDiagram.getStateIdByName(abStateList, t.getSource())+"");
 			
@@ -1598,8 +1606,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			//System.out.println(t.getTypes()+"**"+t.getSource()+"**"+t.getTarget()+"**"+t.getResetClockSet()+"**"+t.getConstraintDBM());
 			abTransList.add(abTrans);
 			
-			transitionIdToNameMap.put(t.getId()+"", t.getId()+"<br>"+t.getName());
-			transitionNameToIdMap.put(t.getId()+"<br>"+t.getName(), t.getId()+"");
+			transitionIdToNameMap.put(tid+"", tid+"<br>"+t.getName());
+			transitionNameToIdMap.put(tid+"<br>"+t.getName(), tid+"");
 		}
 		
 		System.out.println(stateIdToNameMap);

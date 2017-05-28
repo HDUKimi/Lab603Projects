@@ -218,8 +218,9 @@ public class UppaalOptimizationMigrateInforPartPanel extends JPanel{
 		attributetable.getColumnModel().getColumn(6).setCellRenderer(new MyAllLabelRenderer());
 		attributetable.getColumnModel().getColumn(7).setCellRenderer(new MyAllLabelRenderer());
 		
-		attributetable.getColumn("×´Ì¬").setPreferredWidth(20);
-		attributetable.getColumn("×´Ì¬").setMinWidth(20);
+		attributetable.getColumn("×´Ì¬").setPreferredWidth(50);
+		attributetable.getColumn("×´Ì¬").setMinWidth(50);
+		attributetable.getColumn("×´Ì¬").setMaxWidth(50);
 		attributetable.getColumn("ÐòºÅ").setPreferredWidth(50);
 		attributetable.getColumn("ÐòºÅ").setMinWidth(50);
 		attributetable.getColumn("ÐòºÅ").setMaxWidth(50);
