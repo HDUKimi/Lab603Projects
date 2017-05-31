@@ -226,6 +226,18 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 				setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 			}
 		}
+		else if(tablename.equals("TimeTestCaseReportLimitPartPanel")){
+//			String[] columnNames = { "激励ID", "激励名称", "激励参数", "激励状态", "激励执行情况" };
+//			setFont(new Font("微软雅黑", Font.PLAIN, 10));
+//			if(table.getValueAt(row, 4).toString().equals("false")){
+//				setForeground(new Color(115, 110, 102));
+//				setBackground(new Color(255, 135, 135));
+//			}
+			
+//			setBackground(new Color(250, 248, 236));
+			setHorizontalAlignment(JLabel.LEFT);
+			setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+		}
 		else if(tablename.equals("FunctionalTestCaseChartTabbedPanel")){
 //			String[] columnNames = { "模块名称", "通过数", "不通过数", "测试用例总数"};
 //			setFont(new Font("微软雅黑", Font.PLAIN, 10));

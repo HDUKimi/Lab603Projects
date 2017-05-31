@@ -192,7 +192,8 @@ public class AttributePartOnePanel  extends JPanel {
 				
 				if(attributetree!=null){
 					TreeNode node = (TreeNode) attributetree.getModel().getRoot();
-			        expandAll(attributetree, new TreePath(node), false);
+					TreePath tp=new TreePath(node);
+			        expandAll(attributetree, tp.pathByAddingChild(node.getChildAt(0)), false);
 			        ChangeRepaint();
 				}
 		        

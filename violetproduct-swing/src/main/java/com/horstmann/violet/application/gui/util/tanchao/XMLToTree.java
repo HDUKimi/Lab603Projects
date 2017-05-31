@@ -54,9 +54,12 @@ public class XMLToTree {
         String ss1=getAttriString(root).split(" ")[0];
         String ss2=ss1.replaceAll("<", "</ ")+">";
         root2=new DefaultMutableTreeNode(ss2);
-        rootTree =new DefaultMutableTreeNode("message");
+//        rootTree =new DefaultMutableTreeNode(" ");
+        rootTree=new DefaultMutableTreeNode();
         rootTree.add(root1);
         rootTree.add(root2);
+//        rootTree=root1;
+//        rootTree.add(root2);
         //生成树(包含了一个容器)
         JTree jTree=new JTree(rootTree);
         //将树中默认操作时显示的图片改成我们想要的图片

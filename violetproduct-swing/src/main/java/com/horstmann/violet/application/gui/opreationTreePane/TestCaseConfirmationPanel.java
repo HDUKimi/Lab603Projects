@@ -17,7 +17,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -86,6 +88,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 	
 	private String testcasename=null;
 	private List<TestCase> testcaselist=new ArrayList<TestCase>();
+	private List<List<String>> limitlist=new ArrayList<>();
 	private List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
 	private List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
 	private List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
@@ -403,7 +406,10 @@ public class TestCaseConfirmationPanel extends JPanel{
 						showPerformanceTestCase();
 					}
 					else if(starttype==3){
-						testcaselist = extractTimeTestDataFromXml(path);
+//						testcaselist = extractTimeTestDataFromXml(path);
+						Map resultmap=TestCaseConfirmationPanel.extractTimeTestDataFromXml(path);
+						testcaselist=(List<TestCase>) resultmap.get("testcase");
+						limitlist=(List<List<String>>) resultmap.get("limit");
 						showTimeTestCase();
 					}
 
@@ -641,13 +647,15 @@ public class TestCaseConfirmationPanel extends JPanel{
 
 	}
 	
-	public static List<TestCase> extractTimeTestDataFromXml(String path) {
+	public static Map extractTimeTestDataFromXml(String path) {
 		// TODO Auto-generated method stub
 
 		int i = 1, j = 1;
 
 		List<TestCase> testcaseList = new ArrayList<TestCase>();
 		List<myProcess> processList = new ArrayList<myProcess>();
+		
+		List<List<String>> limitList=new ArrayList<>();
 		
 		SAXReader reader = new SAXReader();
 		
@@ -682,6 +690,14 @@ public class TestCaseConfirmationPanel extends JPanel{
 				
 				j=1;
 				
+				List<String> limits=new ArrayList<>();
+				String limit=testcase.element("limit").element("operation").getData().toString();
+				System.out.println(limit);
+				for (String str : limit.split(",")) {
+					limits.add(str);
+				}
+				limitList.add(limits);
+				
 				TestCase tc = new TestCase();
 				tc.setTestCaseID(String.valueOf(i++));
 				tc.setProcessList(processList);
@@ -699,7 +715,11 @@ public class TestCaseConfirmationPanel extends JPanel{
 			e.printStackTrace();
 		}
 		
-		return testcaseList;
+		Map resultmap=new HashMap<>();
+		resultmap.put("testcase", testcaseList);
+		resultmap.put("limit", limitList);
+		
+		return resultmap;
 	}
 
 	protected void showTimeTestCase() {
@@ -713,12 +733,14 @@ public class TestCaseConfirmationPanel extends JPanel{
 		GridBagLayout layout = new GridBagLayout();
 		resultpanel.setLayout(layout);
 		int i=0;
+		int index=0;
 		timetestcasereportlist.clear();
 		for(TestCase tc:testcaselist){
-			TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(tc);
+			TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(tc,limitlist.get(index));
 			resultpanel.add(ttcrppanel);
 			layout.setConstraints(ttcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 			timetestcasereportlist.add(ttcrppanel);
+			index++;
 		}
 		resultpanel.add(emptypanel);
 		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));

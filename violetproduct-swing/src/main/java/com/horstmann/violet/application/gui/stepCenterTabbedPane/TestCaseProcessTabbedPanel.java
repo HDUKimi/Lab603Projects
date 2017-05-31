@@ -1384,9 +1384,13 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					GetTimeXML.produceXML(path,testCase);
 					
 					List<TestCase> testcaselist=new ArrayList<>();
+					List<List<String>> limitlist=new ArrayList<>();
 					List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<>();
 					
-					testcaselist=TestCaseConfirmationPanel.extractTimeTestDataFromXml(path);
+//					testcaselist=TestCaseConfirmationPanel.extractTimeTestDataFromXml(path);
+					Map resultmap=TestCaseConfirmationPanel.extractTimeTestDataFromXml(path);
+					testcaselist=(List<TestCase>) resultmap.get("testcase");
+					limitlist=(List<List<String>>) resultmap.get("limit");
 					
 					JPanel resultpanel=new JPanel();
 					JPanel emptypanel=new JPanel();
@@ -1397,11 +1401,13 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					resultpanel.setLayout(layout);
 					int i=0;
 
+					int index=0;
 					for(TestCase tc:testcaselist){
-						TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(tc);
+						TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(tc,limitlist.get(index));
 						resultpanel.add(ttcrppanel);
 						layout.setConstraints(ttcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 						timetestcasereportlist.add(ttcrppanel);
+						index++;
 					}
 					resultpanel.add(emptypanel);
 					layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
