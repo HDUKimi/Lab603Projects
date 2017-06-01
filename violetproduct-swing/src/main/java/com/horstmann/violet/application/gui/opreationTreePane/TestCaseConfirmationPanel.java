@@ -406,10 +406,10 @@ public class TestCaseConfirmationPanel extends JPanel{
 						showPerformanceTestCase();
 					}
 					else if(starttype==3){
-//						testcaselist = extractTimeTestDataFromXml(path);
-						Map resultmap=TestCaseConfirmationPanel.extractTimeTestDataFromXml(path);
-						testcaselist=(List<TestCase>) resultmap.get("testcase");
-						limitlist=(List<List<String>>) resultmap.get("limit");
+						testcaselist = extractTimeTestDataFromXml(path);
+//						Map resultmap=TestCaseConfirmationPanel.extractTimeTestDataFromXml(path);
+//						testcaselist=(List<TestCase>) resultmap.get("testcase");
+//						limitlist=(List<List<String>>) resultmap.get("limit");
 						showTimeTestCase();
 					}
 
@@ -647,7 +647,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 
 	}
 	
-	public static Map extractTimeTestDataFromXml(String path) {
+	public static List<TestCase> extractTimeTestDataFromXml(String path) {
 		// TODO Auto-generated method stub
 
 		int i = 1, j = 1;
@@ -655,7 +655,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		List<TestCase> testcaseList = new ArrayList<TestCase>();
 		List<myProcess> processList = new ArrayList<myProcess>();
 		
-		List<List<String>> limitList=new ArrayList<>();
+//		List<List<String>> limitList=new ArrayList<>();
 		
 		SAXReader reader = new SAXReader();
 		
@@ -677,11 +677,13 @@ public class TestCaseConfirmationPanel extends JPanel{
 					
 					Element input=process.element("input");
 					
+					Element time=process.element("time");
+					
 					myProcess p = new myProcess();
 					p.setProcessID(j++);
 					p.setProcessName(operation.getData().toString());
 					p.setProcessParam(input.getData().toString());
-//					p.setProcessStatus(processStatus);
+					p.setProcessStatus(time.getData().toString());
 //					p.setProcessExec(processExec);
 
 					processList.add(p);
@@ -696,13 +698,14 @@ public class TestCaseConfirmationPanel extends JPanel{
 				for (String str : limit.split(",")) {
 					limits.add(str);
 				}
-				limitList.add(limits);
+//				limitList.add(limits);
 				
 				TestCase tc = new TestCase();
 				tc.setTestCaseID(String.valueOf(i++));
 				tc.setProcessList(processList);
 //				tc.setState(state);
 //				tc.setResult(result);
+				tc.setLimit(limits);
 
 				testcaseList.add(tc);
 				
@@ -715,11 +718,11 @@ public class TestCaseConfirmationPanel extends JPanel{
 			e.printStackTrace();
 		}
 		
-		Map resultmap=new HashMap<>();
-		resultmap.put("testcase", testcaseList);
-		resultmap.put("limit", limitList);
+//		Map resultmap=new HashMap<>();
+//		resultmap.put("testcase", testcaseList);
+//		resultmap.put("limit", limitList);
 		
-		return resultmap;
+		return testcaseList;
 	}
 
 	protected void showTimeTestCase() {
@@ -736,7 +739,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		int index=0;
 		timetestcasereportlist.clear();
 		for(TestCase tc:testcaselist){
-			TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(tc,limitlist.get(index));
+			TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(tc);
 			resultpanel.add(ttcrppanel);
 			layout.setConstraints(ttcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 			timetestcasereportlist.add(ttcrppanel);

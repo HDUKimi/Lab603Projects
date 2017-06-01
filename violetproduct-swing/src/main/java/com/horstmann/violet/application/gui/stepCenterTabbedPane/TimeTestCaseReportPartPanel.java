@@ -51,10 +51,10 @@ public class TimeTestCaseReportPartPanel extends JPanel {
 	private TestCase testcase;
 	private List<String> limit;
 
-	public TimeTestCaseReportPartPanel(TestCase testcase, List<String> limit) {
+	public TimeTestCaseReportPartPanel(TestCase testcase) {
 
 		this.testcase=testcase;
-		this.limit=limit;
+		this.limit=testcase.getLimit();
 		
 		init();
 
@@ -250,7 +250,7 @@ public class TimeTestCaseReportPartPanel extends JPanel {
 
 		for(myProcess p:testcase.getProcessList()){
 			
-			Object[] rowData={p.getProcessID(),p.getProcessName(),p.getProcessParam(),"",""};
+			Object[] rowData={p.getProcessID(),p.getProcessName(),p.getProcessParam(),p.getProcessStatus(),""};
 			attributetablemodel.addRow(rowData);
 			
 		}
@@ -334,6 +334,10 @@ public class TimeTestCaseReportPartPanel extends JPanel {
 
 	public JPanel getAttributepanel() {
 		return attributepanel;
+	}
+
+	public JPanel getLimitpanel() {
+		return limitpanel;
 	}
 
 	public JButton getToolbutton() {

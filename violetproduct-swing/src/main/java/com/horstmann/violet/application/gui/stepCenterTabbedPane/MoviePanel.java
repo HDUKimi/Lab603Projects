@@ -34,7 +34,7 @@ public class MoviePanel extends JPanel{
 		icon.setImage(icon.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
 		
 		movieLabel.setIcon(icon);
-		movieLabel.setText("流视频:通过代码图理解复杂代码--------");
+		movieLabel.setText("流视频:通过代码图理解复杂代码");
 		movieLabel.setForeground(new Color(0, 102, 204));
 		movieLabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		movieLabel.setBorder(BorderFactory.createEmptyBorder(3,8,4,0));

@@ -16,6 +16,7 @@ public class Display {
 		}
 		
 		mainFrame.getConsolePartPanel().getTextarea6().append(value+"\n");
+		mainFrame.getConsolePartPanel().getTextarea6().setCaretPosition(mainFrame.getConsolePartPanel().getTextarea6().getDocument().getLength());
 		
 	}
 	

@@ -249,7 +249,7 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 						columnindex[k++]=count++;
 						
 						String str=(String) attributetablemodel.getValueAt(index, i);
-						String[] strdata=str.split(",");
+						String[] strdata=str.split(",|--");
 						
 						for(String s:strdata){
 							rowDataList.add(s);

@@ -25,7 +25,7 @@ public class GetAutomatic {
 		/*for(State state:automatic.getStateSet()){
 			System.out.println("状态id个数"+state.getId()+"$$$$$$$$$$$");
 		}*/
-		for(Transition tran:automatic.getTransitionSet()){
+		for(Transition tran:automatic.getTransitionSet()){	
 			//System.out.println("迁移id个数"+tran.getId()+"^^^^^^^^^^^");
 			//+tran.getSource()+"---->"+tran.getTarget()+"约束： "+tran.getEventSet());
 //////////			System.out.println("condition:"+tran.getCondition());
@@ -111,8 +111,7 @@ public class GetAutomatic {
 			//System.out.println(events.size());
 			for(String e:events){
 //				System.out.println("事件："+e);
-			}
-			
+			}			
 			ArrayList<String> reset=tran.getResetClockSet();
 			for(String r:reset){
 				System.out.println("重置的时钟："+r);

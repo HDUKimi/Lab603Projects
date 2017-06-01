@@ -8,6 +8,8 @@ public class Automatic {
 	private ArrayList<Transition> TransitionSet;//转换集合
 	private ArrayList<State> StateSet;//状态集合
 	private ArrayList<String> ClockSet;//时钟集合
+	
+	
 	public String getName() {
 		return name;
 	}

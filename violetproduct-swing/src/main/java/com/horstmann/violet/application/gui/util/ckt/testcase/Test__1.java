@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.horstmann.violet.application.gui.util.ckt.handle.*;
 import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
+import com.horstmann.violet.application.gui.util.ckt.test.path;
 import com.horstmann.violet.application.gui.util.ckt.testcase.*;
 import com.horstmann.violet.application.gui.util.wj.bean.*;
 import com.horstmann.violet.application.gui.util.wj.util.*;
@@ -23,7 +24,9 @@ public class Test__1 {
 		print(aTDRTAutomatic);
 		
 		//Automatic DFStree=StateCoverage__1.DFSTree(aTDRTAutomatic);
-		ArrayList<Automatic> testCase=StateCoverage__1.testCase(aTDRTAutomatic);
+		//ArrayList<Automatic> testCase=StateCoverage__1.testCase(aTDRTAutomatic);
+		ArrayList<Automatic> testCase = path.testcase(aTDRTAutomatic);
+		
 		ArrayList<ArrayList<String>> all_inequalitys=Get_inequality__1.get_AllInequalitys(testCase);
 		
 		
@@ -37,6 +40,7 @@ public class Test__1 {
 			System.out.println("***************");
 			e++;
 		}
+		System.out.println("测试路径的个数----"+testCase.size());
 		
 		/*for(Automatic a:testCase){
 			for(Transition tran:a.getTransitionSet()){

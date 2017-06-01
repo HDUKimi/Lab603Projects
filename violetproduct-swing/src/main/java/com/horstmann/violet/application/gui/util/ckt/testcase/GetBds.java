@@ -217,6 +217,13 @@ public class GetBds {
 									}
 									String a=queue.poll();
 									while(a!=null){
+										if(a.contains("!")&&a.contains("False")){
+											a = a.replace("False", "True").replace("!", "");
+										}else{
+											if(a.contains("!")&&a.contains("True")){
+												a = a.replace("True","False").replace("!", "");
+											}
+										}
 										if(a.contains("<")||a.contains(">")||a.contains("=")){
 											if(a.contains("=")&&!a.contains("<")&&!a.contains(">")&&!a.contains("==")&&!a.contains("!=")){
 												a = a.replace("=", "==");
@@ -230,6 +237,13 @@ public class GetBds {
 								}
 								else{
 									if(!(bds.contains(","))){//--之中只有一个不等式	
+										if(bds.contains("!")&&bds.contains("False")){
+											bds = bds.replace("False", "True").replace("!", "");
+										}else{
+											if(bds.contains("!")&&bds.contains("True")){
+												bds = bds.replace("True","False").replace("!", "");
+											}
+										}
 										if(bds.contains("<")||bds.contains(">")||bds.contains("=")){
 											if(bds.contains("=")&&!bds.contains("<")&&!bds.contains(">")&&!bds.contains("==")&&!bds.contains("!=")){
 												bds = bds.replace("=", "==");
@@ -265,6 +279,13 @@ public class GetBds {
 									}
 									String a=queue.poll();
 									while(a!=null){
+										if(a.contains("!")&&a.contains("False")){
+											a = a.replace("False", "True").replace("!", "");
+										}else{
+											if(a.contains("!")&&a.contains("True")){
+												a = a.replace("True","False").replace("!", "");
+											}
+										}
 										if(a.contains("<")||a.contains(">")||a.contains("=")){
 											if(a.contains("=")&&!a.contains("<")&&!a.contains(">")&&!a.contains("==")&&!a.contains("!=")){
 												a = a.replace("=", "==");
@@ -277,6 +298,13 @@ public class GetBds {
 								}
 								else{
 									if(!(bds.contains(","))){//--之中只有一个不等式	
+										if(bds.contains("!")&&bds.contains("False")){
+											bds = bds.replace("False", "True").replace("!", "");
+										}else{
+											if(bds.contains("!")&&bds.contains("True")){
+												bds = bds.replace("True","False").replace("!", "");
+											}
+										}
 										if(bds.contains("<")||bds.contains(">")||bds.contains("=")){
 											if(bds.contains("=")&&!bds.contains("<")&&!bds.contains(">")&&!bds.contains("==")&&!bds.contains("!=")){
 												bds = bds.replace("=", "==");

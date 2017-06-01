@@ -14,7 +14,7 @@ public class PathCoverage {
 	private static List<ArrayList<State>> StateSet;//测试序列集合（状态）
 
 	public static void main(String[] args) {
-		String xml="rc_loopForXStream1.01.xml";
+		String xml="EASmallTime7ForXStream.xml";
 		Automatic auto=GetAutomatic.getAutomatic(xml);//获得原始的时间自动机
 		ArrayList<Automatic> testcaseSet=testCase(auto);
 		System.out.println();       

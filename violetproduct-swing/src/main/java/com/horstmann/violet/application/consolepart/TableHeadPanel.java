@@ -86,7 +86,7 @@ public class TableHeadPanel extends JPanel{
 	private void initLinePanel() {
 		// TODO Auto-generated method stub
 		
-		linelabel.setText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
+		linelabel.setText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
 		linelabel.setPreferredSize(new Dimension(100, 3));
 		linelabel.setForeground(new Color(0,0,0));
 		

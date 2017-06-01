@@ -131,6 +131,10 @@ public class StateCoverage__1 {
 	 * @return
 	 */
 	public static ArrayList<Automatic> testCase(Automatic a){
+		
+		/*for(Transition tran:a.getTransitionSet()){
+			System.out.println("========::"+tran.getName());
+		}*/
 		/*ArrayList<State> StateList=new ArrayList<State>();//ÖÕÖ¹×´Ì¬¼¯ºÏ
 		ArrayList<State> StateList1=new ArrayList<State>();//ÖÕÖ¹×´Ì¬¼¯ºÏ
 		//ËÑË÷ÖÕÖ¹×´Ì¬¼¯ºÏ

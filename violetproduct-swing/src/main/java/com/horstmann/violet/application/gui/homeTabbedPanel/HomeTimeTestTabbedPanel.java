@@ -226,7 +226,7 @@ public class HomeTimeTestTabbedPanel extends JPanel{
 				detailindex=1;
 				
 				inforrightdetailpanel.removeAll();
-//				inforrightdetailpanel.add(detailpanel1);
+				inforrightdetailpanel.add(detailpanel1);
 				
 				ChangeRepaint();
 				

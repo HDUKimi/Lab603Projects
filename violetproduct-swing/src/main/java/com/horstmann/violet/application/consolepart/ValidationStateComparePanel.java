@@ -185,7 +185,7 @@ public class ValidationStateComparePanel extends JPanel {
 	private void initLinePanel() {
 		// TODO Auto-generated method stub
 		
-		linelabel.setText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
+		linelabel.setText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
 		linelabel.setPreferredSize(new Dimension(100, 3));
 		linelabel.setForeground(new Color(223, 204, 221));
 		

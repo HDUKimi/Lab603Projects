@@ -22,6 +22,8 @@ public class TestCase implements Serializable{
 	TestCaseResult  result;
 	//测试用例细节
 	String  detail;
+	//时间约束不等式
+	List<String> limit;
 	
 	public TestCase() {
 	}
@@ -73,6 +75,14 @@ public class TestCase implements Serializable{
 
 	public void setProcessList(List<myProcess> list) {
 		this.processList = list;
+	}
+	
+	public List<String> getLimit() {
+		return limit;
+	}
+
+	public void setLimit(List<String> limit) {
+		this.limit = limit;
 	}
 
 	@Override

@@ -222,6 +222,8 @@ public class TestCaseConvertUtil {
 				type="function";
 			}else if(starttype==2){
 				type="performance";
+			}else{
+				type="time";
 			}
 			
 			// 1.按*号将测试用例划分
@@ -237,47 +239,91 @@ public class TestCaseConvertUtil {
 				String processList = stringRegEx(s, "processList:([\\s|\\S]*?)-->execStatus").get(0);
 				testCase.setProcessList(string2ProcessList(processList));
 				// 2.4.测试用例执行状态
-				// 类型 说明 : 1.测试用例有误,无法对应到执行程序，且测试耗时:[不准确] 2.测试耗时:
-				// 3.程序执行过程中出现死循环或者抛出异常!
+				/*	
+				 * 	功能性能 :
+				 * 		类型 说明 : 1.测试用例有误,无法对应到执行程序，且测试耗时:[不准确] 
+				 * 				2.测试耗时:
+				 * 				3.程序执行过程中出现死循环或者抛出异常!
+				 * 	时间约束:
+				 * 		[x:x] 第一个表示所用激励执行情况	 	1 有误，2 无误
+				 *			      第二个表示是否满足约束不等式 	1 不满足 ，2 满足
+				 */
 				TestCaseResult testCaseResult = new TestCaseResult();
 				String exeState = "", t = stringRegEx(s, "execStatus:([\\s|\\S]*?)-->resultStatus:").get(0);
 				if (t.contains(":")) {
 					String[] r = t.split(":");
-					switch (r[0]) {
-					case "1":
-						exeState = "测试用例有误,无法对应到执行程序，且测试耗时:" + r[1] + "[不准确]";
-						break;
-					case "2":
-						exeState = "测试耗时:" + r[1];
-						break;
-					}
-					if (type != "function") {
-						testCaseResult.setExeTime(Double.valueOf(r[1]));
-						testCaseResult.setTakeoff_alt(Double.valueOf(r[2].substring("takeoff_alt".length())));
-						testCaseResult.setBattery_remaining(Double.valueOf(r[3].substring("battery_remaining".length())));
-						testCaseResult.setTime(Double.valueOf(r[4].substring("time".length())));
-						testCaseResult.setWind_speed(Double.valueOf(r[5].substring("wind_speed".length())));
-					}
+					//时间约束
+					if(type == "time"){
+						String tStatus , eStatus ;
+						if("1".equals(r[0])){
+							tStatus = "测试用例有误,无法对应到执行程序";
+						}else{
+							tStatus = "测试用例正确执行";
+						}
+						
+						if("1".equals(r[1])){
+							eStatus = "不满足时间约束";
+						}else{
+							eStatus = "满足时间约束";
+						}
+						exeState = tStatus+",且"+eStatus;
+					}else{
+						//功能、性能
+						switch (r[0]) {
+							case "1":
+								exeState = "测试用例有误,无法对应到执行程序，且测试耗时:" + r[1] + "[不准确]";
+								break;
+							case "2":
+								exeState = "测试耗时:" + r[1];
+								break;
+						}
+						if (type != "function") {
+							testCaseResult.setExeTime(Double.valueOf(r[1]));
+							testCaseResult.setTakeoff_alt(Double.valueOf(r[2].substring("takeoff_alt".length())));
+							testCaseResult.setBattery_remaining(Double.valueOf(r[3].substring("battery_remaining".length())));
+							testCaseResult.setTime(Double.valueOf(r[4].substring("time".length())));
+							testCaseResult.setWind_speed(Double.valueOf(r[5].substring("wind_speed".length())));
+						}
+				
+					}	
 				} else {
 					exeState = "程序执行过程中出现死循环或者抛出异常!";
 				}
 				testCase.setState(exeState);
 				// 2.5.测试用例结果
-				// 类型 说明 : 1.测试用例有误,无法对应到执行程序! 2.测试执行成功!耗时: 3.程序出现出现死循环或者抛出异常!
+				/*
+				 *  功能性能 :
+				 *  	类型 说明 : 1.测试用例有误,无法对应到执行程序! 
+				 *  			2.测试执行成功!耗时: 
+				 *  			3.程序出现出现死循环或者抛出异常!
+				 *  时间约束:
+				 *  	1.出错时,错误的不等式  2.正确时,原约束不等式 3.出现死循环
+				 */
 				String result = "";
-				t = stringRegEx(s, "resultStatus:([\\s|\\S]*?)]").get(0);
-				if (!t.contains(":")) {
-					switch (t) {
-					case "1":
-						result = "测试用例有误,无法对应到执行程序!";
-						break;
-					case "3":
+				//时间约束
+				if(type =="time"){
+					result = stringRegEx(s, "resultStatus:([\\s|\\S]*?)]").get(0).split(":")[1];
+					if (result == "3") {
 						result = "程序出现出现死循环或者抛出异常!";
-						break;
 					}
-				} else {
-					result = "测试执行成功!耗时:" + t.split(":")[1];
+					
+				}else{
+					//功能性能
+					t = stringRegEx(s, "resultStatus:([\\s|\\S]*?)]").get(0);
+					if (!t.contains(":")) {
+						switch (t) {
+							case "1":
+								result = "测试用例有误,无法对应到执行程序!";
+								break;
+							case "3":
+								result = "程序出现出现死循环或者抛出异常!";
+								break;
+						}
+					} else {
+						result = "测试执行成功!耗时:" + t.split(":")[1];
+					}
 				}
+				
 				testCaseResult.setResultDetail(result);
 				testCase.setResult(testCaseResult);
 				// 2.6.测试用例表现格式
@@ -285,7 +331,9 @@ public class TestCaseConvertUtil {
 				// 2.7.加入测试用例链表
 				list.add(testCase);
 			}
-			if (type != "function") {
+			
+			//性能测试除去多个0%
+			if (type == "performance") {
 				// 处理多个0%
 				for (int i = 0; i < list.size(); i++) {
 					if (i + 1 < list.size()) {

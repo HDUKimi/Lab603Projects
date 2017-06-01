@@ -26,8 +26,8 @@ public class path {
 
 	public static ArrayList<Automatic> testcase(Automatic a) {
 		ArrayList<Transition> aaa_Transition = a.getTransitionSet();// 获得时间自动机迁移集合
-		ArrayList<State> aaa_StateSet = a.getStateSet();// 获得时间自动机状态集合
-		ArrayList<State> visitedState = new ArrayList<State>();// （保存已访问过的状态集合）
+		ArrayList<State> aaa_StateSet = a.getStateSet();//获得时间自动机状态集合
+		ArrayList<State> visitedState = new ArrayList<State>();//（保存已访问过的状态集合）
 		ArrayList<ArrayList<State>> S = new ArrayList<ArrayList<State>>();// 测试序列集合（状态）
 		ArrayList<ArrayList<Transition>> T = new ArrayList<ArrayList<Transition>>();// 测试序列集合（边）
 

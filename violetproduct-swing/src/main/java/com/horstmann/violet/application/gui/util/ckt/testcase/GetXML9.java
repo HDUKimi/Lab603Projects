@@ -345,7 +345,6 @@ public class GetXML9 {
 					//Ìí¼Ó½Úµã
 					Element process = testcase.addElement("process");
 					Element operation = process.addElement("operation");
-
 					int random = -1;
 					if (random == -1) {
 						random = new Random().nextInt(cases.get(nn).size());

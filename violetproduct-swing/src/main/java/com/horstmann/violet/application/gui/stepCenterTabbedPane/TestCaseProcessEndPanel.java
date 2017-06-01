@@ -244,9 +244,9 @@ public class TestCaseProcessEndPanel extends JPanel{
 		attributetable.getColumn("步骤").setPreferredWidth(200);
 		attributetable.getColumn("步骤").setMinWidth(200);
 		attributetable.getColumn("步骤").setMaxWidth(200);
-		attributetable.getColumn("耗时").setPreferredWidth(90);
-		attributetable.getColumn("耗时").setMinWidth(90);
-		attributetable.getColumn("耗时").setMaxWidth(90);
+		attributetable.getColumn("耗时").setPreferredWidth(60);
+		attributetable.getColumn("耗时").setMinWidth(60);
+		attributetable.getColumn("耗时").setMaxWidth(60);
 		attributetable.getColumn("运行结果").setPreferredWidth(600);
 		attributetable.getColumn("运行结果").setMinWidth(600);
         

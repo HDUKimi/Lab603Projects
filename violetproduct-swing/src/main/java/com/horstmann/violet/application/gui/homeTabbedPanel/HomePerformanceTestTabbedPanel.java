@@ -208,7 +208,7 @@ public class HomePerformanceTestTabbedPanel extends JPanel{
 		inforleftdescribelabel1=new JLabel();
 		inforleftdescribelabel2=new JLabel();
 		
-		inforleftnamelabel1.setText("<html><body><u>性能测试1：起飞性能测试</u></body></html>");
+		inforleftnamelabel1.setText("<html><body><u>性能场景1：起飞性能测试</u></body></html>");
 		inforleftnamelabel1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
 		inforleftnamelabel1.setForeground(new Color(104, 33, 122));
 		inforleftnamelabel1.setBorder(BorderFactory.createEmptyBorder(10, 0, 8, 0));
@@ -254,7 +254,7 @@ public class HomePerformanceTestTabbedPanel extends JPanel{
 		inforleftdescribelabel1.setFont(new Font("微软雅黑", Font.PLAIN, 15));
 		inforleftdescribelabel1.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 		
-		inforleftnamelabel2.setText("<html><body><u>性能测试2：悬停性能测试</u></body></html>");
+		inforleftnamelabel2.setText("<html><body><u>性能场景2：悬停性能测试</u></body></html>");
 		inforleftnamelabel2.setFont(new Font("微软雅黑", Font.PLAIN, 18));
 		inforleftnamelabel2.setBorder(BorderFactory.createEmptyBorder(10, 0, 8, 0));
 		inforleftnamelabel2.addMouseListener(new MouseListener() {
@@ -305,12 +305,12 @@ public class HomePerformanceTestTabbedPanel extends JPanel{
 		inforleftallsituationlabelpanel.setLayout(layout);
 		inforleftallsituationlabelpanel.add(inforleftnamelabel1);
 		inforleftallsituationlabelpanel.add(inforleftdescribelabel1);
-		inforleftallsituationlabelpanel.add(inforleftnamelabel2);
-		inforleftallsituationlabelpanel.add(inforleftdescribelabel2);
+//		inforleftallsituationlabelpanel.add(inforleftnamelabel2);
+//		inforleftallsituationlabelpanel.add(inforleftdescribelabel2);
 		layout.setConstraints(inforleftnamelabel1, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(inforleftdescribelabel1, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(inforleftnamelabel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(inforleftdescribelabel2, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//		layout.setConstraints(inforleftnamelabel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//		layout.setConstraints(inforleftdescribelabel2, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		
 //		inforleftlabel2.setText("<html><body>了解新功能<br>查看新增功能<br>了解有关的更多信息<body></html>");
 //		inforleftlabel2.setText("<html><body>功能场景1<br>名称：从地图一个位置飞向另一个位置<br>参与者：地面站，操作员</body></html>");
