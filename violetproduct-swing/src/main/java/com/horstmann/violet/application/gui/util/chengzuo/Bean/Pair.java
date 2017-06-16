@@ -1,35 +1,40 @@
 package com.horstmann.violet.application.gui.util.chengzuo.Bean;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class Pair implements Comparator<Pair>{
+public class Pair<K,V> implements Comparator<Pair>, Serializable{
 
-	private String first;
-	private String second;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 560468465208646461L;
+	private K first;
+	private V second;
 	
 	public Pair() {
 	}
 	
-	public Pair(String first, String second) {
+	public Pair(K first, V second) {
 		this.first = first;
 		this.second = second;
 	}
-	public String getFirst() {
+	public K getFirst() {
 		return first;
 	}
-	public void setFirst(String first) {
+	public void setFirst(K first) {
 		this.first = first;
 	}
-	public String getSecond() {
+	public V getSecond() {
 		return second;
 	}
-	public void setSecond(String second) {
+	public void setSecond(V second) {
 		this.second = second;
 	}
 
 	@Override
 	public int compare(Pair o1, Pair o2) {
-		return Integer.parseInt(o1.first) - Integer.parseInt(o2.first);
+		return Integer.parseInt((String) o1.first) - Integer.parseInt((String) o2.first);
 	}
 
 	@Override

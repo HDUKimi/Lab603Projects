@@ -32,8 +32,8 @@ public class PerformanceHighSpeedBarChart {
 		int index=0;
 		for(Pair p:resultlist){
 //			System.out.println(p.getFirst()+" - - "+p.getSecond());
-			categories[index]=p.getFirst();
-			highdata[index]=Integer.parseInt(p.getSecond());
+			categories[index]=(String) p.getFirst();
+			highdata[index]=Integer.parseInt((String) p.getSecond());
 			index++;
 		}
 		

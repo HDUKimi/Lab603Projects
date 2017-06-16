@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -260,7 +261,7 @@ public class TimeTestCaseReportPartPanel extends JPanel {
 	private void initLimitPanel() {
 		// TODO Auto-generated method stub
 		
-		String[] columnNames = { "     不等式组", " ", " ", " ", " ", " ", " " };
+		String[] columnNames = { "不等式组", "详细属性", "结果" };
 		String[][] tabelValues = {};
 
 		limittablemodel = new DefaultTableModel(tabelValues, columnNames) {
@@ -287,21 +288,26 @@ public class TimeTestCaseReportPartPanel extends JPanel {
 
 		limittable.getColumnModel().getColumn(0).setCellRenderer(new MyAllLabelRenderer());
 		limittable.getColumnModel().getColumn(1).setCellRenderer(new MyAllLabelRenderer());
-		limittable.getColumnModel().getColumn(2).setCellRenderer(new MyAllLabelRenderer());
-		limittable.getColumnModel().getColumn(3).setCellRenderer(new MyAllLabelRenderer());
-		limittable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
-		limittable.getColumnModel().getColumn(5).setCellRenderer(new MyAllLabelRenderer());
-		limittable.getColumnModel().getColumn(6).setCellRenderer(new MyAllLabelRenderer());
+		limittable.getColumnModel().getColumn(2).setCellRenderer(new MyLabelRenderer());
+//		limittable.getColumnModel().getColumn(3).setCellRenderer(new MyAllLabelRenderer());
+//		limittable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
+//		limittable.getColumnModel().getColumn(5).setCellRenderer(new MyAllLabelRenderer());
+//		limittable.getColumnModel().getColumn(6).setCellRenderer(new MyAllLabelRenderer());
 
-//		limittable.getColumn("不等式组").setPreferredWidth(100);
-//		limittable.getColumn("不等式组").setMinWidth(100);
-//		limittable.getColumn("不等式组").setMaxWidth(100);
+		limittable.getColumn("不等式组").setPreferredWidth(150);
+		limittable.getColumn("不等式组").setMinWidth(150);
+		limittable.getColumn("不等式组").setMaxWidth(150);
+		limittable.getColumn("详细属性").setPreferredWidth(600);
+		limittable.getColumn("详细属性").setMinWidth(600);
+		limittable.getColumn("结果").setPreferredWidth(50);
+		limittable.getColumn("结果").setMinWidth(50);
+		limittable.getColumn("结果").setMaxWidth(50);
 
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setBackground(new Color(71, 80, 93));
 		renderer.setForeground(new Color(255, 255, 255));
 		renderer.setFont(new Font("微软雅黑", Font.PLAIN, 13));
-		renderer.setHorizontalAlignment(DefaultTableCellRenderer.LEFT);
+		renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
 		limittable.getTableHeader().setDefaultRenderer(renderer);
 
 		limittable.getTableHeader().setPreferredSize(new Dimension(100, 27));
@@ -317,18 +323,30 @@ public class TimeTestCaseReportPartPanel extends JPanel {
 		limitpanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 		limitpanel.setOpaque(false);
 
-		int size=limit.size();
-		int index=0;
-		for(int i=0;i<size/7;i++){
-			Object[] rowData={limit.get(index),limit.get(index+1),limit.get(index+2),limit.get(index+3),limit.get(index+4),limit.get(index+5),limit.get(index+6)};
+//		int size=limit.size();
+//		int index=0;
+//		for(int i=0;i<size/7;i++){
+//			Object[] rowData={limit.get(index),limit.get(index+1),limit.get(index+2),limit.get(index+3),limit.get(index+4),limit.get(index+5),limit.get(index+6)};
+//			limittablemodel.addRow(rowData);
+//			index+=7;
+//		}
+//		Object[] rowData={"","","","","","",""};
+//		for(int obindex=0;index<size;){
+//			rowData[obindex++]=limit.get(index++);
+//		}
+//		limittablemodel.addRow(rowData);
+		
+//		for(String l:limit){
+//			Random rand=new Random();
+//			int index=rand.nextInt(2);
+//			Object[] rowData={l,"t1=1,t2=2,t1+t2=3",index};
+//			limittablemodel.addRow(rowData);
+//		}
+		
+		for(String l:limit){
+			Object[] rowData={l,"",-1};
 			limittablemodel.addRow(rowData);
-			index+=7;
 		}
-		Object[] rowData={"","","","","","",""};
-		for(int obindex=0;index<size;){
-			rowData[obindex++]=limit.get(index++);
-		}
-		limittablemodel.addRow(rowData);
 		
 	}
 
@@ -378,6 +396,18 @@ public class TimeTestCaseReportPartPanel extends JPanel {
 
 	public void setAttributetablemodel(DefaultTableModel attributetablemodel) {
 		this.attributetablemodel = attributetablemodel;
+	}
+
+	public JLabel getLinelabel() {
+		return linelabel;
+	}
+
+	public JTable getLimittable() {
+		return limittable;
+	}
+
+	public DefaultTableModel getLimittablemodel() {
+		return limittablemodel;
 	}
 
 	

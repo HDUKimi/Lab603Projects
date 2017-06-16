@@ -12,7 +12,7 @@ public class ShowInfor {
 	
 	public static void print(String s){
 		TestCaseProcessTabbedPanel.TextAreaPrint(s);
-		System.out.println(s);
+//		System.out.println(s);
 	}
 	
 }

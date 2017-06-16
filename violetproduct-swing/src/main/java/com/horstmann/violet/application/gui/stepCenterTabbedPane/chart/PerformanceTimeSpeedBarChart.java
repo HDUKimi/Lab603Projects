@@ -32,8 +32,8 @@ private List<Pair> resultlist;
 		int index=0;
 		for(Pair p:resultlist){
 //			System.out.println(p.getFirst()+" - - "+p.getSecond());
-			categories[index]=p.getFirst();
-			timedata[index]=Integer.parseInt(p.getSecond());
+			categories[index]=(String) p.getFirst();
+			timedata[index]=Integer.parseInt((String) p.getSecond());
 			index++;
 		}
 		

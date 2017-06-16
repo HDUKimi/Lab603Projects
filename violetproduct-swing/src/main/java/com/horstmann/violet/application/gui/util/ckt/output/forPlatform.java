@@ -358,14 +358,14 @@ public class forPlatform {
 //			if(num>5000){ //测试用例个数保持5000条以内
 //				num = 5000;
 //			}
-			int num=1;//一条路径100个测试用例///////////////////////////////////////////////////////////////////////////////////
+			int num=3;//一条路径100个测试用例///////////////////////////////////////////////////////////////////////////////////
 			if(num>numm){   //如果一条路径上解小于100，则选取真实个数
 				num = numm;
 			}
 			for(int n1=0;n1<num;n1++){
 				// 4、生成子节点及节点内容
 				Element testcase = tcs.addElement("testcase");
-				//ShowInfor.print("---------------------testcase"+n1);
+//				ShowInfor.print("---------------------testcase"+n1);
 				for(int nn=0;nn<cases.size();nn++){//cases.size表示边的个数
 					//添加节点
 					Element process = testcase.addElement("process");
@@ -375,11 +375,11 @@ public class forPlatform {
 					if (random == -1) {
 						random = new Random().nextInt(cases.get(nn).size());
 					}
-					//ShowInfor.print("random-->"+random);
+//					ShowInfor.print("random-->"+random);
 					String value = cases.get(nn).get(random);
-					//ShowInfor.print("解value-->"+value);
+//					ShowInfor.print("解value-->"+value);
 					String[] cs =value.toString().split("%");
-					//ShowInfor.print("operation-->"+cs[0]);
+//					ShowInfor.print("operation-->"+cs[0]);
 					if(cs[0].contains("flag=1")){
 						String name = cs[0].replace("flag=1", "");
 						operation.setText(name);
@@ -396,10 +396,10 @@ public class forPlatform {
 					}else{
 						input.setText(cs[1]);
 					}
-					//input.setText(cs[1]);
-					//ShowInfor.print("input-->"+cs[1]);
+					input.setText(cs[1]);
+//					ShowInfor.print("input-->"+cs[1]);
 				}
-				//ShowInfor.print("---------------------testcase");
+//				ShowInfor.print("---------------------testcase");
 			}
 			
 		}

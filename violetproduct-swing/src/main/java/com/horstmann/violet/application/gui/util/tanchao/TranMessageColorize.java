@@ -272,15 +272,16 @@ public class TranMessageColorize {
 				endid=t.getTarget();
 			}
 
-			
+			//1<br>setup()¶à¸ö£¨£©
 			
 			for (IEdge edge : edges) {
 				String labelName = ((TransitionEdge) edge).getLabel();
 				String endName=((CircularNode)((TransitionEdge) edge).getEnd()).getName();
-				System.out.println(id+" - ********* - "+endid+"    "+labelName+" - - - - "+endName);
+//				System.out.println(id+" - ********* - "+endid+"    "+labelName+" - - - - "+endName);
 //				System.out.println(id+" - "+labelName+" - "+id.equals(labelName)+" - "+(index++)+" - "+(edge==null));
 //				if (id.equals(labelName)) {
-				if (labelName.contains(id)) {
+				if ((id.equals(labelName)&&trantextstate==1)||(labelName.contains(id)&&trantextstate==0)) {
+					System.out.println(id+" - ********* - "+endid+"    "+labelName+" - - - - "+endName);
 					if (edge != null && IEdgeColorable.class.isInstance(edge)) {
 						
 						IEdgeColorable colorableEdge = (IEdgeColorable) edge;

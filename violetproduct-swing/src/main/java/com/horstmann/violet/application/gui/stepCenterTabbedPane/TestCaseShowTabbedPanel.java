@@ -124,6 +124,7 @@ public class TestCaseShowTabbedPanel extends JPanel{
 						
 						if (ttcrpp.getAttributepanel().isVisible()) {
 							ttcrpp.getAttributepanel().setVisible(false);
+							ttcrpp.getLimitpanel().setVisible(false);
 						}
 						
 					}
@@ -170,6 +171,7 @@ public class TestCaseShowTabbedPanel extends JPanel{
 						
 						if (!ttcrpp.getAttributepanel().isVisible()) {
 							ttcrpp.getAttributepanel().setVisible(true);
+							ttcrpp.getLimitpanel().setVisible(true);
 						}
 						
 					}

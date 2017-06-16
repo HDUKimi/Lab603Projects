@@ -8,31 +8,34 @@ public class TestCaseResult implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8755921071995628981L;
+	private static final long serialVersionUID = 1106050374724867452L;
 
-	//执行时间
-	private double exeTime;
-	
-	//高度
-	private double takeoff_alt;
-	
-	//电量
-	private double battery_remaining;
-	
-	//风速
-	private double wind_speed;
+	// 执行时间
+	private double exeTime = 0d;
 
-	//时间
-	private double time;
+	// 高度
+	private double takeoff_alt = 0d;
+
+	// 电量
+	private double battery_remaining = 0d;
+
+	// 风速
+	private double wind_speed = 0d;
+
+	// 时间
+	private double time = 0d;
 
 	private String resultDetail;
+
+	private Time timeLimit;
 	
 	DecimalFormat decimalFormat = new DecimalFormat("###");
-	
+
 	public TestCaseResult() {
 	}
 
-	public TestCaseResult(double exeTime,double wind_speed, double takeoff_alt, double battery_remaining, double time) {
+	public TestCaseResult(double exeTime, double wind_speed, double takeoff_alt, double battery_remaining,
+			double time) {
 		this.exeTime = exeTime;
 		this.takeoff_alt = takeoff_alt;
 		this.battery_remaining = battery_remaining;
@@ -40,7 +43,6 @@ public class TestCaseResult implements Serializable{
 		this.wind_speed = wind_speed;
 	}
 
-	
 	public String getWind_speed() {
 		return decimalFormat.format(wind_speed);
 	}
@@ -67,10 +69,9 @@ public class TestCaseResult implements Serializable{
 
 	public String getBattery_remaining() {
 		String tmp = decimalFormat.format(battery_remaining);
-		if(tmp.equals("-0"))
+		if (tmp.equals("-0"))
 			tmp = "0";
-		return tmp+"%";
-//		return tmp;
+		return tmp + "%";
 	}
 
 	public void setBattery_remaining(double battery_remaining) {
@@ -92,6 +93,14 @@ public class TestCaseResult implements Serializable{
 	public void setResultDetail(String resultDetail) {
 		this.resultDetail = resultDetail;
 	}
+	
+	public Time getTimeLimit() {
+		return timeLimit;
+	}
+
+	public void setTimeLimit(Time timeLimit) {
+		this.timeLimit = timeLimit;
+	}
 
 	@Override
 	public String toString() {
@@ -104,5 +113,5 @@ public class TestCaseResult implements Serializable{
 				+ ", 剩余电量="+ decimalFormat.format(battery_remaining) 
 				+ "%, 所用时间 =" + decimalFormat.format(time) + "]";
 	}
-	
+
 }

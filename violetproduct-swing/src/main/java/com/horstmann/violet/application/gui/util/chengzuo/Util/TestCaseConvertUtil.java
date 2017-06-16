@@ -19,6 +19,7 @@ import com.horstmann.violet.application.gui.homeTabbedPanel.HomeAllTabbedPanel;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.Pair;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCaseResult;
+import com.horstmann.violet.application.gui.util.chengzuo.Bean.Time;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
 
 /**
@@ -167,6 +168,34 @@ public class TestCaseConvertUtil {
 		finallStatisticsResult.put("failedStatistics", failedStatistics);
 		return finallStatisticsResult;
 	}
+	
+	/**
+	 * 时间测试工具
+	 * @param testCases
+	 * @return
+	 */
+	public static Time timeStatistics(String detail) {
+
+		// 1.获取返回测试结果
+		String result = detail;
+
+		// 2.按格式 获取各个部分的数值
+		String[] tmp = result.split("\\|");
+
+		Time time = new Time();
+		// 2.1 获取原始时间不等式
+		time.setOriginal(tmp[0]);
+		if (tmp.length > 2) {
+			// 2.2 获取出错列表
+			time.setError(tmp[2]);
+		}
+		// 2.3 封装映射表
+		time.setMapping(tmp[1]);
+
+		// 2.4封装结果
+		time.setShowMap();
+		return time;
+	}
 
 	/**
 	 * 将激励链表字符串转换成激励链表实体
@@ -305,6 +334,9 @@ public class TestCaseConvertUtil {
 					result = stringRegEx(s, "resultStatus:([\\s|\\S]*?)]").get(0).split(":")[1];
 					if (result == "3") {
 						result = "程序出现出现死循环或者抛出异常!";
+					}
+					else{
+						testCaseResult.setTimeLimit(timeStatistics(result));
 					}
 					
 				}else{

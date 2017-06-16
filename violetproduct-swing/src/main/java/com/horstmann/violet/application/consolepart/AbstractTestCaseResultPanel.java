@@ -585,7 +585,7 @@ public class AbstractTestCaseResultPanel extends JPanel{
 		});
 		
 		
-		testcaselabeltab2.setText("求解");
+		testcaselabeltab2.setText("求解信息");
 		testcaselabeltab2.setForeground(new Color(255, 255, 255));
 		testcaselabeltab2.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		testcaselabeltab2.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));

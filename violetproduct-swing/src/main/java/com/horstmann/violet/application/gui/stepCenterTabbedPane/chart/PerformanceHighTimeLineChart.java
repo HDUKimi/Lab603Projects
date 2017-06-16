@@ -36,7 +36,7 @@ public class PerformanceHighTimeLineChart {
 			XYSeries xyseries=new XYSeries(entry.getKey());
 			for(Pair p:entry.getValue()){
 //				System.out.println(p.getFirst()+" - - "+p.getSecond());
-				xyseries.add(Double.parseDouble(p.getFirst()), Double.parseDouble(p.getSecond()));
+				xyseries.add(Double.parseDouble((String) p.getFirst()), Double.parseDouble((String) p.getSecond()));
 			}
 			xyseriescollection.addSeries(xyseries);
 		}

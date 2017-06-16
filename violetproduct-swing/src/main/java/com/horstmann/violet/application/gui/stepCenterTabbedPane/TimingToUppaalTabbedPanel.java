@@ -931,6 +931,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 		};
 		
 		timingtouppaaltable=new JTable(timingtouppaaltablemodel);
+		timingtouppaaltable.setName("TimingToUppaalTabbedPanel");
 		
         timingtouppaaltable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         timingtouppaaltable.setSelectionBackground(new Color(250, 248, 236));

@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseProcessTabbedPanel;
 import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 
 public class TestCaseInequalitySolveInforPanel extends JPanel{
@@ -64,6 +65,8 @@ public class TestCaseInequalitySolveInforPanel extends JPanel{
 		this.mainFrame=mainFrame;
 		this.limittransition=limittransition;
 		this.resulttransition=resulttransition;
+		
+		id=String.valueOf(resulttransition.getId());
 		
 		init();
 		
@@ -112,6 +115,7 @@ public class TestCaseInequalitySolveInforPanel extends JPanel{
 		icon2.setImage(icon2.getImage().getScaledInstance(11,11, Image.SCALE_DEFAULT));
 		
 		titlelabel.setText("迁移"+id);
+		TestCaseProcessTabbedPanel.TextAreaPrint("迁移"+id);
 		titlelabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(250,0,60));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -229,28 +233,34 @@ public class TestCaseInequalitySolveInforPanel extends JPanel{
 //    	}
         
         Object[] rowData={"+-+不等式："};
+        TestCaseProcessTabbedPanel.TextAreaPrint("不等式：");
     	attributetablemodel.addRow(rowData);
         for(String l:limit){
         	if(l.equals("")||l==null){
         		Object[] rowData1={"null"};
+        		TestCaseProcessTabbedPanel.TextAreaPrint("null");
             	attributetablemodel.addRow(rowData1);
         	}
         	else{
         		Object[] rowData1={l};
+        		TestCaseProcessTabbedPanel.TextAreaPrint(l);
             	attributetablemodel.addRow(rowData1);
         	}
         }
         Object[] rowData2={"+-+求解："};
+        TestCaseProcessTabbedPanel.TextAreaPrint("求解：");
     	attributetablemodel.addRow(rowData2);
     	
     	if(result.equals("")){
     		Object[] rowData3={"null"};
+    		TestCaseProcessTabbedPanel.TextAreaPrint("null");
         	attributetablemodel.addRow(rowData3);
     	}
     	else{
 				String[] rs = result.split(",");
 				for (int i = 0; i < rs.length; i++) {
 					Object[] rowData3 = { rs[i] };
+					TestCaseProcessTabbedPanel.TextAreaPrint(rs[i]);
 					attributetablemodel.addRow(rowData3);
 				}
     	}

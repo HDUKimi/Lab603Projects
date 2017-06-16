@@ -442,7 +442,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				// TODO Auto-generated method stub
 				
 				while(progressbarindex<=100){
-					System.out.println(progressbarindex+"  "+(int)((double)100/stepsum)*step);
+					System.out.println(progressbarindex+"  "+((int)((double)100/stepsum)*step+1));
 					if(progressbarindex==(int)((double)100/stepsum)*step+1){
 						//开启下一个线程，并存入list
 						
@@ -469,10 +469,13 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						progressbarlabel.setText(progressbar.getValue()+"%");
 					}
 					if(step==stepsum-1&&!futuretasklist.get(step-1).isDone()){//处于实例化步骤时，增大休眠时间
-						Thread.sleep(1000);
+						Thread.sleep(5000);
 					}
+//					else if (step==stepsum&&!futuretasklist.get(step-1).isDone()){
+//						Thread.sleep(10000);
+//					}
 					else{
-						Thread.sleep(100);
+						Thread.sleep(500);
 					}
 				}
 				
@@ -860,7 +863,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						
 					}
 					else if(selectCoverState==1){//路径覆盖
-						testCase=GeneratePath.getFormatPathFromAutomatic(a, 100);
+						testCase=GeneratePath.getFormatPathFromAutomatic(a, 2000);
 					}
 				}
 				else if(starttype==2){//性能测试
@@ -1189,49 +1192,49 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				Thread.sleep(1000);
 				
 				//求解信息,collectLimit,collectResult
-				JPanel resultpanel1=new JPanel();
-				JPanel emptypanel1=new JPanel();
-				resultpanel1.setOpaque(false);
-				emptypanel1.setOpaque(false);
-				
-				GridBagLayout layout1 = new GridBagLayout();
-				resultpanel1.setLayout(layout1);
-//				int i=0;
-				i=0;
-//				for(int j=0;j<30;j++){
-				for(int j=0;j<collectLimit.size();j++){
-					
-					Automatic alimit=collectLimit.get(j);
-					Automatic aresult=collectResult.get(j);
-					
-					TestCaseInequalitySolvePanel tcispanel=new TestCaseInequalitySolvePanel(alimit.getName());
-					
-					JPanel processpanel=tcispanel.getAttributepanel();
-					GridBagLayout layout2 = new GridBagLayout();
-					processpanel.setLayout(layout2);
-					
-//					for(int k=0;k<10;k++){
-					for(int k=0;k<alimit.getTransitionSet().size();k++){
-						
-						List<String> slimit=Arrays.asList(alimit.getTransitionSet().get(k).getLimit().split(","));
-						List<String> sresult=aresult.getTransitionSet().get(k).getResult();
-						
-//						TestCaseInequalitySolveInforPanel tcisipanel=new TestCaseInequalitySolveInforPanel(alimit.getTransitionSet().get(k).getId()+"",slimit,sresult);
-						TestCaseInequalitySolveInforPanel tcisipanel=new TestCaseInequalitySolveInforPanel(mainFrame, alimit.getTransitionSet().get(k),aresult.getTransitionSet().get(k));
-						processpanel.add(tcisipanel);
-						layout2.setConstraints(tcisipanel, new GBC(0, k, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-						
-					}
-					
-					resultpanel1.add(tcispanel);
-					layout1.setConstraints(tcispanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-				}
-				resultpanel1.add(emptypanel1);
-				layout1.setConstraints(emptypanel1, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-				
-				mainFrame.getAbstractTestCaseResultPanel().getTworesultpanel().removeAll();
-				mainFrame.getAbstractTestCaseResultPanel().getTworesultpanel().add(resultpanel1);
-				mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab2().doClick();
+//				JPanel resultpanel1=new JPanel();
+//				JPanel emptypanel1=new JPanel();
+//				resultpanel1.setOpaque(false);
+//				emptypanel1.setOpaque(false);
+//				
+//				GridBagLayout layout1 = new GridBagLayout();
+//				resultpanel1.setLayout(layout1);
+////				int i=0;
+//				i=0;
+////				for(int j=0;j<30;j++){
+//				for(int j=0;j<collectLimit.size();j++){
+//					
+//					Automatic alimit=collectLimit.get(j);
+//					Automatic aresult=collectResult.get(j);
+//					
+//					TestCaseInequalitySolvePanel tcispanel=new TestCaseInequalitySolvePanel(alimit.getName());
+//					
+//					JPanel processpanel=tcispanel.getAttributepanel();
+//					GridBagLayout layout2 = new GridBagLayout();
+//					processpanel.setLayout(layout2);
+//					
+////					for(int k=0;k<10;k++){
+//					for(int k=0;k<alimit.getTransitionSet().size();k++){
+//						
+//						List<String> slimit=Arrays.asList(alimit.getTransitionSet().get(k).getLimit().split(","));
+//						List<String> sresult=aresult.getTransitionSet().get(k).getResult();
+//						
+////						TestCaseInequalitySolveInforPanel tcisipanel=new TestCaseInequalitySolveInforPanel(alimit.getTransitionSet().get(k).getId()+"",slimit,sresult);
+//						TestCaseInequalitySolveInforPanel tcisipanel=new TestCaseInequalitySolveInforPanel(mainFrame, alimit.getTransitionSet().get(k),aresult.getTransitionSet().get(k));
+//						processpanel.add(tcisipanel);
+//						layout2.setConstraints(tcisipanel, new GBC(0, k, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//						
+//					}
+//					
+//					resultpanel1.add(tcispanel);
+//					layout1.setConstraints(tcispanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//				}
+//				resultpanel1.add(emptypanel1);
+//				layout1.setConstraints(emptypanel1, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//				
+//				mainFrame.getAbstractTestCaseResultPanel().getTworesultpanel().removeAll();
+//				mainFrame.getAbstractTestCaseResultPanel().getTworesultpanel().add(resultpanel1);
+//				mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab2().doClick();
 				
 				mainFrame.getStepThreeCenterTabbedPane().getTestCaseInstantiationButtonPanel().setVisible(true);
 

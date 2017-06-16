@@ -955,6 +955,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 		};
 		
 		sequencetouppaaltable=new JTable(sequencetouppaaltablemodel);
+		sequencetouppaaltable.setName("SequenceToUppaalTabbedPanel");
 		
         sequencetouppaaltable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         sequencetouppaaltable.setSelectionBackground(new Color(250, 248, 236));

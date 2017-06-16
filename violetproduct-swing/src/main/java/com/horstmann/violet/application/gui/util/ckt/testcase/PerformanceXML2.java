@@ -647,13 +647,13 @@ public class PerformanceXML2 {
 					}
 				}
 			}
-			//ShowInfor.print("测试用例的个数为："+num);
-			//ShowInfor.print("in里面解个数："+cases);
+//			ShowInfor.print("测试用例的个数为："+num);
+//			ShowInfor.print("in里面解个数："+cases);
 			for(int n1=0;n1<num;n1++){
 				// 4、生成子节点及节点内容
 				Element testcase = tcs.addElement("testcase");
 				int m = n1;
-				//ShowInfor.print("---------------------testcase"+n1);
+//				ShowInfor.print("---------------------testcase"+n1);
 				for(int nn=0;nn<cases.size();nn++){//cases.size表示边的个数
 					//添加节点
 					Element process = testcase.addElement("process");
@@ -664,10 +664,10 @@ public class PerformanceXML2 {
 						if (random == -1) {
 							random = new Random().nextInt(cases.get(nn).size());
 						}
-						//ShowInfor.print("random-->"+random);
+//						ShowInfor.print("random-->"+random);
 						value = cases.get(nn).get(random);
 					}else{
-						//cases.get(nn).get(0).substring(18).contains("takeoff_alt_cm")
+//						cases.get(nn).get(0).substring(18).contains("takeoff_alt_cm")
 						if(cases.get(nn).get(0).contains("takeoff_alt_cm")){
 							if(cases.get(nn).size()<10){
 								int random = -1;
@@ -676,16 +676,16 @@ public class PerformanceXML2 {
 								}
 								value = cases.get(nn).get(random);	
 							}else{
-								//ShowInfor.print("第"+n1+"个测试用例");
-								//ShowInfor.print("======"+n1);
-								//ShowInfor.print(cases.get(nn).size());
+//								ShowInfor.print("第"+n1+"个测试用例");
+//								ShowInfor.print("======"+n1);
+//								ShowInfor.print(cases.get(nn).size()+"");
 								value = cases.get(nn).get(m);
 							}						
 						}					
 					}
-					//ShowInfor.print("解value-->"+value);
+//					ShowInfor.print("解value-->"+value);
 					String[] cs =value.toString().split("%");
-					//ShowInfor.print("operation-->"+cs[0]);
+//					ShowInfor.print("operation-->"+cs[0]);
 					if(cs[0].contains("flag=1")){
 						String name = cs[0].replace("flag=1", "");
 						operation.setText(name);
@@ -703,22 +703,23 @@ public class PerformanceXML2 {
 						input.setText(cs[1]);
 					}
 					//input.setText(cs[1]);
-					//ShowInfor.print("input-->"+cs[1]);
+//					ShowInfor.print("input-->"+cs[1]);
 					Element output = process.addElement("output");
-					//ShowInfor.print(outtt.get(nn).toString());
+//					ShowInfor.print(outtt.get(nn).toString());
 					output.setText(cs[2]);
+//					ShowInfor.print("output-->"+cs[2]);
 
 				}
-				//ShowInfor.print("---------------------testcase");
-				//ShowInfor.print(a.getName());
+//				ShowInfor.print("---------------------testcase");
+//				ShowInfor.print(a.getName());
 			}
 			////////
-			//ShowInfor.print("===========================第"+i+"条测试用例读取完成");
+//			ShowInfor.print("===========================第"+i+"条测试用例读取完成");
 			
 			//}//for(Automatic a:testCase)
 
-			//ShowInfor.print("抽象测试序列个数："+testCase.size());
-			ShowInfor.print();
+//			ShowInfor.print("抽象测试序列个数："+testCase.size());
+//			ShowInfor.print();
 			/////////////////////
 			/////////////////////
 			

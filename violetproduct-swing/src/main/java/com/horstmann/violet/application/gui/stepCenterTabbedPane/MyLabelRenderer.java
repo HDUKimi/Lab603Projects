@@ -40,20 +40,54 @@ public class MyLabelRenderer extends JLabel implements TableCellRenderer{
 
 		pngstate=Integer.parseInt(value.toString());
 		
-		if(pngstate==0){
-			pngname="table_start";
+		String tablename=table.getName();
+		
+		if(tablename.equals("SequenceToUppaalTabbedPanel")||tablename.equals("TimingToUppaalTabbedPanel")){
+			if(pngstate==0){
+				pngname="table_start";
+			}
+			else if(pngstate==1){
+				pngname="table_end";
+			}
+			ImageIcon icon = new ImageIcon(path + pngname+".png");
+			icon.setImage(icon.getImage().getScaledInstance(22,22, Image.SCALE_DEFAULT));
+			
+	        setIcon(icon);
 		}
-		else if(pngstate==1){
-			pngname="table_end";
+		else if(table.getName().equals("TimeTestCaseReportLimitPartPanel")){
+			
+//			if(pngstate==-1){
+//			}
+//			else{
+//				
+//			}
+			
+			if(pngstate==0){
+				pngname="cross";
+			}
+			else if(pngstate==1){
+				pngname="tick";
+			}
+			ImageIcon icon = new ImageIcon(path + pngname+".png");
+			icon.setImage(icon.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+			
+	        setIcon(icon);
 		}
+		
+//		if(pngstate==0){
+//			pngname="table_start";
+//		}
+//		else if(pngstate==1){
+//			pngname="table_end";
+//		}
 //		else if(pngstate==2){
 //			pngname="table_uppaal";
 //		}
 		
-		ImageIcon icon = new ImageIcon(path + pngname+".png");
-		icon.setImage(icon.getImage().getScaledInstance(22,22, Image.SCALE_DEFAULT));
-		
-        setIcon(icon);
+//		ImageIcon icon = new ImageIcon(path + pngname+".png");
+//		icon.setImage(icon.getImage().getScaledInstance(22,22, Image.SCALE_DEFAULT));
+//		
+//        setIcon(icon);
 //        setBackground(Color.RED);
 //        setOpaque(false);
 
