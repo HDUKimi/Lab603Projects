@@ -72,6 +72,7 @@ import com.horstmann.violet.application.gui.util.ckt.output.forPlatform;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML2;
 import com.horstmann.violet.application.gui.util.ckt.xml.GetTimeXML;
+import com.horstmann.violet.application.gui.util.tanchao.SaveText;
 import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
 import com.horstmann.violet.application.gui.util.wj.util.GeneratePath;
 
@@ -923,10 +924,39 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					}
 					else if(selectCoverState==1){//路径覆盖
 						moviepanel.getMovieLabel().setText("正在进行路径覆盖，生成测试序列");
-						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行路径覆盖，生成测试序列");
+						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel()
+								.getMovieLabel().setText("正在进行路径覆盖，生成测试序列");
 						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("路径覆盖");
 						TextAreaPrint("正在进行路径覆盖，生成测试序列");
 					}
+				}
+
+				
+				int k=1;
+				for (Automatic am : testCase) {
+
+					SaveText.init("D:\\Text\\testfugai.txt");
+					SaveText.SaveWord("测试用例ID: " + k);
+					SaveText.SaveWord("迁移列表: ");
+					for (Transition t : am.getTransitionSet()) {
+						SaveText.SaveWord(t.toString());
+					}
+					SaveText.SaveFenGe();
+					SaveText.End();
+
+					SaveText.init("D:\\Text\\testlujing.txt");
+					SaveText.SaveWord("路径: " + k);
+					SaveText.SaveWord(
+							"包含 " + am.getStateSet().size() + " 个状态节点 " + am.getTransitionSet().size() + " 条消息迁移 ");
+					SaveText.SaveWord("路径详情: ");
+					for (int index = 0; index < am.getTransitionSet().size(); index++) {
+						SaveText.SaveWord(am.getTransitionSet().get(index).toString());
+						SaveText.SaveWord(am.getStateSet().get(index).toString());
+					}
+					SaveText.SaveFenGe();
+					SaveText.End();
+					
+					k++;
 				}
 				
 				//测试序列
@@ -1041,6 +1071,23 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				//获取数据
 				collectLimit = forPlatform.collectLimit(testCase);
 				
+				
+				int k=1;
+				for (Automatic am : collectLimit) {
+
+					SaveText.init("D:\\Text\\testyueshu.txt");
+					SaveText.SaveWord("测试用例ID: " + k);
+					SaveText.SaveWord("迁移列表: ");
+					for (Transition t : am.getTransitionSet()) {
+						SaveText.SaveWord(t.toString());
+					}
+					SaveText.SaveFenGe();
+					SaveText.End();
+
+					k++;
+				}
+				
+				
 				Thread.sleep(1000);
 				
 				TestCaseProduceTabbedPanel copytcptpanel=new TestCaseProduceTabbedPanel(mainFrame);
@@ -1134,6 +1181,23 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					PerAutomaticResult=PerformanceXML2.getPerformResultFromAutomatic(DFStree);
 					collectResult.add(PerAutomaticResult);
 				}
+				
+				
+				int k=1;
+				for (Automatic am : collectResult) {
+
+					SaveText.init("D:\\Text\\testshilihua.txt");
+					SaveText.SaveWord("测试用例ID: " + k);
+					SaveText.SaveWord("迁移列表: ");
+					for (Transition t : am.getTransitionSet()) {
+						SaveText.SaveWord(t.toString());
+					}
+					SaveText.SaveFenGe();
+					SaveText.End();
+
+					k++;
+				}
+				
 				
 				Thread.sleep(1000);
 				
@@ -1350,6 +1414,18 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					
 					testcaselist=TestCaseConfirmationPanel.extractPerformanceTestDataFromXml(path);
 					
+					SaveText.init("D:\\Text\\performancetesttestcaselist.txt");
+					for(TestCase tc:testcaselist){
+						SaveText.SaveWord("测试用例ID: "+tc.getTestCaseID());
+						SaveText.SaveWord("风速级别: "+tc.getResult().getWind_speed()+" 起飞高度: "+tc.getResult().getTakeoff_alt());
+						SaveText.SaveWord("激励列表: ");
+						for(myProcess p:tc.getProcessList()){
+							SaveText.SaveWord("激励ID: "+p.getProcessID()+" 激励名称: "+p.getProcessName()+" 激励参数: "+p.getProcessParam());
+						}
+						SaveText.SaveFenGe();
+					}
+					SaveText.End();
+					
 					JPanel resultpanel=new JPanel();
 					JPanel emptypanel=new JPanel();
 					resultpanel.setOpaque(false);
@@ -1394,6 +1470,21 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 //					Map resultmap=TestCaseConfirmationPanel.extractTimeTestDataFromXml(path);
 //					testcaselist=(List<TestCase>) resultmap.get("testcase");
 //					limitlist=(List<List<String>>) resultmap.get("limit");
+					
+					SaveText.init("D:\\Text\\timetesttestcaselist.txt");
+					for(TestCase tc:testcaselist){
+						SaveText.SaveWord("测试用例ID: "+tc.getTestCaseID());
+						SaveText.SaveWord("激励列表: ");
+						for(myProcess p:tc.getProcessList()){
+							SaveText.SaveWord("激励ID: "+p.getProcessID()+" 激励名称: "+p.getProcessName()+" 激励参数: "+p.getProcessParam());
+						}
+						SaveText.SaveWord("不等式组列表: ");
+						for(String s:tc.getLimit()){
+							SaveText.SaveWord(s);
+						}
+						SaveText.SaveFenGe();
+					}
+					SaveText.End();
 					
 					JPanel resultpanel=new JPanel();
 					JPanel emptypanel=new JPanel();

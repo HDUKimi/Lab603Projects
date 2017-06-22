@@ -64,7 +64,7 @@ public class State {
 	}
 	@Override
 	public String toString() {
-		return "State [id=" + id + ", name=" + name + ", position=" + position + ", finalState="
+		return "״̬ " + id + " [id=" + id + ", name=" + name + ", position=" + position + ", finalState="
 				+ finalState + ", type=" + type + "]";
 	}
 	

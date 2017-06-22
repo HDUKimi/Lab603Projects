@@ -128,16 +128,16 @@ public class Transition {
 	
 	@Override
 	public String toString() {
-		return "Transition [id=" + id + ", name=" + name + ", source=" + source + ", target=" + target + ", in=" + in + ", out=" + out + ", condition=" + condition
+		return "Ç¨ÒÆ " + id + " [id=" + id + ", name=" + name + ", source=" + source + ", target=" + target + ", in=" + in + ", out=" + out + ", condition=" + condition
 				+ "]";
 	}
 	
 	public String toString1() {
-		return "Transition [id=" + id + ", name=" + name + ", source=" + source + ", target=" + target + ", limit=" + limit + "]";
+		return "Ç¨ÒÆ " + id + " [id=" + id + ", name=" + name + ", source=" + source + ", target=" + target + ", limit=" + limit + "]";
 	}
 	
 	public String toString2() {
-		return "Transition [id=" + id + ", name=" + name + ", source=" + source + ", target=" + target + ", result=" + result + "]";
+		return "Ç¨ÒÆ " + id + " [id=" + id + ", name=" + name + ", source=" + source + ", target=" + target + ", result=" + result + "]";
 	}
 	
 	

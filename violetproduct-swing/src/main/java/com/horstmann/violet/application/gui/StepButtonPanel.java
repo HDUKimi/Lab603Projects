@@ -535,7 +535,7 @@ public class StepButtonPanel extends JPanel {
 			}
 		});
 		step5button.setIcon(icon5);
-		step5button.setText("≤‚ ‘±®∏Ê");
+		step5button.setText("≤‚ ‘÷¥––");
         step5button.setFont(new Font("Œ¢»Ì—≈∫⁄", Font.PLAIN, 13));
         step5button.setForeground(new Color(255,255,255));
         step5button.setHorizontalTextPosition(SwingConstants.CENTER);
