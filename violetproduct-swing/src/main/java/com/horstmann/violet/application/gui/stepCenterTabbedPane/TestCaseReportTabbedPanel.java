@@ -771,6 +771,10 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				int cs=0,cf=0,csum=0;
 				cs=caseSuccess.size();
 				cf=caseFailed.size();
+				
+//				cs=1935;
+//				cf=139;
+				
 				csum=cs+cf;
 				DefaultTableModel successfailedtabelmodel=mainFrame.getStepFiveCenterTabbedPane().getFunctionalTestCaseChartTabbedPanel().getSuccessfailedattributetablemodel();
 				while(successfailedtabelmodel.getRowCount()>0){
@@ -785,9 +789,13 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				if (failedStatistics.containsKey("测试用例有误")) {
 					f1=failedStatistics.get("测试用例有误").size();
 				}
-				if(failedStatistics.containsKey("程序出现出现死循环或者抛出异常")){
-					f2=failedStatistics.get("程序出现出现死循环或者抛出异常").size();
+				if(failedStatistics.containsKey("程序出现死循环或者抛出异常")){
+					f2=failedStatistics.get("程序出现死循环或者抛出异常").size();
 				}
+				
+//				f1=116;
+//				f2=23;
+				
 				DefaultTableModel failedstatisticstabelmodel=mainFrame.getStepFiveCenterTabbedPane().getFunctionalTestCaseChartTabbedPanel().getFailedstatisticsattributetablemodel();
 				while(failedstatisticstabelmodel.getRowCount()>0){
 					failedstatisticstabelmodel.removeRow(0);
@@ -798,11 +806,13 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				failedstatisticstabelmodel.addRow(rowData4);
 				
 				
-				FunctionSuccessFailedPieChart fsfpc=new FunctionSuccessFailedPieChart(caseSuccess, caseFailed);
+//				FunctionSuccessFailedPieChart fsfpc=new FunctionSuccessFailedPieChart(caseSuccess, caseFailed);
+				FunctionSuccessFailedPieChart fsfpc=new FunctionSuccessFailedPieChart(cs, cf);
 				mainFrame.getStepFiveCenterTabbedPane().getFunctionalTestCaseChartTabbedPanel().getSuccessfailedpiepanel().removeAll();
 				mainFrame.getStepFiveCenterTabbedPane().getFunctionalTestCaseChartTabbedPanel().getSuccessfailedpiepanel().add(fsfpc.createChart());
 				
-				FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(failedStatistics);
+//				FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(failedStatistics);
+				FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(f1, f2);
 				mainFrame.getStepFiveCenterTabbedPane().getFunctionalTestCaseChartTabbedPanel().getFailedstatisticspiepanel().removeAll();
 				mainFrame.getStepFiveCenterTabbedPane().getFunctionalTestCaseChartTabbedPanel().getFailedstatisticspiepanel().add(ffspc.createChart());
 				

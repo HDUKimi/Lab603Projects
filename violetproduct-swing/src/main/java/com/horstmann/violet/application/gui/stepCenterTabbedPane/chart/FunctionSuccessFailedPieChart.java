@@ -16,16 +16,25 @@ public class FunctionSuccessFailedPieChart {
 	private List<Integer> caseSuccess;
 	private List<Integer> caseFailed;
 	
+	private int caseSuccessSize;
+	private int caseFailedSize;
+	
 	public FunctionSuccessFailedPieChart(List<Integer> caseSuccess, List<Integer> caseFailed) {
 		this.caseSuccess=caseSuccess;
 		this.caseFailed=caseFailed;
+	}
+	
+	public FunctionSuccessFailedPieChart(int caseSuccessSize, int caseFailedSize) {
+		this.caseSuccessSize=caseSuccessSize;
+		this.caseFailedSize=caseFailedSize;
 	}
 
 	public DefaultPieDataset createDataset() {
 //		String[] categories = { "Active", "fixed", "postponed", "won't fix", "Not repro", "By design", "duplicate", "externa" };
 //		Object[] datas = { 16, 12, 13, 10, 15, 8, 9, 10 };
 		String[] categories = { "³É¹¦", "Ê§°Ü" };
-		Object[] datas = { caseSuccess.size(), caseFailed.size() };
+//		Object[] datas = { caseSuccess.size(), caseFailed.size() };
+		Object[] datas = { caseSuccessSize, caseFailedSize };
 		DefaultPieDataset dataset = ChartUtils.createDefaultPieDataset(categories, datas);
 		return dataset;
 	}

@@ -14,6 +14,14 @@ import com.wolfram.jlink.MathLinkFactory;
 
 
 public class Mathematica {
+	public static void main(String[] args) {
+		String s1 = "target_climb_rate==0.1,-32768.00<=target_climb_rate<=32769.00";
+		String s2 = "target_climb_rate";
+		String solution = Mathematica.getSolution4(s1, s2, 5);
+		System.out.println(solution.toString());
+	}
+	
+	
 	private static String parameter1;    //不等式组合
 	private static String parameter2;    //参数
 	private static String result;        //所求的解
@@ -75,7 +83,7 @@ public class Mathematica {
 	 */
 	public static KernelLink ml;
 	public static final String PATH ="-linkmode launch -linkname 'D:\\coding\\10.2\\MathKernel.exe'";
-	public static String getSolution2(String param1, String param2) {
+	public static String getSolution2(String param1, String param2, int resultNum) {
 
 //		KernelLink ml = null;
 //
@@ -127,12 +135,22 @@ public class Mathematica {
 			replace(param1, param2);
 			//System.out.println(parameter1 + "======" + parameter2);
 			//			System.out.println("不等式："+parameter1 + "----》所求参数：" + parameter2);
+			String strResult;
+			if(resultNum==1){
+				strResult = ml.evaluateToOutputForm(
+						"FindInstance[{" + parameter1 + "}, {"
+								+ parameter2 + "},Integers, 1]", 0); 
+			}else{
+				strResult = ml.evaluateToOutputForm(
+						"FindInstance[{" + parameter1 + "}, {"
+								+ parameter2 + "},Integers, 10]", 0); 
+			}
 			/*String strResult = ml.evaluateToOutputForm(
 					"SetAccuracy[FindInstance[{" + parameter1 + "}, {"
 							+ parameter2 + "}, 1], 3]", 0);*/
-			String strResult = ml.evaluateToOutputForm(
-					"FindInstance[{" + parameter1 + "}, {"
-							+ parameter2 + "},Integers, 1]", 0);   //////////////////////////////////////40
+//			String strResult = ml.evaluateToOutputForm(
+//					"FindInstance[{" + parameter1 + "}, {"
+//							+ parameter2 + "},Integers, 1]", 0);   //////////////////////////////////////40
 			System.out.println("mma中整数不等式"+parameter1);
 			System.out.println("mma中整数参数"+parameter2);
 			// System.out.println(strResult);
@@ -155,10 +173,10 @@ public class Mathematica {
 	 * @param param2  boolcs
 	 * @return
 	 */
-	public static String getSolution3(String param1, String param2) {
+	public static String getSolution3(String param1, String param2, int resultNum) {
 
 		KernelLink ml = null;
-		String path = "-linkmode launch -linkname 'D:\\coding\\10.2\\MathKernel.exe'";
+		String path = "-linkmode launch -linkname 'D:\\Mathematica\\10.2\\MathKernel.exe'";
 		try {
 
 			ml = MathLinkFactory.createKernelLink(path);
@@ -193,7 +211,7 @@ public class Mathematica {
 			//			System.out.println("不等式："+parameter1 + "----》所求参数：" + parameter2);
 			String strResult = ml.evaluateToOutputForm(
 					"FindInstance[{" + parameter1 + "}, {"
-							+ parameter2 + "},Booleans, 1]", 0);
+							+ parameter2 + "},Booleans, resultNum]", 0);
 //			System.out.println("mma中布尔不等式"+parameter1);
 //			System.out.println("mma中布尔参数"+parameter2);
 			// System.out.println(strResult);
@@ -220,7 +238,7 @@ public class Mathematica {
 	 * @param param2  boolcs
 	 * @return
 	 */
-	public static String getSolution4(String param1, String param2) {
+	public static String getSolution4(String param1, String param2, int resultNum) {
 
 //		KernelLink ml = null;
 //		
@@ -274,18 +292,28 @@ public class Mathematica {
 //			String strResult = ml.evaluateToOutputForm(
 //					"SetAccuracy[FindInstance[{" + parameter1 + "}, {"
 //							+ parameter2 + "}, 1], 3]", 0);////////////////////////////////////////////////
+			String strResult;
+			if(resultNum==1){
+				strResult = ml.evaluateToOutputForm(
+						"FindInstance[{" + parameter1 + "}, {"
+								+ parameter2 + "}, 1]", 0); 
+			}else{
+				strResult = ml.evaluateToOutputForm(
+						"FindInstance[{" + parameter1 + "}, {"
+								+ parameter2 + "}, 10]", 0); 
+			}
 
-			String strResult = ml.evaluateToOutputForm(
-					"FindInstance[{" + parameter1 + "}, {"
-							+ parameter2 + "}, 1]", 0);
+//			String strResult = ml.evaluateToOutputForm(
+//					"FindInstance[{" + parameter1 + "}, {"
+//							+ parameter2 + "}, resultNum]", 0);
 			
 			
-			//			System.out.println("mma中小数不等式"+parameter1);
-//			System.out.println("mma中小数参数"+parameter2);
-			// System.out.println(strResult);
+			System.out.println("mma中小数不等式"+parameter1);
+            System.out.println("mma中小数参数"+parameter2);
+			System.out.println(strResult);
 			// 再将替换的参数标识符替换回原样
 			recovery(strResult);
-			//System.out.println(result);
+			System.out.println(result);
 			return result;
 
 		} catch (Exception e) {

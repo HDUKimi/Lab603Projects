@@ -99,7 +99,8 @@ public class GetXML {
 				if((bds1!=null)&&(cs1!=null)){
 					System.out.println("*******数值不等式*******"+bds1);
 					System.out.println("*******数值参数*******"+cs1);
-					String solution1 = Mathematica.getSolution2(bds1, cs1);
+					int resultNum = getMathNum(bds1);
+					String solution1 = Mathematica.getSolution2(bds1, cs1, resultNum);
 					s=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 					System.out.println("数值型约束解为："+solution1);
 					//System.out.println("数值型约束解为：");
@@ -107,7 +108,8 @@ public class GetXML {
 					//System.out.println("##########"+s);
 				}
 				if((boolbds!=null)&&(boolcs!=null)){
-					String solution2 = Mathematica.getSolution3(boolbds, boolcs);
+					int resultNum = getMathNum(boolbds);
+					String solution2 = Mathematica.getSolution3(boolbds, boolcs, resultNum);
 					s1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=");
 					System.out.println("布尔型值解为："+solution2);
 					//System.out.println("布尔型值解为：");
@@ -169,6 +171,16 @@ public class GetXML {
 		
 		
 	
+	}
+	public static int getMathNum(String bds) {
+		String[] bNum = bds.split(",");
+		int resultNum;
+		if (bNum.length > 8) {
+			resultNum = 1;
+		} else {
+			resultNum = 5;
+		}
+		return resultNum;
 	}
 
 }

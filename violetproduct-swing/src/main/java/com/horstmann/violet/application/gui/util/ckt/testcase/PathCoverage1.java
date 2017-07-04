@@ -12,7 +12,6 @@ public class PathCoverage1 {
 		String xml="EASmallTime7ForXStream.xml";
 		Automatic auto=GetAutomatic.getAutomatic(xml);//获得原始的时间自动机
 		ArrayList<Automatic> testcaseSet=testCase(auto);
-
 	}
 	
 	/**

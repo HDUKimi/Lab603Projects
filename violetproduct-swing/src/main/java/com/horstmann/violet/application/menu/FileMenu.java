@@ -53,6 +53,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollBar;
 import javax.swing.JTree;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -870,8 +871,8 @@ public class FileMenu extends JMenu
                    IWorkspace workspace = new Workspace(graphFile);
                    mainFrame.addTabbedPane(workspace);
                    
-                   userPreferencesService.addOpenedFile(graphFile);
-                   userPreferencesService.addRecentFile(graphFile);
+//                   userPreferencesService.addOpenedFile(graphFile);
+//                   userPreferencesService.addRecentFile(graphFile);
                    
 					String type = (selectedFile.getFilename().split("\\."))[1];
 					JButton tabbutton;
@@ -972,6 +973,9 @@ public class FileMenu extends JMenu
 						timingtree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
 						
 					}
+					
+					JScrollBar bar=mainFrame.getStepOneCenterTabbedPane().getButtonScrollPanel().getHorizontalScrollBar();
+			        bar.setValue(bar.getMaximum());
                    
                }
                catch (StreamException se)
@@ -1059,6 +1063,13 @@ public class FileMenu extends JMenu
         					List<ButtonTabbedPanel> stateDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists();
         					List<ButtonTabbedPanel> usecaseDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists();
                             
+//        					System.out.println("---  "+str+" *** "+str.getBytes().length+" *** "+str.length());
+        					int bl=str.getBytes().length;
+        					int cl=str.length();
+        					
+//        					width=tabbedbuttontext.length()*12+60;
+        					int width=(bl-cl)*12+(2*cl-bl)*7+60;
+        					
                             if(itemname.equals("Us")){
                             	
                             	mainFrame.getConsolePartPanel().getTextarea1().append("ÐÂ½¨ÓÃÀýÍ¼: "+str+".seq.violet.xml\n");
@@ -1067,7 +1078,7 @@ public class FileMenu extends JMenu
                             	tabbutton.setText(str);
                             	tabbutton.doClick();
                             	
-                            	int width=str.length()*12+60;
+//                            	int width=str.length()*12+60;
                             	usecaseDiagramButtonTabbedPanelLists.get(usecaseDiagramButtonTabbedPanelLists.size()-1).setPreferredSize(new Dimension(width, 23));
                             	
                             	JTree usecasetree=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetree();
@@ -1090,7 +1101,7 @@ public class FileMenu extends JMenu
                             	tabbutton.setText(str);
                             	tabbutton.doClick();
                             	
-                            	int width=str.length()*12+60;
+//                            	int width=str.length()*12+60;
                             	stateDiagramButtonTabbedPanelLists.get(stateDiagramButtonTabbedPanelLists.size()-1).setPreferredSize(new Dimension(width, 23));
                             	
                             	JTree statetree=mainFrame.getProjectTree().getStateTreePanel().getStatetree();
@@ -1113,7 +1124,7 @@ public class FileMenu extends JMenu
                             	tabbutton.setText(str);
                             	tabbutton.doClick();
                             	
-                            	int width=str.length()*12+60;
+//                            	int width=str.length()*12+60;
                             	sequenceDiagramButtonTabbedPanelLists.get(sequenceDiagramButtonTabbedPanelLists.size()-1).setPreferredSize(new Dimension(width, 23));
                             	
                             	JTree sequencetree=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetree();
@@ -1136,7 +1147,7 @@ public class FileMenu extends JMenu
                             	tabbutton.setText(str);
                             	tabbutton.doClick();
                             	
-                            	int width=str.length()*12+60;
+//                            	int width=str.length()*12+60;
                             	timingDiagramButtonTabbedPanelLists.get(timingDiagramButtonTabbedPanelLists.size()-1).setPreferredSize(new Dimension(width, 23));
                             	
                             	JTree timingtree=mainFrame.getProjectTree().getTimingTreePanel().getTimingtree();
@@ -1153,6 +1164,9 @@ public class FileMenu extends JMenu
     							
                             }
                             tabbutton.setText(str);
+                            
+                            JScrollBar bar=mainFrame.getStepOneCenterTabbedPane().getButtonScrollPanel().getHorizontalScrollBar();
+        			        bar.setValue(bar.getMaximum());
                             
                     	}
                     }

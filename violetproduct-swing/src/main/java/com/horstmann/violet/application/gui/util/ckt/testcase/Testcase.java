@@ -232,19 +232,22 @@ public class Testcase {
 								if((bds1!=null)&&(cs1!=null)){
 									String bbb = bds1+","+s1;
 									System.out.println("bbb++++++:"+bbb);
-									String solution1 = Mathematica.getSolution2(bbb, cs1);
+									int resultNum = getMathNum(bbb);
+									String solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
 									System.out.println("in整数型约束解为："+solution1);
 									//System.out.println("数值型约束解为：");
 									//System.out.println(solution1);
 								}
 								else{
 									if(s1!=null){
-										String solution1 = Mathematica.getSolution2(s1, cs1);
+										int resultNum = getMathNum(s1);
+										String solution1 = Mathematica.getSolution2(s1, cs1, resultNum);
 										System.out.println("in整数型约束解为："+solution1);
 									}
 								}
 								if((boolbds!=null)&&(s2!=null)){
-									String solution2 = Mathematica.getSolution4(s2, cs2);
+									int resultNum = getMathNum(s2);
+									String solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
 									System.out.println("in小数型约束解为："+solution2);
 									//System.out.println("布尔型值解为：");
 									//System.out.println(solution2);
@@ -504,19 +507,22 @@ public class Testcase {
 								if((bds1!=null)&&(cs1!=null)){
 									String bbb = bds1+","+s1;
 									System.out.println("bbb++++++:"+bbb);
-									String solution1 = Mathematica.getSolution2(bbb, cs1);
+									int resultNum = getMathNum(bbb);
+									String solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
 									System.out.println("condition整数型约束解为："+solution1);
 									//System.out.println("数值型约束解为：");
 									//System.out.println(solution1);
 								}
 								else{
 									if(s1!=null){
-										String solution1 = Mathematica.getSolution2(s1, cs1);
+										int resultNum = getMathNum(s1);
+										String solution1 = Mathematica.getSolution2(s1, cs1, resultNum);
 										System.out.println("condition整数型约束解为："+solution1);
 									}
 								}
 								if(/*(boolbds!=null)&&*/(s2!=null)){
-									String solution2 = Mathematica.getSolution4(s2, cs2);
+									int resultNum = getMathNum(s2);
+									String solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
 									System.out.println("condition小数型约束解为："+solution2);
 									//System.out.println("布尔型值解为：");
 									//System.out.println(solution2);
@@ -748,19 +754,22 @@ public class Testcase {
 									if((bds1!=null)&&(cs1!=null)){
 										String bbb = bds1+","+s1;
 										System.out.println("bbb++++++:"+bbb);
-										String solution1 = Mathematica.getSolution2(bbb, cs1);
+										int resultNum = getMathNum(bbb);
+										String solution1 = Mathematica.getSolution2(bbb, cs1,resultNum);
 										System.out.println("condition整数型约束解为："+solution1);
 										//System.out.println("数值型约束解为：");
 										//System.out.println(solution1);
 									}
 									else{
 										if(s1!=null){
-											String solution1 = Mathematica.getSolution2(s1, cs1);
+											int resultNum = getMathNum(s1);
+											String solution1 = Mathematica.getSolution2(s1, cs1, resultNum);
 											System.out.println("condition整数型约束解为："+solution1);
 										}
 									}
 									if(/*(boolbds!=null)&&*/(s2!=null)){
-										String solution2 = Mathematica.getSolution4(s2, cs2);
+										int resultNum = getMathNum(s2);
+										String solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
 										System.out.println("condition小数型约束解为："+solution2);
 										//System.out.println("布尔型值解为：");
 										//System.out.println(solution2);
@@ -870,6 +879,16 @@ public class Testcase {
 
 
 
+	}
+	public static int getMathNum(String bds) {
+		String[] bNum = bds.split(",");
+		int resultNum;
+		if (bNum.length > 8) {
+			resultNum = 1;
+		} else {
+			resultNum = 5;
+		}
+		return resultNum;
 	}
 
 }

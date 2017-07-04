@@ -300,7 +300,8 @@ public class Result_2 {
 					//										System.out.println("        ===>  condition上整数型数值参数："+cs1);
 					//System.out.println("整数不等式:"+bbb);
 					//System.out.println("整数数参数："+cs1);
-					String solution1 = Mathematica.getSolution2(bbb, cs1);					
+					int resultNum = getMathNum(bbb);
+					String solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);					
 					if(solution1.equals("{}")){
 						System.out.println("原求得矛盾空解"+solution1);
 						System.out.println("原求得矛盾不等式"+bds1);
@@ -312,7 +313,9 @@ public class Result_2 {
 						bbb = Remove11(bds1)+","+s1;
 
 
-						solution1 = Mathematica.getSolution2(bbb, cs1);
+						
+						resultNum = getMathNum(bbb);
+						solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
 						System.out.println("删除矛盾后不等式"+bbb);
 						System.out.println("删除矛盾后解"+solution1);
 					}
@@ -337,7 +340,8 @@ public class Result_2 {
 						//System.out.println("        ===>  condition上整数型数值参数："+cs1);
 						//System.out.println("整数不等式:"+s1);
 						//System.out.println("整数数参数："+cs1);
-						String solution1 = Mathematica.getSolution2(s1, cs1);
+						int resultNum = getMathNum(s1);
+						String solution1 = Mathematica.getSolution2(s1, cs1, resultNum);
 
 						if(solution1.contains("ndInstance")){
 							System.out.println("----------------------求解异常----------------------");
@@ -367,7 +371,8 @@ public class Result_2 {
 					String bb = bds2+","+s2;
 					//System.out.println("小数不等式:"+bb);
 					//System.out.println("小数参数："+cs2);
-					String solution2 = Mathematica.getSolution4(bb, cs2);
+					int resultNum = getMathNum(bb);
+					String solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
 					if(solution2.equals("{}")){
 						//bb = Remove11(bb);
 						if(Border.getDoubleBorder(bds2)!=null){
@@ -375,7 +380,8 @@ public class Result_2 {
 							flag = 1;
 						}	
 						bb = Remove11(bds2)+","+s2;
-						solution2 = Mathematica.getSolution4(bb, cs2);
+						resultNum = getMathNum(bb);
+						solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
 					}
 
 					if(solution2.contains("ndInstance")){
@@ -396,10 +402,12 @@ public class Result_2 {
 					if((s2!=null)){
 						//System.out.println("小数不等式:"+s2);
 						//System.out.println("小数参数："+cs2);
-						String solution2 = Mathematica.getSolution4(s2, cs2);
+						int resultNum = getMathNum(s2);
+						String solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
 						if(solution2.equals("{}")){
 							s2 = Remove11(s2);
-							solution2 = Mathematica.getSolution4(s2, cs2);
+							resultNum = getMathNum(s2);
+							solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
 						}
 
 
@@ -583,7 +591,8 @@ public class Result_2 {
 						String bds1 = bds[i]+","+bds[j];
 						String cs = cs1;
 						//if()
-						String solution = Mathematica.getSolution2(bds1, cs);
+						int resultNum = getMathNum(bds1);
+						String solution = Mathematica.getSolution2(bds1, cs,resultNum);
 						//System.out.println("solution---"+solution);
 						if(solution.equals("{}")){
 							bbb=bbb.replaceAll(bds[i]+",", "");								
@@ -1306,7 +1315,16 @@ public class Result_2 {
 //				}
 //				return string;
 //	}
-
+	public static int getMathNum(String bds) {
+		String[] bNum = bds.split(",");
+		int resultNum;
+		if (bNum.length > 8) {
+			resultNum = 1;
+		} else {
+			resultNum = 5;
+		}
+		return resultNum;
+	}
 	
 	
 	

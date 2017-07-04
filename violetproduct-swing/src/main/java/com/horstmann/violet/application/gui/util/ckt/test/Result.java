@@ -87,8 +87,7 @@ public class Result {
 									////判断是不是小数或者整数不等式或者==0的情况
 									if(m==1&&!(x1.contains("==0"))){
 										list1.add(x1);//list1里面存放除了==0的小数不等式
-									}
-									else{
+									} else {
 										if(m==1&&(x1.contains("==0"))){
 											list2.add(x1);//list2里面存放==0的小数不等式
 										}
@@ -110,8 +109,7 @@ public class Result {
 									////判断是不是小数或者整数不等式或者==0的情况
 									if(m==1&&!(x1.contains("==0"))){
 										list1.add(x1);//list1里面存放除了==0的小数不等式
-									}
-									else{
+									} else {
 										if(m==1&&(x1.contains("==0"))){
 											list2.add(x1);//list2里面存放==0的小数不等式
 										}
@@ -137,8 +135,7 @@ public class Result {
 									////判断是不是小数或者整数不等式
 									if(m==1&&!(bds1.contains("==0"))){
 										list1.add(bds1);//list1里面存放除了==0的小数不等式
-									}
-									else{
+									} else {
 										if(m==1&&(bds1.contains("==0"))){
 											list2.add(bds1);//list2里面存放==0的小数不等式													
 										}
@@ -157,8 +154,7 @@ public class Result {
 									////判断是不是小数或者整数不等式或者==0的情况
 									if(m==1&&!(bds1.contains("==0"))){
 										list1.add(bds1);//list1里面存放除了==0的小数不等式
-									}
-									else{
+									} else {
 										if(m==1&&(bds1.contains("==0"))){
 											list2.add(bds1);//list2里面存放==0的小数不等式													
 										}
@@ -297,10 +293,12 @@ public class Result {
 							String b=bds1;
 							bds1 = bds1+","+border[i];//边界等式加入
 							bbb = bds1+","+s1;
-							solution1 = Mathematica.getSolution2(bbb, cs1);
+							int resultNum = getMathNum(bbb);
+							solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
 							if((i==border.length)&&solution1.equals("{}")){
 								bbb = b+","+s1;
-								solution1 = Mathematica.getSolution2(bbb, cs1);	
+								resultNum = getMathNum(bbb);
+								solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
 								bds1 = b;
 							}
 							if(solution1.equals("{}")){
@@ -316,7 +314,8 @@ public class Result {
 						}	
 					}else{
 						bbb = bds1+","+s1;
-						solution1 = Mathematica.getSolution2(bbb, cs1);
+						int resultNum = getMathNum(bbb);
+						solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
 					}
 					if(solution1.equals("{}")){
 						System.out.println("原求得矛盾空解"+solution1);
@@ -330,10 +329,12 @@ public class Result {
 								String b=bds1;
 								bds1 = bds1+","+border[i];//边界等式加入
 								bbb = bds1+","+s1;								
-								solution1 = Mathematica.getSolution2(bbb, cs1);
+								int resultNum = getMathNum(bbb);
+								solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
 								if((i==border.length)&&solution1.equals("{}")){
 									bbb = b+","+s1;//不加边界值
-									solution1 = Mathematica.getSolution2(bbb, cs1);
+									resultNum = getMathNum(bbb);
+									solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
 									bds1 = b;
 								}
 								if(solution1.equals("{}")){
@@ -350,7 +351,8 @@ public class Result {
 						}else{
 							bds1 = Remove11(bds1);
 							bbb = bds1+","+s1;
-							solution1 = Mathematica.getSolution2(bbb, cs1);
+							int resultNum = getMathNum(bbb);
+							solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
 						}
 						/*bbb = bds1+","+s1;		
 						solution1 = Mathematica.getSolution2(bbb, cs1);
@@ -364,21 +366,22 @@ public class Result {
 						System.out.println("----------------------求解异常----------------------");
 						System.out.println("----------------------求解异常----------------------");
 					}*/
-					ttt=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
+					ttt = solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=")
+							.replace("(", "").replace(")", "");
 					//ttt=bbb.toString();
 //					
 					System.out.println("整数型解"+solution1);
 					results = solution1.substring(2, solution1.length() - 2).split("\\}, \\{");
 
 					//System.out.println("condition整数型约束解为："+solution1);
-				}
-				else{
+				} else {
 					if(s1!=null){
 						//System.out.println("        ===>  condition上整数型数值不等式："+s1);
 						//System.out.println("        ===>  condition上整数型数值参数："+cs1);
 						//System.out.println("整数不等式:"+s1);
 						//System.out.println("整数数参数："+cs1);
-						String solution1 = Mathematica.getSolution2(s1, cs1);
+						int resultNum = getMathNum(s1);
+						String solution1 = Mathematica.getSolution2(s1, cs1, resultNum);
 						
 						/*if(solution1.contains("ndInstance")){
 							System.out.println("----------------------求解异常----------------------");
@@ -388,7 +391,8 @@ public class Result {
 							System.out.println("----------------------求解异常----------------------");
 						}*/
 						
-						ttt=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
+						ttt = solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=")
+								.replace("(", "").replace(")", "");
 						//ttt=s1.toString();
 //						
 						results = solution1.substring(2, solution1.length() - 2).split("\\}, \\{");
@@ -409,10 +413,12 @@ public class Result {
 							String b=bds2;
 							bds2 = bds2+","+border[i];//边界等式加入
 							String bb = bds2+","+s2;
-							solution2 = Mathematica.getSolution4(bb, cs2);
+							int resultNum = getMathNum(bb);
+							solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
 							if((i==border.length)&&solution2.equals("{}")){
 								bb = b+","+s2;
-								solution2 = Mathematica.getSolution4(bb, cs2);
+								resultNum = getMathNum(bb);
+								solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
 								bds2 = b;
 							}
 							if(solution2.equals("{}")){
@@ -428,7 +434,8 @@ public class Result {
 					}else{	
 						bds2 = Remove11(bds2);
 						String bb = bds2+","+s2;
-						solution2 =Mathematica.getSolution4(bb, cs2);
+						int resultNum = getMathNum(bb);
+						solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
 					}
 					if(solution2.equals("{}")){
 						bds2 = Remove11(bds2);				
@@ -441,10 +448,12 @@ public class Result {
 								String b=bds2;
 								bds2 = bds2+","+border[i];//边界等式加入
 								String bb = bds2+","+s2;
-								solution2 = Mathematica.getSolution4(bb, cs2);
+								int resultNum = getMathNum(bb);
+								solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
 								if((i==border.length)&&solution2.equals("{}")){
 									bb = b+","+s2;
-									solution2 = Mathematica.getSolution4(bb, cs2);
+									resultNum = getMathNum(bb);
+									solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
 									bds2 = b;
 								}
 								if(solution2.equals("{}")){
@@ -461,7 +470,8 @@ public class Result {
 						}else{
 							bds2 = Remove11(bds2);
 							String bb = bds2+","+s2;
-							solution2 =Mathematica.getSolution4(bb, cs2);
+							int resultNum = getMathNum(bb);
+							solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
 						}						
 					}					
 					if(solution2.contains("ndInstance")){
@@ -472,7 +482,8 @@ public class Result {
 						System.out.println("----------------------求解异常----------------------");
 					}
 					
-					ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
+					ttt1 = solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=")
+							.replace("(", "").replace(")", "");
 					//ttt1=s2.toString();
 //					
 					results1 = solution2.substring(2, solution2.length() - 2).split("\\}, \\{");
@@ -482,10 +493,12 @@ public class Result {
 					if((s2!=null)){
 						//System.out.println("小数不等式:"+s2);
 						//System.out.println("小数参数："+cs2);
-						String solution2 = Mathematica.getSolution4(s2, cs2);
+						int resultNum = getMathNum(s2);
+						String solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
 						if(solution2.equals("{}")){
 							s2 = Remove11(s2);
-							solution2 = Mathematica.getSolution2(s2, cs2);
+							resultNum = getMathNum(s2);
+							solution2 = Mathematica.getSolution2(s2, cs2, resultNum);
 						}
 						
 						
@@ -497,7 +510,8 @@ public class Result {
 							System.out.println("----------------------求解异常----------------------");
 						}
 						
-						ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
+						ttt1 = solution2.toString().replace("{", "").replace("}", "").replace(" ", "")
+								.replace("->", "=").replace("(", "").replace(")", "");
 //						
 						results1 = solution2.substring(2, solution2.length() - 2).split("\\}, \\{");
 						
@@ -550,8 +564,7 @@ public class Result {
 						//}
 						//ttt3=ttt1+","+boolbds;
 					}
-				}
-				else{
+				} else {
 					if((results!=null)&&(results1!=null)){
 						//for(int i=0;;i++){
 							for(String tttt:results){
@@ -591,13 +604,15 @@ public class Result {
 					//System.out.println("bds00:"+bds00);
 					for(int i=0;i<tt3.size();i++){	
 						String t = tt3.get(i)+","+bds00;
-						t = t.replace(" ", "").replaceAll("->", "=").replace("(", "").replace(")", "").replace("$", "->");
+						t = t.replace(" ", "").replaceAll("->", "=").replace("(", "").replace(")", "").replace("$",
+								"->");
 						result.add(t);
 						//tt3.remove(tt3.get(i));
 					}
 			    }else{
 			    	for(int i=0;i<tt3.size();i++){
-			    		String t = tt3.get(i).replace(" ", "").replaceAll("->", "=").replace("(", "").replace(")", "").replace("$", "->");
+						String t = tt3.get(i).replace(" ", "").replaceAll("->", "=").replace("(", "").replace(")", "")
+								.replace("$", "->");
 						result.add(t);						
 					}
 			    }
@@ -660,7 +675,8 @@ public class Result {
 					if(cs1.equals(cs2)){
 						String bds1 = bds[i]+","+bds[j];
 						String cs = cs1;
-						String solution = Mathematica.getSolution2(bds1, cs);
+						int resultNum = getMathNum(bds1);
+						String solution = Mathematica.getSolution2(bds1, cs, resultNum);
 						//System.out.println("solution---"+solution);
 						if(solution.equals("{}")){
 							bbb=bbb.replaceAll(bds[i]+",", "");								
@@ -699,6 +715,14 @@ public class Result {
 		}
 
 	}
-	
-	
+	public static int getMathNum(String bds) {
+		String[] bNum = bds.split(",");
+		int resultNum;
+		if (bNum.length > 8) {
+			resultNum = 1;
+		} else {
+			resultNum = 5;
+		}
+		return resultNum;
+	}
 }

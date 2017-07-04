@@ -40,6 +40,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -98,12 +99,30 @@ public class CustomPropertyEditor implements ICustomPropertyEditor
             Introspector.flushFromCaches(bean.getClass());// 为了更好的性能，Introspector缓存BeanInfo；
             //因此，若在使用多个类加载器的应用程序中使用Introspector须小心谨慎。可以调用Introspector.flushCaches或Introspector.flushFromCaches方法从缓存中清空内省的类。
             BeanInfo info = Introspector.getBeanInfo(bean.getClass());
-            //通过BeanIndo进行内省
-            PropertyDescriptor[] descriptors = (PropertyDescriptor[]) info.getPropertyDescriptors().clone();
-            for(PropertyDescriptor pro:descriptors)
-            {
-            	System.out.println(pro.getValue("name"));
-            }
+            
+			// 通过BeanIndo进行内省
+			PropertyDescriptor[] descriptors = (PropertyDescriptor[]) info.getPropertyDescriptors().clone();
+
+			if (bean.getClass().getSimpleName().equals("CallEdge")) {
+
+				List<PropertyDescriptor> pdlist=new ArrayList<>();
+				
+				for(PropertyDescriptor pro:descriptors)
+	            {
+					String proname=pro.getName();
+	            	if(proname.equals("input")||proname.equals("name")||proname.equals("output")||proname.equals("parameter")||proname.equals("signal")||proname.equals("timereset")||proname.equals("timing")){
+	            		pdlist.add(pro);
+	            	}
+	            }
+				descriptors=null;
+				descriptors=pdlist.toArray(new PropertyDescriptor[0]);
+			}
+            
+//            for(PropertyDescriptor pro:descriptors)
+//            {
+//            	System.out.println(pro.getName());
+//            }
+            
             Arrays.sort(descriptors, new Comparator<PropertyDescriptor>()
             {
                 public int compare(PropertyDescriptor d1, PropertyDescriptor d2)
@@ -127,6 +146,7 @@ public class CustomPropertyEditor implements ICustomPropertyEditor
                 {
                     // Try to extract title from resource bundle
                     String title = descriptors[i].getName();
+                    System.out.println();
                     try
                     {
                         String translatedTitle = rs.getString(title.toLowerCase());

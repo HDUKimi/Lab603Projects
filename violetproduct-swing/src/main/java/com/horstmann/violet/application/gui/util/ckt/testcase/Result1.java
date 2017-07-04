@@ -49,7 +49,8 @@ public class Result1 {
 		//ShowInfor.print("keySet集合3："+GetMap.get_condMap(condition));
 		if(GetMap.get_condMap(condition)==null){
 			//ShowInfor.print("keySet集合3："+GetMap.get_condMap(condition));
-			return null;
+			result.add("null");
+			return result;
 		}else{
 			if(!(GetMap.get_condMap(condition)==null)){
 				map1 = GetMap.get_condMap(condition);//必须有，要不结果错误
@@ -309,7 +310,8 @@ public class Result1 {
 					//										ShowInfor.print("        ===>  condition上整数型数值参数："+cs1);
 					//ShowInfor.print("整数不等式:"+bbb);
 					//ShowInfor.print("整数数参数："+cs1);
-					String solution1 = Mathematica.getSolution2(bbb, cs1);					
+					int resultNum = getMathNum(bbb);
+					String solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);					
 					if(solution1.equals("{}")){
 						ShowInfor.print("原求得矛盾空解"+solution1);
 						ShowInfor.print("原求得矛盾不等式"+bds1);
@@ -321,7 +323,8 @@ public class Result1 {
 						bbb = Remove11(bds1)+","+s1;
 
 
-						solution1 = Mathematica.getSolution2(bbb, cs1);
+						resultNum = getMathNum(bbb);
+						solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
 						ShowInfor.print("删除矛盾后不等式"+bbb);
 						ShowInfor.print("删除矛盾后解"+solution1);
 					}
@@ -346,7 +349,8 @@ public class Result1 {
 						//ShowInfor.print("        ===>  condition上整数型数值参数："+cs1);
 						//ShowInfor.print("整数不等式:"+s1);
 						//ShowInfor.print("整数数参数："+cs1);
-						String solution1 = Mathematica.getSolution2(s1, cs1);
+						int resultNum = getMathNum(s1);
+						String solution1 = Mathematica.getSolution2(s1, cs1, resultNum);
 
 						if(solution1.contains("ndInstance")){
 							ShowInfor.print("----------------------求解异常----------------------");
@@ -376,7 +380,8 @@ public class Result1 {
 					String bb = bds2+","+s2;
 					//ShowInfor.print("小数不等式:"+bb);
 					//ShowInfor.print("小数参数："+cs2);
-					String solution2 = Mathematica.getSolution4(bb, cs2);
+					int resultNum = getMathNum(bb);
+					String solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
 					if(solution2.equals("{}")){
 						//bb = Remove11(bb);
 						if(Border.getDoubleBorder(bds2)!=null){
@@ -384,7 +389,9 @@ public class Result1 {
 							flag = 1;
 						}	
 						bb = Remove11(bds2)+","+s2;
-						solution2 = Mathematica.getSolution4(bb, cs2);
+						resultNum = getMathNum(bb);
+						solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
+						System.out.println("---------======="+solution2);
 					}
 
 					if(solution2.contains("ndInstance")){
@@ -398,6 +405,10 @@ public class Result1 {
 					ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 					//ttt1=s2.toString();
 					//					
+					ShowInfor.print("solution2:"+solution2);
+					ShowInfor.print("====="+condition);
+					ShowInfor.print(bb);
+					ShowInfor.print(cs2);
 					results1 = solution2.substring(2, solution2.length() - 2).split("\\}, \\{");
 
 					//ShowInfor.print("condition上小数型约束解为："+solution2);
@@ -405,10 +416,12 @@ public class Result1 {
 					if((s2!=null)){
 						//ShowInfor.print("小数不等式:"+s2);
 						//ShowInfor.print("小数参数："+cs2);
-						String solution2 = Mathematica.getSolution4(s2, cs2);
+						int resultNum = getMathNum(s2);
+						String solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
 						if(solution2.equals("{}")){
 							s2 = Remove11(s2);
-							solution2 = Mathematica.getSolution4(s2, cs2);
+							resultNum = getMathNum(s2);
+							solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
 						}
 
 
@@ -592,7 +605,8 @@ public class Result1 {
 						String bds1 = bds[i]+","+bds[j];
 						String cs = cs1;
 						//if()
-						String solution = Mathematica.getSolution2(bds1, cs);
+						int resultNum = getMathNum(bds1);
+						String solution = Mathematica.getSolution2(bds1, cs, resultNum);
 						//ShowInfor.print("solution---"+solution);
 						if(solution.equals("{}")){
 							bbb=bbb.replaceAll(bds[i]+",", "");								
@@ -1238,7 +1252,16 @@ public class Result1 {
 //	}
 
 	
-	
+	public static int getMathNum(String bds) {
+		String[] bNum = bds.split(",");
+		int resultNum;
+		if (bNum.length > 8) {
+			resultNum = 1;
+		} else {
+			resultNum = 5;
+		}
+		return resultNum;
+	}
 	
 	
 	

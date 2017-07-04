@@ -864,7 +864,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						
 					}
 					else if(selectCoverState==1){//路径覆盖
-						testCase=GeneratePath.getFormatPathFromAutomatic(a, 2000);
+						testCase=GeneratePath.getFormatPathFromAutomatic(a, 100);
 					}
 				}
 				else if(starttype==2){//性能测试
@@ -1414,18 +1414,6 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					
 					testcaselist=TestCaseConfirmationPanel.extractPerformanceTestDataFromXml(path);
 					
-					SaveText.init("D:\\Text\\performancetesttestcaselist.txt");
-					for(TestCase tc:testcaselist){
-						SaveText.SaveWord("测试用例ID: "+tc.getTestCaseID());
-						SaveText.SaveWord("风速级别: "+tc.getResult().getWind_speed()+" 起飞高度: "+tc.getResult().getTakeoff_alt());
-						SaveText.SaveWord("激励列表: ");
-						for(myProcess p:tc.getProcessList()){
-							SaveText.SaveWord("激励ID: "+p.getProcessID()+" 激励名称: "+p.getProcessName()+" 激励参数: "+p.getProcessParam());
-						}
-						SaveText.SaveFenGe();
-					}
-					SaveText.End();
-					
 					JPanel resultpanel=new JPanel();
 					JPanel emptypanel=new JPanel();
 					resultpanel.setOpaque(false);
@@ -1470,21 +1458,6 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 //					Map resultmap=TestCaseConfirmationPanel.extractTimeTestDataFromXml(path);
 //					testcaselist=(List<TestCase>) resultmap.get("testcase");
 //					limitlist=(List<List<String>>) resultmap.get("limit");
-					
-					SaveText.init("D:\\Text\\timetesttestcaselist.txt");
-					for(TestCase tc:testcaselist){
-						SaveText.SaveWord("测试用例ID: "+tc.getTestCaseID());
-						SaveText.SaveWord("激励列表: ");
-						for(myProcess p:tc.getProcessList()){
-							SaveText.SaveWord("激励ID: "+p.getProcessID()+" 激励名称: "+p.getProcessName()+" 激励参数: "+p.getProcessParam());
-						}
-						SaveText.SaveWord("不等式组列表: ");
-						for(String s:tc.getLimit()){
-							SaveText.SaveWord(s);
-						}
-						SaveText.SaveFenGe();
-					}
-					SaveText.End();
 					
 					JPanel resultpanel=new JPanel();
 					JPanel emptypanel=new JPanel();

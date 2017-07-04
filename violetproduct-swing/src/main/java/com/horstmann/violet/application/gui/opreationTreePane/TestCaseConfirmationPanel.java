@@ -57,6 +57,8 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseP
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCaseResult;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
+import com.horstmann.violet.application.gui.util.tanchao.SaveText;
+import com.horstmann.violet.application.gui.util.tanchao.TestCaseXMLToStringList;
 import com.l2fprod.common.swing.JTaskPane;
 import com.l2fprod.common.swing.JTaskPaneGroup;
 
@@ -399,11 +401,18 @@ public class TestCaseConfirmationPanel extends JPanel{
 					
 					if(starttype==1){
 						testcaselist = extractFunctionalTestDataFromXml(path);
+						DataBaseUtil.insertFunctional(filename,testcaselist);
 						showFunctionalTestCase();
 					}
 					else if(starttype==2){
 						testcaselist = extractPerformanceTestDataFromXml(path);
 						showPerformanceTestCase();
+						
+						TestCaseXMLToStringList tcxmltsl=new TestCaseXMLToStringList();
+						DataBaseUtil.insertTestCaseStringList(2, tcxmltsl.getStrings(path));
+						saveListToText(2, testcaselist);
+						
+//						tcxmltsl.createXml(DataBaseUtil.queryTestCaseStringList(2), "D:\\Text\\123.xml");
 					}
 					else if(starttype==3){
 						testcaselist = extractTimeTestDataFromXml(path);
@@ -411,6 +420,11 @@ public class TestCaseConfirmationPanel extends JPanel{
 //						testcaselist=(List<TestCase>) resultmap.get("testcase");
 //						limitlist=(List<List<String>>) resultmap.get("limit");
 						showTimeTestCase();
+						
+						TestCaseXMLToStringList tcxmltsl=new TestCaseXMLToStringList();
+						DataBaseUtil.insertTestCaseStringList(3, tcxmltsl.getStrings(path));
+						saveListToText(3, testcaselist);
+						
 					}
 
 					mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().updateUI();
@@ -434,6 +448,56 @@ public class TestCaseConfirmationPanel extends JPanel{
 		testcasescrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		testcasescrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         
+		
+	}
+	
+	public void saveListToText(int type, List<TestCase> testcaselist){
+		
+		if (type == 1) {
+			
+			SaveText.init("D:\\ModelDriverProjectFile\\Text\\functionaltesttestcaselist.txt");
+			for(TestCase tc:testcaselist){
+				SaveText.SaveWord("测试用例ID: "+tc.getTestCaseID());
+				SaveText.SaveWord("激励列表: ");
+				for(myProcess p:tc.getProcessList()){
+					SaveText.SaveWord("激励ID: "+p.getProcessID()+" 激励名称: "+p.getProcessName()+" 激励参数: "+p.getProcessParam());
+				}
+				SaveText.SaveFenGe();
+			}
+			SaveText.End();
+			
+		} else if (type == 2) {
+			
+			SaveText.init("D:\\ModelDriverProjectFile\\Text\\performancetesttestcaselist.txt");
+			for(TestCase tc:testcaselist){
+				SaveText.SaveWord("测试用例ID: "+tc.getTestCaseID());
+				SaveText.SaveWord("风速级别: "+tc.getResult().getWind_speed()+" 起飞高度: "+tc.getResult().getTakeoff_alt());
+				SaveText.SaveWord("激励列表: ");
+				for(myProcess p:tc.getProcessList()){
+					SaveText.SaveWord("激励ID: "+p.getProcessID()+" 激励名称: "+p.getProcessName()+" 激励参数: "+p.getProcessParam());
+				}
+				SaveText.SaveFenGe();
+			}
+			SaveText.End();
+			
+		} else if (type == 3) {
+			
+			SaveText.init("D:\\ModelDriverProjectFile\\Text\\timetesttestcaselist.txt");
+			for(TestCase tc:testcaselist){
+				SaveText.SaveWord("测试用例ID: "+tc.getTestCaseID());
+				SaveText.SaveWord("激励列表: ");
+				for(myProcess p:tc.getProcessList()){
+					SaveText.SaveWord("激励ID: "+p.getProcessID()+" 激励名称: "+p.getProcessName()+" 激励参数: "+p.getProcessParam());
+				}
+				SaveText.SaveWord("不等式组列表: ");
+				for(String s:tc.getLimit()){
+					SaveText.SaveWord(s);
+				}
+				SaveText.SaveFenGe();
+			}
+			SaveText.End();
+			
+		}
 		
 	}
 

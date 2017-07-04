@@ -30,28 +30,28 @@ import java.beans.SimpleBeanInfo;
  */
 public class ReturnEdgeBeanInfo extends SimpleBeanInfo
 {
-    @Override
+
     public PropertyDescriptor[] getPropertyDescriptors()
     {
         try
         {
-            
-        	PropertyDescriptor name = new PropertyDescriptor("name", ReturnEdge.class);
-        	PropertyDescriptor input = new PropertyDescriptor("input", ReturnEdge.class);
-        	PropertyDescriptor parameter = new PropertyDescriptor("parameter", ReturnEdge.class);
-        	PropertyDescriptor output = new PropertyDescriptor("output", ReturnEdge.class);
-        	PropertyDescriptor timing = new PropertyDescriptor("timing", ReturnEdge.class);
-        	PropertyDescriptor timereset = new PropertyDescriptor("timereset", ReturnEdge.class);
-        	PropertyDescriptor signal = new PropertyDescriptor("signal", ReturnEdge.class);
+
+        	PropertyDescriptor nameDescriptor = new PropertyDescriptor("name", ReturnEdge.class);
+        	PropertyDescriptor inputDescriptor = new PropertyDescriptor("input", ReturnEdge.class);
+        	PropertyDescriptor parameterDescriptor = new PropertyDescriptor("parameter", ReturnEdge.class);
+        	PropertyDescriptor outputDescriptor = new PropertyDescriptor("output", ReturnEdge.class);
+        	PropertyDescriptor timingDescriptor = new PropertyDescriptor("timing", ReturnEdge.class);
+        	PropertyDescriptor timeresetDescriptor = new PropertyDescriptor("timereset", ReturnEdge.class);
+        	PropertyDescriptor signalDescriptor = new PropertyDescriptor("signal", ReturnEdge.class);
         	return new PropertyDescriptor[]
     	            {
-    	            	name,
-    	            	input,
-    	            	parameter,
-    	            	output,
-    	            	timing,
-    	            	timereset,
-    	            	signal,
+    	            	nameDescriptor,
+    	            	inputDescriptor,
+    	            	parameterDescriptor,
+    	            	outputDescriptor,
+    	            	timingDescriptor,
+    	            	timeresetDescriptor,
+    	            	signalDescriptor,
     	            };
             
         }

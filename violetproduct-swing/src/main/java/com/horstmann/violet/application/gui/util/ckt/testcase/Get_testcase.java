@@ -54,13 +54,15 @@ public class Get_testcase {
 					System.out.println("没有约束即为：null");
 				}
 				if((bds1!=null)&&(cs1!=null)){
-					String solution1 = Mathematica.getSolution2(bds1, cs1);
+					int resultNum = getMathNum(bds1);
+					String solution1 = Mathematica.getSolution2(bds1, cs1,resultNum);
 					System.out.println("数值型约束解为："+solution1);
 					//System.out.println("数值型约束解为：");
 					//System.out.println(solution1);
 				}
 				if((boolbds!=null)&&(boolcs!=null)){
-					String solution2 = Mathematica.getSolution3(boolbds, boolcs);
+					int resultNum = getMathNum(boolbds);
+					String solution2 = Mathematica.getSolution3(boolbds, boolcs,resultNum);
 					System.out.println("布尔型值解为："+solution2);
 					//System.out.println("布尔型值解为：");
 					//System.out.println(solution2);
@@ -83,6 +85,16 @@ public class Get_testcase {
 		
 		
 	
+	}
+	public static int getMathNum(String bds) {
+		String[] bNum = bds.split(",");
+		int resultNum;
+		if (bNum.length > 8) {
+			resultNum = 1;
+		} else {
+			resultNum = 5;
+		}
+		return resultNum;
 	}
 
 }

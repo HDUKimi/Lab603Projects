@@ -269,8 +269,9 @@ public class GetXML4 {
 					if((bds1!=null)&&(cs1!=null)){
 						String bbb = bds1+","+s1;
 						//						System.out.println("        ===>  in上整数型数值不等式："+bbb);
+						int resultNum = getMathNum(bbb);
 						//System.out.println("        ===>  in上整数型数值参数："+cs1);
-						String solution1 = Mathematica.getSolution2(bbb, cs1);
+						String solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
 						ttt=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 						//ttt=bbb.toString();
 						//System.out.println("in整数型约束解为："+solution1);
@@ -279,7 +280,8 @@ public class GetXML4 {
 						if(s1!=null){
 							//							System.out.println("        ===>  in上整数型数值不等式："+s1);
 							//System.out.println("in上整数型数值参数："+cs1);
-							String solution1 = Mathematica.getSolution2(s1, cs1);
+							int resultNum = getMathNum(s1);
+							String solution1 = Mathematica.getSolution2(s1, cs1, resultNum);
 							ttt=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 							//System.out.println("in上整数型约束解为："+solution1);
 						}
@@ -288,13 +290,15 @@ public class GetXML4 {
 						//						System.out.println("        ===>  in上小数型数值不等式："+s2);
 						//System.out.println("in上小数型数值参数："+cs2);
 						String bb = bds2+","+s2;
-						String solution2 = Mathematica.getSolution4(bb, cs2);
+						int resultNum = getMathNum(bb);
+						String solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
 						ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 						//ttt1=s2.toString();
 						//System.out.println("in上小数型约束解为："+solution2);
 					}else{
 						if((s2!=null)){
-							String solution2 = Mathematica.getSolution4(s2, cs2);
+							int resultNum = getMathNum(s2);
+							String solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
 							ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 						}
 					}
@@ -543,7 +547,8 @@ public class GetXML4 {
 									String bbb = bds1+","+s1;
 									//									System.out.println("        ===>  condition上整数型数值不等式："+bbb);
 									//System.out.println("        ===>  condition上整数型数值参数："+cs1);
-									String solution1 = Mathematica.getSolution2(bbb, cs1);
+									int resultNum = getMathNum(bbb);
+									String solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
 									ttt=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 									//ttt=bbb.toString();
 									//									System.out.println("condition整数型约束解为："+solution1);
@@ -552,7 +557,8 @@ public class GetXML4 {
 									if(s1!=null){
 										System.out.println("        ===>  condition上整数型数值不等式："+s1);
 										//System.out.println("        ===>  condition上整数型数值参数："+cs1);
-										String solution1 = Mathematica.getSolution2(s1, cs1);
+										int resultNum = getMathNum(s1);
+										String solution1 = Mathematica.getSolution2(s1, cs1, resultNum);
 										ttt=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 										//ttt=s1.toString();
 										//System.out.println("condition上整数型约束解为："+solution1);
@@ -562,13 +568,15 @@ public class GetXML4 {
 									//									System.out.println("        ===>  condition上小数型数值不等式："+s2);
 									//System.out.println("        ===>  condition上小数型数值参数："+cs2);
 									String bb = bds2+","+s2;
-									String solution2 = Mathematica.getSolution4(bb, cs2);
+									int resultNum = getMathNum(bb);
+									String solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
 									ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 									//ttt1=s2.toString();
 									//									System.out.println("condition上小数型约束解为："+solution2);
 								}else{
 									if((s2!=null)){
-										String solution2 = Mathematica.getSolution4(s2, cs2);
+										int resultNum = getMathNum(s2);
+										String solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
 										ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 									}
 								}
@@ -798,7 +806,8 @@ public class GetXML4 {
 
 										System.out.println("bbb:"+bbb);
 										System.out.println("cs1"+cs1);
-										String solution1 = Mathematica.getSolution2(bbb, cs1);
+										int resultNum = getMathNum(bbb);
+										String solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
 										ttt=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 										//ttt=bbb.toString();
 										//										System.out.println("condition整数型约束解为："+solution1);
@@ -807,7 +816,8 @@ public class GetXML4 {
 										if(s1!=null){
 											//											System.out.println("        ===>  condition上整数型数值不等式："+s1);
 											//											System.out.println("        ===>  condition上整数型数值参数："+cs1);
-											String solution1 = Mathematica.getSolution2(s1, cs1);
+											int resultNum = getMathNum(s1);
+											String solution1 = Mathematica.getSolution2(s1, cs1, resultNum);
 											ttt=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 											//ttt=s1.toString();
 											//											System.out.println("condition上整数型约束解为："+solution1);
@@ -817,13 +827,15 @@ public class GetXML4 {
 										//										System.out.println("        ===>  condition上小数型数值不等式："+s2);
 										//										System.out.println("        ===>  condition上小数型数值参数："+cs2);
 										String bb = bds2+","+s2;
-										String solution2 = Mathematica.getSolution4(bb, cs2);
+										int resultNum = getMathNum(bb);
+										String solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
 										ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 										//ttt1=s2.toString();
 										//										System.out.println("condition上小数型约束解为："+solution2);
 									}else{
 										if((s2!=null)){
-											String solution2 = Mathematica.getSolution4(s2, cs2);
+											int resultNum = getMathNum(s2);
+											String solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
 											ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 										}
 									}
@@ -943,5 +955,15 @@ public class GetXML4 {
 
 
 
+	}
+	public static int getMathNum(String bds) {
+		String[] bNum = bds.split(",");
+		int resultNum;
+		if (bNum.length > 8) {
+			resultNum = 1;
+		} else {
+			resultNum = 5;
+		}
+		return resultNum;
 	}
 }

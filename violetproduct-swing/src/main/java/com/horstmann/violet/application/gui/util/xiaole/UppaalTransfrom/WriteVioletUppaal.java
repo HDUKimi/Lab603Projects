@@ -137,7 +137,7 @@ public class WriteVioletUppaal {
         	Element name1=CircularNode.addElement("name");
         	name.addAttribute("id", temp.GetName_id());
         	setColor(CircularNode);
-        	name1.setText(temp.GetText());
+//        	name1.setText(temp.GetText());
     	}
     	Element edges=UppaalGraph.addElement("edges");
     	edges.addAttribute("id", "100");
@@ -171,8 +171,8 @@ public class WriteVioletUppaal {
 //    		if(temp.getLabelText()!=null){
 //    			labelText.setText(temp.getLabelText());	
 //    		}
-//    		String time=temp.getLabelText().toString().split("#")[4];
-//    		labelText.setText(time);
+    		String time=temp.getLabelText().toString().split("#")[1];
+    		labelText.setText(time);
 //    		labelText.setText(temp.getLabelText());
 //    		labelText.setText(temp.getId());
     	}

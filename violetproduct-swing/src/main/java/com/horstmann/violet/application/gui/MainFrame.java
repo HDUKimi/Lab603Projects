@@ -57,6 +57,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTree;
@@ -462,7 +463,7 @@ public class MainFrame extends JFrame
 			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
 			this.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists().add(index,buttontabbedpanel);
 			this.getStepOneCenterTabbedPane().getButtonTabbedPanel().add(buttontabbedpanel);
-
+			
 			listenToDiagramPanelEvents(workspace, UseCaseWorkspaceList);
      		
    		     repaint();    		    
@@ -591,7 +592,7 @@ public class MainFrame extends JFrame
      		listenToDiagramPanelEvents(workspace,UppaalWorkspaceList);    	  
      	    repaint();     		    
      	}
-     
+     	
 //     	if(workspace.getTitle().toString().substring(0, 3).equals(("abs")))
 //     	{
 //     		

@@ -51,7 +51,13 @@ public class ButtonTabbedPanel extends JPanel{
 		this.buttontabbedpanelindex=buttontabbedpanelindex;
 		this.tabbedbuttontext=tabbedbuttontext;
 		
-		width=tabbedbuttontext.length()*12+60;
+//		System.out.println(tabbedbuttontext+" *** "+tabbedbuttontext.getBytes().length+" *** "+tabbedbuttontext.length());
+		
+		int bl=tabbedbuttontext.getBytes().length;
+		int cl=tabbedbuttontext.length();
+		
+//		width=tabbedbuttontext.length()*12+60;
+		width=(bl-cl)*12+(2*cl-bl)*7+60;
 //		System.err.println(tabbedbuttontext+" - - - "+tabbedbuttontext.length()+" - - - "+width);
 		
 		tabbedbutton=new JButton();

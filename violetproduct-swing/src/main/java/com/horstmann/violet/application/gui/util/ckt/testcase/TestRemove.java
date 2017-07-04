@@ -47,7 +47,8 @@ public class TestRemove {
 					if(cs1.equals(cs2)){
 						String bds1 = bds[i]+","+bds[j];
 						String cs = cs1;
-						String solution = Mathematica.getSolution2(bds1, cs);
+						int resultNum = getMathNum(bds1);
+						String solution = Mathematica.getSolution2(bds1, cs, resultNum);
 						//System.out.println("solution---"+solution);
 						if(solution.equals("{}")){
 							bbb=bbb.replaceAll(bds[i]+",", "");								
@@ -86,4 +87,15 @@ public class TestRemove {
 		}
 
 	}
+	public static int getMathNum(String bds) {
+		String[] bNum = bds.split(",");
+		int resultNum;
+		if (bNum.length > 8) {
+			resultNum = 1;
+		} else {
+			resultNum = 5;
+		}
+		return resultNum;
+	}
+	
 }

@@ -12,9 +12,11 @@ import com.wolfram.jlink.MathLinkFactory;
 public class Test_1 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String param1 = "x__tt_y==11,y__t__v==22";
+		String param1 = "x__tt_y==11,y__t__v>22";
 		String param2 ="x__tt_y,y__t__v";
-		String solution = Mathematica.getSolution2(param1, param2);
+		int resultNum = getMathNum(param1);
+		System.out.println(resultNum+"==========================");
+		String solution = Mathematica.getSolution2(param1, param2,resultNum);
 		System.out.println(solution);
 	}
 
@@ -125,7 +127,17 @@ public class Test_1 {
 		System.out.println(solution);
 	} 
 		*/
-	
+	public static int getMathNum(String bds) {
+		String[] bNum = bds.split(",");
+		int resultNum;
+		if (bNum.length > 8) {
+			resultNum = 1;
+		} else {
+			resultNum = 5;
+		}
+		return resultNum;
+	}
+
 	
 }
 

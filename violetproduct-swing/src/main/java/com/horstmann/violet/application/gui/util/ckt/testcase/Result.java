@@ -284,7 +284,8 @@ public class Result {
 					//										System.out.println("        ===>  condition上整数型数值参数："+cs1);
 					//System.out.println("整数不等式:"+bbb);
 					//System.out.println("整数数参数："+cs1);
-					String solution1 = Mathematica.getSolution2(bbb, cs1);
+					int resultNum = getMathNum(bbb);
+					String solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
 					ttt=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 					//ttt=bbb.toString();
 //					
@@ -298,7 +299,8 @@ public class Result {
 						//System.out.println("        ===>  condition上整数型数值参数："+cs1);
 						//System.out.println("整数不等式:"+s1);
 						//System.out.println("整数数参数："+cs1);
-						String solution1 = Mathematica.getSolution2(s1, cs1);
+						int resultNum = getMathNum(s1);
+						String solution1 = Mathematica.getSolution2(s1, cs1, resultNum);
 						ttt=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 						//ttt=s1.toString();
 //						
@@ -313,7 +315,8 @@ public class Result {
 					String bb = bds2+","+s2;
 					//System.out.println("小数不等式:"+bb);
 					//System.out.println("小数参数："+cs2);
-					String solution2 = Mathematica.getSolution4(bb, cs2);
+					int resultNum = getMathNum(bb);
+					String solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
 					ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 					//ttt1=s2.toString();
 //					
@@ -324,7 +327,8 @@ public class Result {
 					if((s2!=null)){
 						//System.out.println("小数不等式:"+s2);
 						//System.out.println("小数参数："+cs2);
-						String solution2 = Mathematica.getSolution4(s2, cs2);
+						int resultNum = getMathNum(s2);
+						String solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
 						ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 //						
 						results1 = solution2.substring(2, solution2.length() - 2).split("\\}, \\{");
@@ -445,5 +449,16 @@ public class Result {
 		return result;
 		}
 	
+	}
+	
+	public static int getMathNum(String bds) {
+		String[] bNum = bds.split(",");
+		int resultNum;
+		if (bNum.length > 8) {
+			resultNum = 1;
+		} else {
+			resultNum = 5;
+		}
+		return resultNum;
 	}
 }

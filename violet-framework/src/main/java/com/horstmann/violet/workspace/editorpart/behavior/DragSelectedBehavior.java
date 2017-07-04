@@ -72,35 +72,39 @@ public class DragSelectedBehavior extends AbstractEditorPartBehavior
      
         if (isMouseOnNode(mousePoint))
         {   
-        	if(selectedNode.getClass().toString().equals(combinedStr))
-        	
-        	{    
-        		 this.isReadyForDragging = true;
-        	     changeSelectedElementIfNeeded(mousePoint);//转变选取目标节点
-        		 List<FragmentPart> fragmentparts=selectedNode.getFragmentParts();       		
-        	     for(FragmentPart fragmentPart: fragmentparts)
-        	     { 
-        		 Line2D borderline= fragmentPart.getBorderline();
-                 double locationX=borderline.getP1().getX();
-                 double locationY=borderline.getP1().getY()-5;
-                 Rectangle2D borderlinebound=new Rectangle2D.Double(locationX,locationY,selectedNode.getWidth(),10);
-                 if(borderlinebound.contains(mousePoint))
-                 {	
-                	 this.isReadyForDragging=false;
-                	 break;
-                 }
-                }
-                 this.lastMousePoint = mousePoint;
-                 this.initialCursor = this.editorPart.getSwingComponent().getCursor();
-                 this.editorPart.getSwingComponent().setCursor(this.dragCursor);       	            	   
-        	}        
-        else{
-            changeSelectedElementIfNeeded(mousePoint);
-            this.isReadyForDragging = true;
-            this.lastMousePoint = mousePoint;
-            this.initialCursor = this.editorPart.getSwingComponent().getCursor();
-            this.editorPart.getSwingComponent().setCursor(this.dragCursor);
+        	if(selectedNode != null)
+        	{
+        		System.out.println(selectedNode.getClass().getName());
+        		if(selectedNode.getClass().toString().equals(combinedStr))
+            	{    
+            		 this.isReadyForDragging = true;
+            	     changeSelectedElementIfNeeded(mousePoint);//转变选取目标节点
+            		 List<FragmentPart> fragmentparts=selectedNode.getFragmentParts();       		
+            	     for(FragmentPart fragmentPart: fragmentparts)
+            	     { 
+            		 Line2D borderline= fragmentPart.getBorderline();
+                     double locationX=borderline.getP1().getX();
+                     double locationY=borderline.getP1().getY()-5;
+                     Rectangle2D borderlinebound=new Rectangle2D.Double(locationX,locationY,selectedNode.getWidth(),10);
+                     if(borderlinebound.contains(mousePoint))
+                     {	
+                    	 this.isReadyForDragging=false;
+                    	 break;
+                     }
+                    }
+                     this.lastMousePoint = mousePoint;
+                     this.initialCursor = this.editorPart.getSwingComponent().getCursor();
+                     this.editorPart.getSwingComponent().setCursor(this.dragCursor);       	            	   
+            	}        
+            else{
+                changeSelectedElementIfNeeded(mousePoint);
+                this.isReadyForDragging = true;
+                this.lastMousePoint = mousePoint;
+                this.initialCursor = this.editorPart.getSwingComponent().getCursor();
+                this.editorPart.getSwingComponent().setCursor(this.dragCursor);
+            	}
         	}
+        	
         }
     }
 

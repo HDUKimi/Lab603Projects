@@ -595,6 +595,10 @@ public class StepOneCenterTabbedPane extends JPanel {
 	public void setUsecaseDiagramButtonTabbedPanelLists(List<ButtonTabbedPanel> usecaseDiagramButtonTabbedPanelLists) {
 		this.usecaseDiagramButtonTabbedPanelLists = usecaseDiagramButtonTabbedPanelLists;
 	}
+
+	public JScrollPane getButtonScrollPanel() {
+		return buttonScrollPanel;
+	}
 	
 	
 	

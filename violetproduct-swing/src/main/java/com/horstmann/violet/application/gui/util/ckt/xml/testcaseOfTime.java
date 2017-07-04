@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.dom4j.Document;
@@ -23,31 +24,21 @@ import com.horstmann.violet.application.gui.util.wj.util.GeneratePath;
  * @author Administrator
  *
  */
-public class XmlOfTime {
+public class testcaseOfTime {
 
 	public static void main(String[] args) {
+		String xml = "EAElevatorV2ForXStream.xml";
+		getTestCase(xml);
+	}
+	public static File getTestCase(String xml){
 
-		//String xml = "EAElevatorV2ForXStream.xml";
-		String xml = "EAElevatorForXStream.xml";
 		Automatic automatic = GetAutomatic.getAutomatic(xml);// 获得原始的时间自动机
 		Automatic new_automatic = IPR__1.iPR(automatic);// 获得拆分后的时间自动机
 		Automatic aTDRTAutomatic = ATDTR__1.aTDRT(new_automatic, automatic);// 获得去除抽象时间迁移后的时间自动机
-		//搜索终止状态集合
-		for(State state:aTDRTAutomatic.getStateSet()) {
-			int k1= 0;
-			for(Transition tran:aTDRTAutomatic.getTransitionSet()){//判断目标状态是否已被访问
-				if(state.getName().equals(tran.getSource())){//找出以此状态为起点的迁移
-					k1=1;
-				}
-			}
-			if(k1==0){
-				state.setFinalState(true);
-			}		
-		}
-		
-		//ArrayList<Automatic> testCase = StateCoverage__1.testCase(aTDRTAutomatic);// 获得满足状态覆盖的抽象测试序列
-		//ArrayList<Automatic> testCase =GeneratePath.getFormatPathFromAutomatic(aTDRTAutomatic, 9);
-		ArrayList<Automatic> testCase =GeneratePath.getFormatPathFromAutomatic(automatic, 3);
+		ArrayList<Automatic> testCase = StateCoverage__1.testCase(aTDRTAutomatic);// 获得满足状态覆盖的抽象测试序列
+		// ArrayList<Automatic> testCase =
+		// GeneratePath.getFormatPathFromAutomatic(aTDRTAutomatic, 3);
+		// ArrayList<Automatic> testCase = path.testcase(aTDRTAutomatic);
 		System.out.println(testCase.size() + "-----测试路径的个数");
 
 		ArrayList<ArrayList<String>> all_inequalitys = Get_inequality__1.get_AllInequalitys(testCase);// 每个抽象测试序列有一个不等式组
@@ -258,7 +249,8 @@ public class XmlOfTime {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-
+        return file;
+	
 	}
 
 	public static String s = "";

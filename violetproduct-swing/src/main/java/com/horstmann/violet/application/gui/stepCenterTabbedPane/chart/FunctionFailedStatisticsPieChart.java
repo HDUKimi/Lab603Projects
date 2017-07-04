@@ -17,22 +17,33 @@ public class FunctionFailedStatisticsPieChart {
 	
 	Map<String,List<Map<Integer,List<Integer>>>> failedStatistics;
 	
+	private int f1;
+	private int f2;
+	
 	public FunctionFailedStatisticsPieChart(Map<String,List<Map<Integer,List<Integer>>>> failedStatistics) {
 		this.failedStatistics=failedStatistics;
+	}
+	
+	public FunctionFailedStatisticsPieChart(int f1, int f2) {
+		this.f1=f1;
+		this.f2=f2;
 	}
 
 	public DefaultPieDataset createDataset() {
 //		String[] categories = { "Active", "fixed", "postponed", "won't fix", "Not repro", "By design", "duplicate", "externa" };
 //		Object[] datas = { 16, 12, 13, 10, 15, 8, 9, 10 };
-		String[] categories = new String[failedStatistics.size()];
-		Object[] datas = new Object[failedStatistics.size()];
+//		String[] categories = new String[failedStatistics.size()];
+//		Object[] datas = new Object[failedStatistics.size()];
+//		
+//		int index=0;
+//		for(Entry<String, List<Map<Integer,List<Integer>>>> en:failedStatistics.entrySet()){
+//			categories[index]=en.getKey();
+//			datas[index]=en.getValue().size();
+//			index++;
+//		}
 		
-		int index=0;
-		for(Entry<String, List<Map<Integer,List<Integer>>>> en:failedStatistics.entrySet()){
-			categories[index]=en.getKey();
-			datas[index]=en.getValue().size();
-			index++;
-		}
+		String[] categories = { "测试用例有误", "程序出现死循环或者抛出异常" };
+		Object[] datas = { f1, f2 };
 		
 		DefaultPieDataset dataset = ChartUtils.createDefaultPieDataset(categories, datas);
 		return dataset;
