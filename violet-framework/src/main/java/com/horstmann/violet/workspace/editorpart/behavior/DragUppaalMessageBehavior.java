@@ -121,6 +121,4 @@ public class DragUppaalMessageBehavior extends AbstractEditorPartBehavior{
 	        }
 	    }
 
-	   
-
 }

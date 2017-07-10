@@ -28,7 +28,10 @@ public class FixedButtonTabbedPanel extends JPanel{
 		
 		this.tabbedbuttontext=tabbedbuttontext;
 		
-		width=tabbedbuttontext.length()*12+60;
+//		width=tabbedbuttontext.length()*12+60;
+		int bl=tabbedbuttontext.getBytes().length;
+		int cl=tabbedbuttontext.length();
+		width=(bl-cl)*12+(2*cl-bl)*7+60;
 //		System.err.println(tabbedbuttontext+" - - - "+tabbedbuttontext.length()+" - - - "+width);
 		
 		tabbedbutton=new JButton();

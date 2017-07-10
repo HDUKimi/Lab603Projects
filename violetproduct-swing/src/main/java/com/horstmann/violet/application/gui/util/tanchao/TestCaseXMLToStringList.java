@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -24,7 +25,8 @@ public class TestCaseXMLToStringList {
    //读xml 文件 生成字符串的集合
 	public List<String> getStrings(String name){
 		try {
-			in=new BufferedReader(new FileReader(name));
+			File file=new File(name);
+			in=new BufferedReader(new FileReader(file));
 			String lineS="";//当前行的字符串
 			String s="";
 			while((lineS=in.readLine())!=null){
@@ -59,7 +61,11 @@ public class TestCaseXMLToStringList {
 	public void createXml(List<String> listS,String path){
 		try {
 //		    out=new DataOutputStream(new FileOutputStream("C:\\Users\\Admin\\Desktop\\Case.xml"));
-			out=new BufferedWriter(new FileWriter(path));
+			File file=new File(path);
+			if(!file.exists()){
+				file.createNewFile();
+			}
+			out=new BufferedWriter(new FileWriter(file));
 			out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+"\n");
 			out.write("<TCS>");
 			System.out.println(listS.size());

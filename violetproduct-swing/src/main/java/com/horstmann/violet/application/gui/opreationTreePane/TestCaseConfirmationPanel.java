@@ -26,6 +26,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -82,11 +83,16 @@ public class TestCaseConfirmationPanel extends JPanel{
 	private JPanel testcasetoolpanel;
 	private JButton testcasetoolbutton1;
 	private JButton testcasetoolbutton2;
+	private JButton testcasetoolbutton3;
+	private JButton testcasetoolbutton4;
 	private JPanel testcasetablepanel;
+	private JPanel testcasecheckboxpanel;
 	private JScrollPane testcasescrollpanel;
 	
 	private DefaultTableModel testcasetablemodel;
 	private JTable testcasetable;
+	
+	private JCheckBox[] testCaseCheckBoxList;
 	
 	private String testcasename=null;
 	private List<TestCase> testcaselist=new ArrayList<TestCase>();
@@ -96,6 +102,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 	private List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
 	
     private List<String> testcasefilenamelists=new ArrayList<String>();
+    private List<String> sqlcasedatalist=new ArrayList<>();
     
 	public TestCaseConfirmationPanel(MainFrame mainFrame) {
 		// TODO Auto-generated constructor stub			
@@ -127,7 +134,10 @@ public class TestCaseConfirmationPanel extends JPanel{
 		testcasetoolpanel=new JPanel();
 		testcasetoolbutton1=new JButton();
 		testcasetoolbutton2=new JButton();
+		testcasetoolbutton3=new JButton();
+		testcasetoolbutton4=new JButton();
 		testcasetablepanel=new JPanel();
+		testcasecheckboxpanel=new JPanel();
 		
 		titlepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(142, 155, 188)));
 		toolpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, new Color(142, 155, 188)));
@@ -139,9 +149,13 @@ public class TestCaseConfirmationPanel extends JPanel{
 
 		initDiagramButton();
 		
-		initTablePanel();
+//		initTablePanel();
+//		
+//		addDataTotestcaseTable();
 		
-		addDataTotestcaseTable();
+		initCheckBoxPanel();
+		
+		addDataToCheckBoxPanel();
 		
 		GridBagLayout layout=new GridBagLayout();
 		this.setLayout(layout);
@@ -160,6 +174,40 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 		this.setMinimumSize(new Dimension(screenWidth/8, screenHeight-150));
 		
+		
+	}
+
+	private void initCheckBoxPanel() {
+		// TODO Auto-generated method stub
+		
+		testcasecheckboxpanel.setLayout(new BoxLayout(testcasecheckboxpanel, BoxLayout.Y_AXIS));
+		testcasecheckboxpanel.setBorder(BorderFactory.createEmptyBorder(0, 7, 0, 0));
+		testcasecheckboxpanel.setBackground(new Color(255, 255, 255));
+		
+		testcasescrollpanel=new JScrollPane(testcasecheckboxpanel);
+		testcasescrollpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
+		testcasescrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		testcasescrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
+	}
+
+	private void addDataToCheckBoxPanel() {
+		// TODO Auto-generated method stub
+		
+		testcasecheckboxpanel.removeAll();
+		testCaseCheckBoxList=new JCheckBox[testcasefilenamelists.size()];
+		for(int i=0;i<testcasefilenamelists.size();i++){
+			testCaseCheckBoxList[i]=new JCheckBox(testcasefilenamelists.get(i));
+			testCaseCheckBoxList[i].setOpaque(false);
+//			Object[]data={new JCheckBox(sequencelists.get(i))};
+//			Object[]data={sequencelists.get(i)};
+//			dtmDemo.addRow(data);
+			testcasecheckboxpanel.add(Box.createVerticalStrut(7));
+			testcasecheckboxpanel.add(testCaseCheckBoxList[i]);
+			if(i==0){
+				testCaseCheckBoxList[i].setSelected(true);
+			}
+		}
 		
 	}
 
@@ -255,6 +303,10 @@ public class TestCaseConfirmationPanel extends JPanel{
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 		ImageIcon icon2 = new ImageIcon(path + "refresh.png");
 		icon2.setImage(icon2.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+		ImageIcon icon3 = new ImageIcon(path + "refresh.png");
+		icon3.setImage(icon3.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+		ImageIcon icon4 = new ImageIcon(path + "refresh.png");
+		icon4.setImage(icon4.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 
 		testcasetoolbutton1.setIcon(icon1);
 		testcasetoolbutton1.setFocusable(false);
@@ -300,9 +352,54 @@ public class TestCaseConfirmationPanel extends JPanel{
 				
 			}
 		});
+		
+		testcasetoolbutton3.setIcon(icon3);
+		testcasetoolbutton3.setFocusable(false);
+		testcasetoolbutton3.setContentAreaFilled(false);
+		testcasetoolbutton3.setBorderPainted(false);
+		testcasetoolbutton3.addMouseListener(new ButtonMouseListener());
+		testcasetoolbutton3.setPreferredSize(new Dimension(21,21));
+		testcasetoolbutton3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+//				testcasefilenamelists.remove(sqlcasedatalist);
+				testcasefilenamelists.removeAll(sqlcasedatalist);
+				System.out.println("----------"+testcasefilenamelists.size());
+				
+				sqlcasedatalist=DataBaseUtil.queryCaseDataList();
+				
+				testcasefilenamelists.addAll(sqlcasedatalist);
+				System.out.println("++++++++++"+testcasefilenamelists.size());
+				
+				addDataToCheckBoxPanel();
+				
+			}
+		});
+		
+		testcasetoolbutton4.setIcon(icon4);
+		testcasetoolbutton4.setFocusable(false);
+		testcasetoolbutton4.setContentAreaFilled(false);
+		testcasetoolbutton4.setBorderPainted(false);
+		testcasetoolbutton4.addMouseListener(new ButtonMouseListener());
+		testcasetoolbutton4.setPreferredSize(new Dimension(21,21));
+		testcasetoolbutton4.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				updateFileList();
+				
+			}
+		});
 
 		testcasetoolpanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,4));
 		testcasetoolpanel.setOpaque(false);
+		testcasetoolpanel.add(testcasetoolbutton3);
+		testcasetoolpanel.add(testcasetoolbutton4);
 		testcasetoolpanel.add(testcasetoolbutton2);
 //		testcasetoolpanel.add(testcasetoolbutton1);
 		
@@ -322,7 +419,8 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 		testcasefilenamelists.clear();
 		initFileList();
-		addDataTotestcaseTable();
+//		addDataTotestcaseTable();
+		addDataToCheckBoxPanel();
 		
 	}
 
@@ -400,16 +498,21 @@ public class TestCaseConfirmationPanel extends JPanel{
 //					testcaselist = extractPerformanceTestDataFromXml(path);
 					
 					if(starttype==1){
-						testcaselist = extractFunctionalTestDataFromXml(path);
-						DataBaseUtil.insertFunctional(filename,testcaselist);
-						showFunctionalTestCase();
+//						testcaselist = extractFunctionalTestDataFromXml(path);
+//						showFunctionalTestCase();
+						
+						TestCaseXMLToStringList tcxmltsl=new TestCaseXMLToStringList();
+//						DataBaseUtil.insertTestCaseStringList(1, tcxmltsl.getStrings(path), filename);
+//						saveListToText(1, testcaselist);
+						
+						tcxmltsl.createXml(DataBaseUtil.queryTestCaseStringList(1, filename), "D:\\ModelDriverProjectFile\\SqlTestCase\\"+filename+".xml");
 					}
 					else if(starttype==2){
 						testcaselist = extractPerformanceTestDataFromXml(path);
 						showPerformanceTestCase();
 						
 						TestCaseXMLToStringList tcxmltsl=new TestCaseXMLToStringList();
-						DataBaseUtil.insertTestCaseStringList(2, tcxmltsl.getStrings(path));
+						DataBaseUtil.insertTestCaseStringList(2, tcxmltsl.getStrings(path), filename);
 						saveListToText(2, testcaselist);
 						
 //						tcxmltsl.createXml(DataBaseUtil.queryTestCaseStringList(2), "D:\\Text\\123.xml");
@@ -422,7 +525,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 						showTimeTestCase();
 						
 						TestCaseXMLToStringList tcxmltsl=new TestCaseXMLToStringList();
-						DataBaseUtil.insertTestCaseStringList(3, tcxmltsl.getStrings(path));
+						DataBaseUtil.insertTestCaseStringList(3, tcxmltsl.getStrings(path), filename);
 						saveListToText(3, testcaselist);
 						
 					}

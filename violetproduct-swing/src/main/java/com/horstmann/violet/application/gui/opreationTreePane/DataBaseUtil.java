@@ -24,8 +24,6 @@ public class DataBaseUtil {
 	public static PreparedStatement pst = null;
 	public static String sql;
 	
-	public static List<String> testcasestringlist=new ArrayList<>();
-
 	/**
 	 * 初始化数据库连接
 	 */
@@ -91,7 +89,37 @@ public class DataBaseUtil {
 		return ret;
 	}
 	
-	public static List<String> queryTestCaseStringList(int type){
+	public static List<String> queryCaseDataList(){
+		
+		List<String> casedatalist=new ArrayList<>();
+		
+		try {
+
+			init();
+			
+			casedatalist=new ArrayList<>();
+			
+			sql = "SELECT id, name, type FROM casedata ";
+			
+			pst = conn.prepareStatement(sql);// 准备执行语句
+			ret = pst.executeQuery();
+			while(ret.next()){
+				casedatalist.add(ret.getString(2));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return casedatalist;
+		
+	}
+	
+	public static List<String> queryTestCaseStringList(int type, String testcasedataname){
+
+		List<String> testcasestringlist=new ArrayList<>();
 		
 		try {
 
@@ -100,14 +128,16 @@ public class DataBaseUtil {
 			testcasestringlist=new ArrayList<>();
 			
 			if (type == 1) {
-				sql = "select * from functionalcase order by id";
+				sql = "SELECT b.id, b.content FROM casedata a left join functionalcase b on a.id=b.casedataid where a.name=? ";
 			} else if (type == 2) {
-				sql = "select * from performancecase order by id";
+				sql = "SELECT b.id, b.content FROM casedata a left join performancecase b on a.id=b.casedataid where a.name=? ";
 			} else if (type == 3) {
-				sql = "select * from timecase order by id";
+				sql = "SELECT b.id, b.content FROM casedata a left join timecase b on a.id=b.casedataid where a.name=? ";
 			}
 			
-			ret = query(sql);
+			pst = conn.prepareStatement(sql);// 准备执行语句
+			pst.setString(1, testcasedataname);
+			ret = pst.executeQuery();
 			while(ret.next()){
 				testcasestringlist.add(ret.getString(2));
 			}
@@ -120,21 +150,71 @@ public class DataBaseUtil {
 		
 		return testcasestringlist;
 	}
-
-	public static void insertTestCaseStringList(int type, List<String> testcasestringlist) {
-
+	
+	public static int queryMaxTestCaseDataId(){
+		
+		int id=0;
+		
 		try {
 
-			deleteTestCaseStringList(type);
+			init();
 			
+			sql="select max(id) from casedata order by id";
+			
+			ret = query(sql);
+			
+			if(ret.next()){
+				id=ret.getInt(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return id;
+	}
+	
+	public static void insertTestCaseData(int type, String testcasedataname){
+		
+		int id=queryMaxTestCaseDataId()+1;
+		
+		try {
+
+			init();
+			
+			sql = "insert into casedata(id,name,type) values(?,?,?)";
+
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			pst.setString(2, testcasedataname);
+			pst.setInt(3, type);
+			pst.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+	}
+
+	public static void insertTestCaseStringList(int type, List<String> testcasestringlist, String testcasedataname) {
+
+		insertTestCaseData(type, testcasedataname);
+		int caseid=queryMaxTestCaseDataId();
+		
+		try {
+
 			init();
 			
 			if (type == 1) {
-				sql = "insert into functionalcase(id,content) values(?,?)";
+				sql = "insert into functionalcase(id,content,casedataid) values(?,?,?)";
 			} else if (type == 2) {
-				sql = "insert into performancecase(id,content) values(?,?)";
+				sql = "insert into performancecase(id,content,casedataid) values(?,?,?)";
 			} else if (type == 3) {
-				sql = "insert into timecase(id,content) values(?,?)";
+				sql = "insert into timecase(id,content,casedataid) values(?,?,?)";
 			}
 
 			conn.setAutoCommit(false);
@@ -151,6 +231,7 @@ public class DataBaseUtil {
 				
 				pst.setInt(1, id++);
 				pst.setString(2, str);
+				pst.setInt(3, caseid);
 //				pst.executeUpdate();
 				pst.addBatch();
 			}
@@ -166,66 +247,6 @@ public class DataBaseUtil {
 
 	}
 
-	public static void insertFunctional(String filename, List<TestCase> testcaselist) {
-		try {
-
-			init();
-
-			int id = 0;
-			sql = "select id from CaseData order by id desc";
-			ret = query(sql);
-			if (ret.next()) {
-				id = ret.getInt(1) + 1;
-			} else {
-				id = 1;
-			}
-
-			sql = "insert into CaseData(id,name) values(?,?)";
-			pst = conn.prepareStatement(sql);
-			pst.setInt(1, id);
-			pst.setString(2, filename);
-			pst.executeUpdate();
-
-			conn.setAutoCommit(false);
-
-			sql = "insert into TestCase(id,caseid,tcid) values(?,?,?)";
-			pst = conn.prepareStatement(sql);
-			for (TestCase tc : testcaselist) {
-				pst.setString(1, id + "-" + tc.getTestCaseID());
-				pst.setString(2, id + "");
-				pst.setString(3, tc.getTestCaseID());
-				// pst.executeUpdate();
-				pst.addBatch();
-
-			}
-
-			pst.executeBatch();
-			conn.commit();
-
-			conn.setAutoCommit(false);
-			sql = "insert into Process(id,testcaseid,pid,pname,pparam) values(?,?,?,?,?)";
-			pst = conn.prepareStatement(sql);
-			for (TestCase tc : testcaselist) {
-				System.out.println("------------------" + tc.getTestCaseID() + "------------------");
-				for (myProcess p : tc.getProcessList()) {
-
-					pst.setString(1, id + "-" + tc.getTestCaseID() + "-" + p.getProcessID());
-					pst.setString(2, id + "-" + tc.getTestCaseID());
-					pst.setInt(3, p.getProcessID());
-					pst.setString(4, p.getProcessName());
-					pst.setString(5, p.getProcessParam());
-					// pst.executeUpdate();
-					pst.addBatch();
-				}
-			}
-			pst.executeBatch();
-			conn.commit();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-	}
+	
 
 }
