@@ -117,9 +117,38 @@ public class DataBaseUtil {
 		
 	}
 	
-	public static List<String> queryTestCaseStringList(int type, String testcasedataname){
+	public static int queryTestCaseDataType(String testcasedataname){
+		
+		int type=1;
+		
+		try {
+
+			init();
+			
+			sql = "SELECT id, name, type FROM casedata WHERE name=?";
+			
+			pst = conn.prepareStatement(sql);// ×¼±¸Ö´ÐÐÓï¾ä
+			pst.setString(1, testcasedataname);
+			ret = pst.executeQuery();
+			if(ret.next()){
+				type=ret.getInt(3);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return type;
+		
+	}
+	
+	public static List<String> queryTestCaseStringList(String testcasedataname){
 
 		List<String> testcasestringlist=new ArrayList<>();
+		
+		int type=queryTestCaseDataType(testcasedataname);
 		
 		try {
 

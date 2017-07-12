@@ -49,10 +49,12 @@ import org.dom4j.io.SAXReader;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.FixedButtonTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.FunctionalTestCaseReportPartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEditor;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.PerformanceTestCaseReportPartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.PerformanceTestCaseReportTableHeaderPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseDataPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TimeTestCaseReportPartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCasePieChartPanel;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
@@ -97,12 +99,14 @@ public class TestCaseConfirmationPanel extends JPanel{
 	private String testcasename=null;
 	private List<TestCase> testcaselist=new ArrayList<TestCase>();
 	private List<List<String>> limitlist=new ArrayList<>();
-	private List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
-	private List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
-	private List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
+//	private List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
+//	private List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
+//	private List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
 	
     private List<String> testcasefilenamelists=new ArrayList<String>();
     private List<String> sqlcasedatalist=new ArrayList<>();
+    
+    private List<String> selectedtestcaselist=new ArrayList<>();
     
 	public TestCaseConfirmationPanel(MainFrame mainFrame) {
 		// TODO Auto-generated constructor stub			
@@ -207,6 +211,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 			if(i==0){
 				testCaseCheckBoxList[i].setSelected(true);
 			}
+			
 		}
 		
 	}
@@ -303,9 +308,9 @@ public class TestCaseConfirmationPanel extends JPanel{
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 		ImageIcon icon2 = new ImageIcon(path + "refresh.png");
 		icon2.setImage(icon2.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(path + "refresh.png");
+		ImageIcon icon3 = new ImageIcon(path + "database_refresh.png");
 		icon3.setImage(icon3.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon4 = new ImageIcon(path + "refresh.png");
+		ImageIcon icon4 = new ImageIcon(path + "resultset_next.png");
 		icon4.setImage(icon4.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 
 		testcasetoolbutton1.setIcon(icon1);
@@ -367,14 +372,29 @@ public class TestCaseConfirmationPanel extends JPanel{
 				
 //				testcasefilenamelists.remove(sqlcasedatalist);
 				testcasefilenamelists.removeAll(sqlcasedatalist);
-				System.out.println("----------"+testcasefilenamelists.size());
 				
 				sqlcasedatalist=DataBaseUtil.queryCaseDataList();
 				
 				testcasefilenamelists.addAll(sqlcasedatalist);
-				System.out.println("++++++++++"+testcasefilenamelists.size());
 				
-				addDataToCheckBoxPanel();
+				new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+
+						addDataToCheckBoxPanel();
+						
+						ChangeRepaint();
+						
+//						for(String filename:sqlcasedatalist){
+//							
+//							TestCaseXMLToStringList tcxmltsl=new TestCaseXMLToStringList();
+//							tcxmltsl.createXml(DataBaseUtil.queryTestCaseStringList(filename), "D:\\ModelDriverProjectFile\\SqlTestCase\\"+filename+".xml");
+//							
+//						}
+						
+					}
+				}).start();
 				
 			}
 		});
@@ -390,16 +410,47 @@ public class TestCaseConfirmationPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+
+				selectedtestcaselist.clear();
 				
-				updateFileList();
+				for(JCheckBox jcb:testCaseCheckBoxList){
+					if(jcb.isSelected()){
+						selectedtestcaselist.add(jcb.getText());
+					}
+				}
+				
+				new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						
+						for(String testcasename:selectedtestcaselist){
+							TestCaseDataPanel tcdpanel=new TestCaseDataPanel(mainFrame, testcasename);
+							mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList().add(tcdpanel);
+
+							mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
+						}
+						
+//						for(TestCaseDataPanel tcdpanel:mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList()){
+//							
+//							tcdpanel.initData();
+//							
+//							System.out.println("-------------");
+//							
+//						}
+						
+					}
+				}).start();
+				
 				
 			}
 		});
 
 		testcasetoolpanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,4));
 		testcasetoolpanel.setOpaque(false);
-		testcasetoolpanel.add(testcasetoolbutton3);
 		testcasetoolpanel.add(testcasetoolbutton4);
+		testcasetoolpanel.add(testcasetoolbutton3);
 		testcasetoolpanel.add(testcasetoolbutton2);
 //		testcasetoolpanel.add(testcasetoolbutton1);
 		
@@ -502,35 +553,35 @@ public class TestCaseConfirmationPanel extends JPanel{
 //						showFunctionalTestCase();
 						
 						TestCaseXMLToStringList tcxmltsl=new TestCaseXMLToStringList();
-//						DataBaseUtil.insertTestCaseStringList(1, tcxmltsl.getStrings(path), filename);
+						DataBaseUtil.insertTestCaseStringList(1, tcxmltsl.getStrings(path), filename);
 //						saveListToText(1, testcaselist);
 						
-						tcxmltsl.createXml(DataBaseUtil.queryTestCaseStringList(1, filename), "D:\\ModelDriverProjectFile\\SqlTestCase\\"+filename+".xml");
+//						tcxmltsl.createXml(DataBaseUtil.queryTestCaseStringList(1, filename), "D:\\ModelDriverProjectFile\\SqlTestCase\\"+filename+".xml");
 					}
 					else if(starttype==2){
-						testcaselist = extractPerformanceTestDataFromXml(path);
-						showPerformanceTestCase();
+//						testcaselist = extractPerformanceTestDataFromXml(path);
+//						showPerformanceTestCase();
 						
 						TestCaseXMLToStringList tcxmltsl=new TestCaseXMLToStringList();
 						DataBaseUtil.insertTestCaseStringList(2, tcxmltsl.getStrings(path), filename);
-						saveListToText(2, testcaselist);
+//						saveListToText(2, testcaselist);
 						
 //						tcxmltsl.createXml(DataBaseUtil.queryTestCaseStringList(2), "D:\\Text\\123.xml");
 					}
 					else if(starttype==3){
-						testcaselist = extractTimeTestDataFromXml(path);
+//						testcaselist = extractTimeTestDataFromXml(path);
 //						Map resultmap=TestCaseConfirmationPanel.extractTimeTestDataFromXml(path);
 //						testcaselist=(List<TestCase>) resultmap.get("testcase");
 //						limitlist=(List<List<String>>) resultmap.get("limit");
-						showTimeTestCase();
+//						showTimeTestCase();
 						
 						TestCaseXMLToStringList tcxmltsl=new TestCaseXMLToStringList();
 						DataBaseUtil.insertTestCaseStringList(3, tcxmltsl.getStrings(path), filename);
-						saveListToText(3, testcaselist);
+//						saveListToText(3, testcaselist);
 						
 					}
 
-					mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().updateUI();
+//					mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().updateUI();
 					
 					mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(false);
 					
@@ -668,32 +719,32 @@ public class TestCaseConfirmationPanel extends JPanel{
 		return testcaseList;
 	}
 
-	protected void showFunctionalTestCase() {
-		// TODO Auto-generated method stub
-
-		JPanel resultpanel=new JPanel();
-		JPanel emptypanel=new JPanel();
-		resultpanel.setOpaque(false);
-		emptypanel.setOpaque(false);
-		
-		GridBagLayout layout = new GridBagLayout();
-		resultpanel.setLayout(layout);
-		int i=0;
-		functionaltestcasereportlist.clear();
-		for(TestCase tc:testcaselist){
-			FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(tc);
-			resultpanel.add(ftcrppanel);
-			layout.setConstraints(ftcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-			functionaltestcasereportlist.add(ftcrppanel);
-		}
-		resultpanel.add(emptypanel);
-		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		
-		JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getTableresultpanel();
-		jp.removeAll();
-		jp.add(resultpanel);
-		
-	}
+//	protected void showFunctionalTestCase() {
+//		// TODO Auto-generated method stub
+//
+//		JPanel resultpanel=new JPanel();
+//		JPanel emptypanel=new JPanel();
+//		resultpanel.setOpaque(false);
+//		emptypanel.setOpaque(false);
+//		
+//		GridBagLayout layout = new GridBagLayout();
+//		resultpanel.setLayout(layout);
+//		int i=0;
+//		functionaltestcasereportlist.clear();
+//		for(TestCase tc:testcaselist){
+//			FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(tc);
+//			resultpanel.add(ftcrppanel);
+//			layout.setConstraints(ftcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//			functionaltestcasereportlist.add(ftcrppanel);
+//		}
+//		resultpanel.add(emptypanel);
+//		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		
+//		JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getTableresultpanel();
+//		jp.removeAll();
+//		jp.add(resultpanel);
+//		
+//	}
 
 	public static List<TestCase> extractPerformanceTestDataFromXml(String path) {
 
@@ -782,37 +833,37 @@ public class TestCaseConfirmationPanel extends JPanel{
 
 	}
 
-	protected void showPerformanceTestCase() {
-		// TODO Auto-generated method stub
-
-		JPanel resultpanel = new JPanel();
-		JPanel emptypanel = new JPanel();
-		resultpanel.setOpaque(false);
-		emptypanel.setOpaque(false);
-
-		GridBagLayout layout = new GridBagLayout();
-		resultpanel.setLayout(layout);
-		int i = 0;
-
-		PerformanceTestCaseReportTableHeaderPanel ptcrthpanel = new PerformanceTestCaseReportTableHeaderPanel();
-		resultpanel.add(ptcrthpanel);
-		layout.setConstraints(ptcrthpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-
-		performancetestcasereportlist.clear();
-		for (TestCase tc : testcaselist) {
-			PerformanceTestCaseReportPartPanel ptcrppanel = new PerformanceTestCaseReportPartPanel(tc);
-			resultpanel.add(ptcrppanel);
-			layout.setConstraints(ptcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-			performancetestcasereportlist.add(ptcrppanel);
-		}
-		resultpanel.add(emptypanel);
-		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-
-		JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getTableresultpanel();
-		jp.removeAll();
-		jp.add(resultpanel);
-
-	}
+//	protected void showPerformanceTestCase() {
+//		// TODO Auto-generated method stub
+//
+//		JPanel resultpanel = new JPanel();
+//		JPanel emptypanel = new JPanel();
+//		resultpanel.setOpaque(false);
+//		emptypanel.setOpaque(false);
+//
+//		GridBagLayout layout = new GridBagLayout();
+//		resultpanel.setLayout(layout);
+//		int i = 0;
+//
+//		PerformanceTestCaseReportTableHeaderPanel ptcrthpanel = new PerformanceTestCaseReportTableHeaderPanel();
+//		resultpanel.add(ptcrthpanel);
+//		layout.setConstraints(ptcrthpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//
+//		performancetestcasereportlist.clear();
+//		for (TestCase tc : testcaselist) {
+//			PerformanceTestCaseReportPartPanel ptcrppanel = new PerformanceTestCaseReportPartPanel(tc);
+//			resultpanel.add(ptcrppanel);
+//			layout.setConstraints(ptcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//			performancetestcasereportlist.add(ptcrppanel);
+//		}
+//		resultpanel.add(emptypanel);
+//		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//
+//		JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getTableresultpanel();
+//		jp.removeAll();
+//		jp.add(resultpanel);
+//
+//	}
 	
 	public static List<TestCase> extractTimeTestDataFromXml(String path) {
 		// TODO Auto-generated method stub
@@ -892,34 +943,34 @@ public class TestCaseConfirmationPanel extends JPanel{
 		return testcaseList;
 	}
 
-	protected void showTimeTestCase() {
-		// TODO Auto-generated method stub
-
-		JPanel resultpanel=new JPanel();
-		JPanel emptypanel=new JPanel();
-		resultpanel.setOpaque(false);
-		emptypanel.setOpaque(false);
-		
-		GridBagLayout layout = new GridBagLayout();
-		resultpanel.setLayout(layout);
-		int i=0;
-		int index=0;
-		timetestcasereportlist.clear();
-		for(TestCase tc:testcaselist){
-			TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(tc);
-			resultpanel.add(ttcrppanel);
-			layout.setConstraints(ttcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-			timetestcasereportlist.add(ttcrppanel);
-			index++;
-		}
-		resultpanel.add(emptypanel);
-		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		
-		JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getTableresultpanel();
-		jp.removeAll();
-		jp.add(resultpanel);
-		
-	}
+//	protected void showTimeTestCase() {
+//		// TODO Auto-generated method stub
+//
+//		JPanel resultpanel=new JPanel();
+//		JPanel emptypanel=new JPanel();
+//		resultpanel.setOpaque(false);
+//		emptypanel.setOpaque(false);
+//		
+//		GridBagLayout layout = new GridBagLayout();
+//		resultpanel.setLayout(layout);
+//		int i=0;
+//		int index=0;
+//		timetestcasereportlist.clear();
+//		for(TestCase tc:testcaselist){
+//			TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(tc);
+//			resultpanel.add(ttcrppanel);
+//			layout.setConstraints(ttcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//			timetestcasereportlist.add(ttcrppanel);
+//			index++;
+//		}
+//		resultpanel.add(emptypanel);
+//		layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		
+//		JPanel jp = mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getTableresultpanel();
+//		jp.removeAll();
+//		jp.add(resultpanel);
+//		
+//	}
 
 //	private void initUI() {
 //		// TODO Auto-generated method stub
@@ -988,17 +1039,17 @@ public class TestCaseConfirmationPanel extends JPanel{
 		return testcaselist;
 	}
 
-	public List<FunctionalTestCaseReportPartPanel> getFunctionaltestcasereportlist() {
-		return functionaltestcasereportlist;
-	}
-
-	public List<PerformanceTestCaseReportPartPanel> getPerformancetestcasereportlist() {
-		return performancetestcasereportlist;
-	}
-	
-	public List<TimeTestCaseReportPartPanel> getTimetestcasereportlist() {
-		return timetestcasereportlist;
-	}
+//	public List<FunctionalTestCaseReportPartPanel> getFunctionaltestcasereportlist() {
+//		return functionaltestcasereportlist;
+//	}
+//
+//	public List<PerformanceTestCaseReportPartPanel> getPerformancetestcasereportlist() {
+//		return performancetestcasereportlist;
+//	}
+//	
+//	public List<TimeTestCaseReportPartPanel> getTimetestcasereportlist() {
+//		return timetestcasereportlist;
+//	}
 
 	public String getTestcasename() {
 		return testcasename;

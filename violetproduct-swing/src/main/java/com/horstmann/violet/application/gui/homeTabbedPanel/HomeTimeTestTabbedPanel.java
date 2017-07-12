@@ -138,7 +138,7 @@ public class HomeTimeTestTabbedPanel extends JPanel{
 				mainFrame.getHomeAllTabbedPanel().initAllUIPanelAndData();
 				
 				mainFrame.getTestCaseGenerationPanel().getCoverpanel().setVisible(true);
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getToolbuttonpanel7().setVisible(true);
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getToolbuttonpanel7().setVisible(true);
 				
 				mainFrame.getHomeAllTabbedPanel().setStarttype(3);
 				mainFrame.getStepButton().getStep1button().doClick();

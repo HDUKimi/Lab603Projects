@@ -155,7 +155,7 @@ public class HomeFunctionalTestTabbedPanel extends JPanel {
 				mainFrame.getHomeAllTabbedPanel().initAllUIPanelAndData();
 				
 				mainFrame.getTestCaseGenerationPanel().getCoverpanel().setVisible(true);
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getToolbuttonpanel7().setVisible(true);
+//				mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().getToolbuttonpanel7().setVisible(true);
 				
 				mainFrame.getHomeAllTabbedPanel().setStarttype(1);
 				mainFrame.getStepButton().getStep1button().doClick();

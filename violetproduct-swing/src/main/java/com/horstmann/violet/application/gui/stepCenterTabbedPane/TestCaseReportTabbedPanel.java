@@ -122,21 +122,39 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private JPanel tableresultpanel;
 	
 	private String testcasename;
-	private List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
-	private List<FunctionalTestCaseReportPartPanel> checkedfunctionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
-	private List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
-	private List<PerformanceTestCaseReportPartPanel> checkedperformancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
-	private List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
-	private List<TimeTestCaseReportPartPanel> checkedtimetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
+	private int testcasetype;
+	private List<JPanel> testcasereportlist=new ArrayList<JPanel>();
+	private List<JPanel> checkedtestcasereportlist=new ArrayList<JPanel>();
+	
+//	private List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
+//	private List<FunctionalTestCaseReportPartPanel> checkedfunctionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
+//	private List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
+//	private List<PerformanceTestCaseReportPartPanel> checkedperformancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
+//	private List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
+//	private List<TimeTestCaseReportPartPanel> checkedtimetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
+	
 	private List<TestCase> selectedtestcaselist=new ArrayList<TestCase>();
 	
 	private int[] testcasecount=new int[3];
 	private List<Integer> testcasecountlist=new ArrayList<Integer>();
 	
-	public TestCaseReportTabbedPanel(MainFrame mainframe){
+	public TestCaseReportTabbedPanel(MainFrame mainframe,String testcasename,int testcasetype,List<JPanel> testcasereportlist){
 		
 		this.mainFrame=mainframe;
 		
+		this.testcasename=testcasename;
+		
+		this.testcasetype=testcasetype;
+		
+		this.testcasereportlist=testcasereportlist;
+		
+		initPanel();
+		
+	}
+	
+	private void initPanel(){
+		
+
 		toolpanel=new JPanel();
 		moviepanel=new MoviePanel();
 		tablepanel=new JPanel();
@@ -214,16 +232,16 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				// TODO Auto-generated method stub
 				
 				if (threadstate == 0) {
-					if(mainFrame.getTestCaseConfirmationPanel().getTestcasename()==null){
-						
-					}
-					else{
+//					if(mainFrame.getTestCaseConfirmationPanel().getTestcasename()==null){
+//						
+//					}
+//					else{
 						progressbar.setValue(0);
 						progressbarlabel.setText(" ");
 						
 						progressbarindex=0;
 						
-						mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(false);
+//						mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(false);
 						
 //						clientSocket = new ClientSocket("10.1.16.89", 5555);
 //						Boolean connectstate=clientSocket.Connection();
@@ -234,14 +252,13 @@ public class TestCaseReportTabbedPanel extends JPanel{
 							progressbar.setValue(0);
 							progressbarlabel.setText("0%");
 							
-							int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
-							if(starttype==1){
+							if(testcasetype==1){
 								startFunctionalTestConfirmation();
 							}
-							else if(starttype==2){
+							else if(testcasetype==2){
 								startPerformanceTestConfirmation();
 							}
-							else if(starttype==3){
+							else if(testcasetype==3){
 								startTimeTestConfirmation();
 							}
 							
@@ -250,7 +267,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						else{
 							TextAreaPrint("连接服务器失败！！！");
 						}
-					}
+//					}
 					
 					
 				} else if (threadstate == 1) {
@@ -340,41 +357,63 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
-				
-				if(starttype==1){
+				if(testcasetype==1){
 					
-					functionaltestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getFunctionaltestcasereportlist();
+//					functionaltestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getFunctionaltestcasereportlist();
+//					
+//					for(FunctionalTestCaseReportPartPanel ftcrpp:functionaltestcasereportlist){
+//						if(ftcrpp.getAttributepanel().isVisible()){
+//							ftcrpp.getAttributepanel().setVisible(false);
+//						}
+//					}
 					
-					for(FunctionalTestCaseReportPartPanel ftcrpp:functionaltestcasereportlist){
+					for(JPanel jp:testcasereportlist){
+						FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) jp;
 						if(ftcrpp.getAttributepanel().isVisible()){
 							ftcrpp.getAttributepanel().setVisible(false);
 						}
 					}
 					
 				}
-				else if(starttype==2){
-					performancetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getPerformancetestcasereportlist();
+				else if(testcasetype==2){
+//					performancetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getPerformancetestcasereportlist();
+//					
+//					for(PerformanceTestCaseReportPartPanel ptcrpp:performancetestcasereportlist){
+//						
+//						if (ptcrpp.getAttributepanel().isVisible()) {
+//							ptcrpp.getAttributepanel().setVisible(false);
+//						}
+//						
+//					}
 					
-					for(PerformanceTestCaseReportPartPanel ptcrpp:performancetestcasereportlist){
-						
-						if (ptcrpp.getAttributepanel().isVisible()) {
+					for(JPanel jp:testcasereportlist){
+						PerformanceTestCaseReportPartPanel ptcrpp=(PerformanceTestCaseReportPartPanel) jp;
+						if(ptcrpp.getAttributepanel().isVisible()){
 							ptcrpp.getAttributepanel().setVisible(false);
 						}
-						
 					}
-				}
-				else if(starttype==3){
-					timetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTimetestcasereportlist();
 					
-					for(TimeTestCaseReportPartPanel ttcrpp:timetestcasereportlist){
-						
-						if (ttcrpp.getAttributepanel().isVisible()) {
+				}
+				else if(testcasetype==3){
+//					timetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTimetestcasereportlist();
+//					
+//					for(TimeTestCaseReportPartPanel ttcrpp:timetestcasereportlist){
+//						
+//						if (ttcrpp.getAttributepanel().isVisible()) {
+//							ttcrpp.getAttributepanel().setVisible(false);
+//							ttcrpp.getLimitpanel().setVisible(false);
+//						}
+//						
+//					}
+					
+					for(JPanel jp:testcasereportlist){
+						TimeTestCaseReportPartPanel ttcrpp=(TimeTestCaseReportPartPanel) jp;
+						if(ttcrpp.getAttributepanel().isVisible()){
 							ttcrpp.getAttributepanel().setVisible(false);
 							ttcrpp.getLimitpanel().setVisible(false);
 						}
-						
 					}
+					
 				}
 				
 			}
@@ -392,41 +431,61 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 
-				int starttype = mainFrame.getHomeAllTabbedPanel().getStarttype();
+				if (testcasetype == 1) {
 
-				if (starttype == 1) {
-
-					functionaltestcasereportlist = mainFrame.getTestCaseConfirmationPanel()
-							.getFunctionaltestcasereportlist();
-
-					for (FunctionalTestCaseReportPartPanel ftcrpp : functionaltestcasereportlist) {
-						if (!ftcrpp.getAttributepanel().isVisible()) {
+//					functionaltestcasereportlist = mainFrame.getTestCaseConfirmationPanel()
+//							.getFunctionaltestcasereportlist();
+//
+//					for (FunctionalTestCaseReportPartPanel ftcrpp : functionaltestcasereportlist) {
+//						if (!ftcrpp.getAttributepanel().isVisible()) {
+//							ftcrpp.getAttributepanel().setVisible(true);
+//						}
+//					}
+					
+					for(JPanel jp:testcasereportlist){
+						FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) jp;
+						if(!ftcrpp.getAttributepanel().isVisible()){
 							ftcrpp.getAttributepanel().setVisible(true);
 						}
 					}
 
-				} else if (starttype == 2) {
-					performancetestcasereportlist = mainFrame.getTestCaseConfirmationPanel()
-							.getPerformancetestcasereportlist();
-
-					for (PerformanceTestCaseReportPartPanel ptcrpp : performancetestcasereportlist) {
-
-						if (!ptcrpp.getAttributepanel().isVisible()) {
+				} else if (testcasetype == 2) {
+//					performancetestcasereportlist = mainFrame.getTestCaseConfirmationPanel()
+//							.getPerformancetestcasereportlist();
+//
+//					for (PerformanceTestCaseReportPartPanel ptcrpp : performancetestcasereportlist) {
+//
+//						if (!ptcrpp.getAttributepanel().isVisible()) {
+//							ptcrpp.getAttributepanel().setVisible(true);
+//						}
+//
+//					}
+					
+					for(JPanel jp:testcasereportlist){
+						PerformanceTestCaseReportPartPanel ptcrpp=(PerformanceTestCaseReportPartPanel) jp;
+						if(!ptcrpp.getAttributepanel().isVisible()){
 							ptcrpp.getAttributepanel().setVisible(true);
 						}
-
 					}
 				}
-				else if(starttype==3){
-					timetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTimetestcasereportlist();
+				else if(testcasetype==3){
+//					timetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTimetestcasereportlist();
+//					
+//					for(TimeTestCaseReportPartPanel ttcrpp:timetestcasereportlist){
+//						
+//						if (!ttcrpp.getAttributepanel().isVisible()) {
+//							ttcrpp.getAttributepanel().setVisible(true);
+//							ttcrpp.getLimitpanel().setVisible(true);
+//						}
+//						
+//					}
 					
-					for(TimeTestCaseReportPartPanel ttcrpp:timetestcasereportlist){
-						
-						if (!ttcrpp.getAttributepanel().isVisible()) {
+					for(JPanel jp:testcasereportlist){
+						TimeTestCaseReportPartPanel ttcrpp=(TimeTestCaseReportPartPanel) jp;
+						if(!ttcrpp.getAttributepanel().isVisible()){
 							ttcrpp.getAttributepanel().setVisible(true);
 							ttcrpp.getLimitpanel().setVisible(true);
 						}
-						
 					}
 				}
 
@@ -446,15 +505,18 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				int starttype = mainFrame.getHomeAllTabbedPanel().getStarttype();
-
-				if(starttype==1){
-					functionaltestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getFunctionaltestcasereportlist();
-					for(FunctionalTestCaseReportPartPanel ftcrpp:functionaltestcasereportlist){
+				if(testcasetype==1){
+//					functionaltestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getFunctionaltestcasereportlist();
+//					for(FunctionalTestCaseReportPartPanel ftcrpp:functionaltestcasereportlist){
+//						ftcrpp.getToolcheckbox().setSelected(true);
+//					}
+					
+					for(JPanel jp:testcasereportlist){
+						FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) jp;
 						ftcrpp.getToolcheckbox().setSelected(true);
 					}
 				}
-				else if(starttype==2){
+				else if(testcasetype==2){
 //					performancetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getPerformancetestcasereportlist();
 //					
 //					for(PerformanceTestCaseReportPartPanel ptcrpp:performancetestcasereportlist){
@@ -469,10 +531,15 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						windcheckboxpanelstate=0;
 					}
 				}
-				else if(starttype==3){
-					timetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTimetestcasereportlist();
+				else if(testcasetype==3){
+//					timetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTimetestcasereportlist();
+//					
+//					for(TimeTestCaseReportPartPanel ttcrpp:timetestcasereportlist){
+//						ttcrpp.getToolcheckbox().setSelected(true);
+//					}
 					
-					for(TimeTestCaseReportPartPanel ttcrpp:timetestcasereportlist){
+					for(JPanel jp:testcasereportlist){
+						TimeTestCaseReportPartPanel ttcrpp=(TimeTestCaseReportPartPanel) jp;
 						ttcrpp.getToolcheckbox().setSelected(true);
 					}
 				}
@@ -492,15 +559,17 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 
-				int starttype = mainFrame.getHomeAllTabbedPanel().getStarttype();
-
-				if (starttype==1){
-					functionaltestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getFunctionaltestcasereportlist();
-					for(FunctionalTestCaseReportPartPanel ftcrpp:functionaltestcasereportlist){
+				if (testcasetype==1){
+//					functionaltestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getFunctionaltestcasereportlist();
+//					for(FunctionalTestCaseReportPartPanel ftcrpp:functionaltestcasereportlist){
+//						ftcrpp.getToolcheckbox().setSelected(false);
+//					}
+					for(JPanel jp:testcasereportlist){
+						FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) jp;
 						ftcrpp.getToolcheckbox().setSelected(false);
 					}
 				}
-				else if(starttype==2){
+				else if(testcasetype==2){
 					if(windcheckboxpanelstate==0){
 						windcheckboxpanel.setVisible(true);
 						windcheckboxpanelstate=1;
@@ -510,10 +579,15 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						windcheckboxpanelstate=0;
 					}
 				}
-				else if(starttype==3){
-					timetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTimetestcasereportlist();
+				else if(testcasetype==3){
+//					timetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTimetestcasereportlist();
+//					
+//					for(TimeTestCaseReportPartPanel ttcrpp:timetestcasereportlist){
+//						ttcrpp.getToolcheckbox().setSelected(false);
+//					}
 					
-					for(TimeTestCaseReportPartPanel ttcrpp:timetestcasereportlist){
+					for(JPanel jp:testcasereportlist){
+						TimeTestCaseReportPartPanel ttcrpp=(TimeTestCaseReportPartPanel) jp;
 						ttcrpp.getToolcheckbox().setSelected(false);
 					}
 				}
@@ -607,11 +681,11 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		progressbar.setValue(0);
 		progressbarlabel.setText("");
 		
-		mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(false);
+//		mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(false);
 		
-		tableresultpanel.removeAll();
+//		tableresultpanel.removeAll();
 		
-		mainFrame.getConsolePartPanel().getTextarea5().setText("");
+//		mainFrame.getConsolePartPanel().getTextarea5().setText("");
 		
 //		ChangeRepaint();
 	}
@@ -645,21 +719,33 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void run() {
 				// TODO Auto-generated method stub
 				
-				checkedfunctionaltestcasereportlist.removeAll(checkedfunctionaltestcasereportlist);
+//				checkedfunctionaltestcasereportlist.removeAll(checkedfunctionaltestcasereportlist);
+//				selectedtestcaselist.removeAll(selectedtestcaselist);
+//				
+//				functionaltestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getFunctionaltestcasereportlist();
+//				
+//				for(FunctionalTestCaseReportPartPanel ftcrpp:functionaltestcasereportlist){
+//					
+//					if (ftcrpp.getToolcheckbox().isSelected()) {
+//						checkedfunctionaltestcasereportlist.add(ftcrpp);
+//						selectedtestcaselist.add(ftcrpp.getTestcase());
+//					}
+//					
+//				}
+				
+				checkedtestcasereportlist.removeAll(checkedtestcasereportlist);
 				selectedtestcaselist.removeAll(selectedtestcaselist);
 				
-				functionaltestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getFunctionaltestcasereportlist();
-				
-				for(FunctionalTestCaseReportPartPanel ftcrpp:functionaltestcasereportlist){
-					
+				for(JPanel jp:testcasereportlist){
+					FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) jp;
 					if (ftcrpp.getToolcheckbox().isSelected()) {
-						checkedfunctionaltestcasereportlist.add(ftcrpp);
+						checkedtestcasereportlist.add(ftcrpp);
 						selectedtestcaselist.add(ftcrpp.getTestcase());
 					}
-					
 				}
 				
-				testcasename=mainFrame.getTestCaseConfirmationPanel().getTestcasename();
+				
+//				testcasename=mainFrame.getTestCaseConfirmationPanel().getTestcasename();
 				
 				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"selected.xml";
 				extractDataToXml(extraxmlpath, selectedtestcaselist);//生成测试用例xml
@@ -830,7 +916,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void run() {
 				// TODO Auto-generated method stub
 				
-				int sum=checkedfunctionaltestcasereportlist.size();
+//				int sum=checkedfunctionaltestcasereportlist.size();
+				int sum=checkedtestcasereportlist.size();
 				for(int index=0;index<sum;index++){
 					TextAreaPrint("正在处理第 "+(index+1)+" 条测试用例");
 					
@@ -870,8 +957,10 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					// TODO Auto-generated method stub
 					
 					int index=0;
-					for(FunctionalTestCaseReportPartPanel ftcrpp:checkedfunctionaltestcasereportlist){
+//					for(FunctionalTestCaseReportPartPanel ftcrpp:checkedfunctionaltestcasereportlist){
 						
+					for(JPanel jp:checkedtestcasereportlist){
+						FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) jp;
 						
 //						TestCase testcase=list.get(Integer.parseInt(ftcrpp.getTestcase().getTestCaseID())-1);
 						while(!list.get(index).getTestCaseID().equals(ftcrpp.getTestcase().getTestCaseID())){
@@ -964,21 +1053,30 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void run() {
 				// TODO Auto-generated method stub
 				
-				checkedperformancetestcasereportlist.removeAll(checkedperformancetestcasereportlist);
+//				checkedperformancetestcasereportlist.removeAll(checkedperformancetestcasereportlist);
+//				selectedtestcaselist.removeAll(selectedtestcaselist);
+//				
+//				performancetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getPerformancetestcasereportlist();
+//				
+//				for(PerformanceTestCaseReportPartPanel tcrpp:performancetestcasereportlist){
+//					
+////					if(tcrpp.getToolcheckbox().isSelected()){
+//						checkedperformancetestcasereportlist.add(tcrpp);
+//						selectedtestcaselist.add(tcrpp.getTestcase());
+////					}
+//					
+//				}
+				
+				checkedtestcasereportlist.removeAll(checkedtestcasereportlist);
 				selectedtestcaselist.removeAll(selectedtestcaselist);
 				
-				performancetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getPerformancetestcasereportlist();
-				
-				for(PerformanceTestCaseReportPartPanel tcrpp:performancetestcasereportlist){
-					
-//					if(tcrpp.getToolcheckbox().isSelected()){
-						checkedperformancetestcasereportlist.add(tcrpp);
-						selectedtestcaselist.add(tcrpp.getTestcase());
-//					}
-					
+				for(JPanel jp:testcasereportlist){
+					PerformanceTestCaseReportPartPanel tcrpp=(PerformanceTestCaseReportPartPanel) jp;
+					checkedtestcasereportlist.add(tcrpp);
+					selectedtestcaselist.add(tcrpp.getTestcase());
 				}
 				
-				testcasename=mainFrame.getTestCaseConfirmationPanel().getTestcasename();
+//				testcasename=mainFrame.getTestCaseConfirmationPanel().getTestcasename();
 				
 				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"selected.xml";
 				extractDataToXml(extraxmlpath, selectedtestcaselist);//生成测试用例xml
@@ -1149,7 +1247,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void run() {
 				// TODO Auto-generated method stub
 				
-				int sum=checkedperformancetestcasereportlist.size();
+//				int sum=checkedperformancetestcasereportlist.size();
+				int sum=checkedtestcasereportlist.size();
 				for(int index=0;index<sum;index++){
 					TextAreaPrint("正在处理第 "+(index+1)+" 条测试用例");
 					
@@ -1225,8 +1324,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //					}
 					
 					int index=0;
-					for(PerformanceTestCaseReportPartPanel tcrpp:checkedperformancetestcasereportlist){
-						
+//					for(PerformanceTestCaseReportPartPanel tcrpp:checkedperformancetestcasereportlist){
+					for(JPanel jp:checkedtestcasereportlist){
+						PerformanceTestCaseReportPartPanel tcrpp=(PerformanceTestCaseReportPartPanel) jp;
 						
 //						TestCase testcase=list.get(Integer.parseInt(tcrpp.getTestcase().getTestCaseID())-1);
 						if(!list.get(index).getTestCaseID().equals(tcrpp.getTestcase().getTestCaseID())){
@@ -1301,23 +1401,34 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void run() {
 				// TODO Auto-generated method stub
 				
-				checkedtimetestcasereportlist.removeAll(checkedtimetestcasereportlist);
+//				checkedtimetestcasereportlist.removeAll(checkedtimetestcasereportlist);
+//				selectedtestcaselist.removeAll(selectedtestcaselist);
+//				
+//				timetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTimetestcasereportlist();
+//				
+//				for(TimeTestCaseReportPartPanel ttcrpp:timetestcasereportlist){
+//					
+//					if (ttcrpp.getToolcheckbox().isSelected()) {
+//						checkedtimetestcasereportlist.add(ttcrpp);
+//						selectedtestcaselist.add(ttcrpp.getTestcase());
+//					}
+//
+//				}
+				
+				checkedtestcasereportlist.removeAll(checkedtestcasereportlist);
 				selectedtestcaselist.removeAll(selectedtestcaselist);
 				
-				timetestcasereportlist=mainFrame.getTestCaseConfirmationPanel().getTimetestcasereportlist();
-				
-				for(TimeTestCaseReportPartPanel ttcrpp:timetestcasereportlist){
-					
+				for(JPanel jp:testcasereportlist){
+					TimeTestCaseReportPartPanel ttcrpp=(TimeTestCaseReportPartPanel) jp;
 					if (ttcrpp.getToolcheckbox().isSelected()) {
-						checkedtimetestcasereportlist.add(ttcrpp);
+						checkedtestcasereportlist.add(ttcrpp);
 						selectedtestcaselist.add(ttcrpp.getTestcase());
 					}
-
 				}
 				
-				testcasename=mainFrame.getTestCaseConfirmationPanel().getTestcasename();
+//				testcasename=mainFrame.getTestCaseConfirmationPanel().getTestcasename();
 				
-				System.err.println(selectedtestcaselist.size());
+//				System.err.println(selectedtestcaselist.size());
 
 				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"selected.xml";
 				extractDataToXml(extraxmlpath, selectedtestcaselist);//生成测试用例xml
@@ -1437,7 +1548,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void run() {
 				// TODO Auto-generated method stub
 				
-				int sum=checkedtimetestcasereportlist.size();
+//				int sum=checkedtimetestcasereportlist.size();
+				int sum=checkedtestcasereportlist.size();
 				for(int index=0;index<sum;index++){
 					TextAreaPrint("正在处理第 "+(index+1)+" 条测试用例");
 					
@@ -1478,8 +1590,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					// TODO Auto-generated method stub
 					
 					int index=0;
-					for(TimeTestCaseReportPartPanel ttcrpp:checkedtimetestcasereportlist){
-						
+//					for(TimeTestCaseReportPartPanel ttcrpp:checkedtimetestcasereportlist){
+					for(JPanel jp:checkedtestcasereportlist){
+						TimeTestCaseReportPartPanel ttcrpp=(TimeTestCaseReportPartPanel) jp;
 						
 //						TestCase testcase=list.get(Integer.parseInt(ftcrpp.getTestcase().getTestCaseID())-1);
 						while(!list.get(index).getTestCaseID().equals(ttcrpp.getTestcase().getTestCaseID())){
@@ -1642,126 +1755,6 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		this.setVisible(true);
 	}
 	
-	protected void changeDataInTable(List<TestCase> list) {
-		// TODO Auto-generated method stub
-		
-//		int i=0;
-		
-		testcasecount[0]=0;
-		testcasecount[1]=0;
-		testcasecount[2]=0;
-		
-		testcasecountlist.removeAll(testcasecountlist);
-		
-		int truecount,falsecount;
-		
-		for(PerformanceTestCaseReportPartPanel tcrpp:checkedperformancetestcasereportlist){
-			
-			truecount=0;
-			falsecount=0;
-			
-			TestCase testcase=list.get(Integer.parseInt(tcrpp.getTestcase().getTestCaseID())-1);
-			
-//			TestCase testcase=list.get(i++);
-			
-			
-			JTable attributetable;
-			DefaultTableModel attributetablemodel;
-			
-			attributetable=tcrpp.getAttributetable();
-			attributetablemodel=tcrpp.getAttributetablemodel();
-			
-			final List<Integer> badnumlist=new ArrayList<Integer>();
-			
-			for(myProcess p:testcase.getProcessList()){
-				
-				attributetablemodel.setValueAt(p.getProcessStatus(), p.getProcessID()-1, 3);
-				attributetablemodel.setValueAt(p.isProcessExec(), p.getProcessID()-1, 4);
-				
-				if(p.isProcessExec()){
-					truecount++;
-				}
-				else{
-					falsecount++;
-					badnumlist.add(p.getProcessID()-1);
-				}
-				
-			}
-			
-//			DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer() {
-//
-//				@Override
-//				public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-//						boolean hasFocus, int row, int column) {
-//					// TODO Auto-generated method stub
-//
-//					setForeground(new Color(115, 110, 102));
-//					setBackground(new Color(255, 255, 255));
-//					setFont(new Font("微软雅黑", Font.PLAIN, 12));
-//					setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-//
-//					for(int num:badnumlist){
-//						if(row==num){
-//							setForeground(new Color(115, 110, 102));
-//							setBackground(new Color(255, 135, 135));
-//							break;
-//						}
-//					}
-//					
-//					return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-//				}
-//
-//			};
-//			attributetable.setDefaultRenderer(Object.class, renderer1);
-			
-			
-			attributetablemodel.fireTableDataChanged();
-			
-//			String title = "";
-//			title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
-//			title+=testcase.getState()+"     ";
-////			title+="执行结果:"+testcase.getResult().substring(0, testcase.getResult().indexOf("耗时"));
-////			title+="执行结果:"+testcase.getResult();
-//			title+=testcase.getResult();
-//			
-//			tcrpp.getTitlelabel().setText(title);
-			
-			DefaultTableModel dtm=tcrpp.getTitletablemodel();
-			dtm.setValueAt(testcase.getResult().getBattery_remaining(), 0, 3);
-			dtm.setValueAt(testcase.getResult().getTime(), 0, 4);
-			
-			String absolutePath = System.getProperty("user.dir");
-			String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
-
-			ImageIcon icon1 = new ImageIcon(path + "tick.png");
-			icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
-			ImageIcon icon2 = new ImageIcon(path + "cross.png");
-			icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
-			
-//			if(testcase.getResult().contains("成功")){
-//				tcrpp.getIconlabel().setIcon(icon1);
-//			}
-//			else{
-//				tcrpp.getIconlabel().setIcon(icon2);
-//			}
-//			
-//			if(testcase.getResult().contains("成功")){
-//				testcasecount[0]++;
-//			}
-//			else if(testcase.getResult().contains("死循环")){
-//				testcasecount[1]++;
-//			}
-//			else if(testcase.getResult().contains("用例有误")){
-//				testcasecount[2]++;
-//			}
-			
-			testcasecountlist.add(truecount);
-			testcasecountlist.add(falsecount);
-			
-		}
-		
-	}
-	
 	private void extractDataToXml(String path, List<TestCase> list) {
 		// TODO Auto-generated method stub
 		
@@ -1788,7 +1781,6 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				StringBuffer strlimit = new StringBuffer();
 				System.out.println(tc.getLimit().size());
 				for(String l:tc.getLimit()){
-					System.out.println("------"+l+"------");
 					strlimit.append(l);
 					strlimit.append(",");
 				}

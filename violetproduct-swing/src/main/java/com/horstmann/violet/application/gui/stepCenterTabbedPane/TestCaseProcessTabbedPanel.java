@@ -388,8 +388,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 		//初始化线程，数据
 		initUIPanel();
-		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
-		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
+//		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
+//		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
 		
 		selectUppaal=mainFrame.getTestCaseGenerationPanel().getSelectUppaalCheckBox().getText();
 		selectCover=mainFrame.getTestCaseGenerationPanel().getSelectCoverCheckBox().getText();

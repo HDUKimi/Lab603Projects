@@ -99,12 +99,12 @@ public class HomeAllTabbedPanel extends JPanel{
 			mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalTabbedPane().initUIPanel();
 			mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalTabbedPane().initUIPanel();
 			mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().initUIPanel();
-			mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
+//			mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
 			mainFrame.getStepSixCenterTabbedPane().initUIPanel();
 			
 			mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButton().doClick();
 			mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButton().doClick();
-			mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
+//			mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
 		}
 	}
 

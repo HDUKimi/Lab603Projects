@@ -319,10 +319,10 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 		
 //		initUIPanel();
 		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().initUIPanel();
-		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
+//		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
 		
 		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButton().doClick();
-		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
+//		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
 		
 		tranprocesslist=new ArrayList<>();
 		tranprocesslist.add("正在获取顺序图信息");
@@ -546,8 +546,9 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							}
 							else{
 								System.out.println("*************************456");
-								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\UAVForXStream.xml", baseUrl3+filename+"ForXStream.xml");
-								LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\UAV.xml");
+//								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\UAVForXStream.xml", baseUrl3+filename+"ForXStream.xml");
+								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\handleMessageForXStream.xml", baseUrl3+filename+"ForXStream.xml");
+								LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\handleMessage.xml");
 							}
 							
 							System.out.println("SD2UppaalMain.getDiagramDataName():+++++++++"+SD2UppaalMain.getDiagramDataName());
