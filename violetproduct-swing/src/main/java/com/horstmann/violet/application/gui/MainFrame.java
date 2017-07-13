@@ -46,6 +46,7 @@ import java.beans.BeanInfo;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -651,7 +652,24 @@ public class MainFrame extends JFrame
      			return;
      		}
      		
-     		int index=this.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel().getRowCount();
+//     		int index=this.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel().getRowCount();
+//     		int index=this.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltreerootnode().getChildCount();
+     		
+     		int index=0;
+     		
+     		DefaultMutableTreeNode rootnode=this.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltreerootnode();
+     		Enumeration<?> en=rootnode.children();
+			while(en.hasMoreElements()){
+				
+				index++;
+				
+				DefaultMutableTreeNode node;
+				node=(DefaultMutableTreeNode) en.nextElement();
+				
+				index+=node.getChildCount();
+				
+			}
+     		
      		System.err.println(index+" - "+this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().size());
 
      		if(index==0){
@@ -666,13 +684,14 @@ public class MainFrame extends JFrame
 //			System.err.println(workspace.getTitle());
 //			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
 			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().replace(".uppaal.violet.xml", "")));
-			for(ButtonTabbedPanel btp:this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()){
-				if(btp.getTabbedbutton().getText().equals(workspace.getTitle().toString().replace(".uppaal.violet.xml", ""))){
-					btp.setVisible(false);
-					this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().remove(btp);
-					break;
-				}
-			}
+//			for(ButtonTabbedPanel btp:this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()){
+//				if(btp.getTabbedbutton().getText().equals(workspace.getTitle().toString().replace(".uppaal.violet.xml", ""))){
+//					btp.setVisible(false);
+//					this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().remove(btp);
+//					break;
+//				}
+//			}
+			buttontabbedpanel.setVisible(false);
 			this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().add(buttontabbedpanel);
 			this.getStepTwoCenterTabbedPane().getButtonTabbedPanel().add(buttontabbedpanel);
      		listenToDiagramPanelEvents(workspace,SequenceToUppaalWorkspaceList);    	  

@@ -46,8 +46,9 @@ public class SD2UppaalMain {
 	private static String[][] breakIgnoreLoopCondition;
 	public static int diagramslistsize;
 	public static String diagramDataName=null;
+//	public static String filename; 
 	
-	public static void transEA(String path,MainFrame mainframe) throws Exception 
+	public static void transEA(String filename,String path,MainFrame mainframe) throws Exception 
 	{
 		
 		mainFrame=mainframe;
@@ -709,11 +710,19 @@ public class SD2UppaalMain {
 		    Display.println("\n------------------------------------------------------------------");
 		    Display.println("完成顺序图到自动机的转换，正在写入图名为"+diagramDaraI.name+"的xml");
 		    
-		    Write.creatXML("D:\\ModelDriverProjectFile\\WJXML\\"+diagramDaraI.name+".xml",templates,template_names);//给我
+		    String baseurl="D:\\ModelDriverProjectFile\\WJXML\\"+filename+"\\";
+		    File basefile=new File(baseurl);
+		    if(!basefile.exists()){
+		    	while(!basefile.mkdirs()){
+		    	
+		    	}
+		    }
+		    
+		    Write.creatXML(baseurl+diagramDaraI.name+".xml",templates,template_names);//给我
 		    setDiagramDataName(diagramDaraI.name);
 		    System.out.println("diagramDaraI.name-----"+diagramDaraI.name);
 		    //给ckt
-		    WriteForXStream.creatXML("D:\\ModelDriverProjectFile\\WJXML\\"+diagramDaraI.name+"ForXStream.xml", templates, template_names);
+		    WriteForXStream.creatXML(baseurl+diagramDaraI.name+"ForXStream.xml", templates, template_names);
 		    Display.println(".....写入完成!\n");
 		    
 	    }//遍历diagram结束

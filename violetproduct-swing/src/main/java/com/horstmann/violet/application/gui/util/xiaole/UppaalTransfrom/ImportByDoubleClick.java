@@ -8,6 +8,26 @@ import com.horstmann.violet.framework.file.IFile;
 import com.horstmann.violet.framework.file.LocalFile;
 
 public class ImportByDoubleClick {
+	
+	public static GraphFile importFileByPath(String path,String name){
+		
+		GraphFile graphFile=null;
+		
+		String base=path+name;
+		
+		File file=new File(base);
+		IFile ifile;
+		try {
+			ifile = new LocalFile(file);
+			graphFile=new GraphFile(ifile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return graphFile;
+	}
+	
 	public static GraphFile importFileByDoubleClick(String type,String name){
     	GraphFile graphFile=null;
     
