@@ -31,8 +31,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.plaf.basic.BasicScrollPaneUI.VSBChangeListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -124,6 +126,34 @@ public class ModelExistValidationPanel extends JPanel{
 	private JPanel validationinfopanel;
 	private JPanel emptypanel;
 	
+	private JPanel assesspanel;
+	private JPanel assesslabelpanel;
+	private JLabel assesslabel;
+	private JPanel assesstoolpanel;
+	private JButton assesstoolbutton1;
+	private JPanel assessdealpanel;
+	private JScrollPane assessscrollpanel;
+	
+	private JPanel assessdealpanel1;
+	private JPanel assessdealpanel2;
+	private JPanel assessdeallabelpanel1;
+	private JPanel assessdeallabelpanel11;
+	private JLabel assessdeallabel1;
+	private JLabel assessdeallabel11;
+	private JTextField assessdealtext11;
+	private JButton assessdealbutton1;
+	private JPanel assessdeallinepanel;
+	private JLabel assessdeallinelabel;
+	private JPanel assessdeallabelpanel2;
+	private JPanel assessdeallabelpanel21;
+	private JPanel assessdeallabelpanel22;
+	private JLabel assessdeallabel2;
+	private JLabel assessdeallabel21;
+	private JLabel assessdeallabel22;
+	private JTextField assessdealtext21;
+	private JTextField assessdealtext22;
+	private JButton assessdealbutton2;
+	
 	private List<UppaalTransition> uppaalmessagelist=new ArrayList<UppaalTransition>();
 	private List<UppaalTransition> selecteduppaalmessagelist=new ArrayList<UppaalTransition>();
 //	private JCheckBox[] uppaalMessageCheckBoxList;
@@ -172,9 +202,16 @@ public class ModelExistValidationPanel extends JPanel{
 		validationtoolbutton1=new JButton();
 		validationtoolbutton2=new JButton();
 		
+		assesspanel=new JPanel();
+		assesslabelpanel=new JPanel();
+		assesslabel=new JLabel();
+		assesstoolpanel=new JPanel();
+		assesstoolbutton1=new JButton();
+		assessdealpanel=new JPanel();
+		
 		titlepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(142, 155, 188)));
 //		treepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(142, 155, 188)));
-		validationpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, new Color(142, 155, 188)));
+		validationpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
 		
 		initTitlePanel();
 		
@@ -192,11 +229,15 @@ public class ModelExistValidationPanel extends JPanel{
 		this.add(titlepanel);
 		this.add(timinglabelpanel);
 		this.add(timingscrollpanel);
+		this.add(assesslabelpanel);
+		this.add(assessscrollpanel);
 		this.add(validationpanel);
 		layout.setConstraints(titlepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(timinglabelpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(timingscrollpanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(validationpanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(assesslabelpanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(assessscrollpanel, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(validationpanel, new GBC(0, 5, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenWidth = (int) screenSize.getWidth();
@@ -291,12 +332,289 @@ public class ModelExistValidationPanel extends JPanel{
 		
 		initValidationPanel();
 		
+		initAssessPanel();
+		
 //		GridBagLayout layout=new GridBagLayout();
 //		treepanel.setLayout(layout);
 //		treepanel.add(timingpanel);
 //		treepanel.add(validationpanel);
 //		layout.setConstraints(timingpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 //		layout.setConstraints(validationpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+	}
+
+	private void initAssessPanel() {
+		// TODO Auto-generated method stub
+		
+		assesslabel.setText("Ä£ÐÍÆÀ¹À");
+		assesslabel.setForeground(new Color(0,0,0));
+		assesslabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		assesslabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		
+		initAssessToolPanel();
+		
+		assesslabelpanel.setBackground(new Color(207, 214, 229));
+		assesslabelpanel.setLayout(new BorderLayout());
+		assesslabelpanel.add(assesslabel, BorderLayout.WEST);
+		assesslabelpanel.add(assesstoolpanel, BorderLayout.EAST);
+		assesslabelpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
+		assesslabelpanel.setPreferredSize(new Dimension(100, 29));
+		assesslabelpanel.setMaximumSize(new Dimension(100, 29));
+		assesslabelpanel.setMinimumSize(new Dimension(100, 29));
+		
+		initAssessDealPanel();
+		
+	}
+
+	private void initAssessToolPanel() {
+		// TODO Auto-generated method stub
+		
+		String absolutePath=System.getProperty("user.dir");
+		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
+
+		ImageIcon icon1 = new ImageIcon(path + "dropdown.png");
+		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+
+		assesstoolbutton1.setIcon(icon1);
+		assesstoolbutton1.setFocusable(false);
+		assesstoolbutton1.setContentAreaFilled(false);
+		assesstoolbutton1.setBorderPainted(false);
+		assesstoolbutton1.addMouseListener(new ButtonMouseListener());
+		assesstoolbutton1.setPreferredSize(new Dimension(21,21));
+		assesstoolbutton1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				if(assessscrollpanel.isVisible()){
+					assessscrollpanel.setVisible(false);
+					ChangeRepaint();
+				}
+				else {
+					assessscrollpanel.setVisible(true);
+					ChangeRepaint();
+				}
+				
+			}
+		});
+
+		assesstoolpanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,4));
+		assesstoolpanel.setOpaque(false);
+		assesstoolpanel.add(assesstoolbutton1);
+		
+	}
+
+	private void initAssessDealPanel() {
+		// TODO Auto-generated method stub
+		
+		assessdealpanel1=new JPanel();
+		assessdealpanel2=new JPanel();
+		assessdeallinepanel=new JPanel();
+		
+		initAssessDealPanelOne();
+		
+		initAssessDealPanelTwo();
+		
+		initAssessDealLinePanel();
+		
+		assessdealpanel1.setBackground(new Color(255, 255, 255));
+		assessdealpanel2.setBackground(new Color(255, 255, 255));
+		assessdeallinepanel.setBackground(new Color(255, 255, 255));
+		
+		JPanel emptypanel=new JPanel();
+		emptypanel.setBackground(new Color(255, 255, 255));
+		
+		assessdealpanel.setBackground(new Color(255, 255, 255));
+		GridBagLayout layout=new GridBagLayout();
+		assessdealpanel.setLayout(layout);
+		assessdealpanel.add(assessdealpanel1);
+		assessdealpanel.add(assessdeallinepanel);
+		assessdealpanel.add(assessdealpanel2);
+		assessdealpanel.add(emptypanel);
+		layout.setConstraints(assessdealpanel1, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(assessdeallinepanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(assessdealpanel2, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(emptypanel, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+		
+		assessscrollpanel=new JScrollPane(assessdealpanel);
+		assessscrollpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
+		assessscrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		assessscrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
+	}
+
+	private void initAssessDealLinePanel() {
+		// TODO Auto-generated method stub
+		
+		assessdeallinelabel=new JLabel();
+		
+		assessdeallinelabel.setText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
+		assessdeallinelabel.setPreferredSize(new Dimension(100, 3));
+		assessdeallinelabel.setForeground(new Color(223, 204, 221));
+		
+		assessdeallinepanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 0));
+		assessdeallinepanel.setLayout(new GridLayout());
+		assessdeallinepanel.add(assessdeallinelabel);
+		
+	}
+
+	private void initAssessDealPanelOne() {
+		// TODO Auto-generated method stub
+		
+		assessdeallabelpanel1=new JPanel();
+		assessdeallabelpanel11=new JPanel();
+		assessdeallabel1=new JLabel();
+		assessdeallabel11=new JLabel();
+		assessdealtext11=new JTextField();
+		assessdealbutton1=new JButton();
+		
+		assessdeallabel1.setText("ÆÀ¹ÀÒ»");
+		assessdeallabel1.setForeground(new Color(0,0,0));
+		assessdeallabel1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		assessdeallabel1.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		
+		assessdeallabel11.setText("ÏûÏ¢£º");
+		assessdeallabel11.setForeground(new Color(0,0,0));
+		assessdeallabel11.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		assessdeallabel11.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 18));
+		
+		assessdealtext11.setForeground(new Color(0,0,0));
+		assessdealtext11.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		assessdealtext11.setPreferredSize(new Dimension(100, 20));
+		assessdealtext11.setMaximumSize(new Dimension(100, 20));
+		assessdealtext11.setMinimumSize(new Dimension(100, 20));
+		
+		String absolutePath=System.getProperty("user.dir");
+		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
+
+		ImageIcon icon1 = new ImageIcon(path + "resultset_next.png");
+		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+
+		assessdealbutton1.setIcon(icon1);
+		assessdealbutton1.setFocusable(false);
+		assessdealbutton1.setContentAreaFilled(false);
+		assessdealbutton1.setBorderPainted(false);
+		assessdealbutton1.addMouseListener(new ButtonMouseListener());
+		assessdealbutton1.setPreferredSize(new Dimension(21,21));
+		assessdealbutton1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		assessdeallabelpanel1.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+		assessdeallabelpanel1.setOpaque(false);
+		assessdeallabelpanel1.setLayout(new BorderLayout());
+		assessdeallabelpanel1.add(assessdeallabel1,BorderLayout.WEST);
+		assessdeallabelpanel1.add(assessdealbutton1, BorderLayout.EAST);
+		
+		assessdeallabelpanel11.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+		assessdeallabelpanel11.setOpaque(false);
+		assessdeallabelpanel11.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		assessdeallabelpanel11.add(assessdeallabel11);
+		assessdeallabelpanel11.add(assessdealtext11);
+
+		GridBagLayout layout=new GridBagLayout();
+		assessdealpanel1.setLayout(layout);
+		assessdealpanel1.add(assessdeallabelpanel1);
+		assessdealpanel1.add(assessdeallabelpanel11);
+		layout.setConstraints(assessdeallabelpanel1, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(assessdeallabelpanel11, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		
+	}
+
+	private void initAssessDealPanelTwo() {
+		// TODO Auto-generated method stub
+		
+		assessdeallabelpanel2=new JPanel();
+		assessdeallabelpanel21=new JPanel();
+		assessdeallabelpanel22=new JPanel();
+		assessdeallabel2=new JLabel();
+		assessdeallabel21=new JLabel();
+		assessdeallabel22=new JLabel();
+		assessdealtext21=new JTextField();
+		assessdealtext22=new JTextField();
+		assessdealbutton2=new JButton();
+		
+		assessdeallabel2.setText("ÆÀ¹À¶þ");
+		assessdeallabel2.setForeground(new Color(0,0,0));
+		assessdeallabel2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		assessdeallabel2.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		
+		assessdeallabel21.setText("ÏûÏ¢A£º");
+		assessdeallabel21.setForeground(new Color(0,0,0));
+		assessdeallabel21.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		assessdeallabel21.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+		
+		assessdeallabel22.setText("ÏûÏ¢B£º");
+		assessdeallabel22.setForeground(new Color(0,0,0));
+		assessdeallabel22.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		assessdeallabel22.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+		
+		assessdealtext21.setForeground(new Color(0,0,0));
+		assessdealtext21.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		assessdealtext21.setPreferredSize(new Dimension(100, 20));
+		assessdealtext21.setMaximumSize(new Dimension(100, 20));
+		assessdealtext21.setMinimumSize(new Dimension(100, 20));
+		
+		assessdealtext22.setForeground(new Color(0,0,0));
+		assessdealtext22.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		assessdealtext22.setPreferredSize(new Dimension(100, 20));
+		assessdealtext22.setMaximumSize(new Dimension(100, 20));
+		assessdealtext22.setMinimumSize(new Dimension(100, 20));
+		
+		String absolutePath=System.getProperty("user.dir");
+		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
+
+		ImageIcon icon1 = new ImageIcon(path + "resultset_next.png");
+		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+
+		assessdealbutton2.setIcon(icon1);
+		assessdealbutton2.setFocusable(false);
+		assessdealbutton2.setContentAreaFilled(false);
+		assessdealbutton2.setBorderPainted(false);
+		assessdealbutton2.addMouseListener(new ButtonMouseListener());
+		assessdealbutton2.setPreferredSize(new Dimension(21,21));
+		assessdealbutton2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		assessdeallabelpanel2.setOpaque(false);
+		assessdeallabelpanel2.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+		assessdeallabelpanel2.setLayout(new BorderLayout());
+		assessdeallabelpanel2.add(assessdeallabel2,BorderLayout.WEST);
+		assessdeallabelpanel2.add(assessdealbutton2, BorderLayout.EAST);
+		
+		assessdeallabelpanel21.setOpaque(false);
+		assessdeallabelpanel21.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+		assessdeallabelpanel21.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		assessdeallabelpanel21.add(assessdeallabel21);
+		assessdeallabelpanel21.add(assessdealtext21);
+		
+		assessdeallabelpanel22.setOpaque(false);
+		assessdeallabelpanel22.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+		assessdeallabelpanel22.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		assessdeallabelpanel22.add(assessdeallabel22);
+		assessdeallabelpanel22.add(assessdealtext22);
+
+		GridBagLayout layout=new GridBagLayout();
+		assessdealpanel2.setLayout(layout);
+		assessdealpanel2.add(assessdeallabelpanel2);
+		assessdealpanel2.add(assessdeallabelpanel21);
+		assessdealpanel2.add(assessdeallabelpanel22);
+		layout.setConstraints(assessdeallabelpanel2, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(assessdeallabelpanel21, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(assessdeallabelpanel22, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		
 	}
 

@@ -607,8 +607,8 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							
 							if(SD2UppaalMain.diagramslistsize==1){
 								System.out.println("-------------------------123");
-								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\"+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", baseUrl3+filename+"ForXStream.xml");
-								LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\"+SD2UppaalMain.getDiagramDataName()+".xml");
+								XMLCopy.SourceCopyToTarget(originaluppaalbaseurl+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", baseUrl3+filename+"ForXStream.xml");
+								LayoutUppaal.layout(originaluppaalbaseurl+SD2UppaalMain.getDiagramDataName()+".xml");
 							}
 							else{
 								System.out.println("*************************456");
