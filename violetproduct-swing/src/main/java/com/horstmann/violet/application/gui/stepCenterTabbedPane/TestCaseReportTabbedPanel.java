@@ -121,6 +121,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private JScrollPane tablescrollpanel;
 	private JPanel tableresultpanel;
 	
+	private TestCaseDataPanel parentTestCaseDataPanel;
 	private String testcasename;
 	private int testcasetype;
 	private List<JPanel> testcasereportlist=new ArrayList<JPanel>();
@@ -138,15 +139,17 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private int[] testcasecount=new int[3];
 	private List<Integer> testcasecountlist=new ArrayList<Integer>();
 	
-	public TestCaseReportTabbedPanel(MainFrame mainframe,String testcasename,int testcasetype,List<JPanel> testcasereportlist){
+	public TestCaseReportTabbedPanel(TestCaseDataPanel testCaseDataPanel, MainFrame mainframe){
 		
 		this.mainFrame=mainframe;
 		
-		this.testcasename=testcasename;
+		this.parentTestCaseDataPanel=testCaseDataPanel;
 		
-		this.testcasetype=testcasetype;
+		this.testcasename=testCaseDataPanel.getTestCaseName();
 		
-		this.testcasereportlist=testcasereportlist;
+		this.testcasetype=testCaseDataPanel.getTestCaseType();
+		
+		this.testcasereportlist=testCaseDataPanel.getTestcasereportlist();
 		
 		initPanel();
 		
@@ -778,7 +781,6 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //					ObjectOutputStream oos=new ObjectOutputStream(fos);
 //					
 //					for(TestCase tc:testcaselist){
-////						System.out.println(tc.toString());
 //						oos.writeObject(tc);
 //					}
 //					
@@ -827,7 +829,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				TextAreaPrint("正在进行数据统计整理...");
 				
-				Map testcasemap=TestCaseConvertUtil.functionStatistics(testcaselist);
+				Map<String, Object> testcasemap=TestCaseConvertUtil.functionStatistics(testcaselist);
 				List<Integer> caseSuccess=(List<Integer>) testcasemap.get("caseSuccess");
 				List<Integer> caseFailed=(List<Integer>) testcasemap.get("caseFailed");
 				Map<String,List<Map<Integer,List<Integer>>>> failedStatistics=(Map<String, List<Map<Integer, List<Integer>>>>) testcasemap.get("failedStatistics");
@@ -841,12 +843,14 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				startFunctionalRunProgressbar(testcaselist);// 显示进度条
 
 //				changeDataInTable(testcaselist);//显示测试结果
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(true);
+				parentTestCaseDataPanel.getTestCaseChartDiagramButtonPanel().setVisible(true);
 				
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPanel().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPanel().add(mainFrame.getStepFiveCenterTabbedPane().getFunctionalTestCaseChartTabbedPanel());
+				FunctionalTestCaseChartTabbedPanel functionalTestCaseChartTabbedPanel=new FunctionalTestCaseChartTabbedPanel(mainFrame);
 				
-				DefaultTableModel tabelmodel=mainFrame.getStepFiveCenterTabbedPane().getFunctionalTestCaseChartTabbedPanel().getAttributetablemodel();
+				parentTestCaseDataPanel.getTestCaseChartTabbedPanel().removeAll();
+				parentTestCaseDataPanel.getTestCaseChartTabbedPanel().add(functionalTestCaseChartTabbedPanel);
+				
+				DefaultTableModel tabelmodel=functionalTestCaseChartTabbedPanel.getAttributetablemodel();
 				
 //				for(TestCase tc:testcaselist){
 //					TestCaseResult tcr=tc.getResult();
@@ -862,7 +866,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				cf=139;
 				
 				csum=cs+cf;
-				DefaultTableModel successfailedtabelmodel=mainFrame.getStepFiveCenterTabbedPane().getFunctionalTestCaseChartTabbedPanel().getSuccessfailedattributetablemodel();
+				DefaultTableModel successfailedtabelmodel=functionalTestCaseChartTabbedPanel.getSuccessfailedattributetablemodel();
 				while(successfailedtabelmodel.getRowCount()>0){
 					successfailedtabelmodel.removeRow(0);
 				}
@@ -882,7 +886,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				f1=116;
 //				f2=23;
 				
-				DefaultTableModel failedstatisticstabelmodel=mainFrame.getStepFiveCenterTabbedPane().getFunctionalTestCaseChartTabbedPanel().getFailedstatisticsattributetablemodel();
+				DefaultTableModel failedstatisticstabelmodel=functionalTestCaseChartTabbedPanel.getFailedstatisticsattributetablemodel();
 				while(failedstatisticstabelmodel.getRowCount()>0){
 					failedstatisticstabelmodel.removeRow(0);
 				}
@@ -894,13 +898,13 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 //				FunctionSuccessFailedPieChart fsfpc=new FunctionSuccessFailedPieChart(caseSuccess, caseFailed);
 				FunctionSuccessFailedPieChart fsfpc=new FunctionSuccessFailedPieChart(cs, cf);
-				mainFrame.getStepFiveCenterTabbedPane().getFunctionalTestCaseChartTabbedPanel().getSuccessfailedpiepanel().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getFunctionalTestCaseChartTabbedPanel().getSuccessfailedpiepanel().add(fsfpc.createChart());
+				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
+				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(fsfpc.createChart());
 				
 //				FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(failedStatistics);
 				FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(f1, f2);
-				mainFrame.getStepFiveCenterTabbedPane().getFunctionalTestCaseChartTabbedPanel().getFailedstatisticspiepanel().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getFunctionalTestCaseChartTabbedPanel().getFailedstatisticspiepanel().add(ffspc.createChart());
+				functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().removeAll();
+				functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(ffspc.createChart());
 				
 				threadstate = 0;
 				
@@ -1088,7 +1092,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				TextAreaPrint("发送测试用例数据...");
 				gaindatathread.start();
 //				List<TestCase> testcaselist = ClientRecThread.getTestCaseList();
-				
+//				
 //				File f=new File("D:\\test.txt");
 //				try {
 //					Writer w=new FileWriter(f,false);
@@ -1198,12 +1202,14 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				startPerformanceRunProgressbar(testcaselist);// 显示进度条
 
 //				changeDataInTable(testcaselist);//显示测试结果
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(true);
+				parentTestCaseDataPanel.getTestCaseChartDiagramButtonPanel().setVisible(true);
 				
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPanel().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartTabbedPanel().add(mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel());
+				PerformanceTestCaseChartTabbedPanel performanceTestCaseChartTabbedPanel=new PerformanceTestCaseChartTabbedPanel(mainFrame);
 				
-				DefaultTableModel tabelmodel=mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getAttributetablemodel();
+				parentTestCaseDataPanel.getTestCaseChartTabbedPanel().removeAll();
+				parentTestCaseDataPanel.getTestCaseChartTabbedPanel().add(performanceTestCaseChartTabbedPanel);
+				
+				DefaultTableModel tabelmodel=performanceTestCaseChartTabbedPanel.getAttributetablemodel();
 				while(tabelmodel.getRowCount()>0){
 					tabelmodel.removeRow(0);
 				}
@@ -1216,20 +1222,20 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				PerformanceLineChart plc=new PerformanceLineChart(testcaselist);
 				
 				PerformanceHighBatteryLineChart phblc=new PerformanceHighBatteryLineChart(highbatterydata);
-				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getHighbatterylinepanel().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getHighbatterylinepanel().add(phblc.createChart());
+				performanceTestCaseChartTabbedPanel.getHighbatterylinepanel().removeAll();
+				performanceTestCaseChartTabbedPanel.getHighbatterylinepanel().add(phblc.createChart());
 				
 				PerformanceHighTimeLineChart phtlc=new PerformanceHighTimeLineChart(hightimedata);
-				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getHightimelinepanel().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getHightimelinepanel().add(phtlc.createChart());
+				performanceTestCaseChartTabbedPanel.getHightimelinepanel().removeAll();
+				performanceTestCaseChartTabbedPanel.getHightimelinepanel().add(phtlc.createChart());
 				
 				PerformanceHighSpeedBarChart phsbc=new PerformanceHighSpeedBarChart(highspeeddata);
-				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getHighspeedbarpanel().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getHighspeedbarpanel().add(phsbc.createChart());
+				performanceTestCaseChartTabbedPanel.getHighspeedbarpanel().removeAll();
+				performanceTestCaseChartTabbedPanel.getHighspeedbarpanel().add(phsbc.createChart());
 				
 				PerformanceTimeSpeedBarChart ptsbc=new PerformanceTimeSpeedBarChart(timespeeddata);
-				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getTimespeedbarpanel().removeAll();
-				mainFrame.getStepFiveCenterTabbedPane().getPerformanceTestCaseChartTabbedPanel().getTimespeedbarpanel().add(ptsbc.createChart());
+				performanceTestCaseChartTabbedPanel.getTimespeedbarpanel().removeAll();
+				performanceTestCaseChartTabbedPanel.getTimespeedbarpanel().add(ptsbc.createChart());
 				
 //				changeDataInTable(list);
 				
@@ -1263,7 +1269,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					
 					try {
 //						Thread.sleep(200);
-						Thread.sleep(50);
+						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -1764,7 +1770,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		if(mainFrame.getHomeAllTabbedPanel().getStarttype()==3){
 			for(TestCase tc:list){
 				Element testcase = TCS.addElement("testcase");
-				System.out.println(tc.getProcessList().size());
+//				System.out.println(tc.getProcessList().size());
 				for(myProcess p:tc.getProcessList()){
 					Element process = testcase.addElement("process");
 					Element operation = process.addElement("operation");
@@ -1779,7 +1785,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				Element limit = testcase.addElement("limit");
 				Element limit_operation = limit.addElement("operation");
 				StringBuffer strlimit = new StringBuffer();
-				System.out.println(tc.getLimit().size());
+//				System.out.println(tc.getLimit().size());
 				for(String l:tc.getLimit()){
 					strlimit.append(l);
 					strlimit.append(",");
@@ -1794,7 +1800,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		else{
 			for(TestCase tc:list){
 				Element testcase = TCS.addElement("testcase");
-				System.out.println(tc.getProcessList().size());
+//				System.out.println(tc.getProcessList().size());
 				for(myProcess p:tc.getProcessList()){
 					Element process = testcase.addElement("process");
 					Element operation = process.addElement("operation");

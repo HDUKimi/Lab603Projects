@@ -5,88 +5,73 @@
   <template>
     <name x="30" y="30">template_</name>
     <declaration/>
-    <location id="loc_id_init" x="48" y="525" timeDuration="null" final="false">
-      <name x="18" y="495">copter:_init time:null</name>
+    <location id="loc_id_init" x="48" y="300" timeDuration="null" final="false">
+      <name x="18" y="270">copter:_init time:null</name>
     </location>
-    <location id="loc_id_8B135CFE_8E29_4f41_A494_1A3DAA3575ED" x="324" y="525" timeDuration="null" final="false">
-      <name x="294" y="495">copter:update_land_detector() time:null</name>
+    <location id="loc_id_EECDAD41_4E5A_46aa_A160_446E6F473481" x="324" y="300" timeDuration="null" final="false">
+      <name x="294" y="270">_ins:wait_for_sample() time:null</name>
     </location>
-    <location id="loc_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489" x="600" y="525" timeDuration="null" final="false">
-      <name x="570" y="495">motors:armed() time:null</name>
+    <location id="loc_id_85B44FC6_FCD3_4047_A850_FCCC1941A2F9" x="600" y="300" timeDuration="null" final="false">
+      <name x="570" y="270">hal:delay_microseconds(unsigned short) time:null</name>
     </location>
-    <location id="loc_id_3B26EB00_E793_480e_B965_EA41DABF4037" x="876" y="300" timeDuration="null" final="false">
-      <name x="846" y="270">copter:set_land_complete(bool) time:null</name>
+    <location id="loc_id_F9C45CC8_7CB6_42d5_8904_4D91ECA2FAAD_0" x="876" y="300" timeDuration="null" final="false">
+      <name x="846" y="270">sitlState:wait_clock(unsigned long) time:null</name>
     </location>
-    <location id="loc_id_42BE194B_C774_4a1a_8145_102B3F2322D2" x="876" y="525" timeDuration="null" final="false">
-      <name x="846" y="495">motors:get_throttle() time:null</name>
+    <location id="loc_id_9D29A5F0_0336_4303_B989_2425FD3F2FD2_0" x="1152" y="300" timeDuration="null" final="false">
+      <name x="1122" y="270">sitlState:_fdm_input_step() time:null</name>
     </location>
-    <location id="loc_id_CE27A32B_18F3_47c6_AF2A_1939AF334483" x="1152" y="525" timeDuration="null" final="false">
-      <name x="1122" y="495">copter:get_non_takeoffthrotle() time:null</name>
+    <location id="loc_id_E746D84F_AC7C_4f78_9B36_0B329A936B5B_0" x="1428" y="300" timeDuration="null" final="false">
+      <name x="1398" y="270">sitlState:_fdm_input_local() time:null</name>
     </location>
-    <location id="loc_id_3A85D284_A257_47cf_8840_007817EE49D3" x="1428" y="438" timeDuration="null" final="false">
-      <name x="1398" y="408">copter:set_land_complete(bool) time:null</name>
+    <location id="loc_id_6BBFF361_9D31_4c18_AB42_72568E2B2D45_0" x="1704" y="300" timeDuration="null" final="true">
+      <name x="1674" y="270">sitlState:_fdm_input() time:null</name>
     </location>
-    <location id="loc_id_2B5B2553_2C21_4138_A672_07D3D3D8BACA" x="876" y="750" timeDuration="null" final="false">
-      <name x="846" y="720">motors:is_throttle_mix_min() time:null</name>
+    <location id="loc_id_AFD71B77_9584_4932_BC4D_C4FE04D8E5DD_0" x="1980" y="300" timeDuration="null" final="false">
+      <name x="1950" y="270">sitlState:@@_simulator_output(bool) time:null</name>
     </location>
-    <location id="loc_id_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4" x="1704" y="573" timeDuration="null" final="true">
-      <name x="1674" y="543">copter:set_land_complete_maybe(bool) time:null</name>
+    <location id="loc_id_8D66B99C_D001_4c87_B99A_656B8E8A6B28_0" x="2256" y="300" timeDuration="null" final="true">
+      <name x="2226" y="270">sitlState:_simulator_servos() time:null</name>
     </location>
     <init ref="loc_id_init"/>
-    <transition id="tran_id_init_8B135CFE_8E29_4f41_A494_1A3DAA3575ED" timeDuration="null" name="update_land_detector()" receiveOrSend="!" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null">
+    <transition id="tran_id_init_EECDAD41_4E5A_46aa_A160_446E6F473481" timeDuration="null" name="wait_for_sample()" receiveOrSend="" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null">
       <source ref="loc_id_init"/>
-      <target ref="loc_id_8B135CFE_8E29_4f41_A494_1A3DAA3575ED"/>
-      <label kind="synchronisation" x="166" y="505">#name:update_land_detector() #receiveOrSend:! #typeAndCondition:null #time:null #in:null #out:null</label>
+      <target ref="loc_id_EECDAD41_4E5A_46aa_A160_446E6F473481"/>
+      <label kind="synchronisation" x="166" y="280">#name:wait_for_sample() #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_id_8B135CFE_8E29_4f41_A494_1A3DAA3575ED_437FCC2B_1245_46f5_B0B2_DB4AEC006489" timeDuration="null" name="armed()" receiveOrSend="?" type="null" condition="null" in="null" out="has_armed#has_armed:bool" use="null" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_8B135CFE_8E29_4f41_A494_1A3DAA3575ED"/>
-      <target ref="loc_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489"/>
-      <label kind="synchronisation" x="442" y="505">#name:armed() #receiveOrSend:? #typeAndCondition:null #time:null #in:null #out:has_armed#has_armed:bool</label>
+    <transition id="tran_id_EECDAD41_4E5A_46aa_A160_446E6F473481_85B44FC6_FCD3_4047_A850_FCCC1941A2F9" timeDuration="null" name="delay_microseconds(unsigned short)" receiveOrSend="" type="null" condition="null" in="null" out="null" use="usvoid" def="null" typeId="null" RESET="null">
+      <source ref="loc_id_EECDAD41_4E5A_46aa_A160_446E6F473481"/>
+      <target ref="loc_id_85B44FC6_FCD3_4047_A850_FCCC1941A2F9"/>
+      <label kind="synchronisation" x="442" y="280">#name:delay_microseconds(unsigned short) #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489_3B26EB00_E793_480e_B965_EA41DABF4037" timeDuration="null" name="set_land_complete(bool)" receiveOrSend="!" type="[alt]" condition="has_armed==false#has_armed:bool" in="null" out="null" use="bnull" def="null" typeId="EAID_A1F49214_78D9_4dca_A070_598B9C002BFA" RESET="null">
-      <source ref="loc_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489"/>
-      <target ref="loc_id_3B26EB00_E793_480e_B965_EA41DABF4037"/>
-      <label kind="synchronisation" x="718" y="392">#name:set_land_complete(bool) #receiveOrSend:! #typeAndCondition:[alt]/has_armed==false#has_armed:bool #time:null #in:null #out:null</label>
+    <transition id="tran_id_85B44FC6_FCD3_4047_A850_FCCC1941A2F9_F9C45CC8_7CB6_42d5_8904_4D91ECA2FAAD_0" timeDuration="null" name="wait_clock(unsigned long)" receiveOrSend="" type="null" condition="null" in="null" out="null" use="wait_time_usecvoid" def="null" typeId="null" RESET="null">
+      <source ref="loc_id_85B44FC6_FCD3_4047_A850_FCCC1941A2F9"/>
+      <target ref="loc_id_F9C45CC8_7CB6_42d5_8904_4D91ECA2FAAD_0"/>
+      <label kind="synchronisation" x="718" y="280">#name:wait_clock(unsigned long) #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489_42BE194B_C774_4a1a_8145_102B3F2322D2" timeDuration="null" name="get_throttle()" receiveOrSend="?" type="[alt]" condition="has_armed==true &amp;&amp; ap.land_complete==1,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t" in="null" out="get_the_throttle#get_the_throttle:float" use="null" def="null" typeId="EAID_A1F49214_78D9_4dca_A070_598B9C002BFA" RESET="null">
-      <source ref="loc_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489"/>
-      <target ref="loc_id_42BE194B_C774_4a1a_8145_102B3F2322D2"/>
-      <label kind="synchronisation" x="718" y="505">#name:get_throttle() #receiveOrSend:? #typeAndCondition:[alt]/has_armed==true &amp;&amp; ap.land_complete==1,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t #time:null #in:null #out:get_the_throttle#get_the_throttle:float</label>
+    <transition id="tran_id_F9C45CC8_7CB6_42d5_8904_4D91ECA2FAAD_0_9D29A5F0_0336_4303_B989_2425FD3F2FD2_0" timeDuration="null" name="_fdm_input_step()" receiveOrSend="!" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null">
+      <source ref="loc_id_F9C45CC8_7CB6_42d5_8904_4D91ECA2FAAD_0"/>
+      <target ref="loc_id_9D29A5F0_0336_4303_B989_2425FD3F2FD2_0"/>
+      <label kind="synchronisation" x="994" y="280">#name:_fdm_input_step() #receiveOrSend:! #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489_2B5B2553_2C21_4138_A672_07D3D3D8BACA" timeDuration="null" name="is_throttle_mix_min()" receiveOrSend="" type="[alt]" condition="has_armed==true &amp;&amp; ap.land_complete==0,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t" in="null" out="null" use="null" def="null" typeId="EAID_A1F49214_78D9_4dca_A070_598B9C002BFA" RESET="null">
-      <source ref="loc_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489"/>
-      <target ref="loc_id_2B5B2553_2C21_4138_A672_07D3D3D8BACA"/>
-      <label kind="synchronisation" x="718" y="617">#name:is_throttle_mix_min() #receiveOrSend: #typeAndCondition:[alt]/has_armed==true &amp;&amp; ap.land_complete==0,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t #time:null #in:null #out:null</label>
+    <transition id="tran_id_9D29A5F0_0336_4303_B989_2425FD3F2FD2_0_E746D84F_AC7C_4f78_9B36_0B329A936B5B_0" timeDuration="null" name="_fdm_input_local()" receiveOrSend="?" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null">
+      <source ref="loc_id_9D29A5F0_0336_4303_B989_2425FD3F2FD2_0"/>
+      <target ref="loc_id_E746D84F_AC7C_4f78_9B36_0B329A936B5B_0"/>
+      <label kind="synchronisation" x="1270" y="280">#name:_fdm_input_local() #receiveOrSend:? #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_id_3B26EB00_E793_480e_B965_EA41DABF4037_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4" timeDuration="null" name="set_land_complete_maybe(bool)" receiveOrSend="!?" type="null" condition="null" in="null" out="null" use="bnull" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_3B26EB00_E793_480e_B965_EA41DABF4037"/>
-      <target ref="loc_id_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4"/>
-      <label kind="synchronisation" x="1270" y="416">#name:set_land_complete_maybe(bool) #receiveOrSend:!? #typeAndCondition:null #time:null #in:null #out:null</label>
+    <transition id="tran_id_E746D84F_AC7C_4f78_9B36_0B329A936B5B_0_6BBFF361_9D31_4c18_AB42_72568E2B2D45_0" timeDuration="null" name="_fdm_input()" receiveOrSend="!" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null">
+      <source ref="loc_id_E746D84F_AC7C_4f78_9B36_0B329A936B5B_0"/>
+      <target ref="loc_id_6BBFF361_9D31_4c18_AB42_72568E2B2D45_0"/>
+      <label kind="synchronisation" x="1546" y="280">#name:_fdm_input() #receiveOrSend:! #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_id_42BE194B_C774_4a1a_8145_102B3F2322D2_CE27A32B_18F3_47c6_AF2A_1939AF334483" timeDuration="null" name="get_non_takeoffthrotle()" receiveOrSend="!" type="[alt]" condition="has_armed==true &amp;&amp; ap.land_complete==1,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t" in="null" out="get_non_takeoffthrotle#get_non_takeoffthrotle:float" use="null" def="null" typeId="EAID_A1F49214_78D9_4dca_A070_598B9C002BFA" RESET="null">
-      <source ref="loc_id_42BE194B_C774_4a1a_8145_102B3F2322D2"/>
-      <target ref="loc_id_CE27A32B_18F3_47c6_AF2A_1939AF334483"/>
-      <label kind="synchronisation" x="994" y="505">#name:get_non_takeoffthrotle() #receiveOrSend:! #typeAndCondition:[alt]/has_armed==true &amp;&amp; ap.land_complete==1,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t #time:null #in:null #out:get_non_takeoffthrotle#get_non_takeoffthrotle:float</label>
+    <transition id="tran_id_6BBFF361_9D31_4c18_AB42_72568E2B2D45_0_AFD71B77_9584_4932_BC4D_C4FE04D8E5DD_0" timeDuration="null" name="@@_simulator_output(bool)" receiveOrSend="?" type="[opt]" condition="got_fg_input==true#got_fg_input:bool" in="null" out="null" use="synthetic_clock_modevoid" def="null" typeId="EAID_6917A156_27E5_4d18_9FA7_91082923A1E2_0" RESET="null">
+      <source ref="loc_id_6BBFF361_9D31_4c18_AB42_72568E2B2D45_0"/>
+      <target ref="loc_id_AFD71B77_9584_4932_BC4D_C4FE04D8E5DD_0"/>
+      <label kind="synchronisation" x="1822" y="280">#name:@@_simulator_output(bool) #receiveOrSend:? #typeAndCondition:[opt]/got_fg_input==true#got_fg_input:bool #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_id_CE27A32B_18F3_47c6_AF2A_1939AF334483_3A85D284_A257_47cf_8840_007817EE49D3" timeDuration="null" name="set_land_complete(bool)" receiveOrSend="?" type="[alt-opt]" condition="has_armed==true &amp;&amp; ap.land_complete==1,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t--get_the_throttle &gt; get_non_takeoffthrotle#get_the_throttle:float,get_non_takeoffthrotle:float" in="null" out="null" use="bnull" def="null" typeId="EAID_A1F49214_78D9_4dca_A070_598B9C002BFA-EAID_69C29469_3DE6_44d7_8890_3B75CCACB2C0" RESET="null">
-      <source ref="loc_id_CE27A32B_18F3_47c6_AF2A_1939AF334483"/>
-      <target ref="loc_id_3A85D284_A257_47cf_8840_007817EE49D3"/>
-      <label kind="synchronisation" x="1270" y="461">#name:set_land_complete(bool) #receiveOrSend:? #typeAndCondition:[alt-opt]/has_armed==true &amp;&amp; ap.land_complete==1,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t--get_the_throttle &gt; get_non_takeoffthrotle#get_the_throttle:float,get_non_takeoffthrotle:float #time:null #in:null #out:null</label>
-    </transition>
-    <transition id="tran_id_CE27A32B_18F3_47c6_AF2A_1939AF334483_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4" timeDuration="null" name="set_land_complete_maybe(bool)" receiveOrSend="!?" type="!(get_the_throttle &gt; get_non_takeoffthrotle)#get_the_throttle:float,get_non_takeoffthrotle:float" condition="!(get_the_throttle &gt; get_non_takeoffthrotle)#get_the_throttle:float,get_non_takeoffthrotle:float" in="null" out="null" use="bnull" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_CE27A32B_18F3_47c6_AF2A_1939AF334483"/>
-      <target ref="loc_id_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4"/>
-      <label kind="synchronisation" x="1408" y="529">#name:set_land_complete_maybe(bool) #receiveOrSend:!? #typeAndCondition:!(get_the_throttle &gt; get_non_takeoffthrotle)#get_the_throttle:float,get_non_takeoffthrotle:float #time:null #in:null #out:null</label>
-    </transition>
-    <transition id="tran_id_3A85D284_A257_47cf_8840_007817EE49D3_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4" timeDuration="null" name="set_land_complete_maybe(bool)" receiveOrSend="!?" type="null" condition="null" in="null" out="null" use="bnull" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_3A85D284_A257_47cf_8840_007817EE49D3"/>
-      <target ref="loc_id_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4"/>
-      <label kind="synchronisation" x="1546" y="485">#name:set_land_complete_maybe(bool) #receiveOrSend:!? #typeAndCondition:null #time:null #in:null #out:null</label>
-    </transition>
-    <transition id="tran_id_2B5B2553_2C21_4138_A672_07D3D3D8BACA_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4" timeDuration="null" name="set_land_complete_maybe(bool)" receiveOrSend="!?" type="null" condition="null" in="null" out="null" use="bnull" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_2B5B2553_2C21_4138_A672_07D3D3D8BACA"/>
-      <target ref="loc_id_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4"/>
-      <label kind="synchronisation" x="1270" y="641">#name:set_land_complete_maybe(bool) #receiveOrSend:!? #typeAndCondition:null #time:null #in:null #out:null</label>
+    <transition id="tran_id_AFD71B77_9584_4932_BC4D_C4FE04D8E5DD_0_8D66B99C_D001_4c87_B99A_656B8E8A6B28_0" timeDuration="null" name="_simulator_servos()" receiveOrSend="!?" type="[opt]" condition="got_fg_input==true#got_fg_input:bool" in="0&lt;=_sitl.wind_speed&lt;=20,0&lt;=_sitl.wind_direction&lt;=360#_sitl.wind_speed:float,_sitl.wind_direction:float" out="null" use="null" def="0&lt;=_sitl.wind_speed&lt;=20,0&lt;=_sitl.wind_direction&lt;=360#_sitl.wind_speed:float,_sitl.wind_direction:float" typeId="EAID_6917A156_27E5_4d18_9FA7_91082923A1E2_0" RESET="null">
+      <source ref="loc_id_AFD71B77_9584_4932_BC4D_C4FE04D8E5DD_0"/>
+      <target ref="loc_id_8D66B99C_D001_4c87_B99A_656B8E8A6B28_0"/>
+      <label kind="synchronisation" x="2098" y="280">#name:_simulator_servos() #receiveOrSend:!? #typeAndCondition:[opt]/got_fg_input==true#got_fg_input:bool #time:null #in:0&lt;=_sitl.wind_speed&lt;=20,0&lt;=_sitl.wind_direction&lt;=360#_sitl.wind_speed:float,_sitl.wind_direction:float #out:null</label>
     </transition>
   </template>
   <system>system template_;</system>

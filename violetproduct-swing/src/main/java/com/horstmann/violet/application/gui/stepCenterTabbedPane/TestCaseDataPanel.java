@@ -57,8 +57,10 @@ public class TestCaseDataPanel{
 		
 		extractTestCaseData();
 		
-		testCaseReportTabbedPane=new TestCaseReportTabbedPanel(mainFrame,testCaseName,testCaseType,testcasereportlist);
+//		testCaseReportTabbedPane=new TestCaseReportTabbedPanel(this,mainFrame,testCaseName,testCaseType,testcasereportlist);
+		testCaseReportTabbedPane=new TestCaseReportTabbedPanel(this,mainFrame);
 		testCaseChartTabbedPanel=new JPanel();
+		testCaseChartTabbedPanel.setLayout(new GridLayout());
 		
 		showTestCase();
 		
@@ -293,6 +295,30 @@ public class TestCaseDataPanel{
 
 	public FixedButtonTabbedPanel getTestCaseChartDiagramButtonPanel() {
 		return testCaseChartDiagramButtonPanel;
+	}
+
+	public String getTestCaseName() {
+		return testCaseName;
+	}
+
+	public String getTestCasePath() {
+		return testCasePath;
+	}
+
+	public int getTestCaseType() {
+		return testCaseType;
+	}
+
+	public List<TestCase> getTestcaselist() {
+		return testcaselist;
+	}
+
+	public List<JPanel> getTestcasereportlist() {
+		return testcasereportlist;
+	}
+
+	public JPanel getTestCaseChartTabbedPanel() {
+		return testCaseChartTabbedPanel;
 	}
 	
 }

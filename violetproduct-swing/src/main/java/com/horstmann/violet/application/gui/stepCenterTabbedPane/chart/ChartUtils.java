@@ -480,7 +480,8 @@ public class ChartUtils {
 		
 		piePlot.setAutoPopulateSectionOutlinePaint(true);
 
-		// piePlot.setSimpleLabels(true);// 简单标签
+		piePlot.setStartAngle(45);
+//		piePlot.setSimpleLabels(true);// 简单标签
 		piePlot.setLabelGap(0.01);
 		piePlot.setInteriorGap(0.05D);
 		piePlot.setLegendItemShape(new Rectangle(10, 10));// 图例形状
