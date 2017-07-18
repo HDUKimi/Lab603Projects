@@ -433,9 +433,9 @@ public class ModelExistValidationPanel extends JPanel{
 		assessdealpanel.add(assessdealpanel2);
 		assessdealpanel.add(emptypanel);
 		layout.setConstraints(assessdealpanel1, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(assessdeallinepanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(assessdealpanel2, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(emptypanel, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(assessdeallinepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(assessdealpanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(emptypanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		
 		assessscrollpanel=new JScrollPane(assessdealpanel);

@@ -290,7 +290,16 @@ public class TestCaseInstantiationPartPanel extends JPanel{
         for(Transition t:automatic.getTransitionSet()){
 //			Object[] rowData={"48","set_pwm","loc_id_41F2D344_CCE6_4e2a_A417_9245889CE58C_4_5","yaw_pwm=2200,_num_tasks=255,dt=65535,_task_time_allowed=4294967295,i=0,time_available=4294967295,interval_ticks=65535,has_new_input=True"};
         	
-        	String result=t.getResult().toString().replaceAll("\\[|]", "").split("%")[1];
+//        	String result=t.getResult().toString().replaceAll("\\[|]", "").split("%")[1];
+        	
+        	String result=null;
+        	String[] resultsplit=t.getResult().toString().replaceAll("\\[|]", "").split("%");
+        	if(resultsplit.length>1){
+        		result=resultsplit[1];
+        	}
+        	else{
+        		result=resultsplit[0];
+        	}
         	
 //        	if(mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().getSelectCoverState()==2){//ĞÔÄÜ²âÊÔ
 //        		String name;

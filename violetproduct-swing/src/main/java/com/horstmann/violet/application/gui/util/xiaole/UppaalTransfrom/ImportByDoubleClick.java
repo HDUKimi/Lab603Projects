@@ -56,7 +56,7 @@ public class ImportByDoubleClick {
     		base+="\\TimingDiagram\\Violet";
     	
     	}else if("UPPAAL".equals(type)){
-    		System.out.println("-------找到要转换的XML文件-------");
+//    		System.out.println("-------找到要转换的XML文件-------");
     		base+="\\UPPAL\\2.UML_Model_Transfer\\";
     		
     	
@@ -69,21 +69,21 @@ public class ImportByDoubleClick {
     	 File file =new File(base);    
     	 //看看文件夹里面有多少的文件
 		 File[] fList=file.listFiles();//D: ModelDriverProjectFile UPPAL 2.UML_Model_Transfer
-		 System.out.println("数目:"+fList.length);
+//		 System.out.println("数目:"+fList.length);
 //		 for(int i=0;i<fList.length;i++){
 //			 System.out.println("名字："+fList[i].getName()+"ad");
 //		 }
 		 for (int i = 0; i < fList.length; i++) {
 			
 			 String fname =fList[i].getName();
-			 System.out.println("fname:"+fname);
+//			 System.out.println("fname:"+fname);
 			 if(name.equals(fname)){
 				 try {
-					 System.out.println("**"+fList[i]);
+//					 System.out.println("**"+fList[i]);
 					 IFile file1 =  new LocalFile(fList[i]);
-					 System.out.println(111);
+//					 System.out.println(111);
 					graphFile=new GraphFile(file1);
-					System.out.println(graphFile.getFilename());
+//					System.out.println(graphFile.getFilename());
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

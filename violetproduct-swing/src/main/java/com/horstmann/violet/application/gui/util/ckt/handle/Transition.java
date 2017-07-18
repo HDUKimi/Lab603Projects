@@ -19,7 +19,14 @@ public class Transition {
 	private List<String> result;//迁移结果集合   
 	private String limit;//迁移条件集合
 	private String tranTimeName;//去除抽象时间延迟迁移再迁移上添加的t；
+	boolean visited = false; 
 
+	public boolean isVisited() {
+		return visited;
+	}
+	public void setVisited(boolean visited) {
+		this.visited = visited;
+	}
 	public String getTranTimeName() {
 		return tranTimeName;
 	}

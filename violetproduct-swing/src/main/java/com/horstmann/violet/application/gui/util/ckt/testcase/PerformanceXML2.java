@@ -410,7 +410,7 @@ public class PerformanceXML2 {
 		
 		allcases=new ArrayList<>();
 		
-		for(int Fspeed=0;Fspeed<=16;Fspeed=Fspeed+2){
+		for(int Fspeed=0;Fspeed<=16;Fspeed=Fspeed+1){
 			int i = 1;					
 			List<List<String>> cases = new ArrayList<List<String>>(); // 测试用例集合
 			List<String> outtt=new ArrayList<String>();//out输出

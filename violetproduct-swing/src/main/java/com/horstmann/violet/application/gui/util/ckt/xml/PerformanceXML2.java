@@ -33,7 +33,7 @@ public class PerformanceXML2 {
 		// 2、创建根节点TCS
 		org.dom4j.Element tcs = dom.addElement("TCS");
 		// 3、向TCS节点中添加version属性
-		for(int Fspeed=0;Fspeed<=16;Fspeed=Fspeed+2){
+		for(int Fspeed=0;Fspeed<=16;Fspeed=Fspeed+1){
 			
 			int i = 1;					
 			List<List<String>> cases = new ArrayList<List<String>>(); // 测试用例集合

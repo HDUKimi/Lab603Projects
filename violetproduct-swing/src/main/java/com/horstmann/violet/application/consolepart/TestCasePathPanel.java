@@ -190,13 +190,18 @@ public class TestCasePathPanel extends JPanel{
 		statelist=automatic.getStateSet();
 		transitionlist=automatic.getTransitionSet();
 		
-		for(int index=0;index<transitionlist.size();index++){
-			TestCasePathStateInforPanel tcpsipanel=new TestCasePathStateInforPanel(statelist.get(index));
-			attributepanel.add(tcpsipanel);
-			layout.setConstraints(tcpsipanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-			TestCasePathTransitionInforPanel tcptipanel=new TestCasePathTransitionInforPanel(transitionlist.get(index));
-			attributepanel.add(tcptipanel);
-			layout.setConstraints(tcptipanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		int maxsize=statelist.size()-1>transitionlist.size()?statelist.size()-1:transitionlist.size();
+		for(int index=0;index<maxsize;index++){
+			if(index<statelist.size()-1){
+				TestCasePathStateInforPanel tcpsipanel=new TestCasePathStateInforPanel(statelist.get(index));
+				attributepanel.add(tcpsipanel);
+				layout.setConstraints(tcpsipanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+			}
+			if(index<transitionlist.size()){
+				TestCasePathTransitionInforPanel tcptipanel=new TestCasePathTransitionInforPanel(transitionlist.get(index));
+				attributepanel.add(tcptipanel);
+				layout.setConstraints(tcptipanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+			}
 		}
 		TestCasePathStateInforPanel tcpsipanel=new TestCasePathStateInforPanel(statelist.get(statelist.size()-1));
 		attributepanel.add(tcpsipanel);
