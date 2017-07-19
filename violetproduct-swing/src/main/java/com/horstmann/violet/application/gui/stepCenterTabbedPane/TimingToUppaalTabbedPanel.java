@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,16 +31,22 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.ProgressBarUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
@@ -92,6 +99,8 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 	private int oldtiminglistindex;
 	private List<String> timinglists = new ArrayList<String>();
 	
+	private List<String> uppaallists =new ArrayList<String>();
+	private List<IWorkspace> uppaalworkspacelists=new ArrayList<IWorkspace>();
 //	private List<String> uppaallists = new ArrayList<String>();
 	
 //	private static Map<String,String> timingtouppaalmap=new LinkedHashMap<String,String>();
@@ -116,6 +125,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 	private String tranxmlname=null;
 	
 	private IWorkspace workspace1;
+	private IWorkspace currentworkspace;
 	
 	public TimingToUppaalTabbedPanel(MainFrame mainframe){
 		
@@ -320,10 +330,10 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 		
 //		initUIPanel();
 		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().initUIPanel();
-		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
+//		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
 		
 		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButton().doClick();
-		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
+//		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
 		
 		tranprocesslist=new ArrayList<>();
 		tranprocesslist.add("正在获取时序图信息");
@@ -389,28 +399,55 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 
 						timingtouppaaltablemodel.fireTableDataChanged();
 						
-						mainFrame.addTabbedPane(workspace1, 22);
-						
 						timinganduppaalmap.put(tranxmlname.substring(0, tranxmlname.lastIndexOf(".uppaal.violet.xml")), workspace1);
 						
-						DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel();
-						for(int i=0;i<dtm.getRowCount();i++){
-							if(dtm.getValueAt(i, 0).toString().equals(tranxmlname.substring(0, tranxmlname.lastIndexOf(".uppaal.violet.xml")))){
-								dtm.removeRow(i);
-								break;
-							}
-						}
-						dtm.fireTableDataChanged();
-
-						mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists()
-								.get(mainFrame.getModelTransformationPanel().getModelTimingTreePanel()
-										.getUppaaltablemodel().getRowCount())
-								.setVisible(false);
-
-						Object[] rowData = { tranxmlname.substring(0, tranxmlname.lastIndexOf(".uppaal.violet.xml")) };
-						mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel()
-								.addRow(rowData);
+//						mainFrame.addTabbedPane(workspace1, 22);
+//						
+//						DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel();
+//						for(int i=0;i<dtm.getRowCount();i++){
+//							if(dtm.getValueAt(i, 0).toString().equals(tranxmlname.substring(0, tranxmlname.lastIndexOf(".uppaal.violet.xml")))){
+//								dtm.removeRow(i);
+//								break;
+//							}
+//						}
+//						dtm.fireTableDataChanged();
+//
+//						mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists()
+//								.get(mainFrame.getModelTransformationPanel().getModelTimingTreePanel()
+//										.getUppaaltablemodel().getRowCount())
+//								.setVisible(false);
+//
+//						Object[] rowData = { tranxmlname.substring(0, tranxmlname.lastIndexOf(".uppaal.violet.xml")) };
+//						mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel()
+//								.addRow(rowData);
 						
+						JTree uppaaltree=mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltree();
+                    	DefaultTreeModel uppaaltreemodel=mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltreemodel();
+                    	DefaultMutableTreeNode uppaaltreerootnode=mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltreerootnode();
+						
+                    	mainFrame.addTabbedPane(currentworkspace, 22);
+						
+						String currentnodename=currentworkspace.getTitle().toString().replace(".uppaal.violet.xml", "");
+						DefaultMutableTreeNode currentnode=new DefaultMutableTreeNode(currentnodename);
+						
+                    	uppaaltreemodel.insertNodeInto(currentnode, uppaaltreerootnode, uppaaltreerootnode.getChildCount());
+                    	
+						for(IWorkspace uppaalworkspace:uppaalworkspacelists){
+							
+							mainFrame.addTabbedPane(uppaalworkspace, 22);
+							
+							String nodename=uppaalworkspace.getTitle().toString().replace(".uppaal.violet.xml", "");
+							DefaultMutableTreeNode node=new DefaultMutableTreeNode(nodename);
+							
+	                    	uppaaltreemodel.insertNodeInto(node, currentnode, currentnode.getChildCount());
+	                    	
+							TreePath path=new TreePath(uppaaltreerootnode.getPath());
+							if(!uppaaltree.isVisible(path)){
+								uppaaltree.makeVisible(path);
+							}
+							uppaaltree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+
+						}
 						timinglistindex++;
 						smallprogressbarindex = 0;
 						tranprocesslistindex = 0;
@@ -528,28 +565,59 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 //							path="D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\EATiming2.timing.violet.xml";
 							
 //							SD2UppaalMain.transEA(path, mainFrame);// 主要是将ea的xml转换成我们的wujun的xml(里面有他的路径)
-							TimingEAtoUppaal.transEA(path, mainFrame, 1);
+							TimingEAtoUppaal.transEA(filename,path, mainFrame, 1);
 							
 //							tranprocessstate=1;
 							
+							System.out.println("*************************+++++++++++++++++++++++"+SD2UppaalMain.diagramslistsize);
+							
+							String originaluppaalbaseurl="D:\\ModelDriverProjectFile\\WJXML\\"+filename+"\\";
+							String uppaalbaseurl="D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\"+filename+"\\";
+							
+							File originaluppaalbasefile=new File(originaluppaalbaseurl);
+							File[] originaluppaalbasefilelist=originaluppaalbasefile.listFiles();
+							uppaallists.clear();
+							for(File f:originaluppaalbasefilelist){
+								
+								String fname=f.getName();
+								if(fname.endsWith(".xml")&&!fname.contains("UPPAAL")){
+									uppaallists.add(fname.substring(0, fname.lastIndexOf(".xml")));
+								}
+								
+							}
+							
+							File uppaalbasefile=new File(uppaalbaseurl);
+						    if(!uppaalbasefile.exists()){
+						    	while(!uppaalbasefile.mkdirs()){
+						    	
+						    	}
+						    }
+							
 							System.out.println("-------------------------123");
 //							XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\"+TimingEAtoUppaal.getDiagramDataName()+"ForXStream.xml", baseUrl3+filename+"ForXStream.xml");
-							System.out.println(TimingEAtoUppaal.getDiagramDataName());
-							LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\"+TimingEAtoUppaal.getDiagramDataName()+".xml");
-						
+							
+							LayoutUppaal.layout(originaluppaalbaseurl+TimingEAtoUppaal.getDiagramDataName()+".xml");
+							
 							System.out.println("TimingEAtoUppaal.getDiagramDataName():+++++++++"+TimingEAtoUppaal.getDiagramDataName());
 							
-							tranxmlname = TransToVioletUppaal.TransToViolet(filename,1);
+//							tranxmlname = TransToVioletUppaal.TransToViolet(filename,1);
 //							uppaallists.add(filename1);
 							
-							GraphFile fGraphFile1 = ImportByDoubleClick.importFileByDoubleClick("UPPAAL", tranxmlname);
-							workspace1 = new Workspace(fGraphFile1);
-//							mainFrame.addTabbedPane(workspace1, 21);
-//
-//							mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists()
-//									.get(mainFrame.getModelTransformationPanel().getModelTimingTreePanel()
-//											.getUppaaltablemodel().getRowCount())
-//									.setVisible(false);
+//							GraphFile fGraphFile1 = ImportByDoubleClick.importFileByDoubleClick("UPPAAL", tranxmlname);
+//							workspace1 = new Workspace(fGraphFile1);
+
+							tranxmlname = TransToVioletUppaal.TransToVioletAddPath(uppaalbaseurl,filename,1);
+							GraphFile fGraphFile1 = ImportByDoubleClick.importFileByPath(uppaalbaseurl, tranxmlname);
+							currentworkspace = new Workspace(fGraphFile1);
+							uppaalworkspacelists.clear();
+							for(String uppaalname:uppaallists){
+								LayoutUppaal.layout(originaluppaalbaseurl+uppaalname+".xml");
+								String tranxmlname2 = TransToVioletUppaal.TransToVioletAddPath(uppaalbaseurl,uppaalname,1);
+								GraphFile fGraphFile2 = ImportByDoubleClick.importFileByPath(uppaalbaseurl, tranxmlname2);
+								workspace1 = new Workspace(fGraphFile2);
+								uppaalworkspacelists.add(workspace1);
+							}
+							System.out.println("--------------------------");
 							
 							successcount++;
 

@@ -399,10 +399,10 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 						SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						sequencetouppaaltablemodel.setValueAt(df.format(new Date()), sequencelistindex, 6);
 
-//						sequencetouppaaltablemodel.fireTableDataChanged();
+						sequencetouppaaltablemodel.fireTableDataChanged();
 						
 //						mainFrame.addTabbedPane(workspace1, 21);
-						
+//						
 //						DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel();
 //						for(int i=0;i<dtm.getRowCount();i++){
 //							if(dtm.getValueAt(i, 0).toString().equals(tranxmlname.substring(0, tranxmlname.lastIndexOf(".uppaal.violet.xml")))){
@@ -625,7 +625,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							uppaalworkspacelists.clear();
 							for(String uppaalname:uppaallists){
 								LayoutUppaal.layout(originaluppaalbaseurl+uppaalname+".xml");
-								tranxmlname = TransToVioletUppaal.TransToVioletAddPath(uppaalbaseurl,uppaalname,0);
+								tranxmlname = TransToVioletUppaal.TransToVioletAddPath(uppaalbaseurl,uppaalname,1);
 								GraphFile fGraphFile2 = ImportByDoubleClick.importFileByPath(uppaalbaseurl, tranxmlname);
 								workspace1 = new Workspace(fGraphFile2);
 								uppaalworkspacelists.add(workspace1);

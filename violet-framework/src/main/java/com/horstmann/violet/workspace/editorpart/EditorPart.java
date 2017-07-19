@@ -40,6 +40,8 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.plaf.basic.BasicBorders;
 
@@ -48,6 +50,7 @@ import com.horstmann.violet.product.diagram.abstracts.edge.IEdge;
 import com.horstmann.violet.product.diagram.abstracts.edge.IHorizontalChild;
 import com.horstmann.violet.product.diagram.abstracts.edge.SEdge;
 import com.horstmann.violet.product.diagram.abstracts.node.INode;
+import com.horstmann.violet.workspace.IWorkspace;
 import com.horstmann.violet.workspace.editorpart.behavior.IEditorPartBehavior;
 
 /**
@@ -61,8 +64,9 @@ public class EditorPart extends JPanel implements IEditorPart
      * 
      * @param aGraph graph which will be drawn in this editor part
      */
-    public EditorPart(IGraph aGraph)
+    public EditorPart(IWorkspace workspace, IGraph aGraph)
     {
+    	this.workspace=workspace;
         this.graph = aGraph;
         this.zoom = 1;
         this.grid = new PlainGrid(this);
@@ -183,7 +187,7 @@ public class EditorPart extends JPanel implements IEditorPart
 //					if(ALL_STEP<-MAX_STEP){
 //						break;
 //					}
-					changeZoom(-1);
+					changeZoom(-1, workspace);
 					graphstart = 0;
 					zx = (int) (zoom * bounds.getMaxX());
 					zy = (int) (zoom * bounds.getMaxY());
@@ -202,8 +206,18 @@ public class EditorPart extends JPanel implements IEditorPart
      * 
      * @see com.horstmann.violet.framework.display.clipboard.IEditorPart#changeZoom(int)
      */
-    public void changeZoom(int steps)
+    public void changeZoom(int steps, IWorkspace workspace)
     {
+    	
+    	JScrollPane scrollableEditorPart = workspace.getAWTComponent().getScrollableEditorPart();
+		JScrollBar hbar = scrollableEditorPart.getVerticalScrollBar();
+		JScrollBar vbar = scrollableEditorPart.getHorizontalScrollBar();
+		oldhbarmax=hbar.getMaximum();
+		oldvbarmax=vbar.getMaximum();
+		oldhbarvalue=hbar.getValue();
+		oldvbarvalue=vbar.getValue();
+		zoomstate=true;
+    	
     	ALL_STEP+=steps;
 
     	graphstart=1;
@@ -214,6 +228,7 @@ public class EditorPart extends JPanel implements IEditorPart
             zoom /= FACTOR;
         invalidate();
         repaint();
+        
     }
 
     @Override
@@ -277,6 +292,7 @@ public class EditorPart extends JPanel implements IEditorPart
     @Override
     protected void paintComponent(Graphics g)
     {
+		
         boolean valid = getSwingComponent().isValid();
         if (valid)
         {
@@ -293,6 +309,49 @@ public class EditorPart extends JPanel implements IEditorPart
         {
             behavior.onPaint(g2);
         }
+        
+        if(zoomstate){
+        	
+        	JScrollPane scrollableEditorPart = workspace.getAWTComponent().getScrollableEditorPart();
+    		JScrollBar hbar = scrollableEditorPart.getVerticalScrollBar();
+    		JScrollBar vbar = scrollableEditorPart.getHorizontalScrollBar();
+    		
+    		if(hbar.getMaximum()==oldhbarmax&&vbar.getMaximum()==oldvbarmax){
+    			
+    		}
+    		else{
+    			newhbarmax=hbar.getMaximum();
+    			newvbarmax=vbar.getMaximum();
+    			newhbarvalue=hbar.getValue();
+    			newvbarvalue=vbar.getValue();
+    			
+//    			System.err.println("-------------------------------");
+//    			System.out.println(" + + + "+oldhbarmax+" - - "+oldvbarmax+" - - "+oldhbarvalue+" - - "+oldvbarvalue);
+//    			System.out.println(" * * * "+newhbarmax+" - - "+newvbarmax+" - - "+newhbarvalue+" - - "+newvbarvalue);
+    			
+    			int x = newhbarvalue,y = newvbarvalue;
+    			
+    			if(newhbarmax>oldhbarmax){
+    				x=newhbarvalue+(newhbarmax-oldhbarmax)/2;
+    			}
+    			if(newvbarmax>oldvbarmax){
+    				y=newvbarvalue+(newvbarmax-oldvbarmax)/2;
+    			}
+    			if(newhbarmax<oldhbarmax&&oldhbarvalue==newhbarvalue){
+    				x=newhbarvalue-(oldhbarmax-newhbarmax)/2;
+    			}
+    			if(newvbarmax<oldvbarmax&&oldvbarvalue==newvbarvalue){
+    				y=newvbarvalue-(oldvbarmax-newvbarmax)/2;
+    			}
+    			
+    			hbar.setValue(x);
+    			vbar.setValue(y);
+    			
+    			zoomstate=false;
+    		}
+    		
+        }
+        
     }
     
     
@@ -309,6 +368,8 @@ public class EditorPart extends JPanel implements IEditorPart
     {
         return this.behaviorManager;
     }
+    
+    private IWorkspace workspace;
 
     private IGraph graph;
 
@@ -329,5 +390,17 @@ public class EditorPart extends JPanel implements IEditorPart
     
     private static final int MAX_STEP=5;
     private int ALL_STEP=0;
-
+    
+    private boolean zoomstate=false;
+    
+    private int oldhbarmax;
+    private int oldvbarmax;
+    private int oldhbarvalue;
+    private int oldvbarvalue;
+    
+    private int newhbarmax;
+    private int newvbarmax;
+    private int newhbarvalue;
+    private int newvbarvalue;
+    
 }

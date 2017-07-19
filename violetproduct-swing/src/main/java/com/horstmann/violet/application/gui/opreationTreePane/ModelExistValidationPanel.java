@@ -966,7 +966,7 @@ public class ModelExistValidationPanel extends JPanel{
 
 		try {
 
-			TimingEAtoUppaal.transEA(path,mainFrame,0);
+			TimingEAtoUppaal.transEA(filename,path,mainFrame,0);
 			LayoutUppaal.layout(TimingEAtoUppaal.getDiagramDataName() + ".xml");
 			String filename1 = TransToVioletUppaal.TransToViolet(filename,1);
 

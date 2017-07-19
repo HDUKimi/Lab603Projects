@@ -707,7 +707,24 @@ public class MainFrame extends JFrame
      			return;
      		}
      		
-     		int index=this.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel().getRowCount();
+//     		int index=this.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel().getRowCount();
+     		
+     		int index=0;
+     		
+     		DefaultMutableTreeNode rootnode=this.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltreerootnode();
+     		Enumeration<?> en=rootnode.children();
+			while(en.hasMoreElements()){
+				
+				index++;
+				
+				DefaultMutableTreeNode node;
+				node=(DefaultMutableTreeNode) en.nextElement();
+				
+				index+=node.getChildCount();
+				
+			}
+     		
+     		System.err.println(index+" - "+this.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists().size());
 
      		if(index==0){
 				this.TimingToUppaalWorkspaceList.clear();
@@ -718,8 +735,10 @@ public class MainFrame extends JFrame
 			
 			this.getStepTwoCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
 			
-			
-			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
+//			System.err.println(workspace.getTitle());
+//			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
+			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().replace(".uppaal.violet.xml", "")));
+			buttontabbedpanel.setVisible(false);
 			this.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists().add(buttontabbedpanel);
 			this.getStepTwoCenterTabbedPane().getButtonTabbedPanel().add(buttontabbedpanel);
 			

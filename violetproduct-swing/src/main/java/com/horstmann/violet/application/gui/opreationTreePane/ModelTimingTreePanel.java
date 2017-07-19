@@ -14,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Vector;
 
@@ -37,6 +38,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 import org.dom4j.DocumentException;
 
@@ -87,6 +89,10 @@ public class ModelTimingTreePanel extends JPanel{
 	
 	private DefaultTableModel uppaaltablemodel;
 	private JTable uppaaltable;
+	
+	public JTree uppaaltree;
+	private DefaultTreeModel uppaaltreemodel;
+	private DefaultMutableTreeNode uppaaltreerootnode;
 	
 	private JCheckBox[] timingCheckBoxList;
 	
@@ -252,9 +258,71 @@ public class ModelTimingTreePanel extends JPanel{
 			}
         	
 		});
+        
+        uppaaltreerootnode=new DefaultMutableTreeNode("转换后时间自动机列表");
+        uppaaltreemodel=new DefaultTreeModel(uppaaltreerootnode);
+        uppaaltree=new JTree(uppaaltreemodel);
+        
+        uppaaltree.setRootVisible(false);
+        
+        uppaaltree.addMouseListener(new MouseAdapter() {
+        	
+        	@Override
+        	public void mousePressed(MouseEvent e) {
+        		// TODO Auto-generated method stub
+        		if(e.getClickCount()==2){
+        			
+        			TreePath selectionpath=uppaaltree.getSelectionPath();
+					DefaultMutableTreeNode parentNode=(DefaultMutableTreeNode) selectionpath.getLastPathComponent();
+//					System.out.println(parentNode.toString());
+					
+					int i=0;
+					Enumeration<?> en1=uppaaltreerootnode.children();
+					while(en1.hasMoreElements()){
+						DefaultMutableTreeNode node1;
+						node1=(DefaultMutableTreeNode) en1.nextElement();
+						i++;
+						if(node1.equals(parentNode)){
+							
+							System.out.println(i+"  "+node1.toString());
+							
+							ButtonTabbedPanel buttonTabbedPanel=mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists().get(i-1);
+							if(!buttonTabbedPanel.isVisible()){
+								buttonTabbedPanel.setVisible(true);
+							}
+							buttonTabbedPanel.getTabbedbutton().doClick();
+							
+						}
+						else{
+							Enumeration<?> en2=node1.children();
+							while(en2.hasMoreElements()){
+								DefaultMutableTreeNode node2;
+								node2=(DefaultMutableTreeNode) en2.nextElement();
+								i++;
+								if(node2.equals(parentNode)){
+									
+									System.out.println(i+"  "+node2.toString());
+									
+									ButtonTabbedPanel buttonTabbedPanel=mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists().get(i-1);
+									if(!buttonTabbedPanel.isVisible()){
+										buttonTabbedPanel.setVisible(true);
+									}
+									buttonTabbedPanel.getTabbedbutton().doClick();
+									
+								}
+								
+							}
+						}
+					}
+        			
+            	}
+        	}
+        	
+		});
 		
 		uppaaltablepanel.setLayout(new GridLayout());
-		uppaaltablepanel.add(uppaaltable);
+//		uppaaltablepanel.add(uppaaltable);
+		uppaaltablepanel.add(uppaaltree);
 		uppaaltable.setBackground(new Color(238, 238, 242));
 		uppaaltable.setBorder(null);
 		uppaaltablepanel.setBorder(null);
@@ -338,6 +406,9 @@ public class ModelTimingTreePanel extends JPanel{
 //			dtmDemo.addRow(data);
 			timingcheckboxpanel.add(Box.createVerticalStrut(7));
 			timingcheckboxpanel.add(timingCheckBoxList[i]);
+			if(i==0){
+				timingCheckBoxList[i].setSelected(true);
+			}
 		}
 		
 	}
@@ -407,9 +478,10 @@ public class ModelTimingTreePanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				timinglists.clear();
-				initFileList();
-				addCheckBoxToTimingcheckboxpanel();
+				updateFileList();
+//				timinglists.clear();
+//				initFileList();
+//				addCheckBoxToTimingcheckboxpanel();
 				
 			}
 		});
@@ -427,11 +499,13 @@ public class ModelTimingTreePanel extends JPanel{
 				// TODO Auto-generated method stub
 				if(timingscrollpanel.isVisible()){
 					timingscrollpanel.setVisible(false);
+					ChangeRepaint();
 //					uppaalpanel.setVisible(false);
 //					timingcheckboxpanel.setVisible(false);
 				}
 				else{
 					timingscrollpanel.setVisible(true);
+					ChangeRepaint();
 //					uppaalpanel.setVisible(true);
 //					timingcheckboxpanel.setVisible(true);
 				}
@@ -447,6 +521,14 @@ public class ModelTimingTreePanel extends JPanel{
 		
 	}
 
+	public void updateFileList() {
+		// TODO Auto-generated method stub
+		
+		timinglists.clear();
+		initFileList();
+		addCheckBoxToTimingcheckboxpanel();
+
+	}
 //	private void initTimingTree() {
 //		// TODO Auto-generated method stub
 //		
@@ -571,7 +653,17 @@ public class ModelTimingTreePanel extends JPanel{
 	public JCheckBox[] getTimingCheckBoxList() {
 		return timingCheckBoxList;
 	}
-	
-	
+
+	public JTree getUppaaltree() {
+		return uppaaltree;
+	}
+
+	public DefaultTreeModel getUppaaltreemodel() {
+		return uppaaltreemodel;
+	}
+
+	public DefaultMutableTreeNode getUppaaltreerootnode() {
+		return uppaaltreerootnode;
+	}
 	
 }

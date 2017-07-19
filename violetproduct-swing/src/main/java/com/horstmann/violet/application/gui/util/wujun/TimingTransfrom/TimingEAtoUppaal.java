@@ -24,7 +24,7 @@ public class TimingEAtoUppaal {
 	private static MainFrame mainFrame;
 	public static String diagramDataName = null;
 
-	public static void transEA(String path,MainFrame mainframe,int state) throws Exception {
+	public static void transEA(String filename,String path,MainFrame mainframe,int state) throws Exception {
 		// TODO Auto-generated method stub
 		// Global global=new Global();
 
@@ -423,10 +423,20 @@ System.out.println("--------"+path);
 			finalLocation.setFinl("true");
 			
 			temPlates.get(0).setName(diagramsData.getName());
+			
+			String baseurl="D:\\ModelDriverProjectFile\\WJXML\\"+filename+"\\";
+		    File basefile=new File(baseurl);
+		    if(!basefile.exists()){
+		    	while(!basefile.mkdirs()){
+		    	
+		    	}
+		    }
+			
+			
 			Display.println("开始写入xml:" + diagramsData.getName() + ".xml");
 			// 4.写入到UPPAAL.xml中----------------------------------------------------------------------------------------------
-			Write.creatXML("D:\\ModelDriverProjectFile\\WJXML\\"+diagramsData.getName() + ".xml", global_declarations, template_instantiations, temPlates);
-			Write2.creatXML("D:\\ModelDriverProjectFile\\WJXML\\"+diagramsData.getName() + "UPPAAL.xml", global_declarations, template_instantiations, temPlates);
+			Write.creatXML(baseurl+diagramsData.getName() + ".xml", global_declarations, template_instantiations, temPlates);
+			Write2.creatXML(baseurl+diagramsData.getName() + "UPPAAL.xml", global_declarations, template_instantiations, temPlates);
 			setDiagramDataName(diagramsData.getName());
 			// 4.写入到UPPAAL.xml中end-------------------------------------------------------------------------------------------
 			Display.println(".....写入完成!");

@@ -183,11 +183,13 @@ public class ModelSequenceTreePanel extends JPanel{
 				
 				if(uppaalscrollpanel.isVisible()){
 					uppaalscrollpanel.setVisible(false);
+					ChangeRepaint();
 //					sequencepanel.setVisible(false);
 					
 				}
 				else{
 					uppaalscrollpanel.setVisible(true);
+					ChangeRepaint();
 //					sequencepanel.setVisible(true);
 				}
 			}
