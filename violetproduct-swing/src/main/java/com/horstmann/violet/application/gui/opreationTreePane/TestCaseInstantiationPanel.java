@@ -16,6 +16,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +48,8 @@ import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEditor;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyUppaalLabelRender;
+import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
+import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 import com.l2fprod.common.swing.JTaskPane;
 import com.l2fprod.common.swing.JTaskPaneGroup;
 
@@ -52,14 +57,8 @@ public class TestCaseInstantiationPanel extends JPanel{
   
 	public  MainFrame mainFrame;
 	
-    private JTree TestCaseFileTree;//上一步生成的测试用例   
-    private DefaultMutableTreeNode testcase;
-   
-    
     private JPanel titlepanel;
-	private JPanel toolpanel;
 	private JPanel treepanel;
-	private JPanel diagrampanel;
 	
 	private JLabel titlelabel;
 	private JPanel titleiconlabelpanel;
@@ -91,6 +90,7 @@ public class TestCaseInstantiationPanel extends JPanel{
 	private DefaultTableModel instantiatetablemodel;
 	private JTable instantiatetable;
 	
+	private JCheckBox selectAbstractCheckBox;
 	private JCheckBox[] abstractCheckBoxList;
 	
 	private List<String> abstractlists=new ArrayList<String>();
@@ -100,17 +100,8 @@ public class TestCaseInstantiationPanel extends JPanel{
 		
 		this.mainFrame = mainFrame;
 		
-//		initUI();	
-//		this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black)
-//        		,"建立抽象测试用例",TitledBorder.CENTER,TitledBorder.ABOVE_TOP,
-//        		new Font("宋体",Font.BOLD,20),new Color(60, 60, 60)));
-		
-		initUppaalFilePanel();	
-		
 		titlepanel = new JPanel();
-		toolpanel = new JPanel();
 		treepanel = new JPanel();
-		diagrampanel = new JPanel();
 		
 		titlelabel = new JLabel();
 		titleiconlabelpanel=new JPanel();
@@ -119,27 +110,18 @@ public class TestCaseInstantiationPanel extends JPanel{
 		titleiconlabel3 = new JLabel();
 		
 		titlepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(142, 155, 188)));
-		toolpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, new Color(142, 155, 188)));
 		treepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(142, 155, 188)));
 		
 		initTitlePanel();
-		
-		initToolButton();
-
-		initDiagramButton();
 		
 		initTreePanel();
 		
 		GridBagLayout layout=new GridBagLayout();
 		this.setLayout(layout);
 		this.add(titlepanel);
-//		this.add(toolpanel);
 		this.add(treepanel);
-//		this.add(diagrampanel);
 		layout.setConstraints(titlepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//		layout.setConstraints(toolpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(treepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-//		layout.setConstraints(diagrampanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenWidth = (int) screenSize.getWidth();
@@ -226,19 +208,6 @@ public class TestCaseInstantiationPanel extends JPanel{
 		titlepanel.add(titleiconlabelpanel,BorderLayout.EAST);
 		
 	}
-
-
-	private void initToolButton() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	private void initDiagramButton() {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 	private void initTreePanel() {
 		// TODO Auto-generated method stub
@@ -348,9 +317,12 @@ public class TestCaseInstantiationPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				for(JCheckBox jcb:abstractCheckBoxList){
-					jcb.setSelected(true);
-				}
+//				for(JCheckBox jcb:abstractCheckBoxList){
+//					jcb.setSelected(true);
+//				}
+				
+				
+				readAbstractTestCaseSerialFile();
 				
 			}
 		});
@@ -386,9 +358,11 @@ public class TestCaseInstantiationPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				abstractlists.clear();
-				initFileList();
-				addCheckBoxToAbstractcheckboxpanel();
+				updateFileList();
+				
+//				abstractlists.clear();
+//				initFileList();
+//				addCheckBoxToAbstractcheckboxpanel();
 				
 			}
 		});
@@ -424,6 +398,59 @@ public class TestCaseInstantiationPanel extends JPanel{
 		
 	}
 
+	public void readAbstractTestCaseSerialFile() {
+		// TODO Auto-generated method stub
+		
+		String name=selectAbstractCheckBox.getText();
+		System.out.println(name);
+		
+		List<Automatic> abstractAutomatic=new ArrayList<>();
+		try {
+			String serialpath = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\FunctionalTest\\"+name+".txt";
+			FileInputStream fis = new FileInputStream(serialpath);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+
+			while(true){//使用处理异常的方式来判断文件是否结束
+				try {
+					Automatic auto=(Automatic) ois.readObject();//文件读取完毕后，会抛异常
+					abstractAutomatic.add(auto);
+				} catch (Exception  e) {
+					// TODO Auto-generated catch block
+//					e.printStackTrace();
+					System.out.println("文件读取完毕!");  
+	                break;  
+				}
+			}
+
+			ois.close();
+			fis.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.err.println("----------------------------------------");
+		System.out.println(abstractAutomatic.size());
+		for(Automatic auto:abstractAutomatic){
+			System.out.println("auto.getTransitionSet().size() : "+auto.getTransitionSet().size());
+//			for(Transition t:auto.getTransitionSet()){
+//				System.out.println(t.toString1());
+//			}
+		}
+		
+	}
+
+
+	public void updateFileList() {
+		// TODO Auto-generated method stub
+		
+		abstractlists.clear();
+		initFileList();
+		addCheckBoxToAbstractcheckboxpanel();
+		
+	}
+
+
 	private void addCheckBoxToAbstractcheckboxpanel() {
 		// TODO Auto-generated method stub
 		
@@ -434,6 +461,36 @@ public class TestCaseInstantiationPanel extends JPanel{
 			abstractCheckBoxList[i].setOpaque(false);
 			abstractcheckboxpanel.add(Box.createVerticalStrut(7));
 			abstractcheckboxpanel.add(abstractCheckBoxList[i]);
+			if(i==0){
+				abstractCheckBoxList[i].setSelected(true);
+			}
+		}
+		
+		if(abstractCheckBoxList.length>0){
+			selectAbstractCheckBox=abstractCheckBoxList[0];
+		}
+		else{
+			selectAbstractCheckBox=new JCheckBox();
+		}
+		
+		for(final JCheckBox jcb:abstractCheckBoxList){
+			
+			jcb.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					
+					if(jcb.isSelected()){
+						selectAbstractCheckBox.setSelected(false);
+						selectAbstractCheckBox=jcb;
+					}
+					else{
+						selectAbstractCheckBox=new JCheckBox();
+					}
+				}
+			});
+			
 		}
 		
 	}
@@ -550,77 +607,46 @@ public class TestCaseInstantiationPanel extends JPanel{
 	}
 
 	public void initFileList() {
-		File[] sequenceFilelists = getAllFileByDiagramType("sequence");
-	//	File[] tdFilelists= getAllFileByDiagramType("timing");	
-	   // File[] uppaalFilelists=getAllFileByDiagramType("UPPAAL2");
-	    for(File sequenceFile : sequenceFilelists)
+		
+		int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+		
+		File[] filelists=getAllFileByDiagramType(starttype);
+	    for(File file : filelists)
 	    {
-	    	String fileName=sequenceFile.getName();
-//	    	fileName.substring(0, fileName.lastIndexOf(".xml"));
-	    	if(fileName.lastIndexOf(".seq.violet.xml")>0){
-	    		abstractlists.add(fileName.substring(0, fileName.lastIndexOf(".seq.violet.xml")));
+	    	String fileName=file.getName();
+	    	if(fileName.lastIndexOf("Abstract.txt")>0){
+	    		abstractlists.add(fileName.substring(0, fileName.lastIndexOf(".txt")));
 	    	}
 	    	
 	    }
-//	    for(File tdFile : tdFilelists)
-//	    {
-//	    	String fileName=tdFile.getName();
-//	    	tdlists.add(fileName);
-//	    }
-//	    for(File uppaalFile:uppaalFilelists)
-//	    {
-//	    	String fileName=uppaalFile.getName();
-//	    	uppaallists.add(fileName);
-//	    }
 	}
+	
 	/**
 	  * 根据类型获取文件夹下的所有文件
 	  * @param type
 	  * @return
 	  */
-	 public   File[] getAllFileByDiagramType(String type){
-//		 File f =FileSystemView.getFileSystemView().getHomeDirectory();
-//		String s =f .getAbsolutePath();
-		 String baseUrl ="D://ModelDriverProjectFile";
-//		String baseUrl =s+"//ModelDriverProjectFile";
-//		File bFile = new File(baseUrl);
-//		if(!bFile.exists()){
-//			bFile.mkdirs();
-//		}
-		 File[] fList =null;
-		 File file=null;
-		 if("sequence".equals(type)){
-			 file =new File(baseUrl+"\\SequenceDiagram\\Violet");
-			 fList= file.listFiles();
-		 }else if("timing".equals(type)){
-			file =new File(baseUrl+"\\TimingDiagram\\Violet");
-			 fList= file.listFiles();
-		 }else if("UPPAAL2".equals(type)){
-			 //第二步的UPPAAL涉及的自动机
-			 file =new File(baseUrl+"\\UPPAAL\\2.UML Model Transfer");
-			 fList=file.listFiles();
-		 }else if("UPPAAL3".equals(type)){
-			 //第三步的UPPAAL涉及的自动机
-			 file =new File(baseUrl+"\\UPPAAL\\3.Abstract TestCase");
-			 fList= file.listFiles();
-		 }else if("UPPAAL4".equals(type)){
-			 //第四步的UPPAAL涉及的自动机
-			 file =new File(baseUrl+"\\UPPAAL\\4.Real TestCase");
-			 fList=file.listFiles();
-		 }else if("state".equals(type)){
-			 file =new File(baseUrl+"\\StateDiagram\\Violet");
-			 fList=file.listFiles();
-		 }else if("usecase".equals(type)){
-			 file =new File(baseUrl+"\\UsecaseDiagram\\Violet");
-			 fList= file.listFiles();
-		 }else if("class".equals(type)){
-			 file =new File(baseUrl+"\\ClassDiagram\\Violet");
-			 fList= file.listFiles();
-		 }else if("activity".equals(type)){
-			 file =new File(baseUrl+"\\ActivityDiagram\\Violet");
-			 fList=file.listFiles();
-		 }
-		 return fList;
+	public File[] getAllFileByDiagramType(int starttype) {
+		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase";
+
+		File[] fList = null;
+		File file = null;
+
+		if (starttype == 1) {
+			file = new File(baseUrl + "\\FunctionalTest");
+			fList = file.listFiles();
+		} else if (starttype == 2) {
+			file = new File(baseUrl + "\\PerformanceTest");
+			fList = file.listFiles();
+		} else if (starttype == 3) {
+			file = new File(baseUrl + "\\TimeTest");
+			fList = file.listFiles();
+		} else {
+			file = new File(baseUrl);
+			fList = file.listFiles();
+		}
+
+		return fList;
 	}
 	
 	public void ChangeRepaint() {
@@ -628,18 +654,6 @@ public class TestCaseInstantiationPanel extends JPanel{
 		this.setVisible(false);
 		this.getRootPane().repaint();
 		this.setVisible(true);
-	}
-	
-	private void initUppaalFilePanel() {
-		// TODO Auto-generated method stub
-		testcase=new DefaultMutableTreeNode("抽象测试用例文件");		
-		String[] testcaseFileLists={"抽象测试用例1","抽象测试用例2","抽象测试用例3"};//抽象测试用例文件列表
-	    for(String testcaseFile : testcaseFileLists)
-	    {
-	    	testcase.add(new DefaultMutableTreeNode(testcaseFile));
-	    }
-	    TestCaseFileTree=new JTree(testcase);
-     
 	}
 
 }

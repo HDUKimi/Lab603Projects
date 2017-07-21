@@ -502,7 +502,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 						StepTwoArea.setSelectionEnd(startindex);
 //						System.err.println("---"+count+"--"+index+"--"+startindex+"--"+endindex+"--");
 						
-						ChangeRepaint();
+//						ChangeRepaint();
 						
 					}
 				}
@@ -553,17 +553,17 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 						
 						int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
 						if(starttype == 1){
-							baseUrl += "\\FunctionalTest\\";
-							baseUrl2 += "\\FunctionalTest\\";
-							baseUrl3 += "\\FunctionalTest\\";
+							baseUrl += "FunctionalTest\\";
+							baseUrl2 += "FunctionalTest\\";
+							baseUrl3 += "FunctionalTest\\";
 						} else if (starttype == 2) {
-							baseUrl += "\\PerformanceTest\\";
-							baseUrl2 += "\\PerformanceTest\\";
-							baseUrl3 += "\\PerformanceTest\\";
+							baseUrl += "PerformanceTest\\";
+							baseUrl2 += "PerformanceTest\\";
+							baseUrl3 += "PerformanceTest\\";
 						} else if (starttype == 3) {
-							baseUrl += "\\TimeTest\\";
-							baseUrl2 += "\\TimeTest\\";
-							baseUrl3 += "\\TimeTest\\";
+							baseUrl += "TimeTest\\";
+							baseUrl2 += "TimeTest\\";
+							baseUrl3 += "TimeTest\\";
 						}
 						
 						System.out.println(sequencelistindex+"   "+sequencelists.size()+"   "+baseUrl + filename);
@@ -607,12 +607,12 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							
 							if(SD2UppaalMain.diagramslistsize==1){
 								System.out.println("-------------------------123");
-								XMLCopy.SourceCopyToTarget(originaluppaalbaseurl+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", baseUrl3+filename+"ForXStream.xml");
+								XMLCopy.SourceCopyToTarget(originaluppaalbaseurl+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", baseUrl2+filename+"ForXStream.xml");
 								LayoutUppaal.layout(originaluppaalbaseurl+SD2UppaalMain.getDiagramDataName()+".xml");
 							}
 							else{
 								System.out.println("*************************456");
-								XMLCopy.SourceCopyToTarget(originaluppaalbaseurl+"UAVForXStream.xml", baseUrl3+filename+"ForXStream.xml");
+								XMLCopy.SourceCopyToTarget(originaluppaalbaseurl+"UAVForXStream.xml", baseUrl2+filename+"ForXStream.xml");
 								LayoutUppaal.layout(originaluppaalbaseurl+"UAV.xml");
 							}
 							

@@ -1,7 +1,13 @@
 package com.horstmann.violet.application.gui.util.ckt.handle;
 
+import java.io.Serializable;
 
-public class DBM_element {
+public class DBM_element implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7304851584757286407L;
+	
 	private int value;
 	private boolean strictness;
 	private int DBM_i;

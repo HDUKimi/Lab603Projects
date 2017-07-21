@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -290,6 +291,11 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(threadstate!=0){
+					if(threadstate==-1){
+						mainthread.resume();
+						threadlist.get(step-1).resume();
+						threadstate=1;
+					}
 					mainthread.stop();
 					for(Thread t:threadlist){
 						t.stop();
@@ -408,7 +414,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 //			selectCoverState=2;
 //		}
 		
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
+		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\";
 		
 		starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
 		if(starttype == 1){
@@ -1154,7 +1160,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				copytcptpanel.getTableresultpanel().add(copyresultpanel);
 				
 				mainFrame.getStepThreeCenterTabbedPane().getTestCaseProduceButtonPanel().setVisible(true);
-
+				
+				writeAbstractTestCaseSerialFile(collectLimit, selectUppaal.substring(0, selectUppaal.indexOf("ForXStream")));
+				
 				time2=System.currentTimeMillis();
 				
 				if(starttype==1){//¹¦ÄÜ²âÊÔ
@@ -1583,6 +1591,59 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			threadlist.add(thread7);
 			
 			stepsum=7;
+		}
+		
+	}
+
+	protected void writeAbstractTestCaseSerialFile(ArrayList<Automatic> abstractAutomatic, String abstractName) {
+		// TODO Auto-generated method stub
+		
+		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
+		
+		if(starttype == 1){
+			baseUrl += "\\FunctionalTest\\";
+		} else if (starttype == 2) {
+			baseUrl += "\\PerformanceTest\\";
+		} else if (starttype == 3) {
+			baseUrl += "\\TimeTest\\";
+		}
+		
+		if(starttype==1){//¹¦ÄÜ²âÊÔ
+			if(selectCoverState==0){//×´Ì¬¸²¸Ç
+				abstractName+="×´Ì¬¸²¸Ç";
+			}
+			else if(selectCoverState==1){//Â·¾¶¸²¸Ç
+				abstractName+="Â·¾¶¸²¸Ç";
+			}
+		}
+		else if(starttype==2){//ÐÔÄÜ²âÊÔ
+			
+		}
+		else if(starttype==3){//Ê±¼äÔ¼Êø²âÊÔ
+			if(selectCoverState==0){//×´Ì¬¸²¸Ç
+				abstractName+="×´Ì¬¸²¸Ç";
+			}
+			else if(selectCoverState==1){//Â·¾¶¸²¸Ç
+				abstractName+="Â·¾¶¸²¸Ç";
+			}
+		}
+		
+		String path = baseUrl + abstractName + "Abstract.txt";
+		
+		try {
+//			String path="D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+testcasename+"serialtestcase.txt";
+			FileOutputStream fos = new FileOutputStream(path);
+			ObjectOutputStream oos=new ObjectOutputStream(fos);
+			
+			for(Automatic auto:abstractAutomatic){
+				oos.writeObject(auto);
+			}
+			
+			oos.close();
+			fos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}

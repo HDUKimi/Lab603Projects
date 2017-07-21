@@ -177,7 +177,7 @@ public class StepButtonPanel extends JPanel {
 		this.add(step2buttonpanel);
 		this.add(step6buttonpanel);
 		this.add(step3buttonpanel);
-//		this.add(step4buttonpanel);
+		this.add(step4buttonpanel);
 		this.add(step5buttonpanel);
 		
 		
@@ -1370,7 +1370,7 @@ public class StepButtonPanel extends JPanel {
 				mainFrame.setStepindex(4);
 			
 //				step4button.setForeground(Color.RED);
-				mainFrame.getMainPanel().remove(mainFrame.getWelcomePanel());
+//				mainFrame.getMainPanel().remove(mainFrame.getWelcomePanel());
 				
 				JLabel jLabel=new JLabel();
 				jLabel.setText(step4button.getText());
@@ -1380,7 +1380,7 @@ public class StepButtonPanel extends JPanel {
 				labelpanel.setLayout(new GridLayout(1, 1));
 				labelpanel.removeAll();
 //				labelpanel.add(jLabel,new GBC(0, 0).setWeight(1, 0));
-				labelpanel.add(Fourstart);
+//				labelpanel.add(Fourstart);
 //				labelpanel.add(Buttonstop);
 				
 				ClearOpreationPanel();

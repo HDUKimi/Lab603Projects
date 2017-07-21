@@ -1,10 +1,16 @@
 package com.horstmann.violet.application.gui.util.ckt.handle;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class State {
+public class State implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5461019574228556861L;
+	
 	private int id;//后来添加
 	private String name;//名称
 	private DBM_element[][] invariantDBM ;//状态中的时钟不变式集合

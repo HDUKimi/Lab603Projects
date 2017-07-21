@@ -164,7 +164,7 @@ public class WriteVioletUppaal {
     		
     		if(flag==1){
 				if (temp.getLabelText() != null) {
-					labelText.setText(temp.getLabelText());
+					labelText.setText(temp.getLabelText().toString().split("#")[1]);
 				}
     		}
     		

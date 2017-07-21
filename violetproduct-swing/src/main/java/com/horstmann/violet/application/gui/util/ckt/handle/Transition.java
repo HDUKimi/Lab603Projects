@@ -1,9 +1,16 @@
 package com.horstmann.violet.application.gui.util.ckt.handle;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Transition {
+public class Transition implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3628461472940745522L;
+	
 	private String name;//后期添加迁移名称/////
 	private int id;//后来添加//////
 	private String in;//////

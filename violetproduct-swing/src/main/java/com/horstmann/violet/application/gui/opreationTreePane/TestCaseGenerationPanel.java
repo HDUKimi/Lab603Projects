@@ -577,7 +577,7 @@ public class TestCaseGenerationPanel extends JPanel {
 	  * @return
 	  */
 	public File[] getAllFileByDiagramType(int starttype) {
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase";
+		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer";
 
 		File[] fList = null;
 		File file = null;

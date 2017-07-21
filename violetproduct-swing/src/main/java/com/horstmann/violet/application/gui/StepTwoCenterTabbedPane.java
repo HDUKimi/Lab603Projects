@@ -290,10 +290,10 @@ public class StepTwoCenterTabbedPane extends JPanel{
 				// TODO Auto-generated method stub
 				selectedIndex=1;
 				
-//				if(sequenceToUppaalTabbedPane==null){
-//					System.err.println("-----------------------------------");
-//				}
-//				System.err.println("+++++++++++++++++++++++++++++++");
+				if(sequenceToUppaalTabbedPane==null){
+					System.err.println("-----------------------------------");
+				}
+				System.err.println("+++++++++++++++++++++++++++++++");
 				
 				getDiagramPanel().removeAll();
 				getDiagramPanel().setLayout(new GridLayout());

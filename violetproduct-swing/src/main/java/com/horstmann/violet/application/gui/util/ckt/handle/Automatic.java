@@ -1,8 +1,14 @@
 package com.horstmann.violet.application.gui.util.ckt.handle;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Automatic {
+public class Automatic implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3860073665431298814L;
+	
 	private String name;//名称
 	private State InitState;//初始状态
 	private ArrayList<Transition> TransitionSet;//转换集合
