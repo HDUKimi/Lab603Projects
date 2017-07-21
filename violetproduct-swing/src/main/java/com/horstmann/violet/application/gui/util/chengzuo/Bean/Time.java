@@ -18,13 +18,13 @@ public class Time  implements Serializable{
 	String original;
 	
 	//激励对应抽象表<激励名,抽象时间序号,时间>
-	Map<String,Pair> mapping;
+    Map<String, Pair<String, Double>> mapping;
 	
 	//出错激励结果集
 	List<String> error;
 	
 	//结果<不等式,具体时间,是否正确>
-	Map<String,Pair> showMap;
+    Map<String, Pair<String, String>> showMap;
 
 	public String getOriginal() {
 		return original;
@@ -34,12 +34,12 @@ public class Time  implements Serializable{
 		this.original = original;
 	}
 
-	public Map<String, Pair> getMapping() {
+    public Map<String, Pair<String, Double>> getMapping() {
 		return mapping;
 	}
 
 	public void setMapping(String tmp) {
-		mapping = new HashMap<>();
+        mapping = new HashMap<String, Pair<String, Double>>();
 		String[] s = tmp.split(",");
 		for (String str : s) {
 			String[] t = str.split("\\&");
@@ -52,19 +52,19 @@ public class Time  implements Serializable{
 	}
 
 	public void setError(String tmp) {
-		error = new ArrayList<>();
+        error = new ArrayList<String>();
 		String[] s = tmp.split(",");
 		for (String str : s) {
 			error.add(str);
 		}
 	}
 
-	public Map<String, Pair> getShowMap() {
+    public Map<String, Pair<String, String>> getShowMap() {
 		return showMap;
 	}
 
 	public void setShowMap() {
-		showMap = new HashMap<>();
+        showMap = new HashMap<String, Pair<String, String>>();
 		String[] oStrings = original.split(",");
 		for (String t : oStrings) {
 			showMap.put(t, values(t));

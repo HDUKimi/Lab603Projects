@@ -72,8 +72,7 @@ import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCaseResult;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.Time;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
-import com.horstmann.violet.application.gui.util.chengzuo.Util.ClientRecThread;
-import com.horstmann.violet.application.gui.util.chengzuo.Util.ClientSocket;
+import com.horstmann.violet.application.gui.util.chengzuo.Util.Controller;
 import com.horstmann.violet.application.gui.util.chengzuo.Util.TestCaseConvertUtil;
 
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
@@ -106,8 +105,6 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	
 	private JProgressBar progressbar;
 	private int progressbarindex;
-	
-	private ClientSocket clientSocket;
 	
 	private JCheckBox[] windCheckBoxList;
 	private JPanel windcheckboxpanel;
@@ -757,64 +754,69 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				//接收到测试结果list
 //				File[] files = {file};
 //				clientSocket.sendFile(files);
-//				TextAreaPrint("发送测试用例数据...");
-				gaindatathread.start();
-//				List<TestCase> testcaselist= ClientRecThread.getTestCaseList();
-//				
-//				File f=new File("D:\\test.txt");
-//				try {
-//					Writer w=new FileWriter(f,false);
-//					for(TestCase tc:testcaselist){
-////						System.out.println(tc.toString());
-//						w.write(tc.toString());
-//						w.write("\n");
-//					}
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//				
-//				
-//				try {
-//					String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
-//					FileOutputStream fos = new FileOutputStream(path);
-//					ObjectOutputStream oos=new ObjectOutputStream(fos);
-//					
-//					for(TestCase tc:testcaselist){
-//						oos.writeObject(tc);
-//					}
-//					
-//					oos.close();
-//					fos.close();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
 				
-				List<TestCase> testcaselist=new ArrayList<>();
+				Controller.Run(new Pair<String, File>("function", file));
+
+				TextAreaPrint("发送测试用例数据...");
+				gaindatathread.start();
+				
+//				List<TestCase> testcaselist= ClientRecThread.getTestCaseList();
+				List<TestCase> testcaselist= Controller.testCaseMap.get("function");
+				
+				File f=new File("D:\\test.txt");
 				try {
-					String serialpath = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
-					FileInputStream fis = new FileInputStream(serialpath);
-					ObjectInputStream ois = new ObjectInputStream(fis);
-
-					while(true){//使用处理异常的方式来判断文件是否结束
-						try {
-							TestCase tc=(TestCase) ois.readObject();//文件读取完毕后，会抛异常
-							testcaselist.add(tc);
-						} catch (Exception  e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							System.out.println("文件读取完毕!");  
-			                break;  
-						}
+					Writer w=new FileWriter(f,false);
+					for(TestCase tc:testcaselist){
+//						System.out.println(tc.toString());
+						w.write(tc.toString());
+						w.write("\n");
 					}
-
-					ois.close();
-					fis.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				try {
+					String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
+					FileOutputStream fos = new FileOutputStream(path);
+					ObjectOutputStream oos=new ObjectOutputStream(fos);
+					
+					for(TestCase tc:testcaselist){
+						oos.writeObject(tc);
+					}
+					
+					oos.close();
+					fos.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+//				List<TestCase> testcaselist=new ArrayList<>();
+//				try {
+//					String serialpath = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
+//					FileInputStream fis = new FileInputStream(serialpath);
+//					ObjectInputStream ois = new ObjectInputStream(fis);
+//
+//					while(true){//使用处理异常的方式来判断文件是否结束
+//						try {
+//							TestCase tc=(TestCase) ois.readObject();//文件读取完毕后，会抛异常
+//							testcaselist.add(tc);
+//						} catch (Exception  e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//							System.out.println("文件读取完毕!");  
+//			                break;  
+//						}
+//					}
+//
+//					ois.close();
+//					fis.close();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 				
 //				progressbar.setValue(50);
 				
@@ -908,7 +910,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				threadstate = 0;
 				
-				ClientRecThread.testCaseList.removeAll(ClientRecThread.testCaseList);
+//				ClientRecThread.testCaseList.removeAll(ClientRecThread.testCaseList);
 				
 			}
 
@@ -1086,68 +1088,73 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				extractDataToXml(extraxmlpath, selectedtestcaselist);//生成测试用例xml
 				File file=new File(extraxmlpath);
 				
-//				//接收到测试结果list
+				//接收到测试结果list
 //				File[] files = {file};
 //				clientSocket.sendFile(files);
-//				TextAreaPrint("发送测试用例数据...");
-				gaindatathread.start();
-//				List<TestCase> testcaselist = ClientRecThread.getTestCaseList();
-//				
-//				File f=new File("D:\\test.txt");
-//				try {
-//					Writer w=new FileWriter(f,false);
-//					for(TestCase tc:testcaselist){
-////						System.out.println(tc.toString());
-//						w.write(tc.toString());
-//						w.write("\n");
-//					}
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//				
-//				
-//				try {
-//					String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
-//					FileOutputStream fos = new FileOutputStream(path);
-//					ObjectOutputStream oos=new ObjectOutputStream(fos);
-//					
-//					for(TestCase tc:testcaselist){
-////						System.out.println(tc.toString());
-//						oos.writeObject(tc);
-//					}
-//					
-//					oos.close();
-//					fos.close();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
 				
-				List<TestCase> testcaselist=new ArrayList<>();
+				Controller.Run(new Pair<String, File>("performance", file));
+
+				TextAreaPrint("发送测试用例数据...");
+				gaindatathread.start();
+				
+//				List<TestCase> testcaselist = ClientRecThread.getTestCaseList();
+				List<TestCase> testcaselist= Controller.testCaseMap.get("performance");
+				
+				File f=new File("D:\\test.txt");
 				try {
-					String serialpath = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
-					FileInputStream fis = new FileInputStream(serialpath);
-					ObjectInputStream ois = new ObjectInputStream(fis);
-
-					while(true){//使用处理异常的方式来判断文件是否结束
-						try {
-							TestCase tc=(TestCase) ois.readObject();//文件读取完毕后，会抛异常
-							testcaselist.add(tc);
-						} catch (Exception  e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							System.out.println("文件读取完毕!");  
-			                break;  
-						}
+					Writer w=new FileWriter(f,false);
+					for(TestCase tc:testcaselist){
+//						System.out.println(tc.toString());
+						w.write(tc.toString());
+						w.write("\n");
 					}
-
-					ois.close();
-					fis.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				try {
+					String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
+					FileOutputStream fos = new FileOutputStream(path);
+					ObjectOutputStream oos=new ObjectOutputStream(fos);
+					
+					for(TestCase tc:testcaselist){
+//						System.out.println(tc.toString());
+						oos.writeObject(tc);
+					}
+					
+					oos.close();
+					fos.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+//				List<TestCase> testcaselist=new ArrayList<>();
+//				try {
+//					String serialpath = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
+//					FileInputStream fis = new FileInputStream(serialpath);
+//					ObjectInputStream ois = new ObjectInputStream(fis);
+//
+//					while(true){//使用处理异常的方式来判断文件是否结束
+//						try {
+//							TestCase tc=(TestCase) ois.readObject();//文件读取完毕后，会抛异常
+//							testcaselist.add(tc);
+//						} catch (Exception  e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//							System.out.println("文件读取完毕!");  
+//			                break;  
+//						}
+//					}
+//
+//					ois.close();
+//					fis.close();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 				
 //				progressbar.setValue(50);
 				
@@ -1241,7 +1248,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				threadstate=0;
 				
-				ClientRecThread.testCaseList.removeAll(ClientRecThread.testCaseList);
+//				ClientRecThread.testCaseList.removeAll(ClientRecThread.testCaseList);
 				
 			}
 			
@@ -1444,66 +1451,70 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				//接收到测试结果list
 //				File[] files = {file};
 //				clientSocket.sendFile(files);
-//				TextAreaPrint("发送测试用例数据...");
-				gaindatathread.start();
-//				
-//				List<TestCase> testcaselist = ClientRecThread.getTestCaseList();
-//				
-//				File f=new File("D:\\test.txt");
-//				try {
-//					Writer w=new FileWriter(f,false);
-//					for(TestCase tc:testcaselist){
-//						System.out.println(tc.toString());
-//						w.write(tc.toString());
-//						w.write("\n");
-//					}
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//				
-//				
-//				try {
-//					String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
-//					FileOutputStream fos = new FileOutputStream(path);
-//					ObjectOutputStream oos=new ObjectOutputStream(fos);
-//					
-//					for(TestCase tc:testcaselist){
-//						System.out.println(tc.toString());
-//						oos.writeObject(tc);
-//					}
-//					
-//					oos.close();
-//					fos.close();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
 				
-				List<TestCase> testcaselist=new ArrayList<>();
+				Controller.Run(new Pair<String, File>("time", file));
+				
+				TextAreaPrint("发送测试用例数据...");
+				gaindatathread.start();
+				
+//				List<TestCase> testcaselist = ClientRecThread.getTestCaseList();
+				List<TestCase> testcaselist= Controller.testCaseMap.get("time");
+				
+				File f=new File("D:\\test.txt");
 				try {
-					String serialpath = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
-					FileInputStream fis = new FileInputStream(serialpath);
-					ObjectInputStream ois = new ObjectInputStream(fis);
-
-					while(true){//使用处理异常的方式来判断文件是否结束
-						try {
-							TestCase tc=(TestCase) ois.readObject();//文件读取完毕后，会抛异常
-							testcaselist.add(tc);
-						} catch (Exception  e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							System.out.println("文件读取完毕!");  
-			                break;  
-						}
+					Writer w=new FileWriter(f,false);
+					for(TestCase tc:testcaselist){
+						System.out.println(tc.toString());
+						w.write(tc.toString());
+						w.write("\n");
 					}
-
-					ois.close();
-					fis.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				try {
+					String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
+					FileOutputStream fos = new FileOutputStream(path);
+					ObjectOutputStream oos=new ObjectOutputStream(fos);
+					
+					for(TestCase tc:testcaselist){
+						System.out.println(tc.toString());
+						oos.writeObject(tc);
+					}
+					
+					oos.close();
+					fos.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+//				List<TestCase> testcaselist=new ArrayList<>();
+//				try {
+//					String serialpath = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
+//					FileInputStream fis = new FileInputStream(serialpath);
+//					ObjectInputStream ois = new ObjectInputStream(fis);
+//
+//					while(true){//使用处理异常的方式来判断文件是否结束
+//						try {
+//							TestCase tc=(TestCase) ois.readObject();//文件读取完毕后，会抛异常
+//							testcaselist.add(tc);
+//						} catch (Exception  e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//							System.out.println("文件读取完毕!");  
+//			                break;  
+//						}
+//					}
+//
+//					ois.close();
+//					fis.close();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 				
 //				progressbar.setValue(50);
 				
@@ -1531,7 +1542,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						System.out.println(s);
 					}
 					System.out.println("time.getShowMap() : "+time.getShowMap().size());
-					for(Entry<String, Pair> en:time.getShowMap().entrySet()){
+					for(Entry<String, Pair<String, String>> en:time.getShowMap().entrySet()){
 						System.out.println(en.getKey()+"  -  "+en.getValue().getFirst()+"  -  "+en.getValue().getSecond());
 						
 					}
@@ -1627,7 +1638,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						limittable=ttcrpp.getLimittable();
 						limittablemodel=ttcrpp.getLimittablemodel();
 						
-						Map<String, Pair> map=testcase.getResult().getTimeLimit().getShowMap();
+						Map<String, Pair<String, String>> map=testcase.getResult().getTimeLimit().getShowMap();
 						for(int i=0;i<limittablemodel.getRowCount();i++){
 							String limit=(String) limittablemodel.getValueAt(i, 0);
 							Pair p=map.get(limit);

@@ -423,6 +423,7 @@ public class ModelExistValidationPanel extends JPanel{
 		assessdeallinepanel.setBackground(new Color(255, 255, 255));
 		
 		JPanel emptypanel=new JPanel();
+		emptypanel.setLayout(new GridLayout());
 		emptypanel.setBackground(new Color(255, 255, 255));
 		
 		assessdealpanel.setBackground(new Color(255, 255, 255));

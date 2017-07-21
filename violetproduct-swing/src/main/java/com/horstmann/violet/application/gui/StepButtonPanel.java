@@ -61,7 +61,6 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.ValidationToolP
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCasePieChartPanel;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
-import com.horstmann.violet.application.gui.util.chengzuo.Util.ClientSocket;
 import com.horstmann.violet.application.gui.util.wqq.AutoMataTransfrom1.GetAutomatic;
 import com.horstmann.violet.application.gui.util.wqq.AutoMataTransfrom1.Main;
 import com.horstmann.violet.application.gui.util.wujun.SequenceTransfrom.SD2UppaalMain;

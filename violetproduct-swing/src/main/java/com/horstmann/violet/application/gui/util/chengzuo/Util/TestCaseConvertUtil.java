@@ -242,18 +242,9 @@ public class TestCaseConvertUtil {
 	 *            从服务器获取的字符串
 	 * @return
 	 */
-		public static void buildTestCaseList(List<TestCase> list, String str) {
-			int starttype=HomeAllTabbedPanel.getStarttype();
-			System.err.println(starttype);
+	public static void buildTestCaseList(String type,List<TestCase> list, String str) {
+
 		
-			String type = null ;
-			if(starttype==1){
-				type="function";
-			}else if(starttype==2){
-				type="performance";
-			}else{
-				type="time";
-			}
 			
 			// 1.按*号将测试用例划分
 			String[] tmp = str.split("\\*");
@@ -440,7 +431,7 @@ public class TestCaseConvertUtil {
 				"E://项目//SVN//虚拟仿真平台进度//Lab603Projects//violetproduct-swing//src//main//java//com//horstmann//violet//application//gui//util//chengzuo//Util//result.txt");
 	   
 		List<TestCase> list = new ArrayList<>();
-		buildTestCaseList(list, str);
+//		buildTestCaseList(list, str);
 
 		Map  m =testCaseStatistics(list);
 		Map<String, List<Pair>> hb = (Map<String, List<Pair>>) m.get("high-battery");

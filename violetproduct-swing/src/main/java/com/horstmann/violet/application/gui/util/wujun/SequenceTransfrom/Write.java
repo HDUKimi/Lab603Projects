@@ -103,6 +103,7 @@ public class Write
 		    	tran.addAttribute("id", "tran_id"+transition.getSourceId()+transition.getTargetId());
 		    	tran.addAttribute("T1", transition.getT1());
 		    	tran.addAttribute("T2", transition.getT2());
+		    	
 		    	if (transition.getSEQDO() == null) {
 		    		tran.addAttribute("timeDuration", "null");
 				} else {
