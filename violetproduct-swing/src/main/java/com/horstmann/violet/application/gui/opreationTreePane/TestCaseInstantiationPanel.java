@@ -241,14 +241,20 @@ public class TestCaseInstantiationPanel extends JPanel{
 		
 		initInstantiatePanel();
 		
+		JPanel emptypanel=new JPanel();
+		emptypanel.setLayout(new GridLayout());
+		emptypanel.setOpaque(false);
+		
 		GridBagLayout layout=new GridBagLayout();
 		treeinfopanel.setLayout(layout);
 		layout.setConstraints(abstractlabelpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(abstractscrollpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(instantiatepanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(emptypanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(instantiatepanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		treeinfopanel.add(abstractlabelpanel);
 		treeinfopanel.add(abstractscrollpanel);
-		treeinfopanel.add(instantiatepanel);
+		treeinfopanel.add(emptypanel);
+//		treeinfopanel.add(instantiatepanel);
 		treeinfopanel.setBackground(new Color(255, 255, 255));
 		
 		treepanel.removeAll();
@@ -391,8 +397,8 @@ public class TestCaseInstantiationPanel extends JPanel{
 		
 		abstracttoolpanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,4));
 		abstracttoolpanel.setOpaque(false);
-		abstracttoolpanel.add(abstracttoolbutton1);
-		abstracttoolpanel.add(abstracttoolbutton2);
+//		abstracttoolpanel.add(abstracttoolbutton1);
+//		abstracttoolpanel.add(abstracttoolbutton2);
 		abstracttoolpanel.add(abstracttoolbutton3);
 		abstracttoolpanel.add(abstracttoolbutton4);
 		
@@ -655,5 +661,22 @@ public class TestCaseInstantiationPanel extends JPanel{
 		this.getRootPane().repaint();
 		this.setVisible(true);
 	}
+
+
+	public JPanel getAbstractcheckboxpanel() {
+		return abstractcheckboxpanel;
+	}
+
+
+	public JCheckBox getSelectAbstractCheckBox() {
+		return selectAbstractCheckBox;
+	}
+
+
+	public JCheckBox[] getAbstractCheckBoxList() {
+		return abstractCheckBoxList;
+	}
+	
+	
 
 }

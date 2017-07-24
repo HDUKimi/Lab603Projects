@@ -53,7 +53,6 @@ public class StepThreeCenterTabbedPane extends JPanel {
 	private JButton leftButton;
 	private JButton rightButton;
 	
-	private int fixButtonTabbedPanelStartIndex=0;
 	private int fixButtonTabbedPanelSelectedIndex=0;
 	private List<FixedButtonTabbedPanel> fixButtonTabbedPanelList=new ArrayList<FixedButtonTabbedPanel>();
 
@@ -238,6 +237,8 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		
 		buttonPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(58, 105, 190)));
 		buttonPanel.setBackground(new Color(41, 57, 85));
+		buttonPanel.setPreferredSize(new Dimension(300, 23));
+		buttonPanel.setMinimumSize(new Dimension(300, 23));
 		buttonPanel.setLayout(new BorderLayout());
 		buttonPanel.add(leftButton, BorderLayout.WEST);
 		buttonPanel.add(buttonScrollPanel, BorderLayout.CENTER);
@@ -253,7 +254,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		}
 		testCaseProcessButtonPanel.setVisible(true);
 		testCaseProcessButtonPanel.setBackground(new Color(58, 105, 190));
-		fixButtonTabbedPanelStartIndex=0;
+		fixButtonTabbedPanelSelectedIndex=0;
 		
 	}
 
@@ -676,12 +677,8 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		return leftButton;
 	}
 
-	public void setFixButtonTabbedPanelStartIndex(int fixButtonTabbedPanelStartIndex) {
-		this.fixButtonTabbedPanelStartIndex = fixButtonTabbedPanelStartIndex;
-	}
-
-	public int getFixButtonTabbedPanelStartIndex() {
-		return fixButtonTabbedPanelStartIndex;
+	public void setFixButtonTabbedPanelSelectedIndex(int fixButtonTabbedPanelSelectedIndex) {
+		this.fixButtonTabbedPanelSelectedIndex = fixButtonTabbedPanelSelectedIndex;
 	}
 
 	public int getFixButtonTabbedPanelSelectedIndex() {

@@ -497,7 +497,7 @@ public class TestCaseGenerationPanel extends JPanel {
 		covercheckboxpanel.setBackground(new Color(255, 255, 255));
 
 		coverlists.add("×´Ì¬¸²¸Ç");
-		coverlists.add("Â·¾¶¸²¸Ç");
+		coverlists.add("Ç¨ÒÆ¸²¸Ç");
 //		coverlists.add("ĞÔÄÜ²âÊÔ");
 		
 		addCheckBoxToCovercheckboxpanel();

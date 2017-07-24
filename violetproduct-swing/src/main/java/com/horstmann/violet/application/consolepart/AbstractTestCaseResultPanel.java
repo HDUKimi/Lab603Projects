@@ -55,9 +55,9 @@ public class AbstractTestCaseResultPanel extends JPanel{
 	
 	private int testcaselabeltabindex=1;
 	
-	private JPanel testcaseproducepanel;
-	private JTable testcaseproducetable;
-	private DefaultTableModel testcaseproducetablemodel;
+//	private JPanel testcaseproducepanel;
+//	private JTable testcaseproducetable;
+//	private DefaultTableModel testcaseproducetablemodel;
 	
 	private JPanel onetestcaseresultpanel;
 	private JPanel onenamepanel;
@@ -839,7 +839,7 @@ public class AbstractTestCaseResultPanel extends JPanel{
 	private void initResulePanel() {
 		// TODO Auto-generated method stub
 		
-		initTestCaseProducePanel();
+//		initTestCaseProducePanel();
 		
 		resultpanel.setLayout(new GridLayout());
 		resultpanel.setOpaque(false);
@@ -850,43 +850,43 @@ public class AbstractTestCaseResultPanel extends JPanel{
 		
 	}
 	
-	private void initTestCaseProducePanel() {
-		// TODO Auto-generated method stub
-		
-		String[] columnNames={""};
-		String[][] tabelValues={};
-		
-		testcaseproducetablemodel=new DefaultTableModel(tabelValues, columnNames){
-			@Override  
-            public boolean isCellEditable(int row,int column){  
-                return false;  
-            } 
-		};
-		
-		testcaseproducetable=new JTable(testcaseproducetablemodel);
-		
-		testcaseproducetable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//        testcaseproducetable.setSelectionBackground(new Color(250, 248, 236));
-        testcaseproducetable.setGridColor(new Color(224, 226, 220));
-		testcaseproducetable.setShowGrid(true);
-		testcaseproducetable.setShowHorizontalLines(true);
-		testcaseproducetable.setShowVerticalLines(false);
-		testcaseproducetable.setFillsViewportHeight(true);
-		testcaseproducetable.setRowHeight(27);
-		testcaseproducetable.doLayout();
-		testcaseproducetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		
-		testcaseproducetable.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(224, 225, 220)));
-        testcaseproducetable.setBackground(new Color(255, 255, 255));
-        
-		
-        testcaseproducepanel=new JPanel();
-		testcaseproducepanel.setBackground(new Color(255, 255, 255));
-		testcaseproducepanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		testcaseproducepanel.setLayout(new GridLayout());
-		testcaseproducepanel.add(testcaseproducetable);
-        
-	}
+//	private void initTestCaseProducePanel() {
+//		// TODO Auto-generated method stub
+//		
+//		String[] columnNames={""};
+//		String[][] tabelValues={};
+//		
+//		testcaseproducetablemodel=new DefaultTableModel(tabelValues, columnNames){
+//			@Override  
+//            public boolean isCellEditable(int row,int column){  
+//                return false;  
+//            } 
+//		};
+//		
+//		testcaseproducetable=new JTable(testcaseproducetablemodel);
+//		
+//		testcaseproducetable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+////        testcaseproducetable.setSelectionBackground(new Color(250, 248, 236));
+//        testcaseproducetable.setGridColor(new Color(224, 226, 220));
+//		testcaseproducetable.setShowGrid(true);
+//		testcaseproducetable.setShowHorizontalLines(true);
+//		testcaseproducetable.setShowVerticalLines(false);
+//		testcaseproducetable.setFillsViewportHeight(true);
+//		testcaseproducetable.setRowHeight(27);
+//		testcaseproducetable.doLayout();
+//		testcaseproducetable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+//		
+//		testcaseproducetable.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(224, 225, 220)));
+//        testcaseproducetable.setBackground(new Color(255, 255, 255));
+//        
+//		
+//        testcaseproducepanel=new JPanel();
+//		testcaseproducepanel.setBackground(new Color(255, 255, 255));
+//		testcaseproducepanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+//		testcaseproducepanel.setLayout(new GridLayout());
+//		testcaseproducepanel.add(testcaseproducetable);
+//        
+//	}
 
 	public void ChangeRepaint() {
 		// TODO Auto-generated method stub

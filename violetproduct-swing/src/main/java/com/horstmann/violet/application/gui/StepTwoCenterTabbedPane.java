@@ -156,6 +156,8 @@ public class StepTwoCenterTabbedPane extends JPanel{
 
 		buttonPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(58, 105, 190)));
 		buttonPanel.setBackground(new Color(41, 57, 85));
+		buttonPanel.setPreferredSize(new Dimension(300, 23));
+		buttonPanel.setMinimumSize(new Dimension(300, 23));
 		buttonPanel.setLayout(new BorderLayout());
 		buttonPanel.add(leftButton, BorderLayout.WEST);
 		buttonPanel.add(buttonScrollPanel, BorderLayout.CENTER);

@@ -224,6 +224,10 @@ public class ModelExistValidationPanel extends JPanel{
 //		layout.setConstraints(titlepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //		layout.setConstraints(treepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
+//		JPanel emptypanel=new JPanel();
+//		emptypanel.setLayout(new GridLayout());
+//		emptypanel.setBackground(new Color(255, 255, 255));
+		
 		GridBagLayout layout=new GridBagLayout();
 		this.setLayout(layout);
 		this.add(titlepanel);
@@ -232,12 +236,14 @@ public class ModelExistValidationPanel extends JPanel{
 		this.add(assesslabelpanel);
 		this.add(assessscrollpanel);
 		this.add(validationpanel);
+//		this.add(emptypanel);
 		layout.setConstraints(titlepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(timinglabelpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(timingscrollpanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		layout.setConstraints(assesslabelpanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(assessscrollpanel, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		layout.setConstraints(validationpanel, new GBC(0, 5, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(emptypanel, new GBC(0, 6, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenWidth = (int) screenSize.getWidth();
@@ -422,9 +428,9 @@ public class ModelExistValidationPanel extends JPanel{
 		assessdealpanel2.setBackground(new Color(255, 255, 255));
 		assessdeallinepanel.setBackground(new Color(255, 255, 255));
 		
-		JPanel emptypanel=new JPanel();
-		emptypanel.setLayout(new GridLayout());
-		emptypanel.setBackground(new Color(255, 255, 255));
+//		JPanel emptypanel=new JPanel();
+//		emptypanel.setLayout(new GridLayout());
+//		emptypanel.setBackground(new Color(255, 255, 255));
 		
 		assessdealpanel.setBackground(new Color(255, 255, 255));
 		GridBagLayout layout=new GridBagLayout();
@@ -432,14 +438,18 @@ public class ModelExistValidationPanel extends JPanel{
 		assessdealpanel.add(assessdealpanel1);
 		assessdealpanel.add(assessdeallinepanel);
 		assessdealpanel.add(assessdealpanel2);
-		assessdealpanel.add(emptypanel);
+//		assessdealpanel.add(emptypanel);
 		layout.setConstraints(assessdealpanel1, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(assessdeallinepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(assessdealpanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(emptypanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(emptypanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
+		JPanel borderpanel=new JPanel();
+		borderpanel.setBackground(new Color(255, 255, 255));
+		borderpanel.setLayout(new BorderLayout());
+		borderpanel.add(assessdealpanel, BorderLayout.NORTH);
 		
-		assessscrollpanel=new JScrollPane(assessdealpanel);
+		assessscrollpanel=new JScrollPane(borderpanel);
 		assessscrollpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
 		assessscrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		assessscrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
