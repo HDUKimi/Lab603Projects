@@ -256,12 +256,12 @@ public class TranMessageColorize {
 			String endid;
 			
 			int tid;
-			if(mainFrame.getHomeAllTabbedPanel().getStarttype()==3){//时间约束拆分后，迁移id标号有重复，采用时间名字t1,t2
-				tid=Integer.valueOf(t.getTranTimeName().replace("t", ""));
-			}
-			else{
+//			if(mainFrame.getHomeAllTabbedPanel().getStarttype()==3){//时间约束拆分后，迁移id标号有重复，采用时间名字t1,t2
+//				tid=Integer.valueOf(t.getTranTimeName().replace("t", ""));
+//			}
+//			else{
 				tid=t.getId();
-			}
+//			}
 			
 			if(trantextstate==1){
 				id = tid + "";

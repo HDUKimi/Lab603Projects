@@ -16,9 +16,11 @@ import com.horstmann.violet.application.gui.util.wj.bean.UppaalTransition;
 
 public class PathCoverage_new {
 	private static Automatic a;	
-	public static int maxCircle = 1;// 最少环走一次
+	public static int maxCircle = 2;// 最少环走一次
 	public static ArrayList<Transition> transitionList = new ArrayList<Transition>();// 将集合当做栈来用 收集每一个路径
 	static ArrayList<ArrayList<Transition>> TT=new ArrayList<ArrayList<Transition>>();//测试序列集合（边）
+	public static ArrayList<State> stateList = new ArrayList<State>();// 将集合当做栈来用 收集每一个路径上的状态
+	static ArrayList<ArrayList<State>> SS=new ArrayList<ArrayList<State>>();//测试序列集合（点）
 
 	
 	public static void main(String[] args) {	
@@ -77,6 +79,7 @@ public class PathCoverage_new {
 		a = auto;
 		State initialState = auto.getInitState();
 		initialState.setStateAccessTimes(1);
+		stateList.add(initialState);
 		dfs(initialState);
 		ArrayList<Automatic> testcaseSet = GetAutomaticSet(TT);
 		System.out.println("测试路径个数："+testcaseSet.size());
@@ -112,39 +115,57 @@ public class PathCoverage_new {
 		ArrayList<State> a_StateSet=a.getStateSet();//获得时间自动机状态集合	
 		ArrayList<Transition> outTransitions = nextTranSet(initialState);
 		if (outTransitions != null && outTransitions.size() != 0) {
+			System.out.println("--------------------------"+outTransitions.size());
 			for (Transition nextTransition : outTransitions) {
-				System.out.println(nextTransition.getName()+"=======");
+				System.out.println(nextTransition.getName() + "=======");
+//				transitionList.add(nextTransition);
+
+				State nextState = nextStateSet(a_StateSet, nextTransition);
+				// 遇到节点已经访问过两次就换迁移，以此保证环路只走一次
+				if (nextState.getStateAccessTimes() == maxCircle) {
+					continue;
+				}
+				// 每访问下一个状态节点，使其节点访问次数+1
+				nextState.setStateAccessTimes(nextState.getStateAccessTimes() + 1);
 				transitionList.add(nextTransition);
-				for(State s:a_StateSet){	
-					if(nextTransition.getTarget().equals(s.getName())){//找到这条迁移的目标状态
-						// 遇到节点已经访问过两次就换迁移，以此保证环路只走一次
-						if (s.getStateAccessTimes() == maxCircle) {
-							continue;
-						}	
-						// 每访问下一个状态节点，使其节点访问次数+1
-						s.setStateAccessTimes(s.getStateAccessTimes() + 1);
-						//transitionList.add(nextTransition);
-						State nextState = s; //指向地址
-						
-						if(s.isFinalState()){//判断目标状态s是否是终止节点
-							//s是终止节点就搜集迁移栈中的一条测试路径
-							ArrayList<Transition> oneRoute = new ArrayList<Transition>();
-							oneRoute.addAll(transitionList);
-							ArrayList<Transition> TransitionSet=new ArrayList<Transition>();//一条测试序列中的边
-							for(Transition t:transitionList){
-								TransitionSet.add(t);
-							}
-							TT.add(TransitionSet);									
-						}
-						
-						dfs(nextState);
-						transitionList.remove(transitionList.size() - 1);
-						nextState.setStateAccessTimes(nextState.getStateAccessTimes() - 1);
-						break;
+				stateList.add(nextState);
+
+				if (nextState.isFinalState()) {// 判断目标状态s是否是终止节点
+					// s是终止节点就搜集迁移栈中的一条测试路径
+					ArrayList<Transition> oneRoute = new ArrayList<Transition>();
+					oneRoute.addAll(transitionList);
+					ArrayList<Transition> TransitionSet = new ArrayList<Transition>();// 一条测试序列中的边
+					for (Transition t : transitionList) {
+						TransitionSet.add(t);
 					}
-				}				
+					TT.add(TransitionSet);
+					ArrayList<State> StateSet = new ArrayList<State>();// 一条测试序列中的边
+					for (State s : stateList) {
+						StateSet.add(s);
+					}
+					SS.add(StateSet);
+				}
+
+				dfs(nextState);
+//				transitionList.remove(transitionList.size() - 1);
+				transitionList.remove(nextTransition);
+				stateList.remove(nextState);
+				nextState.setStateAccessTimes(nextState.getStateAccessTimes() - 1);
 			}
 		}
+	}
+	
+	private static State nextStateSet(ArrayList<State> a_StateSet, Transition nextTransition) {
+		// TODO Auto-generated method stub
+		
+		State nextstate = null;
+		for(State s:a_StateSet){	
+			if(nextTransition.getTarget().equals(s.getName())){//找到这条迁移的目标状态
+				nextstate=s;
+				break;
+			}
+		}
+		return nextstate;
 	}
 	public static ArrayList<Automatic> GetAutomaticSet(ArrayList<ArrayList<Transition>> TT){
 		int n=TT.size();//测试用例个数
@@ -154,20 +175,20 @@ public class PathCoverage_new {
 			test_case.setClockSet(a.getClockSet());
 			test_case.setName("测试用例"+(i+1));
 			test_case.setTransitionSet(TT.get(i));
-			HashSet<State> Stateset = new HashSet<State>();
-			for(Transition t : TT.get(i)){
-				for(State s:a.getStateSet()){
-					if(t.getTarget().equals(s.getName()) || t.getSource().equals(s.getName())){//找到这条迁移的目标状态
-						Stateset.add(s);
-					}
-				}
-			}
-			
-			ArrayList<State> stateSet = new ArrayList<State>();
-			for(State s:Stateset){
-				stateSet.add(s);
-			}
-			test_case.setStateSet(stateSet);
+//			HashSet<State> Stateset = new HashSet<State>();
+//			for(Transition t : TT.get(i)){
+//				for(State s:a.getStateSet()){
+//					if(t.getTarget().equals(s.getName()) || t.getSource().equals(s.getName())){//找到这条迁移的目标状态
+//						Stateset.add(s);
+//					}
+//				}
+//			}
+//			
+//			ArrayList<State> stateSet = new ArrayList<State>();
+//			for(State s:Stateset){
+//				stateSet.add(s);
+//			}
+			test_case.setStateSet(SS.get(i));
 				
 			
 			test_case.setInitState(a.getInitState());

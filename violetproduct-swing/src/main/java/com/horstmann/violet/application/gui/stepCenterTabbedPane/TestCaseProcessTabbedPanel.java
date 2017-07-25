@@ -689,6 +689,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						index=-1;
 					}
 					index=0;
+					t.setId(Integer.valueOf(t.getTranTimeName().replace("t", "")));
 //					index,t.getId()+"",t.getName(),t.getSource(),t.getTarget(),t.getIn(),t.getOut(),t.getCondition()};
 					Object[] rowData={index,t.getId()+"",t.getName(),t.getSource(),t.getTarget(),t.getIn(),t.getOut()+"",t.getCondition()};
 					copymigratetablemodel.addRow(rowData);
@@ -1733,12 +1734,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			//将wqq的相关的信息--->转换为zhangjian的相关的信息(transition)
 			
 			int tid;
-			if(starttype==3){//时间约束拆分后，迁移id标号有重复，采用时间名字t1,t2
-				tid=Integer.valueOf(t.getTranTimeName().replace("t", ""));
-			}
-			else{
+//			if(starttype==3){//时间约束拆分后，迁移id标号有重复，采用时间名字t1,t2
+//				tid=Integer.valueOf(t.getTranTimeName().replace("t", ""));
+//			}
+//			else{
 				tid=t.getId();
-			}
+//			}
 			
 			AbstractTransition abTrans =new AbstractTransition();
 //			abTrans.setTid(t.getId());
