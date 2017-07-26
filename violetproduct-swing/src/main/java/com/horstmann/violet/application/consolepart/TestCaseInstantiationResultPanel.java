@@ -596,4 +596,12 @@ public class TestCaseInstantiationResultPanel extends JPanel {
 		return tworesultpanel;
 	}
 
+	public JButton getTestcaselabeltab1() {
+		return testcaselabeltab1;
+	}
+
+	public JButton getTestcaselabeltab2() {
+		return testcaselabeltab2;
+	}
+	
 }

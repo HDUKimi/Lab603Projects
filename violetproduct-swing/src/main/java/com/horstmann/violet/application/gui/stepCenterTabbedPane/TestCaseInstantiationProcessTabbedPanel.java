@@ -77,7 +77,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 	private List<FutureTask<Integer>> futuretasklist=new ArrayList<FutureTask<Integer>>();
 	private List<Thread> threadlist=new ArrayList<Thread>();
 	
-	private int stepsum=7;
+	private int stepsum=3;
 	private int threadstate=0;
 	private int step=1;
 	
@@ -383,7 +383,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 //						Thread.sleep(10000);
 //					}
 					else{
-						Thread.sleep(500);
+						Thread.sleep(300);
 					}
 				}
 				
@@ -442,6 +442,12 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				int copyi=0;
 				for(Automatic am:collectLimit){
 					
+					TextAreaPrint(am.getName());
+					for(Transition t:am.getTransitionSet()){
+						TextAreaPrint(t.getId()+"  -  -  "+t.getName());
+						TextAreaPrint(t.getLimit());
+					}
+					
 					TestCaseProducePartPanel tcpppanel=new TestCaseProducePartPanel(mainFrame,am);//传入单个测试用例信息
 					resultpanel.add(tcpppanel);
 					layout.setConstraints(tcpppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
@@ -470,16 +476,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				time2=System.currentTimeMillis();
 				
-				if(starttype==1){//功能测试
-					stepAllProcessList.add("第四步：添加实例化约束条件");
-				}
-				else if(starttype==2){//性能测试
-					stepAllProcessList.add("第四步：添加实例化约束条件");
-				}
-				else if(starttype==3){//时间测试
-					stepAllProcessList.add("第五步：添加实例化约束条件");
-				}
-				
+				stepAllProcessList.add("第一步：解析抽象测试用例文件");
 				timeAllProcessList.add(time2-time1+"ms");
 				resultAllProcessList.add("得到"+collectLimit.size()+"条含有约束条件的抽象测试用例");
 				
@@ -635,16 +632,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 
 				time2=System.currentTimeMillis();
 				
-				if(starttype==1){//功能测试
-						stepAllProcessList.add("第五步：实例化");
-				}
-				else if(starttype==2){//性能测试
-					stepAllProcessList.add("第五步：实例化");
-				}
-				else if(starttype==3){//时间测试
-					stepAllProcessList.add("第六步：实例化");
-				}
-
+				stepAllProcessList.add("第二步：实例化");
 				timeAllProcessList.add(time2-time1+"ms");
 				resultAllProcessList.add("得到"+collectResult.size()+"条测试用例");
 				System.out.println("-------------------213546879213");
@@ -805,16 +793,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 
 				time2=System.currentTimeMillis();
 				
-				if(starttype==1){//功能测试
-					stepAllProcessList.add("第六步：存储测试用例");
-				}
-				else if(starttype==2){//性能测试
-					stepAllProcessList.add("第六步：存储测试用例");
-				}
-				else if(starttype==3){//时间约束测试
-					stepAllProcessList.add("第七步：存储测试用例");
-				}
-				
+				stepAllProcessList.add("第三步：存储测试用例");
 				timeAllProcessList.add(time2-time1+"ms");
 				resultAllProcessList.add("生成"+name+"TestCase.xml，保存路径："+path);
 				

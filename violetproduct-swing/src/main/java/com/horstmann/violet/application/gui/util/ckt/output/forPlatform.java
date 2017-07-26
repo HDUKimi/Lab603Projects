@@ -163,7 +163,7 @@ public class forPlatform {
 			// ArrayList<Transition>();
 			for (Transition tran : a.getTransitionSet()) {
 				String cond = "";
-				ShowInfor.print("in里面内容：" + tran.getIn());
+				ShowInfor.print(3, "in里面内容：" + tran.getIn());
 				// if(tran.getIn().equals("null")){
 				// }
 				if (tran.getIn() == null || tran.getIn().equals("null")) {
@@ -185,7 +185,7 @@ public class forPlatform {
 						}
 					}
 				}
-				ShowInfor.print("condition里面内容：" + tran.getCondition());
+				ShowInfor.print(3, "condition里面内容：" + tran.getCondition());
 				// if(tran.getCondition().equals("null")){
 				// }
 				if (tran.getCondition() == null || tran.getCondition().equals("null")) {
@@ -223,7 +223,7 @@ public class forPlatform {
 	public static ArrayList<Automatic> collectResult(ArrayList<Automatic> testcase) {
 		for (Automatic a : testcase) {
 			for (Transition tran : a.getTransitionSet()) {
-				ShowInfor.print("迁移内容:" + tran.getIn() + "---" + tran.getCondition());
+				ShowInfor.print(4, "迁移内容:" + tran.getIn() + "---" + tran.getCondition());
 				String sss = new String();
 				List<String> result1 = new ArrayList<String>();// 存放in里面最终实例化结果
 				List<String> result2 = new ArrayList<String>();// 存放condition里面最终实例化结果
@@ -233,16 +233,16 @@ public class forPlatform {
 					if (tran.getName().contains("(")) {
 						int index11 = tran.getName().replace("!", "").replace("?", "").indexOf("(");
 						sss = tran.getName().substring(0, index11);
-						ShowInfor.print("迁移(激励)名称：" + sss);
+						ShowInfor.print(4, "迁移(激励)名称：" + sss);
 					} else {
 						sss = tran.getName().replace("!", "").replace("?", "");
-						ShowInfor.print("迁移(激励)名称：" + sss);
+						ShowInfor.print(4, "迁移(激励)名称：" + sss);
 					}
 				}
 
 				tran.setName(sss);// 把迁移名称上特殊符号以及后面括号内容去掉
 				// 处理in里面的内容
-				ShowInfor.print("in---->" + tran.getIn()); // in里面的内容
+				ShowInfor.print(4, "in---->" + tran.getIn()); // in里面的内容
 				if (tran.getIn() == null) {
 					result1.add(null);
 				} else {
@@ -261,7 +261,7 @@ public class forPlatform {
 							}
 						}
 						if ((in_result.size() > 0) && !(in_result.get(0).equals(null))) {
-							ShowInfor.print("in_result.size()--->" + in_result.size());
+							ShowInfor.print(4, "in_result.size()--->" + in_result.size());
 							dis(0, in_result);
 							result1 = re;
 						}
@@ -278,7 +278,7 @@ public class forPlatform {
 					}
 				}
 				// 处理condition
-				ShowInfor.print("condition---->" + tran.getCondition());
+				ShowInfor.print(4, "condition---->" + tran.getCondition());
 				if (tran.getCondition() == null) {
 					result2.add(null);
 				} else {
@@ -292,7 +292,7 @@ public class forPlatform {
 								// ShowInfor.print("tra----"+tra);
 								result2 = Result1.getResult(tra);
 								for (int ii = 0; ii < result2.size(); ii++) {
-									ShowInfor.print("condition里解" + ii + "为:" + result2.get(ii));
+									ShowInfor.print(4, "condition里解" + ii + "为:" + result2.get(ii));
 								}
 							}
 						}
@@ -410,7 +410,7 @@ public class forPlatform {
 				}
 				// ShowInfor.print("第"+nn+"条迁移上解个数为："+cases.get(nn).size());
 			}
-			ShowInfor.print("第" + index++ + "条测试路径上解个数" + numm);
+			ShowInfor.print(4, "第" + index++ + "条测试路径上解个数" + numm);
 			// if(num>5000){ //测试用例个数保持5000条以内
 			// num = 5000;
 			// }
@@ -424,8 +424,8 @@ public class forPlatform {
 				// 4、生成子节点及节点内容
 				Element testcase = tcs.addElement("testcase");
 				testNum++;
-				ShowInfor.print("抽象测试用例个数：" + testNum);
-				ShowInfor.print("---------------------cases.size():" + cases.size());
+				ShowInfor.print(4, "抽象测试用例个数：" + testNum);
+				ShowInfor.print(4, "---------------------cases.size():" + cases.size());
 				for (int nn = 0; nn < cases.size(); nn++) {// cases.size表示边的个数
 					// 添加节点
 					Element process = testcase.addElement("process");

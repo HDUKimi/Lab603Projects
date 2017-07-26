@@ -233,11 +233,6 @@ public class TestCaseProducePartPanel extends JPanel{
 				// TODO Auto-generated method stub
 				if(e.getClickCount()==2){
 					
-					mainFrame.getAbstractTestCaseResultPanel().getOnenamelabel().setText(titlelabel.getText());
-					
-					JTable jt=mainFrame.getAbstractTestCaseResultPanel().getTestcaseinfortable();
-					DefaultTableModel dtm=mainFrame.getAbstractTestCaseResultPanel().getTestcaseinfortablemodel();
-					
 					int index=attributetable.getSelectedRow();
 					
 					final int[] columnindex=new int[columnNames.length];
@@ -260,18 +255,48 @@ public class TestCaseProducePartPanel extends JPanel{
 						
 					}
 					
-					while(dtm.getRowCount()>0){
-						dtm.removeRow(dtm.getRowCount()-1);
+					if(mainFrame.getStepindex()==3){
+						
+						mainFrame.getAbstractTestCaseResultPanel().getOnenamelabel().setText(titlelabel.getText());
+						
+						DefaultTableModel dtm=mainFrame.getAbstractTestCaseResultPanel().getTestcaseinfortablemodel();
+						
+						
+						while(dtm.getRowCount()>0){
+							dtm.removeRow(dtm.getRowCount()-1);
+						}
+						
+						for(String s:rowDataList){
+							Object[] rowData={s};
+							dtm.addRow(rowData);
+						}
+						
+						dtm.fireTableDataChanged();
+						
+						mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab1().doClick();
+						
 					}
-					
-					for(String s:rowDataList){
-						Object[] rowData={s};
-						dtm.addRow(rowData);
+					else if(mainFrame.getStepindex()==4){
+						
+						mainFrame.getTestCaseInstantiationResultPanel().getOnenamelabel().setText(titlelabel.getText());
+						
+						DefaultTableModel dtm=mainFrame.getTestCaseInstantiationResultPanel().getTestcaseinfortablemodel();
+						
+						
+						while(dtm.getRowCount()>0){
+							dtm.removeRow(dtm.getRowCount()-1);
+						}
+						
+						for(String s:rowDataList){
+							Object[] rowData={s};
+							dtm.addRow(rowData);
+						}
+						
+						dtm.fireTableDataChanged();
+						
+						mainFrame.getTestCaseInstantiationResultPanel().getTestcaselabeltab1().doClick();
+						
 					}
-					
-					dtm.fireTableDataChanged();
-					
-					mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab1().doClick();
 					
 				}
 			}

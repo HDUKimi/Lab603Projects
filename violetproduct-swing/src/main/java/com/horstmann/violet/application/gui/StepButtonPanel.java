@@ -100,7 +100,7 @@ public class StepButtonPanel extends JPanel {
 	private JPanel step5buttonpanel;
 	private JPanel step6buttonpanel;
 	
-	private int index=0;
+	private static int index=0;
 	private int firstclickstep1button=0;
 	
 	private JButton homebutton;
@@ -1349,6 +1349,12 @@ public class StepButtonPanel extends JPanel {
 			    ClearAttributePanel();
 			    attributePanel.add(mainFrame.getAbstractTestCaseResultPanel());
 			    
+			    index=3;
+				setstepbuttonpanelrepaint();
+				step3buttonpanel.setBackground(new Color(53,55,59));
+				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
+				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
+			    
 			    wakeupUI();
 			    mainFrame.setVisible(false);
 				mainFrame.getContentPane().repaint();
@@ -1396,6 +1402,12 @@ public class StepButtonPanel extends JPanel {
 				
 			    ClearAttributePanel();
 			    attributePanel.add(mainFrame.getTestCaseInstantiationResultPanel());
+			    
+			    index=4;
+				setstepbuttonpanelrepaint();
+				step4buttonpanel.setBackground(new Color(53,55,59));
+				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
+				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			    
 			    wakeupUI();
 				mainFrame.setVisible(false);
@@ -1446,6 +1458,12 @@ public class StepButtonPanel extends JPanel {
 			    ClearAttributePanel();
 			    attributePanel.add(mainFrame.getTestCaseConfirmResultPanel());
 							
+			    index=5;
+				setstepbuttonpanelrepaint();
+				step5buttonpanel.setBackground(new Color(53,55,59));
+				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
+				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
+			    
 			    wakeupUI();
 				mainFrame.setVisible(false);
 				mainFrame.getContentPane().repaint();
@@ -1493,6 +1511,12 @@ public class StepButtonPanel extends JPanel {
 				
 			    ClearAttributePanel();
 			    attributePanel.add(mainFrame.getValidationResultPanel());
+			    
+			    index=6;
+				setstepbuttonpanelrepaint();
+				step6buttonpanel.setBackground(new Color(53,55,59));
+				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
+				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			    
 			    wakeupUI();
 				mainFrame.setVisible(false);
@@ -1770,6 +1794,10 @@ public class StepButtonPanel extends JPanel {
 	
 	public JButton getStep2button() {
 		return step2button;
+	}
+
+	public static int getIndex() {
+		return index;
 	}
 
 	

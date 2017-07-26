@@ -62,7 +62,7 @@ public class GeneratePath {
 		ArrayList<ArrayList<Transition>> paths = 
 				TranCoverUtil.getTranCoverTestCaseFromAutomatic(automatic, wantedSize, statePoints);
 		
-		ShowInfor.print("共有" + paths.size() + "条路径");
+		ShowInfor.print(3, "共有" + paths.size() + "条路径");
 		
 		int i=1;
 		ArrayList<Automatic> res = new ArrayList<>();
@@ -85,8 +85,8 @@ public class GeneratePath {
 			
 			
 			ShowInfor.print();
-			ShowInfor.print(tran.getName());
-			ShowInfor.print("condition:" + tran.getCondition());
+			ShowInfor.print(3, tran.getName());
+			ShowInfor.print(3, "condition:" + tran.getCondition());
 			
 		}
 		return GeneratePath.fromTranListToAuto(tranList);

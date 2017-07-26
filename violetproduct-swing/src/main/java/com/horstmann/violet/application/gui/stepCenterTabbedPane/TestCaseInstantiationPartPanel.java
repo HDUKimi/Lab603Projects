@@ -231,10 +231,10 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 				// TODO Auto-generated method stub
 				if(e.getClickCount()==2){
 					
-					mainFrame.getAbstractTestCaseResultPanel().getOnenamelabel().setText(titlelabel.getText());
+					mainFrame.getTestCaseInstantiationResultPanel().getOnenamelabel().setText(titlelabel.getText());
 					
-					JTable jt=mainFrame.getAbstractTestCaseResultPanel().getTestcaseinfortable();
-					DefaultTableModel dtm=mainFrame.getAbstractTestCaseResultPanel().getTestcaseinfortablemodel();
+					JTable jt=mainFrame.getTestCaseInstantiationResultPanel().getTestcaseinfortable();
+					DefaultTableModel dtm=mainFrame.getTestCaseInstantiationResultPanel().getTestcaseinfortablemodel();
 					
 					int index=attributetable.getSelectedRow();
 					
@@ -269,7 +269,7 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 					
 					dtm.fireTableDataChanged();
 					
-					mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab1().doClick();
+					mainFrame.getTestCaseInstantiationResultPanel().getTestcaselabeltab1().doClick();
 					
 				}
 			}

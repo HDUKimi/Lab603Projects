@@ -122,10 +122,6 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	private Callable<Integer> callable6;
 	private FutureTask<Integer> task6;
 	private Thread thread6;
-	private Callable<Integer> callable7;
-	private FutureTask<Integer> task7;
-	private Thread thread7;
-	
 	
 	private List<FutureTask<Integer>> futuretasklist=new ArrayList<FutureTask<Integer>>();
 	private List<Thread> threadlist=new ArrayList<Thread>();
@@ -158,10 +154,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	private Automatic DFStree;
 	private ArrayList<Automatic> testCase;
 	private ArrayList<Automatic> collectLimit;
-	private ArrayList<Automatic> collectResult;
+//	private ArrayList<Automatic> collectResult;
 	
-	private Automatic PerAutomaticResult;
-	private List<List<String>> listcases=new ArrayList<>();
+//	private Automatic PerAutomaticResult;
+//	private List<List<String>> listcases=new ArrayList<>();
 	
 	private String clockstate="否";
 	private int automatictimestate=0;//0-不带时间约束，1-带时间约束
@@ -439,10 +435,6 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		resultAllProcessList=new ArrayList<>();
 		
 		testCase=new ArrayList<>();
-		collectResult=new ArrayList<>();
-		
-		listcases=new ArrayList<>();
-		
 		
 		maincallable=new Callable<Integer>() {
 			
@@ -477,14 +469,17 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						progressbar.setValue(progressbar.getValue()+1);
 						progressbarlabel.setText(progressbar.getValue()+"%");
 					}
-					if(step==stepsum-1&&!futuretasklist.get(step-1).isDone()){//处于实例化步骤时，增大休眠时间
-						Thread.sleep(5000);
-					}
+//					if(step==stepsum-1&&!futuretasklist.get(step-1).isDone()){//处于实例化步骤时，增大休眠时间
+//						Thread.sleep(5000);
+//					}
 //					else if (step==stepsum&&!futuretasklist.get(step-1).isDone()){
 //						Thread.sleep(10000);
 //					}
-					else{
+					if(!futuretasklist.get(step-1).isDone()){
 						Thread.sleep(500);
+					}
+					else{
+						Thread.sleep(100);
 					}
 				}
 				
@@ -1162,8 +1157,6 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				mainFrame.getStepThreeCenterTabbedPane().getTestCaseProduceButtonPanel().setVisible(true);
 				
-				writeAbstractTestCaseSerialFile(collectLimit, selectUppaal.substring(0, selectUppaal.indexOf("ForXStream")));
-				
 				time2=System.currentTimeMillis();
 				
 				if(starttype==1){//功能测试
@@ -1184,171 +1177,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		};
 		task5 = new FutureTask<>(callable5);
 		thread5 = new Thread(task5);
-
-		callable6 = new Callable<Integer>() {
-
-			@Override
-			public Integer call() throws Exception {
-				// TODO Auto-generated method stub
-				
-				time1=System.currentTimeMillis();
-				
-				moviepanel.getMovieLabel().setText("正在进行实例化测试用例");
-				TextAreaPrint("正在进行实例化测试用例");
-				
-				if(starttype==1){//功能测试
-					//获取数据
-					collectResult = forPlatform.collectResult(collectLimit);
-				}
-				else if(starttype==2){//性能测试
-					PerAutomaticResult=PerformanceXML2.getPerformResultFromAutomatic(DFStree);
-					collectResult.add(PerAutomaticResult);
-				}
-				else if(starttype==3){
-					collectResult=XmlOfTime.collectResult(testCase);
-				}
-				
-				int k=1;
-				for (Automatic am : collectResult) {
-
-					SaveText.init("D:\\Text\\testshilihua.txt");
-					SaveText.SaveWord("测试用例ID: " + k);
-					SaveText.SaveWord("迁移列表: ");
-					for (Transition t : am.getTransitionSet()) {
-						SaveText.SaveWord(t.toString2());
-					}
-					SaveText.SaveFenGe();
-					SaveText.End();
-
-					k++;
-				}
-				
-				
-				Thread.sleep(1000);
-				
-				TestCaseInstantiationTabbedPanel copytcitpanel=new TestCaseInstantiationTabbedPanel(mainFrame);
-				
-				tablepanel.removeAll();
-				tablepanel.add(copytcitpanel.getTabelpanel());
-				
-				//实例化
-				List<TestCaseInstantiationPartPanel> instantiationpartlist=new ArrayList<>();
-				
-				JPanel resultpanel=new JPanel();
-				JPanel emptypanel=new JPanel();
-				resultpanel.setOpaque(false);
-				emptypanel.setOpaque(false);
-				
-				JPanel copyresultpanel=new JPanel();
-				JPanel copyemptypanel=new JPanel();
-				copyresultpanel.setOpaque(false);
-				copyemptypanel.setOpaque(false);
-				
-				GridBagLayout layout = new GridBagLayout();
-				resultpanel.setLayout(layout);
-				
-				GridBagLayout copylayout = new GridBagLayout();
-				copyresultpanel.setLayout(copylayout);
-				
-				int i=0;
-				int copyi=0;
-				for(Automatic am:collectResult){
-					
-					TestCaseInstantiationPartPanel tcippanel=new TestCaseInstantiationPartPanel(mainFrame,am);//传入单个实例化信息
-					resultpanel.add(tcippanel);
-					layout.setConstraints(tcippanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-					
-					instantiationpartlist.add(tcippanel);
-					
-					TestCaseInstantiationPartPanel copytcippanel=new TestCaseInstantiationPartPanel(mainFrame,am);//传入单个实例化信息
-					copyresultpanel.add(copytcippanel);
-					copylayout.setConstraints(copytcippanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-				}
-				resultpanel.add(emptypanel);
-				layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-				
-				mainFrame.getStepThreeCenterTabbedPane().getTestCaseInstantiationTabbedPanel().setTestCaseInstantiationPartPanelList(instantiationpartlist);
-				
-				copyresultpanel.add(copyemptypanel);
-				copylayout.setConstraints(copyemptypanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-				
-				mainFrame.getStepThreeCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().removeAll();
-				mainFrame.getStepThreeCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTableresultpanel().add(resultpanel);
-				
-				copytcitpanel.getTableresultpanel().removeAll();
-				copytcitpanel.getTableresultpanel().add(copyresultpanel);
-				
-				Thread.sleep(1000);
-				
-				//求解信息,collectLimit,collectResult
-//				JPanel resultpanel1=new JPanel();
-//				JPanel emptypanel1=new JPanel();
-//				resultpanel1.setOpaque(false);
-//				emptypanel1.setOpaque(false);
-//				
-//				GridBagLayout layout1 = new GridBagLayout();
-//				resultpanel1.setLayout(layout1);
-////				int i=0;
-//				i=0;
-////				for(int j=0;j<30;j++){
-//				for(int j=0;j<collectLimit.size();j++){
-//					
-//					Automatic alimit=collectLimit.get(j);
-//					Automatic aresult=collectResult.get(j);
-//					
-//					TestCaseInequalitySolvePanel tcispanel=new TestCaseInequalitySolvePanel(alimit.getName());
-//					
-//					JPanel processpanel=tcispanel.getAttributepanel();
-//					GridBagLayout layout2 = new GridBagLayout();
-//					processpanel.setLayout(layout2);
-//					
-////					for(int k=0;k<10;k++){
-//					for(int k=0;k<alimit.getTransitionSet().size();k++){
-//						
-//						List<String> slimit=Arrays.asList(alimit.getTransitionSet().get(k).getLimit().split(","));
-//						List<String> sresult=aresult.getTransitionSet().get(k).getResult();
-//						
-////						TestCaseInequalitySolveInforPanel tcisipanel=new TestCaseInequalitySolveInforPanel(alimit.getTransitionSet().get(k).getId()+"",slimit,sresult);
-//						TestCaseInequalitySolveInforPanel tcisipanel=new TestCaseInequalitySolveInforPanel(mainFrame, alimit.getTransitionSet().get(k),aresult.getTransitionSet().get(k));
-//						processpanel.add(tcisipanel);
-//						layout2.setConstraints(tcisipanel, new GBC(0, k, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//						
-//					}
-//					
-//					resultpanel1.add(tcispanel);
-//					layout1.setConstraints(tcispanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//				}
-//				resultpanel1.add(emptypanel1);
-//				layout1.setConstraints(emptypanel1, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-//				
-//				mainFrame.getAbstractTestCaseResultPanel().getTworesultpanel().removeAll();
-//				mainFrame.getAbstractTestCaseResultPanel().getTworesultpanel().add(resultpanel1);
-//				mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab2().doClick();
-				
-				mainFrame.getStepThreeCenterTabbedPane().getTestCaseInstantiationButtonPanel().setVisible(true);
-
-				time2=System.currentTimeMillis();
-				
-				if(starttype==1){//功能测试
-						stepAllProcessList.add("第五步：实例化");
-				}
-				else if(starttype==2){//性能测试
-					stepAllProcessList.add("第五步：实例化");
-				}
-				else if(starttype==3){//时间测试
-					stepAllProcessList.add("第六步：实例化");
-				}
-
-				timeAllProcessList.add(time2-time1+"ms");
-				resultAllProcessList.add("得到"+collectResult.size()+"条测试用例");
-				System.out.println("-------------------213546879213");
-				return 1;
-			}
-		};
-		task6 = new FutureTask<>(callable6);
-		thread6 = new Thread(task6);
 		
-		callable7=new Callable<Integer>() {
+		callable6=new Callable<Integer>() {
 			
 			@Override
 			public Integer call() throws Exception {
@@ -1356,11 +1186,11 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在生成测试用例xml");
-				TextAreaPrint("正在生成测试用例xml");
+				moviepanel.getMovieLabel().setText("正在生成抽象测试用例文件");
+				TextAreaPrint("生成抽象测试用例文件");
 				
-				String name=selectUppaal.substring(0, selectUppaal.indexOf("ForXStream"));
-				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+				String abstractName=selectUppaal.substring(0, selectUppaal.indexOf("ForXStream"));
+				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
 				
 				if(starttype == 1){
 					baseUrl += "\\FunctionalTest\\";
@@ -1372,10 +1202,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				if(starttype==1){//功能测试
 					if(selectCoverState==0){//状态覆盖
-						name+="状态覆盖";
+						abstractName+="状态覆盖";
 					}
 					else if(selectCoverState==1){//迁移覆盖
-						name+="迁移覆盖";
+						abstractName+="迁移覆盖";
 					}
 				}
 				else if(starttype==2){//性能测试
@@ -1383,159 +1213,38 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				}
 				else if(starttype==3){//时间约束测试
 					if(selectCoverState==0){//状态覆盖
-						name+="状态覆盖";
+						abstractName+="状态覆盖";
 					}
 					else if(selectCoverState==1){//迁移覆盖
-						name+="迁移覆盖";
+						abstractName+="迁移覆盖";
 					}
 				}
 				
-				String path=baseUrl+name+"TestCase.xml";
+				String path = baseUrl + abstractName + "Abstract.txt";
 				
-				System.err.println(path);
+				writeAbstractTestCaseSerialFile(collectLimit, path);
 				
-				if(starttype==1){//功能测试
-					
-//					AtutomaticProduceXML(collectResult, path);
-					forPlatform.produceXML(path,collectResult);
-					
-					List<TestCase> testcaselist=new ArrayList<>();
-					List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<>();
-					
-					testcaselist=TestCaseConfirmationPanel.extractFunctionalTestDataFromXml(path);
-					
-					JPanel resultpanel=new JPanel();
-					JPanel emptypanel=new JPanel();
-					resultpanel.setOpaque(false);
-					emptypanel.setOpaque(false);
-					
-					GridBagLayout layout = new GridBagLayout();
-					resultpanel.setLayout(layout);
-					int i=0;
-
-					for(TestCase tc:testcaselist){
-						FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(tc);
-						resultpanel.add(ftcrppanel);
-						layout.setConstraints(ftcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-						functionaltestcasereportlist.add(ftcrppanel);
-					}
-					resultpanel.add(emptypanel);
-					layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-					
-					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().setFunctionaltestcasereportlist(functionaltestcasereportlist);
-					
-					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().removeAll();
-					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().add(resultpanel);
-					
-					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowButtonPanel().setVisible(true);
-					
-				}
-				else if(starttype==2){//性能测试
-//					for(Transition t:PerAutomaticResult.getTransitionSet()){
-//						listcases.add(t.getResult());
-//					}
-//					PerformanceXML.produceXML(listcases, path);
-					PerformanceXML2.produceXML(path);
-					
-					List<TestCase> testcaselist=new ArrayList<>();
-					List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<>();
-					
-					testcaselist=TestCaseConfirmationPanel.extractPerformanceTestDataFromXml(path);
-					
-					JPanel resultpanel=new JPanel();
-					JPanel emptypanel=new JPanel();
-					resultpanel.setOpaque(false);
-					emptypanel.setOpaque(false);
-					
-					GridBagLayout layout = new GridBagLayout();
-					resultpanel.setLayout(layout);
-					int i=0;
-					
-					PerformanceTestCaseReportTableHeaderPanel ptcrthpanel=new PerformanceTestCaseReportTableHeaderPanel();
-					resultpanel.add(ptcrthpanel);
-					layout.setConstraints(ptcrthpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-					
-					for(TestCase tc:testcaselist){
-						PerformanceTestCaseReportPartPanel tcrppanel=new PerformanceTestCaseReportPartPanel(tc);
-						resultpanel.add(tcrppanel);
-						layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-						performancetestcasereportlist.add(tcrppanel);
-					}
-					resultpanel.add(emptypanel);
-					layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-					
-					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().setPerformancetestcasereportlist(performancetestcasereportlist);
-					
-					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().removeAll();
-					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().add(resultpanel);
-					
-					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowButtonPanel().setVisible(true);
-					
-					
-				}
-				else if(starttype==3){//时间约束测试
-
-//					GetTimeXML.produceXML(path,testCase);
-					XmlOfTime.produceXML(path, collectResult, testCase);
-					
-					List<TestCase> testcaselist=new ArrayList<>();
-					List<List<String>> limitlist=new ArrayList<>();
-					List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<>();
-					
-					testcaselist=TestCaseConfirmationPanel.extractTimeTestDataFromXml(path);
-//					Map resultmap=TestCaseConfirmationPanel.extractTimeTestDataFromXml(path);
-//					testcaselist=(List<TestCase>) resultmap.get("testcase");
-//					limitlist=(List<List<String>>) resultmap.get("limit");
-					
-					JPanel resultpanel=new JPanel();
-					JPanel emptypanel=new JPanel();
-					resultpanel.setOpaque(false);
-					emptypanel.setOpaque(false);
-					
-					GridBagLayout layout = new GridBagLayout();
-					resultpanel.setLayout(layout);
-					int i=0;
-
-					int index=0;
-					for(TestCase tc:testcaselist){
-						TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(tc);
-						resultpanel.add(ttcrppanel);
-						layout.setConstraints(ttcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-						timetestcasereportlist.add(ttcrppanel);
-						index++;
-					}
-					resultpanel.add(emptypanel);
-					layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-					
-					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().setTimetestcasereportlist(timetestcasereportlist);
-					
-					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().removeAll();
-					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().add(resultpanel);
-					
-					mainFrame.getStepThreeCenterTabbedPane().getTestCaseShowButtonPanel().setVisible(true);
-					
-				}
-
 				time2=System.currentTimeMillis();
 				
 				if(starttype==1){//功能测试
-					stepAllProcessList.add("第六步：存储测试用例");
+					stepAllProcessList.add("第五步：存储抽象测试用例文件");
 				}
 				else if(starttype==2){//性能测试
-					stepAllProcessList.add("第六步：存储测试用例");
+					stepAllProcessList.add("第五步：存储抽象测试用例文件");
 				}
-				else if(starttype==3){//时间约束测试
-					stepAllProcessList.add("第七步：存储测试用例");
+				else if(starttype==3){//时间测试
+					stepAllProcessList.add("第六步：存储抽象测试用例文件");
 				}
 				
 				timeAllProcessList.add(time2-time1+"ms");
-				resultAllProcessList.add("生成"+name+"TestCase.xml，保存路径："+path);
+				resultAllProcessList.add("生成"+ abstractName + "Abstract.txt，保存路径："+path);
+				
 				
 				return 1;
 			}
 		};
-		task7 = new FutureTask<>(callable7);
-		thread7 = new Thread(task7);
+		task6=new FutureTask<>(callable6);
+		thread6=new Thread(task6);
 		
 		futuretasklist=new ArrayList<>();
 		threadlist=new ArrayList<>();
@@ -1546,16 +1255,14 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			futuretasklist.add(task4);
 			futuretasklist.add(task5);
 			futuretasklist.add(task6);
-			futuretasklist.add(task7);
 			
 			threadlist.add(thread1);
 			threadlist.add(thread3);
 			threadlist.add(thread4);
 			threadlist.add(thread5);
 			threadlist.add(thread6);
-			threadlist.add(thread7);
 			
-			stepsum=6;
+			stepsum=5;
 		}
 		else if(starttype==2){//性能测试
 			futuretasklist.add(task1);
@@ -1563,16 +1270,14 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			futuretasklist.add(task4);
 			futuretasklist.add(task5);
 			futuretasklist.add(task6);
-			futuretasklist.add(task7);
 			
 			threadlist.add(thread1);
 			threadlist.add(thread3);
 			threadlist.add(thread4);
 			threadlist.add(thread5);
 			threadlist.add(thread6);
-			threadlist.add(thread7);
 			
-			stepsum=6;
+			stepsum=5;
 		}
 		else if(starttype==3){//时间约束测试
 			futuretasklist.add(task1);
@@ -1581,7 +1286,6 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			futuretasklist.add(task4);
 			futuretasklist.add(task5);
 			futuretasklist.add(task6);
-			futuretasklist.add(task7);
 			
 			threadlist.add(thread1);
 			threadlist.add(thread2);
@@ -1589,47 +1293,14 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			threadlist.add(thread4);
 			threadlist.add(thread5);
 			threadlist.add(thread6);
-			threadlist.add(thread7);
 			
-			stepsum=7;
+			stepsum=6;
 		}
 		
 	}
 
-	protected void writeAbstractTestCaseSerialFile(ArrayList<Automatic> abstractAutomatic, String abstractName) {
+	protected void writeAbstractTestCaseSerialFile(ArrayList<Automatic> abstractAutomatic, String path) {
 		// TODO Auto-generated method stub
-		
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
-		
-		if(starttype == 1){
-			baseUrl += "\\FunctionalTest\\";
-		} else if (starttype == 2) {
-			baseUrl += "\\PerformanceTest\\";
-		} else if (starttype == 3) {
-			baseUrl += "\\TimeTest\\";
-		}
-		
-		if(starttype==1){//功能测试
-			if(selectCoverState==0){//状态覆盖
-				abstractName+="状态覆盖";
-			}
-			else if(selectCoverState==1){//迁移覆盖
-				abstractName+="迁移覆盖";
-			}
-		}
-		else if(starttype==2){//性能测试
-			
-		}
-		else if(starttype==3){//时间约束测试
-			if(selectCoverState==0){//状态覆盖
-				abstractName+="状态覆盖";
-			}
-			else if(selectCoverState==1){//迁移覆盖
-				abstractName+="迁移覆盖";
-			}
-		}
-		
-		String path = baseUrl + abstractName + "Abstract.txt";
 		
 		try {
 //			String path="D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+testcasename+"serialtestcase.txt";

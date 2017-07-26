@@ -415,26 +415,26 @@ public class PerformanceXML2 {
 			List<List<String>> cases = new ArrayList<List<String>>(); // 测试用例集合
 			List<String> outtt=new ArrayList<String>();//out输出
 			List<List<String>> syso=new ArrayList<List<String>>();
-			ShowInfor.print("===========================正在读取第"+i+"条测试用例");
-			ShowInfor.print("  ===>  测试用例名字:"+automatic.getName());
+			ShowInfor.print(4, "===========================正在读取第"+i+"条测试用例");
+			ShowInfor.print(4, "  ===>  测试用例名字:"+automatic.getName());
 			int j = 1;
 			for(Transition tran:automatic.getTransitionSet()){
 				ShowInfor.print();
-				ShowInfor.print("======第"+j+"条迁移开始======");
-				ShowInfor.print("迁移内容:"+tran.getIn()+"---"+tran.getCondition());
+				ShowInfor.print(4, "======第"+j+"条迁移开始======");
+				ShowInfor.print(4, "迁移内容:"+tran.getIn()+"---"+tran.getCondition());
 				String sss = new String();
 				List<String> result1=new ArrayList<String>();//存放in里面最终实例化结果			
 				List<String> result2=new ArrayList<String>();//存放condition里面最终实例化结果
 				if(tran.getName().contains("(")){
 					int index11=tran.getName().replace("!", "").replace("?", "").indexOf("(");
 					sss=tran.getName().substring(0,index11);
-					ShowInfor.print("迁移(激励)名称："+sss);
+					ShowInfor.print(4, "迁移(激励)名称："+sss);
 				}
 				else{
 					sss = tran.getName().replace("!", "").replace("?", "");
-					ShowInfor.print("迁移(激励)名称："+sss);
+					ShowInfor.print(4, "迁移(激励)名称："+sss);
 				}
-				ShowInfor.print("迁移Id："+tran.getId());								
+				ShowInfor.print(4, "迁移Id："+tran.getId());								
 				//ShowInfor.print("源状态名称："+tran.getSource());
 				//ShowInfor.print("目的状态名称："+tran.getTarget());
 				//未处理的约束条件	
@@ -446,14 +446,14 @@ public class PerformanceXML2 {
 				 */
 				//处理in里面的不等式和参数，得到参数类型与参数一一对应的map，进行添加不等式操作
 				//ShowInfor.print("========================in========================");	
-				ShowInfor.print("in---->"+tran.getIn());	//in里面的内容
+				ShowInfor.print(4, "in---->"+tran.getIn());	//in里面的内容
 				if(tran.getIn().equals("null")){	
 					result1.add(null);
 				}else{	
 					result1=Result_2.preInResult(tran.getIn(),Fspeed);
 					syso.add(result1);
 				}
-				ShowInfor.print("-------------------"+result1.toString());
+				ShowInfor.print(4, "-------------------"+result1.toString());
 
 				/**
 				 * 处理condition里面的不等式和参数，实例化condition
@@ -470,7 +470,7 @@ public class PerformanceXML2 {
 							if(!(GetMap.get_condMap(tran.getCondition())==null)){
 								String tra = tran.getCondition().replace("false", "False").replace("true", "True").replace("->", "$");
 								//result2 = Result.getResult(tra);
-								ShowInfor.print("tra----"+tra);
+								ShowInfor.print(4, "tra----"+tra);
 								result2 = Result1.getResult(tra);
 								//result2 = testbdscs.getResult(tra);						
 								for(int ii=0;ii<result2.size();ii++){
@@ -601,7 +601,7 @@ public class PerformanceXML2 {
 				}else{
 					if(result.get(0).contains("takeoff_alt_cm")){
 						for(int ii=1;ii<=result.size();ii++){
-							ShowInfor.print("解==========="+ii+"为:"+result.get(ii-1));//输出所有解
+							ShowInfor.print(4, "解==========="+ii+"为:"+result.get(ii-1));//输出所有解
 							String s = "解==========="+ii+"为:"+result.get(ii-1);
 						}
 					}
@@ -640,7 +640,7 @@ public class PerformanceXML2 {
 			//生成测试用例个数是含有高度迁移的组合数
 			for(int n = 0;n<cases.size();n++){			
 				if(cases.get(n).get(0).contains("takeoff_alt_cm")){	
-					ShowInfor.print("里面解个数："+cases.get(n).size());
+					ShowInfor.print(4, "里面解个数："+cases.get(n).size());
 					min = cases.get(n).size();
 					if(num<min){
 						num = min;

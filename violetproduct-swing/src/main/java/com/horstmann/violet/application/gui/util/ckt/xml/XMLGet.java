@@ -374,4 +374,16 @@ public class XMLGet {
 		}
 	}
 
+	
+	/**
+	 * ´òÂÒÇ¨ÒÆ¸²¸ÇÖĞÂ·¾¶Ë³Ğò
+	 */
+	public static ArrayList<Automatic> testcaseNew(ArrayList<Automatic> testCase){
+		ArrayList<Automatic> testcaseNew = new ArrayList<Automatic>();
+		for(int i=testCase.size()-1; i>=0; i--){
+			testcaseNew.add(testCase.get(i));
+		}
+		return testcaseNew;
+	}
+	
 }

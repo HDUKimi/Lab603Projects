@@ -21,7 +21,7 @@ public class Result1 {
 	public static void main(String[] args) {
 		List<String> result1=new ArrayList<String>();//存放in里面最终实例化结果
 		result1 = getResult("g.throttle_min#g.throttle_min:int16_t");
-		ShowInfor.print(result1.toString());
+		ShowInfor.print(4, result1.toString());
 	}
 	
 	
@@ -313,8 +313,8 @@ public class Result1 {
 					int resultNum = getMathNum(bbb);
 					String solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);					
 					if(solution1.equals("{}")){
-						ShowInfor.print("原求得矛盾空解"+solution1);
-						ShowInfor.print("原求得矛盾不等式"+bds1);
+						ShowInfor.print(4, "原求得矛盾空解"+solution1);
+						ShowInfor.print(4, "原求得矛盾不等式"+bds1);
 						//bbb = Remove11(bds1);
 						if(Border.getBorder(bds1)!=null){
 							bds1 = Remove11(bds1)+","+Border.getBorder(bds1);//边界等式加入
@@ -325,8 +325,8 @@ public class Result1 {
 
 						resultNum = getMathNum(bbb);
 						solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
-						ShowInfor.print("删除矛盾后不等式"+bbb);
-						ShowInfor.print("删除矛盾后解"+solution1);
+						ShowInfor.print(4, "删除矛盾后不等式"+bbb);
+						ShowInfor.print(4, "删除矛盾后解"+solution1);
 					}
 					/*if(solution1.contains("ndInstance")){
 						ShowInfor.print("----------------------求解异常----------------------");
@@ -338,7 +338,7 @@ public class Result1 {
 					ttt=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 					//ttt=bbb.toString();
 					//					
-					ShowInfor.print("整数型解"+solution1);
+					ShowInfor.print(4, "整数型解"+solution1);
 					results = solution1.substring(2, solution1.length() - 2).split("\\}, \\{");
 
 					//ShowInfor.print("condition整数型约束解为："+solution1);
@@ -353,11 +353,11 @@ public class Result1 {
 						String solution1 = Mathematica.getSolution2(s1, cs1, resultNum);
 
 						if(solution1.contains("ndInstance")){
-							ShowInfor.print("----------------------求解异常----------------------");
-							ShowInfor.print("----------------------求解异常----------------------");
-							ShowInfor.print("----------------------求解异常----------------------");
-							ShowInfor.print("----------------------求解异常----------------------");
-							ShowInfor.print("----------------------求解异常----------------------");
+							ShowInfor.print(4, "----------------------求解异常----------------------");
+							ShowInfor.print(4, "----------------------求解异常----------------------");
+							ShowInfor.print(4, "----------------------求解异常----------------------");
+							ShowInfor.print(4, "----------------------求解异常----------------------");
+							ShowInfor.print(4, "----------------------求解异常----------------------");
 						}
 
 						ttt=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
@@ -371,12 +371,12 @@ public class Result1 {
 				if((bds2!=null)&&(s2!=null)){
 					//ShowInfor.print("condition上小数型数值不等式："+s2);
 					//ShowInfor.print("condition上小数型数值参数："+cs2);
-					ShowInfor.print("小数不等式："+bds2);
+					ShowInfor.print(4, "小数不等式："+bds2);
 					if(Border.getDoubleBorder(bds2)!=null){
 						bds2 = bds2+","+Border.getDoubleBorder(bds2);
 						flag =1;
 					}	
-					ShowInfor.print("加入边界后小数不等式："+bds2);
+					ShowInfor.print(4, "加入边界后小数不等式："+bds2);
 					String bb = bds2+","+s2;
 					//ShowInfor.print("小数不等式:"+bb);
 					//ShowInfor.print("小数参数："+cs2);
@@ -395,20 +395,20 @@ public class Result1 {
 					}
 
 					if(solution2.contains("ndInstance")){
-						ShowInfor.print("----------------------求解异常----------------------");
-						ShowInfor.print("----------------------求解异常----------------------");
-						ShowInfor.print("----------------------求解异常----------------------");
-						ShowInfor.print("----------------------求解异常----------------------");
-						ShowInfor.print("----------------------求解异常----------------------");
+						ShowInfor.print(4, "----------------------求解异常----------------------");
+						ShowInfor.print(4, "----------------------求解异常----------------------");
+						ShowInfor.print(4, "----------------------求解异常----------------------");
+						ShowInfor.print(4, "----------------------求解异常----------------------");
+						ShowInfor.print(4, "----------------------求解异常----------------------");
 					}
 
 					ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 					//ttt1=s2.toString();
 					//					
-					ShowInfor.print("solution2:"+solution2);
-					ShowInfor.print("====="+condition);
-					ShowInfor.print(bb);
-					ShowInfor.print(cs2);
+					ShowInfor.print(4, "solution2:"+solution2);
+					ShowInfor.print(4, "====="+condition);
+					ShowInfor.print(4, bb);
+					ShowInfor.print(4, cs2);
 					results1 = solution2.substring(2, solution2.length() - 2).split("\\}, \\{");
 
 					//ShowInfor.print("condition上小数型约束解为："+solution2);
@@ -426,11 +426,11 @@ public class Result1 {
 
 
 						if(solution2.contains("ndInstance")){
-							ShowInfor.print("----------------------求解异常----------------------");
-							ShowInfor.print("----------------------求解异常----------------------");
-							ShowInfor.print("----------------------求解异常----------------------");
-							ShowInfor.print("----------------------求解异常----------------------");
-							ShowInfor.print("----------------------求解异常----------------------");
+							ShowInfor.print(4, "----------------------求解异常----------------------");
+							ShowInfor.print(4, "----------------------求解异常----------------------");
+							ShowInfor.print(4, "----------------------求解异常----------------------");
+							ShowInfor.print(4, "----------------------求解异常----------------------");
+							ShowInfor.print(4, "----------------------求解异常----------------------");
 						}
 
 						ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
@@ -569,7 +569,7 @@ public class Result1 {
 	 * 移出矛盾的不等式，取后一个不等式
 	 */
 	public static String Remove11(String bbb){
-		ShowInfor.print("原处理不等式："+bbb);
+		ShowInfor.print(4, "原处理不等式："+bbb);
 		String cs1 = null;
 		String cs2 = null;
 		String bds[] = bbb.replace("||", ",").split(",");
@@ -615,7 +615,7 @@ public class Result1 {
 				}
 			}
 		}
-		ShowInfor.print("处理后的不等式"+bbb);
+		ShowInfor.print(4, "处理后的不等式"+bbb);
 		return bbb;
 	}
 
@@ -707,7 +707,7 @@ public class Result1 {
 				}
 			}
 			if((in_result.size()>0)&&!(in_result.get(0).equals(null))){							
-				ShowInfor.print("in_result.size()--->"+in_result.size());
+				ShowInfor.print(4, "in_result.size()--->"+in_result.size());
 				dis(0,in_result);
 				result1 = re;
 				List<String> ret = new ArrayList<String>();
@@ -758,7 +758,7 @@ public class Result1 {
 					}																
 				}
 				if((inResult.size()>0)&&!(inResult.get(0).equals(null))){
-					ShowInfor.print("in_result.size()--->"+inResult.size());	
+					ShowInfor.print(4, "in_result.size()--->"+inResult.size());	
 					dis(0,inResult);
 					result1 = re;
 					List<String> ret = new ArrayList<String>();
@@ -790,7 +790,7 @@ public class Result1 {
 		String cs = null;
 		if (domain.contains("<=")){
 			String[] strs = domain.split("<=");				
-			ShowInfor.print("需处理（有<=）："+domain);
+			ShowInfor.print(4, "需处理（有<=）："+domain);
 			if (strs.length == 3) {	
 				//ShowInfor.print("例如1<=x<=7");//
 				cs = strs[1];
@@ -855,7 +855,7 @@ public class Result1 {
 			}
 		}else{			 
 			if (domain.contains(">=")) {
-				ShowInfor.print("需处理（有>=）："+domain);
+				ShowInfor.print(4, "需处理（有>=）："+domain);
 				String[] strs = domain.split(">=");
 				if (strs.length == 3) {	
 					//ShowInfor.print("例如7>=x>=1");//		
@@ -921,7 +921,7 @@ public class Result1 {
 				}		
 			} else{ 					
 				if (domain.contains("<")) { //不包含<=也不包含>=
-					ShowInfor.print("需处理（有<）："+domain);
+					ShowInfor.print(4, "需处理（有<）："+domain);
 					String[] strs = domain.split("<");
 					//ShowInfor.print("     例如1<x<7或x<7或1<x");//
 					if (strs.length == 3) {
@@ -955,7 +955,7 @@ public class Result1 {
 					}
 				} else{ 
 					if (domain.contains(">")) { //不包含<=也不包含>=也不包含<
-						ShowInfor.print("需处理（有>）："+domain);
+						ShowInfor.print(4, "需处理（有>）："+domain);
 						//ShowInfor.print("     例如7>x>1或x>1或7>x");//
 						String[] strs = domain.split(">");
 						if (strs.length == 3) {
@@ -1008,7 +1008,7 @@ public class Result1 {
 		String cs = null;
 		if (domain.contains("<=")){
 			String[] strs = domain.split("<=");				
-			ShowInfor.print("需处理（有<=）："+domain);
+			ShowInfor.print(4, "需处理（有<=）："+domain);
 			if (strs.length == 3) {	
 				//ShowInfor.print("例如1<=x<=7");//
 				cs = strs[1];	
@@ -1068,7 +1068,7 @@ public class Result1 {
 			}
 		}else{			 
 			if (domain.contains(">=")) {
-				ShowInfor.print("需处理（有>=）："+domain);
+				ShowInfor.print(4, "需处理（有>=）："+domain);
 				String[] strs = domain.split(">=");
 				if (strs.length == 3) {	
 					//ShowInfor.print("例如7>=x>=1");//		
@@ -1129,7 +1129,7 @@ public class Result1 {
 				}		
 			} else{ 					
 				if (domain.contains("<")) { //不包含<=也不包含>=
-					ShowInfor.print("需处理（有<）："+domain);
+					ShowInfor.print(4, "需处理（有<）："+domain);
 					String[] strs = domain.split("<");
 					//ShowInfor.print("     例如1<x<7或x<7或1<x");//
 					if (strs.length == 3) {
@@ -1165,7 +1165,7 @@ public class Result1 {
 					}
 				} else{ 
 					if (domain.contains(">")) { //不包含<=也不包含>=也不包含<
-						ShowInfor.print("需处理（有>）："+domain);
+						ShowInfor.print(4, "需处理（有>）："+domain);
 						//ShowInfor.print("     例如7>x>1或x>1或7>x");//
 						String[] strs = domain.split(">");
 						if (strs.length == 3) {

@@ -55,7 +55,7 @@ public class TranCoverUtil {
 		// 去掉回路的边
 		removeCircleTran();
 		
-		ShowInfor.print("去掉回路的边剩余" + transitions.size());
+		ShowInfor.print(3, "去掉回路的边剩余" + transitions.size());
 		
 		
 		// 找出开始节点到终止节点的路径
@@ -80,7 +80,7 @@ public class TranCoverUtil {
 			transitions.removeAll(trans);
 		}
 		
-		ShowInfor.print("去掉终止节点路径的所有tran后剩余" + transitions.size());
+		ShowInfor.print(3, "去掉终止节点路径的所有tran后剩余" + transitions.size());
 		// 找出剩下的tran组成的部分路径 -------------------------
 		while(true) {
 			if (transitions.size() == 0) {
@@ -177,9 +177,9 @@ public class TranCoverUtil {
 		onePath.add(tran);
 		if (targetState == finalState) { // 到达目标节点
 			directPaths.add(new ArrayList<>(onePath));
-			ShowInfor.print("得到一条路径到状态" +finalState.getId() + "----count :" +count++);
+			ShowInfor.print(3, "得到一条路径到状态" +finalState.getId() + "----count :" +count++);
 			for(Transition tran1 : onePath) {
-				ShowInfor.print(tran1.getName());
+				ShowInfor.print(3, tran1.getName());
 			}
 			onePath.remove(tran);
 			visited[tran.getId()] = 0;
@@ -252,7 +252,7 @@ public class TranCoverUtil {
 				i--;
 			}
 		}
-		ShowInfor.print("去掉了" + removeCount + "/" + originTranSize + "条循环迁移");
+		ShowInfor.print(3, "去掉了" + removeCount + "/" + originTranSize + "条循环迁移");
 	}
 	
 
