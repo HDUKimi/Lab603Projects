@@ -74,6 +74,7 @@ import com.horstmann.violet.application.gui.util.ckt.testcase.PathCoverage_new;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML2;
 import com.horstmann.violet.application.gui.util.ckt.xml.GetTimeXML;
+import com.horstmann.violet.application.gui.util.ckt.xml.XMLGet;
 import com.horstmann.violet.application.gui.util.ckt.xml.XmlOfTime;
 import com.horstmann.violet.application.gui.util.tanchao.SaveText;
 import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
@@ -122,6 +123,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	private Callable<Integer> callable6;
 	private FutureTask<Integer> task6;
 	private Thread thread6;
+	private Callable<Integer> callable7;
+	private FutureTask<Integer> task7;
+	private Thread thread7;
 	
 	private List<FutureTask<Integer>> futuretasklist=new ArrayList<FutureTask<Integer>>();
 	private List<Thread> threadlist=new ArrayList<Thread>();
@@ -443,8 +447,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				// TODO Auto-generated method stub
 				
 				while(progressbarindex<=100){
-					System.out.println(progressbarindex+"  "+((int)((double)100/stepsum)*step+1));
-					if(progressbarindex==(int)((double)100/stepsum)*step+1){
+					System.out.println(progressbarindex+"  "+(int)(((double)100/stepsum)*step+1));
+					if(progressbarindex==(int)(((double)100/stepsum)*step+1)){
 						//开启下一个线程，并存入list
 						
 						if(futuretasklist.get(step-1).isDone()){
@@ -1011,18 +1015,6 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					copylayout.setConstraints(copytccppanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 				}
 				
-//				for(int j=0;j<30;j++){
-//					
-//					TestCaseCoverPartPanel tccppanel=new TestCaseCoverPartPanel(mainFrame);//传入测试序列。包括路径信息，以及workspace
-//					resultpanel.add(tccppanel);
-//					layout.setConstraints(tccppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//					
-//					coverpartlist.add(tccppanel);
-//					
-//					TestCaseCoverPartPanel copytccppanel=new TestCaseCoverPartPanel(mainFrame);//传入测试序列。包括路径信息，以及workspace
-//					copyresultpanel.add(copytccppanel);
-//					copylayout.setConstraints(copytccppanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//				}
 				resultpanel.add(emptypanel);
 				layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 				
@@ -1246,6 +1238,81 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		task6=new FutureTask<>(callable6);
 		thread6=new Thread(task6);
 		
+		callable7=new Callable<Integer>() {
+			
+			@Override
+			public Integer call() throws Exception {
+				// TODO Auto-generated method stub
+				
+				List<TestCaseSortContrastPartPanel> oldsortcontrastpartlist=new ArrayList<>();
+				
+				JPanel oldresultpanel=new JPanel();
+				JPanel oldemptypanel=new JPanel();
+				oldresultpanel.setOpaque(false);
+				oldemptypanel.setOpaque(false);
+				
+				GridBagLayout oldlayout = new GridBagLayout();
+				oldresultpanel.setLayout(oldlayout);
+				
+				int oldi=0;
+				
+				ArrayList<Automatic> oldTestCase=XMLGet.testcaseNew(testCase);
+				
+				for(Automatic am:oldTestCase){
+
+					TestCaseSortContrastPartPanel tcscppanel=new TestCaseSortContrastPartPanel(mainFrame,am);//传入测试序列。包括路径信息，以及workspace
+					oldresultpanel.add(tcscppanel);
+					oldlayout.setConstraints(tcscppanel, new GBC(0, oldi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+					
+					oldsortcontrastpartlist.add(tcscppanel);
+					
+				}
+				
+				oldresultpanel.add(oldemptypanel);
+				oldlayout.setConstraints(oldemptypanel, new GBC(0, oldi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+				
+				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().setOldTestCaseSortContrastPartPanelList(oldsortcontrastpartlist);
+				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().getOldtableresultpanel().removeAll();
+				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().getOldtableresultpanel().add(oldresultpanel);
+				
+				List<TestCaseSortContrastPartPanel> newsortcontrastpartlist=new ArrayList<>();
+				
+				JPanel newresultpanel=new JPanel();
+				JPanel newemptypanel=new JPanel();
+				newresultpanel.setOpaque(false);
+				newemptypanel.setOpaque(false);
+				
+				GridBagLayout newlayout = new GridBagLayout();
+				newresultpanel.setLayout(newlayout);
+				
+				int newi=0;
+				
+				for(Automatic am:testCase){
+
+					TestCaseSortContrastPartPanel tcscppanel=new TestCaseSortContrastPartPanel(mainFrame,am);//传入测试序列。包括路径信息，以及workspace
+					newresultpanel.add(tcscppanel);
+					newlayout.setConstraints(tcscppanel, new GBC(0, newi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+					
+					newsortcontrastpartlist.add(tcscppanel);
+					
+				}
+				
+				newresultpanel.add(newemptypanel);
+				newlayout.setConstraints(newemptypanel, new GBC(0, newi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+				
+				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().setNewTestCaseSortContrastPartPanelList(newsortcontrastpartlist);
+				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().getNewtableresultpanel().removeAll();
+				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().getNewtableresultpanel().add(newresultpanel);
+				
+				
+				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastButtonPanel().setVisible(true);
+				
+				return 1;
+			}
+		};
+		task7=new FutureTask<>(callable7);
+		thread7=new Thread(task7);
+		
 		futuretasklist=new ArrayList<>();
 		threadlist=new ArrayList<>();
 		
@@ -1255,14 +1322,16 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			futuretasklist.add(task4);
 			futuretasklist.add(task5);
 			futuretasklist.add(task6);
+			futuretasklist.add(task7);
 			
 			threadlist.add(thread1);
 			threadlist.add(thread3);
 			threadlist.add(thread4);
 			threadlist.add(thread5);
 			threadlist.add(thread6);
+			threadlist.add(thread7);
 			
-			stepsum=5;
+			stepsum=6;
 		}
 		else if(starttype==2){//性能测试
 			futuretasklist.add(task1);

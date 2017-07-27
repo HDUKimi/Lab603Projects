@@ -350,8 +350,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					
 
 				while(progressbarindex<=100){
-					System.out.println(progressbarindex+"  "+((int)((double)100/stepsum)*step+1));
-					if(progressbarindex==(int)((double)100/stepsum)*step+1){
+					System.out.println(progressbarindex+"  "+(int)(((double)100/stepsum)*step+1));
+					if(progressbarindex==(int)(((double)100/stepsum)*step+1)){
 						//开启下一个线程，并存入list
 						
 						if(futuretasklist.get(step-1).isDone()){
