@@ -106,9 +106,11 @@ import com.horstmann.violet.product.diagram.abstracts.node.AbstractNode;
 import com.horstmann.violet.product.diagram.abstracts.property.ArrowHead;
 import com.horstmann.violet.product.diagram.abstracts.property.BentStyle;
 import com.horstmann.violet.product.diagram.abstracts.property.LineStyle;
+import com.horstmann.violet.product.diagram.sequence.RefNode;
 import com.horstmann.violet.workspace.IWorkspace;
 import com.horstmann.violet.workspace.IWorkspaceListener;
 import com.horstmann.violet.workspace.Workspace;
+import com.horstmann.violet.workspace.editorpart.behavior.EditSelectedBehavior;
 
 /**
  * This desktop frame contains panes that show graphs.
@@ -329,7 +331,7 @@ public class MainFrame extends JFrame
     }
 
 	public void deleteTabbedPane(final IWorkspace workspace) {
-		if (workspace.getTitle().toString().endsWith(".ucase.violet.xml")
+		if (workspace.getTitle().toString().contains(".ucase.violet.xml")
 				|| workspace.getTitle().toString().substring(2, 4).equals("Us"))// 如果是用例图
 		{
 
@@ -352,7 +354,7 @@ public class MainFrame extends JFrame
 			}
 			
 		}
-		if (workspace.getTitle().toString().endsWith(".timing.violet.xml")
+		if (workspace.getTitle().toString().contains(".timing.violet.xml")
 				|| workspace.getTitle().toString().substring(2, 4).equals("Ti"))// 时序图
 		{
 
@@ -375,7 +377,7 @@ public class MainFrame extends JFrame
 			}
 			
 		}
-		if (workspace.getTitle().toString().endsWith(".seq.violet.xml")
+		if (workspace.getTitle().toString().contains(".seq.violet.xml")
 				|| workspace.getTitle().toString().substring(2, 4).equals("Se"))// 如果是顺序图
 		{
 
@@ -398,7 +400,7 @@ public class MainFrame extends JFrame
 			}
 			
 		}
-		if (workspace.getTitle().toString().endsWith(".state.violet.xml")
+		if (workspace.getTitle().toString().contains(".state.violet.xml")
 				|| workspace.getTitle().toString().substring(2, 4).equals("St"))// 如果是状态图
 		{
 
@@ -433,7 +435,7 @@ public class MainFrame extends JFrame
 //       replaceWelcomePanelByTabbedPane(); 
     	//在添加图形元素的时候，首先判断下是哪种图形
     	
-        if(workspace.getTitle().toString().endsWith(".ucase.violet.xml")
+        if(workspace.getTitle().toString().contains(".ucase.violet.xml")
         		||workspace.getTitle().toString().substring(2, 4).equals("Us"))//如果是用例图
      	{
      		if(this.UseCaseWorkspaceList.contains(workspace))
@@ -469,7 +471,7 @@ public class MainFrame extends JFrame
      		
    		     repaint();    		    
      	}
-        if(workspace.getTitle().toString().endsWith(".timing.violet.xml")
+        if(workspace.getTitle().toString().contains(".timing.violet.xml")
         		||workspace.getTitle().toString().substring(2, 4).equals("Ti"))//时序图
      	{
      		if(this.TimingWorkspaceList.contains(workspace))
@@ -505,7 +507,7 @@ public class MainFrame extends JFrame
      	   
      	    repaint();    		    
      	}
-     	if(workspace.getTitle().toString().endsWith(".seq.violet.xml")
+     	if(workspace.getTitle().toString().contains(".seq.violet.xml")
      			||workspace.getTitle().toString().substring(2, 4).equals("Se"))//如果是顺序图
      			
  		{
@@ -540,7 +542,7 @@ public class MainFrame extends JFrame
 			listenToDiagramPanelEvents(workspace, SequenceWorkspaceList);
      	    repaint();    		              
  		}    
-     	if(workspace.getTitle().toString().endsWith(".state.violet.xml")
+     	if(workspace.getTitle().toString().contains(".state.violet.xml")
      			||workspace.getTitle().toString().substring(2, 4).equals("St"))//如果是状态图
  		{
      		if(this.StateWorkspaceList.contains(workspace))
@@ -578,7 +580,7 @@ public class MainFrame extends JFrame
      	 /*
      	  * 展示uppaal
      	  */
-     	if(workspace.getTitle().toString().endsWith(".uppaal.violet.xml")
+     	if(workspace.getTitle().toString().contains(".uppaal.violet.xml")
      			&&!workspace.getTitle().toString().substring(0, 3).equals(("abs")))
      	{		
      		if(this.UppaalWorkspaceList.contains(workspace))
@@ -645,7 +647,7 @@ public class MainFrame extends JFrame
      	 /*
      	  * 展示uppaal
      	  */
-     	if(workspace.getTitle().toString().endsWith(".uppaal.violet.xml"))
+     	if(workspace.getTitle().toString().contains(".uppaal.violet.xml"))
      	{		
      		if(this.SequenceToUppaalWorkspaceList.contains(workspace))
      		{
@@ -700,7 +702,7 @@ public class MainFrame extends JFrame
     }
     
     if(flag==22){
-    	if(workspace.getTitle().toString().endsWith(".uppaal.violet.xml"))
+    	if(workspace.getTitle().toString().contains(".uppaal.violet.xml"))
      	{		
      		if(this.TimingToUppaalWorkspaceList.contains(workspace))
      		{
@@ -1338,6 +1340,40 @@ public class MainFrame extends JFrame
 			// js4.setDividerSize(8);
 			// js4.setOneTouchExpandable(true);
 			// js4.setContinuousLayout(true);
+			
+			
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					while (true) {
+						try {
+							EditSelectedBehavior.Reflock.take();
+                            
+							if(getStepOneCenterTabbedPane().getSelectedIndex()==0){
+								int index=getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex();
+								RefNode refNode = (RefNode) (getSequenceWorkspaceList().get(index).getEditorPart().getSelectionHandler().getLastSelectedNode());
+					            String refName = refNode.getText().getText();
+					            
+//					            System.err.println(refName+" - - "+index);
+					            
+					            for(ButtonTabbedPanel btpanel:getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists()){
+//					            	System.out.println(btpanel.getTabbedbuttontext());
+					            	if(btpanel.getTabbedbuttontext().equals(refName)){
+					            		btpanel.getTabbedbutton().doClick();
+					            		break;
+					            	}
+					            }
+							}
+				            
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			}).start();
 
         }
         return this.mainPanel;

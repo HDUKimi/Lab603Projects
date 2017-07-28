@@ -216,7 +216,7 @@ public class ButtonTabbedPanel extends JPanel{
 					// 这里分两种情况
 					// 1、新建:判断是不是类似于N.XXX类型
 					// 2、导入:判断文件名后缀是不是.XXX.violet.xml
-					if (workspace.getTitle().toString().endsWith(".seq.violet.xml")
+					if (workspace.getTitle().toString().contains(".seq.violet.xml")
 							|| workspace.getTitle().toString().substring(2, 4).equals("Se")) {
 						
 						mainFrame.getStepOneCenterTabbedPane().setSelectedIndex(0);
@@ -257,7 +257,7 @@ public class ButtonTabbedPanel extends JPanel{
 //						mainFrame.getAttributePartPanel().ChangeRepaint();
 						
 					}
-					else if (workspace.getTitle().toString().endsWith(".ucase.violet.xml")
+					else if (workspace.getTitle().toString().contains(".ucase.violet.xml")
 							|| workspace.getTitle().toString().substring(2, 4).equals("Us")) {
 						
 						mainFrame.getStepOneCenterTabbedPane().setSelectedIndex(3);
@@ -298,7 +298,7 @@ public class ButtonTabbedPanel extends JPanel{
 						mainFrame.getConsolePartPanel().getTextarea1().append("打开用例图 "+tabbedbutton.getText()+" 的绘图面板\n");
 						
 					}
-					else if (workspace.getTitle().toString().endsWith(".timing.violet.xml")
+					else if (workspace.getTitle().toString().contains(".timing.violet.xml")
 							|| workspace.getTitle().toString().substring(2, 4).equals("Ti")) {
 						
 						mainFrame.getStepOneCenterTabbedPane().setSelectedIndex(1);
@@ -333,7 +333,7 @@ public class ButtonTabbedPanel extends JPanel{
 						mainFrame.getConsolePartPanel().getTextarea1().append("打开时序图 "+tabbedbutton.getText()+" 的绘图面板\n");
 						
 					}
-					else if (workspace.getTitle().toString().endsWith(".state.violet.xml")
+					else if (workspace.getTitle().toString().contains(".state.violet.xml")
 							|| workspace.getTitle().toString().substring(2, 4).equals("St")) {
 						
 						mainFrame.getStepOneCenterTabbedPane().setSelectedIndex(2);
@@ -481,6 +481,14 @@ public class ButtonTabbedPanel extends JPanel{
 
 	public void setButtontabbedpanelindex(int buttontabbedpanelindex) {
 		this.buttontabbedpanelindex = buttontabbedpanelindex;
+	}
+
+	public String getTabbedbuttontext() {
+		return tabbedbuttontext;
+	}
+
+	public void setTabbedbuttontext(String tabbedbuttontext) {
+		this.tabbedbuttontext = tabbedbuttontext;
 	}
 	
 	

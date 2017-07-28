@@ -241,7 +241,7 @@ public class GraphToolPanel extends JPanel {
 		
 		
 //		System.out.println("++++++++"+label);
-		icon.setImage(icon.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+//		icon.setImage(icon.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
 		
 		return icon;
 	}

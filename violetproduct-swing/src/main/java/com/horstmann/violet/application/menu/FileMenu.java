@@ -1057,6 +1057,7 @@ public class FileMenu extends JMenu
                             mainFrame.addTabbedPane(diagramPanel);
                             String itemname=item.getText().substring(0, 2);
                             JButton tabbutton = null;
+                            ButtonTabbedPanel btpanel=null;
                             
                             List<ButtonTabbedPanel> sequenceDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists();
         					List<ButtonTabbedPanel> timingDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists();
@@ -1074,7 +1075,9 @@ public class FileMenu extends JMenu
                             	
                             	mainFrame.getConsolePartPanel().getTextarea1().append("新建用例图: "+str+".seq.violet.xml\n");
                             	
-                            	tabbutton=usecaseDiagramButtonTabbedPanelLists.get(usecaseDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+                            	btpanel=usecaseDiagramButtonTabbedPanelLists.get(usecaseDiagramButtonTabbedPanelLists.size()-1);
+                            	tabbutton=btpanel.getTabbedbutton();
+                            	btpanel.setTabbedbuttontext(str);
                             	tabbutton.setText(str);
                             	tabbutton.doClick();
                             	
@@ -1097,7 +1100,9 @@ public class FileMenu extends JMenu
                             	
                             	mainFrame.getConsolePartPanel().getTextarea1().append("新建状态图: "+str+".state.violet.xml\n");
                             	
-                            	tabbutton=stateDiagramButtonTabbedPanelLists.get(stateDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+                            	btpanel=stateDiagramButtonTabbedPanelLists.get(stateDiagramButtonTabbedPanelLists.size()-1);
+                            	tabbutton=btpanel.getTabbedbutton();
+                            	btpanel.setTabbedbuttontext(str);
                             	tabbutton.setText(str);
                             	tabbutton.doClick();
                             	
@@ -1120,7 +1125,9 @@ public class FileMenu extends JMenu
                             	
                             	mainFrame.getConsolePartPanel().getTextarea1().append("新建顺序图: "+str+".seq.violet.xml\n");
                             	
-                            	tabbutton=sequenceDiagramButtonTabbedPanelLists.get(sequenceDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+                            	btpanel=sequenceDiagramButtonTabbedPanelLists.get(sequenceDiagramButtonTabbedPanelLists.size()-1);
+                            	tabbutton=btpanel.getTabbedbutton();
+                            	btpanel.setTabbedbuttontext(str);
                             	tabbutton.setText(str);
                             	tabbutton.doClick();
                             	
@@ -1143,7 +1150,9 @@ public class FileMenu extends JMenu
                             	
                             	mainFrame.getConsolePartPanel().getTextarea1().append("新建时序图: "+str+".timing.violet.xml\n");
                             	
-                            	tabbutton=timingDiagramButtonTabbedPanelLists.get(timingDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
+                            	btpanel=timingDiagramButtonTabbedPanelLists.get(timingDiagramButtonTabbedPanelLists.size()-1);
+                            	tabbutton=btpanel.getTabbedbutton();
+                            	btpanel.setTabbedbuttontext(str);
                             	tabbutton.setText(str);
                             	tabbutton.doClick();
                             	
