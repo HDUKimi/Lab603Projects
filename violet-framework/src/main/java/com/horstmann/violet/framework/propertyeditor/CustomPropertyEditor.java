@@ -47,11 +47,13 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -103,25 +105,26 @@ public class CustomPropertyEditor implements ICustomPropertyEditor
 			// 通过BeanIndo进行内省
 			PropertyDescriptor[] descriptors = (PropertyDescriptor[]) info.getPropertyDescriptors().clone();
 
-			if (bean.getClass().getSimpleName().equals("CallEdge")) {
-
-				List<PropertyDescriptor> pdlist=new ArrayList<>();
-				
-				for(PropertyDescriptor pro:descriptors)
-	            {
-					String proname=pro.getName();
-	            	if(proname.equals("input")||proname.equals("name")||proname.equals("output")||proname.equals("parameter")||proname.equals("signal")||proname.equals("timereset")||proname.equals("timing")){
-	            		pdlist.add(pro);
-	            	}
-	            }
-				descriptors=null;
-				descriptors=pdlist.toArray(new PropertyDescriptor[0]);
-			}
+//			if (bean.getClass().getSimpleName().equals("CallEdge")) {
+//
+//				List<PropertyDescriptor> pdlist=new ArrayList<>();
+//				
+//				for(PropertyDescriptor pro:descriptors)
+//	            {
+//					String proname=pro.getName();
+//	            	if(proname.equals("input")||proname.equals("name")||proname.equals("output")||proname.equals("parameter")||proname.equals("signal")||proname.equals("timereset")||proname.equals("timing")){
+//	            		pdlist.add(pro);
+//	            	}
+//	            }
+//				descriptors=null;
+//				descriptors=pdlist.toArray(new PropertyDescriptor[0]);
+//			}
             
-//            for(PropertyDescriptor pro:descriptors)
-//            {
-//            	System.out.println(pro.getName());
-//            }
+			System.out.println("----------------------------------");
+            for(PropertyDescriptor pro:descriptors)
+            {
+            	System.out.print(pro.getName());
+            }
             
             Arrays.sort(descriptors, new Comparator<PropertyDescriptor>()
             {

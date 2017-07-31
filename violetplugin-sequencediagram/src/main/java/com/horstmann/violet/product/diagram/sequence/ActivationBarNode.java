@@ -416,13 +416,33 @@ public class ActivationBarNode extends RectangularNode
             if (edge.getStart() == this)
             {
                 INode endingNode = edge.getEnd();
+                INode startingnode = edge.getStart();
                 boolean isActivationBarNode = endingNode instanceof ActivationBarNode;
                 //如果另外一个节点是activationBarNode
 				if (isActivationBarNode)
                 {
-					Rectangle2D endingNodeBounds = endingNode.getBounds();//获取结束节点的边界
-					double newHeight = CALL_YGAP / 2 + endingNodeBounds.getHeight() + (endingNode.getLocationOnGraph().getY() - this.getLocationOnGraph().getY()) + CALL_YGAP / 2;
-					height = Math.max(height,  newHeight);
+					INode endnode = endingNode;
+					System.out.println("end1: " + endnode.getParent().getClass().getSimpleName());
+					while(!endnode.getParent().getClass().getSimpleName().equals("LifelineNode"))
+					{
+						endnode = endnode.getParent();
+					}
+					
+					INode startnode = startingnode;
+					while (!startnode.getParent().getClass().getSimpleName().equals("LifelineNode")) {
+						startnode = startnode.getParent();
+					}
+					System.out.println(startnode.getParent().getClass().getSimpleName());
+					if(startnode.getParent().getID().equals(endnode.getParent().getID()))
+					{
+						continue;
+					}
+					else{
+						Rectangle2D endingNodeBounds = endingNode.getBounds();//获取结束节点的边界
+						double newHeight = CALL_YGAP / 2 + endingNodeBounds.getHeight() + (endingNode.getLocationOnGraph().getY() - this.getLocationOnGraph().getY()) + CALL_YGAP / 2;
+						height = Math.max(height,  newHeight);
+					}
+					
                 }
             }
         }
@@ -575,7 +595,8 @@ public class ActivationBarNode extends RectangularNode
         super.draw(g2);
         g2.setColor(getBackgroundColor());
         g2.fill(b);
-        g2.setColor(getBorderColor());
+		g2.setColor(Color.black);
+//        g2.setColor(getBorderColor());
         g2.draw(b);
         // Restore g2 original location
         g2.translate(-g2Location.getX(), -g2Location.getY());//得到g2原始的位置
@@ -685,6 +706,24 @@ public class ActivationBarNode extends RectangularNode
         if (startingNodeClass.isAssignableFrom(ActivationBarNode.class)
                 && endingNodeClass.isAssignableFrom(ActivationBarNode.class))
         {
+        	INode endNode = edge.getEnd();
+            INode startNode = edge.getStart();
+			
+			INode endnode = endNode;
+			while(!endNode.getParent().getClass().getSimpleName().equals("LifelineNode"))
+			{
+				endNode = endNode.getParent();
+			}
+			
+			INode startnode = startNode;
+			while (!startnode.getParent().getClass().getSimpleName().equals("LifelineNode")) {
+				startnode = startnode.getParent();
+			}
+			System.out.println("ID: " + startnode.getParent().getID());
+			if(startnode.getParent().getID().equals(endnode.getParent().getID()))
+			{
+				return false;
+			}
             return true;
         }
         // Case 3 : an activation bar creates a new class instance

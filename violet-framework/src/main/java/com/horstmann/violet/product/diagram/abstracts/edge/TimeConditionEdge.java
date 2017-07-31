@@ -23,7 +23,7 @@ public  class TimeConditionEdge extends ShapeEdge{
 	    public TimeConditionEdge()
 	    {
 	        
-	        middleLabel = "";
+	        Termofvalidity = "";
 	     
 	    }
 	    
@@ -70,15 +70,15 @@ public  class TimeConditionEdge extends ShapeEdge{
 
 
 	  
-	    public void setMiddleLabel(String newValue)
+	    public void setTermofvalidity(String newValue)
 	    {
-	        middleLabel = newValue;
+	        Termofvalidity = newValue;
 	    }
 
 	
-	    public String getMiddleLabel()
+	    public String getTermofvalidity()
 	    {
-	        return middleLabel;
+	        return Termofvalidity;
 	    }
 
 	   
@@ -100,10 +100,13 @@ public  class TimeConditionEdge extends ShapeEdge{
 	     
 	        g2.setStroke(oldStroke);	       
 	        getEndArrowHead().draw(g2, (Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1),Color.BLACK);	       
-	        drawString(g2, (Point2D) points.get(points.size() / 2 - 1), (Point2D) points.get(points.size() / 2), null, middleLabel,
+	        drawString(g2, (Point2D) points.get(points.size() / 2 - 1), (Point2D) points.get(points.size() / 2), null, Termofvalidity,
 	                true);
 	    
 	        g2.setColor(oldColor);
+	        System.out.println("size: " + points.size());
+	        setStartLocation(points.get(0));
+	        setEndLocation(points.get(1));
 	    }
 
 	    /**
@@ -213,7 +216,7 @@ public  class TimeConditionEdge extends ShapeEdge{
 	          Rectangle2D r = super.getBounds();
 	          r.add(getStringBounds((Point2D) points.get(1), (Point2D) points.get(0), getStartArrowHead(),"", false));
 	          r.add(getStringBounds((Point2D) points.get(points.size() / 2 - 1), (Point2D) points.get(points.size() / 2), null,
-	                  middleLabel, true));
+	                  Termofvalidity, true));
 	          r.add(getStringBounds((Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1), getEndArrowHead(),
 	                  "", false));	     	        
 	        return r;
@@ -221,9 +224,9 @@ public  class TimeConditionEdge extends ShapeEdge{
 	    public ArrayList<Point2D> getPoints()
 	    {	  
 	    	
-	        Point2D startingPoint = new Point2D.Double(getStartLocation().getX()+50,
+	        Point2D startingPoint = new Point2D.Double(getStartLocation().getX(),
 	        		getStartLocation().getY());
-	        Point2D endingPoint = new Point2D.Double(getEndLocation().getX()+50,
+	        Point2D endingPoint = new Point2D.Double(getStartLocation().getX(),
 	        		getEndLocation().getY());          
 	        return BentStyle.STRAIGHT.getPath(startingPoint, endingPoint);
 	    }
@@ -249,8 +252,8 @@ public  class TimeConditionEdge extends ShapeEdge{
 	    public GeneralPath getSegmentPath()
 	    {
 	        GeneralPath path = new GeneralPath();
-	        Point2D p1=new Point2D.Double(getStartLocation().getX()+50,getStartLocation().getY());
-	        Point2D p2=new Point2D.Double(getEndLocation().getX()+50,getEndLocation().getY());
+	        Point2D p1=new Point2D.Double(getStartLocation().getX(),getStartLocation().getY());
+	        Point2D p2=new Point2D.Double(getStartLocation().getX(),getEndLocation().getY());
 	        path.moveTo(p1.getX(), p1.getY());
 	        path.lineTo(p2.getX(), p2.getY());
 	        return path;
@@ -267,7 +270,7 @@ public  class TimeConditionEdge extends ShapeEdge{
 	    
 	    private ArrowHead startArrowHead;
 	 
-	    private String middleLabel;
+	    private String Termofvalidity;
 	  
 	    private static JLabel label = new JLabel();
 	

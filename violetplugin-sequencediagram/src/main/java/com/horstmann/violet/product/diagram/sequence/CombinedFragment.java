@@ -16,6 +16,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.jar.Attributes.Name;
 
 import javax.xml.transform.Templates;
 
@@ -31,6 +32,7 @@ import com.horstmann.violet.workspace.Workspace;
 import com.horstmann.violet.workspace.WorkspacePanel;
 import com.horstmann.violet.workspace.editorpart.EditorPart;
 import com.horstmann.violet.workspace.editorpart.IEditorPart;
+import com.horstmann.violet.workspace.editorpart.behavior.EditSelectedBehavior;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -39,10 +41,10 @@ public class CombinedFragment  extends RectangularNode
    public CombinedFragment()
    {	
        type= new FragmentType().ALT;      
+	   fragmentType = "";    
        conditions=new Condition();
        fragmentParts=new ArrayList<FragmentPart>();
-    
- 
+       name = "";
    }
 @Override
 public Condition getCondition() {
@@ -51,6 +53,14 @@ public Condition getCondition() {
 public void setCondition(Condition conditions) {
 	this.conditions = conditions;	
 }
+
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
+
 @Override
    public Rectangle2D getBounds()//改变外部边框
    {	
@@ -99,7 +109,13 @@ public void setHeight(double height) {
 public void setType(FragmentType newValue)
    {  
        type= newValue;   
-        
+   } 
+public String getFragmentType() {
+
+	return fragmentType;
+}
+public void setFragmentType(String fragmentType) {
+	this.fragmentType = fragmentType;
    } 
 //绘制TimeNode节点
    @Override
@@ -155,6 +171,8 @@ public void setType(FragmentType newValue)
        fold.closePath();
        g2.setColor(Color.BLACK);
        type.drawType(g2, bounds);
+       String SplitProperties[]=type.toString().split("\\.");
+	   setFragmentType(SplitProperties[8]);
        Shape path = getShape();
        g2.draw(path);
        g2.draw(fold);
@@ -214,10 +232,14 @@ public void SetFragmentPartBorderLine()
        cloned.conditions=(Condition)conditions.clone();  
        return cloned;
    }		
+  
    private FragmentType type;
+   private String fragmentType;
    private Condition conditions;//监护条件 
  
    private List<FragmentPart> fragmentParts;//分块
+   
+   private String name;
   
    private static int d =10;
    private double width=200,height=100 ;
@@ -230,4 +252,5 @@ public void SetFragmentPartBorderLine()
 		    }, 0.0f);
    private static double Default_FirstConditionTextDistance=40;
    private static double Default_OtherConditionTextDistance=20;
+   private static int INFINITE_Z_LEVEL = 10002;
 }

@@ -43,7 +43,7 @@ public class DragCombinedFragmentBorderLineBehavior extends AbstractEditorPartBe
         {
             return;
         }
-        GraphTool selectedTool = this.selectionHandler.getSelectedTool();
+//        GraphTool selectedTool = this.selectionHandler.getSelectedTool();
 //        if (!INode.class.isInstance(selectedTool.getNodeOrEdge()))
 //        {       	
 //            return;
@@ -102,6 +102,33 @@ public class DragCombinedFragmentBorderLineBehavior extends AbstractEditorPartBe
         double zoom = editorPart.getZoomFactor();
         Point2D mousePoint = new Point2D.Double(event.getX() / zoom, event.getY() / zoom);      
         List<FragmentPart> fragmentparts=selectedNode.getFragmentParts(); 
+        if(borderlineflag != 0 && borderlineflag !=  fragmentparts.size()-1)
+        {
+        	FragmentPart previous = fragmentparts.get(borderlineflag-1);
+        	FragmentPart next = fragmentparts.get(borderlineflag+1);
+        	if(mousePoint.getY() > next.getBorderline().getY1()
+        	   || mousePoint.getY() < previous.getBorderline().getY1())
+        	{
+        		return;
+        	}
+        }
+        else if (borderlineflag == 0) {
+        	FragmentPart next = fragmentparts.get(borderlineflag+1);
+        	if(mousePoint.getY() < selectedNode.getBounds().getY() 
+        	  || mousePoint.getY() > next.getBorderline().getY1())
+        	{
+        		return;
+        	}
+		}
+        else if (borderlineflag == fragmentparts.size()-1) {
+        	FragmentPart previous = fragmentparts.get(borderlineflag-1);
+        	if(mousePoint.getY() > (selectedNode.getBounds().getY()+selectedNode.getBounds().getHeight())
+        			|| mousePoint.getY() < previous.getBorderline().getY1())
+        	{
+        		return;
+        	}
+			
+		}
         double dy = mousePoint.getY() - lastMousePoint.getY();  
         Line2D Borderline=fragmentparts.get(borderlineflag).getBorderline();       
         Point2D newBorderLineStartPoint=new Point2D.Double(Borderline.getX1(),Borderline.getY1()+dy);

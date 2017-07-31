@@ -199,10 +199,17 @@ public class ConditionEditor extends PropertyEditorSupport
 	private void InitConditions() {
 	
 	List<String> conditionTexts= condition.getConditionTexts();
+	if(conditionTexts != null)
+	{
+		if(conditionTexts.size() != 0)
+		{
 	for(String conditionText: conditionTexts)
 		{			
 	     conditionTableModel.addEntry(conditionText);
 	    }
+		}
+	}
+	
 	}	
 	public void insertUpate()
 	{									

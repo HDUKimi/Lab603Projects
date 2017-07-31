@@ -140,6 +140,10 @@ public class CallEdge extends SegmentedLineEdgeByCai
         Point2D q = new Point2D.Double(endingPoint.getX() + LOOP_GAP, p.getY());
         Point2D r = new Point2D.Double(q.getX(), endingPoint.getY());
         Point2D s = endingPoint;
+        
+        this.setStartLocation(p);
+        this.setEndLocation(s);
+        
         a.add(p);
         a.add(q);
         a.add(r);

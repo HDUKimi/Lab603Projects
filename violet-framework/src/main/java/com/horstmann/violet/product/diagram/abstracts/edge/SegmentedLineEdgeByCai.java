@@ -54,12 +54,14 @@ public abstract class SegmentedLineEdgeByCai extends ShapeEdge
      */
     public SegmentedLineEdgeByCai()
     {
-    	name = "";
-        input = "";
-        parameter = "";
-        output = "";
-        timing = "";
-        timereset = "";
+        message = "";
+        parameters = "";
+        arguments = "";
+        returnvalue = "";
+        condition = "";
+        constraint = "";
+        alias = "";
+        timeconstraint = "";
     }
     
     @Override
@@ -173,86 +175,78 @@ public abstract class SegmentedLineEdgeByCai extends ShapeEdge
         return this.endArrowHead;
     }
 
-    /**
-     * Sets the start label property
-     * 
-     * @param newValue the new value
-     */
-    public void setinput(String newValue)
-    {
-        input = newValue;
-    }
 
-    /**
-     * Gets the start label property
-     * 
-     * @return the label at the start of the edge
-     */
-    public String getinput()
-    {
-        return input;
-    }
 
-    /**
-     * Sets the middle label property
-     * 
-     * @param newValue the new value
-     */
-    public void setparameter(String newValue)
-    {
-        parameter = newValue;
-    }
-
-    /**
-     * Gets the middle label property
-     * 
-     * @return the label at the middle of the edge
-     */
-    public String getparameter()
-    {
-        return parameter;
-    }
-
-    /**
-     * Sets the end label property
-     * 
-     * @param newValue the new value
-     */
-    public void setoutput(String newValue)
-    {
-        output = newValue;
-    }
-
-    /**
-     * Gets the end label property
-     * 
-     * @return the label at the end of the edge
-     */
-    public String getoutput()
-    {
-        return output;
-    }
-    public String getName() {
-  		return name;
-  	}
-
-  	public void setName(String name) {
-  		this.name = name;
-  	}
-
-  	public String getTiming() {
-  		return timing;
-  	}
-
-  	public void setTiming(String timing) {
-  		this.timing = timing;
-  	}
-  	public String getTimereset() {
-		return timereset;
+	public String getParameters() {
+		return parameters;
 	}
 
-	public void setTimereset(String timereset) {
-		this.timereset = timereset;
+	public void setParameters(String parameters) {
+		this.parameters = parameters;
+	}
+
+	public String getArguments() {
+		return arguments;
+	}
+
+	public void setArguments(String arguments) {
+		this.arguments = arguments;
+	}
+
+	public String getAssign() {
+		return assign;
+	}
+
+	public void setAssign(String assign) {
+		this.assign = assign;
+	}
+
+	public String getReturnvalue() {
+		return returnvalue;
+	}
+
+	public void setReturnvalue(String returnvalue) {
+		this.returnvalue = returnvalue;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getCondition() {
+		return condition;
+	}
+
+	public void setCondition(String condition) {
+		this.condition = condition;
+	}
+
+	public String getConstraint() {
+		return constraint;
+	}
+
+	public void setConstraint(String constraint) {
+		this.constraint = constraint;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+	
+	public String getTimeconstraint() {
+		return timeconstraint;
+	}
+
+	public void setTimeconstraint(String timeconstraint) {
+		this.timeconstraint = timeconstraint;
 	}
     /**
      * Draws the edge.
@@ -269,15 +263,15 @@ public abstract class SegmentedLineEdgeByCai extends ShapeEdge
         g2.setStroke(getLineStyle().getStroke());
         g2.draw(getSegmentPath());      
         g2.setStroke(oldStroke);
-        setStartLocation(getPoints().get(0));
-        setEndLocation(getPoints().get(1));
-        getStartArrowHead().draw(g2, (Point2D) points.get(1), (Point2D) points.get(0),Color.black);
-        getEndArrowHead().draw(g2, (Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1),Color.black);
-        int x = (int)points.get(0).getX()+40;
-        int y = (int)points.get(0).getY();
-        Point2D point2d = new Point(x, y);
+//        setStartLocation(getPoints().get(0));
+//        setEndLocation(getPoints().get(1));
+        getStartArrowHead().draw(g2, (Point2D) points.get(1), (Point2D) points.get(0),Color.BLACK);
+        getEndArrowHead().draw(g2, (Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1),Color.BLACK);
+//        int x = (int)points.get(0).getX()+40;
+//        int y = (int)points.get(0).getY();
+//        Point2D point2d = new Point(x, y);
         //drawString(g2, (Point2D) points.get(1), point2d, getStartArrowHead(), input, false);
-        drawString(g2, (Point2D) points.get(points.size() / 2 - 1), (Point2D) points.get(points.size() / 2), null, name,
+        drawString(g2, (Point2D) points.get(points.size() / 2 - 1), (Point2D) points.get(points.size() / 2), null, message,
                 true);
 //        drawString(g2, (Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1), getEndArrowHead(),
 //                output, false);
@@ -389,11 +383,8 @@ public abstract class SegmentedLineEdgeByCai extends ShapeEdge
     {
         ArrayList<Point2D> points = getPoints();
         Rectangle2D r = super.getBounds();
-        r.add(getStringBounds((Point2D) points.get(1), (Point2D) points.get(0), getStartArrowHead(), input, false));
         r.add(getStringBounds((Point2D) points.get(points.size() / 2 - 1), (Point2D) points.get(points.size() / 2), null,
-                parameter, true));
-        r.add(getStringBounds((Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1), getEndArrowHead(),
-                output, false));
+                message, true));
         return r;
     }
 
@@ -524,22 +515,22 @@ public abstract class SegmentedLineEdgeByCai extends ShapeEdge
         }
         return straightDirection;
     }
-    @XStreamOmitField
+//    @XStreamOmitField
     private LineStyle lineStyle;
-    @XStreamOmitField
+//    @XStreamOmitField
     private ArrowHead startArrowHead;
-    @XStreamOmitField
+//    @XStreamOmitField
     private ArrowHead endArrowHead;
-    @XStreamOmitField
+//    @XStreamOmitField
     private BentStyle bentStyle;
-
-    private String input;
-    private String parameter;
-    private String output;
-  
-	private String name;
-    private String timing;
-    
-	private String timereset;
+    private String parameters;
+    private String arguments;
+    private String assign;
+    private String returnvalue;  
+    private String message;
+    private String condition;    
+    private String constraint;
+    private String alias;
+    private String timeconstraint;
     private static JLabel label = new JLabel();
 }

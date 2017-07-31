@@ -173,6 +173,7 @@ public class DragSelectedBehavior extends AbstractEditorPartBehavior
             		 
             	  fragmentPart.getNestingChildNodesID().clear();
            	      fragmentPart.getCoveredMessagesID().clear();//每次在移动时重置，因为每次点击时都需要判断嵌套关系
+           	      fragmentPart.getCoveredLifelinedID().clear();
             	 }
             	 
                   for(INode node : Nodes)
@@ -208,6 +209,19 @@ public class DragSelectedBehavior extends AbstractEditorPartBehavior
             		{      
             			
             			fragmentPart.AddCoveredMessagesID(edge.getID().toString());
+            			INode startNodeParent = edge.getStart().getParent();
+                        INode endNodeParent = edge.getEnd().getParent();
+                        
+            			if(startNodeParent.getClass().getSimpleName().equals("LifelineNode") 
+            					&& !fragmentPart.getCoveredLifelinedID().contains(startNodeParent.getID()))
+            			{
+            				fragmentPart.AddCoveredLifelinedID(startNodeParent.getID());
+            			}
+            			if(endNodeParent.getClass().getSimpleName().equals("LifelineNode")
+            					&& !fragmentPart.getCoveredLifelinedID().contains(endNodeParent.getID()))
+            			{
+            				fragmentPart.AddCoveredLifelinedID(endNodeParent.getID());
+            			}
             		}            		            		 
             	 }
               }           	         	

@@ -261,8 +261,8 @@ public abstract class SegmentedLineEdgeCai extends ShapeEdge
         g2.setStroke(getLineStyle().getStroke());
         g2.draw(getSegmentPath());
         g2.setStroke(oldStroke);
-        getStartArrowHead().draw(g2, (Point2D) points.get(1), (Point2D) points.get(0),Color.black);
-        getEndArrowHead().draw(g2, (Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1),Color.black);
+        getStartArrowHead().draw(g2, (Point2D) points.get(1), (Point2D) points.get(0),Color.BLACK);
+        getEndArrowHead().draw(g2, (Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1),Color.BLACK);
 
         drawString(g2, (Point2D) points.get(1), (Point2D) points.get(0), getStartArrowHead(), startLabel, false);
          System.out.println("µÚÒ»¸ö£º"+points.get(0));
@@ -516,13 +516,13 @@ public abstract class SegmentedLineEdgeCai extends ShapeEdge
         }
         return straightDirection;
     }
-    @XStreamOmitField
+//    @XStreamOmitField
     private LineStyle lineStyle;
-    @XStreamOmitField
+//    @XStreamOmitField
     private ArrowHead startArrowHead;
-    @XStreamOmitField
+//    @XStreamOmitField
     private ArrowHead endArrowHead;
-    @XStreamOmitField
+//    @XStreamOmitField
     private BentStyle bentStyle;
  
     private String startLabel;

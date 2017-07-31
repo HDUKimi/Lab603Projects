@@ -213,6 +213,32 @@ public class ExistVerification {
 			sourceLocation.getTransitions().add(transitionI);
 		}
 	}
+	
+	// 判断路径的最大最小时间是否满足输入
+		public boolean getPathByInput(String input) {
+			int minTime = 0;
+			int maxTime = 0;
+			for(PathTuple pathTuple :pathTuples) {
+				String timeD = pathTuple.transition.timeDuration;
+				if(input.contains("=")) {
+					minTime += timeD.contains("<=") ? Integer.valueOf(timeD.split("<=")[1]) : 0;
+					maxTime += timeD.contains(">=") ? Integer.valueOf(timeD.split(">=")[1]) : 0;
+				} else {
+					minTime += timeD.contains("<") ? Integer.valueOf(timeD.split("<")[1]) : 0;
+					maxTime += timeD.contains(">") ? Integer.valueOf(timeD.split(">")[1]) : 0;
+				}
+
+			}
+			
+			if(input.contains("<")) {
+				return satisfy(minTime, input);
+			} else if(input.contains(">")){
+				return satisfy(maxTime, input);
+			} else {
+				return false;
+			}
+		}
+
 
 	// *实时一致性验证
 	public boolean verificationTimeDuration() {

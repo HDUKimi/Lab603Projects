@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingDeque;
 
 import com.horstmann.violet.product.diagram.abstracts.edge.HorizontalChild;
 import com.horstmann.violet.product.diagram.abstracts.edge.IEdge;
@@ -39,6 +41,7 @@ import com.horstmann.violet.product.diagram.abstracts.edge.ISequenceTimeEdge;
 import com.horstmann.violet.product.diagram.abstracts.edge.SEdge;
 import com.horstmann.violet.product.diagram.abstracts.node.INode;
 import com.horstmann.violet.product.diagram.abstracts.node.RectangularNode;
+import com.horstmann.violet.product.diagram.abstracts.property.FragmentPart;
 import com.horstmann.violet.product.diagram.common.NoteNode;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -70,6 +73,9 @@ public abstract  class AbstractGraph implements Serializable, Cloneable, IGraph
     {
         for (INode n : getAllNodes())
         {
+
+        	if(!n.getClass().getSimpleName().equals("CombinedFragment"))
+        {
             Point2D locationOnGraph = n.getLocationOnGraph();//获取绝对位置
             Rectangle2D bounds = n.getBounds();//获取节点的绘图边界
             Rectangle2D boundsToCheck = new Rectangle2D.Double(locationOnGraph.getX(), locationOnGraph.getY(), bounds.getWidth(),
@@ -78,6 +84,38 @@ public abstract  class AbstractGraph implements Serializable, Cloneable, IGraph
             {
                 return n;
             }
+        	}
+        	else {
+        		 Point2D locationOnGraph = n.getLocationOnGraph();//获取绝对位置
+        		 Rectangle2D bounds = n.getBounds();//获取节点的绘图边界
+        		 Rectangle2D boundsToCheck = new Rectangle2D.Double(locationOnGraph.getX(), locationOnGraph.getY(), 50,
+                         30);//返回绘图边界的矩形
+        		 if (boundsToCheck.contains(p))
+                 {
+                     return n;
+                 }
+        		 else {
+        			 Rectangle2D FragmentBounds = new Rectangle2D.Double(locationOnGraph.getX(), locationOnGraph.getY(), bounds.getWidth(),
+        					 bounds.getHeight());
+        			 if(FragmentBounds.contains(p))
+        			 {
+        				 List<FragmentPart> fragmentparts=n.getFragmentParts(); 
+        				   for(FragmentPart fragmentPart: fragmentparts)
+        			        {    
+        			          Line2D borderline= fragmentPart.getBorderline();
+        			          double locationX=borderline.getP1().getX();
+        			          double locationY=borderline.getP1().getY()-5;
+        			          Rectangle2D borderlinebound=new Rectangle2D.Double(locationX,locationY,n.getWidth(),Default_BorderlineBoundHeight);
+        			          if(borderlinebound.contains(p))
+        			          {
+        			         	borderlineflag=fragmentparts.indexOf(fragmentPart);
+        			         	return n;
+        			          }
+        			        }  
+        			 }	 
+				}   		 
+			}
+            
         }
         return null;
     }
@@ -414,8 +452,11 @@ public abstract  class AbstractGraph implements Serializable, Cloneable, IGraph
 
 	private ArrayList<INode> nodes;
     private ArrayList<IEdge> edges;
-    
+    private int borderlineflag;
     private transient Rectangle2D 
     minBounds;
     private transient IGridSticker gridSticker;
+    public static BlockingDeque<Integer> lock = new LinkedBlockingDeque<Integer>();
+    
+    private static double Default_BorderlineBoundHeight=10;
 }

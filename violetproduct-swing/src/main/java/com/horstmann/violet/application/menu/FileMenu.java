@@ -816,58 +816,58 @@ public class FileMenu extends JMenu
 		}
 	}
     
-    private List<IFile> openEAXML(IFile selectedFile, String url)
-    {
-    	List<IFile> EAFiles = new ArrayList<IFile>();
-//    	File ffff =FileSystemView.getFileSystemView().getHomeDirectory();
-//		String s =ffff .getAbsolutePath();
-//		String base=s+"\\ModelDriverProjectFile";
-//		mainFrame.setBathRoute(base);
-   	    String path = null;
-   	    File ff=null;//用于生成在d盘中文件
-   	    String name="";
-		List<Object> information = judgeEAXML(url);
-		List<EADiagram> EADiagrams = (List<EADiagram>) information.get(1);
-		for(EADiagram eaDiagram : EADiagrams)
-		{
-			 if("Use Case".equals(eaDiagram.getType())){
-			 		try {
-			 			path=mainFrame.getBathRoute()+"/UseCaseDiagram/";
-			 			String aimPath=path+"EAXML";
-			 			XMLUtils.AutoSave(url, aimPath,selectedFile.getFilename());
-			 	 		readUseCaseXMLFromEA ru =new readUseCaseXMLFromEA(url,selectedFile,eaDiagram);
-			 	 		CreateUseCaseDiagramVioletXml cu =new CreateUseCaseDiagramVioletXml();
-			 	 		name=selectedFile.getFilename().replaceAll(".xml", ".ucase.violet.xml");		
-						cu.create(ru, path+"Violet/"+name);
-						File f =new File(path+"Violet/"+name);
-						selectedFile =new LocalFile(f);
-						EAFiles.add(selectedFile);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			 	}
-			 else if("Sequence".equals(eaDiagram.getType())){
-			 		path=mainFrame.getBathRoute()+"/SequenceDiagram/";
-			 		String aimPath=path+"EAXML";
-//			 		XMLUtils.AutoSave(url, aimPath,selectedFile.getFilename());
-			 		name=eaDiagram.getName()+".seq.violet.xml";
-			 		directory=selectedFile.getDirectory();
-			 		fileName=selectedFile.getFilename();
-			 		try {
-						MainTransEAToViolet.TransEAToViolet(url,path+"Violet/"+name,name,eaDiagram);
-						File f =new File(path+"Violet/"+name);
-				 		deleteFileFirstLine(f);
-						selectedFile =new LocalFile(f);
-						EAFiles.add(selectedFile);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}	
-			 	}	
-		}
-		return  EAFiles;
-    }
+//    private List<IFile> openEAXML(IFile selectedFile, String url)
+//    {
+//    	List<IFile> EAFiles = new ArrayList<IFile>();
+////    	File ffff =FileSystemView.getFileSystemView().getHomeDirectory();
+////		String s =ffff .getAbsolutePath();
+////		String base=s+"\\ModelDriverProjectFile";
+////		mainFrame.setBathRoute(base);
+//   	    String path = null;
+//   	    File ff=null;//用于生成在d盘中文件
+//   	    String name="";
+//		List<Object> information = judgeEAXML(url);
+//		List<EADiagram> EADiagrams = (List<EADiagram>) information.get(1);
+//		for(EADiagram eaDiagram : EADiagrams)
+//		{
+//			 if("Use Case".equals(eaDiagram.getType())){
+//			 		try {
+//			 			path=mainFrame.getBathRoute()+"/UseCaseDiagram/";
+//			 			String aimPath=path+"EAXML";
+//			 			XMLUtils.AutoSave(url, aimPath,selectedFile.getFilename());
+//			 	 		readUseCaseXMLFromEA ru =new readUseCaseXMLFromEA(url,selectedFile,eaDiagram);
+//			 	 		CreateUseCaseDiagramVioletXml cu =new CreateUseCaseDiagramVioletXml();
+//			 	 		name=selectedFile.getFilename().replaceAll(".xml", ".ucase.violet.xml");		
+//						cu.create(ru, path+"Violet/"+name);
+//						File f =new File(path+"Violet/"+name);
+//						selectedFile =new LocalFile(f);
+//						EAFiles.add(selectedFile);
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//			 	}
+//			 else if("Sequence".equals(eaDiagram.getType())){
+//			 		path=mainFrame.getBathRoute()+"/SequenceDiagram/";
+//			 		String aimPath=path+"EAXML";
+////			 		XMLUtils.AutoSave(url, aimPath,selectedFile.getFilename());
+//			 		name=eaDiagram.getName()+".seq.violet.xml";
+//			 		directory=selectedFile.getDirectory();
+//			 		fileName=selectedFile.getFilename();
+//			 		try {
+//						MainTransEAToViolet.TransEAToViolet(url,path+"Violet/"+name,name,eaDiagram);
+//						File f =new File(path+"Violet/"+name);
+//				 		deleteFileFirstLine(f);
+//						selectedFile =new LocalFile(f);
+//						EAFiles.add(selectedFile);
+//					} catch (Exception e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}	
+//			 	}	
+//		}
+//		return  EAFiles;
+//    }
     
     private String judgeVioletXML(String url)
     {
