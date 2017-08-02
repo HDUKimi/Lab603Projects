@@ -173,10 +173,10 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		testCaseProcessButtonPanel = new FixedButtonTabbedPanel("测试用例生成进程");
 		testCaseProcessButton = testCaseProcessButtonPanel.getTabbedbutton();
 		
-		uppaalParseInforButtonPanel = new FixedButtonTabbedPanel("解析时间自动机");
+		uppaalParseInforButtonPanel = new FixedButtonTabbedPanel("获取时间自动机");
 		uppaalParseInforButton = uppaalParseInforButtonPanel.getTabbedbutton();
 		
-		uppaalOptimizationButtonPanel = new FixedButtonTabbedPanel("时间自动机优化约简");
+		uppaalOptimizationButtonPanel = new FixedButtonTabbedPanel("约简状态空间");
 		uppaalOptimizationButton = uppaalOptimizationButtonPanel.getTabbedbutton();
 
 		uppaalSplitStateButtonPanel = new FixedButtonTabbedPanel("符号状态拆分");
@@ -194,10 +194,10 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		testCaseCoverButtonPanel = new FixedButtonTabbedPanel("路径覆盖");
 		testCaseCoverButton = testCaseCoverButtonPanel.getTabbedbutton();
 		
-		testCaseSortContrastButtonPanel=new FixedButtonTabbedPanel("重要度排序");
+		testCaseSortContrastButtonPanel=new FixedButtonTabbedPanel("对比");
 		testCaseSortContrastButton=testCaseSortContrastButtonPanel.getTabbedbutton();
 
-		testCaseProduceButtonPanel = new FixedButtonTabbedPanel("添加约束条件");
+		testCaseProduceButtonPanel = new FixedButtonTabbedPanel("获取测试序列");
 		testCaseProduceButton = testCaseProduceButtonPanel.getTabbedbutton();
 		
 		testCaseInstantiationButtonPanel = new FixedButtonTabbedPanel("实例化");

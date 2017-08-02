@@ -28,6 +28,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -39,6 +40,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.consolepart.TableHeadPanel;
+import com.horstmann.violet.application.consolepart.ValidationLocationMessagePanel;
 import com.horstmann.violet.application.consolepart.ValidationMessageComparePanel;
 import com.horstmann.violet.application.consolepart.ValidationPathTupleTimePanel;
 import com.horstmann.violet.application.consolepart.ValidationStateComparePanel;
@@ -53,6 +55,7 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyUppaalLabelRe
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ToolPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.UppaalToolPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ValidationToolPanel;
+import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.CompareEAtoAutomata;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.ExistVerification;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.LocationVerificationDisplay;
@@ -136,14 +139,15 @@ public class ModelExistValidationPanel extends JPanel{
 	
 	private JPanel assessdealpanel1;
 	private JPanel assessdealpanel2;
+	private JPanel assessdealpanel3;
 	private JPanel assessdeallabelpanel1;
 	private JPanel assessdeallabelpanel11;
 	private JLabel assessdeallabel1;
 	private JLabel assessdeallabel11;
 	private JTextField assessdealtext11;
 	private JButton assessdealbutton1;
-	private JPanel assessdeallinepanel;
-	private JLabel assessdeallinelabel;
+	private JPanel assessdeallinepanel1;
+	private JLabel assessdeallinelabel1;
 	private JPanel assessdeallabelpanel2;
 	private JPanel assessdeallabelpanel21;
 	private JPanel assessdeallabelpanel22;
@@ -153,6 +157,14 @@ public class ModelExistValidationPanel extends JPanel{
 	private JTextField assessdealtext21;
 	private JTextField assessdealtext22;
 	private JButton assessdealbutton2;
+	private JPanel assessdeallinepanel2;
+	private JLabel assessdeallinelabel2;
+	private JPanel assessdeallabelpanel3;
+	private JPanel assessdeallabelpanel31;
+	private JLabel assessdeallabel3;
+	private JLabel assessdeallabel31;
+	private JTextField assessdealtext31;
+	private JButton assessdealbutton3;
 	
 	private List<UppaalTransition> uppaalmessagelist=new ArrayList<UppaalTransition>();
 	private List<UppaalTransition> selecteduppaalmessagelist=new ArrayList<UppaalTransition>();
@@ -416,17 +428,23 @@ public class ModelExistValidationPanel extends JPanel{
 		
 		assessdealpanel1=new JPanel();
 		assessdealpanel2=new JPanel();
-		assessdeallinepanel=new JPanel();
+		assessdealpanel3=new JPanel();
+		assessdeallinepanel1=new JPanel();
+		assessdeallinepanel2=new JPanel();
 		
 		initAssessDealPanelOne();
 		
 		initAssessDealPanelTwo();
 		
+		initAssessDealPanelThree();
+		
 		initAssessDealLinePanel();
 		
 		assessdealpanel1.setBackground(new Color(255, 255, 255));
 		assessdealpanel2.setBackground(new Color(255, 255, 255));
-		assessdeallinepanel.setBackground(new Color(255, 255, 255));
+		assessdealpanel3.setBackground(new Color(255, 255, 255));
+		assessdeallinepanel1.setBackground(new Color(255, 255, 255));
+		assessdeallinepanel2.setBackground(new Color(255, 255, 255));
 		
 //		JPanel emptypanel=new JPanel();
 //		emptypanel.setLayout(new GridLayout());
@@ -436,12 +454,16 @@ public class ModelExistValidationPanel extends JPanel{
 		GridBagLayout layout=new GridBagLayout();
 		assessdealpanel.setLayout(layout);
 		assessdealpanel.add(assessdealpanel1);
-		assessdealpanel.add(assessdeallinepanel);
+		assessdealpanel.add(assessdeallinepanel1);
 		assessdealpanel.add(assessdealpanel2);
+		assessdealpanel.add(assessdeallinepanel2);
+		assessdealpanel.add(assessdealpanel3);
 //		assessdealpanel.add(emptypanel);
 		layout.setConstraints(assessdealpanel1, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(assessdeallinepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(assessdeallinepanel1, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(assessdealpanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(assessdeallinepanel2, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(assessdealpanel3, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //		layout.setConstraints(emptypanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		JPanel borderpanel=new JPanel();
@@ -459,16 +481,36 @@ public class ModelExistValidationPanel extends JPanel{
 	private void initAssessDealLinePanel() {
 		// TODO Auto-generated method stub
 		
-		assessdeallinelabel=new JLabel();
+		assessdeallinelabel1=new JLabel();
 		
-		assessdeallinelabel.setText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
-		assessdeallinelabel.setPreferredSize(new Dimension(100, 3));
-		assessdeallinelabel.setForeground(new Color(223, 204, 221));
+		assessdeallinelabel1.setText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
+		assessdeallinelabel1.setPreferredSize(new Dimension(100, 3));
+		assessdeallinelabel1.setForeground(new Color(223, 204, 221));
 		
-		assessdeallinepanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 0));
-		assessdeallinepanel.setLayout(new GridLayout());
-		assessdeallinepanel.add(assessdeallinelabel);
+		assessdeallinepanel1.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 0));
+		assessdeallinepanel1.setLayout(new GridLayout());
+		assessdeallinepanel1.add(assessdeallinelabel1);
 		
+		assessdeallinelabel2=new JLabel();
+		
+		assessdeallinelabel2.setText("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
+		assessdeallinelabel2.setPreferredSize(new Dimension(100, 3));
+		assessdeallinelabel2.setForeground(new Color(223, 204, 221));
+		
+		assessdeallinepanel2.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 0));
+		assessdeallinepanel2.setLayout(new GridLayout());
+		assessdeallinepanel2.add(assessdeallinelabel2);
+		
+	}
+	
+	protected void initAssessUIPanel() {
+		// TODO Auto-generated method stub
+		
+		mainFrame.getValidationResultPanel().getFivenamelabel().setText("评估结果： ");
+		mainFrame.getValidationResultPanel().getFiveresultpanel().removeAll();
+		mainFrame.getValidationResultPanel().ChangeRepaint();
+		
+		mainFrame.getStepSixCenterTabbedPane().getValidationToolPanel().initValidationProgressbar();
 	}
 
 	private void initAssessDealPanelOne() {
@@ -481,7 +523,7 @@ public class ModelExistValidationPanel extends JPanel{
 		assessdealtext11=new JTextField();
 		assessdealbutton1=new JButton();
 		
-		assessdeallabel1.setText("评估一");
+		assessdeallabel1.setText("存在一致性评估");
 		assessdeallabel1.setForeground(new Color(0,0,0));
 		assessdeallabel1.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		assessdeallabel1.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
@@ -514,6 +556,76 @@ public class ModelExistValidationPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				
+				initAssessUIPanel();
+				
+				Thread t=new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						
+						String message=assessdealtext11.getText();
+						
+						if(message==null||message.trim().equals("")){
+							JOptionPane.showMessageDialog(null, "消息不能为空！", "存在一致性评估" , JOptionPane.WARNING_MESSAGE);
+							System.out.println("message is null");
+						}
+						else{
+							
+							List<UppaalTransition> uppaalMessageTransitionList = new ArrayList<>();
+							UppaalTransition umt=new UppaalTransition();
+							umt.setName(message);
+							uppaalMessageTransitionList.add(umt);
+
+							List<UppaalTransition> uppaalTransitionList = new ArrayList<>();
+							uppaalTransitionList=mainFrame.getModelExistValidationPanel().getEv().getSelectedTransitionsIfExist(uppaalMessageTransitionList);
+
+							if(uppaalTransitionList==null){
+								JOptionPane.showMessageDialog(null, "消息 "+message+" 不存在！", "存在一致性评估" , JOptionPane.ERROR_MESSAGE);
+								System.out.println("message is not exist ");
+							}
+							else{
+								TranMessageColorize tmc=new TranMessageColorize();
+								tmc.ColorizeTran(uppaalTransitionList,mainFrame.getModelExistValidationPanel().getUppaalworkspace());
+								
+								mainFrame.getValidationResultPanel().getFivenamelabel().setText("共找到"+uppaalTransitionList.size()+"条消息：");
+								
+								mainFrame.getValidationResultPanel().getFiveresultpanel().removeAll();
+								
+								System.out.println("++++++++++++++++++++");
+								
+								JPanel resultpanel=new JPanel();
+								JPanel emptypanel=new JPanel();
+								resultpanel.setOpaque(false);
+								emptypanel.setOpaque(false);
+								
+								GridBagLayout layout = new GridBagLayout();
+								resultpanel.setLayout(layout);
+								int i=0;
+								for(UppaalTransition ut:uppaalTransitionList){
+									System.out.println(ut);
+									
+									ValidationTransitionMessagePanel vtmpanel=new ValidationTransitionMessagePanel(ut);
+									resultpanel.add(vtmpanel);
+									layout.setConstraints(vtmpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+									
+								}
+								resultpanel.add(emptypanel);
+								layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+								mainFrame.getValidationResultPanel().getFiveresultpanel().add(resultpanel);
+								mainFrame.getValidationResultPanel().ChangeRepaint();
+								System.out.println("++++++++++++++++++++");
+								
+								JOptionPane.showMessageDialog(null, "消息 "+message+" 存在！", "存在一致性评估" , JOptionPane.INFORMATION_MESSAGE);
+								System.out.println("message is exist ");
+							}
+							
+						}
+						
+					}
+				});
+				t.start();
 				
 			}
 		});
@@ -552,7 +664,7 @@ public class ModelExistValidationPanel extends JPanel{
 		assessdealtext22=new JTextField();
 		assessdealbutton2=new JButton();
 		
-		assessdeallabel2.setText("评估二");
+		assessdeallabel2.setText("顺序一致性评估");
 		assessdeallabel2.setForeground(new Color(0,0,0));
 		assessdeallabel2.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		assessdeallabel2.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
@@ -597,6 +709,88 @@ public class ModelExistValidationPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
+				initAssessUIPanel();
+				
+				Thread t=new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						
+						String message1=assessdealtext21.getText();
+						String message2=assessdealtext22.getText();
+						
+						if(message1==null||message1.trim().equals("")||message2==null||message2.trim().equals("")){
+							JOptionPane.showMessageDialog(null, "消息A或消息B不能为空！", "顺序一致性评估" , JOptionPane.WARNING_MESSAGE);
+							System.out.println("message1 or message2 is null");
+						}
+						else{
+							
+							List<UppaalTransition> uppaalMessageTransitionList = new ArrayList<>();
+							UppaalTransition umt1=new UppaalTransition();
+							umt1.setName(message1);
+							uppaalMessageTransitionList.add(umt1);
+							UppaalTransition umt2=new UppaalTransition();
+							umt2.setName(message2);
+							uppaalMessageTransitionList.add(umt2);
+
+							List<PathTuple> pathTupleList = new ArrayList<>();
+							pathTupleList=mainFrame.getModelExistValidationPanel().getEv().getPathOfSelectedTransitions(uppaalMessageTransitionList);
+							
+							if(pathTupleList==null){
+								JOptionPane.showMessageDialog(null, "找不到路径！", "顺序一致性评估" , JOptionPane.ERROR_MESSAGE);
+								System.out.println("message is not exist ");
+							}
+							else{
+								
+								TranMessageColorize tmc=new TranMessageColorize();
+								tmc.ColorizeTranAndState(pathTupleList, mainFrame.getModelExistValidationPanel().getUppaalworkspace());
+								mainFrame.getValidationResultPanel().getFivenamelabel().setText("共找到一条路径，包含"+pathTupleList.size()+"个节点和"+pathTupleList.size()+"条消息：");
+								
+								mainFrame.getValidationResultPanel().getFiveresultpanel().removeAll();
+								
+								System.out.println("++++++++++++++++++++");
+								
+								JPanel resultpanel=new JPanel();
+								JPanel emptypanel=new JPanel();
+								resultpanel.setOpaque(false);
+								emptypanel.setOpaque(false);
+								
+								GridBagLayout layout = new GridBagLayout();
+								resultpanel.setLayout(layout);
+								int i=0;
+								
+								for(PathTuple pt:pathTupleList){
+									System.out.println(pt.getLocation().toString()+ " --- "+pt.getTransition().toString());
+									
+									ValidationLocationMessagePanel vlmpanel=new ValidationLocationMessagePanel(pt.getLocation());
+									resultpanel.add(vlmpanel);
+									layout.setConstraints(vlmpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+									
+									ValidationTransitionMessagePanel vtmpanel=new ValidationTransitionMessagePanel(pt.getTransition());
+									resultpanel.add(vtmpanel);
+									layout.setConstraints(vtmpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+									
+								}
+								
+								resultpanel.add(emptypanel);
+								layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//								mainFrame.getValidationResultPanel().getResultpanel().add(Box.createVerticalGlue());
+								mainFrame.getValidationResultPanel().getFiveresultpanel().add(resultpanel);
+								mainFrame.getValidationResultPanel().ChangeRepaint();
+								
+								System.out.println("++++++++++++++++++++");
+								
+								JOptionPane.showMessageDialog(null, "找到路径！", "顺序一致性评估" , JOptionPane.INFORMATION_MESSAGE);
+								System.out.println("message is exist ");
+							}
+							
+						}
+						
+					}
+				});
+				t.start();
+				
 			}
 		});
 		
@@ -626,6 +820,121 @@ public class ModelExistValidationPanel extends JPanel{
 		layout.setConstraints(assessdeallabelpanel2, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(assessdeallabelpanel21, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(assessdeallabelpanel22, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		
+	}
+	
+	private void initAssessDealPanelThree() {
+		// TODO Auto-generated method stub
+		
+		assessdeallabelpanel3=new JPanel();
+		assessdeallabelpanel31=new JPanel();
+		assessdeallabel3=new JLabel();
+		assessdeallabel31=new JLabel();
+		assessdealtext31=new JTextField();
+		assessdealbutton3=new JButton();
+		
+		assessdeallabel3.setText("实时一致性评估");
+		assessdeallabel3.setForeground(new Color(0,0,0));
+		assessdeallabel3.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		assessdeallabel3.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		
+		assessdeallabel31.setText("时间：");
+		assessdeallabel31.setForeground(new Color(0,0,0));
+		assessdeallabel31.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		assessdeallabel31.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 18));
+		
+		assessdealtext31.setForeground(new Color(0,0,0));
+		assessdealtext31.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		assessdealtext31.setPreferredSize(new Dimension(100, 20));
+		assessdealtext31.setMaximumSize(new Dimension(100, 20));
+		assessdealtext31.setMinimumSize(new Dimension(100, 20));
+		
+		String absolutePath=System.getProperty("user.dir");
+		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
+
+		ImageIcon icon1 = new ImageIcon(path + "resultset_next.png");
+		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+
+		assessdealbutton3.setIcon(icon1);
+		assessdealbutton3.setFocusable(false);
+		assessdealbutton3.setContentAreaFilled(false);
+		assessdealbutton3.setBorderPainted(false);
+		assessdealbutton3.addMouseListener(new ButtonMouseListener());
+		assessdealbutton3.setPreferredSize(new Dimension(21,21));
+		assessdealbutton3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				initAssessUIPanel();
+				
+				Thread t=new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						
+						String message=assessdealtext31.getText();
+						
+						if(message==null||message.trim().equals("")){
+							JOptionPane.showMessageDialog(null, "时间不能为空！", "实时一致性评估" , JOptionPane.WARNING_MESSAGE);
+							System.out.println("message is null");
+						}
+						else{
+							
+							if(isInequality(message)){
+								Boolean result=mainFrame.getModelExistValidationPanel().getEv().getPathByInput(message);
+								JOptionPane.showMessageDialog(null, "结果 "+result, "实时一致性评估" , JOptionPane.INFORMATION_MESSAGE);
+								System.out.println("result is "+result);
+							}
+							else{
+								JOptionPane.showMessageDialog(null, "时间参数格式不符合要求！", "实时一致性评估" , JOptionPane.WARNING_MESSAGE);
+								System.out.println("message is not conform format");
+							}
+							
+						}
+						
+					}
+				});
+				t.start();
+				
+			}
+		});
+		
+		assessdeallabelpanel3.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+		assessdeallabelpanel3.setOpaque(false);
+		assessdeallabelpanel3.setLayout(new BorderLayout());
+		assessdeallabelpanel3.add(assessdeallabel3,BorderLayout.WEST);
+		assessdeallabelpanel3.add(assessdealbutton3, BorderLayout.EAST);
+		
+		assessdeallabelpanel31.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+		assessdeallabelpanel31.setOpaque(false);
+		assessdeallabelpanel31.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		assessdeallabelpanel31.add(assessdeallabel31);
+		assessdeallabelpanel31.add(assessdealtext31);
+
+		GridBagLayout layout=new GridBagLayout();
+		assessdealpanel3.setLayout(layout);
+		assessdealpanel3.add(assessdeallabelpanel3);
+		assessdealpanel3.add(assessdeallabelpanel31);
+		layout.setConstraints(assessdeallabelpanel3, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(assessdeallabelpanel31, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		
+	}
+	
+	public Boolean isInequality(String str){
+		
+		Boolean result=false;
+		
+		if(str.startsWith("t>=")||str.startsWith("t<=")){
+			result=str.substring(3).matches("[0-9]+");
+		}
+		else if(str.startsWith("t>")||str.startsWith("t<")){
+			result=str.substring(2).matches("[0-9]+");
+		}
+		
+		return result;
 		
 	}
 
@@ -1000,7 +1309,8 @@ public class ModelExistValidationPanel extends JPanel{
 		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
 		
 		ValidationToolPanel toolPanel = new ValidationToolPanel(mainFrame,uppaalworkspace);
-
+		mainFrame.getStepSixCenterTabbedPane().setValidationToolPanel(toolPanel);
+		
 		MoviePanel moviePanel = new MoviePanel();
 
 		GridBagLayout layout = new GridBagLayout();
@@ -1600,101 +1910,101 @@ public class ModelExistValidationPanel extends JPanel{
 		ImageIcon icon2 = new ImageIcon(path + "dropdown.png");
 		icon2.setImage(icon2.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 
-		validationtoolbutton1.setIcon(icon1);
-		validationtoolbutton1.setFocusable(false);
-		validationtoolbutton1.setContentAreaFilled(false);
-		validationtoolbutton1.setBorderPainted(false);
-		validationtoolbutton1.addMouseListener(new ButtonMouseListener());
-		validationtoolbutton1.setPreferredSize(new Dimension(21,21));
-		validationtoolbutton1.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-				selecteduppaalmessagelist.clear();
-				for(JCheckBox jcb:uppaalMessageCheckBoxList){
-					if(jcb.isSelected()){
-						selecteduppaalmessagelist.add(uppaalmessagelist.get(uppaalMessageCheckBoxList.indexOf(jcb)));
-					}
-				}
-				
-				
-				if(validationlabeltabindex==1){
-					
-					List<UppaalTransition> l = null;
-					l=ev.getSelectedTransitionsIfExist(selecteduppaalmessagelist);
-					
-					if(l==null){
-						System.out.println("list is null");
-					}
-					else{
-						System.out.println("   ----------   ");
-						
-						mainFrame.getValidationResultPanel().getOnenamelabel().setText("共找到"+l.size()+"条消息：");
-						
-						mainFrame.getValidationResultPanel().getOneresultpanel().removeAll();
-//						mainFrame.getValidationResultPanel().getResultpanel().setLayout(new BoxLayout(mainFrame.getValidationResultPanel().getResultpanel(), BoxLayout.Y_AXIS));
-						
-						System.out.println(mainFrame.getValidationResultPanel().getOneresultpanel().size());
-						System.out.println("++++++++++++++++++++");
-						
-						JPanel resultpanel=new JPanel();
-						JPanel emptypanel=new JPanel();
-						resultpanel.setOpaque(false);
-						emptypanel.setOpaque(false);
-						
-						GridBagLayout layout = new GridBagLayout();
-						resultpanel.setLayout(layout);
-						int i=0;
-						for(UppaalTransition u:l){
-							System.out.println(u);
-							
-							ValidationTransitionMessagePanel vtmpanel=new ValidationTransitionMessagePanel(u);
-							resultpanel.add(vtmpanel);
-							layout.setConstraints(vtmpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-							
-						}
-						resultpanel.add(emptypanel);
-						layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-//						mainFrame.getValidationResultPanel().getResultpanel().add(Box.createVerticalGlue());
-						mainFrame.getValidationResultPanel().getOneresultpanel().add(resultpanel);
-						mainFrame.getValidationResultPanel().ChangeRepaint();
-						System.out.println("++++++++++++++++++++");
-						
-					}
-					
-				}else if(validationlabeltabindex==2){
-					
-					List<PathTuple> l=null;
-					l=ev.getPathOfSelectedTransitions(selecteduppaalmessagelist);
-					
-					if(l==null){
-						System.out.println("list is null");
-					}
-					else{
-						System.out.println("   ----------   ");
-						
-						System.out.println("++++++++++++++++++++");
-						for(PathTuple u:l){
-							System.out.println(u.getLocation().toString()+ " --- "+u.getTransition().toString());
-						}
-						System.out.println("++++++++++++++++++++");
-						
-						
-					}
-				}
-				
-				
-				
-//				System.out.println("++++++++++++++++++++");
-//				System.out.println(validationlabeltabindex);
-//				for(UppaalTransition u:selecteduppaalmessagelist){
-//					System.out.println(u);
+//		validationtoolbutton1.setIcon(icon1);
+//		validationtoolbutton1.setFocusable(false);
+//		validationtoolbutton1.setContentAreaFilled(false);
+//		validationtoolbutton1.setBorderPainted(false);
+//		validationtoolbutton1.addMouseListener(new ButtonMouseListener());
+//		validationtoolbutton1.setPreferredSize(new Dimension(21,21));
+//		validationtoolbutton1.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//				// TODO Auto-generated method stub
+//				
+//				selecteduppaalmessagelist.clear();
+//				for(JCheckBox jcb:uppaalMessageCheckBoxList){
+//					if(jcb.isSelected()){
+//						selecteduppaalmessagelist.add(uppaalmessagelist.get(uppaalMessageCheckBoxList.indexOf(jcb)));
+//					}
 //				}
-//				System.out.println("++++++++++++++++++++");
-			}
-		});
+//				
+//				
+//				if(validationlabeltabindex==1){
+//					
+//					List<UppaalTransition> l = null;
+//					l=ev.getSelectedTransitionsIfExist(selecteduppaalmessagelist);
+//					
+//					if(l==null){
+//						System.out.println("list is null");
+//					}
+//					else{
+//						System.out.println("   ----------   ");
+//						
+//						mainFrame.getValidationResultPanel().getOnenamelabel().setText("共找到"+l.size()+"条消息：");
+//						
+//						mainFrame.getValidationResultPanel().getOneresultpanel().removeAll();
+////						mainFrame.getValidationResultPanel().getResultpanel().setLayout(new BoxLayout(mainFrame.getValidationResultPanel().getResultpanel(), BoxLayout.Y_AXIS));
+//						
+//						System.out.println(mainFrame.getValidationResultPanel().getOneresultpanel().size());
+//						System.out.println("++++++++++++++++++++");
+//						
+//						JPanel resultpanel=new JPanel();
+//						JPanel emptypanel=new JPanel();
+//						resultpanel.setOpaque(false);
+//						emptypanel.setOpaque(false);
+//						
+//						GridBagLayout layout = new GridBagLayout();
+//						resultpanel.setLayout(layout);
+//						int i=0;
+//						for(UppaalTransition u:l){
+//							System.out.println(u);
+//							
+//							ValidationTransitionMessagePanel vtmpanel=new ValidationTransitionMessagePanel(u);
+//							resultpanel.add(vtmpanel);
+//							layout.setConstraints(vtmpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//							
+//						}
+//						resultpanel.add(emptypanel);
+//						layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+////						mainFrame.getValidationResultPanel().getResultpanel().add(Box.createVerticalGlue());
+//						mainFrame.getValidationResultPanel().getOneresultpanel().add(resultpanel);
+//						mainFrame.getValidationResultPanel().ChangeRepaint();
+//						System.out.println("++++++++++++++++++++");
+//						
+//					}
+//					
+//				}else if(validationlabeltabindex==2){
+//					
+//					List<PathTuple> l=null;
+//					l=ev.getPathOfSelectedTransitions(selecteduppaalmessagelist);
+//					
+//					if(l==null){
+//						System.out.println("list is null");
+//					}
+//					else{
+//						System.out.println("   ----------   ");
+//						
+//						System.out.println("++++++++++++++++++++");
+//						for(PathTuple u:l){
+//							System.out.println(u.getLocation().toString()+ " --- "+u.getTransition().toString());
+//						}
+//						System.out.println("++++++++++++++++++++");
+//						
+//						
+//					}
+//				}
+//				
+//				
+//				
+////				System.out.println("++++++++++++++++++++");
+////				System.out.println(validationlabeltabindex);
+////				for(UppaalTransition u:selecteduppaalmessagelist){
+////					System.out.println(u);
+////				}
+////				System.out.println("++++++++++++++++++++");
+//			}
+//		});
 		
 		validationtoolbutton2.setIcon(icon2);
 		validationtoolbutton2.setFocusable(false);

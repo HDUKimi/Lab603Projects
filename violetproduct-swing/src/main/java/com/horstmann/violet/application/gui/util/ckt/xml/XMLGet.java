@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -380,9 +381,20 @@ public class XMLGet {
 	 */
 	public static ArrayList<Automatic> testcaseNew(ArrayList<Automatic> testCase){
 		ArrayList<Automatic> testcaseNew = new ArrayList<Automatic>();
-		for(int i=testCase.size()-1; i>=0; i--){
-			testcaseNew.add(testCase.get(i));
+		ArrayList<Automatic> testCase1 = new ArrayList<Automatic>();
+		for(Automatic a:testCase){
+			testCase1.add(a);
 		}
+		Random rand=new Random();
+		for (int i=testCase.size();i>0;i--) {
+			int index = rand.nextInt(i);
+			testcaseNew.add(testCase1.get(index));
+			testCase1.remove(index);
+		}
+		
+		/*for(int i=testCase.size()-1; i>=0; i--){
+			testcaseNew.add(testCase.get(i));
+		}*/
 		return testcaseNew;
 	}
 	

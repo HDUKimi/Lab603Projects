@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -736,11 +737,16 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				checkedtestcasereportlist.removeAll(checkedtestcasereportlist);
 				selectedtestcaselist.removeAll(selectedtestcaselist);
 				
+				int index=0;
 				for(JPanel jp:testcasereportlist){
 					FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) jp;
 					if (ftcrpp.getToolcheckbox().isSelected()) {
 						checkedtestcasereportlist.add(ftcrpp);
 						selectedtestcaselist.add(ftcrpp.getTestcase());
+					}
+					index++;
+					if(index==300){
+						break;
 					}
 				}
 				
@@ -748,20 +754,31 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				testcasename=mainFrame.getTestCaseConfirmationPanel().getTestcasename();
 				
 				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"selected.xml";
-				extractDataToXml(extraxmlpath, selectedtestcaselist);//生成测试用例xml
+				extractDataToXml(extraxmlpath, selectedtestcaselist, 1);//生成测试用例xml
 				File file=new File(extraxmlpath);
 				
 				//接收到测试结果list
 //				File[] files = {file};
 //				clientSocket.sendFile(files);
 				
-				Controller.Run(new Pair<String, File>("function", file));
-
 				TextAreaPrint("发送测试用例数据...");
 				gaindatathread.start();
 				
+				Controller.Run(new Pair<String, File>("function", file));
+
+				
+				
 //				List<TestCase> testcaselist= ClientRecThread.getTestCaseList();
-				List<TestCase> testcaselist= Controller.testCaseMap.get("function");
+				List<TestCase> testcaselist=new ArrayList<>();
+				try {
+					testcaselist = Controller.getResult("function");
+				} catch (ExecutionException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} catch (InterruptedException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 				
 				File f=new File("D:\\test.txt");
 				try {
@@ -1076,29 +1093,43 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				checkedtestcasereportlist.removeAll(checkedtestcasereportlist);
 				selectedtestcaselist.removeAll(selectedtestcaselist);
 				
+//				int index=0;
 				for(JPanel jp:testcasereportlist){
 					PerformanceTestCaseReportPartPanel tcrpp=(PerformanceTestCaseReportPartPanel) jp;
 					checkedtestcasereportlist.add(tcrpp);
 					selectedtestcaselist.add(tcrpp.getTestcase());
+//					index++;
+//					if(index==1000){
+//						break;
+//					}
 				}
 				
 //				testcasename=mainFrame.getTestCaseConfirmationPanel().getTestcasename();
 				
 				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"selected.xml";
-				extractDataToXml(extraxmlpath, selectedtestcaselist);//生成测试用例xml
+				extractDataToXml(extraxmlpath, selectedtestcaselist, 2);//生成测试用例xml
 				File file=new File(extraxmlpath);
 				
 				//接收到测试结果list
 //				File[] files = {file};
 //				clientSocket.sendFile(files);
 				
-				Controller.Run(new Pair<String, File>("performance", file));
-
 				TextAreaPrint("发送测试用例数据...");
 				gaindatathread.start();
 				
+				Controller.Run(new Pair<String, File>("performance", file));
+
 //				List<TestCase> testcaselist = ClientRecThread.getTestCaseList();
-				List<TestCase> testcaselist= Controller.testCaseMap.get("performance");
+				List<TestCase> testcaselist=new ArrayList<>();
+				try {
+					testcaselist = Controller.getResult("performance");
+				} catch (ExecutionException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} catch (InterruptedException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 				
 				File f=new File("D:\\test.txt");
 				try {
@@ -1444,7 +1475,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				System.err.println(selectedtestcaselist.size());
 
 				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"selected.xml";
-				extractDataToXml(extraxmlpath, selectedtestcaselist);//生成测试用例xml
+				extractDataToXml(extraxmlpath, selectedtestcaselist, 3);//生成测试用例xml
 //				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\TimeTest\\"+testcasename+".xml";
 				File file=new File(extraxmlpath);
 				
@@ -1452,13 +1483,22 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				File[] files = {file};
 //				clientSocket.sendFile(files);
 				
-				Controller.Run(new Pair<String, File>("time", file));
-				
 				TextAreaPrint("发送测试用例数据...");
 				gaindatathread.start();
 				
+				Controller.Run(new Pair<String, File>("time", file));
+				
 //				List<TestCase> testcaselist = ClientRecThread.getTestCaseList();
-				List<TestCase> testcaselist= Controller.testCaseMap.get("time");
+				List<TestCase> testcaselist=new ArrayList<>();
+				try {
+					testcaselist = Controller.getResult("time");
+				} catch (ExecutionException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} catch (InterruptedException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 				
 				File f=new File("D:\\test.txt");
 				try {
@@ -1542,10 +1582,10 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						System.out.println(s);
 					}
 					System.out.println("time.getShowMap() : "+time.getShowMap().size());
-					for(Entry<String, Pair<String, String>> en:time.getShowMap().entrySet()){
-						System.out.println(en.getKey()+"  -  "+en.getValue().getFirst()+"  -  "+en.getValue().getSecond());
-						
-					}
+//					for(Entry<String, Pair<String, String>> en:time.getShowMap().entrySet()){
+//						System.out.println(en.getKey()+"  -  "+en.getValue().getFirst()+"  -  "+en.getValue().getSecond());
+//						
+//					}
 					
 				}
 				System.out.println("-------------------------------------------------");
@@ -1772,13 +1812,13 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		this.setVisible(true);
 	}
 	
-	private void extractDataToXml(String path, List<TestCase> list) {
+	private void extractDataToXml(String path, List<TestCase> list, int type) {
 		// TODO Auto-generated method stub
 		
 		Document doc = DocumentHelper.createDocument();
 		Element TCS=doc.addElement("TCS");
 		
-		if(mainFrame.getHomeAllTabbedPanel().getStarttype()==3){
+		if(type==3){
 			for(TestCase tc:list){
 				Element testcase = TCS.addElement("testcase");
 //				System.out.println(tc.getProcessList().size());

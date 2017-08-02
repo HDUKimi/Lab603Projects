@@ -169,7 +169,7 @@ public class UppaalParseInforTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("正在解析时间自动机");
+		moviepanel.getMovieLabel().setText("正在解析xml，获取时间自动机");
 		
 	}
 

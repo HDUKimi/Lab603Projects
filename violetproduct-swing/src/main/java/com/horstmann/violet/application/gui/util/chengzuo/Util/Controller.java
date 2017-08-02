@@ -16,22 +16,24 @@ import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
  *
  */
 public class Controller {
-
 	private static Logger logger = Logger.getLogger(Controller.class);
 
 	// deploy
 	private static IpDeploy IP_TYPE_DEPLOY = new IpDeploy();
 
 	// result data
-	public static Map<String, List<TestCase>> testCaseMap = Collections
-			.synchronizedMap(new HashMap<String, List<TestCase>>());
+//	public static Map<String, List<TestCase>> testCaseMap = Collections
+//			.synchronizedMap(new HashMap<String, List<TestCase>>());
 
 	// thread pool
 	private static ExecutorService executorService = Executors.newCachedThreadPool();
 
 	// result
-	private static List<Future<Pair<String,List<TestCase>>>> resultList =
-			new ArrayList<Future<Pair<String,List<TestCase>>>>();
+	private static Future<Pair<String,List<TestCase>>> funFuture = null;
+
+	private static Future<Pair<String,List<TestCase>>> perFuture = null;
+
+	private static Future<Pair<String,List<TestCase>>> timeFuture = null;
 
 	// deploy and handle
 	private static void handleMapping(Pair<String, File> data) {
@@ -43,20 +45,43 @@ public class Controller {
 		String Type = data.getFirst();
 		File f = data.getSecond();
 		logger.debug("connect ip is:" + IP + " ,type is:" + Type);
-		resultList.add(executorService.submit(new HandelThread(IP, f, Type)));
+
+		if(Type.equals("function")){
+			funFuture = executorService.submit(new HandelThread(IP, f, Type));
+		}
+		if(Type.equals("performance")){
+			perFuture = executorService.submit(new HandelThread(IP, f, Type));
+		}
+		if(Type.equals("time")){
+			timeFuture = executorService.submit(new HandelThread(IP, f, Type));
+		}
 	}
 
 	// handle result
-	private static void handleResult() {
-		for (Future<Pair<String,List<TestCase>>> fs : resultList) {
-			try {
-				testCaseMap.put(fs.get().getFirst(), fs.get().getSecond());
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				e.printStackTrace();
-			}
+//	private static void handleResult() {
+//		for (Future<Pair<String,List<TestCase>>> fs : resultList) {
+//			try {
+//				testCaseMap.put(fs.get().getFirst(), fs.get().getSecond());
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			} catch (ExecutionException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
+
+	//return result
+	public static List<TestCase> getResult(String Type) throws ExecutionException, InterruptedException {
+		if(Type.equals("function")){
+			return funFuture.get().getSecond();
 		}
+		if(Type.equals("performance")){
+			return perFuture.get().getSecond();
+		}
+		if(Type.equals("time")){
+			return timeFuture.get().getSecond();
+		}
+		return null;
 	}
 
 	public static void Run(Pair<String, File> data) {
@@ -65,7 +90,7 @@ public class Controller {
 		handleMapping(data);
 
 		// handle result
-		handleResult();
+//		handleResult();
 	}
 
 	public static void Close(Pair<String, File> data) {

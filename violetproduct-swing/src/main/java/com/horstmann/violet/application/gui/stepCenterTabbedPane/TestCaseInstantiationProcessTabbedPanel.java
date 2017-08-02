@@ -406,8 +406,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在抽象测试用例");
-				TextAreaPrint("正在抽象测试用例");
+				moviepanel.getMovieLabel().setText("正在读取测试序列");
+				TextAreaPrint("正在读取测试序列");
 				
 				//获取数据
 				collectLimit=(ArrayList<Automatic>) readAbstractTestCaseSerialFile(selectAbstractPath);
@@ -466,6 +466,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				copyresultpanel.add(copyemptypanel);
 				copylayout.setConstraints(copyemptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 				
+				mainFrame.getStepFourCenterTabbedPane().getTestCaseProduceTabbedPanel().getMoviepanel().getMovieLabel().setText("正在读取测试序列");
 				mainFrame.getStepFourCenterTabbedPane().getTestCaseProduceTabbedPanel().getTableresultpanel().removeAll();
 				mainFrame.getStepFourCenterTabbedPane().getTestCaseProduceTabbedPanel().getTableresultpanel().add(resultpanel);
 				
@@ -476,7 +477,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				time2=System.currentTimeMillis();
 				
-				stepAllProcessList.add("第一步：解析抽象测试用例文件");
+				stepAllProcessList.add("第一步：读取测试序列文件");
 				timeAllProcessList.add(time2-time1+"ms");
 				resultAllProcessList.add("得到"+collectLimit.size()+"条含有约束条件的抽象测试用例");
 				
@@ -496,8 +497,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在进行实例化测试用例");
-				TextAreaPrint("正在进行实例化测试用例");
+				moviepanel.getMovieLabel().setText("正在对测试序列进行实例化求解");
+				TextAreaPrint("正在对测试序列进行实例化求解");
 				
 				if(starttype==1){//功能测试
 					//获取数据
@@ -634,7 +635,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				stepAllProcessList.add("第二步：实例化");
 				timeAllProcessList.add(time2-time1+"ms");
-				resultAllProcessList.add("得到"+collectResult.size()+"条测试用例");
+				resultAllProcessList.add("通过对"+collectResult.size()+"条测试序列进行实例化求解，每条测试序列得到多组解");
 				System.out.println("-------------------213546879213");
 				return 1;
 				

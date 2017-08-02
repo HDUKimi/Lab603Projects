@@ -11,12 +11,18 @@ public class Display {
 		
 		MainFrame mainFrame=ModelExistValidationPanel.getMainFrame();
 		
-		if(value.contains("匹配到消息")){
-			ValidationToolPanel.startProcessCount();
-		}
+//		if(value.contains("匹配到消息")){
+//			ValidationToolPanel.startProcessCount();
+//		}
 		
 		mainFrame.getConsolePartPanel().getTextarea6().append(value+"\n");
 		mainFrame.getConsolePartPanel().getTextarea6().setCaretPosition(mainFrame.getConsolePartPanel().getTextarea6().getDocument().getLength());
+		
+	}
+	
+	public static void process(int messagesize) {
+
+		ValidationToolPanel.startProcessCount(messagesize);
 		
 	}
 	

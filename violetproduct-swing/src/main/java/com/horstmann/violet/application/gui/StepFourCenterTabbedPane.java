@@ -110,7 +110,7 @@ public class StepFourCenterTabbedPane extends JPanel {
 		testCaseInstantiationProcessButtonPanel = new FixedButtonTabbedPanel("测试用例实例化进程");
 		testCaseInstantiationProcessButton = testCaseInstantiationProcessButtonPanel.getTabbedbutton();
 		
-		testCaseProduceButtonPanel = new FixedButtonTabbedPanel("添加约束条件");
+		testCaseProduceButtonPanel = new FixedButtonTabbedPanel("读取测试序列");
 		testCaseProduceButton = testCaseProduceButtonPanel.getTabbedbutton();
 		
 		testCaseInstantiationButtonPanel = new FixedButtonTabbedPanel("实例化");

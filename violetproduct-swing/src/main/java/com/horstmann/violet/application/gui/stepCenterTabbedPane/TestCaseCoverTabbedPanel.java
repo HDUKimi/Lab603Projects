@@ -28,6 +28,7 @@ import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
 import com.horstmann.violet.application.gui.util.tanchao.TranMessageText;
 import com.horstmann.violet.workspace.IWorkspace;
 
@@ -49,6 +50,7 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 	private JPanel toolbuttonpanel5;
 	private JPanel toolbuttonpanel6;
 	private JPanel toolbuttonpanel7;
+	private JPanel toolbuttonpanel8;
 	private JButton toolbutton1;
 	private JButton toolbutton2;
 	private JButton toolbutton3;
@@ -56,9 +58,11 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 	private JButton toolbutton5;
 	private JButton toolbutton6;
 	private JButton toolbutton7;
+	private JButton toolbutton8;
 	private JPanel emptypanel1;
 	private JPanel emptypanel2;
 	private JPanel emptypanel3;
+	private JPanel emptypanel4;
 	
 	private JScrollPane tablescrollpanel;
 	private JPanel tableresultpanel;
@@ -151,6 +155,7 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 		toolbuttonpanel5 = new JPanel();
 		toolbuttonpanel6 = new JPanel();
 		toolbuttonpanel7 = new JPanel();
+		toolbuttonpanel8 = new JPanel();
 
 		toolbutton1 = new JButton();
 		toolbutton2 = new JButton();
@@ -159,6 +164,7 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 		toolbutton5 = new JButton();
 		toolbutton6 = new JButton();
 		toolbutton7 = new JButton();
+		toolbutton8 = new JButton();
 		
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
@@ -177,6 +183,8 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 		icon6.setImage(icon6.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 		ImageIcon icon7 = new ImageIcon(path + "down_arrow.png");
 		icon7.setImage(icon7.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+		ImageIcon icon8 = new ImageIcon(path + "eye.png");
+		icon8.setImage(icon8.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 	
 		toolbutton1.setIcon(icon1);
 		toolbutton1.setFocusable(false);
@@ -333,6 +341,70 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 				
 			}
 		});
+		
+		toolbutton8.setIcon(icon8);
+		toolbutton8.setFocusable(false);
+		toolbutton8.setContentAreaFilled(false);
+		toolbutton8.setBorderPainted(false);
+		toolbutton8.addMouseListener(new ButtonMouseListener());
+		toolbutton8.setPreferredSize(new Dimension(21,21));
+		toolbutton8.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				System.err.println("1233333333333333333333");
+				
+				Thread t=new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						
+						int index=0;
+						
+						for(TestCaseCoverPartPanel tccppanel:testCaseCoverPartPanelList){
+							
+							System.out.println(tccppanel.getAutomatic().getName());
+							
+							TranMessageColorize tmc=new TranMessageColorize();
+							tmc.ColorizeDFSPath(tccppanel.getAutomatic(), tccppanel.getMainFrame(), tccppanel.getWorkspace());
+							
+							if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==4){
+								mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().ChangeRepaint();
+							}
+							else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==0){
+								mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().ChangeRepaint();
+							}
+							
+							index++;
+							
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+							if(index==testCaseCoverPartPanelList.size()){
+								tmc.CleanColorize(tccppanel.getWorkspace());
+								if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==4){
+									mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().ChangeRepaint();
+								}
+								else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==0){
+									mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().ChangeRepaint();
+								}
+							}
+							
+						}
+						
+					}
+				});
+				t.start();
+				
+			}
+		});
 
 		toolbuttonpanel1.setLayout(new GridLayout());
 		toolbuttonpanel1.setBackground(new Color(207, 214, 229));
@@ -355,6 +427,9 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 		toolbuttonpanel7.setLayout(new GridLayout());
 		toolbuttonpanel7.setBackground(new Color(207, 214, 229));
 		toolbuttonpanel7.add(toolbutton7);
+		toolbuttonpanel8.setLayout(new GridLayout());
+		toolbuttonpanel8.setBackground(new Color(207, 214, 229));
+		toolbuttonpanel8.add(toolbutton8);
 		
 		emptypanel1=new JPanel();
 		emptypanel1.setPreferredSize(new Dimension(11, 23));
@@ -371,6 +446,11 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 		emptypanel3.setBackground(new Color(133,145,162));
 		emptypanel3.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 5, new Color(207, 214, 229)));
 		
+		emptypanel4=new JPanel();
+		emptypanel4.setPreferredSize(new Dimension(11, 23));
+		emptypanel4.setBackground(new Color(133,145,162));
+		emptypanel4.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 5, new Color(207, 214, 229)));
+		
 
 		toolpanel.setBackground(new Color(207, 214, 229));
 		toolpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5,3));
@@ -385,6 +465,8 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 		toolpanel.add(emptypanel3);
 		toolpanel.add(toolbuttonpanel6);
 		toolpanel.add(toolbuttonpanel7);
+		toolpanel.add(emptypanel4);
+		toolpanel.add(toolbuttonpanel8);
 		
 		toolpanel.setPreferredSize(new Dimension(100, 29));
 		toolpanel.setMaximumSize(new Dimension(100, 29));

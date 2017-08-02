@@ -146,7 +146,7 @@ public class TestCaseProduceTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("正在添加实例化约束条件，抽象测试用例");
+		moviepanel.getMovieLabel().setText("正在筛选、添加、组合实例化约束条件，生成测试序列");
 		
 	}
 
@@ -213,6 +213,10 @@ public class TestCaseProduceTabbedPanel extends JPanel{
 
 	public void setTestCaseProducePartPanelList(List<TestCaseProducePartPanel> testCaseProducePartPanelList) {
 		this.testCaseProducePartPanelList = testCaseProducePartPanelList;
+	}
+
+	public MoviePanel getMoviepanel() {
+		return moviepanel;
 	}
 	
 	

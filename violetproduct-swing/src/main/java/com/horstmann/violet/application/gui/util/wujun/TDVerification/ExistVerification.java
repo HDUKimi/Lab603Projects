@@ -83,7 +83,7 @@ public class ExistVerification {
 	// 输入 return 输出
 	// 返回需要标记的边
 	public List<UppaalTransition> getSelectedTransitionsIfExist(List<UppaalTransition> selectedTransition) {
-
+		ArrayList<UppaalTransition> exists=new ArrayList<>();
 		Display.println("-------------------------正在进行存在一致性验证-------------------------\n");
 		Display.println("选择的消息如下：");
 		for (UppaalTransition transition : selectedTransition) {
@@ -95,7 +95,9 @@ public class ExistVerification {
 			UppaalTransition transitionI = selectedTransition.get(i);
 			UppaalTransition transitionJ = pathTuples.get(j).transition;
 			if (transitionI.getName().equals(transitionJ.getName())) {
+				Display.process(selectedTransition.size());
 				Display.println("匹配到消息：" + transitionI.toString());
+				exists.add(transitionJ);
 				i++;
 				j++;
 			} else {
@@ -104,8 +106,12 @@ public class ExistVerification {
 		}
 		if (i == selectedTransition.size()) {
 			Display.println("一致性验证完成");
-			return selectedTransition;
+			return exists;
 		} else {
+			while(i<selectedTransition.size()){
+				Display.process(selectedTransition.size());
+				i++;
+			}
 			Display.println("一致性验证失败");
 			return null;
 		}
@@ -129,6 +135,7 @@ public class ExistVerification {
 			if (transitionI.getName().equals(transitionJ.getName())) {
 				findFirstTransition = true;
 				res.add(pathTuples.get(j));
+				Display.process(selectedTransition.size());
 				Display.println("匹配到消息：" + transitionI.toString());
 				i++;
 				j++;
@@ -143,6 +150,10 @@ public class ExistVerification {
 			Display.println("找到路径");
 			return res;
 		} else {
+			while(i<selectedTransition.size()){
+				Display.process(selectedTransition.size());
+				i++;
+			}
 			Display.println("找不到路径");
 			return null;
 		}
@@ -220,6 +231,7 @@ public class ExistVerification {
 			int maxTime = 0;
 			for(PathTuple pathTuple :pathTuples) {
 				String timeD = pathTuple.transition.timeDuration;
+				System.out.println(timeD);
 				if(input.contains("=")) {
 					minTime += timeD.contains("<=") ? Integer.valueOf(timeD.split("<=")[1]) : 0;
 					maxTime += timeD.contains(">=") ? Integer.valueOf(timeD.split(">=")[1]) : 0;

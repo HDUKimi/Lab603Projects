@@ -171,10 +171,7 @@ public class ValidationToolPanel extends JPanel{
 			   	
 				if(threadstate==0){
 					
-					progressbar.setValue(0);
-					progressbarlabel.setText(" ");
-					
-					progressbarindex=0;
+					initValidationProgressbar();
 					
 					int validationlabeltabindex;
 					validationlabeltabindex=mainFrame.getModelExistValidationPanel().getValidationlabeltabindex();
@@ -244,8 +241,7 @@ public class ValidationToolPanel extends JPanel{
 				progreseethread.stop();
 				threadstate=0;
 				
-				progressbar.setValue(0);
-				progressbarlabel.setText("");
+				initValidationProgressbar();
 				
 			}
 		});
@@ -296,6 +292,16 @@ public class ValidationToolPanel extends JPanel{
 		emptypanel2.setPreferredSize(new Dimension(16, 23));
 		emptypanel2.setBackground(new Color(133,145,162));
 		emptypanel2.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 10, new Color(207, 214, 229)));
+		
+	}
+
+	public void initValidationProgressbar() {
+		// TODO Auto-generated method stub
+		
+		progressbar.setValue(0);
+		progressbarlabel.setText(" ");
+		
+		progressbarindex=0;
 		
 	}
 
@@ -467,7 +473,7 @@ public class ValidationToolPanel extends JPanel{
 					else{
 						//xie
 						TranMessageColorize tmc=new TranMessageColorize();
-						tmc.ColorizeTranAndState(pathTupleList, workspace);
+						tmc.ColorizeTranAndState(pathTupleList, mainFrame.getModelExistValidationPanel().getUppaalworkspace());
 						mainFrame.getValidationResultPanel().getTwonamelabel().setText("共找到一条路径，包含"+pathTupleList.size()+"个节点和"+pathTupleList.size()+"条消息：");
 						
 						mainFrame.getValidationResultPanel().getTworesultpanel().removeAll();
@@ -516,7 +522,7 @@ public class ValidationToolPanel extends JPanel{
 		
 	}
 	
-	public static void startProcessCount(){
+	public static void startProcessCount(final int listsize){
 		
 		try {
 			progreseethread=new Thread(new Runnable() {
@@ -525,8 +531,9 @@ public class ValidationToolPanel extends JPanel{
 				public void run() {
 					// TODO Auto-generated method stub
 					
-					int startprogressbar = (int) ((double) 100 / selecteduppaalmessagelist.size() * progressbarindex);
-					int endprogressbar = (int) ((double) 100 / selecteduppaalmessagelist.size() * (progressbarindex + 1));
+//					int listsize=selecteduppaalmessagelist.size();
+					int startprogressbar = (int) ((double) 100 / listsize * progressbarindex);
+					int endprogressbar = (int) ((double) 100 / listsize * (progressbarindex + 1));
 					
 					progressbarindex++;
 					

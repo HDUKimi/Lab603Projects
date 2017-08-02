@@ -1176,6 +1176,14 @@ public class ValidationResultPanel extends JPanel{
 		return fourresultpanel;
 	}
 	
+	public JLabel getFivenamelabel() {
+		return fivenamelabel;
+	}
+
+	public JPanel getFiveresultpanel() {
+		return fiveresultpanel;
+	}
+	
 	public JPanel getStatelocationresultpanel() {
 		return statelocationresultpanel;
 	}
@@ -1207,8 +1215,6 @@ public class ValidationResultPanel extends JPanel{
 	public JButton getValidationlabeltab4() {
 		return validationlabeltab4;
 	}
-	
-	
-	
+
 }
 

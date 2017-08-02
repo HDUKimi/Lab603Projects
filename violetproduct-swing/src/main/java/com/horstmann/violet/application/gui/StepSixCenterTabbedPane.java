@@ -24,6 +24,7 @@ import javax.swing.ScrollPaneConstants;
 
 import com.horstmann.violet.application.consolepart.ConsolePartScrollPane;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.FixedButtonTabbedPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.ValidationToolPanel;
 
 public class StepSixCenterTabbedPane extends JPanel {
 	
@@ -63,6 +64,8 @@ public class StepSixCenterTabbedPane extends JPanel {
 	private JButton validationDiagramButton;
 	private FixedButtonTabbedPanel validationDiagramButtonPanel;
 	private JPanel validationDiagramTabbedPane;
+	
+	private ValidationToolPanel validationToolPanel;
 	
 	
 	
@@ -401,8 +404,14 @@ public class StepSixCenterTabbedPane extends JPanel {
 	public JButton getUppaalDiagramButton() {
 		return uppaalDiagramButton;
 	}
-	
-	
+
+	public ValidationToolPanel getValidationToolPanel() {
+		return validationToolPanel;
+	}
+
+	public void setValidationToolPanel(ValidationToolPanel validationToolPanel) {
+		this.validationToolPanel = validationToolPanel;
+	}
 	
 	
 

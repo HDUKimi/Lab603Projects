@@ -281,7 +281,7 @@ public class TranMessageColorize {
 //				System.out.println(id+" - "+labelName+" - "+id.equals(labelName)+" - "+(index++)+" - "+(edge==null));
 //				if (id.equals(labelName)) {
 				if ((id.equals(labelName)&&trantextstate==1)||(labelName.contains(id)&&trantextstate==0)) {
-					System.out.println(id+" - ********* - "+endid+"    "+labelName+" - - - - "+endName);
+//					System.out.println(id+" - ********* - "+endid+"    "+labelName+" - - - - "+endName);
 					if (edge != null && IEdgeColorable.class.isInstance(edge)) {
 						
 						IEdgeColorable colorableEdge = (IEdgeColorable) edge;

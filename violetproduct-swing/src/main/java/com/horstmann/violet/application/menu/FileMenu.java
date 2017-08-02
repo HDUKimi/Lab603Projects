@@ -816,20 +816,20 @@ public class FileMenu extends JMenu
 		}
 	}
     
-//    private List<IFile> openEAXML(IFile selectedFile, String url)
-//    {
-//    	List<IFile> EAFiles = new ArrayList<IFile>();
-////    	File ffff =FileSystemView.getFileSystemView().getHomeDirectory();
-////		String s =ffff .getAbsolutePath();
-////		String base=s+"\\ModelDriverProjectFile";
-////		mainFrame.setBathRoute(base);
-//   	    String path = null;
-//   	    File ff=null;//用于生成在d盘中文件
-//   	    String name="";
-//		List<Object> information = judgeEAXML(url);
-//		List<EADiagram> EADiagrams = (List<EADiagram>) information.get(1);
-//		for(EADiagram eaDiagram : EADiagrams)
-//		{
+    private List<IFile> openEAXML(IFile selectedFile, String url)
+    {
+    	List<IFile> EAFiles = new ArrayList<IFile>();
+//    	File ffff =FileSystemView.getFileSystemView().getHomeDirectory();
+//		String s =ffff .getAbsolutePath();
+//		String base=s+"\\ModelDriverProjectFile";
+//		mainFrame.setBathRoute(base);
+   	    String path = null;
+   	    File ff=null;//用于生成在d盘中文件
+   	    String name="";
+		List<Object> information = judgeEAXML(url);
+		List<EADiagram> EADiagrams = (List<EADiagram>) information.get(1);
+		for(EADiagram eaDiagram : EADiagrams)
+		{
 //			 if("Use Case".equals(eaDiagram.getType())){
 //			 		try {
 //			 			path=mainFrame.getBathRoute()+"/UseCaseDiagram/";
@@ -847,27 +847,28 @@ public class FileMenu extends JMenu
 //						e.printStackTrace();
 //					}
 //			 	}
-//			 else if("Sequence".equals(eaDiagram.getType())){
-//			 		path=mainFrame.getBathRoute()+"/SequenceDiagram/";
-//			 		String aimPath=path+"EAXML";
-////			 		XMLUtils.AutoSave(url, aimPath,selectedFile.getFilename());
-//			 		name=eaDiagram.getName()+".seq.violet.xml";
-//			 		directory=selectedFile.getDirectory();
-//			 		fileName=selectedFile.getFilename();
-//			 		try {
-//						MainTransEAToViolet.TransEAToViolet(url,path+"Violet/"+name,name,eaDiagram);
-//						File f =new File(path+"Violet/"+name);
-//				 		deleteFileFirstLine(f);
-//						selectedFile =new LocalFile(f);
-//						EAFiles.add(selectedFile);
-//					} catch (Exception e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}	
-//			 	}	
-//		}
-//		return  EAFiles;
-//    }
+//			 else 
+				 if("Sequence".equals(eaDiagram.getType())){
+			 		path="D:\\ModelDriverProjectFile\\SequenceDiagram\\";
+			 		String aimPath=path+"EAXML";
+//			 		XMLUtils.AutoSave(url, aimPath,selectedFile.getFilename());
+			 		name=eaDiagram.getName()+".seq.violet.xml";
+			 		directory=selectedFile.getDirectory();
+			 		fileName=selectedFile.getFilename();
+			 		try {
+						MainTransEAToViolet.TransEAToViolet(url,path+"Violet\\Test\\"+name,name,eaDiagram);
+						File f =new File(path+"Violet\\"+name);
+				 		deleteFileFirstLine(f);
+						selectedFile =new LocalFile(f);
+						EAFiles.add(selectedFile);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}	
+			 	}	
+		}
+		return  EAFiles;
+    }
     
     private String judgeVioletXML(String url)
     {
@@ -979,20 +980,20 @@ public class FileMenu extends JMenu
                    String url = selectedFile.getDirectory() + "\\" + selectedFile.getFilename();
                    boolean flag=isVioletXML(url);//是EA格式的文件
                 
-//                   List<IFile> files=new ArrayList<>();
-//                   if(flag == false)
-//                   {
-//                 	  List<IFile> eAFiles = openEAXML(selectedFile, graphFile, url);
-//                   }
-//                   else{
-//                	   d
-//                   }
+                   List<IFile> files=new ArrayList<>();
+                   if(flag == false)
+                   {
+                 	  List<IFile> eAFiles = openEAXML(selectedFile, url);
+                   }
+                   else{
+                	   
+                   }
                    
                    //如果是平台保存的XML文件
                    IGraphFile graphFile = null;
 //                 //增加转换的方法11
              
-                   selectedFile= exchangeFile(selectedFile, graphFile , flag);
+//                   selectedFile= exchangeFile(selectedFile, graphFile , flag);
              
                    graphFile = new GraphFile(selectedFile);
             
