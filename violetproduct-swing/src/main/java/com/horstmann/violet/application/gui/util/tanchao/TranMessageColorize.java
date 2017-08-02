@@ -241,14 +241,14 @@ public class TranMessageColorize {
 		
 	}
 	
-	public void ColorizeDFSPath(Automatic automatic,MainFrame mainFrame,IWorkspace workspace){
+	public void ColorizeDFSPath(Automatic automatic,MainFrame mainFrame,IWorkspace workspace,int trantextstate){
 		
 		Collection<IEdge> edges = workspace.getGraphFile().getGraph().getAllEdges();
 		Collection<INode> nodes = workspace.getGraphFile().getGraph().getAllNodes();
 		
 		CleanColorize(workspace);
 		
-		int trantextstate=mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getTrantextstate();
+//		int trantextstate=mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getTrantextstate();
 //		int trantextstate=1;
 		
 		for (Transition t : automatic.getTransitionSet()) {

@@ -37,9 +37,9 @@ import com.horstmann.violet.workspace.IWorkspace;
 
 public class TestCaseSortContrastPartPanel extends JPanel{
 
-
 	private MainFrame mainFrame;
 	private Automatic automatic;
+	private IWorkspace workspace;
 
 	private JPanel titlepanel;
 	private JPanel linepanel;
@@ -56,10 +56,11 @@ public class TestCaseSortContrastPartPanel extends JPanel{
 	private DefaultTableModel attributetablemodel;
 	
 	
-	public TestCaseSortContrastPartPanel(MainFrame mainFrame,Automatic automatic){
+	public TestCaseSortContrastPartPanel(MainFrame mainFrame,Automatic automatic,IWorkspace workspace){
 		
 		this.mainFrame=mainFrame;
 		this.automatic=automatic;
+		this.workspace=workspace;
 		
 		init();
 		
@@ -130,6 +131,16 @@ public class TestCaseSortContrastPartPanel extends JPanel{
 					}
 					System.out.println("---------------------------------");
 
+					TranMessageColorize tmc=new TranMessageColorize();
+					tmc.ColorizeDFSPath(automatic,mainFrame,workspace,mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().getTrantextstate());
+					
+					if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==5){
+						mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().ChangeRepaint();
+					}
+					else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==0){
+						mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().ChangeRepaint();
+					}
+					
 					JPanel resultpanel = new JPanel();
 					JPanel emptypanel = new JPanel();
 					resultpanel.setOpaque(false);
@@ -344,6 +355,20 @@ public class TestCaseSortContrastPartPanel extends JPanel{
 
 	public JPanel getAttributepanel() {
 		return attributepanel;
+	}
+	
+	public MainFrame getMainFrame() {
+		return mainFrame;
+	}
+
+
+	public Automatic getAutomatic() {
+		return automatic;
+	}
+
+
+	public IWorkspace getWorkspace() {
+		return workspace;
 	}
 	
 }

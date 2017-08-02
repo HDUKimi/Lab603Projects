@@ -142,7 +142,7 @@ public class TestCaseCoverPartPanel extends JPanel{
 
 					
 					TranMessageColorize tmc=new TranMessageColorize();
-					tmc.ColorizeDFSPath(automatic,mainFrame,workspace);
+					tmc.ColorizeDFSPath(automatic,mainFrame,workspace,mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getTrantextstate());
 					
 					if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==4){
 						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().ChangeRepaint();

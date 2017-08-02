@@ -109,7 +109,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		testCaseConstraintTabbedPanel=new TestCaseConstraintTabbedPanel(mainFrame);
 		testCaseUppaalTabbedPanel=new TestCaseUppaalTabbedPanel(mainFrame,workspace);
 		testCaseCoverTabbedPanel=new TestCaseCoverTabbedPanel(mainFrame,workspace);
-		testCaseSortContrastTabbedPanel=new TestCaseSortContrastTabbedPanel(mainFrame);
+		testCaseSortContrastTabbedPanel=new TestCaseSortContrastTabbedPanel(mainFrame,workspace);
 		testCaseProduceTabbedPanel=new TestCaseProduceTabbedPanel(mainFrame);
 		testCaseInstantiationTabbedPanel=new TestCaseInstantiationTabbedPanel(mainFrame);
 		testCaseShowTabbedPanel=new TestCaseShowTabbedPanel(mainFrame);
@@ -768,4 +768,9 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		return testCaseSortContrastTabbedPanel;
 	}
 
+	public void setTestCaseSortContrastTabbedPanel(TestCaseSortContrastTabbedPanel testCaseSortContrastTabbedPanel) {
+		this.testCaseSortContrastTabbedPanel = testCaseSortContrastTabbedPanel;
+	}
+
+	
 }

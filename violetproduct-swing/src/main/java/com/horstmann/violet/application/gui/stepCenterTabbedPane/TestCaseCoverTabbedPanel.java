@@ -73,9 +73,9 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 	private int tablestate=1;
 	private int trantextstate=1;//1ÊÇid£¬0ÊÇname
 	
-	public TestCaseCoverTabbedPanel(MainFrame mainframe,IWorkspace workspace) {
+	public TestCaseCoverTabbedPanel(MainFrame mainFrame,IWorkspace workspace) {
 
-		this.mainFrame = mainframe;
+		this.mainFrame = mainFrame;
 		this.workspace=workspace;
 		
 		toolpanel=new JPanel();
@@ -369,7 +369,7 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 							System.out.println(tccppanel.getAutomatic().getName());
 							
 							TranMessageColorize tmc=new TranMessageColorize();
-							tmc.ColorizeDFSPath(tccppanel.getAutomatic(), tccppanel.getMainFrame(), tccppanel.getWorkspace());
+							tmc.ColorizeDFSPath(tccppanel.getAutomatic(), tccppanel.getMainFrame(), tccppanel.getWorkspace(),trantextstate);
 							
 							if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==4){
 								mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().ChangeRepaint();

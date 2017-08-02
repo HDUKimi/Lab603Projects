@@ -1255,72 +1255,76 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				moviepanel.getMovieLabel().setText("正在对测试序列进行排序");
 				TextAreaPrint("正在对测试序列进行排序");
 				
-				List<TestCaseSortContrastPartPanel> oldsortcontrastpartlist=new ArrayList<>();
+				//上一步的xml
+				GraphFile absfGraphFile=ImportByDoubleClick.importFileByDoubleClick("UPPAAL","abs.uppaal.violet.xml");
+				IWorkspace workspace=new Workspace(absfGraphFile);
+				TestCaseSortContrastTabbedPanel tcsctpanel=new TestCaseSortContrastTabbedPanel(mainFrame, workspace);
 				
-				JPanel oldresultpanel=new JPanel();
-				JPanel oldemptypanel=new JPanel();
-				oldresultpanel.setOpaque(false);
-				oldemptypanel.setOpaque(false);
+				IWorkspace copyworkspace=new Workspace(absfGraphFile);
+				TestCaseSortContrastTabbedPanel copytcsctpanel=new TestCaseSortContrastTabbedPanel(mainFrame, copyworkspace);
 				
-				GridBagLayout oldlayout = new GridBagLayout();
-				oldresultpanel.setLayout(oldlayout);
+				mainFrame.getStepThreeCenterTabbedPane().setTestCaseSortContrastTabbedPanel(tcsctpanel);
 				
-				int oldi=0;
+				TranMessageColorize tmc=new TranMessageColorize();
+				tmc.CleanColorize(workspace);
+				tmc.CleanColorize(copyworkspace);
+				
+				tablepanel.removeAll();
+				tablepanel.add(copytcsctpanel.getResultpanel());
+				
+				Thread.sleep(1000);
+				
+				List<TestCaseSortContrastPartPanel> sortcontrastpartlist=new ArrayList<>();
+				
+				JPanel resultpanel=new JPanel();
+				JPanel emptypanel=new JPanel();
+				resultpanel.setOpaque(false);
+				emptypanel.setOpaque(false);
+				
+				JPanel copyresultpanel=new JPanel();
+				JPanel copyemptypanel=new JPanel();
+				copyresultpanel.setOpaque(false);
+				copyemptypanel.setOpaque(false);
+				
+				GridBagLayout layout = new GridBagLayout();
+				resultpanel.setLayout(layout);
+				
+				GridBagLayout copylayout = new GridBagLayout();
+				copyresultpanel.setLayout(copylayout);
+				
+				int i=0;
+				int copyi=0;
 				
 				ArrayList<Automatic> oldTestCase=XMLGet.testcaseNew(testCase);
 				
-				Thread.sleep(1000);
-				
 				for(Automatic am:oldTestCase){
 
-					TestCaseSortContrastPartPanel tcscppanel=new TestCaseSortContrastPartPanel(mainFrame,am);//传入测试序列。包括路径信息，以及workspace
-					oldresultpanel.add(tcscppanel);
-					oldlayout.setConstraints(tcscppanel, new GBC(0, oldi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+					TestCaseSortContrastPartPanel tcscppanel=new TestCaseSortContrastPartPanel(mainFrame,am,workspace);//传入测试序列。包括路径信息，以及workspace
+					resultpanel.add(tcscppanel);
+					layout.setConstraints(tcscppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 					
-					oldsortcontrastpartlist.add(tcscppanel);
+					sortcontrastpartlist.add(tcscppanel);
 					
+					TestCaseSortContrastPartPanel copytcscppanel=new TestCaseSortContrastPartPanel(mainFrame,am,copyworkspace);//传入测试序列。包括路径信息，以及workspace
+					copyresultpanel.add(copytcscppanel);
+					copylayout.setConstraints(copytcscppanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 				}
 				
-				oldresultpanel.add(oldemptypanel);
-				oldlayout.setConstraints(oldemptypanel, new GBC(0, oldi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+				resultpanel.add(emptypanel);
+				layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 				
-				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().setOldTestCaseSortContrastPartPanelList(oldsortcontrastpartlist);
-				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().getOldtableresultpanel().removeAll();
-				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().getOldtableresultpanel().add(oldresultpanel);
+				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().setTestCaseSortContrastPartPanelList(sortcontrastpartlist);
 				
-				List<TestCaseSortContrastPartPanel> newsortcontrastpartlist=new ArrayList<>();
+				copyresultpanel.add(copyemptypanel);
+				copylayout.setConstraints(copyemptypanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 				
-				JPanel newresultpanel=new JPanel();
-				JPanel newemptypanel=new JPanel();
-				newresultpanel.setOpaque(false);
-				newemptypanel.setOpaque(false);
+				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().getTableresultpanel().removeAll();
+				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().getTableresultpanel().add(resultpanel);
 				
-				GridBagLayout newlayout = new GridBagLayout();
-				newresultpanel.setLayout(newlayout);
-				
-				int newi=0;
-				
-				for(Automatic am:testCase){
-
-					TestCaseSortContrastPartPanel tcscppanel=new TestCaseSortContrastPartPanel(mainFrame,am);//传入测试序列。包括路径信息，以及workspace
-					newresultpanel.add(tcscppanel);
-					newlayout.setConstraints(tcscppanel, new GBC(0, newi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-					
-					newsortcontrastpartlist.add(tcscppanel);
-					
-				}
-				
-				newresultpanel.add(newemptypanel);
-				newlayout.setConstraints(newemptypanel, new GBC(0, newi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-				
-				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().setNewTestCaseSortContrastPartPanelList(newsortcontrastpartlist);
-				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().getNewtableresultpanel().removeAll();
-				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().getNewtableresultpanel().add(newresultpanel);
-				
+				copytcsctpanel.getTableresultpanel().removeAll();
+				copytcsctpanel.getTableresultpanel().add(copyresultpanel);
 				
 				mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastButtonPanel().setVisible(true);
-				
-				Thread.sleep(1000);
 				
 				time2=System.currentTimeMillis();
 				
