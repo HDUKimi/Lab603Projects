@@ -829,23 +829,24 @@ public class FileMenu extends JMenu
 		List<Object> information = judgeEAXML(url);
 		List<EADiagram> EADiagrams = (List<EADiagram>) information.get(1);
 		for (EADiagram eaDiagram : EADiagrams) {
-			if ("Use Case".equals(eaDiagram.getType())) {
-				try {
-					path = "D:\\ModelDriverProjectFile\\UseCaseDiagram\\";
-					String aimPath = path + "EAXML";
-					XMLUtils.AutoSave(url, aimPath, selectedFile.getFilename());
-					readUseCaseXMLFromEA ru = new readUseCaseXMLFromEA(url, selectedFile, eaDiagram);
-					CreateUseCaseDiagramVioletXml cu = new CreateUseCaseDiagramVioletXml();
-					name = selectedFile.getFilename().replaceAll(".xml", ".ucase.violet.xml");
-					cu.create(ru, path + "Violet/" + name);
-					File f = new File(path + "Violet/" + name);
-					selectedFile = new LocalFile(f);
-					EAFiles.add(selectedFile);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else if ("Sequence".equals(eaDiagram.getType())) {
+//			if ("Use Case".equals(eaDiagram.getType())) {
+//				try {
+//					path = "D:\\ModelDriverProjectFile\\UseCaseDiagram\\";
+//					String aimPath = path + "EAXML";
+//					XMLUtils.AutoSave(url, aimPath, selectedFile.getFilename());
+//					readUseCaseXMLFromEA ru = new readUseCaseXMLFromEA(url, selectedFile, eaDiagram);
+//					CreateUseCaseDiagramVioletXml cu = new CreateUseCaseDiagramVioletXml();
+//					name = selectedFile.getFilename().replaceAll(".xml", ".ucase.violet.xml");
+//					cu.create(ru, path + "Violet/" + name);
+//					File f = new File(path + "Violet/" + name);
+//					selectedFile = new LocalFile(f);
+//					EAFiles.add(selectedFile);
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			} else 
+			if ("Sequence".equals(eaDiagram.getType())) {
 				path = "D:\\ModelDriverProjectFile\\SequenceDiagram\\";
 				String aimPath = path + "EAXML";
 				// XMLUtils.AutoSave(url, aimPath,selectedFile.getFilename());
@@ -862,6 +863,16 @@ public class FileMenu extends JMenu
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+			else{
+				IGraphFile graphFile = null;
+				try {
+					selectedFile= exchangeFile(selectedFile, graphFile , false);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				EAFiles.add(selectedFile);
 			}
 		}
 		return EAFiles;
