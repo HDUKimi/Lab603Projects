@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.util.tanchao.CalculateWidth;
 import com.horstmann.violet.application.gui.util.tanchao.XMLToTree;
 import com.horstmann.violet.application.gui.util.wqq.AutoMataTransfrom2.C;
 import com.horstmann.violet.framework.file.IGraphFile;
@@ -53,11 +54,8 @@ public class ButtonTabbedPanel extends JPanel{
 		
 //		System.out.println(tabbedbuttontext+" *** "+tabbedbuttontext.getBytes().length+" *** "+tabbedbuttontext.length());
 		
-		int bl=tabbedbuttontext.getBytes().length;
-		int cl=tabbedbuttontext.length();
-		
 //		width=tabbedbuttontext.length()*12+60;
-		width=(bl-cl)*12+(2*cl-bl)*7+60;
+		width=CalculateWidth.getWidth(tabbedbuttontext);
 //		System.err.println(tabbedbuttontext+" - - - "+tabbedbuttontext.length()+" - - - "+width);
 		
 		tabbedbutton=new JButton();
