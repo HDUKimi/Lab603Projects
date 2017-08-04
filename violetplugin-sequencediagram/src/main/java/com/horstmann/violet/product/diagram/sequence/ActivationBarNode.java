@@ -421,27 +421,31 @@ public class ActivationBarNode extends RectangularNode
                 //如果另外一个节点是activationBarNode
 				if (isActivationBarNode)
                 {
-					INode endnode = endingNode;
-					System.out.println("end1: " + endnode.getParent().getClass().getSimpleName());
-					while(!endnode.getParent().getClass().getSimpleName().equals("LifelineNode"))
-					{
-						endnode = endnode.getParent();
-					}
+//					INode endnode = endingNode;
+//					System.out.println("end1: " + endnode.getParent().getClass().getSimpleName());
+//					while(!endnode.getParent().getClass().getSimpleName().equals("LifelineNode"))
+//					{
+//						endnode = endnode.getParent();
+//					}
+//					
+//					INode startnode = startingnode;
+//					while (!startnode.getParent().getClass().getSimpleName().equals("LifelineNode")) {
+//						startnode = startnode.getParent();
+//					}
+//					System.out.println(startnode.getParent().getClass().getSimpleName());
+//					if(startnode.getParent().getID().equals(endnode.getParent().getID()))
+//					{
+//						continue;
+//					}
+//					else{
+//						Rectangle2D endingNodeBounds = endingNode.getBounds();//获取结束节点的边界
+//						double newHeight = CALL_YGAP / 2 + endingNodeBounds.getHeight() + (endingNode.getLocationOnGraph().getY() - this.getLocationOnGraph().getY()) + CALL_YGAP / 2;
+//						height = Math.max(height,  newHeight);
+//					}
 					
-					INode startnode = startingnode;
-					while (!startnode.getParent().getClass().getSimpleName().equals("LifelineNode")) {
-						startnode = startnode.getParent();
-					}
-					System.out.println(startnode.getParent().getClass().getSimpleName());
-					if(startnode.getParent().getID().equals(endnode.getParent().getID()))
-					{
-						continue;
-					}
-					else{
-						Rectangle2D endingNodeBounds = endingNode.getBounds();//获取结束节点的边界
-						double newHeight = CALL_YGAP / 2 + endingNodeBounds.getHeight() + (endingNode.getLocationOnGraph().getY() - this.getLocationOnGraph().getY()) + CALL_YGAP / 2;
-						height = Math.max(height,  newHeight);
-					}
+					Rectangle2D endingNodeBounds = endingNode.getBounds();//获取结束节点的边界
+					double newHeight = CALL_YGAP / 2 + endingNodeBounds.getHeight() + (endingNode.getLocationOnGraph().getY() - this.getLocationOnGraph().getY()) + CALL_YGAP / 2;
+					height = Math.max(height,  newHeight);
 					
                 }
             }
@@ -706,24 +710,24 @@ public class ActivationBarNode extends RectangularNode
         if (startingNodeClass.isAssignableFrom(ActivationBarNode.class)
                 && endingNodeClass.isAssignableFrom(ActivationBarNode.class))
         {
-        	INode endNode = edge.getEnd();
-            INode startNode = edge.getStart();
-			
-			INode endnode = endNode;
-			while(!endNode.getParent().getClass().getSimpleName().equals("LifelineNode"))
-			{
-				endNode = endNode.getParent();
-			}
-			
-			INode startnode = startNode;
-			while (!startnode.getParent().getClass().getSimpleName().equals("LifelineNode")) {
-				startnode = startnode.getParent();
-			}
-			System.out.println("ID: " + startnode.getParent().getID());
-			if(startnode.getParent().getID().equals(endnode.getParent().getID()))
-			{
-				return false;
-			}
+//        	INode endNode = edge.getEnd();
+//            INode startNode = edge.getStart();
+//			
+//			INode endnode = endNode;
+//			while(!endNode.getParent().getClass().getSimpleName().equals("LifelineNode"))
+//			{
+//				endNode = endNode.getParent();
+//			}
+//			
+//			INode startnode = startNode;
+//			while (!startnode.getParent().getClass().getSimpleName().equals("LifelineNode")) {
+//				startnode = startnode.getParent();
+//			}
+//			System.out.println("ID: " + startnode.getParent().getID());
+//			if(startnode.getParent().getID().equals(endnode.getParent().getID()))
+//			{
+//				return false;
+//			}
             return true;
         }
         // Case 3 : an activation bar creates a new class instance

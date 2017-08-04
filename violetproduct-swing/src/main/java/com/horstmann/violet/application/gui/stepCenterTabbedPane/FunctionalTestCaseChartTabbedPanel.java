@@ -13,6 +13,7 @@ import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -317,12 +318,37 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		
 		initFailedStatisticsTablePanel();
 		
+		JLabel label1=new JLabel();
+		label1.setText("测试结果统计表");
+//		label1.setForeground(new Color(115, 110, 102));
+		label1.setFont(new Font("微软雅黑", Font.BOLD, 15));
+		label1.setBorder(BorderFactory.createEmptyBorder(0, 500, 0, 0));
+		
+		JLabel label2=new JLabel();
+		label2.setText("错误结果统计表");
+//		label2.setForeground(new Color(115, 110, 102));
+		label2.setFont(new Font("微软雅黑", Font.BOLD, 15));
+		label2.setBorder(BorderFactory.createEmptyBorder(0, 500, 0, 0));
+		
+		
+//		GridBagLayout layout = new GridBagLayout();
+//		tablepanel.setLayout(layout);
+//		tablepanel.add(successfailedtablepanel);
+//		tablepanel.add(failedstatisticstablepanel);
+//		layout.setConstraints(successfailedtablepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//		layout.setConstraints(failedstatisticstablepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		
 		GridBagLayout layout = new GridBagLayout();
 		tablepanel.setLayout(layout);
+		tablepanel.add(label1);
 		tablepanel.add(successfailedtablepanel);
+		tablepanel.add(label2);
 		tablepanel.add(failedstatisticstablepanel);
-		layout.setConstraints(successfailedtablepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(failedstatisticstablepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(label1, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(successfailedtablepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(label2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(failedstatisticstablepanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		
 		
 		tablepanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		tablepanel.setOpaque(false);
@@ -465,7 +491,7 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 	private void initFailedStatisticsTablePanel() {
 		// TODO Auto-generated method stub
 		
-		String[] columnNames = { " ","测试用例有误", "程序出现死循环或者抛出异常", "失败测试用例总数"};
+		String[] columnNames = { " ","与期望不符合", "程序异常", "失败测试用例总数"};
 		String[][] tabelValues = {};
 
 		failedstatisticsattributetablemodel = new DefaultTableModel(tabelValues, columnNames) {
@@ -498,10 +524,14 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		failedstatisticsattributetable.getColumn(" ").setPreferredWidth(100);
 		failedstatisticsattributetable.getColumn(" ").setMinWidth(100);
 		failedstatisticsattributetable.getColumn(" ").setMaxWidth(100);
-		failedstatisticsattributetable.getColumn("测试用例有误").setPreferredWidth(100);
-		failedstatisticsattributetable.getColumn("测试用例有误").setMinWidth(100);
-		failedstatisticsattributetable.getColumn("程序出现死循环或者抛出异常").setPreferredWidth(100);
-		failedstatisticsattributetable.getColumn("程序出现死循环或者抛出异常").setMinWidth(100);
+//		failedstatisticsattributetable.getColumn("测试用例有误").setPreferredWidth(100);
+//		failedstatisticsattributetable.getColumn("测试用例有误").setMinWidth(100);
+//		failedstatisticsattributetable.getColumn("程序出现死循环或者抛出异常").setPreferredWidth(100);
+//		failedstatisticsattributetable.getColumn("程序出现死循环或者抛出异常").setMinWidth(100);
+		failedstatisticsattributetable.getColumn("与期望不符合").setPreferredWidth(100);
+		failedstatisticsattributetable.getColumn("与期望不符合").setMinWidth(100);
+		failedstatisticsattributetable.getColumn("程序异常").setPreferredWidth(100);
+		failedstatisticsattributetable.getColumn("程序异常").setMinWidth(100);
 		failedstatisticsattributetable.getColumn("失败测试用例总数").setPreferredWidth(100);
 		failedstatisticsattributetable.getColumn("失败测试用例总数").setMinWidth(100);
 

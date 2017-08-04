@@ -828,46 +828,43 @@ public class FileMenu extends JMenu
    	    String name="";
 		List<Object> information = judgeEAXML(url);
 		List<EADiagram> EADiagrams = (List<EADiagram>) information.get(1);
-		for(EADiagram eaDiagram : EADiagrams)
-		{
-//			 if("Use Case".equals(eaDiagram.getType())){
-//			 		try {
-//			 			path=mainFrame.getBathRoute()+"/UseCaseDiagram/";
-//			 			String aimPath=path+"EAXML";
-//			 			XMLUtils.AutoSave(url, aimPath,selectedFile.getFilename());
-//			 	 		readUseCaseXMLFromEA ru =new readUseCaseXMLFromEA(url,selectedFile,eaDiagram);
-//			 	 		CreateUseCaseDiagramVioletXml cu =new CreateUseCaseDiagramVioletXml();
-//			 	 		name=selectedFile.getFilename().replaceAll(".xml", ".ucase.violet.xml");		
-//						cu.create(ru, path+"Violet/"+name);
-//						File f =new File(path+"Violet/"+name);
-//						selectedFile =new LocalFile(f);
-//						EAFiles.add(selectedFile);
-//					} catch (IOException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//			 	}
-//			 else 
-				 if("Sequence".equals(eaDiagram.getType())){
-			 		path="D:\\ModelDriverProjectFile\\SequenceDiagram\\";
-			 		String aimPath=path+"EAXML";
-//			 		XMLUtils.AutoSave(url, aimPath,selectedFile.getFilename());
-			 		name=eaDiagram.getName()+".seq.violet.xml";
-			 		directory=selectedFile.getDirectory();
-			 		fileName=selectedFile.getFilename();
-			 		try {
-						MainTransEAToViolet.TransEAToViolet(url,path+"Violet\\Test\\"+name,name,eaDiagram);
-						File f =new File(path+"Violet\\"+name);
-				 		deleteFileFirstLine(f);
-						selectedFile =new LocalFile(f);
-						EAFiles.add(selectedFile);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}	
-			 	}	
+		for (EADiagram eaDiagram : EADiagrams) {
+			if ("Use Case".equals(eaDiagram.getType())) {
+				try {
+					path = "D:\\ModelDriverProjectFile\\UseCaseDiagram\\";
+					String aimPath = path + "EAXML";
+					XMLUtils.AutoSave(url, aimPath, selectedFile.getFilename());
+					readUseCaseXMLFromEA ru = new readUseCaseXMLFromEA(url, selectedFile, eaDiagram);
+					CreateUseCaseDiagramVioletXml cu = new CreateUseCaseDiagramVioletXml();
+					name = selectedFile.getFilename().replaceAll(".xml", ".ucase.violet.xml");
+					cu.create(ru, path + "Violet/" + name);
+					File f = new File(path + "Violet/" + name);
+					selectedFile = new LocalFile(f);
+					EAFiles.add(selectedFile);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else if ("Sequence".equals(eaDiagram.getType())) {
+				path = "D:\\ModelDriverProjectFile\\SequenceDiagram\\";
+				String aimPath = path + "EAXML";
+				// XMLUtils.AutoSave(url, aimPath,selectedFile.getFilename());
+				name = eaDiagram.getName() + ".seq.violet.xml";
+				directory = selectedFile.getDirectory();
+				fileName = selectedFile.getFilename();
+				try {
+					MainTransEAToViolet.TransEAToViolet(url, path + "Violet\\Test\\" + name, name, eaDiagram);
+					File f = new File(path + "Violet\\Test\\" + name);
+					deleteFileFirstLine(f);
+					selectedFile = new LocalFile(f);
+					EAFiles.add(selectedFile);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
-		return  EAFiles;
+		return EAFiles;
     }
     
     private String judgeVioletXML(String url)
@@ -983,10 +980,10 @@ public class FileMenu extends JMenu
                    List<IFile> files=new ArrayList<>();
                    if(flag == false)
                    {
-                 	  List<IFile> eAFiles = openEAXML(selectedFile, url);
+                	   files = openEAXML(selectedFile, url);
                    }
                    else{
-                	   
+                	   files.add(selectedFile);
                    }
                    
                    //如果是平台保存的XML文件
@@ -995,117 +992,142 @@ public class FileMenu extends JMenu
              
 //                   selectedFile= exchangeFile(selectedFile, graphFile , flag);
              
-                   graphFile = new GraphFile(selectedFile);
-            
-                   //显示文件图形
-                   IWorkspace workspace = new Workspace(graphFile);
-                   mainFrame.addTabbedPane(workspace);
-                   
-//                   userPreferencesService.addOpenedFile(graphFile);
-//                   userPreferencesService.addRecentFile(graphFile);
-                   
-					String type = (selectedFile.getFilename().split("\\."))[1];
-					JButton tabbutton;
-					JButton stepbutton = mainFrame.getStepButton().getStep1button();
-					
-					List<ButtonTabbedPanel> sequenceDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists();
-					List<ButtonTabbedPanel> timingDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists();
-					List<ButtonTabbedPanel> stateDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists();
-					List<ButtonTabbedPanel> usecaseDiagramButtonTabbedPanelLists=mainFrame.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists();
-					
-					
-					if (type.equals("ucase")) {
-						tabbutton = usecaseDiagramButtonTabbedPanelLists.get(usecaseDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
-						stepbutton.doClick();
-						
-						mainFrame.getConsolePartPanel().getTextarea1().append("导入用例图: "+selectedFile.getFilename()+"\n");
-						
-						tabbutton.doClick();
-						
-						String nodename=tabbutton.getText();
-						DefaultMutableTreeNode node=new DefaultMutableTreeNode(nodename);
-						
-						JTree usecasetree=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetree();
-                    	DefaultTreeModel usecasetreemodel=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetreemodel();
-                    	DefaultMutableTreeNode usecasetreerootnode=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetreerootnode();
-						
-						usecasetreemodel.insertNodeInto(node, usecasetreerootnode, usecasetreerootnode.getChildCount());
-						TreePath path=new TreePath(usecasetreerootnode.getPath());
-						if(!usecasetree.isVisible(path)){
-							usecasetree.makeVisible(path);
-						}
-						usecasetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
-						
-					} else if (type.equals("state")) {
-						tabbutton = stateDiagramButtonTabbedPanelLists.get(stateDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
-						stepbutton.doClick();
-						
-						mainFrame.getConsolePartPanel().getTextarea1().append("导入状态图: "+selectedFile.getFilename()+"\n");
-						
-						tabbutton.doClick();
-						
-						String nodename=tabbutton.getText();
-						DefaultMutableTreeNode node=new DefaultMutableTreeNode(nodename);
-						
-						JTree statetree=mainFrame.getProjectTree().getStateTreePanel().getStatetree();
-                    	DefaultTreeModel statetreemodel=mainFrame.getProjectTree().getStateTreePanel().getStatetreemodel();
-                    	DefaultMutableTreeNode statetreerootnode=mainFrame.getProjectTree().getStateTreePanel().getStatetreerootnode();
-                    	
-						statetreemodel.insertNodeInto(node, statetreerootnode, statetreerootnode.getChildCount());
-						TreePath path=new TreePath(statetreerootnode.getPath());
-						if(!statetree.isVisible(path)){
-							statetree.makeVisible(path);
-						}
-						statetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
-						
-					} else if (type.equals("seq")) {
-						tabbutton = sequenceDiagramButtonTabbedPanelLists.get(sequenceDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
-						stepbutton.doClick();
+                   for(IFile simplefile:files){
+                	   
+   					graphFile = new GraphFile(simplefile);
 
-						mainFrame.getConsolePartPanel().getTextarea1().append("导入顺序图: "+selectedFile.getFilename()+"\n");
-						
-						tabbutton.doClick();
-						
-						String nodename=tabbutton.getText();
-						DefaultMutableTreeNode node=new DefaultMutableTreeNode(nodename);
-						
-						JTree sequencetree=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetree();
-						DefaultTreeModel sequencetreemodel=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetreemodel();
-						DefaultMutableTreeNode sequencetreerootnode=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetreerootnode();
-						
-						sequencetreemodel.insertNodeInto(node, sequencetreerootnode, sequencetreerootnode.getChildCount());
-						TreePath path=new TreePath(sequencetreerootnode.getPath());
-						if(!sequencetree.isVisible(path)){
-							sequencetree.makeVisible(path);
-						}
-						sequencetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
-						
-					} else if (type.equals("timing")) {
-						tabbutton = timingDiagramButtonTabbedPanelLists.get(timingDiagramButtonTabbedPanelLists.size()-1).getTabbedbutton();
-						stepbutton.doClick();
+   					// 显示文件图形
+   					IWorkspace workspace = new Workspace(graphFile);
+   					mainFrame.addTabbedPane(workspace);
 
-						mainFrame.getConsolePartPanel().getTextarea1().append("导入时序图: "+selectedFile.getFilename()+"\n");
-						
-						tabbutton.doClick();
-						
-						String nodename=tabbutton.getText();
-						DefaultMutableTreeNode node=new DefaultMutableTreeNode(nodename);
-						
-						JTree timingtree=mainFrame.getProjectTree().getTimingTreePanel().getTimingtree();
-                    	DefaultTreeModel timingtreemodel=mainFrame.getProjectTree().getTimingTreePanel().getTimingtreemodel();
-                    	DefaultMutableTreeNode timingtreerootnode=mainFrame.getProjectTree().getTimingTreePanel().getTimingtreerootnode();
-						
-						timingtreemodel.insertNodeInto(node, timingtreerootnode, timingtreerootnode.getChildCount());
-						TreePath path=new TreePath(timingtreerootnode.getPath());
-						if(!timingtree.isVisible(path)){
-							timingtree.makeVisible(path);
-						}
-						timingtree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
-						
-					}
-					
-					JScrollBar bar=mainFrame.getStepOneCenterTabbedPane().getButtonScrollPanel().getHorizontalScrollBar();
-			        bar.setValue(bar.getMaximum());
+   					// userPreferencesService.addOpenedFile(graphFile);
+   					// userPreferencesService.addRecentFile(graphFile);
+
+   					String type = (simplefile.getFilename().split("\\."))[1];
+   					JButton tabbutton;
+   					JButton stepbutton = mainFrame.getStepButton().getStep1button();
+
+   					List<ButtonTabbedPanel> sequenceDiagramButtonTabbedPanelLists = mainFrame
+   							.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists();
+   					List<ButtonTabbedPanel> timingDiagramButtonTabbedPanelLists = mainFrame.getStepOneCenterTabbedPane()
+   							.getTimingDiagramButtonTabbedPanelLists();
+   					List<ButtonTabbedPanel> stateDiagramButtonTabbedPanelLists = mainFrame.getStepOneCenterTabbedPane()
+   							.getStateDiagramButtonTabbedPanelLists();
+   					List<ButtonTabbedPanel> usecaseDiagramButtonTabbedPanelLists = mainFrame
+   							.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists();
+
+   					if (type.equals("ucase")) {
+   						tabbutton = usecaseDiagramButtonTabbedPanelLists
+   								.get(usecaseDiagramButtonTabbedPanelLists.size() - 1).getTabbedbutton();
+   						stepbutton.doClick();
+
+   						mainFrame.getConsolePartPanel().getTextarea1()
+   								.append("导入用例图: " + simplefile.getFilename() + "\n");
+
+   						tabbutton.doClick();
+
+   						String nodename = tabbutton.getText();
+   						DefaultMutableTreeNode node = new DefaultMutableTreeNode(nodename);
+
+   						JTree usecasetree = mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetree();
+   						DefaultTreeModel usecasetreemodel = mainFrame.getProjectTree().getUsecaseTreePanel()
+   								.getUsecasetreemodel();
+   						DefaultMutableTreeNode usecasetreerootnode = mainFrame.getProjectTree().getUsecaseTreePanel()
+   								.getUsecasetreerootnode();
+
+   						usecasetreemodel.insertNodeInto(node, usecasetreerootnode, usecasetreerootnode.getChildCount());
+   						TreePath path = new TreePath(usecasetreerootnode.getPath());
+   						if (!usecasetree.isVisible(path)) {
+   							usecasetree.makeVisible(path);
+   						}
+   						usecasetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+
+   					} else if (type.equals("state")) {
+   						tabbutton = stateDiagramButtonTabbedPanelLists
+   								.get(stateDiagramButtonTabbedPanelLists.size() - 1).getTabbedbutton();
+   						stepbutton.doClick();
+
+   						mainFrame.getConsolePartPanel().getTextarea1()
+   								.append("导入状态图: " + simplefile.getFilename() + "\n");
+
+   						tabbutton.doClick();
+
+   						String nodename = tabbutton.getText();
+   						DefaultMutableTreeNode node = new DefaultMutableTreeNode(nodename);
+
+   						JTree statetree = mainFrame.getProjectTree().getStateTreePanel().getStatetree();
+   						DefaultTreeModel statetreemodel = mainFrame.getProjectTree().getStateTreePanel()
+   								.getStatetreemodel();
+   						DefaultMutableTreeNode statetreerootnode = mainFrame.getProjectTree().getStateTreePanel()
+   								.getStatetreerootnode();
+
+   						statetreemodel.insertNodeInto(node, statetreerootnode, statetreerootnode.getChildCount());
+   						TreePath path = new TreePath(statetreerootnode.getPath());
+   						if (!statetree.isVisible(path)) {
+   							statetree.makeVisible(path);
+   						}
+   						statetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+
+   					} else if (type.equals("seq")) {
+   						tabbutton = sequenceDiagramButtonTabbedPanelLists
+   								.get(sequenceDiagramButtonTabbedPanelLists.size() - 1).getTabbedbutton();
+   						stepbutton.doClick();
+
+   						mainFrame.getConsolePartPanel().getTextarea1()
+   								.append("导入顺序图: " + simplefile.getFilename() + "\n");
+
+   						tabbutton.doClick();
+
+   						String nodename = tabbutton.getText();
+   						DefaultMutableTreeNode node = new DefaultMutableTreeNode(nodename);
+
+   						JTree sequencetree = mainFrame.getProjectTree().getSequenceTreePanel().getSequencetree();
+   						DefaultTreeModel sequencetreemodel = mainFrame.getProjectTree().getSequenceTreePanel()
+   								.getSequencetreemodel();
+   						DefaultMutableTreeNode sequencetreerootnode = mainFrame.getProjectTree().getSequenceTreePanel()
+   								.getSequencetreerootnode();
+
+   						sequencetreemodel.insertNodeInto(node, sequencetreerootnode,
+   								sequencetreerootnode.getChildCount());
+   						TreePath path = new TreePath(sequencetreerootnode.getPath());
+   						if (!sequencetree.isVisible(path)) {
+   							sequencetree.makeVisible(path);
+   						}
+   						sequencetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+
+   					} else if (type.equals("timing")) {
+   						tabbutton = timingDiagramButtonTabbedPanelLists
+   								.get(timingDiagramButtonTabbedPanelLists.size() - 1).getTabbedbutton();
+   						stepbutton.doClick();
+
+   						mainFrame.getConsolePartPanel().getTextarea1()
+   								.append("导入时序图: " + simplefile.getFilename() + "\n");
+
+   						tabbutton.doClick();
+
+   						String nodename = tabbutton.getText();
+   						DefaultMutableTreeNode node = new DefaultMutableTreeNode(nodename);
+
+   						JTree timingtree = mainFrame.getProjectTree().getTimingTreePanel().getTimingtree();
+   						DefaultTreeModel timingtreemodel = mainFrame.getProjectTree().getTimingTreePanel()
+   								.getTimingtreemodel();
+   						DefaultMutableTreeNode timingtreerootnode = mainFrame.getProjectTree().getTimingTreePanel()
+   								.getTimingtreerootnode();
+
+   						timingtreemodel.insertNodeInto(node, timingtreerootnode, timingtreerootnode.getChildCount());
+   						TreePath path = new TreePath(timingtreerootnode.getPath());
+   						if (!timingtree.isVisible(path)) {
+   							timingtree.makeVisible(path);
+   						}
+   						timingtree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
+
+   					}
+
+   					JScrollBar bar = mainFrame.getStepOneCenterTabbedPane().getButtonScrollPanel()
+   							.getHorizontalScrollBar();
+   					bar.setValue(bar.getMaximum());
+                	   
+                   }
                    
                }
                catch (StreamException se)
