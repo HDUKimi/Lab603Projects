@@ -43,6 +43,8 @@ public class TestCaseCoverPartPanel extends JPanel{
 	private MainFrame mainFrame;
 	private Automatic automatic;
 	private IWorkspace workspace;
+	
+	private int index;
 
 	private JPanel titlepanel;
 	private JPanel linepanel;
@@ -59,8 +61,9 @@ public class TestCaseCoverPartPanel extends JPanel{
 	private DefaultTableModel attributetablemodel;
 	
 	
-	public TestCaseCoverPartPanel(MainFrame mainFrame,Automatic automatic,IWorkspace workspace){
+	public TestCaseCoverPartPanel(int index,MainFrame mainFrame,Automatic automatic,IWorkspace workspace){
 		
+		this.index=index;
 		this.mainFrame=mainFrame;
 		this.automatic=automatic;
 		this.workspace=workspace;
@@ -88,6 +91,8 @@ public class TestCaseCoverPartPanel extends JPanel{
 		toolbutton = new JButton();
 
 		linelabel = new JLabel();
+		
+		attributepanel.setVisible(false);
 
 		initTitlePanel();
 
@@ -114,7 +119,8 @@ public class TestCaseCoverPartPanel extends JPanel{
 		ImageIcon icon3 = new ImageIcon(path + "dropdown1.png");
 		icon3.setImage(icon3.getImage().getScaledInstance(11, 11, Image.SCALE_DEFAULT));
 
-		titlelabel.setText(automatic.getName().replace("用例", "路径"));
+//		titlelabel.setText(automatic.getName().replace("用例", "路径"));
+		titlelabel.setText("测试路径"+index);
 		titlelabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(60,0,255));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
@@ -169,7 +175,7 @@ public class TestCaseCoverPartPanel extends JPanel{
 					mainFrame.getAbstractTestCaseResultPanel().getThreeresultpanel().removeAll();
 					mainFrame.getAbstractTestCaseResultPanel().getThreeresultpanel().add(resultpanel);
 					
-					mainFrame.getAbstractTestCaseResultPanel().getThreenamelabel().setText(automatic.getName().replace("用例", "路径")+"，包含"+automatic.getStateSet().size()+"个状态节点和"+automatic.getTransitionSet().size()+"条消息迁移");
+					mainFrame.getAbstractTestCaseResultPanel().getThreenamelabel().setText("测试路径"+index+"，包含"+automatic.getStateSet().size()+"个状态节点和"+automatic.getTransitionSet().size()+"条消息迁移");
 					
 					mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab3().doClick();
 					

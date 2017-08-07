@@ -77,6 +77,8 @@ public class PerformanceTestCaseReportPartPanel extends JPanel {
 		toolcheckbox=new JCheckBox();
 
 		linelabel = new JLabel();
+		
+		attributepanel.setVisible(false);
 
 		initTitlePanel();
 

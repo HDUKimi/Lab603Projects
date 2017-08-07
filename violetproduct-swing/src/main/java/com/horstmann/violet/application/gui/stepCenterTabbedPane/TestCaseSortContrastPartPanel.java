@@ -40,6 +40,8 @@ public class TestCaseSortContrastPartPanel extends JPanel{
 	private MainFrame mainFrame;
 	private Automatic automatic;
 	private IWorkspace workspace;
+	
+	private int oldindex;
 
 	private JPanel titlepanel;
 	private JPanel linepanel;
@@ -56,8 +58,10 @@ public class TestCaseSortContrastPartPanel extends JPanel{
 	private DefaultTableModel attributetablemodel;
 	
 	
-	public TestCaseSortContrastPartPanel(MainFrame mainFrame,Automatic automatic,IWorkspace workspace){
+	public TestCaseSortContrastPartPanel(int oldindex,MainFrame mainFrame,Automatic automatic,IWorkspace workspace){
 		
+		
+		this.oldindex=oldindex;
 		this.mainFrame=mainFrame;
 		this.automatic=automatic;
 		this.workspace=workspace;
@@ -113,7 +117,7 @@ public class TestCaseSortContrastPartPanel extends JPanel{
 		ImageIcon icon3 = new ImageIcon(path + "dropdown1.png");
 		icon3.setImage(icon3.getImage().getScaledInstance(11, 11, Image.SCALE_DEFAULT));
 
-		titlelabel.setText(automatic.getName().replace("用例", "路径"));
+		titlelabel.setText(automatic.getName().replace("用例", "路径")+"   即为排序前的测试路径"+oldindex);
 		titlelabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
 //		titlelabel.setForeground(new Color(60,0,255));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));

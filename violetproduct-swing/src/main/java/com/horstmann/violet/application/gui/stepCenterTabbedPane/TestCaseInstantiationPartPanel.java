@@ -80,6 +80,8 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 		toolbutton = new JButton();
 
 		linelabel = new JLabel();
+		
+		attributepanel.setVisible(false);
 
 		initTitlePanel();
 

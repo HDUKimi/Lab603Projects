@@ -156,6 +156,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	private Automatic aTDRTAutomatic;
 	private Automatic type_aTDRTAutomatic;
 	private Automatic DFStree;
+	private ArrayList<Automatic> oldTestCase;
 	private ArrayList<Automatic> testCase;
 	private ArrayList<Automatic> collectLimit;
 //	private ArrayList<Automatic> collectResult;
@@ -439,6 +440,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		resultAllProcessList=new ArrayList<>();
 		
 		testCase=new ArrayList<>();
+		oldTestCase=new ArrayList<>();
 		
 		maincallable=new Callable<Integer>() {
 			
@@ -947,39 +949,41 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				}
 
 				
-				int k=1;
-				for (Automatic am : testCase) {
-
-					SaveText.init("D:\\Text\\testfugai.txt");
-					SaveText.SaveWord("测试用例ID: " + k);
-					SaveText.SaveWord("迁移列表: ");
-					for (Transition t : am.getTransitionSet()) {
-						SaveText.SaveWord(t.toString());
-					}
-					SaveText.SaveFenGe();
-					SaveText.End();
-
-					SaveText.init("D:\\Text\\testlujing.txt");
-					SaveText.SaveWord("路径: " + k);
-					SaveText.SaveWord(
-							"包含 " + am.getStateSet().size() + " 个状态节点 " + am.getTransitionSet().size() + " 条消息迁移 ");
-					SaveText.SaveWord("路径详情: ");
-					for (int index = 0; index < am.getTransitionSet().size(); index++) {
-						SaveText.SaveWord(am.getTransitionSet().get(index).toString());
-						if(index<am.getStateSet().size()){
-							SaveText.SaveWord(am.getStateSet().get(index).toString());
-						}
-					}
-					SaveText.SaveFenGe();
-					SaveText.End();
-					
-					k++;
-				}
+//				int k=1;
+//				for (Automatic am : testCase) {
+//
+//					SaveText.init("D:\\Text\\testfugai.txt");
+//					SaveText.SaveWord("测试用例ID: " + k);
+//					SaveText.SaveWord("迁移列表: ");
+//					for (Transition t : am.getTransitionSet()) {
+//						SaveText.SaveWord(t.toString());
+//					}
+//					SaveText.SaveFenGe();
+//					SaveText.End();
+//
+//					SaveText.init("D:\\Text\\testlujing.txt");
+//					SaveText.SaveWord("路径: " + k);
+//					SaveText.SaveWord(
+//							"包含 " + am.getStateSet().size() + " 个状态节点 " + am.getTransitionSet().size() + " 条消息迁移 ");
+//					SaveText.SaveWord("路径详情: ");
+//					for (int index = 0; index < am.getTransitionSet().size(); index++) {
+//						SaveText.SaveWord(am.getTransitionSet().get(index).toString());
+//						if(index<am.getStateSet().size()){
+//							SaveText.SaveWord(am.getStateSet().get(index).toString());
+//						}
+//					}
+//					SaveText.SaveFenGe();
+//					SaveText.End();
+//					
+//					k++;
+//				}
 				
 				//测试序列
 				
 //				List<Automatic> autopathlist=new ArrayList<>();
 //				autopathlist=TestAutoDiagram.PathAuto();
+				
+				oldTestCase=XMLGet.testcaseNew(testCase);
 				
 				List<TestCaseCoverPartPanel> coverpartlist=new ArrayList<>();
 				
@@ -1002,17 +1006,24 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				int i=0;
 				int copyi=0;
 				
-				for(Automatic am:testCase){
-
-					TestCaseCoverPartPanel tccppanel=new TestCaseCoverPartPanel(mainFrame,am,workspace);//传入测试序列。包括路径信息，以及workspace
+				int index=1;
+				
+				for(Automatic am:oldTestCase){
+					
+//					am.setName("测试用例"+index);
+					
+					TestCaseCoverPartPanel tccppanel=new TestCaseCoverPartPanel(index,mainFrame,am,workspace);//传入测试序列。包括路径信息，以及workspace
 					resultpanel.add(tccppanel);
 					layout.setConstraints(tccppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 					
 					coverpartlist.add(tccppanel);
 					
-					TestCaseCoverPartPanel copytccppanel=new TestCaseCoverPartPanel(mainFrame,am,copyworkspace);//传入测试序列。包括路径信息，以及workspace
+					TestCaseCoverPartPanel copytccppanel=new TestCaseCoverPartPanel(index,mainFrame,am,copyworkspace);//传入测试序列。包括路径信息，以及workspace
 					copyresultpanel.add(copytccppanel);
 					copylayout.setConstraints(copytccppanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+					
+					index++;
+					
 				}
 				
 				resultpanel.add(emptypanel);
@@ -1295,17 +1306,25 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				int i=0;
 				int copyi=0;
 				
-				ArrayList<Automatic> oldTestCase=XMLGet.testcaseNew(testCase);
+//				ArrayList<Automatic> oldTestCase=XMLGet.testcaseNew(testCase);
 				
-				for(Automatic am:oldTestCase){
+				for(Automatic am:testCase){
+					
+					int oldindex=1;
+					for(Automatic oldAuto:oldTestCase){
+						if(oldAuto.getName().equals(am.getName())){
+							break;
+						}
+						oldindex++;
+					}
 
-					TestCaseSortContrastPartPanel tcscppanel=new TestCaseSortContrastPartPanel(mainFrame,am,workspace);//传入测试序列。包括路径信息，以及workspace
+					TestCaseSortContrastPartPanel tcscppanel=new TestCaseSortContrastPartPanel(oldindex,mainFrame,am,workspace);//传入测试序列。包括路径信息，以及workspace
 					resultpanel.add(tcscppanel);
 					layout.setConstraints(tcscppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 					
 					sortcontrastpartlist.add(tcscppanel);
 					
-					TestCaseSortContrastPartPanel copytcscppanel=new TestCaseSortContrastPartPanel(mainFrame,am,copyworkspace);//传入测试序列。包括路径信息，以及workspace
+					TestCaseSortContrastPartPanel copytcscppanel=new TestCaseSortContrastPartPanel(oldindex,mainFrame,am,copyworkspace);//传入测试序列。包括路径信息，以及workspace
 					copyresultpanel.add(copytcscppanel);
 					copylayout.setConstraints(copytcscppanel, new GBC(0, copyi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 				}

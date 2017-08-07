@@ -81,6 +81,8 @@ public class TestCaseProducePartPanel extends JPanel{
 		toolbutton = new JButton();
 
 		linelabel = new JLabel();
+		
+		attributepanel.setVisible(false);
 
 		initTitlePanel();
 

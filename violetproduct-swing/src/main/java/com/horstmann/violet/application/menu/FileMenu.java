@@ -771,7 +771,7 @@ public class FileMenu extends JMenu {
 		return name;
 	}
 
-	private boolean isVioletXML(String url) {
+	public static boolean isVioletXML(String url) {
 		Document document = XMLUtils.load(url);
 		Element root = document.getRootElement();
 		if (root.getName().equals("XMI")) {

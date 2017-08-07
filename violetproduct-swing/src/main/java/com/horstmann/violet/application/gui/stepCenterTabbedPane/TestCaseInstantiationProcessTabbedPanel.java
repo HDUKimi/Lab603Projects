@@ -512,20 +512,20 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					collectResult=XmlOfTime.collectResult(collectLimit);
 				}
 				
-				int k=1;
-				for (Automatic am : collectResult) {
-
-					SaveText.init("D:\\Text\\testshilihua.txt");
-					SaveText.SaveWord("测试用例ID: " + k);
-					SaveText.SaveWord("迁移列表: ");
-					for (Transition t : am.getTransitionSet()) {
-						SaveText.SaveWord(t.toString2());
-					}
-					SaveText.SaveFenGe();
-					SaveText.End();
-
-					k++;
-				}
+//				int k=1;
+//				for (Automatic am : collectResult) {
+//
+//					SaveText.init("D:\\Text\\testshilihua.txt");
+//					SaveText.SaveWord("测试用例ID: " + k);
+//					SaveText.SaveWord("迁移列表: ");
+//					for (Transition t : am.getTransitionSet()) {
+//						SaveText.SaveWord(t.toString2());
+//					}
+//					SaveText.SaveFenGe();
+//					SaveText.End();
+//
+//					k++;
+//				}
 				
 				
 				Thread.sleep(1000);

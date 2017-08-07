@@ -326,7 +326,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 	protected void initThread() {
 		// TODO Auto-generated method stub
 		
-//		initUIPanel();
+		initUIPanel();
 		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().initUIPanel();
 //		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
 		
@@ -569,7 +569,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 						System.out.println(sequencelistindex+"   "+sequencelists.size()+"   "+baseUrl + filename);
 						String path = baseUrl + filename + ".seq.violet.xml";
 
-						if (filename.contains("EA")) {// 打开ea平台的xml文件
+						if (!FileMenu.isVioletXML(path)) {// 打开ea平台的xml文件
 							
 							moviepanel.getMovieLabel().setText("正在转换顺序图 "+filename+"...");
 							
@@ -612,8 +612,19 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							}
 							else{
 								System.out.println("*************************456");
-								XMLCopy.SourceCopyToTarget(originaluppaalbaseurl+"UAVForXStream.xml", baseUrl2+filename+"ForXStream.xml");
-								LayoutUppaal.layout(originaluppaalbaseurl+"UAV.xml");
+								
+								File sourcefile;
+								
+								sourcefile=new File(originaluppaalbaseurl+"UAVForXStream.xml");
+								if(sourcefile.exists()){
+									XMLCopy.SourceCopyToTarget(originaluppaalbaseurl+"UAVForXStream.xml", baseUrl2+filename+"ForXStream.xml");
+									LayoutUppaal.layout(originaluppaalbaseurl+"UAV.xml");
+								}
+								else{
+									XMLCopy.SourceCopyToTarget(originaluppaalbaseurl+filename+"ForXStream.xml", baseUrl2+filename+"ForXStream.xml");
+									LayoutUppaal.layout(originaluppaalbaseurl+filename+".xml");
+								}
+								
 							}
 							
 							System.out.println("SD2UppaalMain.getDiagramDataName():+++++++++"+SD2UppaalMain.getDiagramDataName());

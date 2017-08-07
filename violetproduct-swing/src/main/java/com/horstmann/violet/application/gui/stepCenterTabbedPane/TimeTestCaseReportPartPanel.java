@@ -80,6 +80,9 @@ public class TimeTestCaseReportPartPanel extends JPanel {
 		toolcheckbox=new JCheckBox();
 
 		linelabel = new JLabel();
+		
+		attributepanel.setVisible(false);
+		limitpanel.setVisible(false);
 
 		initTitlePanel();
 
