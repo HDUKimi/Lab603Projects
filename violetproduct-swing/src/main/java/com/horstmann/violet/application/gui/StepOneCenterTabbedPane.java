@@ -65,6 +65,7 @@ public class StepOneCenterTabbedPane extends JPanel {
 	private static ButtonTabbedPanel stateDiagramButtonPanel;
 	private static ButtonTabbedPanel usecaseDiagramButtonPanel;
 	
+	private List<ButtonTabbedPanel> allDiagramButtonTabbedPanelLists;
 	private List<ButtonTabbedPanel> sequenceDiagramButtonTabbedPanelLists;
 	private List<ButtonTabbedPanel> timingDiagramButtonTabbedPanelLists;
 	private List<ButtonTabbedPanel> stateDiagramButtonTabbedPanelLists;
@@ -95,6 +96,7 @@ public class StepOneCenterTabbedPane extends JPanel {
 		
 		buttonTabbedPanel=new JPanel();
 		
+		allDiagramButtonTabbedPanelLists=new ArrayList<ButtonTabbedPanel>();
 		sequenceDiagramButtonTabbedPanelLists=new ArrayList<ButtonTabbedPanel>();
 		timingDiagramButtonTabbedPanelLists=new ArrayList<ButtonTabbedPanel>();
 		stateDiagramButtonTabbedPanelLists=new ArrayList<ButtonTabbedPanel>();
@@ -549,6 +551,7 @@ public class StepOneCenterTabbedPane extends JPanel {
 	public void setButtonTabbedPanel(JPanel buttonTabbedPanel) {
 		this.buttonTabbedPanel = buttonTabbedPanel;
 	}
+	
 
 //	public JPanel getButtonPanel() {
 //		return buttonPanel;
@@ -557,6 +560,14 @@ public class StepOneCenterTabbedPane extends JPanel {
 //	public void setButtonPanel(JPanel buttonPanel) {
 //		this.buttonPanel = buttonPanel;
 //	}
+
+	public List<ButtonTabbedPanel> getAllDiagramButtonTabbedPanelLists() {
+		return allDiagramButtonTabbedPanelLists;
+	}
+
+	public void setAllDiagramButtonTabbedPanelLists(List<ButtonTabbedPanel> allDiagramButtonTabbedPanelLists) {
+		this.allDiagramButtonTabbedPanelLists = allDiagramButtonTabbedPanelLists;
+	}
 
 	public ButtonTabbedPanel getSelectedButtonTabbedPanel() {
 		return selectedButtonTabbedPanel;

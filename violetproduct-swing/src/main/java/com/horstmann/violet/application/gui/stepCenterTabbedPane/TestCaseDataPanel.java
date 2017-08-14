@@ -5,12 +5,20 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
@@ -26,10 +34,12 @@ public class TestCaseDataPanel{
 	private int testCaseType;
 	
 	private JButton testCaseReportDiagramButton;
+	private JLabel testCaseReportDiagramDeleteLabel;
 	private FixedButtonTabbedPanel testCaseReportDiagramButtonPanel;
 	private TestCaseReportTabbedPanel testCaseReportTabbedPane;
 	
 	private JButton testCaseChartDiagramButton;
+	private JLabel testCaseChartDiagramDeleteLabel;
 	private FixedButtonTabbedPanel testCaseChartDiagramButtonPanel;
 	private JPanel testCaseChartTabbedPanel;
 	
@@ -209,17 +219,45 @@ public class TestCaseDataPanel{
 			testCasePath=baseUrl+testCaseName+".xml";
 		}
 		
-		testCaseType=starttype;
-		
-		if(testCaseName.contains("功能")){
-			testCaseType=1;
+		try {
+			testCaseType=TestCaseXMLType(testCasePath);
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else if(testCaseName.contains("性能")){
-			testCaseType=2;
+		
+	}
+	
+	public int TestCaseXMLType(String path) throws DocumentException{
+		
+		int type=1;
+		
+		SAXReader reader=new SAXReader();
+		File file=new File(path);
+		
+		Document document=reader.read(file);
+		
+		Element root=document.getRootElement();
+		
+//		List<Element> testcaseElements=root.elements("testcase");
+		Element testcaseElement=root.element("testcase");
+		
+		Element limitElement=null;
+		limitElement=testcaseElement.element("limit");
+		if(limitElement!=null){
+			type=3;
 		}
 		else{
-			testCaseType=3;
+			
+			Element outputElement=null;
+			outputElement=testcaseElement.element("process").element("output");
+			if(outputElement!=null){
+				type=2;
+			}
+			
 		}
+		
+		return type;
 		
 	}
 
@@ -229,10 +267,12 @@ public class TestCaseDataPanel{
 		testCaseReportDiagramButtonPanel=new FixedButtonTabbedPanel(testCaseName+"的测试进程");
 		testCaseReportDiagramButtonPanel.setBackground(new Color(77, 96, 130));
 		testCaseReportDiagramButton=testCaseReportDiagramButtonPanel.getTabbedbutton();
+		testCaseReportDiagramDeleteLabel=testCaseReportDiagramButtonPanel.getDelectlabel();
 		
 		testCaseChartDiagramButtonPanel=new FixedButtonTabbedPanel(testCaseName+"的测试报告");
 		testCaseChartDiagramButtonPanel.setBackground(new Color(77, 96, 130));
 		testCaseChartDiagramButton=testCaseChartDiagramButtonPanel.getTabbedbutton();
+		testCaseChartDiagramDeleteLabel=testCaseChartDiagramButtonPanel.getDelectlabel();
 		
 		mainFrame.getStepFiveCenterTabbedPane().getButtonTabbedPanel().add(testCaseReportDiagramButtonPanel);
 		mainFrame.getStepFiveCenterTabbedPane().getButtonTabbedPanel().add(testCaseChartDiagramButtonPanel);
@@ -242,7 +282,100 @@ public class TestCaseDataPanel{
 
 		setButtonActionListener();
 		
+		setDeleteLabelActionListener();
+		
 		testCaseChartDiagramButtonPanel.setVisible(false);
+		
+	}
+
+	private void setDeleteLabelActionListener() {
+		// TODO Auto-generated method stub
+		
+		testCaseReportDiagramDeleteLabel.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+				testCaseReportDiagramButtonPanel.setVisible(false);
+				
+				if(mainFrame.getStepFiveCenterTabbedPane().getSelectedFixedButtonTabbedPanel().equals(testCaseReportDiagramButtonPanel)){
+					mainFrame.getStepFiveCenterTabbedPane().getDiagramPanel().removeAll();
+				}
+				
+				if(mainFrame.getStepindex()==5){
+					mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
+				}
+				
+			}
+		});
+		
+		testCaseChartDiagramDeleteLabel.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+				testCaseChartDiagramButtonPanel.setVisible(false);
+				
+				if(mainFrame.getStepFiveCenterTabbedPane().getSelectedFixedButtonTabbedPanel().equals(testCaseChartDiagramButtonPanel)){
+					mainFrame.getStepFiveCenterTabbedPane().getDiagramPanel().removeAll();
+				}
+				
+				if(mainFrame.getStepindex()==5){
+					mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
+				}
+				
+			}
+		});
 		
 	}
 
@@ -253,6 +386,8 @@ public class TestCaseDataPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				mainFrame.getStepFiveCenterTabbedPane().setSelectedFixedButtonTabbedPanel(testCaseReportDiagramButtonPanel);
 				
 				mainFrame.getStepFiveCenterTabbedPane().getDiagramPanel().removeAll();
 				mainFrame.getStepFiveCenterTabbedPane().getDiagramPanel().setLayout(new GridLayout());
@@ -273,6 +408,8 @@ public class TestCaseDataPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				mainFrame.getStepFiveCenterTabbedPane().setSelectedFixedButtonTabbedPanel(testCaseChartDiagramButtonPanel);
 				
 				mainFrame.getStepFiveCenterTabbedPane().getDiagramPanel().removeAll();
 				mainFrame.getStepFiveCenterTabbedPane().getDiagramPanel().setLayout(new GridLayout());

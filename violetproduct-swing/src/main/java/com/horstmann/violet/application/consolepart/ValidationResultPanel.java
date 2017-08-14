@@ -53,7 +53,7 @@ public class ValidationResultPanel extends JPanel{
 	private JButton validationlabeltab4;
 	private JButton validationlabeltab5;
 	
-	private int validationlabeltabindex=1;
+	private int validationlabeltabindex=5;
 	
 	private JPanel onevalidationresultpanel;
 	private JPanel onenamepanel;
@@ -670,7 +670,7 @@ public class ValidationResultPanel extends JPanel{
 		validationlabeltab1.setText("´æÔÚ½á¹û");
 		validationlabeltab1.setForeground(new Color(255, 255, 255));
 		validationlabeltab1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-		validationlabeltab1.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
+		validationlabeltab1.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 0));
 		validationlabeltab1.setFocusable(false);
 		validationlabeltab1.setContentAreaFilled(false);
 		validationlabeltab1.setBorderPainted(false);
@@ -752,7 +752,7 @@ public class ValidationResultPanel extends JPanel{
 		validationlabeltab2.setText("Ë³Ðò½á¹û");
 		validationlabeltab2.setForeground(new Color(255, 255, 255));
 		validationlabeltab2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-		validationlabeltab2.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
+		validationlabeltab2.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 0));
 		validationlabeltab2.setFocusable(false);
 		validationlabeltab2.setContentAreaFilled(false);
 		validationlabeltab2.setBorderPainted(false);
@@ -834,7 +834,7 @@ public class ValidationResultPanel extends JPanel{
 		validationlabeltab3.setText("¶Ô±È½á¹û");
 		validationlabeltab3.setForeground(new Color(255, 255, 255));
 		validationlabeltab3.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-		validationlabeltab3.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
+		validationlabeltab3.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 0));
 		validationlabeltab3.setFocusable(false);
 		validationlabeltab3.setContentAreaFilled(false);
 		validationlabeltab3.setBorderPainted(false);
@@ -915,7 +915,7 @@ public class ValidationResultPanel extends JPanel{
 		validationlabeltab4.setText("Ê±¼ä¿Ì¶È");
 		validationlabeltab4.setForeground(new Color(255, 255, 255));
 		validationlabeltab4.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-		validationlabeltab4.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
+		validationlabeltab4.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 0));
 		validationlabeltab4.setFocusable(false);
 		validationlabeltab4.setContentAreaFilled(false);
 		validationlabeltab4.setBorderPainted(false);
@@ -996,7 +996,7 @@ public class ValidationResultPanel extends JPanel{
 		validationlabeltab5.setText("ÆÀ¹À½á¹û");
 		validationlabeltab5.setForeground(new Color(0,0,0));
 		validationlabeltab5.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-		validationlabeltab5.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
+		validationlabeltab5.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 0));
 		validationlabeltab5.setFocusable(false);
 		validationlabeltab5.setContentAreaFilled(false);
 		validationlabeltab5.setBorderPainted(false);
@@ -1214,6 +1214,10 @@ public class ValidationResultPanel extends JPanel{
 
 	public JButton getValidationlabeltab4() {
 		return validationlabeltab4;
+	}
+	
+	public JButton getValidationlabeltab5() {
+		return validationlabeltab5;
 	}
 
 }

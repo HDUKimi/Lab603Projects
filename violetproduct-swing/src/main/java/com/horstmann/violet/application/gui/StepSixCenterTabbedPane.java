@@ -108,6 +108,11 @@ public class StepSixCenterTabbedPane extends JPanel {
 		mainFrame.getModelExistValidationPanel().getValidationinfopanel().removeAll();
 		mainFrame.getModelExistValidationPanel().getValidationcheckboxpanel().removeAll();
 		
+		mainFrame.getModelExistValidationPanel().getAssessdealtext11().setText("");
+		mainFrame.getModelExistValidationPanel().getAssessdealtext21().setText("");
+		mainFrame.getModelExistValidationPanel().getAssessdealtext22().setText("");
+		mainFrame.getModelExistValidationPanel().getAssessdealtext31().setText("");
+		
 		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
 		mainFrame.getStepSixCenterTabbedPane().getTimingDiagramTabbedPane().removeAll();
 		
@@ -115,12 +120,13 @@ public class StepSixCenterTabbedPane extends JPanel {
 		mainFrame.getValidationResultPanel().getTwonamelabel().setText("");
 		mainFrame.getValidationResultPanel().getThreenamelabel().setText("测试对比结果显示： ");
 		mainFrame.getValidationResultPanel().getFournamelabel().setText("时间刻度显示： ");
+		mainFrame.getValidationResultPanel().getFivenamelabel().setText("");
 		mainFrame.getValidationResultPanel().getOneresultpanel().removeAll();
 		mainFrame.getValidationResultPanel().getTworesultpanel().removeAll();
 		mainFrame.getValidationResultPanel().getStatelocationresultpanel().removeAll();
 		mainFrame.getValidationResultPanel().getMessagetransitionresultpanel().removeAll();
 		mainFrame.getValidationResultPanel().getFourresultpanel().removeAll();
-		
+		mainFrame.getValidationResultPanel().getFiveresultpanel().removeAll();
 		
 		mainFrame.getConsolePartPanel().getTextarea6().setText("");
 	}

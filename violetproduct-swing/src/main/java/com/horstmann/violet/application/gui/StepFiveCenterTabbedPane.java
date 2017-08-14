@@ -61,7 +61,7 @@ public class StepFiveCenterTabbedPane extends JPanel{
 	
 	private int selectedIndex=1;
 	
-	private WebFrame webframe;
+	private FixedButtonTabbedPanel selectedFixedButtonTabbedPanel;
 	
 	public StepFiveCenterTabbedPane(MainFrame mainFrame)
 	{
@@ -85,6 +85,8 @@ public class StepFiveCenterTabbedPane extends JPanel{
 //		testCaseLineChartTabbedPane=new JPanel();
 //		testCaseLineChartTabbedPane.setLayout(new GridLayout());
 		
+		selectedFixedButtonTabbedPanel=null;
+		
 		buttonPanel=new JPanel();
 		diagramPanel=new JPanel();
 		
@@ -107,53 +109,10 @@ public class StepFiveCenterTabbedPane extends JPanel{
 		
 		this.setMinimumSize(new Dimension(screenWidth/2, screenHeight/2));
 		
-//		initWeb();
-		
 //		testcaseFile=new JPanel();
 //		this.add("测试用例实例化测试报告",testcaseFile);	
 //		testcaseFile1=new JPanel();
 //		this.add("测试用例实例化测试报告",testcaseFile1);	
-	}
-
-	private void initWeb() {
-		// TODO Auto-generated method stub
-		
-//		NativeInterface.open();  
-//		  
-//        SwingUtilities.invokeLater(new Runnable() {  
-//            public void run() {  
-//            	webframe = new WebFrame();
-//            	webframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-//            	webframe.setExtendedState(JFrame.MAXIMIZED_BOTH);  
-//            	webframe.setLocationByPlatform(true);  
-////            	webframe.setVisible(true);  
-//            }  
-//        });  
-//        NativeInterface.runEventPump();
-        
-//		Thread t = new Thread(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				// TODO Auto-generated method stub
-//				NativeInterface.open();
-//				SwingUtilities.invokeLater(new Runnable() {
-//					public void run() {
-//						webframe = new WebFrame();
-//						webframe.invalidate();
-//						webframe.pack();
-//						// webframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//						// webframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
-//						// webframe.setLocationByPlatform(true);
-//						 webframe.setVisible(false);
-//					}
-//				});
-//				NativeInterface.runEventPump();
-//			}
-//		});
-//
-//		t.start();
-		
 	}
 
 	private void initbuttonpanel() {
@@ -465,6 +424,17 @@ public class StepFiveCenterTabbedPane extends JPanel{
 		this.getRootPane().repaint();
 		this.setVisible(true);
 	}
+	
+	public void initUIPanelData(){
+		
+		buttonTabbedPanel.removeAll();
+		diagramPanel.removeAll();
+		
+		testCaseDiagramButtonPanelList=new ArrayList<>();
+		testCaseDataPanelList=new ArrayList<>();
+		selectedFixedButtonTabbedPanel=null;
+		
+	}
 
 	public JPanel getDiagramPanel() {
 		return diagramPanel;
@@ -521,7 +491,13 @@ public class StepFiveCenterTabbedPane extends JPanel{
 	public List<TestCaseDataPanel> getTestCaseDataPanelList() {
 		return testCaseDataPanelList;
 	}
-	
-	
 
+	public FixedButtonTabbedPanel getSelectedFixedButtonTabbedPanel() {
+		return selectedFixedButtonTabbedPanel;
+	}
+
+	public void setSelectedFixedButtonTabbedPanel(FixedButtonTabbedPanel selectedFixedButtonTabbedPanel) {
+		this.selectedFixedButtonTabbedPanel = selectedFixedButtonTabbedPanel;
+	}
+	
 }

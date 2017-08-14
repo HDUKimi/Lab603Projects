@@ -1,5 +1,6 @@
 package com.horstmann.violet.application.gui.opreationTreePane;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +13,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -31,6 +34,9 @@ public class TimingTreePanel extends JPanel{
 	public JMenuItem importDiagram;
 	public JMenuItem deleteDiagram;
 	
+	private JScrollPane timingscrollpanel;
+	private JPanel timingpanel;
+	
 	public JTree timingtree;
 	private DefaultTreeModel timingtreemodel;
 	private DefaultMutableTreeNode timingtreerootnode;
@@ -44,8 +50,19 @@ public class TimingTreePanel extends JPanel{
 		
 		timingtree.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
+		timingpanel=new JPanel();
+		timingpanel.setLayout(new GridLayout());
+		timingpanel.add(timingtree);
+		timingpanel.setBackground(new Color(238, 238, 242));
+		timingpanel.setBorder(null);
+		
+		timingscrollpanel=new JScrollPane(timingpanel);
+		timingscrollpanel.setBorder(null);
+		timingscrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		timingscrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
 		this.setLayout(new GridLayout());
-		this.add(timingtree);
+		this.add(timingscrollpanel);
 			
 	}
 

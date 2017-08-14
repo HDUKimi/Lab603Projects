@@ -236,9 +236,10 @@ public class ModelExistValidationPanel extends JPanel{
 //		layout.setConstraints(titlepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //		layout.setConstraints(treepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
-//		JPanel emptypanel=new JPanel();
-//		emptypanel.setLayout(new GridLayout());
-//		emptypanel.setBackground(new Color(255, 255, 255));
+		JPanel emptypanel=new JPanel();
+		emptypanel.setLayout(new GridLayout());
+		emptypanel.setBackground(new Color(255, 255, 255));
+		emptypanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
 		
 		GridBagLayout layout=new GridBagLayout();
 		this.setLayout(layout);
@@ -446,9 +447,9 @@ public class ModelExistValidationPanel extends JPanel{
 		assessdeallinepanel1.setBackground(new Color(255, 255, 255));
 		assessdeallinepanel2.setBackground(new Color(255, 255, 255));
 		
-//		JPanel emptypanel=new JPanel();
-//		emptypanel.setLayout(new GridLayout());
-//		emptypanel.setBackground(new Color(255, 255, 255));
+		JPanel emptypanel=new JPanel();
+		emptypanel.setLayout(new GridLayout());
+		emptypanel.setBackground(new Color(255, 255, 255));
 		
 		assessdealpanel.setBackground(new Color(255, 255, 255));
 		GridBagLayout layout=new GridBagLayout();
@@ -464,7 +465,7 @@ public class ModelExistValidationPanel extends JPanel{
 		layout.setConstraints(assessdealpanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(assessdeallinepanel2, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(assessdealpanel3, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//		layout.setConstraints(emptypanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(emptypanel, new GBC(0, 5, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		JPanel borderpanel=new JPanel();
 		borderpanel.setBackground(new Color(255, 255, 255));
@@ -564,6 +565,8 @@ public class ModelExistValidationPanel extends JPanel{
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
+						
+						mainFrame.getValidationResultPanel().getValidationlabeltab5().doClick();
 						
 						String message=assessdealtext11.getText();
 						
@@ -717,6 +720,8 @@ public class ModelExistValidationPanel extends JPanel{
 					public void run() {
 						// TODO Auto-generated method stub
 						
+						mainFrame.getValidationResultPanel().getValidationlabeltab5().doClick();
+						
 						String message1=assessdealtext21.getText();
 						String message2=assessdealtext22.getText();
 						
@@ -738,7 +743,7 @@ public class ModelExistValidationPanel extends JPanel{
 							pathTupleList=mainFrame.getModelExistValidationPanel().getEv().getPathOfSelectedTransitions(uppaalMessageTransitionList);
 							
 							if(pathTupleList==null){
-								JOptionPane.showMessageDialog(null, "找不到路径！", "顺序一致性评估" , JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(null, "顺序一致性评估失败，找不到路径！", "顺序一致性评估" , JOptionPane.ERROR_MESSAGE);
 								System.out.println("message is not exist ");
 							}
 							else{
@@ -781,7 +786,7 @@ public class ModelExistValidationPanel extends JPanel{
 								
 								System.out.println("++++++++++++++++++++");
 								
-								JOptionPane.showMessageDialog(null, "找到路径！", "顺序一致性评估" , JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(null, "顺序一致性评估成功，找到一组路径！", "顺序一致性评估" , JOptionPane.INFORMATION_MESSAGE);
 								System.out.println("message is exist ");
 							}
 							
@@ -875,6 +880,8 @@ public class ModelExistValidationPanel extends JPanel{
 					public void run() {
 						// TODO Auto-generated method stub
 						
+						mainFrame.getValidationResultPanel().getValidationlabeltab5().doClick();
+						
 						String message=assessdealtext31.getText();
 						
 						if(message==null||message.trim().equals("")){
@@ -885,8 +892,16 @@ public class ModelExistValidationPanel extends JPanel{
 							
 							if(isInequality(message)){
 								Boolean result=mainFrame.getModelExistValidationPanel().getEv().getPathByInput(message);
-								JOptionPane.showMessageDialog(null, "结果 "+result, "实时一致性评估" , JOptionPane.INFORMATION_MESSAGE);
+								
 								System.out.println("result is "+result);
+								
+								if(result){
+									JOptionPane.showMessageDialog(null, "实时一致性评估成功！", "实时一致性评估" , JOptionPane.INFORMATION_MESSAGE);
+								}
+								else{
+									JOptionPane.showMessageDialog(null, "实时一致性评估失败！", "实时一致性评估" , JOptionPane.ERROR_MESSAGE);
+								}
+								
 							}
 							else{
 								JOptionPane.showMessageDialog(null, "时间参数格式不符合要求！", "实时一致性评估" , JOptionPane.WARNING_MESSAGE);
@@ -1288,7 +1303,7 @@ public class ModelExistValidationPanel extends JPanel{
 
 			TimingEAtoUppaal.transEA(filename,path,mainFrame,0);
 			LayoutUppaal.layout(TimingEAtoUppaal.getDiagramDataName() + ".xml");
-			String filename1 = TransToVioletUppaal.TransToViolet(filename,1);
+			String filename1 = TransToVioletUppaal.TransToViolet(filename,2,2);
 
 			System.out.println("filename1:" + filename1 + " TimingEAtoUppaal.getDiagramDataName():"
 					+ TimingEAtoUppaal.getDiagramDataName());
@@ -2177,9 +2192,21 @@ public class ModelExistValidationPanel extends JPanel{
 	public JPanel getValidationinfopanel() {
 		return validationinfopanel;
 	}
-	
-	
 
-	
+	public JTextField getAssessdealtext11() {
+		return assessdealtext11;
+	}
+
+	public JTextField getAssessdealtext21() {
+		return assessdealtext21;
+	}
+
+	public JTextField getAssessdealtext22() {
+		return assessdealtext22;
+	}
+
+	public JTextField getAssessdealtext31() {
+		return assessdealtext31;
+	}
 	
 }

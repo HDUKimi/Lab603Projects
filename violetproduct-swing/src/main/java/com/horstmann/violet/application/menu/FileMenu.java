@@ -331,10 +331,11 @@ public class FileMenu extends JMenu {
 		if (workspace.getTitle().toString().endsWith(".ucase.violet.xml")
 				|| workspace.getTitle().toString().substring(2, 4).equals("Us"))// 如果是用例图
 		{
-
-			usecaseDiagramButtonTabbedPanelLists.get(index).getTabbedbutton()
-					.setText(graphFile.getFilename().toString().split("\\.")[0]);
-
+			String name=graphFile.getFilename().toString().split("\\.")[0];
+			usecaseDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().setText(name);
+			usecaseDiagramButtonTabbedPanelLists.get(index).setWidth(usecaseDiagramButtonTabbedPanelLists.get(index), name);
+			usecaseDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().doClick();
+			
 			int i = 0;
 			Enumeration<?> en = mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetreerootnode().children();
 			DefaultMutableTreeNode node;
@@ -354,8 +355,10 @@ public class FileMenu extends JMenu {
 		if (workspace.getTitle().toString().endsWith(".timing.violet.xml")
 				|| workspace.getTitle().toString().substring(2, 4).equals("Ti"))// 时序图
 		{
-			timingDiagramButtonTabbedPanelLists.get(index).getTabbedbutton()
-					.setText(graphFile.getFilename().toString().split("\\.")[0]);
+			String name=graphFile.getFilename().toString().split("\\.")[0];
+			timingDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().setText(name);
+			timingDiagramButtonTabbedPanelLists.get(index).setWidth(timingDiagramButtonTabbedPanelLists.get(index), name);
+			timingDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().doClick();
 
 			int i = 0;
 			Enumeration<?> en = mainFrame.getProjectTree().getTimingTreePanel().getTimingtreerootnode().children();
@@ -376,8 +379,10 @@ public class FileMenu extends JMenu {
 		if (workspace.getTitle().toString().endsWith(".seq.violet.xml")
 				|| workspace.getTitle().toString().substring(2, 4).equals("Se"))// 如果是顺序图
 		{
-			sequenceDiagramButtonTabbedPanelLists.get(index).getTabbedbutton()
-					.setText(graphFile.getFilename().toString().split("\\.")[0]);
+			String name=graphFile.getFilename().toString().split("\\.")[0];
+			sequenceDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().setText(name);
+			sequenceDiagramButtonTabbedPanelLists.get(index).setWidth(sequenceDiagramButtonTabbedPanelLists.get(index), name);
+			sequenceDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().doClick();
 
 			int i = 0;
 			Enumeration<?> en = mainFrame.getProjectTree().getSequenceTreePanel().getSequencetreerootnode().children();
@@ -398,8 +403,10 @@ public class FileMenu extends JMenu {
 		if (workspace.getTitle().toString().endsWith(".state.violet.xml")
 				|| workspace.getTitle().toString().substring(2, 4).equals("St"))// 如果是状态图
 		{
-			stateDiagramButtonTabbedPanelLists.get(index).getTabbedbutton()
-					.setText(graphFile.getFilename().toString().split("\\.")[0]);
+			String name=graphFile.getFilename().toString().split("\\.")[0];
+			stateDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().setText(name);
+			stateDiagramButtonTabbedPanelLists.get(index).setWidth(stateDiagramButtonTabbedPanelLists.get(index), name);
+			stateDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().doClick();
 
 			int i = 0;
 			Enumeration<?> en = mainFrame.getProjectTree().getStateTreePanel().getStatetreerootnode().children();
@@ -413,7 +420,7 @@ public class FileMenu extends JMenu {
 				}
 				i++;
 			}
-
+			
 			mainFrame.getConsolePartPanel().getTextarea1()
 					.append("保存状态图文件 " + graphFile.getFilename() + " 到 " + graphFile.getDirectory() + "\n");
 		}

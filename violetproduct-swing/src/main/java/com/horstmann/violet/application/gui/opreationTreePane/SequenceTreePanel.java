@@ -1,5 +1,6 @@
 package com.horstmann.violet.application.gui.opreationTreePane;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +14,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -35,6 +38,9 @@ public class SequenceTreePanel extends JPanel{
 	
 	private DialogFactory dialogFactory;
 	
+	private JScrollPane sequencescrollpanel;
+	private JPanel sequencepanel;
+	
 	public JTree sequencetree;
 	private DefaultTreeModel sequencetreemodel;
 	private DefaultMutableTreeNode sequencetreerootnode;
@@ -48,8 +54,19 @@ public class SequenceTreePanel extends JPanel{
 		
 		sequencetree.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
+		sequencepanel=new JPanel();
+		sequencepanel.setLayout(new GridLayout());
+		sequencepanel.add(sequencetree);
+		sequencepanel.setBackground(new Color(238, 238, 242));
+		sequencepanel.setBorder(null);
+		
+		sequencescrollpanel=new JScrollPane(sequencepanel);
+		sequencescrollpanel.setBorder(null);
+		sequencescrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		sequencescrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
 		this.setLayout(new GridLayout());
-		this.add(sequencetree);
+		this.add(sequencescrollpanel);
 			
 	}
 

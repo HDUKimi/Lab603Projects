@@ -144,7 +144,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		testcasecheckboxpanel=new JPanel();
 		
 		titlepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(142, 155, 188)));
-		toolpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, new Color(142, 155, 188)));
+		toolpanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(142, 155, 188)));
 		treepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(142, 155, 188)));
 		
 		initTitlePanel();
@@ -425,11 +425,37 @@ public class TestCaseConfirmationPanel extends JPanel{
 					public void run() {
 						// TODO Auto-generated method stub
 						
+						List<TestCaseDataPanel> testCaseDataPanels=mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList();
+						int flag=0;
+						int index=0;
+						TestCaseDataPanel nowtcdpanel = null;
+						
 						for(String testcasename:selectedtestcaselist){
-							TestCaseDataPanel tcdpanel=new TestCaseDataPanel(mainFrame, testcasename);
-							mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList().add(tcdpanel);
-
+							
+							flag=0;
+							for(TestCaseDataPanel testCaseDataPanel:testCaseDataPanels){
+								if(testCaseDataPanel.getTestCaseName().equals(testcasename)){
+									flag=1;
+									nowtcdpanel=testCaseDataPanel;
+									break;
+								}
+							}
+							
+							if(flag==0){
+								TestCaseDataPanel tcdpanel=new TestCaseDataPanel(mainFrame, testcasename);
+								mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList().add(tcdpanel);
+								nowtcdpanel=tcdpanel;
+							}
+							
+							if(index==0){
+								nowtcdpanel.getTestCaseReportDiagramButtonPanel().getTabbedbutton().doClick();
+							}
+							nowtcdpanel.getTestCaseReportDiagramButtonPanel().setVisible(true);
+							
 							mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
+							
+							index++;
+							
 						}
 						
 //						for(TestCaseDataPanel tcdpanel:mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList()){

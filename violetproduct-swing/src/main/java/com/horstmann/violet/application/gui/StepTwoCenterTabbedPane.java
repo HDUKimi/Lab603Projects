@@ -372,6 +372,18 @@ public class StepTwoCenterTabbedPane extends JPanel{
 		this.getRootPane().repaint();
 		this.setVisible(true);
 	}
+	
+	public void initUIPanelData(){
+		
+		mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalTabbedPane().initUIPanel();
+		mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().initUIPanel();
+		
+		mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalTabbedPane().initUIPanel();
+		mainFrame.getModelTransformationPanel().getModelTimingTreePanel().initUIPanel();
+		
+		sequenceToUppaalDiagramButton.doClick();
+		
+	}
 
 	public JPanel getUppaalDiagramTabbedPane() {
 		return uppaalDiagramTabbedPane;

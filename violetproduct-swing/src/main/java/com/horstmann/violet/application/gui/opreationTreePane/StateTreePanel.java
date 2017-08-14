@@ -1,5 +1,6 @@
 package com.horstmann.violet.application.gui.opreationTreePane;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +13,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -31,6 +34,9 @@ public class StateTreePanel extends JPanel{
 	public JMenuItem importDiagram;
 	public JMenuItem deleteDiagram;
 	
+	private JScrollPane statescrollpanel;
+	private JPanel statepanel;
+	
 	public JTree statetree;
 	private DefaultTreeModel statetreemodel;
 	private DefaultMutableTreeNode statetreerootnode;
@@ -44,8 +50,19 @@ public class StateTreePanel extends JPanel{
 		
 		statetree.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
+		statepanel=new JPanel();
+		statepanel.setLayout(new GridLayout());
+		statepanel.add(statetree);
+		statepanel.setBackground(new Color(238, 238, 242));
+		statepanel.setBorder(null);
+		
+		statescrollpanel=new JScrollPane(statepanel);
+		statescrollpanel.setBorder(null);
+		statescrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		statescrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
 		this.setLayout(new GridLayout());
-		this.add(statetree);
+		this.add(statescrollpanel);
 			
 	}
 

@@ -108,7 +108,7 @@ public class ModelTransformationPanel extends JPanel{
 	public ModelTransformationPanel(MainFrame mainFram) {
 		this.mainFrame = mainFram;
 		initFileList();
-		initUI();
+//		initUI();
 //		this.setLayout(new GridBagLayout());
 //		JPanel umlDiagramPanel = new JPanel();
 //		umlDiagramPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black),
@@ -186,7 +186,7 @@ public class ModelTransformationPanel extends JPanel{
 		toolpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, new Color(142, 155, 188)));
 		treepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(142, 155, 188)));
 		
-		initDoubleClick();
+//		initDoubleClick();
 		
 		initTitlePanel();
 		

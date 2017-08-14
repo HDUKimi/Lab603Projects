@@ -31,7 +31,7 @@ public class CalculateWidth {
 		
 		int width;
 //		width=nsum*6+asum*6+Asum*10+Csum*15+60;
-		width=nsum*5+asum*6+Asum*9+Csum*15+55;
+		width=nsum*7+asum*7+Asum*9+Csum*13+50;
 		
 		System.out.println(nsum+" - - "+asum+" - - "+Asum+" - - "+Csum+" - - "+width);
     	

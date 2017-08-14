@@ -117,11 +117,11 @@ public class JFileChooserService implements IFileChooserService
 			l.add(file13);
 			File file5=new File(basePath+"/UPPAL");
 			l.add(file5);
-			File file6=new File(basePath+"/UPPAL/2.UML Model Transfer");
+			File file6=new File(basePath+"/UPPAL/2.UML_Model_Transfer");
 			l.add(file6);
-			File file7=new File(basePath+"/UPPAL/3.Abstract TestCase");
+			File file7=new File(basePath+"/UPPAL/3.Abstract_TestCase");
 			l.add(file7);
-			File file8=new File(basePath+"/UPPAL/4.Real TestCase");
+			File file8=new File(basePath+"/UPPAL/4.Real_TestCase");
 			l.add(file8);
 			File file9=new File(basePath+"/ActivityDiagram");
 			l.add(file9);

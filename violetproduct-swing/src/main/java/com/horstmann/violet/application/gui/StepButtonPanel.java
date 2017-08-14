@@ -585,7 +585,7 @@ public class StepButtonPanel extends JPanel {
 			}
 		});
 		step6button.setIcon(icon6);
-		step6button.setText("一致性测试");
+		step6button.setText("模型评估");
         step6button.setFont(new Font("微软雅黑", Font.PLAIN, 13));
         step6button.setForeground(new Color(255,255,255));
         step6button.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -1288,10 +1288,13 @@ public class StepButtonPanel extends JPanel {
 				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
 				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 
+//				mainFrame.getStepTwoCenterTabbedPane().initUIPanelData();
+				
 				wakeupUI();
 				mainFrame.setVisible(false);
 				mainFrame.getContentPane().repaint();
 				mainFrame.setVisible(true);
+				
 				step3button.setEnabled(true);
 				step6button.setEnabled(true);
 			}

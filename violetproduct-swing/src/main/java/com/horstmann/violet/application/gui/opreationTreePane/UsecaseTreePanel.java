@@ -1,5 +1,6 @@
 package com.horstmann.violet.application.gui.opreationTreePane;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +13,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -31,6 +34,9 @@ public class UsecaseTreePanel extends JPanel{
 	public JMenuItem importDiagram;
 	public JMenuItem deleteDiagram;
 	
+	private JScrollPane usecasescrollpanel;
+	private JPanel usecasepanel;
+	
 	public JTree usecasetree;
 	private DefaultTreeModel usecasetreemodel;
 	private DefaultMutableTreeNode usecasetreerootnode;
@@ -44,8 +50,19 @@ public class UsecaseTreePanel extends JPanel{
 		
 		usecasetree.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
+		usecasepanel=new JPanel();
+		usecasepanel.setLayout(new GridLayout());
+		usecasepanel.add(usecasetree);
+		usecasepanel.setBackground(new Color(238, 238, 242));
+		usecasepanel.setBorder(null);
+		
+		usecasescrollpanel=new JScrollPane(usecasepanel);
+		usecasescrollpanel.setBorder(null);
+		usecasescrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		usecasescrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
 		this.setLayout(new GridLayout());
-		this.add(usecasetree);
+		this.add(usecasescrollpanel);
 			
 	}
 

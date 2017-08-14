@@ -325,7 +325,7 @@ public class ModelTimingTreePanel extends JPanel{
 		uppaaltablepanel.add(uppaaltree);
 		uppaaltable.setBackground(new Color(238, 238, 242));
 		uppaaltable.setBorder(null);
-		uppaaltablepanel.setBorder(null);
+		uppaaltablepanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(255, 255, 255)));
 		
 		uppaalscrollpanel=new JScrollPane(uppaaltablepanel);
 		uppaalscrollpanel.setBorder(null);
@@ -567,6 +567,13 @@ public class ModelTimingTreePanel extends JPanel{
 		this.setVisible(false);
 		this.getRootPane().repaint();
 		this.setVisible(true);
+	}
+	
+	public void initUIPanel() {
+		
+		uppaaltreerootnode.removeAllChildren();
+		uppaaltree.updateUI();
+		
 	}
 	
 	public void initFileList() {

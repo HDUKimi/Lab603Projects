@@ -42,11 +42,11 @@ public class FunctionFailedStatisticsPieChart {
 //			index++;
 //		}
 		
-		String[] categories = { "与期望不符合", "程序异常" };
-		Object[] datas = { f1, f2 };
+//		String[] categories = { "与期望不符合", "程序异常" };
+//		Object[] datas = { f1, f2 };
 		
-//		String[] categories = { "程序出现死循环或者抛出异常", "测试用例有误" };
-//		Object[] datas = { f2, f1 };
+		String[] categories = { "程序出现死循环或者抛出异常", "测试用例有误" };
+		Object[] datas = { f2, f1 };
 		
 		DefaultPieDataset dataset = ChartUtils.createDefaultPieDataset(categories, datas);
 		return dataset;

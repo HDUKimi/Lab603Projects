@@ -71,7 +71,7 @@ public class GraphToolPanel extends JPanel {
 			
 //			graphtoolButton.setIcon(gtb.getTool().getIcon());
 			graphtoolButton.setIcon(getGraphToolButtonIcon(gtb.getTool().getLabel()));
-//			System.out.println(gtb.getTool().getLabel());
+			System.out.println(gtb.getTool().getLabel());
 //			graphtoolButton.setText(gtb.getTool().getLabel());
 			graphtoolbuttonGrouph.add(graphtoolButton);
 			graphtoolButton.addActionListener(new ActionListener() {
@@ -89,7 +89,7 @@ public class GraphToolPanel extends JPanel {
 			graphtoolButton=new JButton();
 //			graphtoolButton.setIcon(gtb.getTool().getIcon());
 			graphtoolButton.setIcon(getGraphToolButtonIcon(gtb.getTool().getLabel()));
-//			System.out.println(gtb.getTool().getLabel());
+			System.out.println(gtb.getTool().getLabel());
 //			graphtoolButton.setText(gtb.getTool().getLabel());
 			graphtoolbuttonGrouph.add(graphtoolButton);
 			graphtoolButton.addActionListener(new ActionListener() {
@@ -198,6 +198,9 @@ public class GraphToolPanel extends JPanel {
 		}
 		else if(label.equals("CombinedFragment")){
 			icon = new ImageIcon(path + "combined_fragment.png");
+		}
+		else if(label.equals("Ref")){
+			icon = new ImageIcon(path + "ref.png");
 		}
 		else if(label.equals("Call / Create message")){
 			icon = new ImageIcon(path + "call_message.png");

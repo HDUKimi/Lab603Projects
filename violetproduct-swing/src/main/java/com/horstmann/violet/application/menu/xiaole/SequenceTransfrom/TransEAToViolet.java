@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -383,7 +384,7 @@ public class TransEAToViolet {
 							if (sequence.attributeValue("end").equals(lifelineId)
 									&& CallEdgesId.contains(sequence.attributeValue("id"))
 									&& (!sequence.attributeValue("end").equals(sequence.attributeValue("start")))) {
-								isfirstLifelineNode = true;
+//								isfirstLifelineNode = true;
 								ActivationBarNodeInfo activationBarNode = new ActivationBarNodeInfo();
 								activationBarNode.setEdgeID(sequence.attributeValue("id")); // 设置生成ActivationBarID
 																							// 自己加的
@@ -633,10 +634,11 @@ public class TransEAToViolet {
 
 					LifeLines.add(lifeLineNode);
 				}
+				
 			}
 
 		}
-
+		
 		Element diagram = Extension.element("diagrams");
 		List<Element> diagrams = diagram.elements("diagram");
 		Element diagramelements = null;
@@ -907,6 +909,10 @@ public class TransEAToViolet {
 		Document doc = DocumentHelper.createDocument();
 		Element SequenceDiagramGraph = doc.addElement("SequenceDiagramGraph").addAttribute("id", GenerateID());
 		Element nodes = SequenceDiagramGraph.addElement("nodes").addAttribute("id", GenerateID());
+		
+		//清楚无用的ActivationBar
+		RemoveNoUseActivationBar();
+		
 		// 处理lifelineNode
 		for (LifeLineNodeInfo lifeline : LifeLines) {
 			Element LifelineNode = nodes.addElement("LifelineNode").addAttribute("id", lifeline.getId());
@@ -1095,6 +1101,42 @@ public class TransEAToViolet {
 		}
 		outputXml(doc, filename);
 
+	}
+
+	private void RemoveNoUseActivationBar() {
+		// TODO Auto-generated method stub
+		System.err.println("-----------------------------");
+		System.out.println("**************"+LifeLines.size()+"*************");
+		for(LifeLineNodeInfo lifeLineNodeInfo:LifeLines){
+			System.out.println("---------------"+lifeLineNodeInfo.getActivationBarNodes().size());
+			List<ActivationBarNodeInfo> activationBarNodeInfos=lifeLineNodeInfo.getActivationBarNodes();
+			for (Iterator iterator = activationBarNodeInfos.iterator(); iterator.hasNext();) {
+				ActivationBarNodeInfo activationBarNodeInfo = (ActivationBarNodeInfo) iterator.next();
+				System.out.println(activationBarNodeInfo.getChildren().size());
+				if(activationBarNodeInfo.getChildren().size()>0){
+					continue;
+				}
+				int flag=0;
+				for(CallEdgeInfo callEdgeInfo:CallEdges){
+					if(callEdgeInfo.getStartReferenceId()!=null&&callEdgeInfo.getStartReferenceId().equals(activationBarNodeInfo.getId())){
+//						System.err.print(activationBarNodeInfo.getId()+"   TRUE");
+						flag=1;
+						break;
+					}
+					if(callEdgeInfo.getEndReferenceId()!=null&&callEdgeInfo.getEndReferenceId().equals(activationBarNodeInfo.getId())){
+//						System.err.print(activationBarNodeInfo.getId()+"   TRUE");
+						flag=1;
+						break;
+					}
+				}
+//				System.out.println();
+				if(flag==0){
+					iterator.remove();
+				}
+			}
+		}
+		
+		System.err.println("-----------------------------");
 	}
 
 	public void setColor(Element Node) {

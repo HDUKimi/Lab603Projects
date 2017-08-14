@@ -103,7 +103,7 @@ public class WriteVioletUppaal {
     		System.err.println("-*----------------------- "+locations.size()+" - - "+transitions.size());
     	}	
     	//(将我们读取的信息)生成事件自动机的xml(按照我们的标准)
-    public void writeVioletUppaal(String filename,int flag){
+    public void writeVioletUppaal(String filename,int sflag,int tflag){
     	Document doc = DocumentHelper.createDocument();
     	Element UppaalGraph=doc.addElement("UppaalGraph");
     	UppaalGraph.addAttribute("id", "1");
@@ -122,7 +122,10 @@ public class WriteVioletUppaal {
     	Element name=CircularStartNode.addElement("name");
     	name.addAttribute("id", circularstartnode.GetName_id());
     	setColor(CircularStartNode);
-    	name.setText(circularstartnode.GetText());
+    	if(sflag>0){
+    		name.setText(circularstartnode.GetText().split("time:")[0].trim());
+    	}
+    	
     	//处理剩下节点
     	for(CircularNode temp :CircularNodeInfo){
     		Element CircularNode=nodes.addElement("CircularNode");
@@ -137,7 +140,11 @@ public class WriteVioletUppaal {
         	Element name1=CircularNode.addElement("name");
         	name.addAttribute("id", temp.GetName_id());
         	setColor(CircularNode);
-//        	name1.setText(temp.GetText());
+        	
+        	if(sflag>0){
+        		name1.setText(temp.GetText().split("time:")[0].trim());
+        	}
+        	
     	}
     	Element edges=UppaalGraph.addElement("edges");
     	edges.addAttribute("id", "100");
@@ -162,20 +169,26 @@ public class WriteVioletUppaal {
     		angle.setText("10.0");
     		Element labelText=TransitionEdge.addElement("labelText");
     		
-    		if(flag==1){
-				if (temp.getLabelText() != null) {
-					if(temp.getLabelText().toString().split("#").length>1){
-						labelText.setText(temp.getLabelText().toString().split("#")[1]);
-					}
-					else{
-						labelText.setText(temp.getLabelText().toString());
-					}
-				}
+//    		if(flag==1){
+//				if (temp.getLabelText() != null) {
+//					if(temp.getLabelText().toString().split("#").length>1){
+//						labelText.setText(temp.getLabelText().toString().split("#")[1]);
+//					}
+//					else{
+//						labelText.setText(temp.getLabelText().toString());
+//					}
+//				}
+//    		}
+    		
+    		if(temp.getLabelText()!=null){
+    			if(tflag==1){
+    				labelText.setText(temp.getLabelText().toString().split("#")[1].replace("name:", "").trim());
+    			}
+    			else if(tflag==2){
+    				labelText.setText(temp.getLabelText());	
+    			}
     		}
     		
-//    		if(temp.getLabelText()!=null){
-//    			labelText.setText(temp.getLabelText());	
-//    		}
 //    		String time=temp.getLabelText().toString().split("#")[1];
 //    		labelText.setText(time);
 //    		labelText.setText(temp.getLabelText());

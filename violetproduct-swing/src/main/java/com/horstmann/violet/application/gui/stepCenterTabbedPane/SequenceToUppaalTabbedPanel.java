@@ -327,10 +327,10 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 		// TODO Auto-generated method stub
 		
 		initUIPanel();
-		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().initUIPanel();
+//		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().initUIPanel();
 //		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
 		
-		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButton().doClick();
+//		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButton().doClick();
 //		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
 		
 		tranprocesslist=new ArrayList<>();
@@ -630,13 +630,13 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							System.out.println("SD2UppaalMain.getDiagramDataName():+++++++++"+SD2UppaalMain.getDiagramDataName());
 							
 //							tranxmlname = TransToVioletUppaal.TransToViolet(filename,0);
-							tranxmlname = TransToVioletUppaal.TransToVioletAddPath(uppaalbaseurl,filename,0);
+							tranxmlname = TransToVioletUppaal.TransToVioletAddPath(uppaalbaseurl,filename,1,0);
 							GraphFile fGraphFile1 = ImportByDoubleClick.importFileByPath(uppaalbaseurl, tranxmlname);
 							currentworkspace = new Workspace(fGraphFile1);
 							uppaalworkspacelists.clear();
 							for(String uppaalname:uppaallists){
 								LayoutUppaal.layout(originaluppaalbaseurl+uppaalname+".xml");
-								tranxmlname = TransToVioletUppaal.TransToVioletAddPath(uppaalbaseurl,uppaalname,1);
+								tranxmlname = TransToVioletUppaal.TransToVioletAddPath(uppaalbaseurl,uppaalname,1,1);
 								GraphFile fGraphFile2 = ImportByDoubleClick.importFileByPath(uppaalbaseurl, tranxmlname);
 								workspace1 = new Workspace(fGraphFile2);
 								uppaalworkspacelists.add(workspace1);
@@ -682,11 +682,11 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 		
 		moviepanel.getMovieLabel().setText("正在读取导出的所有顺序图");
 		
-		DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel();
-		for (int i = 0; i < dtm.getRowCount(); i++) {
-			dtm.removeRow(i);
-		}
-		dtm.fireTableDataChanged();
+//		DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel();
+//		for (int i = 0; i < dtm.getRowCount(); i++) {
+//			dtm.removeRow(i);
+//		}
+//		dtm.fireTableDataChanged();
 		
 		for(ButtonTabbedPanel btp:mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()){
 			btp.setVisible(false);

@@ -103,5 +103,13 @@ public class FixedButtonTabbedPanel extends JPanel{
 	public void setTabbedbutton(JButton tabbedbutton) {
 		this.tabbedbutton = tabbedbutton;
 	}
+
+	public JLabel getDelectlabel() {
+		return delectlabel;
+	}
+
+	public void setDelectlabel(JLabel delectlabel) {
+		this.delectlabel = delectlabel;
+	}
 	
 }

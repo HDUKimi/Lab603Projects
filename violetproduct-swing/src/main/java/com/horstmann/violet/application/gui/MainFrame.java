@@ -681,8 +681,6 @@ public class MainFrame extends JFrame
 			
 			this.SequenceToUppaalWorkspaceList.add(index,workspace);
 			
-			this.getStepTwoCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
-			
 //			System.err.println(workspace.getTitle());
 //			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
 			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().replace(".uppaal.violet.xml", "")));
@@ -696,8 +694,8 @@ public class MainFrame extends JFrame
 			buttontabbedpanel.setVisible(false);
 			this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().add(buttontabbedpanel);
 			this.getStepTwoCenterTabbedPane().getButtonTabbedPanel().add(buttontabbedpanel);
-     		listenToDiagramPanelEvents(workspace,SequenceToUppaalWorkspaceList);    	  
-     	    repaint();     		    
+//     		listenToDiagramPanelEvents(workspace,SequenceToUppaalWorkspaceList);    	  
+//     	    repaint();     		    
      	}
     }
     
@@ -735,8 +733,6 @@ public class MainFrame extends JFrame
 			
 			this.TimingToUppaalWorkspaceList.add(index,workspace);
 			
-			this.getStepTwoCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
-			
 //			System.err.println(workspace.getTitle());
 //			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().split("\\."))[0]);
 			ButtonTabbedPanel buttontabbedpanel=new ButtonTabbedPanel(this, workspace,index, (workspace.getTitle().toString().replace(".uppaal.violet.xml", "")));
@@ -744,8 +740,8 @@ public class MainFrame extends JFrame
 			this.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists().add(buttontabbedpanel);
 			this.getStepTwoCenterTabbedPane().getButtonTabbedPanel().add(buttontabbedpanel);
 			
-     		listenToDiagramPanelEvents(workspace,TimingToUppaalWorkspaceList);    	  
-     	    repaint();     		    
+//     		listenToDiagramPanelEvents(workspace,TimingToUppaalWorkspaceList);    	  
+//     	    repaint();     		    
      	}
     }
     

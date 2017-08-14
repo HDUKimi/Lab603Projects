@@ -41,7 +41,7 @@ public class ButtonTabbedPanel extends JPanel{
 	
 	private JPanel labelpanel;
 	
-	private int width=150;
+	private int tabbedpanelwidth=150;
 	
 //	private List<ButtonTabbedPanel> buttonTabbedPanelLists;
 	
@@ -55,7 +55,6 @@ public class ButtonTabbedPanel extends JPanel{
 //		System.out.println(tabbedbuttontext+" *** "+tabbedbuttontext.getBytes().length+" *** "+tabbedbuttontext.length());
 		
 //		width=tabbedbuttontext.length()*12+60;
-		width=CalculateWidth.getWidth(tabbedbuttontext);
 //		System.err.println(tabbedbuttontext+" - - - "+tabbedbuttontext.length()+" - - - "+width);
 		
 		tabbedbutton=new JButton();
@@ -96,14 +95,22 @@ public class ButtonTabbedPanel extends JPanel{
 		labelpanel.add(fixedlabel);
 		labelpanel.add(delectlabel);
 		
+		setWidth(this,tabbedbuttontext);
+		
 		this.setLayout(new BorderLayout());
 		this.setBackground(new Color(77, 96, 130));
-		this.setPreferredSize(new Dimension(width, 23));
 		this.setBorder(BorderFactory.createEmptyBorder(2, 0, 1, 0));
 		this.add(tabbedbutton, BorderLayout.WEST);
 		this.add(labelpanel, BorderLayout.EAST);
 		
 		
+	}
+
+	public void setWidth(ButtonTabbedPanel panel, String name) {
+		// TODO Auto-generated method stub
+		tabbedpanelwidth=CalculateWidth.getWidth(name);
+		panel.setTabbedpanelwidth(tabbedpanelwidth);
+		panel.setPreferredSize(new Dimension(tabbedpanelwidth, 23));
 	}
 
 	private void setDelectLabelMouseListener() {
@@ -488,7 +495,14 @@ public class ButtonTabbedPanel extends JPanel{
 	public void setTabbedbuttontext(String tabbedbuttontext) {
 		this.tabbedbuttontext = tabbedbuttontext;
 	}
-	
-	
+
+	public int getTabbedpanelwidth() {
+		return tabbedpanelwidth;
+	}
+
+	public void setTabbedpanelwidth(int tabbedpanelwidth) {
+		this.tabbedpanelwidth = tabbedpanelwidth;
+	}
+
 	
 }

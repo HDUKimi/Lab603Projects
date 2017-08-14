@@ -194,7 +194,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		testCaseCoverButtonPanel = new FixedButtonTabbedPanel("路径覆盖");
 		testCaseCoverButton = testCaseCoverButtonPanel.getTabbedbutton();
 		
-		testCaseSortContrastButtonPanel=new FixedButtonTabbedPanel("对比");
+		testCaseSortContrastButtonPanel=new FixedButtonTabbedPanel("重要度排序");
 		testCaseSortContrastButton=testCaseSortContrastButtonPanel.getTabbedbutton();
 
 		testCaseProduceButtonPanel = new FixedButtonTabbedPanel("获取测试序列");

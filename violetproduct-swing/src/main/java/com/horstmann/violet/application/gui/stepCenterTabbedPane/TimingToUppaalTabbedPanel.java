@@ -328,11 +328,11 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 	protected void initThread() {
 		// TODO Auto-generated method stub
 		
-//		initUIPanel();
-		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().initUIPanel();
+		initUIPanel();
+//		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().initUIPanel();
 //		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
 		
-		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButton().doClick();
+//		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButton().doClick();
 //		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
 		
 		tranprocesslist=new ArrayList<>();
@@ -496,7 +496,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 						StepTwoArea.setSelectionEnd(startindex);
 //						System.err.println("---"+count+"--"+index+"--"+startindex+"--"+endindex+"--");
 						
-						ChangeRepaint();
+//						ChangeRepaint();
 						
 					}
 				}
@@ -606,13 +606,13 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 //							GraphFile fGraphFile1 = ImportByDoubleClick.importFileByDoubleClick("UPPAAL", tranxmlname);
 //							workspace1 = new Workspace(fGraphFile1);
 
-							tranxmlname = TransToVioletUppaal.TransToVioletAddPath(uppaalbaseurl,filename,1);
+							tranxmlname = TransToVioletUppaal.TransToVioletAddPath(uppaalbaseurl,filename,2,2);
 							GraphFile fGraphFile1 = ImportByDoubleClick.importFileByPath(uppaalbaseurl, tranxmlname);
 							currentworkspace = new Workspace(fGraphFile1);
 							uppaalworkspacelists.clear();
 							for(String uppaalname:uppaallists){
 								LayoutUppaal.layout(originaluppaalbaseurl+uppaalname+".xml");
-								String tranxmlname2 = TransToVioletUppaal.TransToVioletAddPath(uppaalbaseurl,uppaalname,1);
+								String tranxmlname2 = TransToVioletUppaal.TransToVioletAddPath(uppaalbaseurl,uppaalname,2,2);
 								GraphFile fGraphFile2 = ImportByDoubleClick.importFileByPath(uppaalbaseurl, tranxmlname2);
 								workspace1 = new Workspace(fGraphFile2);
 								uppaalworkspacelists.add(workspace1);
@@ -649,11 +649,11 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 		
 		moviepanel.getMovieLabel().setText("正在读取导出的所有顺序图");
 		
-		DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel();
-		for (int i = 0; i < dtm.getRowCount(); i++) {
-			dtm.removeRow(i);
-		}
-		dtm.fireTableDataChanged();
+//		DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel();
+//		for (int i = 0; i < dtm.getRowCount(); i++) {
+//			dtm.removeRow(i);
+//		}
+//		dtm.fireTableDataChanged();
 		
 		for(ButtonTabbedPanel btp:mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists()){
 			btp.setVisible(false);

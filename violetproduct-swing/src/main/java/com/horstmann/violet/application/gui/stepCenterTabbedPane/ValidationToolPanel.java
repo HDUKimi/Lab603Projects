@@ -322,6 +322,7 @@ public class ValidationToolPanel extends JPanel{
 				
 				mainFrame.getValidationResultPanel().getThreenamelabel().setText("<html><body>在状态比较中,共找到"+mainFrame.getModelExistValidationPanel().getStateCompareList().size()+"条状态,成功"+statesuccesssum+"条,失败"+statefailsum+"条<br>在消息比较中,共找到"+mainFrame.getModelExistValidationPanel().getMessageCompareList().size()+"条消息,成功"+messagesuccesssum+"条,失败"+messagefailsum+"条</body></html>");
 				
+				mainFrame.getValidationResultPanel().getValidationlabeltab3().doClick();
 				
 				threadstate = 0;
 
@@ -346,6 +347,8 @@ public class ValidationToolPanel extends JPanel{
 				showPathTupleTime(mainFrame.getModelExistValidationPanel().getPathtuple(), mainFrame.getModelExistValidationPanel().getTimes());
 				
 				mainFrame.getValidationResultPanel().ChangeRepaint();
+				
+				mainFrame.getValidationResultPanel().getValidationlabeltab4().doClick();
 				
 				threadstate = 0;
 
@@ -462,6 +465,8 @@ public class ValidationToolPanel extends JPanel{
 						
 					}
 					
+					mainFrame.getValidationResultPanel().getValidationlabeltab1().doClick();
+					
 				}else if(mainFrame.getModelExistValidationPanel().getValidationlabeltabindex()==2){
 					
 					List<PathTuple> pathTupleList=null;//给我的集合
@@ -511,6 +516,8 @@ public class ValidationToolPanel extends JPanel{
 						System.out.println("++++++++++++++++++++");
 						
 					}
+					
+					mainFrame.getValidationResultPanel().getValidationlabeltab2().doClick();
 				}
 
 				threadstate=0;

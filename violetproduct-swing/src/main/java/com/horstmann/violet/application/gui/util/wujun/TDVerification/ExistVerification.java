@@ -229,9 +229,24 @@ public class ExistVerification {
 		public boolean getPathByInput(String input) {
 			int minTime = 0;
 			int maxTime = 0;
+			
+//			for(PathTuple pathTuple :pathTuples) {
+//				
+////				String timeD = pathTuple.transition.timeDuration;
+//				String timeD=pathTuple.getTransition().getTimeDuration();
+//				System.out.println(timeD+" -  - "+pathTuple.getTransition().toString());
+//			}
+			System.out.println("---------------------------------");
 			for(PathTuple pathTuple :pathTuples) {
+				
+				if(pathTuple.transition==null){
+					continue;
+				}
+				if(pathTuple.transition.timeDuration==null){
+					continue;
+				}
 				String timeD = pathTuple.transition.timeDuration;
-				System.out.println(timeD);
+				System.out.println(timeD+" -  - "+pathTuple.transition.toString());
 				if(input.contains("=")) {
 					minTime += timeD.contains("<=") ? Integer.valueOf(timeD.split("<=")[1]) : 0;
 					maxTime += timeD.contains(">=") ? Integer.valueOf(timeD.split(">=")[1]) : 0;
@@ -241,7 +256,8 @@ public class ExistVerification {
 				}
 
 			}
-			
+			System.out.println(minTime+" - - "+maxTime);
+			Display.process(1);
 			if(input.contains("<")) {
 				return satisfy(minTime, input);
 			} else if(input.contains(">")){

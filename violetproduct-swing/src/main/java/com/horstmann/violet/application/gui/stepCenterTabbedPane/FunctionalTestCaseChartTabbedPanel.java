@@ -318,36 +318,36 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		
 		initFailedStatisticsTablePanel();
 		
-		JLabel label1=new JLabel();
-		label1.setText("测试结果统计表");
-//		label1.setForeground(new Color(115, 110, 102));
-		label1.setFont(new Font("微软雅黑", Font.BOLD, 15));
-		label1.setBorder(BorderFactory.createEmptyBorder(0, 500, 0, 0));
+//		JLabel label1=new JLabel();
+//		label1.setText("测试结果统计表");
+////		label1.setForeground(new Color(115, 110, 102));
+//		label1.setFont(new Font("微软雅黑", Font.BOLD, 15));
+//		label1.setBorder(BorderFactory.createEmptyBorder(0, 500, 0, 0));
+//		
+//		JLabel label2=new JLabel();
+//		label2.setText("错误结果统计表");
+////		label2.setForeground(new Color(115, 110, 102));
+//		label2.setFont(new Font("微软雅黑", Font.BOLD, 15));
+//		label2.setBorder(BorderFactory.createEmptyBorder(0, 500, 0, 0));
 		
-		JLabel label2=new JLabel();
-		label2.setText("错误结果统计表");
-//		label2.setForeground(new Color(115, 110, 102));
-		label2.setFont(new Font("微软雅黑", Font.BOLD, 15));
-		label2.setBorder(BorderFactory.createEmptyBorder(0, 500, 0, 0));
-		
-		
-//		GridBagLayout layout = new GridBagLayout();
-//		tablepanel.setLayout(layout);
-//		tablepanel.add(successfailedtablepanel);
-//		tablepanel.add(failedstatisticstablepanel);
-//		layout.setConstraints(successfailedtablepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//		layout.setConstraints(failedstatisticstablepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		
 		GridBagLayout layout = new GridBagLayout();
 		tablepanel.setLayout(layout);
-		tablepanel.add(label1);
 		tablepanel.add(successfailedtablepanel);
-		tablepanel.add(label2);
 		tablepanel.add(failedstatisticstablepanel);
-		layout.setConstraints(label1, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(successfailedtablepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(label2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(failedstatisticstablepanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(successfailedtablepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(failedstatisticstablepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		
+//		GridBagLayout layout = new GridBagLayout();
+//		tablepanel.setLayout(layout);
+//		tablepanel.add(label1);
+//		tablepanel.add(successfailedtablepanel);
+//		tablepanel.add(label2);
+//		tablepanel.add(failedstatisticstablepanel);
+//		layout.setConstraints(label1, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(successfailedtablepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//		layout.setConstraints(label2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(failedstatisticstablepanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		
 		
 		tablepanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
