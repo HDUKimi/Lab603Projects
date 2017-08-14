@@ -168,6 +168,7 @@ public class StepOneCenterTabbedPane extends JPanel {
 		mainFrame.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().clear();
 		mainFrame.getTimingWorkspaceList().clear();
 		
+		mainFrame.getStepOneCenterTabbedPane().getAllDiagramButtonTabbedPanelLists().clear();
 		mainFrame.getStepOneCenterTabbedPane().getButtonTabbedPanel().removeAll();
 		mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().removeAll();
 		
@@ -553,13 +554,13 @@ public class StepOneCenterTabbedPane extends JPanel {
 	}
 	
 
-//	public JPanel getButtonPanel() {
-//		return buttonPanel;
-//	}
-//
-//	public void setButtonPanel(JPanel buttonPanel) {
-//		this.buttonPanel = buttonPanel;
-//	}
+	public JPanel getButtonPanel() {
+		return buttonPanel;
+	}
+
+	public void setButtonPanel(JPanel buttonPanel) {
+		this.buttonPanel = buttonPanel;
+	}
 
 	public List<ButtonTabbedPanel> getAllDiagramButtonTabbedPanelLists() {
 		return allDiagramButtonTabbedPanelLists;

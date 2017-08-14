@@ -1149,26 +1149,26 @@ public class StepButtonPanel extends JPanel {
 				mainFrame.getCenterTabPanel().removeAll();
 				
 //				System.out.println(mainFrame.getStepOneCenterTabbedPane().getButtonPanel().getComponentCount());
-				int count=mainFrame.getStepOneCenterTabbedPane().getButtonTabbedPanel().getComponentCount();
-//				int sum=0;
-				if(firstclickstep1button==0){
-					
-					for(int i=0;i<count;i++){
-//						((ButtonTabbedPanel) mainFrame.getStepOneCenterTabbedPane().getButtonPanel().getComponent(i)).getTabbedbutton();
-						
-						Object ob=mainFrame.getStepOneCenterTabbedPane().getButtonTabbedPanel().getComponent(i);
-						if(ob instanceof ButtonTabbedPanel){
-							((ButtonTabbedPanel) ob).setVisible(false);
-//							mainFrame.getStepOneCenterTabbedPane().getButtonPanel().remove((ButtonTabbedPanel) ob);
-//							((ButtonTabbedPanel) ob).removeAll();
-//							mainFrame.getStepOneCenterTabbedPane().getButtonPanel().remove(((ButtonTabbedPanel) ob));
-//							sum++;
-						}
-						
-					}
-					
-					firstclickstep1button=1;
-				}
+//				int count=mainFrame.getStepOneCenterTabbedPane().getButtonTabbedPanel().getComponentCount();
+////				int sum=0;
+//				if(firstclickstep1button==0){
+//					
+//					for(int i=0;i<count;i++){
+////						((ButtonTabbedPanel) mainFrame.getStepOneCenterTabbedPane().getButtonPanel().getComponent(i)).getTabbedbutton();
+//						
+//						Object ob=mainFrame.getStepOneCenterTabbedPane().getButtonTabbedPanel().getComponent(i);
+//						if(ob instanceof ButtonTabbedPanel){
+//							((ButtonTabbedPanel) ob).setVisible(false);
+////							mainFrame.getStepOneCenterTabbedPane().getButtonPanel().remove((ButtonTabbedPanel) ob);
+////							((ButtonTabbedPanel) ob).removeAll();
+////							mainFrame.getStepOneCenterTabbedPane().getButtonPanel().remove(((ButtonTabbedPanel) ob));
+////							sum++;
+//						}
+//						
+//					}
+//					
+//					firstclickstep1button=1;
+//				}
 //				System.out.println(sum);
 //				System.out.println(mainFrame.getStepOneCenterTabbedPane().getButtonPanel().getComponentCount());
 //				mainFrame.getStepOneCenterTabbedPane().getButtonPanel().setVisible(false);

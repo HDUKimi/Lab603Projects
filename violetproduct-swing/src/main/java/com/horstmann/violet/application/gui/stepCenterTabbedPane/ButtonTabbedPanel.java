@@ -211,6 +211,32 @@ public class ButtonTabbedPanel extends JPanel{
 					setBackground(new Color(58, 105, 190));
 					mainFrame.getStepOneCenterTabbedPane().setSelectedButtonTabbedPanel(((ButtonTabbedPanel)tabbedbutton.getParent()));
 					
+					int location=0;
+					for(ButtonTabbedPanel btPanel:mainFrame.getStepOneCenterTabbedPane().getAllDiagramButtonTabbedPanelLists()){
+						if(btPanel.equals((ButtonTabbedPanel)tabbedbutton.getParent())){
+							break;
+						}
+						if(btPanel.isVisible()){
+							location+=btPanel.getTabbedpanelwidth();
+						}
+					}
+					int buttonpanelwidth=(int) (mainFrame.getStepOneCenterTabbedPane().getButtonPanel().getSize().getWidth()-55);
+					
+					int nowvalue=mainFrame.getStepOneCenterTabbedPane().getButtonScrollPanel().getHorizontalScrollBar().getValue();
+					double maxvalue=mainFrame.getStepOneCenterTabbedPane().getButtonScrollPanel().getHorizontalScrollBar().getMaximum()-mainFrame.getStepOneCenterTabbedPane().getButtonScrollPanel().getHorizontalScrollBar().getVisibleAmount();
+					double leftpoint=nowvalue*1.0/maxvalue;
+					
+					int leftlocation;
+					int rightlocation;
+					leftlocation=(int) (nowvalue-leftpoint*buttonpanelwidth);
+					rightlocation=(int) (nowvalue+(1-leftpoint)*buttonpanelwidth);
+					
+					System.out.println(location+" - - - "+buttonpanelwidth+" - - - "+nowvalue+" - - - "+maxvalue+" - - - "+leftpoint+" - - - "+leftlocation+" - - - "+rightlocation+" - - - ");
+					if(location<leftlocation||location>rightlocation){
+						mainFrame.getStepOneCenterTabbedPane().getButtonScrollPanel().getHorizontalScrollBar().setValue(location);
+					}
+					
+					
 					System.out.println("------------------------");
 					System.out.println("xuanzhongl "+((ButtonTabbedPanel)tabbedbutton.getParent()).getButtontabbedpanelindex());
 					
