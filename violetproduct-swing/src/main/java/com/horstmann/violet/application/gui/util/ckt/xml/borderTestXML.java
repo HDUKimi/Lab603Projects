@@ -28,7 +28,7 @@ public class borderTestXML {
 		int testNum=0;
 		Automatic auto=GetAutomatic.getAutomatic(xml);//获得原始的时间自动机
 		//ArrayList<Automatic> testCase=StateCoverage__1.testCase(auto);
-		ArrayList<Automatic> testCase=GeneratePath.getFormatPathFromAutomatic(auto, 100);//获得满足路径覆盖的抽象测试序列
+		ArrayList<Automatic> testCase=GeneratePath.getFormatPathFromAutomatic(auto, 100, 1);//获得满足路径覆盖的抽象测试序列
         System.out.println("测试路径个数"+testCase.size());
 		// 1、创建document对象，代表整个xml文档
 		Document dom = DocumentHelper.createDocument();

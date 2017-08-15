@@ -156,7 +156,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	private Automatic aTDRTAutomatic;
 	private Automatic type_aTDRTAutomatic;
 	private Automatic DFStree;
-	private ArrayList<Automatic> oldTestCase;
+	private ArrayList<Automatic> beforeSortTestCase;
+	private ArrayList<Automatic> afterSortTestCase;
 	private ArrayList<Automatic> testCase;
 	private ArrayList<Automatic> collectLimit;
 //	private ArrayList<Automatic> collectResult;
@@ -440,7 +441,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		resultAllProcessList=new ArrayList<>();
 		
 		testCase=new ArrayList<>();
-		oldTestCase=new ArrayList<>();
+		beforeSortTestCase=new ArrayList<>();
+		afterSortTestCase=new ArrayList<>();
 		
 		maincallable=new Callable<Integer>() {
 			
@@ -876,7 +878,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						
 					}
 					else if(selectCoverState==1){//迁移覆盖
-						testCase=GeneratePath.getFormatPathFromAutomatic(a, 100);
+						afterSortTestCase=GeneratePath.getFormatPathFromAutomatic(a, 100, 1);
+						beforeSortTestCase=GeneratePath.getBeforeSort();
+						testCase=beforeSortTestCase;
 					}
 				}
 				else if(starttype==2){//性能测试
@@ -983,7 +987,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 //				List<Automatic> autopathlist=new ArrayList<>();
 //				autopathlist=TestAutoDiagram.PathAuto();
 				
-				oldTestCase=XMLGet.testcaseNew(testCase);
+//				oldTestCase=XMLGet.testcaseNew(testCase);
 				
 				List<TestCaseCoverPartPanel> coverpartlist=new ArrayList<>();
 				
@@ -1008,7 +1012,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				int index=1;
 				
-				for(Automatic am:oldTestCase){
+				for(Automatic am:testCase){
 					
 //					am.setName("测试用例"+index);
 					
@@ -1167,7 +1171,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				time2=System.currentTimeMillis();
 				
 				if(starttype==1){//功能测试
-					stepAllProcessList.add("第四步：获取测试序列");
+					if(selectCoverState==0){
+						stepAllProcessList.add("第四步：获取测试序列");
+					}
+					else if(selectCoverState==1){
+						stepAllProcessList.add("第五步：获取测试序列");
+					}
 				}
 				else if(starttype==2){//性能测试
 					stepAllProcessList.add("第四步：获取测试序列");
@@ -1236,7 +1245,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				time2=System.currentTimeMillis();
 				
 				if(starttype==1){//功能测试
-					stepAllProcessList.add("第五步：存储测试序列");
+					if(selectCoverState==0){
+						stepAllProcessList.add("第五步：存储测试序列");
+					}
+					else if(selectCoverState==1){
+						stepAllProcessList.add("第六步：存储测试序列");
+					}
 				}
 				else if(starttype==2){//性能测试
 					stepAllProcessList.add("第五步：存储测试序列");
@@ -1307,16 +1321,37 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				int copyi=0;
 				
 //				ArrayList<Automatic> oldTestCase=XMLGet.testcaseNew(testCase);
+				testCase=afterSortTestCase;
 				
+				TextAreaPrint("=======================排序前=======================");
+		        for(Automatic a: beforeSortTestCase){
+//		        	System.out.println(a.getName() + "     重要度：" + GeneratePath.getFindPointByPath().get(a));
+		        	TextAreaPrint(a.getName().replace("用例", "路径") + "     重要度：" + GeneratePath.getFindPointByPath().get(a));
+		        }
+		        TextAreaPrint("=======================排序后=======================");
+		        int k=1;
+		        for(Automatic a: afterSortTestCase){
+//		        	System.out.println(a.getName() + "     重要度：" + GeneratePath.getFindPointByPath().get(a));
+		        	TextAreaPrint("测试路径"+k+"     <--     "+a.getName().replace("用例", "路径") + "     重要度：" + GeneratePath.getFindPointByPath().get(a));
+		        	k++;
+		        }
+				
+				int index=1;
+				int oldindex;
 				for(Automatic am:testCase){
 					
-					int oldindex=1;
-					for(Automatic oldAuto:oldTestCase){
-						if(oldAuto.getName().equals(am.getName())){
-							break;
-						}
-						oldindex++;
-					}
+//					int oldindex=1;
+//					for(Automatic oldAuto:oldTestCase){
+//						if(oldAuto.getName().equals(am.getName())){
+//							break;
+//						}
+//						oldindex++;
+//					}
+					
+					oldindex=Integer.parseInt(am.getName().substring(4));
+					am.setName("测试用例"+index);
+					index++;
+					
 
 					TestCaseSortContrastPartPanel tcscppanel=new TestCaseSortContrastPartPanel(oldindex,mainFrame,am,workspace);//传入测试序列。包括路径信息，以及workspace
 					resultpanel.add(tcscppanel);
@@ -1347,16 +1382,17 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				time2=System.currentTimeMillis();
 				
-				if(starttype==1){//功能测试
-					stepAllProcessList.add("第五步：排序对比");
-				}
-				else if(starttype==2){//性能测试
-					stepAllProcessList.add("第五步：排序对比");
-				}
-				else if(starttype==3){//时间测试
-					stepAllProcessList.add("第六步：排序对比");
-				}
+//				if(starttype==1){//功能测试
+//					stepAllProcessList.add("第四步：排序对比");
+//				}
+//				else if(starttype==2){//性能测试
+//					stepAllProcessList.add("第五步：排序对比");
+//				}
+//				else if(starttype==3){//时间测试
+//					stepAllProcessList.add("第六步：排序对比");
+//				}
 				
+				stepAllProcessList.add("第四步：重要度排序");
 				timeAllProcessList.add(time2-time1+"ms");
 				resultAllProcessList.add("完成对测试序列的排序，并将排序前后的测试序列进行对比");
 				
@@ -1371,21 +1407,40 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		threadlist=new ArrayList<>();
 		
 		if(starttype==1){//功能测试
-			futuretasklist.add(task1);
-			futuretasklist.add(task3);
-			futuretasklist.add(task4);
-			futuretasklist.add(task5);
-			futuretasklist.add(task6);
-			futuretasklist.add(task7);
 			
-			threadlist.add(thread1);
-			threadlist.add(thread3);
-			threadlist.add(thread4);
-			threadlist.add(thread5);
-			threadlist.add(thread6);
-			threadlist.add(thread7);
+			if(selectCoverState==0){
+				futuretasklist.add(task1);
+				futuretasklist.add(task3);
+				futuretasklist.add(task4);
+				futuretasklist.add(task5);
+				futuretasklist.add(task6);
+				
+				threadlist.add(thread1);
+				threadlist.add(thread3);
+				threadlist.add(thread4);
+				threadlist.add(thread5);
+				threadlist.add(thread6);
+				
+				stepsum=5;
+			}
+			else if(selectCoverState==1){
+				futuretasklist.add(task1);
+				futuretasklist.add(task3);
+				futuretasklist.add(task4);
+				futuretasklist.add(task7);
+				futuretasklist.add(task5);
+				futuretasklist.add(task6);
+				
+				threadlist.add(thread1);
+				threadlist.add(thread3);
+				threadlist.add(thread4);
+				threadlist.add(thread7);
+				threadlist.add(thread5);
+				threadlist.add(thread6);
+				
+				stepsum=6;
+			}
 			
-			stepsum=6;
 		}
 		else if(starttype==2){//性能测试
 			futuretasklist.add(task1);

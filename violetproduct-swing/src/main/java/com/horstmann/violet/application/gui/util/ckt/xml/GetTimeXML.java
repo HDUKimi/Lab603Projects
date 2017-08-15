@@ -43,7 +43,7 @@ public class GetTimeXML {
 		Automatic new_automatic = IPR__1.iPR(automatic);// 获得拆分后的时间自动机
 		Automatic aTDRTAutomatic = ATDTR__1.aTDRT(new_automatic, automatic);// 获得去除抽象时间迁移后的时间自动机
 		//ArrayList<Automatic> testCase = StateCoverage__1.testCase(aTDRTAutomatic);// 获得满足状态覆盖的抽象测试序列
-		ArrayList<Automatic> testCase = GeneratePath.getFormatPathFromAutomatic(aTDRTAutomatic, 3);
+		ArrayList<Automatic> testCase = GeneratePath.getFormatPathFromAutomatic(aTDRTAutomatic, 10, 1);
 		//ArrayList<Automatic> testCase = path.testcase(aTDRTAutomatic);
 		System.out.println(testCase.size()+"-----测试路径的个数");
 		

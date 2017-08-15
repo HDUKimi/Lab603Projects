@@ -110,7 +110,7 @@ public class forPlatform {
 		// Automatic a = GetAutomatic.getAutomatic(xml);
 		// Automatic automatic=IPR__1.iPR(a);//获得拆分后的时间自动机
 		// Automatic auto=ATDTR__1.aTDRT(automatic,a);//获得去除抽象时间迁移后的时间自动机
-		ArrayList<Automatic> testCase = GeneratePath.getFormatPathFromAutomatic(auto, n);// n=2000,获得满足路径覆盖的抽象测试序列
+		ArrayList<Automatic> testCase=GeneratePath.getFormatPathFromAutomatic(auto, n, 0);//n=2000,获得满足路径覆盖的抽象测试序列
 		return testCase;
 	}
 
