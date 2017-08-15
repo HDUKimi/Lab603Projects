@@ -95,16 +95,13 @@ public class HomeAllTabbedPanel extends JPanel{
 //		mainFrame.getTestCaseConfirmationPanel().updateFileList();
 		
 		if(starttype!=0){
-			mainFrame.getStepOneCenterTabbedPane().initUIPanel();
-			mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalTabbedPane().initUIPanel();
-			mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalTabbedPane().initUIPanel();
-			mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().initUIPanel();
+			mainFrame.getStepOneCenterTabbedPane().initUIPanelData();
+			mainFrame.getStepTwoCenterTabbedPane().initUIPanelData();
+			mainFrame.getStepThreeCenterTabbedPane().initUIPanelData();
+			mainFrame.getStepFourCenterTabbedPane().initUIPanelData();
 			mainFrame.getStepFiveCenterTabbedPane().initUIPanelData();
-			mainFrame.getStepSixCenterTabbedPane().initUIPanel();
+			mainFrame.getStepSixCenterTabbedPane().initUIPanelData();
 			
-			mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButton().doClick();
-			mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButton().doClick();
-//			mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
 		}
 	}
 

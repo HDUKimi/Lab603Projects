@@ -532,7 +532,7 @@ public class TestCaseInstantiationResultPanel extends JPanel {
 		testcaselabeltabpanel.setBackground(new Color(41, 57, 85));
 		testcaselabeltabpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		testcaselabeltabpanel.add(testcaselabeltabpanel1);
-		testcaselabeltabpanel.add(testcaselabeltabpanel2);
+//		testcaselabeltabpanel.add(testcaselabeltabpanel2);
 		
 		testcaselabeltabpanel.setPreferredSize(new Dimension(100, 30));
 		testcaselabeltabpanel.setMinimumSize(new Dimension(100, 30));

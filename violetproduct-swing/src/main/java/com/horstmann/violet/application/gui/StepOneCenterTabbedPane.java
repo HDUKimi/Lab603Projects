@@ -122,7 +122,7 @@ public class StepOneCenterTabbedPane extends JPanel {
 
 	}
 	
-	public void initUIPanel(){
+	public void initUIPanelData(){
 		
 		int sequencecount=mainFrame.getProjectTree().getSequenceTreePanel().getSequencetree().getRowCount();
 		int usecasecount=mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetree().getRowCount();

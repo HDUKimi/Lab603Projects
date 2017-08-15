@@ -597,11 +597,18 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		
 	}
 
-	protected void ChangeRepaint() {
+	public void ChangeRepaint() {
 		// TODO Auto-generated method stub
 		this.setVisible(false);
 		this.getRootPane().repaint();
 		this.setVisible(true);
+	}
+	
+	public void initUIPanelData(){
+		
+		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().initUIPanel();
+		
+		testCaseProcessButton.doClick();
 	}
 
 	public JPanel getDiagramPanel() {

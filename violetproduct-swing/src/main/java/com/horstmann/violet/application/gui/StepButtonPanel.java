@@ -1363,7 +1363,6 @@ public class StepButtonPanel extends JPanel {
 				mainFrame.getContentPane().repaint();
 				mainFrame.setVisible(true);
 				step4button.setEnabled(true);
-				step5button.setEnabled(true);
 			}
 		});
 		step4button.addActionListener(new ActionListener() {

@@ -368,11 +368,19 @@ public class StepFourCenterTabbedPane extends JPanel {
 		
 	}
 	
-	protected void ChangeRepaint() {
+	public void ChangeRepaint() {
 		// TODO Auto-generated method stub
 		this.setVisible(false);
 		this.getRootPane().repaint();
 		this.setVisible(true);
+	}
+	
+	public void initUIPanelData(){
+		
+		mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationProcessTabbedPanel().initUIPanel();
+		
+		testCaseInstantiationProcessButton.doClick();
+		
 	}
 	
 	public JPanel getDiagramPanel() {

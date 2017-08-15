@@ -103,7 +103,7 @@ public class StepSixCenterTabbedPane extends JPanel {
 		
 	}
 
-	public void initUIPanel(){
+	public void initUIPanelData(){
 		
 		mainFrame.getModelExistValidationPanel().getValidationinfopanel().removeAll();
 		mainFrame.getModelExistValidationPanel().getValidationcheckboxpanel().removeAll();
