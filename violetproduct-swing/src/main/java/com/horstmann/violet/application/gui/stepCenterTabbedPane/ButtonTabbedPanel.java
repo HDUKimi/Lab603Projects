@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 import com.horstmann.violet.application.gui.GBC;
@@ -211,31 +212,7 @@ public class ButtonTabbedPanel extends JPanel{
 					setBackground(new Color(58, 105, 190));
 					mainFrame.getStepOneCenterTabbedPane().setSelectedButtonTabbedPanel(((ButtonTabbedPanel)tabbedbutton.getParent()));
 					
-					int location=0;
-					for(ButtonTabbedPanel btPanel:mainFrame.getStepOneCenterTabbedPane().getAllDiagramButtonTabbedPanelLists()){
-						if(btPanel.equals((ButtonTabbedPanel)tabbedbutton.getParent())){
-							break;
-						}
-						if(btPanel.isVisible()){
-							location+=btPanel.getTabbedpanelwidth();
-						}
-					}
-					int buttonpanelwidth=(int) (mainFrame.getStepOneCenterTabbedPane().getButtonPanel().getSize().getWidth()-55);
-					
-					int nowvalue=mainFrame.getStepOneCenterTabbedPane().getButtonScrollPanel().getHorizontalScrollBar().getValue();
-					double maxvalue=mainFrame.getStepOneCenterTabbedPane().getButtonScrollPanel().getHorizontalScrollBar().getMaximum()-mainFrame.getStepOneCenterTabbedPane().getButtonScrollPanel().getHorizontalScrollBar().getVisibleAmount();
-					double leftpoint=nowvalue*1.0/maxvalue;
-					
-					int leftlocation;
-					int rightlocation;
-					leftlocation=(int) (nowvalue-leftpoint*buttonpanelwidth);
-					rightlocation=(int) (nowvalue+(1-leftpoint)*buttonpanelwidth);
-					
-					System.out.println(location+" - - - "+buttonpanelwidth+" - - - "+nowvalue+" - - - "+maxvalue+" - - - "+leftpoint+" - - - "+leftlocation+" - - - "+rightlocation+" - - - ");
-					if(location<leftlocation||location>rightlocation){
-						mainFrame.getStepOneCenterTabbedPane().getButtonScrollPanel().getHorizontalScrollBar().setValue(location);
-					}
-					
+					CheckIsShow();
 					
 					System.out.println("------------------------");
 					System.out.println("xuanzhongl "+((ButtonTabbedPanel)tabbedbutton.getParent()).getButtontabbedpanelindex());
@@ -487,6 +464,45 @@ public class ButtonTabbedPanel extends JPanel{
 				}
 			}
 		});
+		
+	}
+
+	protected void CheckIsShow() {
+		
+		int location=0;
+		for(ButtonTabbedPanel btPanel:mainFrame.getStepOneCenterTabbedPane().getAllDiagramButtonTabbedPanelLists()){
+			if(btPanel.equals((ButtonTabbedPanel)tabbedbutton.getParent())){
+				break;
+			}
+			if(btPanel.isVisible()){
+				location+=btPanel.getTabbedpanelwidth();
+			}
+		}
+		int locationandbutton=location+((ButtonTabbedPanel)tabbedbutton.getParent()).getTabbedpanelwidth();
+		
+		int buttonpanelwidth=(int) (mainFrame.getStepOneCenterTabbedPane().getButtonPanel().getSize().getWidth()-55);
+		
+		JScrollBar bar=mainFrame.getStepOneCenterTabbedPane().getButtonScrollPanel().getHorizontalScrollBar();
+		
+		int nowvalue=bar.getValue();
+		double maxvalue=bar.getMaximum()-bar.getVisibleAmount();
+		double point=nowvalue*1.0/maxvalue;
+		
+		double maxbuttonwidth=bar.getMaximum()-buttonpanelwidth;
+		
+		int leftlocation;
+		int rightlocation;
+//		leftlocation=(int) (nowvalue-leftpoint*buttonpanelwidth);
+//		rightlocation=(int) (nowvalue+(1-leftpoint)*buttonpanelwidth);
+		
+		leftlocation=(int) (maxbuttonwidth*point);
+		rightlocation=leftlocation+buttonpanelwidth;
+		
+		
+		if(location<leftlocation||locationandbutton>rightlocation){
+			bar.setValue(location);
+		}
+		
 		
 	}
 

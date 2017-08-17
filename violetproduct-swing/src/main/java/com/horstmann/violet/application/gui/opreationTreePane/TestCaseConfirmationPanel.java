@@ -57,9 +57,9 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.PerformanceTest
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseDataPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TimeTestCaseReportPartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCasePieChartPanel;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCaseResult;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseResult;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.myProcess;
 import com.horstmann.violet.application.gui.util.tanchao.SaveText;
 import com.horstmann.violet.application.gui.util.tanchao.TestCaseXMLToStringList;
 import com.l2fprod.common.swing.JTaskPane;

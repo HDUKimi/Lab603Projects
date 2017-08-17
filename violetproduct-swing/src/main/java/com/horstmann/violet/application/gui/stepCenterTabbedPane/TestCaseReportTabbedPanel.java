@@ -46,6 +46,7 @@ import javax.swing.plaf.ProgressBarUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import org.apache.log4j.PropertyConfigurator;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -68,13 +69,14 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseB
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseLineChartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCasePieChartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseStackedBarChartPanel;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.Pair;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCaseResult;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.Time;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
-import com.horstmann.violet.application.gui.util.chengzuo.Util.Controller;
-import com.horstmann.violet.application.gui.util.chengzuo.Util.TestCaseConvertUtil;
+import com.horstmann.violet.application.gui.util.chenzuo.Controller.Controller;
+import com.horstmann.violet.application.gui.util.chenzuo.Service.ResultService;
+import com.horstmann.violet.application.gui.util.chenzuo.Util.TcConvertUtil;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.Pair;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseResult;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.Time;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.myProcess;
 
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 
@@ -114,6 +116,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private Thread t;
 	private Thread progreseethread;
 	private Thread gaindatathread;
+	private Thread datagainshowthread;
 	private int threadstate=0;
 	
 	private JScrollPane tablescrollpanel;
@@ -753,57 +756,61 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 //				testcasename=mainFrame.getTestCaseConfirmationPanel().getTestcasename();
 				
-				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"selected.xml";
+				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"selected#1.xml";
 				extractDataToXml(extraxmlpath, selectedtestcaselist, 1);//生成测试用例xml
 				File file=new File(extraxmlpath);
 				
 				//接收到测试结果list
 				
 				TextAreaPrint("发送测试用例数据...");
-				gaindatathread.start();
+//				gaindatathread.start();
 				
-				Controller.Run(new Pair<String, File>("function", file));
-
-				List<TestCase> testcaselist=new ArrayList<>();
-				try {
-					testcaselist = Controller.getResult("function");
-				} catch (ExecutionException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				} catch (InterruptedException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
+				datagainshowthread.start();
 				
-				File f=new File("D:\\test.txt");
-				try {
-					Writer w=new FileWriter(f,false);
-					for(TestCase tc:testcaselist){
-//						System.out.println(tc.toString());
-						w.write(tc.toString());
-						w.write("\n");
-					}
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				PropertyConfigurator.configure("src/log4j.properties");
+				Controller.Run(new Pair<String, File>("Function", file));
 				
 				
-				try {
-					String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
-					FileOutputStream fos = new FileOutputStream(path);
-					ObjectOutputStream oos=new ObjectOutputStream(fos);
-					
-					for(TestCase tc:testcaselist){
-						oos.writeObject(tc);
-					}
-					
-					oos.close();
-					fos.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//				List<TestCase> testcaselist=new ArrayList<>();
+//				try {
+//					testcaselist = Controller.getResult("function");
+//				} catch (ExecutionException e2) {
+//					// TODO Auto-generated catch block
+//					e2.printStackTrace();
+//				} catch (InterruptedException e2) {
+//					// TODO Auto-generated catch block
+//					e2.printStackTrace();
+//				}
+//				
+//				File f=new File("D:\\test.txt");
+//				try {
+//					Writer w=new FileWriter(f,false);
+//					for(TestCase tc:testcaselist){
+////						System.out.println(tc.toString());
+//						w.write(tc.toString());
+//						w.write("\n");
+//					}
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//				
+//				
+//				try {
+//					String path="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"serialtestcase.txt";
+//					FileOutputStream fos = new FileOutputStream(path);
+//					ObjectOutputStream oos=new ObjectOutputStream(fos);
+//					
+//					for(TestCase tc:testcaselist){
+//						oos.writeObject(tc);
+//					}
+//					
+//					oos.close();
+//					fos.close();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 				
 //				List<TestCase> testcaselist=new ArrayList<>();
 //				try {
@@ -832,7 +839,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 //				progressbar.setValue(50);
 				
-				while(progressbar.getValue()<50){
+				while(progressbar.getValue()<100){
 					try {
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
@@ -840,10 +847,11 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						e.printStackTrace();
 					}
 				}
-				
+				List<TestCase> testcaselist=new ArrayList<>();
+				testcaselist=ResultService.list;
 				TextAreaPrint("正在进行数据统计整理...");
 				
-				Map<String, Object> testcasemap=TestCaseConvertUtil.functionStatistics(testcaselist);
+				Map<String, Object> testcasemap=TcConvertUtil.functionStatistics(testcaselist);
 				List<Integer> caseSuccess=(List<Integer>) testcasemap.get("caseSuccess");
 				List<Integer> caseFailed=(List<Integer>) testcasemap.get("caseFailed");
 				Map<String,List<Map<Integer,List<Integer>>>> failedStatistics=(Map<String, List<Map<Integer, List<Integer>>>>) testcasemap.get("failedStatistics");
@@ -960,8 +968,165 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				TextAreaPrint("正在接收服务器端返回的测试结果...");
 			}
 		});
+		
+		datagainshowthread=new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				int resultlistindex=0;
+				int datagainshowindex;
+				int sum = 0;
+				
+				int startprogressbar;
+				int endprogressbar;
+				
+				sum+=selectedtestcaselist.size()/300;
+				if(selectedtestcaselist.size()%300!=0){
+					sum++;
+				}
+				
+				for(datagainshowindex=0;datagainshowindex<sum*2;){
+					
+					//数据收集
+					TextAreaPrint("正在进行测试");
+					startprogressbar = (int) ((double) 100 / (sum*2) * datagainshowindex);
+					endprogressbar = (int) ((double) 100 / (sum*2) * (datagainshowindex + 1));
+					System.out.println("startprogressbar "+startprogressbar+" endprogressbar "+endprogressbar+" datagainshowindex "+datagainshowindex);
+					datagainshowindex++;
+					
+					for(int i=startprogressbar;i<endprogressbar;i++){
+						progressbar.setValue(progressbar.getValue()+1);
+						progressbarlabel.setText(progressbar.getValue()+"%");
+						
+						try {
+							Thread.sleep(5000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+					
+					while(resultlistindex>=ResultService.list.size()){
+						System.out.println("-------");
+						try {
+							Thread.sleep(2000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					//展示数据
+					
+					startprogressbar = (int) ((double) 100 / (sum*2) * datagainshowindex);
+					endprogressbar = (int) ((double) 100 / (sum*2) * (datagainshowindex + 1));
+					
+					datagainshowindex++;
+					
+					int progressbarsize;
+					progressbarsize=endprogressbar-startprogressbar+1;
+					
+					int datasize;
+					if(ResultService.list.size()-resultlistindex>=300){
+						datasize=300;
+					}
+					else{
+						datasize=ResultService.list.size()-resultlistindex;
+					}
+					
+					for(int k=0;k<datasize;k++,resultlistindex++){
+						
+						showTestCaseDataByType(1, resultlistindex);
+						
+						startprogressbar = (int) ((double) progressbarsize / datasize * resultlistindex);
+						endprogressbar = (int) ((double) progressbarsize / datasize * (resultlistindex + 1));
+						
+						for(int i=startprogressbar;i<endprogressbar;i++){
+							progressbar.setValue(progressbar.getValue()+1);
+							progressbarlabel.setText(progressbar.getValue()+"%");
+							
+							try {
+								Thread.sleep(100);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+						}
+						
+					}
+					
+				}
+				
+			}
+		});
 
 		t.start();
+		
+	}
+
+	protected void showTestCaseDataByType(int type, int resultlistindex) {
+		
+		if(type==1){
+			
+			FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) checkedtestcasereportlist.get(resultlistindex);
+			
+//			TestCase testcase=list.get(Integer.parseInt(ftcrpp.getTestcase().getTestCaseID())-1);
+//			while(!list.get(index).getTestCaseID().equals(ftcrpp.getTestcase().getTestCaseID())){
+//				index++;
+//			}
+			TestCase testcase=ResultService.list.get(resultlistindex);
+			
+			JTable attributetable;
+			DefaultTableModel attributetablemodel;
+			
+			attributetable=ftcrpp.getAttributetable();
+			attributetablemodel=ftcrpp.getAttributetablemodel();
+			
+			for(myProcess p:testcase.getProcessList()){
+				
+				attributetablemodel.setValueAt(p.getProcessStatus(), p.getProcessID()-1, 3);
+				attributetablemodel.setValueAt(p.isProcessExec(), p.getProcessID()-1, 4);
+				
+			}
+			
+			attributetablemodel.fireTableDataChanged();
+			
+			String title = "";
+			title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
+//			title+=testcase.getState()+"     ";
+//			title+="执行结果:"+testcase.getResult().substring(0, testcase.getResult().indexOf("耗时"));
+			title+="执行结果:"+testcase.getResult().getResultDetail();
+			
+			ftcrpp.getTitlelabel().setText(title);
+			
+			String absolutePath = System.getProperty("user.dir");
+			String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
+
+			ImageIcon icon1 = new ImageIcon(path + "tick.png");
+			icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+			ImageIcon icon2 = new ImageIcon(path + "cross.png");
+			icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+			
+			if(testcase.getResult().getResultDetail().contains("成功")){
+				ftcrpp.getIconlabel().setIcon(icon1);
+			}
+			else{
+				ftcrpp.getIconlabel().setIcon(icon2);
+			}
+			
+			TextAreaPrint(testcase.toString());
+			
+		}
+		else if(type==2){
+			
+		}
+		else if(type==3){
+			
+		}
 		
 	}
 
@@ -1117,15 +1282,15 @@ public class TestCaseReportTabbedPanel extends JPanel{
 
 //				List<TestCase> testcaselist = ClientRecThread.getTestCaseList();
 				List<TestCase> testcaselist=new ArrayList<>();
-				try {
-					testcaselist = Controller.getResult("performance");
-				} catch (ExecutionException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				} catch (InterruptedException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
+//				try {
+//					testcaselist = Controller.getResult("performance");
+//				} catch (ExecutionException e2) {
+//					// TODO Auto-generated catch block
+//					e2.printStackTrace();
+//				} catch (InterruptedException e2) {
+//					// TODO Auto-generated catch block
+//					e2.printStackTrace();
+//				}
 				
 				File f=new File("D:\\test.txt");
 				try {
@@ -1195,7 +1360,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				}
 				
 				TextAreaPrint("正在进行数据统计整理...");
-				Map testcasemap=TestCaseConvertUtil.testCaseStatistics(testcaselist);
+				Map testcasemap=TcConvertUtil.testCaseStatistics(testcaselist);
 
 				List<Pair> highspeeddata=(List<Pair>) testcasemap.get("high-speed");
 				List<Pair> timespeeddata=(List<Pair>) testcasemap.get("time-speed");
@@ -1486,15 +1651,15 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 //				List<TestCase> testcaselist = ClientRecThread.getTestCaseList();
 				List<TestCase> testcaselist=new ArrayList<>();
-				try {
-					testcaselist = Controller.getResult("time");
-				} catch (ExecutionException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				} catch (InterruptedException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
+//				try {
+//					testcaselist = Controller.getResult("time");
+//				} catch (ExecutionException e2) {
+//					// TODO Auto-generated catch block
+//					e2.printStackTrace();
+//				} catch (InterruptedException e2) {
+//					// TODO Auto-generated catch block
+//					e2.printStackTrace();
+//				}
 				
 				File f=new File("D:\\test.txt");
 				try {

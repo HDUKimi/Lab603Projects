@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.util.chengzuo.Bean;
+package com.horstmann.violet.application.gui.util.chenzuo.Bean;
 
 import java.io.Serializable;
 
@@ -8,15 +8,15 @@ public class myProcess implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 5505096620733312497L;
-	// ¼¤ÀøID
+	// ID
 	public int processID;
-	// ¼¤ÀøÃû³Æ
+	// name
 	public String processName;
-	// ¼¤Àø²ÎÊı
+	// parameters
 	public String processParam;
-	// ¼¤Àø×´Ì¬
+	// status
 	public String processStatus;
-	// ¼¤ÀøÖ´ĞĞÇé¿ö
+	// executor
 	public boolean processExec;
 
 	public myProcess(int processID, String processName, String processParam, String processStatus, boolean processExec) {

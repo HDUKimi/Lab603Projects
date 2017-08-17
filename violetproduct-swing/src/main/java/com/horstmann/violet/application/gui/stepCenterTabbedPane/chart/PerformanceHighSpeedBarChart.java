@@ -11,7 +11,7 @@ import org.jfree.chart.block.BlockBorder;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.RectangleEdge;
 
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.Pair;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.Pair;
 
 public class PerformanceHighSpeedBarChart {
 

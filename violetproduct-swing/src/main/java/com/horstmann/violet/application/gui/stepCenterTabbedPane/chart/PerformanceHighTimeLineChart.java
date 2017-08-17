@@ -14,7 +14,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RectangleEdge;
 
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.Pair;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.Pair;
 
 public class PerformanceHighTimeLineChart {
 

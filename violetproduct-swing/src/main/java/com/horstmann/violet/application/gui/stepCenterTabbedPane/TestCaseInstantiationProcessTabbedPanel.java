@@ -31,7 +31,7 @@ import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.opreationTreePane.TestCaseConfirmationPanel;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
 import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 import com.horstmann.violet.application.gui.util.ckt.output.forPlatform;

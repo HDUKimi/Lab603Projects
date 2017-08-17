@@ -10,9 +10,6 @@ import java.util.List;
 
 import javax.swing.plaf.synth.SynthSpinnerUI;
 
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
-
 public class DataBaseUtil {
 
 	static ResultSet ret = null;

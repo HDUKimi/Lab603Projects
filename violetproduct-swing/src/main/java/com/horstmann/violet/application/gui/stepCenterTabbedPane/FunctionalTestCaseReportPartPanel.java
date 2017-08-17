@@ -26,8 +26,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.consolepart.LocationTransitionLabelRenderer;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.myProcess;
 
 public class FunctionalTestCaseReportPartPanel extends JPanel {
 

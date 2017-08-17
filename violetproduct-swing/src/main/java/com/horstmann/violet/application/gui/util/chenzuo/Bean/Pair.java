@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.util.chengzuo.Bean;
+package com.horstmann.violet.application.gui.util.chenzuo.Bean;
 
 import java.io.Serializable;
 import java.util.Comparator;
@@ -32,10 +32,9 @@ public class Pair<K,V> implements Comparator<Pair>, Serializable{
 		this.second = second;
 	}
 
-	@Override
 	public int compare(Pair o1, Pair o2) {
 		if(o1.first instanceof String && o2.first instanceof String) {
-		return Integer.parseInt((String) o1.first) - Integer.parseInt((String) o2.first);
+			return Integer.parseInt((String) o1.first) - Integer.parseInt((String) o2.first);
 		}
 		return 0;
 	}

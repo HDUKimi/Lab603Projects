@@ -27,7 +27,7 @@ import com.horstmann.violet.application.consolepart.TestCasePathPanel;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
 import com.horstmann.violet.application.gui.util.tanchao.TranMessageText;
 import com.horstmann.violet.workspace.IWorkspace;

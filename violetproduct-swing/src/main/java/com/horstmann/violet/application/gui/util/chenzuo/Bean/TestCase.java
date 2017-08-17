@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.util.chengzuo.Bean;
+package com.horstmann.violet.application.gui.util.chenzuo.Bean;
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,15 +12,15 @@ public class TestCase implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 7785205898142381116L;
-	//测试用例ID
+	//ID
 	String  testCaseID;
-	//测试用例 激励链表
+	//list of process
 	List<myProcess> processList;
-	//测试用例执行状态
+	//state of testcase
 	String  state;
-	//测试用例执行结果
+	//result of testcase
 	TestCaseResult  result;
-	//测试用例细节
+	//detail of testcase, String of socket received
 	String  detail;
 	//时间约束不等式
 	List<String> limit;
@@ -59,7 +59,7 @@ public class TestCase implements Serializable{
 		this.state = state;
 	}
 
-	
+
 
 	public TestCaseResult getResult() {
 		return result;
@@ -96,7 +96,7 @@ public class TestCase implements Serializable{
 		return tmp;
 	}
 	/***
-	 * 按照规定显示格式 转换测试用例格式
+	 *  show format
 	 * @return
 	 */
 	public String showTestCase(){

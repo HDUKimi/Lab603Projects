@@ -1,33 +1,18 @@
-package com.horstmann.violet.application.gui.util.chengzuo.Util;
+package com.horstmann.violet.application.gui.util.chenzuo.Util;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.*;
+
+import java.io.*;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.horstmann.violet.application.gui.homeTabbedPanel.HomeAllTabbedPanel;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.Pair;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCaseResult;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.Time;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.myProcess;
-
 /**
  * 测试用例 操作工具类
- * 
+ *
  * @author geek
  */
-public class TestCaseConvertUtil {
+public class TcConvertUtil {
 
 	/**
 	 * 对字符串进行 正则匹配，获取结果
@@ -50,18 +35,18 @@ public class TestCaseConvertUtil {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Map testCaseStatistics(List<TestCase> testCases) {
-		//存放总的统计结果
-		Map finallStatisticsResult = new HashMap<>();
-		
-		//比较器
+		// 存放总的统计结果
+		Map finallStatisticsResult = new HashMap();
+
+		// 比较器
 		Comparator<String> comp = new Comparator<String>() {
 			public int compare(String o1, String o2) {
 				return Integer.parseInt(o1) - Integer.parseInt(o2);
 			}
 		};
-		List<Pair> hs = new ArrayList<>(),ts = new ArrayList<>();
-		Map<String, List<Pair>> hb = new TreeMap<>(comp), ht = new TreeMap<>(comp);
-		List<Pair> tmp,tmp2;
+		List<Pair> hs = new ArrayList(), ts = new ArrayList();
+		Map<String, List<Pair>> hb = new TreeMap(comp), ht = new TreeMap(comp);
+		List<Pair> tmp, tmp2;
 		for (TestCase testCase : testCases) {
 			String speed = testCase.getResult().getWind_speed(), high = testCase.getResult().getTakeoff_alt(),
 					battery = testCase.getResult().getBattery_remaining(), time = testCase.getResult().getTime();
@@ -69,13 +54,13 @@ public class TestCaseConvertUtil {
 				hs.add(new Pair(speed, high));
 				ts.add(new Pair(speed, time));
 			}
-			
+
 			if (!hb.containsKey(speed) || !ht.containsKey(speed)) {
-				tmp = new ArrayList<>();
+				tmp = new ArrayList();
 				tmp.add(new Pair(high, battery));
 				hb.put(speed, tmp);
 
-				tmp2 = new ArrayList<>();
+				tmp2 = new ArrayList();
 				tmp2.add(new Pair(high, time));
 				ht.put(speed, tmp2);
 			} else {
@@ -87,7 +72,7 @@ public class TestCaseConvertUtil {
 			}
 
 		}
-	
+
 		// 1.高度、风速关系
 		finallStatisticsResult.put("high-speed", hs);
 		// 2.风速、时间关系
@@ -100,7 +85,7 @@ public class TestCaseConvertUtil {
 		return finallStatisticsResult;
 
 	}
-	
+
 	/**
 	 * 功能测试统计工具
 	 * 
@@ -109,68 +94,66 @@ public class TestCaseConvertUtil {
 	 * @return Map 类型 说明 : 1.测试用例有误,无法对应到执行程序! 2.测试执行成功!耗时: 3.程序出现出现死循环或者抛出异常!
 	 * 
 	 */
-	public static Map<String, Object> functionStatistics(List<TestCase> testCases){
+	public static Map<String, Object> functionStatistics(List<TestCase> testCases) {
 		// 存放总的统计结果
-		Map<String, Object> finallStatisticsResult = new HashMap<>();
-		//成功、失败用例的ID
-		List<Integer> caseSuccess = new ArrayList<>()
-					,caseFailed = new ArrayList<>();
-		Map<Integer,List<Integer>> tmpMap;
-		List<Map<Integer,List<Integer>>> tmpList;
+		Map<String, Object> finallStatisticsResult = new HashMap();
+		// 成功、失败用例的ID
+		List<Integer> caseSuccess = new ArrayList(), caseFailed = new ArrayList();
+		Map<Integer, List<Integer>> tmpMap;
+		List<Map<Integer, List<Integer>>> tmpList;
 		/*
-		 * 出错类型统计 
-		 * Map格式:
-		 * Map<出错类型,LIST< MAP< 用例号,出错激励ID统计 > > >
+		 * 出错类型统计 Map格式: Map<出错类型,LIST< MAP< 用例号,出错激励ID统计 > > >
 		 */
-		Map<String,List<Map<Integer,List<Integer>>>> failedStatistics = new HashMap<>();
-		
+		Map<String, List<Map<Integer, List<Integer>>>> failedStatistics = new HashMap();
+
 		for (TestCase testCase : testCases) {
 			String tmpStr = testCase.getResult().getResultDetail();
 			int id = Integer.parseInt(testCase.getTestCaseID());
 			String keyTmp = null;
-			//出错用例 纪录并统计
-			if(tmpStr.contains("测试用例有误") || tmpStr.contains("程序出现出现死循环或者抛出异常")){
-				
-				//出错纪录
+			// 出错用例 纪录并统计
+			if (tmpStr.contains("测试用例有误") || tmpStr.contains("程序出现出现死循环或者抛出异常")) {
+
+				// 出错纪录
 				caseFailed.add(id);
-				
-				//出错统计
-				if(tmpStr.contains("测试用例有误")){
+
+				// 出错统计
+				if (tmpStr.contains("测试用例有误")) {
 					keyTmp = "测试用例有误";
-				}else{
+				} else {
 					keyTmp = "程序出现出现死循环或者抛出异常";
 				}
 				if (!failedStatistics.containsKey(keyTmp)) {
-					tmpList = new ArrayList<>();
+					tmpList = new ArrayList();
 					failedStatistics.put(keyTmp, tmpList);
 				}
 				tmpList = failedStatistics.get(keyTmp);
 				// 处理对应用例所出现问题的激励ID，封装成List
-				tmpMap = new HashMap<>();
-				List<Integer> value = new ArrayList<>();
+				tmpMap = new HashMap();
+				List<Integer> value = new ArrayList();
 				for (myProcess m : testCase.getProcessList()) {
 					if (!m.isProcessExec())
 						value.add(m.getProcessID());
 				}
 				tmpMap.put(id, value);
 				tmpList.add(tmpMap);
-				
-			}else{
-				//成功用例纪录
+
+			} else {
+				// 成功用例纪录
 				caseSuccess.add(id);
 			}
 		}
-		//成功用例
+		// 成功用例
 		finallStatisticsResult.put("caseSuccess", caseSuccess);
-		//失败用例
+		// 失败用例
 		finallStatisticsResult.put("caseFailed", caseFailed);
-		//出错情况统计
+		// 出错情况统计
 		finallStatisticsResult.put("failedStatistics", failedStatistics);
 		return finallStatisticsResult;
 	}
-	
+
 	/**
 	 * 时间测试工具
+	 * 
 	 * @param testCases
 	 * @return
 	 */
@@ -242,132 +225,125 @@ public class TestCaseConvertUtil {
 	 *            从服务器获取的字符串
 	 * @return
 	 */
-	public static void buildTestCaseList(String type,List<TestCase> list, String str) {
+	public static List<TestCase> buildTestCaseList(String type, String fileName) {
 
-		
-			
-			// 1.按*号将测试用例划分
-			String[] tmp = str.split("\\*");
-			// 2.对每个测试用例字符串进行解析封装
-			for (String s : tmp) {
-				TestCase testCase = new TestCase();
-				// 2.1.字符串格式处理
-				s = s.replace("\n", "");
-				// 2.2.获取测试用例ID
-				testCase.setTestCaseID(stringRegEx(s, "testcCaseID:([\\s|\\S]*?)-->processList:").get(0));
-				// 2.3.构造激励链表
-				String processList = stringRegEx(s, "processList:([\\s|\\S]*?)-->execStatus").get(0);
-				testCase.setProcessList(string2ProcessList(processList));
-				// 2.4.测试用例执行状态
-				/*	
-				 * 	功能性能 :
-				 * 		类型 说明 : 1.测试用例有误,无法对应到执行程序，且测试耗时:[不准确] 
-				 * 				2.测试耗时:
-				 * 				3.程序执行过程中出现死循环或者抛出异常!
-				 * 	时间约束:
-				 * 		[x:x] 第一个表示所用激励执行情况	 	1 有误，2 无误
-				 *			      第二个表示是否满足约束不等式 	1 不满足 ，2 满足
-				 */
-				TestCaseResult testCaseResult = new TestCaseResult();
-				String exeState = "", t = stringRegEx(s, "execStatus:([\\s|\\S]*?)-->resultStatus:").get(0);
-				if (t.contains(":")) {
-					String[] r = t.split(":");
-					//时间约束
-					if(type == "time"){
-						String tStatus , eStatus ;
-						if("1".equals(r[0])){
-							tStatus = "测试用例有误,无法对应到执行程序";
-						}else{
-							tStatus = "测试用例正确执行";
-						}
-						
-						if("1".equals(r[1])){
-							eStatus = "不满足时间约束";
-						}else{
-							eStatus = "满足时间约束";
-						}
-						exeState = tStatus+",且"+eStatus;
-					}else{
-						//功能、性能
-						switch (r[0]) {
-							case "1":
-								exeState = "测试用例有误,无法对应到执行程序，且测试耗时:" + r[1] + "[不准确]";
-								break;
-							case "2":
-								exeState = "测试耗时:" + r[1];
-								break;
-						}
-						if (type != "function") {
-							testCaseResult.setExeTime(Double.valueOf(r[1]));
-							testCaseResult.setTakeoff_alt(Double.valueOf(r[2].substring("takeoff_alt".length())));
-							testCaseResult.setBattery_remaining(Double.valueOf(r[3].substring("battery_remaining".length())));
-							testCaseResult.setTime(Double.valueOf(r[4].substring("time".length())));
-							testCaseResult.setWind_speed(Double.valueOf(r[5].substring("wind_speed".length())));
-						}
-				
-					}	
-				} else {
-					exeState = "程序执行过程中出现死循环或者抛出异常!";
-				}
-				testCase.setState(exeState);
-				// 2.5.测试用例结果
-				/*
-				 *  功能性能 :
-				 *  	类型 说明 : 1.测试用例有误,无法对应到执行程序! 
-				 *  			2.测试执行成功!耗时: 
-				 *  			3.程序出现出现死循环或者抛出异常!
-				 *  时间约束:
-				 *  	1.出错时,错误的不等式  2.正确时,原约束不等式 3.出现死循环
-				 */
-				String result = "";
-				//时间约束
-				if(type =="time"){
-					result = stringRegEx(s, "resultStatus:([\\s|\\S]*?)]").get(0).split(":")[1];
-					if (result == "3") {
-						result = "程序出现出现死循环或者抛出异常!";
-					}
-					else{
-						testCaseResult.setTimeLimit(timeStatistics(result));
-					}
-					
-				}else{
-					//功能性能
-					t = stringRegEx(s, "resultStatus:([\\s|\\S]*?)]").get(0);
-					if (!t.contains(":")) {
-						switch (t) {
-							case "1":
-								result = "测试用例有误,无法对应到执行程序!";
-								break;
-							case "3":
-								result = "程序出现出现死循环或者抛出异常!";
-								break;
-						}
+		List<TestCase> list = new ArrayList<>();
+		String str = readFileByLines(fileName);
+		// 1.按*号将测试用例划分
+		String[] tmp = str.split("\\*");
+		// 2.对每个测试用例字符串进行解析封装
+		for (String s : tmp) {
+			TestCase testCase = new TestCase();
+			// 2.1.字符串格式处理
+			s = s.replace("\n", "");
+			// 2.2.获取测试用例ID
+			testCase.setTestCaseID(stringRegEx(s, "testcCaseID:([\\s|\\S]*?)-->processList:").get(0));
+			// 2.3.构造激励链表
+			String processList = stringRegEx(s, "processList:([\\s|\\S]*?)-->execStatus").get(0);
+			testCase.setProcessList(string2ProcessList(processList));
+			// 2.4.测试用例执行状态
+			/*
+			 * 功能性能 : 类型 说明 : 1.测试用例有误,无法对应到执行程序，且测试耗时:[不准确] 2.测试耗时:
+			 * 3.程序执行过程中出现死循环或者抛出异常! 时间约束: [x:x] 第一个表示所用激励执行情况 1 有误，2 无误
+			 * 第二个表示是否满足约束不等式 1 不满足 ，2 满足
+			 */
+			TestCaseResult testCaseResult = new TestCaseResult();
+			String exeState = "", t = stringRegEx(s, "execStatus:([\\s|\\S]*?)-->resultStatus:").get(0);
+			if (t.contains(":")) {
+				String[] r = t.split(":");
+				// 时间约束
+				if (type == "Time") {
+					String tStatus, eStatus;
+					if ("1".equals(r[0])) {
+						tStatus = "测试用例有误,无法对应到执行程序";
 					} else {
-						result = "测试执行成功!耗时:" + t.split(":")[1];
+						tStatus = "测试用例正确执行";
 					}
+
+					if ("1".equals(r[1])) {
+						eStatus = "不满足时间约束";
+					} else {
+						eStatus = "满足时间约束";
+					}
+					exeState = tStatus + ",且" + eStatus;
+				} else {
+					// 鍔熻兘銆佹?ц兘
+					switch (Integer.valueOf(r[0])) {
+					case 1:
+						exeState = "测试用例有误,无法对应到执行程序，且测试耗时:" + r[1] + "[不准确]";
+						break;
+					case 2:
+						exeState = "测试耗时:" + r[1];
+						break;
+					}
+					if (type != "Function") {
+						testCaseResult.setExeTime(Double.valueOf(r[1]));
+						testCaseResult.setTakeoff_alt(Double.valueOf(r[2].substring("takeoff_alt".length())));
+						testCaseResult
+								.setBattery_remaining(Double.valueOf(r[3].substring("battery_remaining".length())));
+						testCaseResult.setTime(Double.valueOf(r[4].substring("time".length())));
+						testCaseResult.setWind_speed(Double.valueOf(r[5].substring("wind_speed".length())));
+					}
+
 				}
-				
-				testCaseResult.setResultDetail(result);
-				testCase.setResult(testCaseResult);
-				// 2.6.测试用例表现格式
-				testCase.setDetail(testCase.showTestCase());
-				// 2.7.加入测试用例链表
-				list.add(testCase);
+			} else {
+				exeState = "程序执行过程中出现死循环或者抛出异常!";
 			}
-			
-			//性能测试除去多个0%
-			if (type == "performance") {
-				// 处理多个0%
-				for (int i = 0; i < list.size(); i++) {
-					if (i + 1 < list.size()) {
-						if (list.get(i).getResult().getBattery_remaining().equals("0%")
-								&& list.get(i + 1).getResult().getBattery_remaining().equals("0%")) {
-							list.remove(i);
-						}
+			testCase.setState(exeState);
+			// 2.5.测试用例结果
+			/*
+			 * 功能性能 : 类型 说明 : 1.测试用例有误,无法对应到执行程序! 2.测试执行成功!耗时:
+			 * 3.程序出现出现死循环或者抛出异常! 时间约束: 1.出错时,错误的不等式 2.正确时,原约束不等式 3.出现死循环
+			 */
+			String result = "";
+			// 时间约束
+			if (type == "Time") {
+				result = stringRegEx(s, "resultStatus:([\\s|\\S]*?)]").get(0).split(":")[1];
+				if (result == "3") {
+					result = "程序出现出现死循环或者抛出异常!";
+				} else {
+					testCaseResult.setTimeLimit(timeStatistics(result));
+				}
+
+			} else {
+				// 功能性能
+				t = stringRegEx(s, "resultStatus:([\\s|\\S]*?)]").get(0);
+				if (!t.contains(":")) {
+					switch (Integer.valueOf(t)) {
+					case 1:
+						result = "测试用例有误,无法对应到执行程序!";
+						break;
+					case 3:
+						result = "程序出现出现死循环或者抛出异常!";
+						break;
+					}
+				} else {
+					result = "测试执行成功!耗时:" + t.split(":")[1];
+				}
+			}
+
+			testCaseResult.setResultDetail(result);
+			testCase.setResult(testCaseResult);
+			// 2.6.测试用例表现格式
+			testCase.setDetail(testCase.showTestCase());
+			// 2.7.加入测试用例链表
+			list.add(testCase);
+		}
+
+		// 性能测试除去多个0%
+		if (type == "Performance") {
+			// 处理多个0%
+			for (int i = 0; i < list.size(); i++) {
+				if (i + 1 < list.size()) {
+					if (list.get(i).getResult().getBattery_remaining().equals("0%")
+							&& list.get(i + 1).getResult().getBattery_remaining().equals("0%")) {
+						list.remove(i);
 					}
 				}
 			}
 		}
+		return list;
+	}
 
 	/**
 	 * 字符串写入文件 由于测试数据太大需要通过保存在文件的形式查看
@@ -429,18 +405,20 @@ public class TestCaseConvertUtil {
 		// System.out.println(TestCaseConvertUtil.class.getResource("/").getPath());//user.dir指定了当前的路径
 		String str = readFileByLines(
 				"E://项目//SVN//虚拟仿真平台进度//Lab603Projects//violetproduct-swing//src//main//java//com//horstmann//violet//application//gui//util//chengzuo//Util//result.txt");
-	   
-		List<TestCase> list = new ArrayList<>();
-//		buildTestCaseList(list, str);
 
-		Map  m =testCaseStatistics(list);
+		List<TestCase> list = new ArrayList();
+		// buildTestCaseList("time",list, str);
+		for (TestCase t : list) {
+			System.out.println(t);
+		}
+		Map m = testCaseStatistics(list);
 		Map<String, List<Pair>> hb = (Map<String, List<Pair>>) m.get("high-battery");
-		for (Map.Entry<String, List<Pair>> entry : hb.entrySet()) {  
-			  System.out.println(entry.getKey());
-			  for (Pair pair : entry.getValue()) {
-				System.out.println("\t"+pair);
+		for (Map.Entry<String, List<Pair>> entry : hb.entrySet()) {
+			System.out.println(entry.getKey());
+			for (Pair pair : entry.getValue()) {
+				System.out.println("\t" + pair);
 			}
-		  
-		}  
+
+		}
 	}
 }

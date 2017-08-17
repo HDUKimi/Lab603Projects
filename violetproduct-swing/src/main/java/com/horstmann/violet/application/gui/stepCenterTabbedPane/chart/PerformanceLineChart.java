@@ -20,8 +20,8 @@ import org.jfree.ui.RectangleEdge;
 
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.ChartUtils;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.Serie;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCaseResult;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseResult;
 
 
 public class PerformanceLineChart {

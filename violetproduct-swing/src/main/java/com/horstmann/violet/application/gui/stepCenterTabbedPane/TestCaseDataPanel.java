@@ -22,7 +22,7 @@ import org.dom4j.io.SAXReader;
 
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
-import com.horstmann.violet.application.gui.util.chengzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
 
 public class TestCaseDataPanel{
 

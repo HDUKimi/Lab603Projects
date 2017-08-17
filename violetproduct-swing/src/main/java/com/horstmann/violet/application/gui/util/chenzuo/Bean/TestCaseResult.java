@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.util.chengzuo.Bean;
+package com.horstmann.violet.application.gui.util.chenzuo.Bean;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -25,17 +25,19 @@ public class TestCaseResult implements Serializable{
 	// Ê±¼ä
 	private double time = 0d;
 
+	//result of executor
 	private String resultDetail;
 
+	//TimeLimit of TimeTest
 	private Time timeLimit;
-	
+
 	DecimalFormat decimalFormat = new DecimalFormat("###");
 
 	public TestCaseResult() {
 	}
 
 	public TestCaseResult(double exeTime, double wind_speed, double takeoff_alt, double battery_remaining,
-			double time) {
+						  double time) {
 		this.exeTime = exeTime;
 		this.takeoff_alt = takeoff_alt;
 		this.battery_remaining = battery_remaining;
@@ -93,7 +95,7 @@ public class TestCaseResult implements Serializable{
 	public void setResultDetail(String resultDetail) {
 		this.resultDetail = resultDetail;
 	}
-	
+
 	public Time getTimeLimit() {
 		return timeLimit;
 	}
