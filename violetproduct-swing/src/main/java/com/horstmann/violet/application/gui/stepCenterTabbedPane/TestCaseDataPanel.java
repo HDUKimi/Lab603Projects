@@ -200,18 +200,30 @@ public class TestCaseDataPanel{
 		
 		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
 		
-		int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
-		if(starttype == 1){
-			baseUrl += "\\FunctionalTest\\";
-		} else if (starttype == 2) {
-			baseUrl += "\\PerformanceTest\\";
-		} else if (starttype == 3) {
-			baseUrl += "\\TimeTest\\";
+		File file = null;
+		int type=1;
+		if(type == 1){
+			testCasePath=baseUrl+"\\FunctionalTest\\"+testCaseName+".xml";
+			file=new File(testCasePath);
+			if(!file.exists()){
+				type++;
+			}
+		} 
+		if (type == 2) {
+			testCasePath=baseUrl+"\\PerformanceTest\\"+testCaseName+".xml";
+			file=new File(testCasePath);
+			if(!file.exists()){
+				type++;
+			}
+		} 
+		if (type == 3) {
+			testCasePath=baseUrl+"\\TimeTest\\"+testCaseName+".xml";
+			file=new File(testCasePath);
+			if(!file.exists()){
+				type++;
+			}
 		}
 		
-		testCasePath=baseUrl+testCaseName+".xml";
-		
-		File file=new File(testCasePath);
 		if(!file.exists()){
 			
 			baseUrl = "D:\\ModelDriverProjectFile\\SqlTestCase\\";

@@ -432,7 +432,7 @@ public class StepButtonPanel extends JPanel {
 			}
 		});
 		step3button.setIcon(icon3);
-		step3button.setText("测试用例");
+		step3button.setText("<html><center>抽象测试<br>用例生成</center></html>");
         step3button.setFont(new Font("微软雅黑", Font.PLAIN, 13));
         step3button.setForeground(new Color(255,255,255));
         step3button.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -483,7 +483,7 @@ public class StepButtonPanel extends JPanel {
 			}
 		});
 		step4button.setIcon(icon4);
-		step4button.setText("用例实例化");
+		step4button.setText("<html><center>测试用例<br>实例化</center></html>");
         step4button.setFont(new Font("微软雅黑", Font.PLAIN, 13));
         step4button.setForeground(new Color(255,255,255));
         step4button.setHorizontalTextPosition(SwingConstants.CENTER);

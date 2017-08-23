@@ -17,6 +17,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -49,6 +53,9 @@ import org.dom4j.io.SAXReader;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.opreationTreePane.CheckBoxTree.CheckBoxTreeCellRenderer;
+import com.horstmann.violet.application.gui.opreationTreePane.CheckBoxTree.CheckBoxTreeNode;
+import com.horstmann.violet.application.gui.opreationTreePane.CheckBoxTree.CheckBoxTreeNodeSelectionListener;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.FixedButtonTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.FunctionalTestCaseReportPartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEditor;
@@ -87,12 +94,36 @@ public class TestCaseConfirmationPanel extends JPanel{
 	private JButton testcasetoolbutton2;
 	private JButton testcasetoolbutton3;
 	private JButton testcasetoolbutton4;
-	private JPanel testcasetablepanel;
-	private JPanel testcasecheckboxpanel;
-	private JScrollPane testcasescrollpanel;
 	
-	private DefaultTableModel testcasetablemodel;
-	private JTable testcasetable;
+	private JPanel testcaselabeltabpanel;
+	private JPanel testcaselabeltabpanel1;
+	private JPanel testcaselabeltabpanel2;
+	private JButton testcaselabeltab1;
+	private JButton testcaselabeltab2;
+	private int testcaselabeltabindex=1;
+	
+	private JPanel testcasetreeinforpanel;
+	private JPanel testcasetreeinforpanel1;
+	private JPanel testcasetreeinforpanel2;
+	private JScrollPane testcasetreeinforscrollpanel1;
+	private JScrollPane testcasetreeinforscrollpanel2;
+	private JTree testcasetree1;
+	private DefaultTreeModel testcasetreemodel1;
+	private CheckBoxTreeNode rootnode1;
+	private CheckBoxTreeNode functionnode1;
+	private CheckBoxTreeNode performancenode1;
+	private CheckBoxTreeNode timenode1;
+	private CheckBoxTreeNode bordernode1;
+	private JTree testcasetree2;
+	private DefaultTreeModel testcasetreemodel2;
+	private CheckBoxTreeNode rootnode2;
+	private CheckBoxTreeNode functionnode2;
+	private CheckBoxTreeNode performancenode2;
+	private CheckBoxTreeNode timenode2;
+	private CheckBoxTreeNode bordernode2;
+	
+	private JPanel testcasecheckboxpanel;
+//	private JScrollPane testcasescrollpanel;
 	
 	private JCheckBox[] testCaseCheckBoxList;
 	
@@ -113,14 +144,9 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 		this.mainFrame = mainFrame;
 		
-		initFileList();
+//		initFileList();
 		
 //		initUI();		
-		
-//		this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black)
-//        		,"验证抽象测试用例",TitledBorder.CENTER,TitledBorder.ABOVE_TOP,
-//        		new Font("宋体",Font.BOLD,20),new Color(60, 60, 60)));
-		
 		
 		titlepanel = new JPanel();
 		toolpanel = new JPanel();
@@ -140,36 +166,36 @@ public class TestCaseConfirmationPanel extends JPanel{
 		testcasetoolbutton2=new JButton();
 		testcasetoolbutton3=new JButton();
 		testcasetoolbutton4=new JButton();
-		testcasetablepanel=new JPanel();
+		
 		testcasecheckboxpanel=new JPanel();
+		
+		testcasetreeinforpanel=new JPanel();
+		testcasetreeinforpanel1=new JPanel();
+		testcasetreeinforpanel2=new JPanel();
 		
 		titlepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(142, 155, 188)));
 		toolpanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(142, 155, 188)));
-		treepanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(142, 155, 188)));
+		testcasetreeinforpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
 		
 		initTitlePanel();
 		
 		initToolButton();
 
-		initDiagramButton();
+		initTestCaseLabelTabPanel();
 		
-//		initTablePanel();
-//		
-//		addDataTotestcaseTable();
-		
-		initCheckBoxPanel();
-		
-		addDataToCheckBoxPanel();
+		initTestCaseTreeInforPanel();
 		
 		GridBagLayout layout=new GridBagLayout();
 		this.setLayout(layout);
 		this.add(titlepanel);
 		this.add(toolpanel);
-		this.add(testcasescrollpanel);
+		this.add(testcaselabeltabpanel);
+		this.add(testcasetreeinforpanel);
 //		this.add(diagrampanel);
 		layout.setConstraints(titlepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(toolpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(testcasescrollpanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(testcaselabeltabpanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(testcasetreeinforpanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 //		layout.setConstraints(diagrampanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -181,6 +207,442 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 	}
 
+	private void initTestCaseTreeInforPanel() {
+		// TODO Auto-generated method stub
+		
+		initTestCaseTreeInforPanel1();
+		
+		initTestCaseTreeInforPanel2();
+		
+		testcasetreeinforpanel.setLayout(new GridLayout());
+		testcasetreeinforpanel.add(testcasetreeinforpanel1);
+		
+	}
+
+	private void initTestCaseTreeInforPanel1() {
+		// TODO Auto-generated method stub
+		
+//		initCheckBoxPanel();
+//		
+//		addDataToCheckBoxPanel();
+//		
+//		testcasetreeinforpanel1.setLayout(new GridLayout());
+//		testcasetreeinforpanel1.add(testcasetreeinforscrollpanel1);
+		
+		initTestCaseFileList();
+		
+		initTestCaseTree1();
+		
+		showTestCaseTree(testcasetree1,new TreePath(rootnode1),true);
+		
+		testcasetreeinforpanel1.setLayout(new GridLayout());
+		testcasetreeinforpanel1.add(testcasetreeinforscrollpanel1);
+		testcasetreeinforscrollpanel1.setBorder(null);
+		
+	}
+
+	private void showTestCaseTree(JTree tree, TreePath treePath, boolean expand) {
+		// TODO Auto-generated method stub
+		CheckBoxTreeNode node = (CheckBoxTreeNode) treePath.getLastPathComponent();
+
+        if (node.getChildCount() > 0) {
+            for (Enumeration e = node.children(); e.hasMoreElements();) {
+                TreeNode n = (TreeNode) e.nextElement();
+                TreePath path = treePath.pathByAddingChild(n);
+                showTestCaseTree(tree, path, expand);
+            }
+        }
+        if (expand) {
+            tree.expandPath(treePath);
+        } else {
+            tree.collapsePath(treePath);
+        }
+	}
+
+	private void initTestCaseFileList() {
+		// TODO Auto-generated method stub
+		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase";
+
+		File[] rootfilelist = null;
+		File rootfile = null;
+
+		rootfile=new File(baseUrl);
+		rootfilelist=rootfile.listFiles();
+		for(File f:rootfilelist){
+			if(f.isDirectory()){
+				for (File file : f.listFiles()) {
+					String fileName=file.getName();
+			    	if(fileName.lastIndexOf(".xml")>0){
+			    		testcasefilenamelists.add(fileName.substring(0, fileName.lastIndexOf(".xml")));
+			    	}
+			    }
+			}
+		}
+
+	}
+
+	private void initTestCaseTree1() {
+		// TODO Auto-generated method stub
+		rootnode1=new CheckBoxTreeNode("测试用例");
+		functionnode1=new CheckBoxTreeNode("功能测试");
+		performancenode1=new CheckBoxTreeNode("性能测试");
+		timenode1=new CheckBoxTreeNode("时间约束测试");
+		bordernode1=new CheckBoxTreeNode("边界值测试");
+		
+		rootnode1.add(functionnode1);
+		rootnode1.add(performancenode1);
+		rootnode1.add(timenode1);
+		rootnode1.add(bordernode1);
+		
+		AddTestCaseFileToTree();
+        
+        testcasetreemodel1 = new DefaultTreeModel(rootnode1);  
+        testcasetree1=new JTree(testcasetreemodel1);
+        testcasetree1.addMouseListener(new CheckBoxTreeNodeSelectionListener());  
+        testcasetree1.setCellRenderer(new CheckBoxTreeCellRenderer());  
+        testcasetreeinforscrollpanel1 = new JScrollPane(testcasetree1);  
+	}
+
+	private void AddTestCaseFileToTree() {
+		// TODO Auto-generated method stub
+		for(String name:testcasefilenamelists){
+			CheckBoxTreeNode node=new CheckBoxTreeNode(name);
+			if(name.contains("功能")&&!name.contains("border")){
+				if(name.contains("场景1")){
+					int flag=0;
+					Enumeration<?> en=functionnode1.children();
+					while (en.hasMoreElements()) {
+						CheckBoxTreeNode object = (CheckBoxTreeNode) en.nextElement();
+						if("场景1".equals(object.getUserObject())){
+							object.add(node);
+							flag=1;
+							break;
+						}
+					}
+					if(flag==0){
+						CheckBoxTreeNode objectnode=new CheckBoxTreeNode("场景1");
+						functionnode1.add(objectnode);
+						objectnode.add(node);
+					}
+				}
+				else if(name.contains("场景2")){
+					int flag=0;
+					Enumeration<?> en=functionnode1.children();
+					while (en.hasMoreElements()) {
+						CheckBoxTreeNode object = (CheckBoxTreeNode) en.nextElement();
+						if("场景2".equals(object.getUserObject())){
+							object.add(node);
+							flag=1;
+							break;
+						}
+					}
+					if(flag==0){
+						CheckBoxTreeNode objectnode=new CheckBoxTreeNode("场景2");
+						functionnode1.add(objectnode);
+						objectnode.add(node);
+					}
+				}
+			}
+			else if(name.contains("性能")){
+				performancenode1.add(node);
+			}
+			else if(name.contains("time")){
+				timenode1.add(node);
+			}
+			else if(name.contains("border")){
+				bordernode1.add(node);
+			}
+		}
+	}
+
+	private void initTestCaseTreeInforPanel2() {
+		// TODO Auto-generated method stub
+		
+		sqlcasedatalist=DataBaseUtil.queryCaseDataList();
+		
+		initTestCaseTree2();
+		
+		showTestCaseTree(testcasetree2,new TreePath(rootnode2),true);
+		
+		testcasetreeinforpanel2.setLayout(new GridLayout());
+		testcasetreeinforpanel2.add(testcasetreeinforscrollpanel2);
+		testcasetreeinforscrollpanel2.setBorder(null);
+		
+	}
+
+	private void initTestCaseTree2() {
+		// TODO Auto-generated method stub
+		
+		rootnode2=new CheckBoxTreeNode("测试用例");
+		functionnode2=new CheckBoxTreeNode("功能测试");
+		performancenode2=new CheckBoxTreeNode("性能测试");
+		timenode2=new CheckBoxTreeNode("时间约束测试");
+		bordernode2=new CheckBoxTreeNode("边界值测试");
+		
+		rootnode2.add(functionnode2);
+		rootnode2.add(performancenode2);
+		rootnode2.add(timenode2);
+		rootnode2.add(bordernode2);
+		
+		AddSqlTestCaseToTree();
+        
+        testcasetreemodel2 = new DefaultTreeModel(rootnode2);  
+        testcasetree2=new JTree(testcasetreemodel2);
+        testcasetree2.addMouseListener(new CheckBoxTreeNodeSelectionListener());  
+        testcasetree2.setCellRenderer(new CheckBoxTreeCellRenderer());  
+        testcasetreeinforscrollpanel2 = new JScrollPane(testcasetree2);  
+		
+	}
+
+	private void AddSqlTestCaseToTree() {
+		// TODO Auto-generated method stub
+		
+		for(String name:sqlcasedatalist){
+			CheckBoxTreeNode node=new CheckBoxTreeNode(name);
+			if(name.contains("功能")&&!name.contains("border")){
+				if(name.contains("场景1")){
+					int flag=0;
+					Enumeration<?> en=functionnode2.children();
+					while (en.hasMoreElements()) {
+						CheckBoxTreeNode object = (CheckBoxTreeNode) en.nextElement();
+						if("场景1".equals(object.getUserObject())){
+							object.add(node);
+							flag=1;
+							break;
+						}
+					}
+					if(flag==0){
+						CheckBoxTreeNode objectnode=new CheckBoxTreeNode("场景1");
+						functionnode2.add(objectnode);
+						objectnode.add(node);
+					}
+				}
+				else if(name.contains("场景2")){
+					int flag=0;
+					Enumeration<?> en=functionnode2.children();
+					while (en.hasMoreElements()) {
+						CheckBoxTreeNode object = (CheckBoxTreeNode) en.nextElement();
+						if("场景2".equals(object.getUserObject())){
+							object.add(node);
+							flag=1;
+							break;
+						}
+					}
+					if(flag==0){
+						CheckBoxTreeNode objectnode=new CheckBoxTreeNode("场景2");
+						functionnode2.add(objectnode);
+						objectnode.add(node);
+					}
+				}
+			}
+			else if(name.contains("性能")){
+				performancenode2.add(node);
+			}
+			else if(name.contains("time")){
+				timenode2.add(node);
+			}
+			else if(name.contains("border")){
+				bordernode2.add(node);
+			}
+		}
+		
+	}
+
+	private void initTestCaseLabelTabPanel() {
+		// TODO Auto-generated method stub
+		
+		testcaselabeltabpanel=new JPanel();
+		testcaselabeltabpanel1=new JPanel();
+		testcaselabeltabpanel2=new JPanel();
+		
+		testcaselabeltab1=new JButton();
+		testcaselabeltab2=new JButton();
+		
+		testcaselabeltab1.setText("最新的测试用例");
+		testcaselabeltab1.setForeground(new Color(0,0,0));
+		testcaselabeltab1.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		testcaselabeltab1.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
+		testcaselabeltab1.setFocusable(false);
+		testcaselabeltab1.setContentAreaFilled(false);
+		testcaselabeltab1.setBorderPainted(false);
+		testcaselabeltab1.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				testcaselabeltab1.setForeground(new Color(0, 0, 0));
+				testcaselabeltabpanel1.setBackground(new Color(255, 255, 255));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (testcaselabeltabindex != 1) {
+					testcaselabeltab1.setForeground(new Color(255, 255, 255));
+					testcaselabeltabpanel1.setBackground(new Color(77, 96, 130));
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (testcaselabeltabindex != 1) {
+					testcaselabeltabpanel1.setBackground(new Color(134, 161, 209));
+				}
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				settestcaselabeltabpanelrepait();
+				testcaselabeltab1.setForeground(new Color(0, 0, 0));
+				testcaselabeltabpanel1.setBackground(new Color(255, 255, 255));
+				testcaselabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,1,1, new Color(142, 155, 188)));
+				testcaselabeltabindex = 1;
+				
+				testcaselabel.setText("最新的测试用例");
+				
+				testcasetreeinforpanel.removeAll();
+				testcasetreeinforpanel.add(testcasetreeinforpanel1);
+				
+				ChangeRepaint();
+			}
+		});
+		
+		testcaselabeltab1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				settestcaselabeltabpanelrepait();
+				testcaselabeltab1.setForeground(new Color(0, 0, 0));
+				testcaselabeltabpanel1.setBackground(new Color(255, 255, 255));
+				testcaselabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,1,1, new Color(142, 155, 188)));
+				testcaselabeltabindex = 1;
+				
+				testcaselabel.setText("最新的测试用例");
+				
+				testcasetreeinforpanel.removeAll();
+				testcasetreeinforpanel.add(testcasetreeinforpanel1);
+				
+				ChangeRepaint();
+			}
+		});
+		
+		testcaselabeltab2.setText("数据库中的测试用例");
+		testcaselabeltab2.setForeground(new Color(255, 255, 255));
+		testcaselabeltab2.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		testcaselabeltab2.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
+		testcaselabeltab2.setFocusable(false);
+		testcaselabeltab2.setContentAreaFilled(false);
+		testcaselabeltab2.setBorderPainted(false);
+		testcaselabeltab2.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				testcaselabeltab2.setForeground(new Color(0, 0, 0));
+				testcaselabeltabpanel2.setBackground(new Color(255, 255, 255));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (testcaselabeltabindex != 2) {
+					testcaselabeltab2.setForeground(new Color(255, 255, 255));
+					testcaselabeltabpanel2.setBackground(new Color(77, 96, 130));
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if (testcaselabeltabindex != 2) {
+					testcaselabeltabpanel2.setBackground(new Color(134, 161, 209));
+				}
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				settestcaselabeltabpanelrepait();
+				testcaselabeltab2.setForeground(new Color(0, 0, 0));
+				testcaselabeltabpanel2.setBackground(new Color(255, 255, 255));
+				testcaselabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
+				testcaselabeltabindex = 2;
+				
+				testcaselabel.setText("数据库中的测试用例");
+				
+				testcasetreeinforpanel.removeAll();
+				testcasetreeinforpanel.add(testcasetreeinforpanel2);
+				
+				ChangeRepaint();
+			}
+		});
+		
+		testcaselabeltab2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				settestcaselabeltabpanelrepait();
+				testcaselabeltab2.setForeground(new Color(0, 0, 0));
+				testcaselabeltabpanel2.setBackground(new Color(255, 255, 255));
+				testcaselabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
+				testcaselabeltabindex = 2;
+				
+				testcaselabel.setText("数据库中的测试用例");
+				
+				testcasetreeinforpanel.removeAll();
+				testcasetreeinforpanel.add(testcasetreeinforpanel2);;
+				
+				ChangeRepaint();
+			}
+		});
+		
+		testcaselabeltabpanel1.setLayout(new GridLayout());
+		testcaselabeltabpanel1.setBackground(new Color(255,255,255));
+		testcaselabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,1,1, new Color(142, 155, 188)));
+		testcaselabeltabpanel1.setPreferredSize(new Dimension(120, 25));
+		testcaselabeltabpanel1.add(testcaselabeltab1);
+		testcaselabeltabpanel2.setLayout(new GridLayout());
+		testcaselabeltabpanel2.setBackground(new Color(77, 96, 130));
+		testcaselabeltabpanel2.setPreferredSize(new Dimension(120, 25));
+		testcaselabeltabpanel2.add(testcaselabeltab2);
+
+		testcaselabeltabpanel.setBackground(new Color(41, 57, 85));
+		testcaselabeltabpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		testcaselabeltabpanel.add(testcaselabeltabpanel1);
+		testcaselabeltabpanel.add(testcaselabeltabpanel2);
+		testcaselabeltabpanel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, new Color(142, 155, 188)));
+		
+		testcaselabeltabpanel.setPreferredSize(new Dimension(100, 25));
+		testcaselabeltabpanel.setMinimumSize(new Dimension(100, 25));
+		
+	}
+
+	protected void settestcaselabeltabpanelrepait() {
+		// TODO Auto-generated method stub
+		testcaselabeltab1.setForeground(new Color(255, 255, 255));
+		testcaselabeltabpanel1.setBackground(new Color(77, 96, 130));
+		testcaselabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(77, 96, 130)));
+		testcaselabeltab2.setForeground(new Color(255, 255, 255));
+		testcaselabeltabpanel2.setBackground(new Color(77, 96, 130));
+		testcaselabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(77, 96, 130)));
+	}
+
 	private void initCheckBoxPanel() {
 		// TODO Auto-generated method stub
 		
@@ -188,10 +650,10 @@ public class TestCaseConfirmationPanel extends JPanel{
 		testcasecheckboxpanel.setBorder(BorderFactory.createEmptyBorder(0, 7, 0, 0));
 		testcasecheckboxpanel.setBackground(new Color(255, 255, 255));
 		
-		testcasescrollpanel=new JScrollPane(testcasecheckboxpanel);
-		testcasescrollpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
-		testcasescrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		testcasescrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		testcasetreeinforscrollpanel1=new JScrollPane(testcasecheckboxpanel);
+		testcasetreeinforscrollpanel1.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
+		testcasetreeinforscrollpanel1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		testcasetreeinforscrollpanel1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
 	}
 
@@ -325,12 +787,12 @@ public class TestCaseConfirmationPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				if(testcasescrollpanel.isVisible()){
-					testcasescrollpanel.setVisible(false);
+				if(testcasetreeinforpanel.isVisible()){
+					testcasetreeinforpanel.setVisible(false);
 					ChangeRepaint();
 				}
 				else {
-					testcasescrollpanel.setVisible(true);
+					testcasetreeinforpanel.setVisible(true);
 					ChangeRepaint();
 				}
 				
@@ -411,12 +873,11 @@ public class TestCaseConfirmationPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 
-				selectedtestcaselist.clear();
+				updateSelectedTestCaseList();
 				
-				for(JCheckBox jcb:testCaseCheckBoxList){
-					if(jcb.isSelected()){
-						selectedtestcaselist.add(jcb.getText());
-					}
+				System.out.println("------------ "+selectedtestcaselist.size());
+				for(String s:selectedtestcaselist){
+					System.out.println(s);
 				}
 				
 				new Thread(new Runnable() {
@@ -484,11 +945,40 @@ public class TestCaseConfirmationPanel extends JPanel{
 		toolpanel.setLayout(new BorderLayout());
 		toolpanel.add(testcaselabel, BorderLayout.WEST);
 		toolpanel.add(testcasetoolpanel, BorderLayout.EAST);
-		toolpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
 		toolpanel.setPreferredSize(new Dimension(100, 29));
 		toolpanel.setMaximumSize(new Dimension(100, 29));
 		toolpanel.setMinimumSize(new Dimension(100, 29));
 		
+	}
+
+	protected void updateSelectedTestCaseList() {
+		// TODO Auto-generated method stub
+		
+		selectedtestcaselist.clear();
+		
+		if(testcaselabeltabindex==1){
+			DFSTreeByRootNode(rootnode1);
+		}
+		else if(testcaselabeltabindex==2){
+			DFSTreeByRootNode(rootnode2);
+		}
+		
+	}
+
+	private void DFSTreeByRootNode(CheckBoxTreeNode node) {
+		// TODO Auto-generated method stub
+		if(node.isLeaf()){
+			if(node.isSelected()){
+				selectedtestcaselist.add(node.getUserObject().toString());
+			}
+		}
+		else{
+			Enumeration<CheckBoxTreeNode> nodechildrens=node.children();
+			while (nodechildrens.hasMoreElements()) {
+				CheckBoxTreeNode children = (CheckBoxTreeNode) nodechildrens.nextElement();
+				DFSTreeByRootNode(children);
+			}
+		}
 	}
 
 	public void updateFileList() {
@@ -498,136 +988,6 @@ public class TestCaseConfirmationPanel extends JPanel{
 		initFileList();
 //		addDataTotestcaseTable();
 		addDataToCheckBoxPanel();
-		
-	}
-
-	private void addDataTotestcaseTable() {
-		// TODO Auto-generated method stub
-		
-		while(testcasetablemodel.getRowCount()>0){
-			testcasetablemodel.removeRow(testcasetablemodel.getRowCount()-1);
-		}
-		
-		
-		for(String str:testcasefilenamelists){
-			Object[] rowData={str};
-			testcasetablemodel.addRow(rowData);
-		}
-		
-	}
-
-	private void initDiagramButton() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void initTablePanel() {
-		// TODO Auto-generated method stub
-		
-		testcasetablemodel=new DefaultTableModel(0, 1){
-			@Override  
-            public boolean isCellEditable(int row,int column){  
-                return false;  
-            } 
-		};
-		
-		testcasetable=new JTable(testcasetablemodel);
-		
-		testcasetable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		testcasetable.setGridColor(Color.BLACK);
-		testcasetable.setShowGrid(true);
-		testcasetable.setShowHorizontalLines(true);
-		testcasetable.setShowVerticalLines(false);
-		testcasetable.setFillsViewportHeight(true);
-		testcasetable.setRowHeight(24);
-		testcasetable.doLayout();
-		
-		testcasetable.getColumnModel().getColumn(0).setCellEditor(new MyLabelCellEditor());
-		testcasetable.getColumnModel().getColumn(0).setCellRenderer(new MyGeneralLabelRenderer());
-		
-		testcasetable.getTableHeader().setVisible(false);  
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();  
-        renderer.setPreferredSize(new Dimension(0, 0));  
-        testcasetable.getTableHeader().setDefaultRenderer(renderer);
-        
-        testcasetable.addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				if(e.getClickCount()==2){
-					
-					String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
-					
-					int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
-					if(starttype == 1){
-						baseUrl += "\\FunctionalTest\\";
-					} else if (starttype == 2) {
-						baseUrl += "\\PerformanceTest\\";
-					} else if (starttype == 3) {
-						baseUrl += "\\TimeTest\\";
-					}
-					
-					String filename=(String) testcasetablemodel.getValueAt(testcasetable.getSelectedRow(), testcasetable.getSelectedColumn());
-					String path = baseUrl + filename + ".xml";
-					
-					setTestcasename(filename);
-//					testcaselist = extractPerformanceTestDataFromXml(path);
-					
-					if(starttype==1){
-//						testcaselist = extractFunctionalTestDataFromXml(path);
-//						showFunctionalTestCase();
-						
-						TestCaseXMLToStringList tcxmltsl=new TestCaseXMLToStringList();
-						DataBaseUtil.insertTestCaseStringList(1, tcxmltsl.getStrings(path), filename);
-//						saveListToText(1, testcaselist);
-						
-//						tcxmltsl.createXml(DataBaseUtil.queryTestCaseStringList(1, filename), "D:\\ModelDriverProjectFile\\SqlTestCase\\"+filename+".xml");
-					}
-					else if(starttype==2){
-//						testcaselist = extractPerformanceTestDataFromXml(path);
-//						showPerformanceTestCase();
-						
-						TestCaseXMLToStringList tcxmltsl=new TestCaseXMLToStringList();
-						DataBaseUtil.insertTestCaseStringList(2, tcxmltsl.getStrings(path), filename);
-//						saveListToText(2, testcaselist);
-						
-//						tcxmltsl.createXml(DataBaseUtil.queryTestCaseStringList(2), "D:\\Text\\123.xml");
-					}
-					else if(starttype==3){
-//						testcaselist = extractTimeTestDataFromXml(path);
-//						Map resultmap=TestCaseConfirmationPanel.extractTimeTestDataFromXml(path);
-//						testcaselist=(List<TestCase>) resultmap.get("testcase");
-//						limitlist=(List<List<String>>) resultmap.get("limit");
-//						showTimeTestCase();
-						
-						TestCaseXMLToStringList tcxmltsl=new TestCaseXMLToStringList();
-						DataBaseUtil.insertTestCaseStringList(3, tcxmltsl.getStrings(path), filename);
-//						saveListToText(3, testcaselist);
-						
-					}
-
-//					mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().updateUI();
-					
-					mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(false);
-					
-				}
-			}
-        	
-		});
-		
-		testcasetablepanel.setLayout(new GridLayout());
-		testcasetablepanel.add(testcasetable);
-//		testcasetable.setBackground(new Color(238, 238, 242));
-		testcasetable.setBackground(new Color(255,255,255));
-		testcasetable.setBorder(null);
-		testcasetablepanel.setBorder(null);
-		
-		testcasescrollpanel=new JScrollPane(testcasetablepanel);
-		testcasescrollpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
-		testcasescrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		testcasescrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        
 		
 	}
 	
