@@ -69,6 +69,9 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 	
 	private List<TestCaseCoverPartPanel> testCaseCoverPartPanelList=new ArrayList<>();
 	
+	private int showflag=0;
+	private Thread showthread;
+	
 	private int location;
 	private int tablestate=1;
 	private int trantextstate=1;//1ÊÇid£¬0ÊÇname
@@ -356,52 +359,59 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 				
 				System.err.println("1233333333333333333333");
 				
-				Thread t=new Thread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
+				if(showflag==0){
+					showthread=new Thread(new Runnable() {
 						
-						int index=0;
-						
-						for(TestCaseCoverPartPanel tccppanel:testCaseCoverPartPanelList){
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
 							
-							System.out.println(tccppanel.getAutomatic().getName());
+							int index=0;
 							
-							TranMessageColorize tmc=new TranMessageColorize();
-							tmc.ColorizeDFSPath(tccppanel.getAutomatic(), tccppanel.getMainFrame(), tccppanel.getWorkspace(),trantextstate);
-							
-							if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==4){
-								mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().ChangeRepaint();
-							}
-							else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==0){
-								mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().ChangeRepaint();
-							}
-							
-							index++;
-							
-							try {
-								Thread.sleep(1000);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							
-							if(index==testCaseCoverPartPanelList.size()){
-								tmc.CleanColorize(tccppanel.getWorkspace());
+							for(TestCaseCoverPartPanel tccppanel:testCaseCoverPartPanelList){
+								
+								System.out.println(tccppanel.getAutomatic().getName());
+								
+								TranMessageColorize tmc=new TranMessageColorize();
+								tmc.ColorizeDFSPath(tccppanel.getAutomatic(), tccppanel.getMainFrame(), tccppanel.getWorkspace(),trantextstate);
+								
 								if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==4){
 									mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().ChangeRepaint();
 								}
 								else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==0){
 									mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().ChangeRepaint();
 								}
+								
+								index++;
+								
+								try {
+									Thread.sleep(1000);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								
+								if(index==testCaseCoverPartPanelList.size()){
+									tmc.CleanColorize(tccppanel.getWorkspace());
+									if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==4){
+										mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().ChangeRepaint();
+									}
+									else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==0){
+										mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().ChangeRepaint();
+									}
+								}
+								
 							}
 							
 						}
-						
-					}
-				});
-				t.start();
+					});
+					showthread.start();
+					showflag=1;
+				}
+				else{
+					showthread.stop();
+					showflag=0;
+				}
 				
 			}
 		});

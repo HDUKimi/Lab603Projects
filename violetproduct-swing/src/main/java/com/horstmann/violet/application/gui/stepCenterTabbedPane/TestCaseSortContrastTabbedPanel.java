@@ -66,6 +66,9 @@ public class TestCaseSortContrastTabbedPanel extends JPanel{
 	
 	private List<TestCaseSortContrastPartPanel> testCaseSortContrastPartPanelList=new ArrayList<>();
 	
+	private int showflag=0;
+	private Thread showthread;
+	
 	private int location;
 	private int tablestate=1;
 	private int trantextstate=1;//1ÊÇid£¬0ÊÇname
@@ -352,52 +355,59 @@ public class TestCaseSortContrastTabbedPanel extends JPanel{
 				
 				System.err.println("1233333333333333333333");
 				
-				Thread t=new Thread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
+				if(showflag==0){
+					showthread=new Thread(new Runnable() {
 						
-						int index=0;
-						
-						for(TestCaseSortContrastPartPanel tcscppanel:testCaseSortContrastPartPanelList){
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
 							
-							System.out.println(tcscppanel.getAutomatic().getName());
+							int index=0;
 							
-							TranMessageColorize tmc=new TranMessageColorize();
-							tmc.ColorizeDFSPath(tcscppanel.getAutomatic(), tcscppanel.getMainFrame(), tcscppanel.getWorkspace(),trantextstate);
-							
-							if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==5){
-								mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().ChangeRepaint();
-							}
-							else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==0){
-								mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().ChangeRepaint();
-							}
-							
-							index++;
-							
-							try {
-								Thread.sleep(1000);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							
-							if(index==testCaseSortContrastPartPanelList.size()){
-								tmc.CleanColorize(tcscppanel.getWorkspace());
-								if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==4){
+							for(TestCaseSortContrastPartPanel tcscppanel:testCaseSortContrastPartPanelList){
+								
+								System.out.println(tcscppanel.getAutomatic().getName());
+								
+								TranMessageColorize tmc=new TranMessageColorize();
+								tmc.ColorizeDFSPath(tcscppanel.getAutomatic(), tcscppanel.getMainFrame(), tcscppanel.getWorkspace(),trantextstate);
+								
+								if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==5){
 									mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().ChangeRepaint();
 								}
 								else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==0){
 									mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().ChangeRepaint();
 								}
+								
+								index++;
+								
+								try {
+									Thread.sleep(1000);
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								
+								if(index==testCaseSortContrastPartPanelList.size()){
+									tmc.CleanColorize(tcscppanel.getWorkspace());
+									if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==4){
+										mainFrame.getStepThreeCenterTabbedPane().getTestCaseSortContrastTabbedPanel().ChangeRepaint();
+									}
+									else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==0){
+										mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().ChangeRepaint();
+									}
+								}
+								
 							}
 							
 						}
-						
-					}
-				});
-				t.start();
+					});
+					showthread.start();
+					showflag=1;
+				}
+				else{
+					showthread.stop();
+					showflag=0;
+				}
 				
 			}
 		});

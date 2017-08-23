@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
@@ -72,12 +73,15 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 	private Callable<Integer> callable3;
 	private FutureTask<Integer> task3;
 	private Thread thread3;
+	private Callable<Integer> callable4;
+	private FutureTask<Integer> task4;
+	private Thread thread4;
 	
 	
 	private List<FutureTask<Integer>> futuretasklist=new ArrayList<FutureTask<Integer>>();
 	private List<Thread> threadlist=new ArrayList<Thread>();
 	
-	private int stepsum=3;
+	private int stepsum=4;
 	private int threadstate=0;
 	private int step=1;
 	
@@ -376,8 +380,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 						progressbar.setValue(progressbar.getValue()+1);
 						progressbarlabel.setText(progressbar.getValue()+"%");
 					}
-					if(step==stepsum-1&&!futuretasklist.get(step-1).isDone()){//处于实例化步骤时，增大休眠时间
-						Thread.sleep(5000);
+					if(step==stepsum-2&&!futuretasklist.get(step-1).isDone()){//处于实例化步骤时，增大休眠时间
+						Thread.sleep(3000);
 					}
 //					else if (step==stepsum&&!futuretasklist.get(step-1).isDone()){
 //						Thread.sleep(10000);
@@ -652,8 +656,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在生成测试用例xml");
-				TextAreaPrint("正在生成测试用例xml");
+				moviepanel.getMovieLabel().setText("正在生成测试用例");
+				TextAreaPrint("正在生成测试用例");
 				
 				String name=selectAbstract.substring(0, selectAbstract.indexOf("Abstract"));
 				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
@@ -670,12 +674,12 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				System.err.println(path);
 				
+				List<TestCase> testcaselist=new ArrayList<>();
 				if(starttype==1){//功能测试
 					
 //					AtutomaticProduceXML(collectResult, path);
 					forPlatform.produceXML(path,collectResult);
 					
-					List<TestCase> testcaselist=new ArrayList<>();
 					List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<>();
 					
 					testcaselist=TestCaseConfirmationPanel.extractFunctionalTestDataFromXml(path);
@@ -713,7 +717,6 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 //					PerformanceXML.produceXML(listcases, path);
 					PerformanceXML2.produceXML(path);
 					
-					List<TestCase> testcaselist=new ArrayList<>();
 					List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<>();
 					
 					testcaselist=TestCaseConfirmationPanel.extractPerformanceTestDataFromXml(path);
@@ -754,7 +757,6 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 //					GetTimeXML.produceXML(path,testCase);
 					XmlOfTime.produceXML(path, collectResult, collectLimit);
 					
-					List<TestCase> testcaselist=new ArrayList<>();
 					List<List<String>> limitlist=new ArrayList<>();
 					List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<>();
 					
@@ -794,9 +796,9 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 
 				time2=System.currentTimeMillis();
 				
-				stepAllProcessList.add("第三步：存储测试用例");
+				stepAllProcessList.add("第三步：生成测试用例");
 				timeAllProcessList.add(time2-time1+"ms");
-				resultAllProcessList.add("生成"+name+"TestCase.xml，保存路径："+path);
+				resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"个测试用例");
 				
 				return 1;
 				
@@ -805,18 +807,59 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		task3=new FutureTask<>(callable3);
 		thread3=new Thread(task3);
 		
+		callable4=new Callable<Integer>() {
+
+			@Override
+			public Integer call() throws Exception {
+				// TODO Auto-generated method stub
+				
+				time1=System.currentTimeMillis();
+				
+				moviepanel.getMovieLabel().setText("正在生成测试用例xml");
+				
+				TextAreaPrint("正在生成测试用例xml");
+				
+				String name=selectAbstract.substring(0, selectAbstract.indexOf("Abstract"));
+				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+				
+				if(starttype == 1){
+					baseUrl += "\\FunctionalTest\\";
+				} else if (starttype == 2) {
+					baseUrl += "\\PerformanceTest\\";
+				} else if (starttype == 3) {
+					baseUrl += "\\TimeTest\\";
+				}
+				
+				String path=baseUrl+name+"TestCase.xml";
+
+				Thread.sleep(new Random().nextInt(1000)+1000);
+				
+				time2=System.currentTimeMillis();
+				
+				stepAllProcessList.add("第四步：存储测试用例");
+				timeAllProcessList.add(time2-time1+"ms");
+				resultAllProcessList.add("生成"+name+"TestCase.xml，保存路径："+path);
+				
+				return 1;
+			}
+		};
+		task4=new FutureTask<>(callable4);
+		thread4=new Thread(task4);
+		
 		futuretasklist=new ArrayList<>();
 		threadlist=new ArrayList<>();
 		
 		futuretasklist.add(task1);
 		futuretasklist.add(task2);
 		futuretasklist.add(task3);
+		futuretasklist.add(task4);
 		
 		threadlist.add(thread1);
 		threadlist.add(thread2);
 		threadlist.add(thread3);
+		threadlist.add(thread4);
 		
-		stepsum=3;
+		stepsum=4;
 		
 	}
 	

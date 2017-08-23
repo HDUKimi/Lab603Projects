@@ -135,7 +135,7 @@ public class TestCaseInstantiationPanel extends JPanel{
 	private void initTitlePanel() {
 		// TODO Auto-generated method stub
 		
-		titlelabel.setText("Ä£ĞÍ×ª»»");
+		titlelabel.setText("ÊµÀı»¯");
 		titlelabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		titlelabel.setForeground(new Color(255, 255, 255));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(2, 8, 2, 0));
@@ -267,7 +267,7 @@ public class TestCaseInstantiationPanel extends JPanel{
 	private void initAbstractPanel() {
 		// TODO Auto-generated method stub
 		
-		abstractlabel.setText("³éÏó²âÊÔÓÃÀı");
+		abstractlabel.setText("²âÊÔĞòÁĞ");
 		abstractlabel.setForeground(new Color(0,0,0));
 		abstractlabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		abstractlabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));

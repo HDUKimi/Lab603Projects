@@ -219,7 +219,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 	private void initTitlePanel() {
 		// TODO Auto-generated method stub
 		
-		titlelabel.setText("—È÷§≥ÈœÛ≤‚ ‘”√¿˝");
+		titlelabel.setText("≤‚ ‘÷¥––");
 		titlelabel.setFont(new Font("Œ¢»Ì—≈∫⁄", Font.PLAIN, 12));
 		titlelabel.setForeground(new Color(255, 255, 255));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(2, 8, 2, 0));
@@ -296,7 +296,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 	private void initToolButton() {
 		// TODO Auto-generated method stub
 		
-		testcaselabel.setText("≤‚ ‘”√¿˝¡–±Ì");
+		testcaselabel.setText("≤‚ ‘”√¿˝");
 		testcaselabel.setForeground(new Color(0,0,0));
 		testcaselabel.setFont(new Font("Œ¢»Ì—≈∫⁄", Font.PLAIN, 12));
 		testcaselabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
