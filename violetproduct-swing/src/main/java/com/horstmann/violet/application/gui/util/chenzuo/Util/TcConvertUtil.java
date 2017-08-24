@@ -267,13 +267,13 @@ public class TcConvertUtil {
 					}
 					exeState = tStatus + ",且" + eStatus;
 				} else {
-					// 鍔熻兘銆佹?ц兘
+					// 功能、性能
 					switch (Integer.valueOf(r[0])) {
 					case 1:
-						exeState = "测试用例有误,无法对应到执行程序，且测试耗时:" + r[1] + "[不准确]";
+						exeState = "测试用例有误,无法对应到执行程序，且测试耗时:" + r[1] + " ms [不准确]";
 						break;
 					case 2:
-						exeState = "测试耗时:" + r[1];
+						exeState = "测试耗时:" + r[1] +" ms";
 						break;
 					}
 					if (type != "Function") {
@@ -318,7 +318,7 @@ public class TcConvertUtil {
 						break;
 					}
 				} else {
-					result = "测试执行成功!耗时:" + t.split(":")[1];
+					result = "测试执行成功!耗时:" + t.split(":")[1]+" ms";
 				}
 			}
 

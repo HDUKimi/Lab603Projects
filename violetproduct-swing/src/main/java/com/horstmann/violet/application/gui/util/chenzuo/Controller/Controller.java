@@ -22,7 +22,7 @@ public class Controller {
 
     private static Logger logger = Logger.getLogger(Controller.class);
 
-    private static long MAX_FILE_SIZE = 20 * 1024 * 1024;
+    private static long MAX_FILE_SIZE = 40 * 1024 * 1024;
     // deploy
     private static IPDeploy IP_TYPE_DEPLOY = new IPDeploy();
     // thread pool
@@ -40,6 +40,7 @@ public class Controller {
         String type = data.getFirst();
         File[] files = {data.getSecond()};
         //big testcase deply to 2 servers
+        System.out.println("files[0].length() > MAX_FILE_SIZE  "+(files[0].length() > MAX_FILE_SIZE));
         if (files[0].length() > MAX_FILE_SIZE) {
             //1.spilt file
             files = fileSpilt(data);
@@ -90,9 +91,15 @@ public class Controller {
 
     public static void Run(Pair<String, File> data) {
         try {
+        	
+        	if(executorService.isShutdown()){
+        		executorService=Executors.newCachedThreadPool();
+        	}
+        	
             // deploy, distribute and accept
+        	System.out.println("--------------------*******************");
             handleMapping(data);
-
+            System.out.println("++++++++++++++++++++++++---------------");
         } catch (Exception e) {
             logger.error(e.getMessage());
         } finally {
