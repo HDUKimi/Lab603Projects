@@ -233,6 +233,8 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 		initTestCaseTree1();
 		
+		updateTestCaseTreeCount(testcasetree1,testcasetreemodel1,rootnode1);
+		
 		showTestCaseTree(testcasetree1,new TreePath(rootnode1),true);
 		
 		testcasetreeinforpanel1.setLayout(new GridLayout());
@@ -261,6 +263,9 @@ public class TestCaseConfirmationPanel extends JPanel{
 
 	private void initTestCaseFileList() {
 		// TODO Auto-generated method stub
+		
+		testcasefilenamelists.clear();
+		
 		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase";
 
 		File[] rootfilelist = null;
@@ -358,9 +363,9 @@ public class TestCaseConfirmationPanel extends JPanel{
 	private void initTestCaseTreeInforPanel2() {
 		// TODO Auto-generated method stub
 		
-		sqlcasedatalist=DataBaseUtil.queryCaseDataList();
-		
 		initTestCaseTree2();
+		
+		updateTestCaseTreeCount(testcasetree2,testcasetreemodel2,rootnode2);
 		
 		showTestCaseTree(testcasetree2,new TreePath(rootnode2),true);
 		
@@ -368,6 +373,113 @@ public class TestCaseConfirmationPanel extends JPanel{
 		testcasetreeinforpanel2.add(testcasetreeinforscrollpanel2);
 		testcasetreeinforscrollpanel2.setBorder(null);
 		
+	}
+
+
+	private void updateTestCaseTreeCount(final JTree tree, final DefaultTreeModel testcasetreemodel, final CheckBoxTreeNode rootnode) {
+		// TODO Auto-generated method stub
+		Thread t=new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				DFSTreeUpdateCountByRootNode(rootnode);
+				testcasetreemodel.reload();
+				showTestCaseTree(tree,new TreePath(rootnode),true);
+			}
+		});
+		t.start();
+	}
+
+	private int DFSTreeUpdateCountByRootNode(CheckBoxTreeNode node) {
+		// TODO Auto-generated method stub
+		if(node.isLeaf()){
+			int countsum=0;
+			String nodename=node.getUserObject().toString();
+			if("功能测试".equals(nodename)||"性能测试".equals(nodename)||"时间约束测试".equals(nodename)||"边界值测试".equals(nodename)){
+				countsum=0;
+			}
+			else{
+				countsum=CalculateTestCaseCount(node.getUserObject().toString());
+			}
+			node.setUserObject(node.getUserObject()+" ("+countsum+" 条)");
+			return countsum;
+		}
+		else{
+			int countsum=0;
+			Enumeration<CheckBoxTreeNode> nodechildrens=node.children();
+			while (nodechildrens.hasMoreElements()) {
+				CheckBoxTreeNode children = (CheckBoxTreeNode) nodechildrens.nextElement();
+				countsum+=DFSTreeUpdateCountByRootNode(children);
+			}
+			node.setUserObject(node.getUserObject()+" ("+countsum+" 条)");
+			return countsum;
+		}
+	}
+
+	private int CalculateTestCaseCount(String testCaseName) {
+		// TODO Auto-generated method stub
+		
+		int count=0;
+		
+		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+		String testCasePath = null;
+		
+		File file = null;
+		int type=1;
+		if(type == 1){
+			testCasePath=baseUrl+"\\FunctionalTest\\"+testCaseName+".xml";
+			file=new File(testCasePath);
+			if(!file.exists()){
+				type++;
+			}
+		} 
+		if (type == 2) {
+			testCasePath=baseUrl+"\\PerformanceTest\\"+testCaseName+".xml";
+			file=new File(testCasePath);
+			if(!file.exists()){
+				type++;
+			}
+		} 
+		if (type == 3) {
+			testCasePath=baseUrl+"\\TimeTest\\"+testCaseName+".xml";
+			file=new File(testCasePath);
+			if(!file.exists()){
+				type++;
+			}
+		}
+		
+		if(!file.exists()){
+			
+			baseUrl = "D:\\ModelDriverProjectFile\\SqlTestCase\\";
+			
+			testCasePath=baseUrl+testCaseName+".xml";
+		}
+		
+		SAXReader reader = new SAXReader();
+		
+		File testcasefile=new File(testCasePath);
+		
+		try {
+			
+			Document dom = reader.read(testcasefile);
+			Element TCS=dom.getRootElement();
+			List<Element> testcaseElements=TCS.elements("testcase");
+			
+			count=testcaseElements.size();
+			
+		}catch (DocumentException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return count;
 	}
 
 	private void initTestCaseTree2() {
@@ -384,8 +496,9 @@ public class TestCaseConfirmationPanel extends JPanel{
 		rootnode2.add(timenode2);
 		rootnode2.add(bordernode2);
 		
-		AddSqlTestCaseToTree();
         
+		AddSqlTestCaseToTree();
+		
         testcasetreemodel2 = new DefaultTreeModel(rootnode2);  
         testcasetree2=new JTree(testcasetreemodel2);
         testcasetree2.addMouseListener(new CheckBoxTreeNodeSelectionListener());  
@@ -396,6 +509,8 @@ public class TestCaseConfirmationPanel extends JPanel{
 
 	private void AddSqlTestCaseToTree() {
 		// TODO Auto-generated method stub
+		
+		sqlcasedatalist=DataBaseUtil.queryCaseDataList();
 		
 		for(String name:sqlcasedatalist){
 			CheckBoxTreeNode node=new CheckBoxTreeNode(name);
@@ -811,11 +926,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				updateFileList();
-				
-//				testcasefilenamelists.clear();
-//				initFileList();
-//				addDataTotestcaseTable();
+				updateTestCaseTree();
 				
 			}
 		});
@@ -951,6 +1062,20 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 	}
 
+	protected void updateTestCaseTree() {
+		// TODO Auto-generated method stub
+		
+		if(testcaselabeltabindex==1){
+			testcasetreeinforpanel1.removeAll();
+			initTestCaseTreeInforPanel1();
+		}
+		else if(testcaselabeltabindex==2){
+			testcasetreeinforpanel2.removeAll();
+			initTestCaseTreeInforPanel2();
+		}
+		
+	}
+
 	protected void updateSelectedTestCaseList() {
 		// TODO Auto-generated method stub
 		
@@ -969,7 +1094,8 @@ public class TestCaseConfirmationPanel extends JPanel{
 		// TODO Auto-generated method stub
 		if(node.isLeaf()){
 			if(node.isSelected()){
-				selectedtestcaselist.add(node.getUserObject().toString());
+				String nodename=node.getUserObject().toString();
+				selectedtestcaselist.add(nodename.substring(0, nodename.indexOf(" (")));
 			}
 		}
 		else{

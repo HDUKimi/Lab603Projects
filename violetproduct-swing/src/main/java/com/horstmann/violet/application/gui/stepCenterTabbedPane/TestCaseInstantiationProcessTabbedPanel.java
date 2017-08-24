@@ -497,7 +497,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 			public Integer call() throws Exception {
 				// TODO Auto-generated method stub
 
-				collectLimit=(ArrayList<Automatic>) readAbstractTestCaseSerialFile(selectAbstractPath);
+//				collectLimit=(ArrayList<Automatic>) readAbstractTestCaseSerialFile(selectAbstractPath);
 
 				time1=System.currentTimeMillis();
 				
