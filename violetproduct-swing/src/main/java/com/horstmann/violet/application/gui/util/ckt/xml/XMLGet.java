@@ -34,7 +34,7 @@ public class XMLGet {
 		int testNum = 0;
 		Automatic auto = GetAutomatic.getAutomatic(xml);// 获得原始的时间自动机
 		// ArrayList<Automatic> testCase=StateCoverage__1.testCase(auto);
-		ArrayList<Automatic> testCase=GeneratePath.getFormatPathFromAutomatic(auto, 100, 1);//获得满足路径覆盖的抽象测试序列
+		ArrayList<Automatic> testCase = GeneratePath.getFormatPathFromAutomatic(auto, 100, 1);// 获得满足路径覆盖的抽象测试序列
 		System.out.println("测试路径个数" + testCase.size());
 		// 1、创建document对象，代表整个xml文档
 		Document dom = DocumentHelper.createDocument();
@@ -66,8 +66,7 @@ public class XMLGet {
 					sss = tran.getName().substring(0, index11);
 					System.out.println("迁移(激励)名称：" + sss);
 					// operation.setText(sss);
-				}
-				else{
+				} else {
 					sss = tran.getName().replace("!", "").replace("?", "");
 					System.out.println("迁移(激励)名称：" + sss);
 					// operation.setText(sss);
@@ -96,7 +95,8 @@ public class XMLGet {
 						String getin[] = tran.getIn().split("--");
 						for (int ii = 0; ii < getin.length; ii++) {
 							if (!(GetMap.get_inMap(getin[ii]) == null)) {
-								String inn = getin[ii].replace("false", "False").replace("true", "True").replace("->", "$");
+								String inn = getin[ii].replace("false", "False").replace("true", "True").replace("->",
+										"$");
 								in_result1 = Result1.getResult(inn);
 								if ((in_result1.size() > 0) && !(in_result1.get(0).equals(null))) {
 									in_result.add(in_result1);
@@ -110,8 +110,10 @@ public class XMLGet {
 						}
 					} else {
 						if (!(GetMap.get_inMap(tran.getIn()) == null)) {// map里面为空，即没有参数
-							String inn = tran.getIn().replace("false", "False").replace("true", "True").replace("->", "$");
-							result1 = Result1.getResult(inn);
+							String inn = tran.getIn().replace("false", "False").replace("true", "True").replace("->",
+									"$");
+							// result1 = Result1.getResult(inn);
+							result1 = Result.getResult(inn);
 						} else {
 							if ((GetMap.get_inMap(tran.getIn()) == null)) {
 								result1.add(null);
@@ -132,11 +134,13 @@ public class XMLGet {
 							result2.add(null);
 						} else {
 							if (!(GetMap.get_condMap(tran.getCondition()) == null)) {
-								String tra = tran.getCondition().replace("false", "False").replace("true", "True").replace("->", "$");
+								String tra = tran.getCondition().replace("false", "False").replace("true", "True")
+										.replace("->", "$");
 								// result2 = Result.getResult(tra);
 								System.out.println("tra----" + tra);
 								System.out.println("tran.getCondition()========>" + tran.getCondition());
-								result2 = Result1.getResult(tra);
+								// result2 = Result1.getResult(tra);
+								result2 = Result.getResult(tra);
 
 								// result2 = testbdscs.getResult(tra);
 								for (int ii = 0; ii < result2.size(); ii++) {
@@ -211,7 +215,8 @@ public class XMLGet {
 							for (String ttt3 : result2) {
 								if (ttt2 != null && ttt3 != null) {
 									if ((ttt2.contains("flag=1")) || (ttt3.contains("flag=1"))) {
-										res = sss+"flag=1"+"%"+ttt2.replace("flag=1", "")+","+ttt3.replace("flag=1", "");
+										res = sss + "flag=1" + "%" + ttt2.replace("flag=1", "") + ","
+												+ ttt3.replace("flag=1", "");
 									} else {
 										if (!(ttt2.contains("flag=1")) && !(ttt3.contains("flag=1"))) {
 											res = sss + "%" + ttt2 + "," + ttt3;
@@ -375,27 +380,27 @@ public class XMLGet {
 		}
 	}
 
-	
 	/**
 	 * 打乱迁移覆盖中路径顺序
 	 */
-	public static ArrayList<Automatic> testcaseNew(ArrayList<Automatic> testCase){
+	public static ArrayList<Automatic> testcaseNew(ArrayList<Automatic> testCase) {
 		ArrayList<Automatic> testcaseNew = new ArrayList<Automatic>();
 		ArrayList<Automatic> testCase1 = new ArrayList<Automatic>();
-		for(Automatic a:testCase){
+		for (Automatic a : testCase) {
 			testCase1.add(a);
 		}
-		Random rand=new Random();
-		for (int i=testCase.size();i>0;i--) {
+		Random rand = new Random();
+		for (int i = testCase.size(); i > 0; i--) {
 			int index = rand.nextInt(i);
 			testcaseNew.add(testCase1.get(index));
 			testCase1.remove(index);
 		}
-		
-		/*for(int i=testCase.size()-1; i>=0; i--){
-			testcaseNew.add(testCase.get(i));
-		}*/
+
+		/*
+		 * for(int i=testCase.size()-1; i>=0; i--){
+		 * testcaseNew.add(testCase.get(i)); }
+		 */
 		return testcaseNew;
 	}
-	
+
 }

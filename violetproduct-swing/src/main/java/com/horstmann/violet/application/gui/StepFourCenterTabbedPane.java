@@ -48,16 +48,19 @@ public class StepFourCenterTabbedPane extends JPanel {
 	private FixedButtonTabbedPanel testCaseProduceButtonPanel;
 	private FixedButtonTabbedPanel testCaseInstantiationButtonPanel;
 	private FixedButtonTabbedPanel testCaseShowButtonPanel;
+	private FixedButtonTabbedPanel borderTestCaseShowButtonPanel;
 
 	private JButton testCaseInstantiationProcessButton;
 	private JButton testCaseProduceButton;
 	private JButton testCaseInstantiationButton;
 	private JButton testCaseShowButton;
+	private JButton borderTestCaseShowButton;
 	
 	private TestCaseInstantiationProcessTabbedPanel testCaseInstantiationProcessTabbedPanel;
 	private TestCaseProduceTabbedPanel testCaseProduceTabbedPanel;
 	private TestCaseInstantiationTabbedPanel testCaseInstantiationTabbedPanel;
 	private TestCaseShowTabbedPanel testCaseShowTabbedPanel;
+	private TestCaseShowTabbedPanel borderTestCaseShowTabbedPanel;
 	
 	public StepFourCenterTabbedPane(MainFrame mainFrame) {
 		
@@ -67,6 +70,8 @@ public class StepFourCenterTabbedPane extends JPanel {
 		testCaseProduceTabbedPanel=new TestCaseProduceTabbedPanel(mainFrame);
 		testCaseInstantiationTabbedPanel=new TestCaseInstantiationTabbedPanel(mainFrame);
 		testCaseShowTabbedPanel=new TestCaseShowTabbedPanel(mainFrame);
+		borderTestCaseShowTabbedPanel=new TestCaseShowTabbedPanel(mainFrame);
+		borderTestCaseShowTabbedPanel.getMoviepanel().getMovieLabel().setText("正在生成边界值测试用例");
 
 		buttonPanel = new JPanel();
 		diagramPanel = new JPanel();
@@ -118,6 +123,9 @@ public class StepFourCenterTabbedPane extends JPanel {
 		
 		testCaseShowButtonPanel = new FixedButtonTabbedPanel("生成测试用例");
 		testCaseShowButton = testCaseShowButtonPanel.getTabbedbutton();
+		
+		borderTestCaseShowButtonPanel = new FixedButtonTabbedPanel("生成边界值测试用例");
+		borderTestCaseShowButton = borderTestCaseShowButtonPanel.getTabbedbutton();
 
 		buttonTabbedPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		buttonTabbedPanel.setBackground(new Color(41, 57, 85));
@@ -126,6 +134,7 @@ public class StepFourCenterTabbedPane extends JPanel {
 		buttonTabbedPanel.add(testCaseProduceButtonPanel);
 		buttonTabbedPanel.add(testCaseInstantiationButtonPanel);
 		buttonTabbedPanel.add(testCaseShowButtonPanel);
+		buttonTabbedPanel.add(borderTestCaseShowButtonPanel);
 		
 		buttonScrollPanel=new JScrollPane(buttonTabbedPanel);
 		buttonScrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -138,6 +147,7 @@ public class StepFourCenterTabbedPane extends JPanel {
 		fixButtonTabbedPanelList.add(testCaseProduceButtonPanel);
 		fixButtonTabbedPanelList.add(testCaseInstantiationButtonPanel);
 		fixButtonTabbedPanelList.add(testCaseShowButtonPanel);
+		fixButtonTabbedPanelList.add(borderTestCaseShowButtonPanel);
 		
 		setFixButtonTabbedPanelVisible();
 		
@@ -355,6 +365,23 @@ public class StepFourCenterTabbedPane extends JPanel {
 				ChangeRepaint();
 			}
 		});
+		
+		borderTestCaseShowButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				getDiagramPanel().removeAll();
+				getDiagramPanel().add(borderTestCaseShowTabbedPanel);
+
+				ChangeAllButtonPanelState();
+				borderTestCaseShowButtonPanel.setBackground(new Color(58, 105, 190));
+				
+				fixButtonTabbedPanelSelectedIndex=4;
+
+				ChangeRepaint();
+			}
+		});
 
 	}
 
@@ -365,6 +392,7 @@ public class StepFourCenterTabbedPane extends JPanel {
 		testCaseProduceButtonPanel.setBackground(new Color(77, 96, 130));
 		testCaseInstantiationButtonPanel.setBackground(new Color(77, 96, 130));
 		testCaseShowButtonPanel.setBackground(new Color(77, 96, 130));
+		borderTestCaseShowButtonPanel.setBackground(new Color(77, 96, 130));
 		
 	}
 	
@@ -418,6 +446,10 @@ public class StepFourCenterTabbedPane extends JPanel {
 	public TestCaseShowTabbedPanel getTestCaseShowTabbedPanel() {
 		return testCaseShowTabbedPanel;
 	}
+	
+	public TestCaseShowTabbedPanel getBorderTestCaseShowTabbedPanel() {
+		return borderTestCaseShowTabbedPanel;
+	}
 
 	public FixedButtonTabbedPanel getTestCaseInstantiationProcessButtonPanel() {
 		return testCaseInstantiationProcessButtonPanel;
@@ -434,7 +466,29 @@ public class StepFourCenterTabbedPane extends JPanel {
 	public FixedButtonTabbedPanel getTestCaseShowButtonPanel() {
 		return testCaseShowButtonPanel;
 	}
-	
-	
+
+	public FixedButtonTabbedPanel getBorderTestCaseShowButtonPanel() {
+		return borderTestCaseShowButtonPanel;
+	}
+
+	public JButton getTestCaseInstantiationProcessButton() {
+		return testCaseInstantiationProcessButton;
+	}
+
+	public JButton getTestCaseProduceButton() {
+		return testCaseProduceButton;
+	}
+
+	public JButton getTestCaseInstantiationButton() {
+		return testCaseInstantiationButton;
+	}
+
+	public JButton getTestCaseShowButton() {
+		return testCaseShowButton;
+	}
+
+	public JButton getBorderTestCaseShowButton() {
+		return borderTestCaseShowButton;
+	}
 
 }

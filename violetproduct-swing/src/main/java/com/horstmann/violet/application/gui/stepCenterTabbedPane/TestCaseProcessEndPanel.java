@@ -197,14 +197,26 @@ public class TestCaseProcessEndPanel extends JPanel{
 //		attributetablemodel.addRow(rowData6);
 //		Object[] rowData7 = { "第七步：存储测试用例", "10ms", "生成test.xml，保存路径：D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\test.xml" };
 //		attributetablemodel.addRow(rowData7);
+	
+//		"<html>"+resultAllProcessList.get(i)+"<br>123456879123456789</html>"
 		
-		for(int i=0;i<stepAllProcessList.size();i++){
-			
-			Object[] rowData={stepAllProcessList.get(i),timeAllProcessList.get(i),resultAllProcessList.get(i)};
-			attributetablemodel.addRow(rowData);
-			
+		if(stepAllProcessList.size()==resultAllProcessList.size()){
+			for(int i=0;i<stepAllProcessList.size();i++){
+				Object[] rowData={stepAllProcessList.get(i),timeAllProcessList.get(i),resultAllProcessList.get(i)};
+				attributetablemodel.addRow(rowData);
+			}
 		}
-		
+		else{
+			for(int i=0;i<stepAllProcessList.size()-1;i++){
+				Object[] rowData={stepAllProcessList.get(i),timeAllProcessList.get(i),resultAllProcessList.get(i)};
+				attributetablemodel.addRow(rowData);
+			}
+			int index=stepAllProcessList.size()-1;
+//			"<html>"+resultAllProcessList.get(index)+"<br>"+resultAllProcessList.get(index+1)+"</html>"};
+			Object[] rowData={stepAllProcessList.get(index),timeAllProcessList.get(index),resultAllProcessList.get(index)+"/r/n\r\n"+resultAllProcessList.get(index+1)};
+			attributetablemodel.addRow(rowData);
+			attributetable.setRowHeight(index, 54);
+		}
 		
 	}
 

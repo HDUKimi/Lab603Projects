@@ -38,6 +38,7 @@ import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 import com.horstmann.violet.application.gui.util.ckt.output.forPlatform;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML2;
 import com.horstmann.violet.application.gui.util.ckt.xml.XmlOfTime;
+import com.horstmann.violet.application.gui.util.ckt.xml.borderTestXML;
 import com.horstmann.violet.application.gui.util.tanchao.SaveText;
 
 public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
@@ -76,6 +77,9 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 	private Callable<Integer> callable4;
 	private FutureTask<Integer> task4;
 	private Thread thread4;
+	private Callable<Integer> callable5;
+	private FutureTask<Integer> task5;
+	private Thread thread5;
 	
 	
 	private List<FutureTask<Integer>> futuretasklist=new ArrayList<FutureTask<Integer>>();
@@ -91,6 +95,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 	
 	private ArrayList<Automatic> collectLimit;
 	private ArrayList<Automatic> collectResult;
+	private ArrayList<Automatic> bordercollectLimit;
+	private ArrayList<Automatic> bordercollectResult;
 	
 	private Automatic PerAutomaticResult;
 	
@@ -380,7 +386,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 						progressbar.setValue(progressbar.getValue()+1);
 						progressbarlabel.setText(progressbar.getValue()+"%");
 					}
-					if(step==stepsum-2&&!futuretasklist.get(step-1).isDone()){//处于实例化步骤时，增大休眠时间
+					if(step==2&&!futuretasklist.get(step-1).isDone()){//处于实例化步骤时，增大休眠时间
 						Thread.sleep(3000);
 					}
 //					else if (step==stepsum&&!futuretasklist.get(step-1).isDone()){
@@ -415,6 +421,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				//获取数据
 				collectLimit=(ArrayList<Automatic>) readAbstractTestCaseSerialFile(selectAbstractPath);
+				//获取数据
+				bordercollectLimit=(ArrayList<Automatic>) readAbstractTestCaseSerialFile(selectAbstractPath);
 
 				Thread.sleep(1000);
 				
@@ -507,6 +515,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				if(starttype==1){//功能测试
 					//获取数据
 					collectResult = forPlatform.collectResult(collectLimit);
+					//获取边界值数据
+					bordercollectResult = borderTestXML.collectResult(bordercollectLimit);
 				}
 				else if(starttype==2){//性能测试
 					PerAutomaticResult=PerformanceXML2.getPerformResultFromAutomatic(collectLimit.get(0));
@@ -675,6 +685,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				System.err.println(path);
 				
 				List<TestCase> testcaselist=new ArrayList<>();
+				List<TestCase> bordertestcaselist=new ArrayList<>();
 				if(starttype==1){//功能测试
 					
 //					AtutomaticProduceXML(collectResult, path);
@@ -708,6 +719,43 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().add(resultpanel);
 					
 					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowButtonPanel().setVisible(true);
+					
+					//边界值测试用例生成
+					
+					String borderpath=baseUrl+name+"BorderTestCase.xml";
+					
+					System.err.println(borderpath);
+					
+					borderTestXML.produceXML(borderpath,bordercollectResult);
+					
+					List<FunctionalTestCaseReportPartPanel> borderfunctionaltestcasereportlist=new ArrayList<>();
+					
+					bordertestcaselist=TestCaseConfirmationPanel.extractFunctionalTestDataFromXml(borderpath);
+					
+					JPanel borderresultpanel=new JPanel();
+					JPanel borderemptypanel=new JPanel();
+					borderresultpanel.setOpaque(false);
+					borderemptypanel.setOpaque(false);
+					
+					GridBagLayout borderlayout = new GridBagLayout();
+					borderresultpanel.setLayout(borderlayout);
+					int borderi=0;
+
+					for(TestCase tc:bordertestcaselist){
+						FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(tc);
+						borderresultpanel.add(ftcrppanel);
+						borderlayout.setConstraints(ftcrppanel, new GBC(0, borderi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+						borderfunctionaltestcasereportlist.add(ftcrppanel);
+					}
+					borderresultpanel.add(borderemptypanel);
+					borderlayout.setConstraints(borderemptypanel, new GBC(0, borderi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+					
+					mainFrame.getStepFourCenterTabbedPane().getBorderTestCaseShowTabbedPanel().setFunctionaltestcasereportlist(borderfunctionaltestcasereportlist);
+					
+					mainFrame.getStepFourCenterTabbedPane().getBorderTestCaseShowTabbedPanel().getTableresultpanel().removeAll();
+					mainFrame.getStepFourCenterTabbedPane().getBorderTestCaseShowTabbedPanel().getTableresultpanel().add(borderresultpanel);
+					
+					mainFrame.getStepFourCenterTabbedPane().getBorderTestCaseShowButtonPanel().setVisible(true);
 					
 				}
 				else if(starttype==2){//性能测试
@@ -798,7 +846,12 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				stepAllProcessList.add("第三步：生成测试用例");
 				timeAllProcessList.add(time2-time1+"ms");
-				resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"个测试用例");
+				if(starttype==1){
+					resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"个不含边界值的测试用例和"+bordertestcaselist.size()+"个含边界值的测试用例");
+				}
+				else{
+					resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"个测试用例");
+				}
 				
 				return 1;
 				
@@ -823,11 +876,11 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
 				
 				if(starttype == 1){
-					baseUrl += "\\FunctionalTest\\";
+					baseUrl += "FunctionalTest\\";
 				} else if (starttype == 2) {
-					baseUrl += "\\PerformanceTest\\";
+					baseUrl += "PerformanceTest\\";
 				} else if (starttype == 3) {
-					baseUrl += "\\TimeTest\\";
+					baseUrl += "TimeTest\\";
 				}
 				
 				String path=baseUrl+name+"TestCase.xml";
@@ -838,7 +891,19 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				stepAllProcessList.add("第四步：存储测试用例");
 				timeAllProcessList.add(time2-time1+"ms");
-				resultAllProcessList.add("生成"+name+"TestCase.xml，保存路径："+path);
+				
+				if(starttype == 1){
+					
+					String borderpath=baseUrl+name+"BorderTestCase.xml";
+					resultAllProcessList.add("生成"+name+"TestCase.xml 和 "+name+"BorderTestCase.xml");
+					
+					TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
+					TextAreaPrint("生成"+name+"BorderTestCase.xml，保存路径："+borderpath);
+				}
+				else{
+					resultAllProcessList.add("生成"+name+"TestCase.xml");
+					TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
+				}
 				
 				return 1;
 			}
@@ -846,9 +911,34 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		task4=new FutureTask<>(callable4);
 		thread4=new Thread(task4);
 		
+		callable5=new Callable<Integer>() {
+			
+			@Override
+			public Integer call() throws Exception {
+				// TODO Auto-generated method stub
+				
+				time1=System.currentTimeMillis();
+				
+				String name=selectAbstract.substring(0, selectAbstract.indexOf("Abstract"));
+				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+
+				baseUrl += "FunctionalTest\\";
+				
+				String path=baseUrl+name+"BorderTestCase.xml";
+				
+				System.err.println(path);
+				
+				borderTestXML.produceXML(path,bordercollectResult);
+				
+				return 1;
+			}
+		};
+		task5=new FutureTask<>(callable5);
+		thread5=new Thread(task5);
+		
 		futuretasklist=new ArrayList<>();
 		threadlist=new ArrayList<>();
-		
+	
 		futuretasklist.add(task1);
 		futuretasklist.add(task2);
 		futuretasklist.add(task3);
@@ -878,8 +968,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		tablepanel.removeAll();
 		tablepanel.add(tcpepanel);
 		
-		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButtonPanel().setVisible(true);
-		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButton().doClick();
+		mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationProcessButtonPanel().setVisible(true);
+		mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationProcessButton().doClick();
 		
 		
 //		String path;

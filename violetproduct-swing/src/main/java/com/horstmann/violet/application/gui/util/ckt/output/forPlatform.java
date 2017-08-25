@@ -243,7 +243,7 @@ public class forPlatform {
 				tran.setName(sss);// 把迁移名称上特殊符号以及后面括号内容去掉
 				// 处理in里面的内容
 				ShowInfor.print(4, "in---->" + tran.getIn()); // in里面的内容
-				if (tran.getIn() == null) {
+				if (tran.getIn() == null||tran.getIn().equals("null")) {
 					result1.add(null);
 				} else {
 					if (tran.getIn().contains("--")) {
@@ -269,7 +269,8 @@ public class forPlatform {
 						if (!(GetMap.get_inMap(tran.getIn()) == null)) {// map里面为空，即没有参数
 							String inn = tran.getIn().replace("false", "False").replace("true", "True").replace("->",
 									"$");
-							result1 = Result1.getResult(inn);
+							// result1 = Result1.getResult(inn);
+							result1 = Result.getResult(inn);
 						} else {
 							if ((GetMap.get_inMap(tran.getIn()) == null)) {
 								result1.add(null);
@@ -279,7 +280,7 @@ public class forPlatform {
 				}
 				// 处理condition
 				ShowInfor.print(4, "condition---->" + tran.getCondition());
-				if (tran.getCondition() == null) {
+				if (tran.getCondition() == null||tran.getCondition().equals("null")) {
 					result2.add(null);
 				} else {
 					if (tran.getCondition() != null) {
@@ -290,7 +291,8 @@ public class forPlatform {
 								String tra = tran.getCondition().replace("false", "False").replace("true", "True")
 										.replace("->", "$");
 								// ShowInfor.print("tra----"+tra);
-								result2 = Result1.getResult(tra);
+								// result2 = Result1.getResult(tra);
+								result2 = Result.getResult(tra);
 								for (int ii = 0; ii < result2.size(); ii++) {
 									ShowInfor.print(4, "condition里解" + ii + "为:" + result2.get(ii));
 								}

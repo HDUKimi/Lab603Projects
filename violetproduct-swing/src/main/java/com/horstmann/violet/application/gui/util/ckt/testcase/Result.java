@@ -35,7 +35,8 @@ public class Result {
 		//System.out.println("keySet集合3："+GetMap.get_condMap(condition));
 		if(GetMap.get_condMap(condition)==null){
 			//System.out.println("keySet集合3："+GetMap.get_condMap(condition));
-			return null;
+			result.add("null");
+			return result;
 		}else{
 			if(!(GetMap.get_condMap(condition)==null)){
 				map1 = GetMap.get_condMap(condition);//必须有，要不结果错误
@@ -206,12 +207,14 @@ public class Result {
 								String c1=list2.get(mm);
 								csss=csss+","+c1;
 							}
+							csss = csss.replace("==", "=");
 						}
 						if(list2.size()==1){
 							csss=list2.get(0);
 							list3.add(list2.get(0).replace("==0", ""));
+							csss = csss.replace("==", "=");
 						}	
-						bds00=csss.replace("==", "=");
+						bds00=csss;
 					
 					}//if(bds1!=null)
 					else{
@@ -286,9 +289,25 @@ public class Result {
 					//System.out.println("整数数参数："+cs1);
 					int resultNum = getMathNum(bbb);
 					String solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
+					
+					
+					if(solution1.equals("{}")){
+						System.out.println("原求得矛盾空解"+solution1);
+						System.out.println("原求得矛盾不等式"+bds1);
+						//bbb = Remove11(bds1);						
+						bbb = Remove11(bds1)+","+s1;
+
+
+						resultNum = getMathNum(bbb);
+						solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
+						System.out.println("删除矛盾后不等式"+bbb);
+						System.out.println("删除矛盾后解"+solution1);
+					}
+					
 					ttt=solution1.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 					//ttt=bbb.toString();
 //					
+					System.out.println("整数型解"+solution1);
 					results = solution1.substring(2, solution1.length() - 2).split("\\}, \\{");
 
 					//System.out.println("condition整数型约束解为："+solution1);
@@ -317,9 +336,24 @@ public class Result {
 					//System.out.println("小数参数："+cs2);
 					int resultNum = getMathNum(bb);
 					String solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
+					
+					
+					if(solution2.equals("{}")){
+						//bb = Remove11(bb);	
+						bb = Remove11(bds2)+","+s2;
+						resultNum = getMathNum(bb);
+						solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
+						System.out.println("---------======="+solution2);
+					}
+					
+					
 					ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 					//ttt1=s2.toString();
 //					
+					System.out.println("solution2:"+solution2);
+					System.out.println("====="+condition);
+					System.out.println(bb);
+					System.out.println(cs2);
 					results1 = solution2.substring(2, solution2.length() - 2).split("\\}, \\{");
 					
 					//System.out.println("condition上小数型约束解为："+solution2);
@@ -329,6 +363,13 @@ public class Result {
 						//System.out.println("小数参数："+cs2);
 						int resultNum = getMathNum(s2);
 						String solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
+						
+						if(solution2.equals("{}")){
+							s2 = Remove11(s2);
+							resultNum = getMathNum(s2);
+							solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
+						}
+						
 						ttt1=solution2.toString().replace("{", "").replace("}", "").replace(" ", "").replace("->", "=").replace("(", "").replace(")", "");
 //						
 						results1 = solution2.substring(2, solution2.length() - 2).split("\\}, \\{");
@@ -460,5 +501,88 @@ public class Result {
 			resultNum = 5;
 		}
 		return resultNum;
+	}
+	
+	/**
+	 * 利用软件mathematica求解为空，即不等式中有矛盾，两两对比
+	 * 移出矛盾的不等式，取后一个不等式
+	 */
+	public static String Remove11(String bbb){
+		System.out.println("原处理不等式："+bbb);
+		String cs1 = null;
+		String cs2 = null;
+		String bds[] = bbb.replace("||", ",").split(",");
+
+		for(int i=0;i<bds.length-1;i++){
+			for(int j=i+1;j<bds.length;j++){
+				//System.out.println(bds[i]+"------"+bds[j]);
+				//System.out.println(getNumber(bds[i]));
+				//System.out.println(getNumber(bds[j]));
+				if(getNumber(bds[i]) && getNumber(bds[j])){					
+					String[] css = bds[i].trim().split("[-!+<>=]=?");
+					for(String cs:css){						
+						if(!cs.equals("")){
+							int s1=cs.trim().substring(0,1).toCharArray()[0];
+							if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
+								cs1 = cs;
+								//System.out.println("第一个不等式参数："+cs);
+							}
+						}				
+					}
+					String[] css1 = bds[j].trim().split("[-!+<>=]=?");
+					for(String cs:css1){
+
+						if(!cs.equals("")){
+							int s1=cs.trim().substring(0,1).toCharArray()[0];
+							if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
+								cs2 = cs;
+								//System.out.println("第二个不等式参数："+cs);
+							}
+						}				
+					}
+					if(cs1.equals(cs2)){
+						String bds1 = bds[i]+","+bds[j];
+						String cs = cs1;
+						//if()
+						int resultNum = getMathNum(bds1);
+						String solution = Mathematica.getSolution2(bds1, cs, resultNum);
+						//System.out.println("solution---"+solution);
+						if(solution.equals("{}")){
+							bbb=bbb.replaceAll(bds[i]+",", "");								
+						}						
+					}					 
+				}
+			}
+		}
+		System.out.println("处理后的不等式"+bbb);
+		return bbb;
+	}
+
+	
+	/**
+	 * 判断每个不等式里参数是否只有一个
+	 * @param domain1
+	 * @return
+	 */
+	public static boolean getNumber(String bds) {
+
+		int number=0;
+		String[] css = bds.trim().split("[!-+<>=]=?");
+		for(String cs:css){
+			if(!cs.equals("")){
+				int s1=cs.trim().substring(0,1).toCharArray()[0];
+				if(!((s1>=48&&s1<=57)||s1==45)){//第一个为参数
+					number++;
+				}
+			}				
+		}
+		if(number<=1){
+			//System.out.println("一个参数");
+			return true;
+		}else{
+			//System.out.println("多个参数");
+			return false;
+		}
+
 	}
 }

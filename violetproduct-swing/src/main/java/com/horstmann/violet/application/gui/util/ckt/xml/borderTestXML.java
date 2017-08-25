@@ -16,7 +16,9 @@ import org.dom4j.io.XMLWriter;
 import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
 import com.horstmann.violet.application.gui.util.ckt.handle.GetAutomatic;
 import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
+import com.horstmann.violet.application.gui.util.ckt.output.ShowInfor;
 import com.horstmann.violet.application.gui.util.ckt.testcase.GetMap;
+import com.horstmann.violet.application.gui.util.ckt.testcase.Result;
 import com.horstmann.violet.application.gui.util.ckt.testcase.Result1;
 import com.horstmann.violet.application.gui.util.wj.util.GeneratePath;
 
@@ -302,7 +304,264 @@ public class borderTestXML {
 		}
 	}
 
-	
+	public static ArrayList<Automatic> collectResult(ArrayList<Automatic> testcase) {
+		for (Automatic a : testcase) {
+			for (Transition tran : a.getTransitionSet()) {
+				ShowInfor.print(4, "迁移内容:" + tran.getIn() + "---" + tran.getCondition());
+				String sss = new String();
+				List<String> result1 = new ArrayList<String>();// 存放in里面最终实例化结果
+				List<String> result2 = new ArrayList<String>();// 存放condition里面最终实例化结果
+				if (tran.getName() == null) {
+
+				} else {
+					if (tran.getName().contains("(")) {
+						int index11 = tran.getName().replace("!", "").replace("?", "").indexOf("(");
+						sss = tran.getName().substring(0, index11);
+						ShowInfor.print(4, "迁移(激励)名称：" + sss);
+					} else {
+						sss = tran.getName().replace("!", "").replace("?", "");
+						ShowInfor.print(4, "迁移(激励)名称：" + sss);
+					}
+				}
+
+				tran.setName(sss);// 把迁移名称上特殊符号以及后面括号内容去掉
+				// 处理in里面的内容
+				ShowInfor.print(4, "in---->" + tran.getIn()); // in里面的内容
+				if (tran.getIn() == null||tran.getIn().equals("null")) {
+					result1.add(null);
+				} else {
+					if (tran.getIn().contains("--")) {
+						List<List<String>> in_result = new ArrayList<List<String>>();
+						List<String> in_result1;
+						String getin[] = tran.getIn().split("--");
+						for (int ii = 0; ii < getin.length; ii++) {
+							if (!(GetMap.get_inMap(getin[ii]) == null)) {
+								String inn = getin[ii].replace("false", "False").replace("true", "True").replace("->",
+										"$");
+								in_result1 = Result1.getResult(inn);
+								if ((in_result1.size() > 0) && !(in_result1.get(0).equals(null))) {
+									in_result.add(in_result1);
+								}
+							}
+						}
+						if ((in_result.size() > 0) && !(in_result.get(0).equals(null))) {
+							ShowInfor.print(4, "in_result.size()--->" + in_result.size());
+							dis(0, in_result);
+							result1 = re;
+						}
+					} else {
+						if (!(GetMap.get_inMap(tran.getIn()) == null)) {// map里面为空，即没有参数
+							String inn = tran.getIn().replace("false", "False").replace("true", "True").replace("->",
+									"$");
+							 result1 = Result1.getResult(inn);
+						} else {
+							if ((GetMap.get_inMap(tran.getIn()) == null)) {
+								result1.add(null);
+							}
+						}
+					}
+				}
+				// 处理condition
+				ShowInfor.print(4, "condition---->" + tran.getCondition());
+				if (tran.getCondition() == null||tran.getCondition().equals("null")) {
+					result2.add(null);
+				} else {
+					if (tran.getCondition() != null) {
+						if (GetMap.get_condMap(tran.getCondition()) == null) {
+							result2.add(null);
+						} else {
+							if (!(GetMap.get_condMap(tran.getCondition()) == null)) {
+								String tra = tran.getCondition().replace("false", "False").replace("true", "True")
+										.replace("->", "$");
+								// ShowInfor.print("tra----"+tra);
+								 result2 = Result1.getResult(tra);
+								for (int ii = 0; ii < result2.size(); ii++) {
+									ShowInfor.print(4, "condition里解" + ii + "为:" + result2.get(ii));
+								}
+							}
+						}
+					}
+				}
+				// 组合解
+				List<String> result = new ArrayList<String>();// 存放一条迁移上的结果
+				String res = new String();
+				if ((result1.toString().equals("[null]")) && (result2.toString().equals("[null]"))) {
+					res = sss + "%" + null;
+					// res = null;
+					result.add(res.toString());
+				} else {
+					if (!(result1.toString().equals("[null]")) && (result2.toString().equals("[null]"))) {
+						for (String ttt2 : result1) {
+							if (ttt2 != null) {
+								if (ttt2.contains("flag=1")) {
+									res = sss + "flag=1" + "%" + ttt2.replace("flag=1", "");
+								} else {
+									res = sss + "%" + ttt2;
+								}
+
+								// res = ttt2;
+								result.add(res.toString());
+							}
+						}
+					}
+					if ((result1.toString().equals("[null]")) && !(result2.toString().equals("[null]"))) {
+						for (String ttt3 : result2) {
+							if (ttt3 != null) {
+								if (ttt3.contains("flag=1")) {
+									res = sss + "flag=1" + "%" + ttt3.replace("flag=1", "");
+								} else {
+									res = sss + "%" + ttt3;
+								}
+
+								// res = sss+"%"+ttt3;
+								// res = ttt3;
+								result.add(res.toString());
+							}
+						}
+					}
+					if (!(result1.toString().equals("[null]")) && !(result2.toString().equals("[null]"))) {
+						for (String ttt2 : result1) {
+							for (String ttt3 : result2) {
+								if (ttt2 != null && ttt3 != null) {
+									if ((ttt2.contains("flag=1")) || (ttt3.contains("flag=1"))) {
+										res = sss + "flag=1" + "%" + ttt2.replace("flag=1", "") + ","
+												+ ttt3.replace("flag=1", "");
+									} else {
+										if (!(ttt2.contains("flag=1")) && !(ttt3.contains("flag=1"))) {
+											res = sss + "%" + ttt2 + "," + ttt3;
+										}
+									}
+
+									// res = sss+"%"+ttt2+","+ttt3;
+									// res = ttt2+","+ttt3;
+									result.add(res.toString());
+								}
+							}
+						}
+					}
+				}
+				System.out.println("result--------------" + result);
+				if (result.size() == 0) {
+					// System.out.println("-----------------0000000---------------------");
+					// Element input = process.addElement("input");
+					// input.setText("解1为:"+null);
+				} else {
+					for (int ii = 1; ii <= result.size(); ii++) {
+						System.out.println("解" + ii + "为:" + result.get(ii - 1));// 输出所有解
+						String s = "解" + ii + "为:" + result.get(ii - 1);
+						// Element input = process.addElement("input");
+						// input.setText(s);
+					}
+				}
+				tran.setResult(result);
+			} // for(Transition tran:a.getTransitionSet())
+		}
+		return testcase;
+	}
+
+	public static void produceXML(String path, List<Automatic> testcaseresult) {
+
+		// 1、创建document对象，代表整个xml文档
+		Document dom = DocumentHelper.createDocument();
+		// 2、创建根节点TCS
+		org.dom4j.Element tcs = dom.addElement("TCS");
+		// 3、向TCS节点中添加version属性
+
+		int index = 1;
+		int testNum = 0;
+		for (Automatic auto : testcaseresult) {
+
+			List<List<String>> cases = new ArrayList<>();
+
+			for (Transition t : auto.getTransitionSet()) {
+				cases.add(t.getResult());
+			}
+
+			// cases里放的是一条测试用例上上每条迁移上的解，result放的是一条迁移上的多组解
+			/////
+			int numm = 1;
+			System.out.println("第" + index + "条测试路径上解个数" + numm);
+			int testRouteNum = testcaseresult.size();
+			int num = 1000 / testRouteNum + 1;// 一条路径100个测试用例///////////////////////////////////////////////////////////////////////////////////
+			for (int nn = 0; nn < cases.size(); nn++) {
+				int n = cases.get(nn).size();
+				if (n <= 0) {
+					System.exit(0);
+				} else {
+					if (numm < num) {
+						numm = numm * n;
+					}
+				}
+				// ShowInfor.print("第"+nn+"条迁移上解个数为："+cases.get(nn).size());
+			}
+			ShowInfor.print(4, "第" + index++ + "条测试路径上解个数" + numm);
+			// if(num>5000){ //测试用例个数保持5000条以内
+			// num = 5000;
+			// }
+			// int
+			// num=3;//一条路径100个测试用例///////////////////////////////////////////////////////////////////////////////////
+			if (num > numm) { // 如果一条路径上解小于100，则选取真实个数
+				num = numm;
+			}
+			System.out.println("原始解个数：" + numm + "取的一条路径解个数：" + num);
+			for (int n1 = 0; n1 < num; n1++) {
+				// 4、生成子节点及节点内容
+				Element testcase = tcs.addElement("testcase");
+				testNum++;
+				ShowInfor.print(4, "抽象测试用例个数：" + testNum);
+				ShowInfor.print(4, "---------------------cases.size():" + cases.size());
+				for (int nn = 0; nn < cases.size(); nn++) {// cases.size表示边的个数
+					// 添加节点
+					Element process = testcase.addElement("process");
+					Element operation = process.addElement("operation");
+
+					int random = -1;
+					if (random == -1) {
+						random = new Random().nextInt(cases.get(nn).size());
+					}
+					// ShowInfor.print("random-->"+random);
+					String value = cases.get(nn).get(random);
+					// ShowInfor.print("解value-->"+value);
+					String[] cs = value.toString().split("%");
+					// ShowInfor.print("operation-->"+cs[0]);
+					if (cs[0].contains("flag=1")) {
+						String name = cs[0].replace("flag=1", "");
+						operation.setText(name);
+					} else {
+						if (!cs[0].contains("flag=1")) {
+							operation.setText(cs[0]);
+						}
+					}
+
+					Element input = process.addElement("input");
+					if (cs[0].contains("flag=1")) {
+						input.addAttribute("border", "1");
+						input.setText(cs[1]);
+					} else {
+						input.setText(cs[1]);
+					}
+					// input.setText(cs[1]);
+					// ShowInfor.print("input-->"+cs[1]);
+				}
+				// ShowInfor.print("---------------------testcase");
+			}
+
+		}
+
+		OutputFormat format = OutputFormat.createPrettyPrint();
+		// 6、生成xml文件
+		File file = new File(path);
+
+		XMLWriter writer;
+		try {
+			writer = new XMLWriter(new FileOutputStream(file), format);
+			writer.write(dom);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	
 	
 	
