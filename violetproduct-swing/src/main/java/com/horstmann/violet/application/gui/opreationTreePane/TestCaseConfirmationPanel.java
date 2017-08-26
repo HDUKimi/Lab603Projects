@@ -312,7 +312,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		// TODO Auto-generated method stub
 		for(String name:testcasefilenamelists){
 			CheckBoxTreeNode node=new CheckBoxTreeNode(name);
-			if(name.contains("功能")&&!name.contains("border")){
+			if(name.contains("功能")&&!name.contains("Border")){
 				if(name.contains("场景1")){
 					int flag=0;
 					Enumeration<?> en=functionnode1.children();
@@ -351,10 +351,10 @@ public class TestCaseConfirmationPanel extends JPanel{
 			else if(name.contains("性能")){
 				performancenode1.add(node);
 			}
-			else if(name.contains("time")){
+			else if(name.contains("Time")){
 				timenode1.add(node);
 			}
-			else if(name.contains("border")){
+			else if(name.contains("Border")){
 				bordernode1.add(node);
 			}
 		}

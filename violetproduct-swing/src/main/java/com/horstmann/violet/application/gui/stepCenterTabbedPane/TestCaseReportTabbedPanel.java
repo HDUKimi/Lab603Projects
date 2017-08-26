@@ -141,6 +141,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private int[] testcasecount=new int[3];
 	private List<Integer> testcasecountlist=new ArrayList<Integer>();
 	
+	private int performancelistindex=0;
+	
 	public TestCaseReportTabbedPanel(TestCaseDataPanel testCaseDataPanel, MainFrame mainframe){
 		
 		this.mainFrame=mainframe;
@@ -1126,13 +1128,32 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			
 		}
 		else if(type==2){
-			PerformanceTestCaseReportPartPanel tcrpp=(PerformanceTestCaseReportPartPanel) checkedtestcasereportlist.get(resultlistindex);
 			
-			while(!ResultService.list.get(resultlistindex).getTestCaseID().equals(tcrpp.getTestcase().getTestCaseID())){
-				tcrpp.setVisible(false);//同时为0的时候，数据会消掉，panel要去除
-			}
+//			PerformanceTestCaseReportPartPanel tcrpp=(PerformanceTestCaseReportPartPanel) checkedtestcasereportlist.get(performancelistindex);
+//			
+//			while(!ResultService.list.get(resultlistindex).getTestCaseID().equals(tcrpp.getTestcase().getTestCaseID())){
+//				tcrpp.setVisible(false);//同时为0的时候，数据会消掉，panel要去除
+//			}
 		
+			PerformanceTestCaseReportPartPanel tcrpp = null;
+//			tcrpp=(PerformanceTestCaseReportPartPanel) checkedtestcasereportlist.get(performancelistindex);
+//			performancelistindex++;
+			
 			TestCase testcase=ResultService.list.get(resultlistindex);
+			
+			for(JPanel jp:checkedtestcasereportlist){
+				tcrpp=(PerformanceTestCaseReportPartPanel)jp;
+				if(testcase.getTestCaseID().equals(tcrpp.getTestcase().getTestCaseID())){
+					break;
+				}
+			}
+			
+//			while(!testcase.getTestCaseID().equals(tcrpp.getTestcase().getTestCaseID())){
+//				tcrpp.setVisible(false);
+//				System.out.println(performancelistindex);
+//				tcrpp=(PerformanceTestCaseReportPartPanel) checkedtestcasereportlist.get(performancelistindex);
+//				performancelistindex++;
+//			}
 			
 			JTable attributetable;
 			DefaultTableModel attributetablemodel;
@@ -1363,6 +1384,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			public void run() {
 				// TODO Auto-generated method stub
 				
+				performancelistindex=0;
+				
 				int resultlistindex=0;
 				int datagainshowindex;
 				int sum = 0;
@@ -1489,6 +1512,10 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				progressbar.setValue(100);
 				progressbarlabel.setText("100%");
+				
+				for(TestCase tc:ResultService.list){
+					System.out.println(tc.getTestCaseID()+" - "+tc.getResult().getWind_speed()+" - "+tc.getResult().getTakeoff_alt());
+				}
 				
 			}
 		});

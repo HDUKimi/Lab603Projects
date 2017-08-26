@@ -680,13 +680,15 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					baseUrl += "\\TimeTest\\";
 				}
 				
-				String path=baseUrl+name+"TestCase.xml";
-				
-				System.err.println(path);
+//				String path=baseUrl+name+"TestCase.xml";
+//				
+//				System.err.println(path);
 				
 				List<TestCase> testcaselist=new ArrayList<>();
 				List<TestCase> bordertestcaselist=new ArrayList<>();
 				if(starttype==1){//功能测试
+					
+					String path=baseUrl+name+"TestCase.xml";
 					
 //					AtutomaticProduceXML(collectResult, path);
 					forPlatform.produceXML(path,collectResult);
@@ -763,6 +765,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 //						listcases.add(t.getResult());
 //					}
 //					PerformanceXML.produceXML(listcases, path);
+					
+					String path=baseUrl+name+"TestCase.xml";
 					PerformanceXML2.produceXML(path);
 					
 					List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<>();
@@ -802,6 +806,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				}
 				else if(starttype==3){//时间约束测试
 
+					String path=baseUrl+name+"TimeTestCase.xml";
 //					GetTimeXML.produceXML(path,testCase);
 					XmlOfTime.produceXML(path, collectResult, collectLimit);
 					
@@ -841,6 +846,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowButtonPanel().setVisible(true);
 					
 				}
+				
+				Thread.sleep(new Random().nextInt(1000)+1000);
 
 				time2=System.currentTimeMillis();
 				
