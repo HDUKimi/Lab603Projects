@@ -46,10 +46,12 @@ public class TestCaseDataPanel{
 	private List<TestCase> testcaselist=new ArrayList<TestCase>();
 	private List<JPanel> testcasereportlist=new ArrayList<JPanel>();
 	
-	public TestCaseDataPanel(MainFrame mainFrame, String testCaseName) {
+	public TestCaseDataPanel(MainFrame mainFrame, String testCaseName, List<TestCase> testcaselist, int testCaseType) {
 
 		this.mainFrame=mainFrame;
 		this.testCaseName=testCaseName;
+		this.testcaselist=testcaselist;
+		this.testCaseType=testCaseType;
 		
 		initbuttonpanel();
 		
@@ -63,14 +65,20 @@ public class TestCaseDataPanel{
 	
 	public void initData(){
 		
-		findTestCaseXMLPath();
-		
-		extractTestCaseData();
+//		findTestCaseXMLPath();
+//		
+//		extractTestCaseData();
 		
 //		testCaseReportTabbedPane=new TestCaseReportTabbedPanel(this,mainFrame,testCaseName,testCaseType,testcasereportlist);
 		testCaseReportTabbedPane=new TestCaseReportTabbedPanel(this,mainFrame);
 		testCaseChartTabbedPanel=new JPanel();
 		testCaseChartTabbedPanel.setLayout(new GridLayout());
+		
+		int index=1;
+		for (TestCase tc : testcaselist) {
+			tc.setTestCaseID(String.valueOf(index));
+			index++;
+		}
 		
 		showTestCase();
 		
@@ -276,12 +284,12 @@ public class TestCaseDataPanel{
 	private void initbuttonpanel() {
 		// TODO Auto-generated method stub
 		
-		testCaseReportDiagramButtonPanel=new FixedButtonTabbedPanel(testCaseName+"的测试进程");
+		testCaseReportDiagramButtonPanel=new FixedButtonTabbedPanel(testCaseName);
 		testCaseReportDiagramButtonPanel.setBackground(new Color(77, 96, 130));
 		testCaseReportDiagramButton=testCaseReportDiagramButtonPanel.getTabbedbutton();
 		testCaseReportDiagramDeleteLabel=testCaseReportDiagramButtonPanel.getDelectlabel();
 		
-		testCaseChartDiagramButtonPanel=new FixedButtonTabbedPanel(testCaseName+"的测试报告");
+		testCaseChartDiagramButtonPanel=new FixedButtonTabbedPanel(testCaseName+"结果报告");
 		testCaseChartDiagramButtonPanel.setBackground(new Color(77, 96, 130));
 		testCaseChartDiagramButton=testCaseChartDiagramButtonPanel.getTabbedbutton();
 		testCaseChartDiagramDeleteLabel=testCaseChartDiagramButtonPanel.getDelectlabel();

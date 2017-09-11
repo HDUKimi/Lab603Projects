@@ -21,6 +21,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -33,6 +34,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
@@ -138,6 +140,7 @@ public class TestCaseConfirmationPanel extends JPanel{
     private List<String> sqlcasedatalist=new ArrayList<>();
     
     private List<String> selectedtestcaselist=new ArrayList<>();
+    private Map<String, List<String>> selectedtestcasemap=new HashMap<>();
     
 	public TestCaseConfirmationPanel(MainFrame mainFrame) {
 		// TODO Auto-generated constructor stub			
@@ -986,9 +989,10 @@ public class TestCaseConfirmationPanel extends JPanel{
 
 				updateSelectedTestCaseList();
 				
-				System.out.println("------------ "+selectedtestcaselist.size());
-				for(String s:selectedtestcaselist){
-					System.out.println(s);
+				updateSelectedTestCaseMap();
+				
+				for(Entry<String, List<String>> en:selectedtestcasemap.entrySet()){
+					System.out.println(en.getKey()+" - - "+en.getValue().toString());
 				}
 				
 				new Thread(new Runnable() {
@@ -1002,44 +1006,134 @@ public class TestCaseConfirmationPanel extends JPanel{
 						int index=0;
 						TestCaseDataPanel nowtcdpanel = null;
 						
-						for(String testcasename:selectedtestcaselist){
+						for(Entry<String, List<String>> en:selectedtestcasemap.entrySet()){
 							
-							flag=0;
-							for(TestCaseDataPanel testCaseDataPanel:testCaseDataPanels){
-								if(testCaseDataPanel.getTestCaseName().equals(testcasename)){
-									flag=1;
-									nowtcdpanel=testCaseDataPanel;
-									break;
+							if(!en.getValue().isEmpty()){
+								
+								List<TestCase> testcaselist=new ArrayList<>();
+								String name = null;
+								int type = 0;
+								
+								flag=0;
+								
+								if(en.getKey().equals("Function")){
+									name="功能测试";
+									type=1;
 								}
+								else if(en.getKey().equals("Performance")){
+									name="性能测试";
+									type=2;
+								}
+								else if(en.getKey().equals("Time")){
+									name="时间约束测试";
+									type=3;
+								}
+								else if(en.getKey().equals("Border")){
+									name="边界值测试";
+									type=1;
+								}
+								
+								for(String testcasename:en.getValue()){
+									
+									if(type==1){
+										testcaselist.addAll(extractFunctionalTestDataFromXml(findTestCaseXMLPath(testcasename)));
+									}
+									else if(type==2){
+										name="性能测试";
+										testcaselist.addAll(extractPerformanceTestDataFromXml(findTestCaseXMLPath(testcasename)));
+									}
+									else if(type==3){
+										name="时间约束测试";
+										testcaselist.addAll(extractTimeTestDataFromXml(findTestCaseXMLPath(testcasename)));
+									}
+									
+								}
+								
+								for(TestCaseDataPanel tcd:testCaseDataPanels){
+									if(tcd.getTestCaseName().equals(name)){
+										if(tcd.getTestcaselist().size()==testcaselist.size()){
+											flag=1;
+											nowtcdpanel=tcd;
+										}
+										else{
+											tcd.getTestCaseReportDiagramButtonPanel().setVisible(false);
+											tcd.getTestCaseChartTabbedPanel().setVisible(false);
+											testCaseDataPanels.remove(tcd);
+										}
+										break;
+									}
+								}
+								
+								if(flag==0){
+									nowtcdpanel=new TestCaseDataPanel(mainFrame, name, testcaselist, type);
+									mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList().add(nowtcdpanel);
+								}
+								
+								if(index==0){
+									nowtcdpanel.getTestCaseReportDiagramButtonPanel().getTabbedbutton().doClick();
+								}
+								index++;
+								
+								TextAreaPrint(name+"的 "+testcaselist.size()+" 条测试用例提取完成");
+								
+								mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
+								
 							}
-							
-							if(flag==0){
-								TestCaseDataPanel tcdpanel=new TestCaseDataPanel(mainFrame, testcasename);
-								mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList().add(tcdpanel);
-								nowtcdpanel=tcdpanel;
-							}
-							
-							if(index==0){
-								nowtcdpanel.getTestCaseReportDiagramButtonPanel().getTabbedbutton().doClick();
-							}
-							nowtcdpanel.getTestCaseReportDiagramButtonPanel().setVisible(true);
-							
-							mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
-							
-							index++;
 							
 						}
-						
-//						for(TestCaseDataPanel tcdpanel:mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList()){
-//							
-//							tcdpanel.initData();
-//							
-//							System.out.println("-------------");
-//							
-//						}
-						
+						System.out.println("------------END------------");
 					}
 				}).start();
+				
+//				new Thread(new Runnable() {
+//					
+//					@Override
+//					public void run() {
+//						// TODO Auto-generated method stub
+//						
+//						List<TestCaseDataPanel> testCaseDataPanels=mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList();
+//						int flag=0;
+//						int index=0;
+//						TestCaseDataPanel nowtcdpanel = null;
+//						
+//						for(String testcasename:selectedtestcaselist){
+//							
+//							flag=0;
+//							for(TestCaseDataPanel testCaseDataPanel:testCaseDataPanels){
+//								if(testCaseDataPanel.getTestCaseName().equals(testcasename)){
+//									flag=1;
+//									nowtcdpanel=testCaseDataPanel;
+//									break;
+//								}
+//							}
+//							
+//							if(flag==0){
+//								TestCaseDataPanel tcdpanel=new TestCaseDataPanel(mainFrame, testcasename);
+//								mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList().add(tcdpanel);
+//								nowtcdpanel=tcdpanel;
+//							}
+//							
+//							if(index==0){
+//								nowtcdpanel.getTestCaseReportDiagramButtonPanel().getTabbedbutton().doClick();
+//							}
+//							nowtcdpanel.getTestCaseReportDiagramButtonPanel().setVisible(true);
+//							
+//							mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
+//							
+//							index++;
+//							
+//						}
+//						
+////						for(TestCaseDataPanel tcdpanel:mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList()){
+////							
+////							tcdpanel.initData();
+////							
+////							System.out.println("-------------");
+////							
+////						}
+//						
+//					}
+//				}).start();
 				
 				
 			}
@@ -1074,6 +1168,37 @@ public class TestCaseConfirmationPanel extends JPanel{
 			initTestCaseTreeInforPanel2();
 		}
 		
+	}
+	
+	protected void updateSelectedTestCaseMap() {
+		// TODO Auto-generated method stub
+		
+		selectedtestcasemap.clear();
+		
+		List<String> functionlist=new ArrayList<>();
+		List<String> performancelist=new ArrayList<>();
+		List<String> timelist=new ArrayList<>();
+		List<String> borderlist=new ArrayList<>();
+		
+		for(String name:selectedtestcaselist){
+			if(name.contains("功能")&&!name.contains("Border")){
+				functionlist.add(name);
+			}
+			else if(name.contains("性能")){
+				performancelist.add(name);
+			}
+			else if(name.contains("Time")){
+				timelist.add(name);
+			}
+			else if(name.contains("Border")){
+				borderlist.add(name);
+			}
+		}
+		
+		selectedtestcasemap.put("Function", functionlist);
+		selectedtestcasemap.put("Performance", performancelist);
+		selectedtestcasemap.put("Time", timelist);
+		selectedtestcasemap.put("Border", borderlist);
 	}
 
 	protected void updateSelectedTestCaseList() {
@@ -1115,6 +1240,45 @@ public class TestCaseConfirmationPanel extends JPanel{
 //		addDataTotestcaseTable();
 		addDataToCheckBoxPanel();
 		
+	}
+	
+	private String findTestCaseXMLPath(String testCaseName) {
+		
+		String testCasePath = null;
+		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+		
+		File file = null;
+		int type=1;
+		if(type == 1){
+			testCasePath=baseUrl+"\\FunctionalTest\\"+testCaseName+".xml";
+			file=new File(testCasePath);
+			if(!file.exists()){
+				type++;
+			}
+		} 
+		if (type == 2) {
+			testCasePath=baseUrl+"\\PerformanceTest\\"+testCaseName+".xml";
+			file=new File(testCasePath);
+			if(!file.exists()){
+				type++;
+			}
+		} 
+		if (type == 3) {
+			testCasePath=baseUrl+"\\TimeTest\\"+testCaseName+".xml";
+			file=new File(testCasePath);
+			if(!file.exists()){
+				type++;
+			}
+		}
+		
+		if(!file.exists()){
+			
+			baseUrl = "D:\\ModelDriverProjectFile\\SqlTestCase\\";
+			
+			testCasePath=baseUrl+testCaseName+".xml";
+		}
+		
+		return testCasePath;
 	}
 	
 	public void saveListToText(int type, List<TestCase> testcaselist){
@@ -1545,6 +1709,12 @@ public class TestCaseConfirmationPanel extends JPanel{
 		this.getRootPane().repaint();
 		this.setVisible(true);
 		
+	}
+	
+	public void TextAreaPrint(String word){
+		JTextArea textarea=mainFrame.getConsolePartPanel().getTextarea5();
+		textarea.append(word+"\n");
+		textarea.setCaretPosition(textarea.getDocument().getLength());
 	}
 	
 	public List<TestCase> getTestcaselist() {
