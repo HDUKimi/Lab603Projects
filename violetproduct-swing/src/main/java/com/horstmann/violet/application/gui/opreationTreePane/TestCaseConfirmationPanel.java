@@ -1142,7 +1142,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		testcasetoolpanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,4));
 		testcasetoolpanel.setOpaque(false);
 		testcasetoolpanel.add(testcasetoolbutton4);
-		testcasetoolpanel.add(testcasetoolbutton3);
+//		testcasetoolpanel.add(testcasetoolbutton3);
 		testcasetoolpanel.add(testcasetoolbutton2);
 //		testcasetoolpanel.add(testcasetoolbutton1);
 		

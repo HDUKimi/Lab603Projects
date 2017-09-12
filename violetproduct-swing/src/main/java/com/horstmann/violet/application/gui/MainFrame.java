@@ -88,6 +88,7 @@ import com.horstmann.violet.application.gui.opreationTreePane.ProjectTree;
 import com.horstmann.violet.application.gui.opreationTreePane.TestCaseConfirmationPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.TestCaseInstantiationPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
+import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 import com.horstmann.violet.application.help.AboutDialog;
 import com.horstmann.violet.application.menu.MenuFactory;
 import com.horstmann.violet.framework.dialog.DialogFactory;
@@ -134,6 +135,11 @@ public class MainFrame extends JFrame
         setInitialSize();
 		setUIManeger();
 		createMenuBar();
+		
+		//初始化文件列表
+		StartFileCheck sfc=new StartFileCheck();
+		sfc.FileCheck();
+		
         getContentPane().add(this.getMainPanel());
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

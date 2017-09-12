@@ -43,6 +43,7 @@ public class TestCaseXMLToStringList {
 					}
 				}
 			}
+			System.out.println(list.size());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

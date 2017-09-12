@@ -491,7 +491,7 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 	private void initFailedStatisticsTablePanel() {
 		// TODO Auto-generated method stub
 		
-		String[] columnNames = { " ","与期望不符合", "程序异常", "失败测试用例总数"};
+		String[] columnNames = { " ","测试用例有误", "程序出现死循环或者抛出异常", "失败测试用例总数"};
 		String[][] tabelValues = {};
 
 		failedstatisticsattributetablemodel = new DefaultTableModel(tabelValues, columnNames) {
@@ -524,14 +524,14 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		failedstatisticsattributetable.getColumn(" ").setPreferredWidth(100);
 		failedstatisticsattributetable.getColumn(" ").setMinWidth(100);
 		failedstatisticsattributetable.getColumn(" ").setMaxWidth(100);
-//		failedstatisticsattributetable.getColumn("测试用例有误").setPreferredWidth(100);
-//		failedstatisticsattributetable.getColumn("测试用例有误").setMinWidth(100);
-//		failedstatisticsattributetable.getColumn("程序出现死循环或者抛出异常").setPreferredWidth(100);
-//		failedstatisticsattributetable.getColumn("程序出现死循环或者抛出异常").setMinWidth(100);
-		failedstatisticsattributetable.getColumn("与期望不符合").setPreferredWidth(100);
-		failedstatisticsattributetable.getColumn("与期望不符合").setMinWidth(100);
-		failedstatisticsattributetable.getColumn("程序异常").setPreferredWidth(100);
-		failedstatisticsattributetable.getColumn("程序异常").setMinWidth(100);
+		failedstatisticsattributetable.getColumn("测试用例有误").setPreferredWidth(100);
+		failedstatisticsattributetable.getColumn("测试用例有误").setMinWidth(100);
+		failedstatisticsattributetable.getColumn("程序出现死循环或者抛出异常").setPreferredWidth(100);
+		failedstatisticsattributetable.getColumn("程序出现死循环或者抛出异常").setMinWidth(100);
+//		failedstatisticsattributetable.getColumn("与期望不符合").setPreferredWidth(100);
+//		failedstatisticsattributetable.getColumn("与期望不符合").setMinWidth(100);
+//		failedstatisticsattributetable.getColumn("程序异常").setPreferredWidth(100);
+//		failedstatisticsattributetable.getColumn("程序异常").setMinWidth(100);
 		failedstatisticsattributetable.getColumn("失败测试用例总数").setPreferredWidth(100);
 		failedstatisticsattributetable.getColumn("失败测试用例总数").setMinWidth(100);
 
