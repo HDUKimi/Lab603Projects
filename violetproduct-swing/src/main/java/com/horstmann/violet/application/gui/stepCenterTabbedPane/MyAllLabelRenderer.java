@@ -251,7 +251,7 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 //			setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 10));
 //			setForeground(new Color(0,0,0));
 //			setBackground(new Color(255, 255, 255));
-			if(Integer.parseInt(table.getValueAt(row, 1).toString())%4!=0){
+			if(Integer.parseInt(table.getValueAt(row, 1).toString())%2!=0){
 //				setForeground(new Color(177, 177, 177));
 				setBackground(new Color(250, 248, 236));
 			}

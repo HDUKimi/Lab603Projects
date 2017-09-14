@@ -91,11 +91,6 @@ public class Controller {
 
     public static void Run(Pair<String, File> data) {
         try {
-        	
-        	if(executorService.isShutdown()){
-        		executorService=Executors.newCachedThreadPool();
-        	}
-        	
             // deploy, distribute and accept
         	System.out.println("--------------------*******************");
             handleMapping(data);

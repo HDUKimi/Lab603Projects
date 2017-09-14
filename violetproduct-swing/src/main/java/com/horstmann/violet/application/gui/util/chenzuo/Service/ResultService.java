@@ -4,6 +4,8 @@ import com.horstmann.violet.application.gui.util.chenzuo.Bean.Constants;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chenzuo.Util.FileUtil;
 import com.horstmann.violet.application.gui.util.chenzuo.Util.TcConvertUtil;
+import com.horstmann.violet.application.gui.util.tanchao.OrderWrapperTool;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -48,7 +50,10 @@ public class ResultService {
         public void readfile() {
             File file = new File(FileUtil.LOCAL_TARGET_PATH);
             if (file.isDirectory()) {
-                String[] filelist = file.list();
+//                String[] filelist = file.list();
+                
+            	String[] filelist=OrderWrapperTool.SortFileNameList(file.list());
+                
                 for (int i = 0; i < filelist.length; i++) {
                     String fileName = FileUtil.LOCAL_TARGET_PATH + filelist[i];
                         try {
@@ -72,7 +77,7 @@ public class ResultService {
         return list;
     }
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
         PropertyConfigurator.configure("src/log4j.properties");
         ResultService s = new ResultService("Function");
     }

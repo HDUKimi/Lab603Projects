@@ -31,44 +31,51 @@ public class demo extends JFrame {
         PropertyConfigurator.configure("src/log4j.properties");
 
 
-        File file = new File(System.getProperty("user.dir")+"//src//xx#1.xml");
-        Controller.Run(new Pair<String, File>("Function", file));
-//        while(true){
-//            try {
-//                if(Constants.ISFINISH.get()){
-//                    break;
-//                }
-//                int size;
-//                if((size = ResultService.list.size())!=0){
-//                    System.out.println(size);
-//                }
-//                TimeUnit.SECONDS.sleep(2);
-//            } catch (InterruptedException e) {
-//            	
-//                e.printStackTrace();
-//            }
-//        }
+//        File file = new File(System.getProperty("user.dir")+"//src//xx#1.xml");
+//        Controller.Run(new Pair<String, File>("Function", file));
         
-        int index=0;
+        File file = new File(System.getProperty("user.dir")+"//src//xx#2.xml");
+        Controller.Run(new Pair<String, File>("Performance", file));
+        
+//        File file = new File(System.getProperty("user.dir")+"//src//xx#3.xml");
+//        Controller.Run(new Pair<String, File>("Time", file));
+        
         while(true){
             try {
                 if(Constants.ISFINISH.get()){
                     break;
                 }
-                
-                if(ResultService.list.size()>index){
-                	for(int i=index;i<ResultService.list.size();i++){
-                		System.out.println(ResultService.list.get(i).toString());
-                	}
-                	index=ResultService.list.size();
+                int size;
+                if((size = ResultService.list.size())!=0){
+                    System.out.println(size);
                 }
-                
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
             	
                 e.printStackTrace();
             }
         }
+        
+//        int index=0;
+//        while(true){
+//            try {
+//                if(Constants.ISFINISH.get()){
+//                    break;
+//                }
+//                
+//                if(ResultService.list.size()>index){
+//                	for(int i=index;i<ResultService.list.size();i++){
+//                		System.out.println(ResultService.list.get(i).toString());
+//                	}
+//                	index=ResultService.list.size();
+//                }
+//                
+//                TimeUnit.SECONDS.sleep(2);
+//            } catch (InterruptedException e) {
+//            	
+//                e.printStackTrace();
+//            }
+//        }
 
 //        EventQueue.invokeLater(new Runnable() {
 //            public void run() {

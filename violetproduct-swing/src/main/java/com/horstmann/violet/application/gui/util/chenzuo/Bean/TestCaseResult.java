@@ -75,6 +75,13 @@ public class TestCaseResult implements Serializable{
 			tmp = "0";
 		return tmp + "%";
 	}
+	
+	public double getBattery_remainingDouble(){
+		if(battery_remaining==-0){
+			return 0;
+		}
+		return battery_remaining;
+	}
 
 	public void setBattery_remaining(double battery_remaining) {
 		this.battery_remaining = battery_remaining;

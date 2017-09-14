@@ -1141,6 +1141,14 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			
 			TestCase testcase=ResultService.list.get(resultlistindex);
 			
+			double battery=testcase.getResult().getBattery_remainingDouble();
+			if(battery>100){
+				testcase.getResult().setBattery_remaining(100);
+			}
+			else if(battery<0){
+				testcase.getResult().setBattery_remaining(0);
+			}
+			
 			for(JPanel jp:checkedtestcasereportlist){
 				tcrpp=(PerformanceTestCaseReportPartPanel)jp;
 				if(testcase.getTestCaseID().equals(tcrpp.getTestcase().getTestCaseID())){
@@ -1321,6 +1329,15 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				resulttestcaselist=ResultService.list;
 				
 				showStatisticsDataByType(2);
+				
+				while(progressbar.getValue()<100){
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 				
 				parentTestCaseDataPanel.getTestCaseChartDiagramButtonPanel().setVisible(true);
 				
