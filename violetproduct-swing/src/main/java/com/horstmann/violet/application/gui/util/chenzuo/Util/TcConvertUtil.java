@@ -47,13 +47,29 @@ public class TcConvertUtil {
 		List<Pair> hs = new ArrayList(), ts = new ArrayList();
 		Map<String, List<Pair>> hb = new TreeMap(comp), ht = new TreeMap(comp);
 		List<Pair> tmp, tmp2;
-		for (TestCase testCase : testCases) {
-			String speed = testCase.getResult().getWind_speed(), high = testCase.getResult().getTakeoff_alt(),
-					battery = testCase.getResult().getBattery_remaining(), time = testCase.getResult().getTime();
-			if ("0%".equals(battery)) {
+		
+		for(int i=0;i<testCases.size();i++){
+			TestCase testCase=testCases.get(i);
+			String speed = testCase.getResult().getWind_speed(), high = testCase.getResult().getTakeoff_alt(), time = testCase.getResult().getTime();
+			if(i==testCases.size()-1){
 				hs.add(new Pair(speed, high));
 				ts.add(new Pair(speed, time));
 			}
+			else{
+				if(!speed.equals(testCases.get(i+1).getResult().getWind_speed())){
+					hs.add(new Pair(speed, high));
+					ts.add(new Pair(speed, time));
+				}
+			}
+		}
+		
+		for (TestCase testCase : testCases) {
+			String speed = testCase.getResult().getWind_speed(), high = testCase.getResult().getTakeoff_alt(),
+					battery = testCase.getResult().getBattery_remaining(), time = testCase.getResult().getTime();
+//			if ("0%".equals(battery)) {
+//				hs.add(new Pair(speed, high));
+//				ts.add(new Pair(speed, time));
+//			}
 
 			if (!hb.containsKey(speed) || !ht.containsKey(speed)) {
 				tmp = new ArrayList();
@@ -332,16 +348,27 @@ public class TcConvertUtil {
 
 		// 性能测试除去多个0%
 		if (type == "Performance") {
-			// 处理多个0%
-			for (int i = 0; i < list.size(); i++) {
-				if (i + 1 < list.size()) {
-					if (list.get(i).getResult().getBattery_remaining().equals("0%")
-							&& list.get(i + 1).getResult().getBattery_remaining().equals("0%")) {
-						list.remove(i);
-					}
+			//处理越界数据
+			for(int i=0;i<list.size();i++){
+				double battery=list.get(i).getResult().getBattery_remainingDouble();
+				if(battery>100){
+					list.get(i).getResult().setBattery_remaining(100);
+				}
+				else if(battery<0){
+					list.get(i).getResult().setBattery_remaining(0);
 				}
 			}
+			
+			// 处理多个0%
+			for (int i = 0; i < list.size() - 1; i++) {
+				if (list.get(i).getResult().getBattery_remaining().equals("0%")
+						&& list.get(i + 1).getResult().getBattery_remaining().equals("0%")) {
+					list.get(i).getResult().setBattery_remaining(1);
+				}
+
+			}
 		}
+		
 		return list;
 	}
 

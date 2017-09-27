@@ -60,13 +60,20 @@ public class ResultService {
                             list.addAll(TcConvertUtil.buildTestCaseList(type, fileName));
                             FileUtil.delete(fileName);
                             logger.debug("list size:"+list.size());
-                            if(Constants.ISFINISH.get()){
-                                logger.debug("scheduledService close");
-                                scheduledService.shutdown();
-                            }
+//                            if(Constants.ISFINISH.get()){
+//                                logger.debug("scheduledService close");
+//                                scheduledService.shutdown();
+//                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                }
+                
+                if(filelist.length>0){
+                	if(Constants.ISFINISH.get()){
+						logger.debug("scheduledService close");
+						scheduledService.shutdown();
+					}
                 }
             }
 

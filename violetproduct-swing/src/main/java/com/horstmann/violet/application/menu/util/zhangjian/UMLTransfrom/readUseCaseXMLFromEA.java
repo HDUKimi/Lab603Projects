@@ -16,8 +16,8 @@ public class readUseCaseXMLFromEA{
 
 	public readUseCaseXMLFromEA(String url,IFile file){
 		//Administrator
-		String aimPath="C:/Users/Xiaole/Desktop/ModelDriveProjectFile/UseCaseDiagram/EA";
-		XMLUtils.AutoSave(url, aimPath,file.getFilename());
+		String aimPath="D:\\ModelDriverProjectFile\\UsecaseDiagram\\EA";
+//		XMLUtils.AutoSave(url, aimPath,file.getFilename());
 		getInformationFormXML(url);
 	}
 

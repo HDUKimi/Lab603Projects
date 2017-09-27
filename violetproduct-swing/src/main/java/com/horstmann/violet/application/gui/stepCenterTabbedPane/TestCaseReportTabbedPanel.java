@@ -74,6 +74,7 @@ import com.horstmann.violet.application.gui.util.chenzuo.Service.ResultService;
 import com.horstmann.violet.application.gui.util.chenzuo.Util.TcConvertUtil;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.Pair;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseException;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseResult;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.Time;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.myProcess;
@@ -118,6 +119,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private Thread gaindatathread;
 	private Thread datagainshowthread;
 	private int threadstate=0;
+	public static int threadexceptionstate=0;
 	
 	private JScrollPane tablescrollpanel;
 	private JPanel tableresultpanel;
@@ -248,6 +250,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						
 						progressbarindex=0;
 						
+						threadexceptionstate=0;
+						
 //						mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(false);
 						
 //						clientSocket = new ClientSocket("10.1.16.89", 5555);
@@ -259,6 +263,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 							progressbar.setValue(0);
 							progressbarlabel.setText("0%");
 							
+							threadstate=1;
+							
 							if(testcasetype==1){
 								startFunctionalTestConfirmation();
 							}
@@ -269,7 +275,6 @@ public class TestCaseReportTabbedPanel extends JPanel{
 								startTimeTestConfirmation();
 							}
 							
-							threadstate=1;
 						}
 						else{
 							TextAreaPrint("连接服务器失败！！！");
@@ -280,15 +285,20 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				} else if (threadstate == 1) {
 
 				} else if (threadstate == -1) {
+					
 					threadstate = 1;
 					t.resume();
-					datagainshowthread.resume();
-//					if(progressbar.getValue()>50){
-//						progreseethread.resume();
-//					}
-//					else{
-//						gaindatathread.resume();
-//					}
+					if(testcasetype==3){
+						if(progressbar.getValue()>50){
+							progreseethread.resume();
+						}
+						else{
+							gaindatathread.resume();
+						}
+					}
+					else{
+						datagainshowthread.resume();
+					}
 					System.out.println("t is not alive");
 				}
 				
@@ -308,7 +318,18 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				// TODO Auto-generated method stub
 				if(threadstate==1){
 					t.suspend();
-					datagainshowthread.suspend();
+					if(testcasetype==3){
+						if(progressbar.getValue()>50){
+							progreseethread.suspend();
+						}
+						else{
+							gaindatathread.suspend();
+						}
+					}
+					else{
+						datagainshowthread.suspend();
+					}
+//					datagainshowthread.suspend();
 //					if(progressbar.getValue()>50){
 //						progreseethread.suspend();
 //					}
@@ -335,10 +356,20 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				// TODO Auto-generated method stub
 				
 				if(threadstate!=0){
-					Controller.Close();
-					
+//					Controller.Close();
 					t.stop();
-					datagainshowthread.stop();
+					if(testcasetype==3){
+						if(progressbar.getValue()>50){
+							progreseethread.stop();
+						}
+						else{
+							gaindatathread.stop();
+						}
+					}
+					else{
+						datagainshowthread.stop();
+					}
+					
 					
 //					if(progressbar.getValue()>50){
 //						progreseethread.stop();
@@ -687,6 +718,32 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 	}
 
+	protected void ExceptionStopRunThread() {
+		// TODO Auto-generated method stub
+		
+		if (testcasetype == 3) {
+			if (progressbar.getValue() > 50) {
+				progreseethread.stop();
+			} else {
+				gaindatathread.stop();
+			}
+		} else {
+			datagainshowthread.stop();
+		}
+		
+		threadstate=0;
+		
+		progressbar.setValue(0);
+		progressbarlabel.setText("0%");
+		System.out.println("123456789123--------------------");
+		initUIPanel();
+		
+		TextAreaPrint("服务器出现异常，退出测试执行！！！");
+		TextAreaPrint("请等待几秒后，再尝试连接。。。");
+		
+		t.stop();
+	}
+
 	public void initUIPanel() {
 		// TODO Auto-generated method stub
 		
@@ -729,7 +786,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		t = new Thread(new Runnable() {
 
 			@Override
-			public void run() {
+			public void run(){
 				// TODO Auto-generated method stub
 				
 				checkedtestcasereportlist.removeAll(checkedtestcasereportlist);
@@ -744,7 +801,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					}
 				}
 				
-				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"selected#1.xml";
+				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\xxyy#1.xml";
 				extractDataToXml(extraxmlpath, selectedtestcaselist, 1);//生成测试用例xml
 				File file=new File(extraxmlpath);
 				
@@ -755,10 +812,25 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				PropertyConfigurator.configure("src/log4j.properties");
 				Controller.Run(new Pair<String, File>("Function", file));
 				
-				
 				while(progressbar.getValue()<90){
 					try {
-						Thread.sleep(100);
+						System.out.println("***************************");
+//						if(threadexceptionstate==1){
+//							ExceptionStopRunThread();
+//						}
+						if(Controller.handFuture.isDone()){
+							try {
+								Controller.handFuture.get();
+							} catch (ExecutionException e) {
+								// TODO Auto-generated catch block
+								System.out.println("+-+"+e.getMessage());
+								if(e.getMessage().contains("TestCaseException")){
+//									TestCaseReportTabbedPanel.threadexceptionstate=1;
+									ExceptionStopRunThread();
+								}
+							}
+						}
+						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -1141,13 +1213,13 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			
 			TestCase testcase=ResultService.list.get(resultlistindex);
 			
-			double battery=testcase.getResult().getBattery_remainingDouble();
-			if(battery>100){
-				testcase.getResult().setBattery_remaining(100);
-			}
-			else if(battery<0){
-				testcase.getResult().setBattery_remaining(0);
-			}
+//			double battery=testcase.getResult().getBattery_remainingDouble();
+//			if(battery>100){
+//				testcase.getResult().setBattery_remaining(100);
+//			}
+//			else if(battery<0){
+//				testcase.getResult().setBattery_remaining(0);
+//			}
 			
 			for(JPanel jp:checkedtestcasereportlist){
 				tcrpp=(PerformanceTestCaseReportPartPanel)jp;
@@ -1307,7 +1379,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					selectedtestcaselist.add(tcrpp.getTestcase());
 				}
 				
-				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"selected#2.xml";
+				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\xxyy#2.xml";
 				extractDataToXml(extraxmlpath, selectedtestcaselist, 2);//生成测试用例xml
 				File file=new File(extraxmlpath);
 				
@@ -1319,7 +1391,23 @@ public class TestCaseReportTabbedPanel extends JPanel{
 
 				while(progressbar.getValue()<90){
 					try {
-						Thread.sleep(100);
+						System.out.println("***************************");
+//						if(threadexceptionstate==1){
+//							ExceptionStopRunThread();
+//						}
+						if(Controller.handFuture.isDone()){
+							try {
+								Controller.handFuture.get();
+							} catch (ExecutionException e) {
+								// TODO Auto-generated catch block
+								System.out.println("+-+"+e.getMessage());
+								if(e.getMessage().contains("TestCaseException")){
+//									TestCaseReportTabbedPanel.threadexceptionstate=1;
+									ExceptionStopRunThread();
+								}
+							}
+						}
+						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -1662,7 +1750,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					}
 				}
 				
-				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\"+testcasename+"selected#3.xml";
+				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\xxyy#3.xml";
 				extractDataToXml(extraxmlpath, selectedtestcaselist, 3);//生成测试用例xml
 				File file=new File(extraxmlpath);
 				
@@ -1673,9 +1761,24 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				PropertyConfigurator.configure("src/log4j.properties");
 				Controller.Run(new Pair<String, File>("Time", file));
 				
-				
-				while(progressbar.getValue()<30||ResultService.list.size()<=0){
+				while(progressbar.getValue()<50||ResultService.list.size()<=0){
 					try {
+						System.out.println("***************************");
+//						if(threadexceptionstate==1){
+//							ExceptionStopRunThread();
+//						}
+						if(Controller.handFuture.isDone()){
+							try {
+								Controller.handFuture.get();
+							} catch (ExecutionException e) {
+								// TODO Auto-generated catch block
+								System.out.println("+-+"+e.getMessage());
+								if(e.getMessage().contains("TestCaseException")){
+//									TestCaseReportTabbedPanel.threadexceptionstate=1;
+									ExceptionStopRunThread();
+								}
+							}
+						}
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
@@ -1728,8 +1831,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				for(int index=0;index<sum;index++){
 					TextAreaPrint("正在处理第 "+(index+1)+" 条测试用例");
 					
-					int startprogressbar = (int) ((double) 30 / sum * index);
-					int endprogressbar = (int) ((double) 30 / sum * (index + 1));
+					int startprogressbar = (int) ((double) 50 / sum * index);
+					int endprogressbar = (int) ((double) 50 / sum * (index + 1));
 					
 					for(int i=startprogressbar;i<endprogressbar;i++){
 						progressbar.setValue(progressbar.getValue()+1);

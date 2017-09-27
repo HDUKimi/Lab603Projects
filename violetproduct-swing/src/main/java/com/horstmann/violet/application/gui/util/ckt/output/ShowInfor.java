@@ -17,7 +17,7 @@ public class ShowInfor {
 		System.out.println(s);
 	}
 	
-	public static void print(int stepindex, String s){
+	public static void print(int stepindex, final String s){
 		
 //		int stepindex=StepButtonPanel.getIndex();
 		
@@ -25,7 +25,14 @@ public class ShowInfor {
 			TestCaseProcessTabbedPanel.TextAreaPrint(s);
 		}
 		else if(stepindex==4){
-			TestCaseInstantiationProcessTabbedPanel.TextAreaPrint(s);
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					TestCaseInstantiationProcessTabbedPanel.TextAreaPrint(s);
+				}
+			}).start();
 		}
 		
 //		System.out.println(s);

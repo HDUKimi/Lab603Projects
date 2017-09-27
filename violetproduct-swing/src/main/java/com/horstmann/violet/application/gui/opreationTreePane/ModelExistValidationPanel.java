@@ -270,7 +270,7 @@ public class ModelExistValidationPanel extends JPanel{
 	private void initTitlePanel() {
 		// TODO Auto-generated method stub
 		
-		titlelabel.setText("模型转换验证");
+		titlelabel.setText("模型评估");
 		titlelabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		titlelabel.setForeground(new Color(255, 255, 255));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(2, 8, 2, 0));
@@ -568,6 +568,9 @@ public class ModelExistValidationPanel extends JPanel{
 						
 						mainFrame.getValidationResultPanel().getValidationlabeltab5().doClick();
 						
+						TranMessageColorize tmc=new TranMessageColorize();
+						tmc.CleanColorize(mainFrame.getModelExistValidationPanel().getUppaalworkspace());
+						
 						String message=assessdealtext11.getText();
 						
 						if(message==null||message.trim().equals("")){
@@ -589,7 +592,6 @@ public class ModelExistValidationPanel extends JPanel{
 								System.out.println("message is not exist ");
 							}
 							else{
-								TranMessageColorize tmc=new TranMessageColorize();
 								tmc.ColorizeTran(uppaalTransitionList,mainFrame.getModelExistValidationPanel().getUppaalworkspace());
 								
 								mainFrame.getValidationResultPanel().getFivenamelabel().setText("共找到"+uppaalTransitionList.size()+"条消息：");
@@ -722,6 +724,9 @@ public class ModelExistValidationPanel extends JPanel{
 						
 						mainFrame.getValidationResultPanel().getValidationlabeltab5().doClick();
 						
+						TranMessageColorize tmc=new TranMessageColorize();
+						tmc.CleanColorize(mainFrame.getModelExistValidationPanel().getUppaalworkspace());
+						
 						String message1=assessdealtext21.getText();
 						String message2=assessdealtext22.getText();
 						
@@ -747,8 +752,6 @@ public class ModelExistValidationPanel extends JPanel{
 								System.out.println("message is not exist ");
 							}
 							else{
-								
-								TranMessageColorize tmc=new TranMessageColorize();
 								tmc.ColorizeTranAndState(pathTupleList, mainFrame.getModelExistValidationPanel().getUppaalworkspace());
 								mainFrame.getValidationResultPanel().getFivenamelabel().setText("共找到一条路径，包含"+pathTupleList.size()+"个节点和"+pathTupleList.size()+"条消息：");
 								

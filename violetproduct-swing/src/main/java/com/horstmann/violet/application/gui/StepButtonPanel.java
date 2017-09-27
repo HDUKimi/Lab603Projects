@@ -1398,9 +1398,13 @@ public class StepButtonPanel extends JPanel {
 				mainFrame.getCenterTabPanel().removeAll();
 				mainFrame.getCenterTabPanel().add(mainFrame.getStepFourCenterTabbedPane());
 				
-				mainFrame.getConsolePartPanel().getTitlelabel().setText("抽象测试用例实例化过程信息");
+				mainFrame.getConsolePartPanel().getTitlelabel().setText("测试用例实例化过程信息");
 				mainFrame.getConsolePartPanel().getTextpanel().removeAll();
-				mainFrame.getConsolePartPanel().getTextpanel().add(mainFrame.getConsolePartPanel().getTextscrollpanel4());
+				
+				JScrollPane textscrollpanel4=new JScrollPane(mainFrame.getConsolePartPanel().getTextarea4());	
+				textscrollpanel4.setBorder(null);
+				
+				mainFrame.getConsolePartPanel().getTextpanel().add(textscrollpanel4);
 				
 			    ClearAttributePanel();
 			    attributePanel.add(mainFrame.getTestCaseInstantiationResultPanel());
@@ -1453,7 +1457,7 @@ public class StepButtonPanel extends JPanel {
 				mainFrame.getCenterTabPanel().add(mainFrame.getStepFiveCenterTabbedPane());
 //				clearConsolePart();
 			
-				mainFrame.getConsolePartPanel().getTitlelabel().setText("测试用例实例验证过程信息");
+				mainFrame.getConsolePartPanel().getTitlelabel().setText("测试用例执行过程信息");
 				mainFrame.getConsolePartPanel().getTextpanel().removeAll();
 				mainFrame.getConsolePartPanel().getTextpanel().add(mainFrame.getConsolePartPanel().getTextscrollpanel5());
 				
@@ -1507,7 +1511,7 @@ public class StepButtonPanel extends JPanel {
 				mainFrame.getCenterTabPanel().add(mainFrame.getStepSixCenterTabbedPane());
 //				clearConsolePart();
 			
-				mainFrame.getConsolePartPanel().getTitlelabel().setText("一致性的验证");
+				mainFrame.getConsolePartPanel().getTitlelabel().setText("模型评估过程信息");
 				mainFrame.getConsolePartPanel().getTextpanel().removeAll();
 				mainFrame.getConsolePartPanel().getTextpanel().add(mainFrame.getConsolePartPanel().getTextscrollpanel6());
 				

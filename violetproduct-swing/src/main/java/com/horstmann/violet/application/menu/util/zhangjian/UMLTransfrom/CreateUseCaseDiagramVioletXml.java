@@ -126,6 +126,7 @@ public class CreateUseCaseDiagramVioletXml {
 					
 					ActorNode.addElement("children")
 								.addAttribute("id", k+1+"");
+					System.out.println("--location--"+node.getLocation());
 					ActorNode.addElement("location")
 								.addAttribute("class", "Point2D.Double")
 								.addAttribute("id", k+2+"")

@@ -2,6 +2,7 @@ package com.horstmann.violet.application.gui.util.chenzuo;
 
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.Constants;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.Pair;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseException;
 import com.horstmann.violet.application.gui.util.chenzuo.Controller.Controller;
 import com.horstmann.violet.application.gui.util.chenzuo.Service.ResultService;
 import org.apache.log4j.Logger;
@@ -31,11 +32,20 @@ public class demo extends JFrame {
         PropertyConfigurator.configure("src/log4j.properties");
 
 
-//        File file = new File(System.getProperty("user.dir")+"//src//xx#1.xml");
+        File file = new File(System.getProperty("user.dir")+"//src//xx#1.xml");
+        try {
+			Controller.Run(new Pair<String, File>("Function", file));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("*************"+e.getMessage());;
+		}
+        
+//        File file = new File(System.getProperty("user.dir")+"//src//xx1#1.xml");
 //        Controller.Run(new Pair<String, File>("Function", file));
         
-        File file = new File(System.getProperty("user.dir")+"//src//xx#2.xml");
-        Controller.Run(new Pair<String, File>("Performance", file));
+//        File file = new File(System.getProperty("user.dir")+"//src//xx#2.xml");
+//        Controller.Run(new Pair<String, File>("Performance", file));
         
 //        File file = new File(System.getProperty("user.dir")+"//src//xx#3.xml");
 //        Controller.Run(new Pair<String, File>("Time", file));
@@ -115,7 +125,7 @@ public class demo extends JFrame {
                 jfc.showDialog(new JLabel(), "select");
                 File file = jfc.getSelectedFile();
                 if (file != null) {
-                    Controller.Run(new Pair<String, File>("Function", file));
+//                    Controller.Run(new Pair<String, File>("Function", file));
                 }
             }
         });

@@ -3,6 +3,8 @@ package com.horstmann.violet.application.gui.util.chenzuo.Util;
 import ch.ethz.ssh2.*;
 import org.apache.commons.lang3.StringUtils;
 
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseException;
+
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -576,7 +576,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		testcaselabeltab1=new JButton();
 		testcaselabeltab2=new JButton();
 		
-		testcaselabeltab1.setText("最新的测试用例");
+		testcaselabeltab1.setText("本地");
 		testcaselabeltab1.setForeground(new Color(0,0,0));
 		testcaselabeltab1.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		testcaselabeltab1.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
@@ -624,7 +624,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 				testcaselabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,1,1, new Color(142, 155, 188)));
 				testcaselabeltabindex = 1;
 				
-				testcaselabel.setText("最新的测试用例");
+//				testcaselabel.setText("本地");
 				
 				testcasetreeinforpanel.removeAll();
 				testcasetreeinforpanel.add(testcasetreeinforpanel1);
@@ -644,7 +644,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 				testcaselabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,1,1, new Color(142, 155, 188)));
 				testcaselabeltabindex = 1;
 				
-				testcaselabel.setText("最新的测试用例");
+//				testcaselabel.setText("本地");
 				
 				testcasetreeinforpanel.removeAll();
 				testcasetreeinforpanel.add(testcasetreeinforpanel1);
@@ -653,7 +653,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 			}
 		});
 		
-		testcaselabeltab2.setText("数据库中的测试用例");
+		testcaselabeltab2.setText("数据库");
 		testcaselabeltab2.setForeground(new Color(255, 255, 255));
 		testcaselabeltab2.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		testcaselabeltab2.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
@@ -701,7 +701,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 				testcaselabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
 				testcaselabeltabindex = 2;
 				
-				testcaselabel.setText("数据库中的测试用例");
+//				testcaselabel.setText("数据库");
 				
 				testcasetreeinforpanel.removeAll();
 				testcasetreeinforpanel.add(testcasetreeinforpanel2);
@@ -721,7 +721,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 				testcaselabeltabpanel2.setBorder(BorderFactory.createMatteBorder(0,1,1,1, new Color(142, 155, 188)));
 				testcaselabeltabindex = 2;
 				
-				testcaselabel.setText("数据库中的测试用例");
+//				testcaselabel.setText("数据库");
 				
 				testcasetreeinforpanel.removeAll();
 				testcasetreeinforpanel.add(testcasetreeinforpanel2);;
@@ -733,11 +733,11 @@ public class TestCaseConfirmationPanel extends JPanel{
 		testcaselabeltabpanel1.setLayout(new GridLayout());
 		testcaselabeltabpanel1.setBackground(new Color(255,255,255));
 		testcaselabeltabpanel1.setBorder(BorderFactory.createMatteBorder(0,0,1,1, new Color(142, 155, 188)));
-		testcaselabeltabpanel1.setPreferredSize(new Dimension(120, 25));
+		testcaselabeltabpanel1.setPreferredSize(new Dimension(80, 25));
 		testcaselabeltabpanel1.add(testcaselabeltab1);
 		testcaselabeltabpanel2.setLayout(new GridLayout());
 		testcaselabeltabpanel2.setBackground(new Color(77, 96, 130));
-		testcaselabeltabpanel2.setPreferredSize(new Dimension(120, 25));
+		testcaselabeltabpanel2.setPreferredSize(new Dimension(80, 25));
 		testcaselabeltabpanel2.add(testcaselabeltab2);
 
 		testcaselabeltabpanel.setBackground(new Color(41, 57, 85));
@@ -1057,7 +1057,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 										}
 										else{
 											tcd.getTestCaseReportDiagramButtonPanel().setVisible(false);
-											tcd.getTestCaseChartTabbedPanel().setVisible(false);
+											tcd.getTestCaseChartDiagramButtonPanel().setVisible(false);
 											testCaseDataPanels.remove(tcd);
 										}
 										break;

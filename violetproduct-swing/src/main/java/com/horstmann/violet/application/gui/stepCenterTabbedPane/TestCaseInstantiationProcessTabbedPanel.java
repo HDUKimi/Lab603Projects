@@ -27,6 +27,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.plaf.ProgressBarUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.BadLocationException;
 
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
@@ -1007,6 +1008,19 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		JTextArea textarea=mainFrame.getConsolePartPanel().getTextarea4();
 		textarea.append(word+"\n");
 		textarea.setCaretPosition(textarea.getDocument().getLength());
+		
+//		int startindex;
+//		try {
+//			startindex = textarea.getLineEndOffset(textarea.getLineCount()-1);
+////			int endindex=StepTwoArea.getLineEndOffset(index);
+//			textarea.requestFocus();
+//			textarea.setSelectionStart(startindex);
+//			textarea.setSelectionEnd(startindex);
+//		} catch (BadLocationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
 	}
 	
 	public List<Automatic> readAbstractTestCaseSerialFile(String path) {

@@ -1,16 +1,30 @@
 package com.horstmann.violet.application.gui.util.chenzuo.Controller;
 
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseReportTabbedPanel;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.Constants;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.IPDeploy;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.IPNode;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.Pair;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseException;
 import com.horstmann.violet.application.gui.util.chenzuo.Service.HandelService;
 import com.horstmann.violet.application.gui.util.chenzuo.Service.PreConnService;
+import com.horstmann.violet.application.gui.util.chenzuo.Service.ResultService;
+
 import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,12 +41,38 @@ public class Controller {
     private static IPDeploy IP_TYPE_DEPLOY = new IPDeploy();
     // thread pool
     private static ExecutorService executorService = Executors.newCachedThreadPool();
+    
+    public static FutureTask<Integer> handFuture;
+    
+//	private static ThreadPoolExecutor executorService ;
 
+//    private static void printException(Runnable r, Throwable t){
+//		if (t == null && r instanceof Future<?>) {
+//			try {
+//				Future<?> future = (Future<?>) r;
+//				if (future.isDone())
+//					future.get();
+//			} catch (CancellationException ce) {
+//				t = ce;
+//			} catch (ExecutionException ee) {
+//				t = ee.getCause();
+//			} catch (InterruptedException ie) {
+////				Thread.currentThread().interrupt(); // ignore/reset
+//			}
+//		}
+//		if (t != null){
+//			if(t.getMessage().contains("TestCaseException")){
+//				TestCaseReportTabbedPanel.threadexceptionstate=1;
+//			}
+//			logger.error("123564"+t.getMessage(), t);
+//		}
+//    }
+    
     //connect by scp
     private static boolean preCon = true;
 
     // deploy and handle
-    private static void handleMapping(Pair<String, File> data) {
+    private static void handleMapping(Pair<String, File> data){
 
         if (data == null) {
             logger.debug("please choose file to send!");
@@ -56,7 +96,7 @@ public class Controller {
         return null;
     }
 
-    public static void execute(String type, int num, File[] file) {
+    public static void execute(String type, int num, File[] file){
 
         //pre start
         List<IPNode> nodes;
@@ -72,7 +112,18 @@ public class Controller {
                         e.printStackTrace();
                     }
                 }
-                executorService.submit(new HandelService(node, file[i]));
+                Callable<Integer> handCallable=new HandelService(node, file[i]);
+//                executorService.submit(handCallable);
+//                try {
+//                    TimeUnit.SECONDS.sleep(1);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                handCallable.call();
+                handFuture=new FutureTask<>(handCallable);
+                executorService.submit(handFuture);
+//              handfuture.get();
+                
                 i++;
             }
         }
@@ -81,15 +132,30 @@ public class Controller {
 
     public static void Close() {
         // close
-        executorService.shutdown();
+//        executorService.shutdown();
+    	preCon=true;
     }
 
-    public static void Run(Pair<String, File> data, boolean p) {
-        preCon = p;
-        Run(data);
-    }
+//    public static void Run(Pair<String, File> data, boolean p) {
+//        preCon = p;
+//        Run(data);
+//    }
 
-    public static void Run(Pair<String, File> data) {
+    public static void Run(Pair<String, File> data){
+    	ResultService.list.removeAll(ResultService.list);
+    	Constants.ISFINISH.set(false);
+    	
+//    	executorService = new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+//                60L, TimeUnit.SECONDS,
+//                new SynchronousQueue<Runnable>()) {
+//
+//    		protected void afterExecute(Runnable r, Throwable t) {
+//    			super.afterExecute(r, t);
+//    			printException(r, t);
+//    		}
+//    	};
+    	
+    	
         try {
             // deploy, distribute and accept
         	System.out.println("--------------------*******************");
@@ -97,7 +163,7 @@ public class Controller {
             System.out.println("++++++++++++++++++++++++---------------");
         } catch (Exception e) {
             logger.error(e.getMessage());
-        } finally {
+		} finally {
             Close();
         }
     }
