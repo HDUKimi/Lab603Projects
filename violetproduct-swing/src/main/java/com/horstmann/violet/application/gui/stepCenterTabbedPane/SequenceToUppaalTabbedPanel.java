@@ -548,23 +548,23 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //						sequencelistindex=sequencelists.indexOf(filename);
 						
 						String baseUrl = "D:\\ModelDriverProjectFile\\SequenceDiagram\\Violet\\";
-						String baseUrl2 = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\";
+						String baseUrl2 = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\SequenceToUppal\\";
 						String baseUrl3 = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
 						
-						int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
-						if(starttype == 1){
-							baseUrl += "FunctionalTest\\";
-							baseUrl2 += "FunctionalTest\\";
-							baseUrl3 += "FunctionalTest\\";
-						} else if (starttype == 2) {
-							baseUrl += "PerformanceTest\\";
-							baseUrl2 += "PerformanceTest\\";
-							baseUrl3 += "PerformanceTest\\";
-						} else if (starttype == 3) {
-							baseUrl += "TimeTest\\";
-							baseUrl2 += "TimeTest\\";
-							baseUrl3 += "TimeTest\\";
-						}
+//						int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+//						if(starttype == 1){
+//							baseUrl += "FunctionalTest\\";
+//							baseUrl2 += "FunctionalTest\\";
+//							baseUrl3 += "FunctionalTest\\";
+//						} else if (starttype == 2) {
+//							baseUrl += "PerformanceTest\\";
+//							baseUrl2 += "PerformanceTest\\";
+//							baseUrl3 += "PerformanceTest\\";
+//						} else if (starttype == 3) {
+//							baseUrl += "TimeTest\\";
+//							baseUrl2 += "TimeTest\\";
+//							baseUrl3 += "TimeTest\\";
+//						}
 						
 						System.out.println(sequencelistindex+"   "+sequencelists.size()+"   "+baseUrl + filename);
 						String path = baseUrl + filename + ".seq.violet.xml";

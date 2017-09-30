@@ -41,6 +41,15 @@ public class demo extends JFrame {
 			System.out.println("*************"+e.getMessage());;
 		}
         
+//        File file = new File(System.getProperty("user.dir")+"//src//case#1.xml");
+//        try {
+//			Controller.Run(new Pair<String, File>("Coptermaster", file));
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println("*************"+e.getMessage());;
+//		}
+        
 //        File file = new File(System.getProperty("user.dir")+"//src//xx1#1.xml");
 //        Controller.Run(new Pair<String, File>("Function", file));
         

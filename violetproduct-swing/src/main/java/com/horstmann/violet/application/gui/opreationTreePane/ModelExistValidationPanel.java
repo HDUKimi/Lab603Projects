@@ -1056,11 +1056,12 @@ public class ModelExistValidationPanel extends JPanel{
 					
 					try {
 						
-						ev=new ExistVerification(TimingEAtoUppaal.getDiagramDataName()+".xml");
+						ev=new ExistVerification("D:\\ModelDriverProjectFile\\WJXML\\"+filename+"\\"+TimingEAtoUppaal.getDiagramDataName()+".xml");
+//						ev=new ExistVerification("D:\\ModelDriverProjectFile\\WJXML\\EA4.1.0 ¹¦ÄÜ³¡¾°1\\UAV.xml");
 						
 						uppaalmessagelist=ev.getMessages();
 						
-						RowStringsForDisplay row=CompareEAtoAutomata.compareFromXMLPath(path, TimingEAtoUppaal.getDiagramDataName()+".xml");
+						RowStringsForDisplay row=CompareEAtoAutomata.compareFromXMLPath(path, "D:\\ModelDriverProjectFile\\WJXML\\"+filename+"\\"+TimingEAtoUppaal.getDiagramDataName()+".xml");
 						
 						stateCompareList =row.getStateCompareList();
 						messageCompareList = row.getMessageCompareList();
@@ -1305,7 +1306,7 @@ public class ModelExistValidationPanel extends JPanel{
 		try {
 
 			TimingEAtoUppaal.transEA(filename,path,mainFrame,0);
-			LayoutUppaal.layout(TimingEAtoUppaal.getDiagramDataName() + ".xml");
+			LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\"+filename+"\\"+TimingEAtoUppaal.getDiagramDataName() + ".xml");
 			String filename1 = TransToVioletUppaal.TransToViolet(filename,2,2);
 
 			System.out.println("filename1:" + filename1 + " TimingEAtoUppaal.getDiagramDataName():"

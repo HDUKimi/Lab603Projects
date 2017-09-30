@@ -180,6 +180,10 @@ public class WriteVioletTimingDiagram {
     	    	{
     	    		
     	    		String tempString1[]=runstatesSplit[splitIndex].split("\\=");// 
+    	    		System.out.println("---------"+tempString1.length+" - "+VioletHorizontalChilds.size()+" - "+(horizontalsize-1-horizontalIndex));
+    	    		if((horizontalsize-1-horizontalIndex)<0){
+    	    			break;
+    	    		}
     	    		VioletHorizontalChilds.get(horizontalsize-1-horizontalIndex).setState(tempString1[1]);//设置状态字段 
     	    		splitIndex+=1;//定位到下一个字段
     	    		String tempString2[]=runstatesSplit[splitIndex].split("\\=");    	    		
@@ -234,7 +238,8 @@ public class WriteVioletTimingDiagram {
     	      for(int statesIndex=0;statesIndex<ALLstates.length;statesIndex++)
     	      {    	 
     	    	 
-    	    	  if(hchild.getState().equals(ALLstates[statesIndex]))
+//    	    	  if(hchild.getState().equals(ALLstates[statesIndex]))
+    	    	  if(ALLstates[statesIndex].equals(hchild.getState()))
     	    	  {    	    
     	    		
     	    		  String Y=String.valueOf(Integer.parseInt(Bottom)-30*(statesIndex+1));
@@ -305,7 +310,7 @@ public class WriteVioletTimingDiagram {
     							{   
     					
     						        int startflag=statelifeline.getHorizonchilds().indexOf(hchildinfo);
-    						        
+    						        System.out.println("+-+-+-+- "+messageInfo.getName()+" - "+statelifeline.getHorizonchilds()+" - "+hchildinfo+" - "+startflag+" - "+String.valueOf(startflag));
     						        messageInfo.setBelongtostartflag(String.valueOf(startflag));
     						       
     							}
@@ -426,6 +431,23 @@ public class WriteVioletTimingDiagram {
     	belongtostartflag.addText(message.getBelongtostartflag());
     	Element belongtoendflag=SendMessageEdge.addElement("belongtoendflag");
     	belongtoendflag.addText(message.getBelongtoendflag());
+//    	String flag;
+//    	Element belongtostartflag=SendMessageEdge.addElement("belongtostartflag");
+//    	if(message.getBelongtostartflag()!=null){
+//    		flag=message.getBelongtostartflag();
+//    	}
+//    	else{
+//    		flag="0";
+//    	}
+//    	belongtostartflag.addText(flag);
+//    	Element belongtoendflag=SendMessageEdge.addElement("belongtoendflag");
+//    	if(message.getBelongtoendflag()!=null){
+//    		flag=message.getBelongtoendflag();
+//    	}
+//    	else{
+//    		flag="0";
+//    	}
+//    	belongtoendflag.addText(flag);
    	
     }  	
     	outputXml(doc,filename);

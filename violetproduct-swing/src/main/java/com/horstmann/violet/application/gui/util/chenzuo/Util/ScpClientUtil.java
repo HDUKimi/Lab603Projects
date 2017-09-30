@@ -15,6 +15,7 @@ public class ScpClientUtil {
     private Connection conn;
     private String ip;
     private String username = "root";
+//    private String username = "lab603-1";
     private String password = "1";
     boolean flg=false;
 
