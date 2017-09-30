@@ -402,23 +402,23 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 //		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
 		
 		selectUppaal=mainFrame.getTestCaseGenerationPanel().getSelectUppaalCheckBox().getText();
-		selectCover=mainFrame.getTestCaseGenerationPanel().getSelectCoverCheckBox().getText();
-		System.out.println(selectUppaal+"  ------  "+selectCover);
+//		selectCover=mainFrame.getTestCaseGenerationPanel().getSelectCoverCheckBox().getText();
+//		System.out.println(selectUppaal+"  ------  "+selectCover);
 		
-		selectCoverState=0;
-		if(selectCover.equals("×´Ì¬¸²¸Ç")){
-			selectCoverState=0;
-		}
-		else if(selectCover.equals("Ç¨ÒÆ¸²¸Ç")){
-			selectCoverState=1;
-		}
+		selectCoverState=mainFrame.getTestCaseGenerationPanel().FindCoverCheckBoxIndex(mainFrame.getTestCaseGenerationPanel().getSelectCoverCheckBox());
+//		if(selectCover.equals("×´Ì¬¸²¸Ç")){
+//			selectCoverState=0;
+//		}
+//		else if(selectCover.equals("Ç¨ÒÆ¸²¸Ç")){
+//			selectCoverState=1;
+//		}
 //		else if(selectCover.equals("ÐÔÄÜ²âÊÔ")){
 //			selectCoverState=2;
 //		}
 		
 		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\";
 		
-		starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+		starttype=mainFrame.getTestCaseGenerationPanel().FindRadioButtonIndex(mainFrame.getTestCaseGenerationPanel().getSelectTestRadioButton())+1;
 		if(starttype == 1){
 			baseUrl += "\\FunctionalTest\\";
 		} else if (starttype == 2) {

@@ -33,19 +33,33 @@ public class WriteVioletUppaal {
     		List<Element>locations=template.elements("location");
     		List<Element>transitions=template.elements("transition");
     		Element init =template.element("init");
-    		String id=locations.get(0).attributeValue("id");//默认初始节点是第一个
+    		
+    		int initstateindex=0;
+    		for(int i=0;i<locations.size();i++){
+    			String state=locations.get(i).attributeValue("init");
+    			if("true".equals(state)){
+    				initstateindex=i;
+    				break;
+    			}
+    		}
+    		
+    		String id=locations.get(initstateindex).attributeValue("id");//默认初始节点是第一个
     		circularstartnode.SetID(id);
     		circularstartnode.SetChilrden_id(UUID.randomUUID().toString());//这里随便设置ID
     		circularstartnode.SetLocation_id(UUID.randomUUID().toString());
-    		circularstartnode.SetLocation_x(locations.get(0).attributeValue("x"));
-    		circularstartnode.SetLocation_y(locations.get(0).attributeValue("y"));
+    		circularstartnode.SetLocation_x(locations.get(initstateindex).attributeValue("x"));
+    		circularstartnode.SetLocation_y(locations.get(initstateindex).attributeValue("y"));
     		circularstartnode.setUnderlocation_id(UUID.randomUUID().toString());
     		circularstartnode.SetName_id(UUID.randomUUID().toString());
-    	
-    		circularstartnode.SetText(locations.get(0).element("name").getText());
+    		circularstartnode.SetText(locations.get(initstateindex).element("name").getText());
     		//给起点设置属性
     		//给其余的点设置属性
-    		for(Element temp : locations.subList(1, locations.size())){
+    		int index=-1;
+    		for(Element temp : locations){
+    			index++;
+    			if(index==initstateindex){
+    				continue;
+    			}
     			CircularNodeInfo.add(new CircularNode());
     			String id1=temp.attributeValue("id");
     			//locations包含着起点

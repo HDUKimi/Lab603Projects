@@ -21,11 +21,13 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTree;
@@ -80,9 +82,16 @@ public class TestCaseGenerationPanel extends JPanel {
 	private List<String> uppaallists=new ArrayList<String>();
 	
 	private JCheckBox selectCoverCheckBox;
-	private JCheckBox[] coverCheckBoxList;
+	private JCheckBox[][] coverCheckBoxList;
 	
+	private List<String> testlists=new ArrayList<String>();
 	private List<String> coverlists=new ArrayList<String>();
+	
+	private JRadioButton selectTestRadioButton;
+	private JRadioButton[] testRadioButtonList;
+	
+	private int selectTestType=0;
+	private int selectCoverType=-1;
 	
 	public TestCaseGenerationPanel(MainFrame mainFrame) {
 		// TODO Auto-generated constructor stub			
@@ -476,6 +485,7 @@ public class TestCaseGenerationPanel extends JPanel {
 				else{
 					coverscrollpanel.setVisible(true);
 				}
+				
 			}
 		});
 		
@@ -496,6 +506,10 @@ public class TestCaseGenerationPanel extends JPanel {
 		covercheckboxpanel.setBorder(BorderFactory.createEmptyBorder(0, 7, 0, 0));
 		covercheckboxpanel.setBackground(new Color(255, 255, 255));
 
+		testlists.add("功能测试");
+		testlists.add("性能测试");
+		testlists.add("时间约束测试");
+		
 		coverlists.add("状态覆盖");
 		coverlists.add("迁移覆盖");
 //		coverlists.add("性能测试");
@@ -520,40 +534,198 @@ public class TestCaseGenerationPanel extends JPanel {
 		// TODO Auto-generated method stub
 		
 		covercheckboxpanel.removeAll();
-		coverCheckBoxList=new JCheckBox[coverlists.size()];
-		for(int i=0;i<coverlists.size();i++){
-			coverCheckBoxList[i]=new JCheckBox(coverlists.get(i));
-			coverCheckBoxList[i].setOpaque(false);
+		
+//		coverCheckBoxList=new JCheckBox[coverlists.size()];
+//		for(int i=0;i<coverlists.size();i++){
+//			coverCheckBoxList[i]=new JCheckBox(coverlists.get(i));
+//			coverCheckBoxList[i].setOpaque(false);
+//			covercheckboxpanel.add(Box.createVerticalStrut(7));
+//			covercheckboxpanel.add(coverCheckBoxList[i]);
+//		}
+		
+		testRadioButtonList=new JRadioButton[testlists.size()];
+		coverCheckBoxList=new JCheckBox[testlists.size()][coverlists.size()];
+		ButtonGroup buttonGroup=new ButtonGroup();
+		
+		for(int i=0;i<testlists.size();i++){
+			
+			testRadioButtonList[i]=new JRadioButton(testlists.get(i));
+			testRadioButtonList[i].setOpaque(false);
+			buttonGroup.add(testRadioButtonList[i]);
 			covercheckboxpanel.add(Box.createVerticalStrut(7));
-			covercheckboxpanel.add(coverCheckBoxList[i]);
+			covercheckboxpanel.add(testRadioButtonList[i]);
+			
+			if(i==1){
+				continue;
+			}
+			
+			for(int j=0;j<coverlists.size();j++){
+				coverCheckBoxList[i][j]=new JCheckBox(coverlists.get(j));
+				coverCheckBoxList[i][j].setOpaque(false);
+				coverCheckBoxList[i][j].setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+				covercheckboxpanel.add(Box.createVerticalStrut(7));
+				covercheckboxpanel.add(coverCheckBoxList[i][j]);
+			}
+			
 		}
 		
-		selectCoverCheckBox=new JCheckBox();
-		
-		for(final JCheckBox jcb:coverCheckBoxList){
-			
-			jcb.addActionListener(new ActionListener() {
+		selectTestRadioButton=new JRadioButton();
+		for(final JRadioButton radioButton:testRadioButtonList){
+			radioButton.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
 					
-					if(jcb.isSelected()){
-						selectCoverCheckBox.setSelected(false);
-						selectCoverCheckBox=jcb;
+					if(radioButton.equals(selectTestRadioButton)){
+						
 					}
 					else{
-						selectCoverCheckBox=new JCheckBox();
+						selectTestRadioButton.setSelected(false);
+						selectTestRadioButton=radioButton;
+						selectTestRadioButton.setSelected(true);
+						
+						selectCoverCheckBox.setSelected(false);
+						if(FindRadioButtonIndex(radioButton)==1){
+							selectCoverCheckBox=new JCheckBox();
+						}
+						else{
+							selectCoverCheckBox=coverCheckBoxList[FindRadioButtonIndex(radioButton)][0];
+							selectCoverCheckBox.setSelected(true);
+						}
 					}
 					
 				}
 			});
-			
 		}
 		
-		coverCheckBoxList[0].setSelected(true);
-		selectCoverCheckBox=coverCheckBoxList[0];//默认选中
+		selectCoverCheckBox=new JCheckBox();
+		for(int i=0;i<coverCheckBoxList.length;i++){
+			if(i==1){
+				continue;
+			}
+			for(int j=0;j<coverCheckBoxList[i].length;j++){
+				final JCheckBox checkBox=coverCheckBoxList[i][j];
+				checkBox.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						if(checkBox.equals(selectCoverCheckBox)){
+							checkBox.setSelected(true);
+						}
+						else{
+							selectCoverCheckBox.setSelected(false);
+							selectCoverCheckBox=checkBox;
+							selectCoverCheckBox.setSelected(true);
+							
+							selectTestRadioButton.setSelected(false);
+							selectTestRadioButton=testRadioButtonList[FindCoverCheckBoxFrontRadioButtonIndex(checkBox)];
+							selectTestRadioButton.setSelected(true);
+						}
+					}
+				});
+			}
+		}
 		
+//		for(int i=0;i<coverCheckBoxList.length;i++){
+//			if(i==1){
+//				continue;
+//			}
+//			for(int j=0;j<coverCheckBoxList[i].length;j++){
+//				final JCheckBox checkBox=coverCheckBoxList[i][j];
+//				checkBox.addActionListener(new ActionListener() {
+//					
+//					@Override
+//					public void actionPerformed(ActionEvent e) {
+//						// TODO Auto-generated method stub
+//						if(checkBox.isSelected()){
+//							selectCoverCheckBox.setSelected(false);
+//							selectCoverCheckBox=checkBox;
+//							selectCoverType=j+1;
+//						}
+//						else{
+//							selectCoverCheckBox=new JCheckBox();
+//						}
+//					}
+//				});
+//			}
+//		}
+		
+//		for(final JCheckBox jcb:coverCheckBoxList){
+//			
+//			jcb.addActionListener(new ActionListener() {
+//				
+//				@Override
+//				public void actionPerformed(ActionEvent e) {
+//					// TODO Auto-generated method stub
+//					
+//					if(jcb.isSelected()){
+//						selectCoverCheckBox.setSelected(false);
+//						selectCoverCheckBox=jcb;
+//					}
+//					else{
+//						selectCoverCheckBox=new JCheckBox();
+//					}
+//					
+//				}
+//			});
+//			
+//		}
+		
+		testRadioButtonList[0].setSelected(true);
+		coverCheckBoxList[0][0].setSelected(true);
+		selectTestType=1;
+		selectCoverType=1;
+		selectTestRadioButton=testRadioButtonList[0];
+		selectCoverCheckBox=coverCheckBoxList[0][0];//默认选中
+		
+	}
+
+
+	public int FindCoverCheckBoxFrontRadioButtonIndex(JCheckBox checkBox) {
+		// TODO Auto-generated method stub
+		
+		for(int i=0;i<coverCheckBoxList.length;i++){
+			if(i==1){
+				continue;
+			}
+			for(int j=0;j<coverCheckBoxList[i].length;j++){
+				if(checkBox.equals(coverCheckBoxList[i][j])){
+					return i;
+				}
+			}
+		}
+		
+		return -1;
+	}
+	
+	public int FindCoverCheckBoxIndex(JCheckBox checkBox) {
+		// TODO Auto-generated method stub
+		
+		for(int i=0;i<coverCheckBoxList.length;i++){
+			if(i==1){
+				continue;
+			}
+			for(int j=0;j<coverCheckBoxList[i].length;j++){
+				if(checkBox.equals(coverCheckBoxList[i][j])){
+					return j;
+				}
+			}
+		}
+		
+		return -1;
+	}
+
+
+	public int FindRadioButtonIndex(JRadioButton radioButton) {
+		// TODO Auto-generated method stub
+		
+		for(int i=0;i<testRadioButtonList.length;i++){
+			if(radioButton.equals(testRadioButtonList[i])){
+				return i;
+			}
+		}
+		return -1;
 	}
 
 
@@ -622,8 +794,13 @@ public class TestCaseGenerationPanel extends JPanel {
 	}
 
 
-	public JCheckBox[] getCoverCheckBoxList() {
-		return coverCheckBoxList;
+//	public JCheckBox[] getCoverCheckBoxList() {
+//		return coverCheckBoxList;
+//	}
+
+
+	public JRadioButton getSelectTestRadioButton() {
+		return selectTestRadioButton;
 	}
 
 

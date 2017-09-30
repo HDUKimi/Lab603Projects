@@ -130,4 +130,13 @@ public class UppaalLocation {
 	public void setNeedForAutomata(boolean needForAutomata) {
 		this.needForAutomata = needForAutomata;
 	}
+
+	@Override
+	public String toString() {
+		return "UppaalLocation [startTimeList=" + startTimeList + ", endTimeList=" + endTimeList + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", finl=" + finl + ", init=" + init + ", Name=" + Name + ", id="
+				+ id + ", Type=" + Type + ", needForAutomata=" + needForAutomata + ", Invariant=" + Invariant
+				+ ", timeDurationList=" + timeDurationList + ", lineEAID=" + lineEAID + "]";
+	}
+	
 }

@@ -93,6 +93,7 @@ public class TestCaseInstantiationPanel extends JPanel{
 	private JCheckBox selectAbstractCheckBox;
 	private JCheckBox[] abstractCheckBoxList;
 	
+	
 	private List<String> abstractlists=new ArrayList<String>();
 	
 	public TestCaseInstantiationPanel(MainFrame mainFrame) {
