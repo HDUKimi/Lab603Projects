@@ -225,7 +225,7 @@ public class HomeAllTabbedPanel extends JPanel {
 		final int screenWidth = (int) screenSize.getWidth();
 		final int screenHeight = (int) screenSize.getHeight();
 
-		inforleftpanel.setPreferredSize(new Dimension(screenWidth / 5, screenHeight));
+		inforleftpanel.setPreferredSize(new Dimension(screenWidth*4 / 15, screenHeight));
 		inforleftpanel.setBackground(Color.WHITE);
 		inforleftpanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(214, 214, 214)));
 		// inforleftpanel.setLayout(new FlowLayout(FlowLayout.LEADING,0,0));

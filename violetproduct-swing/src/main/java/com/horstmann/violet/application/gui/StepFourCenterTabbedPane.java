@@ -69,8 +69,8 @@ public class StepFourCenterTabbedPane extends JPanel {
 		testCaseInstantiationProcessTabbedPanel=new TestCaseInstantiationProcessTabbedPanel(mainFrame);
 		testCaseProduceTabbedPanel=new TestCaseProduceTabbedPanel(mainFrame);
 		testCaseInstantiationTabbedPanel=new TestCaseInstantiationTabbedPanel(mainFrame);
-		testCaseShowTabbedPanel=new TestCaseShowTabbedPanel(mainFrame);
-		borderTestCaseShowTabbedPanel=new TestCaseShowTabbedPanel(mainFrame);
+		testCaseShowTabbedPanel=new TestCaseShowTabbedPanel(mainFrame,1);
+		borderTestCaseShowTabbedPanel=new TestCaseShowTabbedPanel(mainFrame,1);
 		borderTestCaseShowTabbedPanel.getMoviepanel().getMovieLabel().setText("正在生成边界值测试用例");
 
 		buttonPanel = new JPanel();

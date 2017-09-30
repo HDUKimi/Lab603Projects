@@ -334,7 +334,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		
 		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
 		
-		starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+		starttype=mainFrame.getTestCaseInstantiationPanel().FindRadioButtonIndex(mainFrame.getTestCaseInstantiationPanel().getSelectTestRadioButton())+1;
 		if(starttype == 1){
 			baseUrl += "\\FunctionalTest\\";
 		} else if (starttype == 2) {
@@ -342,6 +342,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		} else if (starttype == 3) {
 			baseUrl += "\\TimeTest\\";
 		}
+		
+		mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().setStarttype(starttype);
 		
 		selectAbstractPath = baseUrl + selectAbstract + ".txt";
 		

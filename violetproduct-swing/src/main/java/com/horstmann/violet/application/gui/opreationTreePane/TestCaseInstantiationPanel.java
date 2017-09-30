@@ -25,12 +25,14 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
@@ -91,10 +93,13 @@ public class TestCaseInstantiationPanel extends JPanel{
 	private JTable instantiatetable;
 	
 	private JCheckBox selectAbstractCheckBox;
-	private JCheckBox[] abstractCheckBoxList;
+	private List<List<JCheckBox>> abstractCheckBoxList=new ArrayList<>();
 	
+	private List<String> testlists=new ArrayList<String>();
+	private List<List<String>> abstractlists=new ArrayList<>();
 	
-	private List<String> abstractlists=new ArrayList<String>();
+	private JRadioButton selectTestRadioButton;
+	private JRadioButton[] testRadioButtonList;
 	
 	public TestCaseInstantiationPanel(MainFrame mainFrame) {
 		// TODO Auto-generated constructor stub			
@@ -236,6 +241,10 @@ public class TestCaseInstantiationPanel extends JPanel{
 		instantiatetoolbutton1=new JButton();
 		instantiatetablepanel=new JPanel();
 		
+		testlists.add("功能测试");
+		testlists.add("性能测试");
+		testlists.add("时间约束测试");
+		
 		initFileList();
 		
 		initAbstractPanel();
@@ -346,9 +355,9 @@ public class TestCaseInstantiationPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				for(JCheckBox jcb:abstractCheckBoxList){
-					jcb.setSelected(false);
-				}
+//				for(JCheckBox jcb:abstractCheckBoxList){
+//					jcb.setSelected(false);
+//				}
 				
 			}
 		});
@@ -393,6 +402,7 @@ public class TestCaseInstantiationPanel extends JPanel{
 					abstractscrollpanel.setVisible(true);
 					ChangeRepaint();
 				}
+				
 			}
 		});
 		
@@ -455,6 +465,8 @@ public class TestCaseInstantiationPanel extends JPanel{
 		initFileList();
 		addCheckBoxToAbstractcheckboxpanel();
 		
+		ChangeRepaint();
+		
 	}
 
 
@@ -462,44 +474,168 @@ public class TestCaseInstantiationPanel extends JPanel{
 		// TODO Auto-generated method stub
 		
 		abstractcheckboxpanel.removeAll();
-		abstractCheckBoxList=new JCheckBox[abstractlists.size()];
-		for(int i=0;i<abstractlists.size();i++){
-			abstractCheckBoxList[i]=new JCheckBox(abstractlists.get(i));
-			abstractCheckBoxList[i].setOpaque(false);
-			abstractcheckboxpanel.add(Box.createVerticalStrut(7));
-			abstractcheckboxpanel.add(abstractCheckBoxList[i]);
-			if(i==0){
-				abstractCheckBoxList[i].setSelected(true);
-			}
-		}
 		
-		if(abstractCheckBoxList.length>0){
-			selectAbstractCheckBox=abstractCheckBoxList[0];
-		}
-		else{
-			selectAbstractCheckBox=new JCheckBox();
-		}
+//		abstractCheckBoxList=new JCheckBox[abstractlists.get(2).size()];
+//		for(int i=0;i<abstractlists.get(2).size();i++){
+//			abstractCheckBoxList[i]=new JCheckBox(abstractlists.get(2).get(i));
+//			abstractCheckBoxList[i].setOpaque(false);
+//			abstractcheckboxpanel.add(Box.createVerticalStrut(7));
+//			abstractcheckboxpanel.add(abstractCheckBoxList[i]);
+//			if(i==0){
+//				abstractCheckBoxList[i].setSelected(true);
+//			}
+//		}
 		
-		for(final JCheckBox jcb:abstractCheckBoxList){
+		testRadioButtonList=new JRadioButton[testlists.size()];
+		abstractCheckBoxList=new ArrayList<>();
+		ButtonGroup buttonGroup=new ButtonGroup();
+		
+		for(int i=0;i<testlists.size();i++){
 			
-			jcb.addActionListener(new ActionListener() {
+			testRadioButtonList[i]=new JRadioButton(testlists.get(i));
+			testRadioButtonList[i].setOpaque(false);
+			buttonGroup.add(testRadioButtonList[i]);
+			abstractcheckboxpanel.add(Box.createVerticalStrut(7));
+			abstractcheckboxpanel.add(testRadioButtonList[i]);
+			
+			List<JCheckBox> checkBoxs=new ArrayList<>();
+			for(int j=0;j<abstractlists.get(i).size();j++){
+				JCheckBox checkBox=new JCheckBox(abstractlists.get(i).get(j));
+				checkBox.setOpaque(false);
+				checkBox.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+				abstractcheckboxpanel.add(Box.createVerticalStrut(7));
+				abstractcheckboxpanel.add(checkBox);
+				checkBoxs.add(checkBox);
+			}
+			abstractCheckBoxList.add(checkBoxs);			
+		}
+		
+		selectTestRadioButton=new JRadioButton();
+		for(final JRadioButton radioButton:testRadioButtonList){
+			radioButton.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
 					
-					if(jcb.isSelected()){
-						selectAbstractCheckBox.setSelected(false);
-						selectAbstractCheckBox=jcb;
+					if(radioButton.equals(selectTestRadioButton)){
+						
 					}
 					else{
-						selectAbstractCheckBox=new JCheckBox();
+						selectTestRadioButton.setSelected(false);
+						selectTestRadioButton=radioButton;
+						selectTestRadioButton.setSelected(true);
+						
+						selectAbstractCheckBox.setSelected(false);
+						selectAbstractCheckBox=abstractCheckBoxList.get(FindRadioButtonIndex(radioButton)).get(0);
+						selectAbstractCheckBox.setSelected(true);
 					}
+					
 				}
 			});
-			
 		}
 		
+		selectAbstractCheckBox=new JCheckBox();
+		for(int i=0;i<abstractCheckBoxList.size();i++){
+			for(int j=0;j<abstractCheckBoxList.get(i).size();j++){
+				final JCheckBox checkBox=abstractCheckBoxList.get(i).get(j);
+				checkBox.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						if(checkBox.equals(selectAbstractCheckBox)){
+							checkBox.setSelected(true);
+						}
+						else{
+							selectAbstractCheckBox.setSelected(false);
+							selectAbstractCheckBox=checkBox;
+							selectAbstractCheckBox.setSelected(true);
+							
+							selectTestRadioButton.setSelected(false);
+							selectTestRadioButton=testRadioButtonList[FindCoverCheckBoxFrontRadioButtonIndex(checkBox)];
+							selectTestRadioButton.setSelected(true);
+						}
+					}
+				});
+			}
+		}
+		
+		
+//		if(abstractCheckBoxList.length>0){
+//			selectAbstractCheckBox=abstractCheckBoxList[0][0];
+//		}
+//		else{
+//			selectAbstractCheckBox=new JCheckBox();
+//		}
+//		
+//		for(final JCheckBox jcb:abstractCheckBoxList[0]){
+//			
+//			jcb.addActionListener(new ActionListener() {
+//				
+//				@Override
+//				public void actionPerformed(ActionEvent e) {
+//					// TODO Auto-generated method stub
+//					
+//					if(jcb.isSelected()){
+//						selectAbstractCheckBox.setSelected(false);
+//						selectAbstractCheckBox=jcb;
+//					}
+//					else{
+//						selectAbstractCheckBox=new JCheckBox();
+//					}
+//				}
+//			});
+//			
+//		}
+		
+		testRadioButtonList[0].setSelected(true);
+		abstractCheckBoxList.get(0).get(0).setSelected(true);
+		selectTestRadioButton=testRadioButtonList[0];
+		selectAbstractCheckBox=abstractCheckBoxList.get(0).get(0);//默认选中
+		
+	}
+	
+	public int FindCoverCheckBoxFrontRadioButtonIndex(JCheckBox checkBox) {
+		// TODO Auto-generated method stub
+		
+		for(int i=0;i<abstractCheckBoxList.size();i++){
+			for(int j=0;j<abstractCheckBoxList.get(i).size();j++){
+				if(checkBox.equals(abstractCheckBoxList.get(i).get(j))){
+					return i;
+				}
+			}
+		}
+		
+		return -1;
+	}
+	
+//	public int FindCoverCheckBoxIndex(JCheckBox checkBox) {
+//		// TODO Auto-generated method stub
+//		
+//		for(int i=0;i<coverCheckBoxList.length;i++){
+//			if(i==1){
+//				continue;
+//			}
+//			for(int j=0;j<coverCheckBoxList[i].length;j++){
+//				if(checkBox.equals(coverCheckBoxList[i][j])){
+//					return j;
+//				}
+//			}
+//		}
+//		
+//		return -1;
+//	}
+
+
+	public int FindRadioButtonIndex(JRadioButton radioButton) {
+		// TODO Auto-generated method stub
+		
+		for(int i=0;i<testRadioButtonList.length;i++){
+			if(radioButton.equals(testRadioButtonList[i])){
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	private void initInstantiatePanel() {
@@ -615,17 +751,18 @@ public class TestCaseInstantiationPanel extends JPanel{
 
 	public void initFileList() {
 		
-		int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
-		
-		File[] filelists=getAllFileByDiagramType(starttype);
-	    for(File file : filelists)
-	    {
-	    	String fileName=file.getName();
-	    	if(fileName.lastIndexOf("Abstract.txt")>0){
-	    		abstractlists.add(fileName.substring(0, fileName.lastIndexOf(".txt")));
-	    	}
-	    	
-	    }
+		for(int i=1;i<=3;i++){
+			File[] filelists=getAllFileByDiagramType(i);
+			List<String> filenames=new ArrayList<>();
+		    for(File file : filelists)
+		    {
+		    	String fileName=file.getName();
+		    	if(fileName.lastIndexOf("Abstract.txt")>0){
+		    		filenames.add(fileName.substring(0, fileName.lastIndexOf(".txt")));
+		    	}
+		    }
+		    abstractlists.add(filenames);
+		}
 	}
 	
 	/**
@@ -674,9 +811,14 @@ public class TestCaseInstantiationPanel extends JPanel{
 	}
 
 
-	public JCheckBox[] getAbstractCheckBoxList() {
-		return abstractCheckBoxList;
+	public JRadioButton getSelectTestRadioButton() {
+		return selectTestRadioButton;
 	}
+
+
+//	public JCheckBox[] getAbstractCheckBoxList() {
+//		return abstractCheckBoxList;
+//	}
 	
 	
 

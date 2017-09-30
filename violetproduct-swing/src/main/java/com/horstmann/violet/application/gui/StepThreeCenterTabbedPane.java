@@ -112,7 +112,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		testCaseSortContrastTabbedPanel=new TestCaseSortContrastTabbedPanel(mainFrame,workspace);
 		testCaseProduceTabbedPanel=new TestCaseProduceTabbedPanel(mainFrame);
 		testCaseInstantiationTabbedPanel=new TestCaseInstantiationTabbedPanel(mainFrame);
-		testCaseShowTabbedPanel=new TestCaseShowTabbedPanel(mainFrame);
+		testCaseShowTabbedPanel=new TestCaseShowTabbedPanel(mainFrame,1);
 
 		buttonPanel = new JPanel();
 		diagramPanel = new JPanel();

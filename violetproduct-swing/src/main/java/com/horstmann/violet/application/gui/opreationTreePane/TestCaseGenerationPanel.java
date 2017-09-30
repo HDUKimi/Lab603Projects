@@ -455,7 +455,7 @@ public class TestCaseGenerationPanel extends JPanel {
 	private void initCoverPanel() {
 		// TODO Auto-generated method stub
 		
-		coverlabel.setText("覆盖条件");
+		coverlabel.setText("测试方式与覆盖条件");
 		coverlabel.setForeground(new Color(0,0,0));
 		coverlabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		coverlabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));

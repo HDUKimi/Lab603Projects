@@ -23,6 +23,7 @@ import com.horstmann.violet.application.gui.MainFrame;
 public class TestCaseShowTabbedPanel extends JPanel{
 
 	private MainFrame mainFrame;
+	private int starttype;
 
 	private JPanel toolpanel;
 	private MoviePanel moviepanel;
@@ -40,9 +41,10 @@ public class TestCaseShowTabbedPanel extends JPanel{
 	private List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
 	private List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
 
-	public TestCaseShowTabbedPanel(MainFrame mainframe) {
+	public TestCaseShowTabbedPanel(MainFrame mainframe, int starttype) {
 
 		this.mainFrame = mainframe;
+		this.starttype=starttype;
 
 		toolpanel = new JPanel();
 		moviepanel = new MoviePanel();
@@ -97,7 +99,9 @@ public class TestCaseShowTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+//				int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+				
+				System.out.println(starttype);
 				
 				if(starttype==1){
 					
@@ -145,7 +149,8 @@ public class TestCaseShowTabbedPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				int starttype = mainFrame.getHomeAllTabbedPanel().getStarttype();
+//				int starttype = mainFrame.getHomeAllTabbedPanel().getStarttype();
+				System.out.println(starttype);
 
 				if (starttype == 1) {
 
@@ -269,7 +274,14 @@ public class TestCaseShowTabbedPanel extends JPanel{
 	public JPanel getTableresultpanel() {
 		return tableresultpanel;
 	}
-	
+
+	public int getStarttype() {
+		return starttype;
+	}
+
+	public void setStarttype(int starttype) {
+		this.starttype = starttype;
+	}
 	
 	
 }
