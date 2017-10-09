@@ -734,9 +734,9 @@ public class TestCaseGenerationPanel extends JPanel {
 
 	public void initFileList() {
 		
-		int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+//		int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
 		
-		File[] filelists=getAllFileByDiagramType(starttype);
+		File[] filelists=getAllFileByDiagramType(0);
 	    for(File file : filelists)
 	    {
 	    	String fileName=file.getName();

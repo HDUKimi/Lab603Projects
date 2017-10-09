@@ -85,7 +85,7 @@ public class Controller {
             //1.spilt file
             files = fileSpilt(data);
             //2.choose server
-            execute(type, 2, files);
+//            execute(type, 2, files);
         } else {
             execute(type, 1, files);
         }
@@ -93,6 +93,9 @@ public class Controller {
 
     /////to do
     private static File[] fileSpilt(Pair<String, File> data) {
+    	
+    	
+    	
         return null;
     }
 

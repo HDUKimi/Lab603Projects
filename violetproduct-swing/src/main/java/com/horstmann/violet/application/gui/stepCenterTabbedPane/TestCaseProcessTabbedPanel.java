@@ -417,16 +417,17 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 //			selectCoverState=2;
 //		}
 		
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\";
+		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\SequenceToUppal\\";
 		
 		starttype=mainFrame.getTestCaseGenerationPanel().FindRadioButtonIndex(mainFrame.getTestCaseGenerationPanel().getSelectTestRadioButton())+1;
-		if(starttype == 1){
-			baseUrl += "\\FunctionalTest\\";
-		} else if (starttype == 2) {
-			baseUrl += "\\PerformanceTest\\";
-		} else if (starttype == 3) {
-			baseUrl += "\\TimeTest\\";
-		}
+		
+//		if(starttype == 1){
+//			baseUrl += "\\FunctionalTest\\";
+//		} else if (starttype == 2) {
+//			baseUrl += "\\PerformanceTest\\";
+//		} else if (starttype == 3) {
+//			baseUrl += "\\TimeTest\\";
+//		}
 		
 		selectUppaalPath = baseUrl + selectUppaal + ".xml";
 		

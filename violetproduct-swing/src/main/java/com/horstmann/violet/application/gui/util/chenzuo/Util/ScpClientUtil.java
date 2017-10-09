@@ -114,7 +114,7 @@ public class ScpClientUtil {
     }
 
     public static void main(String[] args) {
-        ScpClientUtil rec = new ScpClientUtil("10.1.16.93");
+        ScpClientUtil rec = new ScpClientUtil("10.1.16.89");
         
         //执行命令
 //        System.out.println("1"+rec.preCon());
