@@ -48,6 +48,7 @@ import com.horstmann.violet.application.consolepart.TestCasePathPanel;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.StepFourCenterTabbedPane;
 import com.horstmann.violet.application.gui.opreationTreePane.TestCaseConfirmationPanel;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.myProcess;
@@ -1261,6 +1262,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				timeAllProcessList.add(time2-time1+"ms");
 				resultAllProcessList.add("生成"+ abstractName + "Abstract.txt，保存路径："+path);
+				
+				
+				StepFourCenterTabbedPane.setBecomeRunFileName(abstractName + "Abstract");
+				StepFourCenterTabbedPane.setBecomeRunFileNameType(starttype);
 				
 				
 				return 1;

@@ -68,7 +68,7 @@ public class demo extends JFrame {
                 if((size = ResultService.list.size())!=0){
                     System.out.println(size);
                 }
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
             	
                 e.printStackTrace();

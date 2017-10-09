@@ -96,6 +96,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 	private TestCaseInstantiationTabbedPanel testCaseInstantiationTabbedPanel;
 	private TestCaseShowTabbedPanel testCaseShowTabbedPanel;
 	
+	private static String BecomeRunFileName=null;
 	
 	public StepThreeCenterTabbedPane(MainFrame mainFrame) {
 		
@@ -779,5 +780,12 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		this.testCaseSortContrastTabbedPanel = testCaseSortContrastTabbedPanel;
 	}
 
-	
+	public static String getBecomeRunFileName() {
+		return BecomeRunFileName;
+	}
+
+	public static void setBecomeRunFileName(String becomeRunFileName) {
+		BecomeRunFileName = becomeRunFileName;
+	}
+
 }

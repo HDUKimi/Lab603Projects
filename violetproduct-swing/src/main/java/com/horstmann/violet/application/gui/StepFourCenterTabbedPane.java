@@ -62,6 +62,9 @@ public class StepFourCenterTabbedPane extends JPanel {
 	private TestCaseShowTabbedPanel testCaseShowTabbedPanel;
 	private TestCaseShowTabbedPanel borderTestCaseShowTabbedPanel;
 	
+	private static String BecomeRunFileName=null;
+	private static int BecomeRunFileNameType=-1;
+	
 	public StepFourCenterTabbedPane(MainFrame mainFrame) {
 		
 		this.mainFrame = mainFrame;
@@ -489,6 +492,22 @@ public class StepFourCenterTabbedPane extends JPanel {
 
 	public JButton getBorderTestCaseShowButton() {
 		return borderTestCaseShowButton;
+	}
+
+	public static String getBecomeRunFileName() {
+		return BecomeRunFileName;
+	}
+
+	public static void setBecomeRunFileName(String becomeRunFileName) {
+		BecomeRunFileName = becomeRunFileName;
+	}
+
+	public static int getBecomeRunFileNameType() {
+		return BecomeRunFileNameType;
+	}
+
+	public static void setBecomeRunFileNameType(int becomeRunFileNameType) {
+		BecomeRunFileNameType = becomeRunFileNameType;
 	}
 
 }

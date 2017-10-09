@@ -68,6 +68,7 @@ import com.horstmann.violet.application.ApplicationStopper;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.StepButtonPanel;
 import com.horstmann.violet.application.gui.StepOneCenterTabbedPane;
+import com.horstmann.violet.application.gui.StepTwoCenterTabbedPane;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.gui.util.tanchao.CalculateWidth;
 import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateActivityDiagramEAXml;
@@ -961,6 +962,22 @@ public class FileMenu extends JMenu {
 					} else {
 						files.add(selectedFile);
 					}
+					
+					String selectFileName=selectedFile.getFilename();
+					String becomeRunFileName = null;
+					if(selectedFile.getFilename().contains("seq")){
+						becomeRunFileName=selectFileName.replace(".seq.violet.xml", "");
+					}
+					else if(selectedFile.getFilename().contains("ucase")){
+						becomeRunFileName=selectFileName.replace(".ucase.violet.xml", "");
+					}
+					else if(selectedFile.getFilename().contains("state")){
+						becomeRunFileName=selectFileName.replace(".state.violet.xml", "");					
+					}
+					else if(selectedFile.getFilename().contains("timing")){
+						becomeRunFileName=selectFileName.replace(".timing.violet.xml", "");
+					}
+					StepTwoCenterTabbedPane.setBecomeRunFileName(becomeRunFileName);
 
 					Thread t = new Thread(new Runnable() {
 

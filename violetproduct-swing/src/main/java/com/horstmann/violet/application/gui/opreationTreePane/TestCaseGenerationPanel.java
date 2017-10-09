@@ -41,6 +41,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.StepThreeCenterTabbedPane;
 
 public class TestCaseGenerationPanel extends JPanel {
 	
@@ -417,13 +418,15 @@ public class TestCaseGenerationPanel extends JPanel {
 			uppaalCheckBoxList[i].setOpaque(false);
 			uppaalcheckboxpanel.add(Box.createVerticalStrut(7));
 			uppaalcheckboxpanel.add(uppaalCheckBoxList[i]);
-			if(i==0){
-				uppaalCheckBoxList[i].setSelected(true);
-			}
 		}
 		
-		if(uppaalCheckBoxList.length>0){
-			selectUppaalCheckBox=uppaalCheckBoxList[0];
+		if(uppaalCheckBoxList.length>0&&StepThreeCenterTabbedPane.getBecomeRunFileName()!=null){
+			for(JCheckBox checkBox:uppaalCheckBoxList){
+				if(StepThreeCenterTabbedPane.getBecomeRunFileName().equals(checkBox.getText())){
+					checkBox.setSelected(true);
+					selectUppaalCheckBox=checkBox;
+				}
+			}
 		}
 		else{
 			selectUppaalCheckBox=new JCheckBox();

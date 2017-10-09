@@ -107,7 +107,7 @@ public class Controller {
                 if (preCon) {
                     executorService.submit(new PreConnService(node));
                     try {
-                        TimeUnit.SECONDS.sleep(1);
+                        TimeUnit.SECONDS.sleep(2);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

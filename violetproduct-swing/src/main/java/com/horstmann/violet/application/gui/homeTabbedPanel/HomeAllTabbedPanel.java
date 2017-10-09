@@ -192,7 +192,7 @@ public class HomeAllTabbedPanel extends JPanel {
 		inforleftlabel2 = new JLabel();
 
 		inforleftlabel1.setText("系统工作流程");
-		inforleftlabel1.setBorder(BorderFactory.createEmptyBorder(30, 30, 0, 0));
+		inforleftlabel1.setBorder(BorderFactory.createEmptyBorder(30, 35, 0, 0));
 		inforleftlabel1.setFont(new Font("微软雅黑", Font.PLAIN, 27));
 		inforleftlabel2.setText(
 				"<html><body>"
@@ -209,7 +209,7 @@ public class HomeAllTabbedPanel extends JPanel {
 				+ "<p>第六步：测试执行<br>"
 				+ "将实例化测试用例通过测试用例自动执行脚本虚拟执行，得到测试结果，生成测试报告。</p>"
 				+ "</body></html>");
-		inforleftlabel2.setBorder(BorderFactory.createEmptyBorder(20, 30, 0, 30));
+		inforleftlabel2.setBorder(BorderFactory.createEmptyBorder(20, 35, 0, 30));
 		inforleftlabel2.setFont(new Font("微软雅黑", Font.PLAIN, 15));
 
 		inforleftlabelpanel1.add(inforleftlabel1);

@@ -45,6 +45,7 @@ import org.dom4j.DocumentException;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.StepTwoCenterTabbedPane;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEditor;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyUppaalLabelRender;
@@ -411,8 +412,13 @@ public class ModelSequenceTreePanel extends JPanel{
 //			dtmDemo.addRow(data);
 			sequencecheckboxpanel.add(Box.createVerticalStrut(7));
 			sequencecheckboxpanel.add(sequenceCheckBoxList[i]);
-			if(i==0){
-				sequenceCheckBoxList[i].setSelected(true);
+		}
+		
+		if(StepTwoCenterTabbedPane.getBecomeRunFileName()!=null){
+			for(JCheckBox checkBox:sequenceCheckBoxList){
+				if(StepTwoCenterTabbedPane.getBecomeRunFileName().equals(checkBox.getText())){
+					checkBox.setSelected(true);
+				}
 			}
 		}
 		

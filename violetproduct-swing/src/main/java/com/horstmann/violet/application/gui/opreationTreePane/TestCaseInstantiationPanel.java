@@ -47,6 +47,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.StepFourCenterTabbedPane;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEditor;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyUppaalLabelRender;
@@ -588,10 +589,22 @@ public class TestCaseInstantiationPanel extends JPanel{
 //			
 //		}
 		
-		testRadioButtonList[0].setSelected(true);
-		abstractCheckBoxList.get(0).get(0).setSelected(true);
-		selectTestRadioButton=testRadioButtonList[0];
-		selectAbstractCheckBox=abstractCheckBoxList.get(0).get(0);//默认选中
+		//默认选中
+		int becomeRunFileNameType=StepFourCenterTabbedPane.getBecomeRunFileNameType();
+		if(becomeRunFileNameType!=-1){
+			for(JCheckBox checkBox:abstractCheckBoxList.get(becomeRunFileNameType-1)){
+				if(StepFourCenterTabbedPane.getBecomeRunFileName().equals(checkBox.getText())){
+					checkBox.setSelected(true);
+					selectAbstractCheckBox=checkBox;
+					testRadioButtonList[becomeRunFileNameType-1].setSelected(true);
+					selectTestRadioButton=testRadioButtonList[becomeRunFileNameType-1];
+				}
+			}
+		}
+//		testRadioButtonList[0].setSelected(true);
+//		abstractCheckBoxList.get(0).get(0).setSelected(true);
+//		selectTestRadioButton=testRadioButtonList[0];
+//		selectAbstractCheckBox=abstractCheckBoxList.get(0).get(0);
 		
 	}
 	

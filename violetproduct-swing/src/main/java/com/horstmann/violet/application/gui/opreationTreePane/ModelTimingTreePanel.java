@@ -45,6 +45,7 @@ import org.dom4j.DocumentException;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.StepTwoCenterTabbedPane;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEditor;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyUppaalLabelRender;
@@ -406,8 +407,13 @@ public class ModelTimingTreePanel extends JPanel{
 //			dtmDemo.addRow(data);
 			timingcheckboxpanel.add(Box.createVerticalStrut(7));
 			timingcheckboxpanel.add(timingCheckBoxList[i]);
-			if(i==0){
-				timingCheckBoxList[i].setSelected(true);
+		}
+		
+		if(StepTwoCenterTabbedPane.getBecomeRunFileName()!=null){
+			for(JCheckBox checkBox:timingCheckBoxList){
+				if(StepTwoCenterTabbedPane.getBecomeRunFileName().equals(checkBox.getText())){
+					checkBox.setSelected(true);
+				}
 			}
 		}
 		

@@ -69,6 +69,8 @@ public class StepTwoCenterTabbedPane extends JPanel{
 	
 	private ButtonTabbedPanel selectedButtonTabbedPanel;
 	
+	private static String BecomeRunFileName=null;
+	
 	public StepTwoCenterTabbedPane(MainFrame mainFrame)
 	{
 		
@@ -455,6 +457,12 @@ public class StepTwoCenterTabbedPane extends JPanel{
 		return timingToUppaalTabbedPane;
 	}
 
-	
-	
+	public static String getBecomeRunFileName() {
+		return BecomeRunFileName;
+	}
+
+	public static void setBecomeRunFileName(String becomeRunFileName) {
+		BecomeRunFileName = becomeRunFileName;
+	}
+
 }

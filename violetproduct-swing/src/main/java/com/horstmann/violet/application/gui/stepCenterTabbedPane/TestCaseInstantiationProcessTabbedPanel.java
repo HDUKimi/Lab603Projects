@@ -32,6 +32,8 @@ import javax.swing.text.BadLocationException;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.StepFiveCenterTabbedPane;
+import com.horstmann.violet.application.gui.StepFourCenterTabbedPane;
 import com.horstmann.violet.application.gui.opreationTreePane.TestCaseConfirmationPanel;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
@@ -910,10 +912,23 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
 					TextAreaPrint("生成"+name+"BorderTestCase.xml，保存路径："+borderpath);
 				}
-				else{
+				else if(starttype==2){
 					resultAllProcessList.add("生成"+name+"TestCase.xml");
 					TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
 				}
+				else if(starttype==3){
+					resultAllProcessList.add("生成"+name+"TimeTestCase.xml");
+					TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
+				}
+				
+				if(starttype == 3){
+					StepFiveCenterTabbedPane.setBecomeRunFileName(name+"TimeTestCase");
+				}
+				else{
+					StepFiveCenterTabbedPane.setBecomeRunFileName(name+"TestCase");
+				}
+				StepFiveCenterTabbedPane.setBecomeRunFileNameType(starttype);
+				
 				
 				return 1;
 			}

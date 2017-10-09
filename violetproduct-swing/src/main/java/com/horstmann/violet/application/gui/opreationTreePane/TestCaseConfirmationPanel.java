@@ -55,6 +55,7 @@ import org.dom4j.io.SAXReader;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.StepFiveCenterTabbedPane;
 import com.horstmann.violet.application.gui.opreationTreePane.CheckBoxTree.CheckBoxTreeCellRenderer;
 import com.horstmann.violet.application.gui.opreationTreePane.CheckBoxTree.CheckBoxTreeNode;
 import com.horstmann.violet.application.gui.opreationTreePane.CheckBoxTree.CheckBoxTreeNodeSelectionListener;
@@ -256,6 +257,14 @@ public class TestCaseConfirmationPanel extends JPanel{
                 TreePath path = treePath.pathByAddingChild(n);
                 showTestCaseTree(tree, path, expand);
             }
+        }
+        else{
+//        	System.out.println("++++++------------+++++++++++"+StepFiveCenterTabbedPane.getBecomeRunFileName()+" - - "+node.getUserObject());
+        	if(StepFiveCenterTabbedPane.getBecomeRunFileNameType()!=-1){
+        		if(StepFiveCenterTabbedPane.getBecomeRunFileName().equals(node.getUserObject())){
+        			node.setSelected(true);
+        		}
+        	}
         }
         if (expand) {
             tree.expandPath(treePath);
@@ -1235,10 +1244,13 @@ public class TestCaseConfirmationPanel extends JPanel{
 	public void updateFileList() {
 		// TODO Auto-generated method stub
 		
-		testcasefilenamelists.clear();
-		initFileList();
+//		testcasefilenamelists.clear();
+//		initFileList();
 //		addDataTotestcaseTable();
-		addDataToCheckBoxPanel();
+//		addDataToCheckBoxPanel();
+		
+		testcasetreeinforpanel1.removeAll();
+		initTestCaseTreeInforPanel1();
 		
 	}
 	

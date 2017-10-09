@@ -63,6 +63,9 @@ public class StepFiveCenterTabbedPane extends JPanel{
 	
 	private FixedButtonTabbedPanel selectedFixedButtonTabbedPanel;
 	
+	private static String BecomeRunFileName=null;
+	private static int BecomeRunFileNameType=-1;
+	
 	public StepFiveCenterTabbedPane(MainFrame mainFrame)
 	{
 		
@@ -498,6 +501,22 @@ public class StepFiveCenterTabbedPane extends JPanel{
 
 	public void setSelectedFixedButtonTabbedPanel(FixedButtonTabbedPanel selectedFixedButtonTabbedPanel) {
 		this.selectedFixedButtonTabbedPanel = selectedFixedButtonTabbedPanel;
+	}
+
+	public static String getBecomeRunFileName() {
+		return BecomeRunFileName;
+	}
+
+	public static void setBecomeRunFileName(String becomeRunFileName) {
+		BecomeRunFileName = becomeRunFileName;
+	}
+
+	public static int getBecomeRunFileNameType() {
+		return BecomeRunFileNameType;
+	}
+
+	public static void setBecomeRunFileNameType(int becomeRunFileNameType) {
+		BecomeRunFileNameType = becomeRunFileNameType;
 	}
 	
 }
