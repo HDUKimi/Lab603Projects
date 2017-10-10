@@ -818,9 +818,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //						if(threadexceptionstate==1){
 //							ExceptionStopRunThread();
 //						}
-						if(Controller.handFuture.isDone()){
+						if(Controller.handFutureList.get(0).isDone()){
 							try {
-								Controller.handFuture.get();
+								Controller.handFutureList.get(0).get();
 							} catch (ExecutionException e) {
 								// TODO Auto-generated catch block
 								System.out.println("+-+"+e.getMessage());
@@ -1150,13 +1150,25 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 		if(type==1){
 			
-			FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) checkedtestcasereportlist.get(resultlistindex);
+//			FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) checkedtestcasereportlist.get(resultlistindex);
 			
 //			TestCase testcase=list.get(Integer.parseInt(ftcrpp.getTestcase().getTestCaseID())-1);
 //			while(!list.get(index).getTestCaseID().equals(ftcrpp.getTestcase().getTestCaseID())){
 //				index++;
 //			}
+			
 			TestCase testcase=ResultService.list.get(resultlistindex);
+			FunctionalTestCaseReportPartPanel ftcrpp = null;
+			
+			ftcrpp=(FunctionalTestCaseReportPartPanel) checkedtestcasereportlist.get(Integer.parseInt(testcase.getTestCaseID())-1);
+//			if(!ftcrpp.getTestcase().getTestCaseID().equals(testcase.getTestCaseID())){
+//				for(JPanel panel:checkedtestcasereportlist){
+//					if(((FunctionalTestCaseReportPartPanel)panel).getTestcase().getTestCaseID().equals(testcase.getTestCaseID())){
+//						ftcrpp=(FunctionalTestCaseReportPartPanel)panel;
+//						break;
+//					}
+//				}
+//			}
 			
 			JTable attributetable;
 			DefaultTableModel attributetablemodel;
@@ -1221,12 +1233,13 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				testcase.getResult().setBattery_remaining(0);
 //			}
 			
-			for(JPanel jp:checkedtestcasereportlist){
-				tcrpp=(PerformanceTestCaseReportPartPanel)jp;
-				if(testcase.getTestCaseID().equals(tcrpp.getTestcase().getTestCaseID())){
-					break;
-				}
-			}
+			tcrpp=(PerformanceTestCaseReportPartPanel) checkedtestcasereportlist.get(Integer.parseInt(testcase.getTestCaseID())-1);
+//			for(JPanel jp:checkedtestcasereportlist){
+//				tcrpp=(PerformanceTestCaseReportPartPanel)jp;
+//				if(testcase.getTestCaseID().equals(tcrpp.getTestcase().getTestCaseID())){
+//					break;
+//				}
+//			}
 			
 //			while(!testcase.getTestCaseID().equals(tcrpp.getTestcase().getTestCaseID())){
 //				tcrpp.setVisible(false);
@@ -1395,9 +1408,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //						if(threadexceptionstate==1){
 //							ExceptionStopRunThread();
 //						}
-						if(Controller.handFuture.isDone()){
+						if(Controller.handFutureList.get(0).isDone()){
 							try {
-								Controller.handFuture.get();
+								Controller.handFutureList.get(0).get();
 							} catch (ExecutionException e) {
 								// TODO Auto-generated catch block
 								System.out.println("+-+"+e.getMessage());
@@ -1767,9 +1780,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //						if(threadexceptionstate==1){
 //							ExceptionStopRunThread();
 //						}
-						if(Controller.handFuture.isDone()){
+						if(Controller.handFutureList.get(0).isDone()){
 							try {
-								Controller.handFuture.get();
+								Controller.handFutureList.get(0).get();
 							} catch (ExecutionException e) {
 								// TODO Auto-generated catch block
 								System.out.println("+-+"+e.getMessage());
@@ -1793,7 +1806,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				for(TestCase tc:resulttestcaselist){
 					System.out.println(tc.getTestCaseID()+" - "+tc.getState()+" - "+tc.getResult().toString());
 					
-					System.out.println(tc.getResult().getTimeLimit().getError().size());
+//					System.out.println(tc.getResult().getTimeLimit().getError().size());
 					
 					Time time=tc.getResult().getTimeLimit();
 					
@@ -1873,9 +1886,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						TimeTestCaseReportPartPanel ttcrpp=(TimeTestCaseReportPartPanel) jp;
 						
 //						TestCase testcase=list.get(Integer.parseInt(ftcrpp.getTestcase().getTestCaseID())-1);
-						while(!list.get(index).getTestCaseID().equals(ttcrpp.getTestcase().getTestCaseID())){
-							index++;
-						}
+//						while(!list.get(index).getTestCaseID().equals(ttcrpp.getTestcase().getTestCaseID())){
+//							index++;
+//						}
 						TestCase testcase=list.get(index);
 						
 						JTable attributetable;
@@ -1913,7 +1926,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						}
 						
 						String title = "";
-						title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
+						title+="测试用例ID:"+ttcrpp.getTestcase().getTestCaseID()+"     ";
 //						title+=testcase.getState()+"     ";
 //						title+="执行结果:"+testcase.getResult().substring(0, testcase.getResult().indexOf("耗时"));
 //						title+="执行结果:"+testcase.getResult().getResultDetail();

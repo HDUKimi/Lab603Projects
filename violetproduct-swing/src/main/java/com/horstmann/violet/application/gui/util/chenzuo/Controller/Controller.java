@@ -13,6 +13,7 @@ import com.horstmann.violet.application.gui.util.chenzuo.Service.ResultService;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
@@ -36,13 +37,17 @@ public class Controller {
 
     private static Logger logger = Logger.getLogger(Controller.class);
 
-    private static long MAX_FILE_SIZE = 40 * 1024 * 1024;
+    private static long MAX_FILE_SIZE = 10 * 1024 * 1024;
     // deploy
     private static IPDeploy IP_TYPE_DEPLOY = new IPDeploy();
     // thread pool
     private static ExecutorService executorService = Executors.newCachedThreadPool();
     
-    public static FutureTask<Integer> handFuture;
+    public static List<FutureTask<Integer>> handFutureList=new ArrayList<>();
+    
+    public static int executeNum=1;
+    public static int offsetTestCaseId=0;
+    public static String offsetIP=null;
     
 //	private static ThreadPoolExecutor executorService ;
 
@@ -85,7 +90,7 @@ public class Controller {
             //1.spilt file
             files = fileSpilt(data);
             //2.choose server
-//            execute(type, 2, files);
+            execute(type, 2, files);
         } else {
             execute(type, 1, files);
         }
@@ -94,9 +99,9 @@ public class Controller {
     /////to do
     private static File[] fileSpilt(Pair<String, File> data) {
     	
+    	TestFileSpilt spilt=new TestFileSpilt();
     	
-    	
-        return null;
+        return spilt.FileSpilt(data.getSecond());
     }
 
     public static void execute(String type, int num, File[] file){
@@ -104,9 +109,15 @@ public class Controller {
         //pre start
         List<IPNode> nodes;
         int i = 0;
+        
+        executeNum=num;
+        
+        handFutureList=new ArrayList<>();
+        
         if ((nodes = IP_TYPE_DEPLOY.findNodeFree(num)) != null) {
             for (IPNode node : nodes) {
                 node.setType(type);
+                
                 if (preCon) {
                     executorService.submit(new PreConnService(node));
                     try {
@@ -115,7 +126,9 @@ public class Controller {
                         e.printStackTrace();
                     }
                 }
+                
                 Callable<Integer> handCallable=new HandelService(node, file[i]);
+                
 //                executorService.submit(handCallable);
 //                try {
 //                    TimeUnit.SECONDS.sleep(1);
@@ -123,11 +136,17 @@ public class Controller {
 //                    e.printStackTrace();
 //                }
 //                handCallable.call();
-                handFuture=new FutureTask<>(handCallable);
+                
+                FutureTask<Integer> handFuture=new FutureTask<>(handCallable);
+                handFutureList.add(handFuture);
                 executorService.submit(handFuture);
+                
 //              handfuture.get();
                 
                 i++;
+                if(i==2){
+                	offsetIP=node.getIp().split("\\.")[3];
+                }
             }
         }
     }

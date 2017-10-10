@@ -3,10 +3,12 @@ package com.horstmann.violet.application.gui.util.chenzuo.Service;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.Constants;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.IPNode;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseException;
+import com.horstmann.violet.application.gui.util.chenzuo.Controller.Controller;
 import com.horstmann.violet.application.gui.util.chenzuo.Util.FileUtil;
 import com.horstmann.violet.application.gui.util.chenzuo.Util.ScpClientUtil;
 import org.apache.log4j.Logger;
 
+import java.awt.Container;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -77,7 +79,7 @@ public class HandelService implements Callable {
                 //send filename
                 dos.write(f.getName().getBytes());
                 dos.flush();
-                logger.debug("success send");
+                logger.debug(node.getIp()+" success send");
 //                logger.debug("success send file:"+f.getName());
             }
             ResultService.list.removeAll(ResultService.list);
@@ -107,14 +109,23 @@ public class HandelService implements Callable {
                     receiveService.submit(new RecvTransService(node,index));
 //                  logger.debug(receiveService.take().get());
                 } else if ("exit".equals(data)) {
-                    //finish work
-                    Constants.ISFINISH.set(true);
-                    logger.debug("success receive all files");
+                	
+                	logger.debug(node.getIp()+" success receive all files");
+                	
+                	synchronized(Constants.lock){
+                		Controller.executeNum--;
+                		if(Controller.executeNum==0){
+                			//finish work
+                			Thread.sleep(1000);
+                            Constants.ISFINISH.set(true);
+                		}
+                	}
+                    
                     break;
                 }
             }
         } catch (Exception e) {
-            logger.debug("failed receive , cause by " + e.getCause());
+            logger.debug(node.getIp()+" failed receive , cause by " + e.getCause());
             throw new TestCaseException("failed receive");
         }
     }
@@ -127,9 +138,9 @@ public class HandelService implements Callable {
             dis.close();
             socket.close();
             scpclient.close();
-            logger.debug("socket close");
+            logger.debug(node.getIp()+" socket close");
         } catch (IOException e) {
-            logger.error("close socket error ,cause by " + e.getMessage());
+            logger.error(node.getIp()+" close socket error ,cause by " + e.getMessage());
             throw new TestCaseException("close socket error");
         }
     }

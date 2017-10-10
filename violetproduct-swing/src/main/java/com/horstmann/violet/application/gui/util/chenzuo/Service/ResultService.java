@@ -2,6 +2,7 @@ package com.horstmann.violet.application.gui.util.chenzuo.Service;
 
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.Constants;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.chenzuo.Controller.Controller;
 import com.horstmann.violet.application.gui.util.chenzuo.Util.FileUtil;
 import com.horstmann.violet.application.gui.util.chenzuo.Util.TcConvertUtil;
 import com.horstmann.violet.application.gui.util.tanchao.OrderWrapperTool;
@@ -50,14 +51,34 @@ public class ResultService {
         public void readfile() {
             File file = new File(FileUtil.LOCAL_TARGET_PATH);
             if (file.isDirectory()) {
-//                String[] filelist = file.list();
+                String[] filelist = file.list();
                 
-            	String[] filelist=OrderWrapperTool.SortFileNameList(file.list());
+//            	String[] filelist=OrderWrapperTool.SortFileNameList(file.list());
+                System.out.println("readfile()+++++++++++++++++++++"+filelist.length);
+                for (int i = 0; i < filelist.length; i++) {
+                	System.out.println(filelist[i]);
+                }
+                System.out.println("readfile()-----------------------");
                 
                 for (int i = 0; i < filelist.length; i++) {
+                	
+                	if(!filelist[i].contains("89")&&!filelist[i].contains("93")){
+                		continue;
+                	}
+                	
                     String fileName = FileUtil.LOCAL_TARGET_PATH + filelist[i];
                         try {
-                            list.addAll(TcConvertUtil.buildTestCaseList(type, fileName));
+                        	
+                        	List<TestCase> testcaselist=TcConvertUtil.buildTestCaseList(type, fileName);
+                        	
+                        	//IDÆ«ÒÆ
+                        	if(Controller.offsetIP!=null&&filelist[i].contains(Controller.offsetIP)){
+                        		for(TestCase testCase:testcaselist){
+                        			testCase.setTestCaseID(String.valueOf(Integer.parseInt(testCase.getTestCaseID())+Controller.offsetTestCaseId));
+                        		}
+                        	}
+                        	
+                            list.addAll(testcaselist);
                             FileUtil.delete(fileName);
                             logger.debug("list size:"+list.size());
 //                            if(Constants.ISFINISH.get()){
@@ -69,12 +90,10 @@ public class ResultService {
                         }
                 }
                 
-                if(filelist.length>0){
-                	if(Constants.ISFINISH.get()){
-						logger.debug("scheduledService close");
-						scheduledService.shutdown();
-					}
-                }
+            	if(Constants.ISFINISH.get()){
+					logger.debug("scheduledService close");
+					scheduledService.shutdown();
+				}
             }
 
         }

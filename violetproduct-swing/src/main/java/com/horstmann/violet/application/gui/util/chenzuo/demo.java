@@ -32,14 +32,14 @@ public class demo extends JFrame {
         PropertyConfigurator.configure("src/log4j.properties");
 
 
-        File file = new File(System.getProperty("user.dir")+"//src//xx#1.xml");
-        try {
-			Controller.Run(new Pair<String, File>("Function", file));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("*************"+e.getMessage());;
-		}
+//        File file = new File(System.getProperty("user.dir")+"//src//xx#1.xml");
+//        try {
+//			Controller.Run(new Pair<String, File>("Function", file));
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println("*************"+e.getMessage());;
+//		}
         
 //        File file = new File(System.getProperty("user.dir")+"//src//case#1.xml");
 //        try {
@@ -50,13 +50,13 @@ public class demo extends JFrame {
 //			System.out.println("*************"+e.getMessage());;
 //		}
         
-//        File file = new File(System.getProperty("user.dir")+"//src//xx1#1.xml");
-//        Controller.Run(new Pair<String, File>("Function", file));
+        File file = new File(System.getProperty("user.dir")+"//src//xxyy#1.xml");
+        Controller.Run(new Pair<String, File>("Function", file));
         
 //        File file = new File(System.getProperty("user.dir")+"//src//xx#2.xml");
 //        Controller.Run(new Pair<String, File>("Performance", file));
         
-//        File file = new File(System.getProperty("user.dir")+"//src//xx#3.xml");
+//        File file = new File(System.getProperty("user.dir")+"//src//xxyy#3.xml");
 //        Controller.Run(new Pair<String, File>("Time", file));
         
         while(true){
@@ -74,6 +74,17 @@ public class demo extends JFrame {
                 e.printStackTrace();
             }
         }
+        
+        try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        for(int i=0;i<ResultService.list.size();i++){
+    		System.out.println(ResultService.list.get(i).getTestCaseID());
+    	}
         
 //        int index=0;
 //        while(true){

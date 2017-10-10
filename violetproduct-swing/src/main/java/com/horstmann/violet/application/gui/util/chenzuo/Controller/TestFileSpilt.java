@@ -29,6 +29,11 @@ public class TestFileSpilt {
 		
 		int spiltindex=0;
 		String filename=file.getName().replaceAll(".xml", "");
+		String name=filename.split("#")[0];
+		String type=filename.split("#")[1];
+		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+		String filename1=name+"_1#"+type+".xml";
+		String filename2=name+"_2#"+type+".xml";
 		File[] files=new File[2];
 		
 		SAXReader reader = new SAXReader();
@@ -44,6 +49,7 @@ public class TestFileSpilt {
 			List<Element> testcaseElements2=TCS2.elements("testcase");
 			
 			spiltindex=testcaseElements1.size()/2;
+			Controller.offsetTestCaseId=spiltindex;
 			
 			for(int i=0;i<testcaseElements1.size()-spiltindex;i++){
 				testcaseElements2.remove(0);
@@ -53,11 +59,11 @@ public class TestFileSpilt {
 				testcaseElements1.remove(testcaseElements1.size()-1);
 			}
 			
-			String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+			DomWriteFile(dom1, baseUrl+filename1);
+			DomWriteFile(dom2, baseUrl+filename2);
 			
-			DomWriteFile(dom1, baseUrl+filename+"_1.xml");
-			DomWriteFile(dom2, baseUrl+filename+"_2.xml");
-			
+			files[0]=new File(baseUrl+filename1);
+			files[1]=new File(baseUrl+filename2);
 			
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
