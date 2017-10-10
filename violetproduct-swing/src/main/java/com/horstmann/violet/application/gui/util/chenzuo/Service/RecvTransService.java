@@ -6,6 +6,7 @@ import com.horstmann.violet.application.gui.util.chenzuo.Util.FileUtil;
 import com.horstmann.violet.application.gui.util.chenzuo.Util.ScpClientUtil;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.util.concurrent.Callable;
 
 /**
@@ -26,14 +27,32 @@ public class RecvTransService implements Callable {
     }
 
     private void recvRSFile() {
-        String fileName = "result_" + node.getType() + "_" + id + ".txt";
-System.out.println(fileName);
-        long l = System.currentTimeMillis();
-        scpclient.getFile(FileUtil.REMOTE_RS_PATH + fileName, FileUtil.LOCAL_TARGET_PATH);
-        logger.debug("file " + id + " get ok,cost time is:" + (System.currentTimeMillis() - l) + " ms");
+    	
+    	synchronized(RecvTransService.class){
+    		String fileName = "result_" + node.getType() + "_" + id + ".txt";
+            String fileName1 = "result_"+node.getIp().split("\\.")[3]+"_" + node.getType() + "_" + id + ".txt";
+            
+            System.out.println(fileName+" - "+fileName1);
+            
+            long l = System.currentTimeMillis();
+            scpclient.getFile(FileUtil.REMOTE_RS_PATH + fileName, FileUtil.LOCAL_TARGET_PATH);
+            
+            File file=new File(FileUtil.LOCAL_TARGET_PATH+fileName);
+            file.renameTo(new File(FileUtil.LOCAL_TARGET_PATH+fileName1));
+            
+            logger.debug(node.getIp()+" file " + id + " get ok,cost time is:" + (System.currentTimeMillis() - l) + " ms");
 
-        //delete all files
-        scpclient.execute("rm -rf "+FileUtil.REMOTE_RS_PATH +"*");
+            //delete all files
+//            while(true){
+//            	File file1=new File(FileUtil.LOCAL_TARGET_PATH+fileName1);
+//            	if(file1.exists()){
+//            		scpclient.execute("rm -rf "+FileUtil.REMOTE_RS_PATH +"*");
+//            		break;
+//            	}
+//            }
+            
+    	}
+    	
     }
 
     public static void close(){
