@@ -50,7 +50,7 @@ public class HandelService implements Callable {
         this.node = node;
         this.files = files;
         scpclient = new ScpClientUtil(node.getIp());
-        resultService = new ResultService(node.getType());
+//        resultService = new ResultService(node.getType());
     }
 
     // connect socket

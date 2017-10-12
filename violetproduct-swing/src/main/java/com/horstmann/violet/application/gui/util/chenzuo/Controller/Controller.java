@@ -9,10 +9,12 @@ import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseException;
 import com.horstmann.violet.application.gui.util.chenzuo.Service.HandelService;
 import com.horstmann.violet.application.gui.util.chenzuo.Service.PreConnService;
 import com.horstmann.violet.application.gui.util.chenzuo.Service.ResultService;
+import com.horstmann.violet.application.gui.util.chenzuo.Util.ScpClientUtil;
 
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -48,6 +50,8 @@ public class Controller {
     public static int executeNum=1;
     public static int offsetTestCaseId=0;
     public static String offsetIP=null;
+    
+    private static ResultService resultService;
     
 //	private static ThreadPoolExecutor executorService ;
 
@@ -121,7 +125,7 @@ public class Controller {
                 if (preCon) {
                     executorService.submit(new PreConnService(node));
                     try {
-                        TimeUnit.SECONDS.sleep(2);
+                        TimeUnit.SECONDS.sleep(1);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -144,7 +148,10 @@ public class Controller {
 //              handfuture.get();
                 
                 i++;
-                if(i==2){
+                if(i==1){
+                	resultService = new ResultService(node.getType());
+                }
+                else if(i==2){
                 	offsetIP=node.getIp().split("\\.")[3];
                 }
             }
@@ -188,5 +195,45 @@ public class Controller {
 		} finally {
             Close();
         }
+    }
+    
+    public static boolean Ready(int needNodeNum){
+    	
+    	List<IPNode> nodes;
+    	int successnum=0;
+    	
+    	logger.debug("Controller Ready Start");
+		if ((nodes = IP_TYPE_DEPLOY.findNodeFree(needNodeNum)) != null) {
+			for (IPNode node : nodes) {
+				
+				try {
+					executorService.submit(new PreConnService(node));
+					TimeUnit.SECONDS.sleep(1);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				Socket socket = null;
+				try {
+		            socket = new Socket(node.getIp(), Constants.PORT);
+		            if (socket != null) {
+		                logger.debug("connection " + node.getIp() + " success");
+		                successnum++;
+		                socket.close();
+		                logger.debug(node.getIp()+" socket close");
+		            }
+		        } catch (Exception e) {
+		            logger.error(node.getIp()+" fail to connect server");
+		        }
+				
+			}
+			
+			for (IPNode node : nodes) {
+				node.setBusy(false);
+			}
+		} 
+		logger.debug("Controller Ready End");
+		
+		return successnum==needNodeNum?true:false;
     }
 }

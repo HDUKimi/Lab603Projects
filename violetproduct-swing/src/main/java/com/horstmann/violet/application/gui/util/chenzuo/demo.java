@@ -30,6 +30,8 @@ public class demo extends JFrame {
     public static void main(String[] args) {
 
         PropertyConfigurator.configure("src/log4j.properties");
+        
+        Controller.Ready(2);
 
 
 //        File file = new File(System.getProperty("user.dir")+"//src//xx#1.xml");
@@ -50,8 +52,8 @@ public class demo extends JFrame {
 //			System.out.println("*************"+e.getMessage());;
 //		}
         
-        File file = new File(System.getProperty("user.dir")+"//src//xxyy#1.xml");
-        Controller.Run(new Pair<String, File>("Function", file));
+//        File file = new File(System.getProperty("user.dir")+"//src//xxyy#1.xml");
+//        Controller.Run(new Pair<String, File>("Function", file));
         
 //        File file = new File(System.getProperty("user.dir")+"//src//xx#2.xml");
 //        Controller.Run(new Pair<String, File>("Performance", file));
@@ -59,32 +61,32 @@ public class demo extends JFrame {
 //        File file = new File(System.getProperty("user.dir")+"//src//xxyy#3.xml");
 //        Controller.Run(new Pair<String, File>("Time", file));
         
-        while(true){
-            try {
-                if(Constants.ISFINISH.get()){
-                    break;
-                }
-                int size;
-                if((size = ResultService.list.size())!=0){
-                    System.out.println(size);
-                }
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-            	
-                e.printStackTrace();
-            }
-        }
+//        while(true){
+//            try {
+//                if(Constants.ISFINISH.get()){
+//                    break;
+//                }
+//                int size;
+//                if((size = ResultService.list.size())!=0){
+//                    System.out.println(size);
+//                }
+//                TimeUnit.SECONDS.sleep(1);
+//            } catch (InterruptedException e) {
+//            	
+//                e.printStackTrace();
+//            }
+//        }
         
-        try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
-        for(int i=0;i<ResultService.list.size();i++){
-    		System.out.println(ResultService.list.get(i).getTestCaseID());
-    	}
+//        try {
+//			Thread.sleep(10000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//        
+//        for(int i=0;i<ResultService.list.size();i++){
+//    		System.out.println(ResultService.list.get(i).getTestCaseID());
+//    	}
         
 //        int index=0;
 //        while(true){

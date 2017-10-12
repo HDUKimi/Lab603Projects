@@ -256,29 +256,39 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						
 //						clientSocket = new ClientSocket("10.1.16.89", 5555);
 //						Boolean connectstate=clientSocket.Connection();
-						Boolean connectstate=true;
-						if(connectstate){
-							TextAreaPrint("连接服务器成功");
+						
+						
+						new Thread(new Runnable() {
 							
-							progressbar.setValue(0);
-							progressbarlabel.setText("0%");
-							
-							threadstate=1;
-							
-							if(testcasetype==1){
-								startFunctionalTestConfirmation();
+							@Override
+							public void run() {
+								PropertyConfigurator.configure("src/log4j.properties");
+								Boolean connectstate=Controller.Ready(2);
+								
+								if(connectstate){
+									progressbar.setValue(0);
+									progressbarlabel.setText("0%");
+									TextAreaPrint("连接服务器成功！");
+									threadstate=1;
+									
+									if(testcasetype==1){
+										startFunctionalTestConfirmation();
+									}
+									else if(testcasetype==2){
+										startPerformanceTestConfirmation();
+									}
+									else if(testcasetype==3){
+										startTimeTestConfirmation();
+									}
+									
+								}
+								else{
+									TextAreaPrint("连接服务器失败！！！退出测试执行！！！");
+									TextAreaPrint("请等待几秒后，再尝试连接。。。");
+								}
 							}
-							else if(testcasetype==2){
-								startPerformanceTestConfirmation();
-							}
-							else if(testcasetype==3){
-								startTimeTestConfirmation();
-							}
-							
-						}
-						else{
-							TextAreaPrint("连接服务器失败！！！");
-						}
+						}).start();
+						
 //					}
 					
 					
@@ -809,7 +819,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				datagainshowthread.start();
 				
-				PropertyConfigurator.configure("src/log4j.properties");
+//				PropertyConfigurator.configure("src/log4j.properties");
 				Controller.Run(new Pair<String, File>("Function", file));
 				
 				while(progressbar.getValue()<90){
@@ -818,15 +828,30 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //						if(threadexceptionstate==1){
 //							ExceptionStopRunThread();
 //						}
-						if(Controller.handFutureList.get(0).isDone()){
-							try {
-								Controller.handFutureList.get(0).get();
-							} catch (ExecutionException e) {
-								// TODO Auto-generated catch block
-								System.out.println("+-+"+e.getMessage());
-								if(e.getMessage().contains("TestCaseException")){
-//									TestCaseReportTabbedPanel.threadexceptionstate=1;
-									ExceptionStopRunThread();
+//						if(Controller.handFutureList.size()>0&&Controller.handFutureList.get(0).isDone()){
+//							try {
+//								Controller.handFutureList.get(0).get();
+//							} catch (ExecutionException e) {
+//								// TODO Auto-generated catch block
+//								System.out.println("+-+"+e.getMessage());
+//								if(e.getMessage().contains("TestCaseException")){
+////									TestCaseReportTabbedPanel.threadexceptionstate=1;
+//									ExceptionStopRunThread();
+//								}
+//							}
+//						}
+						if (Controller.handFutureList.size() > 0) {
+							for (int i = 0; i < Controller.handFutureList.size(); i++) {
+								if (Controller.handFutureList.get(i).isDone()) {
+									try {
+										Controller.handFutureList.get(i).get();
+									} catch (ExecutionException e) {
+										// TODO Auto-generated catch block
+										System.out.println("+-+" + e.getMessage());
+										if (e.getMessage().contains("TestCaseException")) {
+											ExceptionStopRunThread();
+										}
+									}
 								}
 							}
 						}
@@ -1399,7 +1424,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				gaindatathread.start();
 				datagainshowthread.start();
 				
-				PropertyConfigurator.configure("src/log4j.properties");
+//				PropertyConfigurator.configure("src/log4j.properties");
 				Controller.Run(new Pair<String, File>("Performance", file));
 
 				while(progressbar.getValue()<90){
@@ -1408,15 +1433,30 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //						if(threadexceptionstate==1){
 //							ExceptionStopRunThread();
 //						}
-						if(Controller.handFutureList.get(0).isDone()){
-							try {
-								Controller.handFutureList.get(0).get();
-							} catch (ExecutionException e) {
-								// TODO Auto-generated catch block
-								System.out.println("+-+"+e.getMessage());
-								if(e.getMessage().contains("TestCaseException")){
-//									TestCaseReportTabbedPanel.threadexceptionstate=1;
-									ExceptionStopRunThread();
+//						if(Controller.handFutureList.get(0).isDone()){
+//							try {
+//								Controller.handFutureList.get(0).get();
+//							} catch (ExecutionException e) {
+//								// TODO Auto-generated catch block
+//								System.out.println("+-+"+e.getMessage());
+//								if(e.getMessage().contains("TestCaseException")){
+////									TestCaseReportTabbedPanel.threadexceptionstate=1;
+//									ExceptionStopRunThread();
+//								}
+//							}
+//						}
+						if (Controller.handFutureList.size() > 0) {
+							for (int i = 0; i < Controller.handFutureList.size(); i++) {
+								if (Controller.handFutureList.get(i).isDone()) {
+									try {
+										Controller.handFutureList.get(i).get();
+									} catch (ExecutionException e) {
+										// TODO Auto-generated catch block
+										System.out.println("+-+" + e.getMessage());
+										if (e.getMessage().contains("TestCaseException")) {
+											ExceptionStopRunThread();
+										}
+									}
 								}
 							}
 						}
@@ -1543,7 +1583,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					System.out.println("startprogressbar "+startprogressbar+" endprogressbar "+endprogressbar+" progressbarvalue "+progressbar.getValue());
 					datagainshowindex++;
 					
-					sleeptime=1000;
+					sleeptime=500;
 					for(int i=startprogressbar;i<endprogressbar;i++){
 						progressbar.setValue(progressbar.getValue()+1);
 						progressbarlabel.setText(progressbar.getValue()+"%");
@@ -1556,7 +1596,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						}
 						
 						if(ResultService.list.size()>resultlistindex){
-							sleeptime=1000;
+							sleeptime=50;
 						}
 						
 					}
@@ -1564,7 +1604,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					while(resultlistindex>=ResultService.list.size()){
 						System.out.println("-------");
 						try {
-							Thread.sleep(1000);
+							Thread.sleep(500);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -1594,7 +1634,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						showTestCaseDataByType(2, resultlistindex);
 						
 						try {
-							Thread.sleep(100);
+							Thread.sleep(50);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -1771,7 +1811,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				gaindatathread.start();
 				
-				PropertyConfigurator.configure("src/log4j.properties");
+//				PropertyConfigurator.configure("src/log4j.properties");
 				Controller.Run(new Pair<String, File>("Time", file));
 				
 				while(progressbar.getValue()<50||ResultService.list.size()<=0){
@@ -1780,15 +1820,30 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //						if(threadexceptionstate==1){
 //							ExceptionStopRunThread();
 //						}
-						if(Controller.handFutureList.get(0).isDone()){
-							try {
-								Controller.handFutureList.get(0).get();
-							} catch (ExecutionException e) {
-								// TODO Auto-generated catch block
-								System.out.println("+-+"+e.getMessage());
-								if(e.getMessage().contains("TestCaseException")){
-//									TestCaseReportTabbedPanel.threadexceptionstate=1;
-									ExceptionStopRunThread();
+//						if(Controller.handFutureList.get(0).isDone()){
+//							try {
+//								Controller.handFutureList.get(0).get();
+//							} catch (ExecutionException e) {
+//								// TODO Auto-generated catch block
+//								System.out.println("+-+"+e.getMessage());
+//								if(e.getMessage().contains("TestCaseException")){
+////									TestCaseReportTabbedPanel.threadexceptionstate=1;
+//									ExceptionStopRunThread();
+//								}
+//							}
+//						}
+						if (Controller.handFutureList.size() > 0) {
+							for (int i = 0; i < Controller.handFutureList.size(); i++) {
+								if (Controller.handFutureList.get(i).isDone()) {
+									try {
+										Controller.handFutureList.get(i).get();
+									} catch (ExecutionException e) {
+										// TODO Auto-generated catch block
+										System.out.println("+-+" + e.getMessage());
+										if (e.getMessage().contains("TestCaseException")) {
+											ExceptionStopRunThread();
+										}
+									}
 								}
 							}
 						}
@@ -1803,25 +1858,25 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 
 				TextAreaPrint("正在进行数据统计整理...");
-				for(TestCase tc:resulttestcaselist){
-					System.out.println(tc.getTestCaseID()+" - "+tc.getState()+" - "+tc.getResult().toString());
+//				for(TestCase tc:resulttestcaselist){
+//					System.out.println(tc.getTestCaseID()+" - "+tc.getState()+" - "+tc.getResult().toString());
 					
 //					System.out.println(tc.getResult().getTimeLimit().getError().size());
 					
-					Time time=tc.getResult().getTimeLimit();
+//					Time time=tc.getResult().getTimeLimit();
 					
-					System.out.println(time.getOriginal());
-					System.out.println("time.getError() : "+time.getError().size());
-					for(String s:time.getError()){
-						System.out.println(s);
-					}
-					System.out.println("time.getShowMap() : "+time.getShowMap().size());
+//					System.out.println(time.getOriginal());
+//					System.out.println("time.getError() : "+time.getError().size());
+//					for(String s:time.getError()){
+//						System.out.println(s);
+//					}
+//					System.out.println("time.getShowMap() : "+time.getShowMap().size());
 //					for(Entry<String, Pair<String, String>> en:time.getShowMap().entrySet()){
 //						System.out.println(en.getKey()+"  -  "+en.getValue().getFirst()+"  -  "+en.getValue().getSecond());
 //						
 //					}
 					
-				}
+//				}
 				System.out.println("-------------------------------------------------");
 				startTimeRunProgressbar(resulttestcaselist);// 显示进度条
 
@@ -1920,6 +1975,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 							if(p.getSecond().equals(true)){
 								state=1;
 							}
+							if(p.getFirst()==null||p.getFirst().equals("")){
+								state=0;
+							}
 							limittablemodel.setValueAt(p.getFirst(), i, 1);
 							limittablemodel.setValueAt(state, i, 2);
 							System.out.println(limit+"  -  "+state+"  -  "+p.getFirst()+"  -  "+p.getSecond());
@@ -1941,8 +1999,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
 						ImageIcon icon2 = new ImageIcon(path + "cross.png");
 						icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
-						
-						if(testcase.getResult().getResultDetail().contains("成功")){
+
+						if(testcase.getState().contains("正确")){
 							ttcrpp.getIconlabel().setIcon(icon1);
 						}
 						else{
