@@ -537,7 +537,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 //						timinglistindex=timinglists.indexOf(filename);
 						
 						String baseUrl = "D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\";
-						String baseUrl2 = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\";
+						String baseUrl2 = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\TimingToUppal\\";
 						String baseUrl3 = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
 						
 //						int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
@@ -594,7 +594,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 						    }
 							
 							System.out.println("-------------------------123");
-//							XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\"+TimingEAtoUppaal.getDiagramDataName()+"ForXStream.xml", baseUrl3+filename+"ForXStream.xml");
+							XMLCopy.SourceCopyToTarget(originaluppaalbaseurl+TimingEAtoUppaal.getDiagramDataName()+".xml", baseUrl2+filename+"ForXStream.xml");
 							
 							LayoutUppaal.layout(originaluppaalbaseurl+TimingEAtoUppaal.getDiagramDataName()+".xml");
 							

@@ -19,7 +19,8 @@ public class TestFileSpilt {
 		
 		TestFileSpilt testFileSpilt=new TestFileSpilt();
 		
-		File file=new File(System.getProperty("user.dir")+"//src//xx#1.xml");
+//		File file=new File(System.getProperty("user.dir")+"//src//xx#1.xml");
+		File file=new File("D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\xxyy_1_1_1_1#3.xml");
 		
 		testFileSpilt.FileSpilt(file);
 		
@@ -50,6 +51,7 @@ public class TestFileSpilt {
 			
 			spiltindex=testcaseElements1.size()/2;
 			Controller.offsetTestCaseId=spiltindex;
+			System.out.println(spiltindex+" - "+(testcaseElements1.size()-spiltindex));
 			
 			for(int i=0;i<testcaseElements1.size()-spiltindex;i++){
 				testcaseElements2.remove(0);

@@ -5,171 +5,73 @@
   <template>
     <name x="30" y="30">template_</name>
     <declaration/>
-    <location id="loc_id_init" x="48" y="438" timeDuration="null" final="false">
-      <name x="18" y="408">timer:_init time:null</name>
+    <location id="loc_id_init" x="48" y="300" timeDuration="null" final="false">
+      <name x="18" y="270">copter:_init time:null</name>
     </location>
-    <location id="loc_id_2994C157_4854_4351_A947_F4E7BC16C968" x="324" y="438" timeDuration="null" final="false">
-      <name x="294" y="408">building:peopleComing() time:null</name>
+    <location id="loc_id_EECDAD41_4E5A_46aa_A160_446E6F473481" x="324" y="300" timeDuration="null" final="false">
+      <name x="294" y="270">_ins:wait_for_sample() time:null</name>
     </location>
-    <location id="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087" x="600" y="438" timeDuration="null" final="false">
-      <name x="570" y="408">people:newPeople() time:null</name>
+    <location id="loc_id_85B44FC6_FCD3_4047_A850_FCCC1941A2F9" x="600" y="300" timeDuration="null" final="false">
+      <name x="570" y="270">hal:delay_microseconds(unsigned short) time:null</name>
     </location>
-    <location id="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3" x="876" y="438" timeDuration="null" final="false">
-      <name x="846" y="408">elevator:pushCallUp(int) time:null</name>
+    <location id="loc_id_F9C45CC8_7CB6_42d5_8904_4D91ECA2FAAD_0" x="876" y="300" timeDuration="null" final="false">
+      <name x="846" y="270">sitlState:wait_clock(unsigned long) time:null</name>
     </location>
-    <location id="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6" x="1152" y="438" timeDuration="null" final="false">
-      <name x="1122" y="408">elevator:response() time:null</name>
+    <location id="loc_id_9D29A5F0_0336_4303_B989_2425FD3F2FD2_0" x="1152" y="300" timeDuration="null" final="false">
+      <name x="1122" y="270">sitlState:_fdm_input_step() time:null</name>
     </location>
-    <location id="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2" x="1428" y="438" timeDuration="t&lt;=25" final="false">
-      <name x="1398" y="408">elevator:controller() time:t&lt;=25</name>
+    <location id="loc_id_E746D84F_AC7C_4f78_9B36_0B329A936B5B_0" x="1428" y="300" timeDuration="null" final="false">
+      <name x="1398" y="270">sitlState:_fdm_input_local() time:null</name>
     </location>
-    <location id="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5" x="1704" y="303" timeDuration="t&lt;=25" final="false">
-      <name x="1674" y="273">door:open() time:t&lt;=25</name>
+    <location id="loc_id_6BBFF361_9D31_4c18_AB42_72568E2B2D45_0" x="1704" y="300" timeDuration="null" final="true">
+      <name x="1674" y="270">sitlState:_fdm_input() time:null</name>
     </location>
-    <location id="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24" x="1980" y="303" timeDuration="t&lt;=300" final="false">
-      <name x="1950" y="273">elevator:open_return time:t&lt;=300</name>
+    <location id="loc_id_AFD71B77_9584_4932_BC4D_C4FE04D8E5DD_0" x="1980" y="300" timeDuration="null" final="false">
+      <name x="1950" y="270">sitlState:_simulator_output(bool) time:null</name>
     </location>
-    <location id="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC" x="2256" y="438" timeDuration="null" final="false">
-      <name x="2226" y="408">building:peopleOutIn() time:null</name>
-    </location>
-    <location id="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B" x="2532" y="303" timeDuration="t&lt;=30" final="false">
-      <name x="2502" y="273">elevator:thisFloorPeopleOut() time:t&lt;=30</name>
-    </location>
-    <location id="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3" x="2808" y="303" timeDuration="null" final="false">
-      <name x="2778" y="273">building:thisFloorPeopleOut_return time:null</name>
-    </location>
-    <location id="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD" x="3084" y="438" timeDuration="t&lt;=30" final="false">
-      <name x="3054" y="408">elevator:thisFloorPeopleIn() time:t&lt;=30</name>
-    </location>
-    <location id="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7" x="3360" y="438" timeDuration="null" final="false">
-      <name x="3330" y="408">building:thisFloorPeopleIn_return time:null</name>
-    </location>
-    <location id="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE" x="3636" y="438" timeDuration="t&lt;=25" final="false">
-      <name x="3606" y="408">door:close() time:t&lt;=25</name>
-    </location>
-    <location id="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4" x="3912" y="438" timeDuration="null" final="false">
-      <name x="3882" y="408">elevator:close_return time:null</name>
-    </location>
-    <location id="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F" x="4188" y="438" timeDuration="t&lt;=15" final="false">
-      <name x="4158" y="408">elevator:prepareMove time:t&lt;=15</name>
-    </location>
-    <location id="loc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED" x="4464" y="438" timeDuration="null" final="true">
-      <name x="4434" y="408">elevator:goUpstairs() time:null</name>
+    <location id="loc_id_8D66B99C_D001_4c87_B99A_656B8E8A6B28_0" x="2256" y="300" timeDuration="null" final="true">
+      <name x="2226" y="270">sitlState:_simulator_servos() time:null</name>
     </location>
     <init ref="loc_id_init"/>
-    <transition id="tran_id_init_2994C157_4854_4351_A947_F4E7BC16C968" timeDuration="null" name="peopleComing()" receiveOrSend="" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null">
+    <transition id="tran_id_init_EECDAD41_4E5A_46aa_A160_446E6F473481" timeDuration="null" name="wait_for_sample()" receiveOrSend="" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null">
       <source ref="loc_id_init"/>
-      <target ref="loc_id_2994C157_4854_4351_A947_F4E7BC16C968"/>
-      <label kind="synchronisation" x="166" y="418">#name:peopleComing() #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
+      <target ref="loc_id_EECDAD41_4E5A_46aa_A160_446E6F473481"/>
+      <label kind="synchronisation" x="166" y="280">#name:wait_for_sample() #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_id_2994C157_4854_4351_A947_F4E7BC16C968_AB770414_2510_47b1_A5E9_2A0B2DB55087" timeDuration="null" name="newPeople()" receiveOrSend="" type="null" condition="null" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_2994C157_4854_4351_A947_F4E7BC16C968"/>
-      <target ref="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087"/>
-      <label kind="synchronisation" x="442" y="418">#name:newPeople() #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
+    <transition id="tran_id_EECDAD41_4E5A_46aa_A160_446E6F473481_85B44FC6_FCD3_4047_A850_FCCC1941A2F9" timeDuration="null" name="delay_microseconds(unsigned short)" receiveOrSend="" type="null" condition="null" in="null" out="null" use="usvoid" def="null" typeId="null" RESET="null">
+      <source ref="loc_id_EECDAD41_4E5A_46aa_A160_446E6F473481"/>
+      <target ref="loc_id_85B44FC6_FCD3_4047_A850_FCCC1941A2F9"/>
+      <label kind="synchronisation" x="442" y="280">#name:delay_microseconds(unsigned short) #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_id_AB770414_2510_47b1_A5E9_2A0B2DB55087_2E1A464A_417F_47b9_A7AD_B775BB5DECF3" timeDuration="null" name="pushCallUp(int)" receiveOrSend="" type="null" condition="null" in="null" out="null" use="floorvoid" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087"/>
-      <target ref="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3"/>
-      <label kind="synchronisation" x="718" y="418">#name:pushCallUp(int) #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
+    <transition id="tran_id_85B44FC6_FCD3_4047_A850_FCCC1941A2F9_F9C45CC8_7CB6_42d5_8904_4D91ECA2FAAD_0" timeDuration="null" name="wait_clock(unsigned long)" receiveOrSend="" type="null" condition="null" in="null" out="null" use="wait_time_usecvoid" def="null" typeId="null" RESET="null">
+      <source ref="loc_id_85B44FC6_FCD3_4047_A850_FCCC1941A2F9"/>
+      <target ref="loc_id_F9C45CC8_7CB6_42d5_8904_4D91ECA2FAAD_0"/>
+      <label kind="synchronisation" x="718" y="280">#name:wait_clock(unsigned long) #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3_94B18EE0_6C97_47af_9ECE_B6A502CC12E6" timeDuration="null" name="response()" receiveOrSend="" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3"/>
-      <target ref="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6"/>
-      <label kind="synchronisation" x="994" y="418">#name:response() #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
+    <transition id="tran_id_F9C45CC8_7CB6_42d5_8904_4D91ECA2FAAD_0_9D29A5F0_0336_4303_B989_2425FD3F2FD2_0" timeDuration="null" name="_fdm_input_step()" receiveOrSend="!" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null">
+      <source ref="loc_id_F9C45CC8_7CB6_42d5_8904_4D91ECA2FAAD_0"/>
+      <target ref="loc_id_9D29A5F0_0336_4303_B989_2425FD3F2FD2_0"/>
+      <label kind="synchronisation" x="994" y="280">#name:_fdm_input_step() #receiveOrSend:! #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6_757CFC82_7ABE_4211_BF8E_17CA02229CB2" timeDuration="null" name="controller()" receiveOrSend="!" type="[par]" condition="State==0 &amp;&amp; Floor==0,-1&lt;=State&lt;=1,0&lt;=Floor&lt;=4#State:int,Floor:int" in="null" out="null" use="nullvoid" def="null" typeId="EAID_6C75EB78_6F3D_43a8_AECA_612F9B471134" RESET="t;">
-      <source ref="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6"/>
-      <target ref="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2"/>
-      <label kind="synchronisation" x="1270" y="418">#name:controller() #receiveOrSend:! #typeAndCondition:[par]/State==0 &amp;&amp; Floor==0,-1&lt;=State&lt;=1,0&lt;=Floor&lt;=4#State:int,Floor:int #time:null #in:null #out:null</label>
+    <transition id="tran_id_9D29A5F0_0336_4303_B989_2425FD3F2FD2_0_E746D84F_AC7C_4f78_9B36_0B329A936B5B_0" timeDuration="null" name="_fdm_input_local()" receiveOrSend="?" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null">
+      <source ref="loc_id_9D29A5F0_0336_4303_B989_2425FD3F2FD2_0"/>
+      <target ref="loc_id_E746D84F_AC7C_4f78_9B36_0B329A936B5B_0"/>
+      <label kind="synchronisation" x="1270" y="280">#name:_fdm_input_local() #receiveOrSend:? #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2_E8C2F626_8CEC_40cb_A3C3_8350257A56C5" timeDuration="null" name="open()" receiveOrSend="?" type="[par-opt-opt]" condition="State==0 &amp;&amp; Floor==0,-1&lt;=State&lt;=1,0&lt;=Floor&lt;=4#State:int,Floor:int--State==0,-1&lt;=State&lt;=1#State:int--callUp[1] != false || callDown[1] != false || callCar[1] != false) &amp;&amp; Floor == 0,0&lt;=Floor&lt;=4#callUp[1]:bool,callDown[1]:bool,callCar[1]:bool,Floor:int" in="null" out="null" use="nullvoid" def="null" typeId="EAID_6C75EB78_6F3D_43a8_AECA_612F9B471134-EAID_7F0777BF_CE38_4dcf_A0F9_5CADCE6E110D-EAID_F74E2ECE_D038_4bf7_A76C_64239EDD2F01" RESET="t;DCBM=t&lt;=25;">
-      <source ref="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2"/>
-      <target ref="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5"/>
-      <label kind="synchronisation" x="1546" y="350">#name:open() #receiveOrSend:? #typeAndCondition:[par-opt-opt]/State==0 &amp;&amp; Floor==0,-1&lt;=State&lt;=1,0&lt;=Floor&lt;=4#State:int,Floor:int--State==0,-1&lt;=State&lt;=1#State:int--callUp[1] != false || callDown[1] != false || callCar[1] != false) &amp;&amp; Floor == 0,0&lt;=Floor&lt;=4#callUp[1]:bool,callDown[1]:bool,callCar[1]:bool,Floor:int #time:null #in:null #out:null</label>
+    <transition id="tran_id_E746D84F_AC7C_4f78_9B36_0B329A936B5B_0_6BBFF361_9D31_4c18_AB42_72568E2B2D45_0" timeDuration="null" name="_fdm_input()" receiveOrSend="!" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null">
+      <source ref="loc_id_E746D84F_AC7C_4f78_9B36_0B329A936B5B_0"/>
+      <target ref="loc_id_6BBFF361_9D31_4c18_AB42_72568E2B2D45_0"/>
+      <label kind="synchronisation" x="1546" y="280">#name:_fdm_input() #receiveOrSend:! #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2_863E40B4_D7CC_41f3_AD20_0F51B84401DC" timeDuration="null" name="peopleOutIn()" receiveOrSend="" type="!(State==0,-1&lt;=State&lt;=1)#State:int" condition="!(State==0,-1&lt;=State&lt;=1)#State:int" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2"/>
-      <target ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <label kind="synchronisation" x="1822" y="418">#name:peopleOutIn() #receiveOrSend: #typeAndCondition:!(State==0,-1&lt;=State&lt;=1)#State:int #time:null #in:null #out:null</label>
+    <transition id="tran_id_6BBFF361_9D31_4c18_AB42_72568E2B2D45_0_AFD71B77_9584_4932_BC4D_C4FE04D8E5DD_0" timeDuration="null" name="_simulator_output(bool)" receiveOrSend="?" type="[opt]" condition="got_fg_input==true#got_fg_input:bool" in="null" out="null" use="synthetic_clock_modevoid" def="null" typeId="EAID_6917A156_27E5_4d18_9FA7_91082923A1E2_0" RESET="null">
+      <source ref="loc_id_6BBFF361_9D31_4c18_AB42_72568E2B2D45_0"/>
+      <target ref="loc_id_AFD71B77_9584_4932_BC4D_C4FE04D8E5DD_0"/>
+      <label kind="synchronisation" x="1822" y="280">#name:_simulator_output(bool) #receiveOrSend:? #typeAndCondition:[opt]/got_fg_input==true#got_fg_input:bool #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5_B962B7F7_0DE7_49e0_94FF_78514ADD9E24" timeDuration="null" name="open_return" receiveOrSend="" type="[par-opt-opt]" condition="State==0 &amp;&amp; Floor==0,-1&lt;=State&lt;=1,0&lt;=Floor&lt;=4#State:int,Floor:int--State==0,-1&lt;=State&lt;=1#State:int--callUp[1] != false || callDown[1] != false || callCar[1] != false) &amp;&amp; Floor == 0,0&lt;=Floor&lt;=4#callUp[1]:bool,callDown[1]:bool,callCar[1]:bool,Floor:int" in="null" out="null" use="nullvoid" def="null" typeId="EAID_6C75EB78_6F3D_43a8_AECA_612F9B471134-EAID_7F0777BF_CE38_4dcf_A0F9_5CADCE6E110D-EAID_F74E2ECE_D038_4bf7_A76C_64239EDD2F01" RESET="null">
-      <source ref="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5"/>
-      <target ref="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24"/>
-      <label kind="synchronisation" x="1822" y="283">#name:open_return #receiveOrSend: #typeAndCondition:[par-opt-opt]/State==0 &amp;&amp; Floor==0,-1&lt;=State&lt;=1,0&lt;=Floor&lt;=4#State:int,Floor:int--State==0,-1&lt;=State&lt;=1#State:int--callUp[1] != false || callDown[1] != false || callCar[1] != false) &amp;&amp; Floor == 0,0&lt;=Floor&lt;=4#callUp[1]:bool,callDown[1]:bool,callCar[1]:bool,Floor:int #time:null #in:null #out:null</label>
-    </transition>
-    <transition id="tran_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24_863E40B4_D7CC_41f3_AD20_0F51B84401DC" timeDuration="null" name="peopleOutIn()" receiveOrSend="" type="null" condition="null" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24"/>
-      <target ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <label kind="synchronisation" x="2098" y="350">#name:peopleOutIn() #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
-    </transition>
-    <transition id="tran_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC_50B8F800_23CD_4431_9778_042103F2DA5B" timeDuration="null" name="thisFloorPeopleOut()" receiveOrSend="" type="[loop]" condition="elevator_thisFloorOut == true#elevator_thisFloorOut:bool" in="null" out="null" use="nullvoid" def="null" typeId="EAID_2F6A3A06_C3EA_4add_BDDF_8D293713C7F0" RESET="t;">
-      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <target ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
-      <label kind="synchronisation" x="2374" y="350">#name:thisFloorPeopleOut() #receiveOrSend: #typeAndCondition:[loop]/elevator_thisFloorOut == true#elevator_thisFloorOut:bool #time:null #in:null #out:null</label>
-    </transition>
-    <transition id="tran_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC_409350B8_616A_4af1_92A3_C1E16EE75EBD" timeDuration="null" name="thisFloorPeopleIn()" receiveOrSend="" type="[loop]" condition="getCurrentFloor_empty == false#getCurrentFloor_empty:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool" in="null" out="null" use="nullvoid" def="null" typeId="EAID_9355FD6A_E850_4b35_AE6A_3F869ADF2DFC" RESET="t;">
-      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <label kind="synchronisation" x="2650" y="418">#name:thisFloorPeopleIn() #receiveOrSend: #typeAndCondition:[loop]/getCurrentFloor_empty == false#getCurrentFloor_empty:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool #time:null #in:null #out:null</label>
-    </transition>
-    <transition id="tran_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE" timeDuration="null" name="close()" receiveOrSend="" type="!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool--!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool" condition="!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool--!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="t;">
-      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <label kind="synchronisation" x="2926" y="418">#name:close() #receiveOrSend: #typeAndCondition:!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool--!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool #time:null #in:null #out:null</label>
-    </transition>
-    <transition id="tran_id_50B8F800_23CD_4431_9778_042103F2DA5B_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3" timeDuration="null" name="thisFloorPeopleOut_return" receiveOrSend="" type="[loop]" condition="elevator_thisFloorOut == true#elevator_thisFloorOut:bool" in="null" out="null" use="nullvoid" def="null" typeId="EAID_2F6A3A06_C3EA_4add_BDDF_8D293713C7F0" RESET="null">
-      <source ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
-      <target ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
-      <label kind="synchronisation" x="2670" y="323">#name:thisFloorPeopleOut_return #receiveOrSend: #typeAndCondition:[loop]/elevator_thisFloorOut == true#elevator_thisFloorOut:bool #time:null #in:null #out:null</label>
-      <nail y="323" x="2670"/>
-    </transition>
-    <transition id="tran_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3_50B8F800_23CD_4431_9778_042103F2DA5B" timeDuration="null" name="thisFloorPeopleOut()" receiveOrSend="" type="[loop]" condition="elevator_thisFloorOut == true#elevator_thisFloorOut:bool" in="null" out="null" use="nullvoid" def="null" typeId="EAID_2F6A3A06_C3EA_4add_BDDF_8D293713C7F0" RESET="t;">
-      <source ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
-      <target ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
-      <label kind="synchronisation" x="2670" y="283">#name:thisFloorPeopleOut() #receiveOrSend: #typeAndCondition:[loop]/elevator_thisFloorOut == true#elevator_thisFloorOut:bool #time:null #in:null #out:null</label>
-      <nail y="283" x="2670"/>
-    </transition>
-    <transition id="tran_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3_409350B8_616A_4af1_92A3_C1E16EE75EBD" timeDuration="null" name="thisFloorPeopleIn()" receiveOrSend="" type="[loop]" condition="getCurrentFloor_empty == false#getCurrentFloor_empty:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool" in="null" out="null" use="nullvoid" def="null" typeId="EAID_9355FD6A_E850_4b35_AE6A_3F869ADF2DFC" RESET="t;">
-      <source ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
-      <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <label kind="synchronisation" x="2926" y="350">#name:thisFloorPeopleIn() #receiveOrSend: #typeAndCondition:[loop]/getCurrentFloor_empty == false#getCurrentFloor_empty:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool #time:null #in:null #out:null</label>
-    </transition>
-    <transition id="tran_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE" timeDuration="null" name="close()" receiveOrSend="" type="!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool" condition="!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="t;">
-      <source ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
-      <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <label kind="synchronisation" x="3202" y="350">#name:close() #receiveOrSend: #typeAndCondition:!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool #time:null #in:null #out:null</label>
-    </transition>
-    <transition id="tran_id_409350B8_616A_4af1_92A3_C1E16EE75EBD_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7" timeDuration="null" name="thisFloorPeopleIn_return" receiveOrSend="" type="[loop]" condition="getCurrentFloor_empty == false#getCurrentFloor_empty:bool" in="null" out="null" use="nullvoid" def="null" typeId="EAID_9355FD6A_E850_4b35_AE6A_3F869ADF2DFC" RESET="null">
-      <source ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <target ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
-      <label kind="synchronisation" x="3222" y="458">#name:thisFloorPeopleIn_return #receiveOrSend: #typeAndCondition:[loop]/getCurrentFloor_empty == false#getCurrentFloor_empty:bool #time:null #in:null #out:null</label>
-      <nail y="458" x="3222"/>
-    </transition>
-    <transition id="tran_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7_409350B8_616A_4af1_92A3_C1E16EE75EBD" timeDuration="null" name="thisFloorPeopleIn()" receiveOrSend="" type="[loop]" condition="getCurrentFloor_empty == false#getCurrentFloor_empty:bool" in="null" out="null" use="nullvoid" def="null" typeId="EAID_9355FD6A_E850_4b35_AE6A_3F869ADF2DFC" RESET="t;">
-      <source ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
-      <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <label kind="synchronisation" x="3222" y="418">#name:thisFloorPeopleIn() #receiveOrSend: #typeAndCondition:[loop]/getCurrentFloor_empty == false#getCurrentFloor_empty:bool #time:null #in:null #out:null</label>
-      <nail y="418" x="3222"/>
-    </transition>
-    <transition id="tran_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE" timeDuration="null" name="close()" receiveOrSend="" type="!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool--!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool" condition="!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool--!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="t;">
-      <source ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
-      <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <label kind="synchronisation" x="3478" y="418">#name:close() #receiveOrSend: #typeAndCondition:!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool--!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool #time:null #in:null #out:null</label>
-    </transition>
-    <transition id="tran_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE_3085365D_8B34_423f_B39A_463F262E5CF4" timeDuration="null" name="close_return" receiveOrSend="" type="null" condition="null" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <target ref="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4"/>
-      <label kind="synchronisation" x="3754" y="418">#name:close_return #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
-    </transition>
-    <transition id="tran_id_3085365D_8B34_423f_B39A_463F262E5CF4_88E4EF84_3952_4078_AF71_0B0BF13EAD8F" timeDuration="null" name="prepareMove" receiveOrSend="" type="null" condition="null" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="t;">
-      <source ref="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4"/>
-      <target ref="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F"/>
-      <label kind="synchronisation" x="4030" y="418">#name:prepareMove #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
-    </transition>
-    <transition id="tran_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F_03DEB7D0_543B_475b_BADF_609BE49BFAED" timeDuration="null" name="goUpstairs()" receiveOrSend="!?" type="null" condition="null" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F"/>
-      <target ref="loc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED"/>
-      <label kind="synchronisation" x="4306" y="418">#name:goUpstairs() #receiveOrSend:!? #typeAndCondition:null #time:null #in:null #out:null</label>
+    <transition id="tran_id_AFD71B77_9584_4932_BC4D_C4FE04D8E5DD_0_8D66B99C_D001_4c87_B99A_656B8E8A6B28_0" timeDuration="null" name="_simulator_servos()" receiveOrSend="!?" type="[opt]" condition="got_fg_input==true#got_fg_input:bool" in="0&lt;=_sitl.wind_speed&lt;=20,0&lt;=_sitl.wind_direction&lt;=360#_sitl.wind_speed:float,_sitl.wind_direction:float" out="null" use="null" def="0&lt;=_sitl.wind_speed&lt;=20,0&lt;=_sitl.wind_direction&lt;=360#_sitl.wind_speed:float,_sitl.wind_direction:float" typeId="EAID_6917A156_27E5_4d18_9FA7_91082923A1E2_0" RESET="null">
+      <source ref="loc_id_AFD71B77_9584_4932_BC4D_C4FE04D8E5DD_0"/>
+      <target ref="loc_id_8D66B99C_D001_4c87_B99A_656B8E8A6B28_0"/>
+      <label kind="synchronisation" x="2098" y="280">#name:_simulator_servos() #receiveOrSend:!? #typeAndCondition:[opt]/got_fg_input==true#got_fg_input:bool #time:null #in:0&lt;=_sitl.wind_speed&lt;=20,0&lt;=_sitl.wind_direction&lt;=360#_sitl.wind_speed:float,_sitl.wind_direction:float #out:null</label>
     </transition>
   </template>
   <system>system template_;</system>

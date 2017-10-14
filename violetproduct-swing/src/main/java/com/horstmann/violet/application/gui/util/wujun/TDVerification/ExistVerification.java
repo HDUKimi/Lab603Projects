@@ -223,6 +223,15 @@ public class ExistVerification {
 			UppaalLocation sourceLocation = locationById.get(sourceId);
 			sourceLocation.getTransitions().add(transitionI);
 		}
+//		if(pathTuple.location==null){
+//		continue;
+//	}
+//	if(pathTuple.location.timeDurationList==null){
+//		continue;
+//	}
+//	String timeD = pathTuple.location.timeDurationList.get(0);
+//	System.out.println(timeD+" -  - "+pathTuple.location.timeDurationList.get(0).toString());
+
 	}
 	
 	// 判断路径的最大最小时间是否满足输入
@@ -230,30 +239,49 @@ public class ExistVerification {
 			int minTime = 0;
 			int maxTime = 0;
 			
-//			for(PathTuple pathTuple :pathTuples) {
-//				
-////				String timeD = pathTuple.transition.timeDuration;
-//				String timeD=pathTuple.getTransition().getTimeDuration();
-//				System.out.println(timeD+" -  - "+pathTuple.getTransition().toString());
-//			}
 			System.out.println("---------------------------------");
+			
+			for(PathTuple pathTuple :pathTuples) {
+				pathTuple.getLocation().setVisit(0);
+			}
+			
 			for(PathTuple pathTuple :pathTuples) {
 				
-				if(pathTuple.transition==null){
-					continue;
+//				if(pathTuple.transition==null){
+//					continue;
+//				}
+//				if(pathTuple.transition.timeDuration==null){
+//					continue;
+//				}
+//				String timeD = pathTuple.transition.timeDuration;
+//				System.out.println(timeD+" -  - "+pathTuple.transition.toString());
+				
+				if(pathTuple.location.timeDurationList==null){
 				}
-				if(pathTuple.transition.timeDuration==null){
-					continue;
+				else{
+					String timeD=pathTuple.location.timeDurationList.get(pathTuple.location.visit);
+					pathTuple.location.visit++;
+					if(timeD==null||timeD.equals("null")){
+					}
+					else{
+						System.out.println(timeD);
+						if(timeD.contains("=")) {
+							minTime += timeD.contains("<=") ? Integer.valueOf(timeD.split("<=")[1]) : 0;
+							maxTime += timeD.contains(">=") ? Integer.valueOf(timeD.split(">=")[1]) : 0;
+						} else {
+							minTime += timeD.contains("<") ? Integer.valueOf(timeD.split("<")[1]) : 0;
+							maxTime += timeD.contains(">") ? Integer.valueOf(timeD.split(">")[1]) : 0;
+						}
+					}
 				}
-				String timeD = pathTuple.transition.timeDuration;
-				System.out.println(timeD+" -  - "+pathTuple.transition.toString());
-				if(input.contains("=")) {
-					minTime += timeD.contains("<=") ? Integer.valueOf(timeD.split("<=")[1]) : 0;
-					maxTime += timeD.contains(">=") ? Integer.valueOf(timeD.split(">=")[1]) : 0;
-				} else {
-					minTime += timeD.contains("<") ? Integer.valueOf(timeD.split("<")[1]) : 0;
-					maxTime += timeD.contains(">") ? Integer.valueOf(timeD.split(">")[1]) : 0;
-				}
+				
+//				if(input.contains("=")) {
+//					minTime += timeD.contains("<=") ? Integer.valueOf(timeD.split("<=")[1]) : 0;
+//					maxTime += timeD.contains(">=") ? Integer.valueOf(timeD.split(">=")[1]) : 0;
+//				} else {
+//					minTime += timeD.contains("<") ? Integer.valueOf(timeD.split("<")[1]) : 0;
+//					maxTime += timeD.contains(">") ? Integer.valueOf(timeD.split(">")[1]) : 0;
+//				}
 
 			}
 			System.out.println(minTime+" - - "+maxTime);
