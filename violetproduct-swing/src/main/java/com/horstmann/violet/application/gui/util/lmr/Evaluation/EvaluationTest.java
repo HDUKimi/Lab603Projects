@@ -9,6 +9,7 @@ public class EvaluationTest {
 	public static void main(String[] args) {
 		
 		String uppaalName="EA4.1.0 ¹¦ÄÜ³¡¾°1";
+//		String uppaalName="EAElevator7";
 		int uppaalType=1;
 		
 		Evaluation evaluation=new Evaluation(uppaalName, uppaalType);
@@ -51,6 +52,14 @@ public class EvaluationTest {
 		
 //		evaluation.FindAllUppaalPath();
 //		System.out.println(evaluation.FindUppaalPathTupleByMessages("loop()", "read_AHRS()").size());
+//		throttle_loop()
+		List<EvaluationUppaalTuple> uppaalTuples=evaluation.FindUppaalPathTupleByMessages("throttle_loop()", "auto_trim()");
+		
+		System.out.println(uppaalTuples.size());
+		for(EvaluationUppaalTuple uppaalTuple:uppaalTuples){
+		//		System.out.print((uppaalTuple.getUppaalTransition()!=null?uppaalTuple.getUppaalTransition().getName():"")+" -> ");
+			System.out.print(uppaalTuple.getUppaalTransition().getName()+" -> ");
+		}
 		
 //		for(EvaluationUppaalLocation uppaalLocation:evaluation.getUppaalLocations()){
 //			System.out.println(uppaalLocation.getName()+" - "+uppaalLocation.getUppaalTransitions().size());
@@ -72,12 +81,12 @@ public class EvaluationTest {
 //		System.out.println(evaluation.CheckTimeByInput("t>25"));
 		
 		
-		evaluation.FindAllUppaalPath();
-		
-		System.out.println("+-+ "+evaluation.FindStartUppaalLocation().getUppaalPathTuples().size());
-		for(List<EvaluationUppaalTuple> uppaalTuples:evaluation.FindStartUppaalLocation().getUppaalPathTuples()){
-			System.out.println(uppaalTuples.size());
-		}
+//		evaluation.FindAllUppaalPath();
+//		
+//		System.out.println("+-+ "+evaluation.FindStartUppaalLocation().getUppaalPathTuples().size());
+//		for(List<EvaluationUppaalTuple> uppaalTuples:evaluation.FindStartUppaalLocation().getUppaalPathTuples()){
+//			System.out.println(uppaalTuples.size());
+//		}
 		
 	}
 	

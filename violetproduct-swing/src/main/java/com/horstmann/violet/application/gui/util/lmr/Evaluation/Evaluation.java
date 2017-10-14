@@ -20,6 +20,8 @@ public class Evaluation {
 	private HashMap<String, EvaluationUppaalLocation> uppaalLocationByIdMap = new HashMap<>();
 	private List<List<EvaluationUppaalTuple>> uppaalPaths=new ArrayList<>();
 	
+	private static boolean FindUppaalPathTupleEndState=false;
+	
 	public Evaluation(String uppaalName, int uppaalType){
 		this.uppaalName=uppaalName;
 		this.uppaalType=uppaalType;
@@ -108,42 +110,100 @@ public class Evaluation {
 		
 	}
 	
+//	public List<EvaluationUppaalTuple> FindUppaalPathTupleByMessages(String messageA, String messageB){
+//		
+//		List<EvaluationUppaalTuple> uppaalPathTuples=new ArrayList<>();
+//		boolean startflag=false;
+//		boolean endflag=false;
+//		
+//		for(List<EvaluationUppaalTuple> uppaalPath:uppaalPaths){
+//			uppaalPathTuples=new ArrayList<>();
+//			startflag=false;
+//			endflag=false;
+//			for(EvaluationUppaalTuple uppaalTuple:uppaalPath){
+//				if(uppaalTuple.getUppaalTransition()==null){
+//					break;
+//				}
+//				if(startflag){
+//					uppaalPathTuples.add(uppaalTuple);
+//					if(endflag){
+//						
+//					}
+//					else{
+//						if(uppaalTuple.getUppaalTransition().getName().equals(messageB)){
+//							endflag=true;
+//							return uppaalPathTuples;
+//						}
+//					}
+//				}
+//				else{
+//					if(uppaalTuple.getUppaalTransition().getName().equals(messageA)){
+//						startflag=true;
+//						uppaalPathTuples.add(uppaalTuple);
+//					}
+//				}
+//			}
+//		}
+//		
+//		return null;
+//		
+//	}
+	
 	public List<EvaluationUppaalTuple> FindUppaalPathTupleByMessages(String messageA, String messageB){
 		
 		List<EvaluationUppaalTuple> uppaalPathTuples=new ArrayList<>();
-		boolean startflag=false;
-		boolean endflag=false;
 		
-		for(List<EvaluationUppaalTuple> uppaalPath:uppaalPaths){
-			uppaalPathTuples=new ArrayList<>();
-			startflag=false;
-			endflag=false;
-			for(EvaluationUppaalTuple uppaalTuple:uppaalPath){
-				if(uppaalTuple.getUppaalTransition()==null){
+		List<EvaluationUppaalTransition> uppaalTransitionsA=FindUppaalTransitionByMessage(messageA);
+		List<EvaluationUppaalTransition> uppaalTransitionsB=FindUppaalTransitionByMessage(messageB);
+		System.out.println(uppaalTransitionsA.size()+" - "+uppaalTransitionsB.size());
+		if(uppaalTransitionsA.size()>0&&uppaalTransitionsB.size()>0){
+			for(EvaluationUppaalTransition uppaalTransition:uppaalTransitionsA){
+				FindUppaalPathTupleEndState=false;
+				EvaluationUppaalLocation uppaalLocationSource=uppaalLocationByIdMap.get(uppaalTransition.getSource());
+				EvaluationUppaalTuple uppaalTuple=new EvaluationUppaalTuple(uppaalLocationSource, uppaalTransition);
+				uppaalLocationSource.setVisit(true);
+				uppaalPathTuples.add(uppaalTuple);
+				DFSFindUppaalPathTuple(uppaalLocationByIdMap.get(uppaalTransition.getTarget()),uppaalPathTuples,messageB);
+				if(FindUppaalPathTupleEndState){
 					break;
 				}
-				if(startflag){
-					uppaalPathTuples.add(uppaalTuple);
-					if(endflag){
-						
-					}
-					else{
-						if(uppaalTuple.getUppaalTransition().getName().equals(messageB)){
-							endflag=true;
-							return uppaalPathTuples;
-						}
-					}
-				}
 				else{
-					if(uppaalTuple.getUppaalTransition().getName().equals(messageA)){
-						startflag=true;
-						uppaalPathTuples.add(uppaalTuple);
-					}
+					uppaalPathTuples.remove(uppaalTuple);
 				}
 			}
 		}
 		
-		return null;
+		return uppaalPathTuples;
+		
+	}
+
+	private void DFSFindUppaalPathTuple(EvaluationUppaalLocation uppaalLocation, List<EvaluationUppaalTuple> uppaalPathTuples, String message) {
+		if(FindUppaalPathTupleEndState){
+			return ;
+		}
+		if(uppaalLocation.isVisit()||uppaalLocation.isFinl()){
+			return ;
+		}
+		uppaalLocation.setVisit(true);
+		for(EvaluationUppaalTransition uppaalTransition:uppaalLocation.getUppaalTransitions()){
+			if(uppaalTransition.getName().equals(message)){
+				FindUppaalPathTupleEndState=true;
+				EvaluationUppaalTuple uppaalTuple=new EvaluationUppaalTuple(uppaalLocation, uppaalTransition);
+				uppaalPathTuples.add(uppaalTuple);
+				return ;
+			}
+			else{
+				EvaluationUppaalTuple uppaalTuple=new EvaluationUppaalTuple(uppaalLocation, uppaalTransition);
+				uppaalPathTuples.add(uppaalTuple);
+				DFSFindUppaalPathTuple(uppaalLocationByIdMap.get(uppaalTransition.getTarget()),uppaalPathTuples,message);
+				if(FindUppaalPathTupleEndState){
+					return ;
+				}
+				else{
+					uppaalPathTuples.remove(uppaalTuple);
+				}
+			}
+		}
 		
 	}
 
