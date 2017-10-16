@@ -164,6 +164,23 @@ public class TransitionEdge extends ShapeEdge
     private double angle;
     private String labelText = "";
    // public Rectangle2D labelbounds=new Rectangle2D.Double(300,300,300,30);
-    private static JLabel label = new JLabel();   
+    private static JLabel label = new JLabel();  
+    
+    private int visit=0;
+
+	public int getVisit() {
+		return visit;
+	}
+
+	public void setVisit(int visit) {
+		this.visit = visit;
+	}
+	
+	public void addVisit() {
+		this.visit+=1;
+	}
+	public void removeVisit() {
+		this.visit-=1;
+	}
  
 }

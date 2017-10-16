@@ -30,6 +30,8 @@ import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 
 public class TranMessageColorize {
 	
+	private boolean isEnd=false;
+	
 	public void CleanColorize(IWorkspace workspace) {
 		Collection<IEdge> edges = workspace.getGraphFile().getGraph().getAllEdges();
 		Collection<INode> nodes = workspace.getGraphFile().getGraph().getAllNodes();
@@ -86,12 +88,149 @@ public class TranMessageColorize {
 			}
 		}
 	}
+	
+	public void ColorizeTranAndStateByDFS(List<PathTuple> pathTupleList, IWorkspace workspace) {
+		Collection<IEdge> edges = workspace.getGraphFile().getGraph().getAllEdges();
+		Collection<INode> nodes = workspace.getGraphFile().getGraph().getAllNodes();
+		
+		for(IEdge edge:edges){
+			((TransitionEdge) edge).setVisit(0);
+		}
+		
+		CleanColorize(workspace);
+		
+		isEnd=false;
+		int index=0;
+		
+		PathTuple pt=pathTupleList.get(index);
+		UppaalLocation location = pt.getLocation();
+		String locationName = location.getName();// node
+		UppaalTransition transition = pt.getTransition();
+		String tranName = transition.getName();// edge
+		
+		for (INode node : nodes) {
+			if(CircularStartNode.class.isInstance(node)){
+				String startName = ((CircularStartNode) node).getName();
+				if(locationName.equals(startName)){
+					DFSTranAndState(node,pathTupleList,0);
+				}
+				if(isEnd){
+					break;
+				}
+			}
+			else if(CircularNode.class.isInstance(node)){
+				String startName = ((CircularNode) node).getName();
+				if(locationName.equals(startName)){
+					DFSTranAndState(node,pathTupleList,0);
+				}
+				if(isEnd){
+					break;
+				}
+			}
+		}
+		
+	}
+
+	private void DFSTranAndState(INode node, List<PathTuple> pathTupleList, int index) {
+		
+		if(isEnd){
+			return ;
+		}
+		if(index==pathTupleList.size()){
+			isEnd=true;
+			return ;
+		}
+		
+		PathTuple pt=pathTupleList.get(index);
+		UppaalLocation location = pt.getLocation();
+		String locationName = location.getName();// node
+		UppaalTransition transition = pt.getTransition();
+		String transitionName = transition.getName();// edge
+		
+		if(CircularStartNode.class.isInstance(node)){
+			String nodeName = ((CircularStartNode) node).getName();
+			if(nodeName.equals(locationName)){
+				System.out.println("((CircularStartNode) node).getConnectedEndEdges() "+((CircularStartNode) node).getConnectedEndEdges().size());
+				for(IEdge edge:((CircularStartNode) node).getConnectedEndEdges()){
+					if(((TransitionEdge) edge).getVisit()>=1){
+						continue;
+					}
+					String edgeName=((TransitionEdge) edge).getLabel();
+					if(edgeName.equals(transitionName)){
+						ChangeNodeColor(node);
+						ChangetEdgeColor(edge);
+						((TransitionEdge) edge).addVisit();
+						DFSTranAndState(((TransitionEdge) edge).getEnd(), pathTupleList, index+1);
+						if(isEnd){
+							break;
+						}
+						((TransitionEdge) edge).removeVisit();
+						InitEdgeColor(edge);
+						InitNodeColor(node);
+					}
+					if(isEnd){
+						break;
+					}
+				}
+			}
+		}
+		else if(CircularNode.class.isInstance(node)){
+			String nodeName = ((CircularNode) node).getName();
+			if(nodeName.equals(locationName)){
+				for(IEdge edge:((CircularNode) node).getConnectedEndEdges()){
+					String edgeName=((TransitionEdge) edge).getLabel();
+					if(edgeName.equals(transitionName)){
+						ChangeNodeColor(node);
+						ChangetEdgeColor(edge);
+						DFSTranAndState(((TransitionEdge) edge).getEnd(), pathTupleList, index+1);
+						if(isEnd){
+							break;
+						}
+						InitEdgeColor(edge);
+						InitNodeColor(node);
+					}
+					if(isEnd){
+						break;
+					}
+				}
+			}
+		}
+		
+	}
+
+	private void InitEdgeColor(IEdge edge) {
+		IEdgeColorable colorableEdge = (IEdgeColorable) edge;
+		colorableEdge.setEdgeColor(Color.GRAY);
+	}
+
+	private void ChangetEdgeColor(IEdge edge) {
+		IEdgeColorable colorableEdge = (IEdgeColorable) edge;
+		colorableEdge.setEdgeColor(Color.RED);
+	}
+
+	private void InitNodeColor(INode node) {
+		IColorable colorableNode = (IColorable) node;
+		colorableNode.setBackgroundColor(Color.WHITE);
+		colorableNode.setBorderColor(new Color(191, 191, 191));
+		colorableNode.setTextColor(new Color(51, 51, 51));		
+	}
+
+	private void ChangeNodeColor(INode node) {
+		
+		IColorable colorableNode = (IColorable) node;
+		colorableNode.setBackgroundColor(Color.RED);
+		colorableNode.setBorderColor(Color.RED);
+		colorableNode.setTextColor(Color.RED);
+		
+	}
 
 	// 用于改变状态和迁移一条路径的颜色
 	public void ColorizeTranAndState(List<PathTuple> pathTupleList, IWorkspace workspace) {
 		Collection<IEdge> edges = workspace.getGraphFile().getGraph().getAllEdges();
 		Collection<INode> nodes = workspace.getGraphFile().getGraph().getAllNodes();
 		
+		System.out.println(edges.size()+" -* "+nodes.size());
+	
 		CleanColorize(workspace);
 		
 		// 捕获并且改变颜色
@@ -141,13 +280,27 @@ public class TranMessageColorize {
 					if (tranName.equals(labeltext[i])) {
 						// if (labelName.contains(tranName)) {
 						if (edge != null && IEdgeColorable.class.isInstance(edge)) {
-							String startname = ((CircularNode) edge.getStart()).getName().toString();
-							System.out.println(locationName + " ******* " + startname);
-							if (locationName.equals(startname)) {
-								IEdgeColorable colorableEdge = (IEdgeColorable) edge;
-								colorableEdge.setEdgeColor(Color.RED);
-								break;
-							}
+							 INode iNode=edge.getStart();
+							 
+							 if (CircularStartNode.class.isInstance(iNode)) {
+								 String startname = ((CircularStartNode) edge.getStart()).getName().toString();
+									System.out.println(locationName + " ******* " + startname);
+									if (locationName.equals(startname)) {
+										IEdgeColorable colorableEdge = (IEdgeColorable) edge;
+										colorableEdge.setEdgeColor(Color.RED);
+										break;
+									}
+							 }
+							 else{
+								 String startname = ((CircularNode) edge.getStart()).getName().toString();
+									System.out.println(locationName + " ******* " + startname);
+									if (locationName.equals(startname)) {
+										IEdgeColorable colorableEdge = (IEdgeColorable) edge;
+										colorableEdge.setEdgeColor(Color.RED);
+										break;
+									}
+							 }
+							 
 						}
 					}
 				}

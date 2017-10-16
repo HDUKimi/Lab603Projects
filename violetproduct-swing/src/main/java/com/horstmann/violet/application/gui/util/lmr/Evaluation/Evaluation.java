@@ -205,7 +205,11 @@ public class Evaluation {
 		if(FindUppaalPathTupleEndState){
 			return ;
 		}
-		if(uppaalLocation.visit>1||uppaalLocation.isFinl()){
+		if(uppaalLocation.visit>=1){
+			uppaalPathTuples.remove(uppaalPathTuples.size()-1);
+			return ;
+		}
+		if(uppaalLocation.isFinl()){
 			return ;
 		}
 		uppaalLocation.visit++;

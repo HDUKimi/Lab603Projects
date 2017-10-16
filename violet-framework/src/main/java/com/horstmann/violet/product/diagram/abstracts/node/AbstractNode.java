@@ -108,7 +108,7 @@ public abstract class AbstractNode implements INode
 	/**
      * @return currently connected edges
      */
-    protected List<IEdge> getConnectedEdges()
+    public List<IEdge> getConnectedEdges()
     {
         List<IEdge> connectedEdges = new ArrayList<IEdge>();
         IGraph currentGraph = getGraph();
@@ -117,6 +117,24 @@ public abstract class AbstractNode implements INode
             INode start = anEdge.getStart();
             INode end = anEdge.getEnd();
             if (this.equals(start) || this.equals(end))
+            {
+                connectedEdges.add(anEdge);
+            }
+        }
+        return connectedEdges;
+    }
+    
+    /**
+     * @return currently connected end edges
+     */
+    public List<IEdge> getConnectedEndEdges()
+    {
+        List<IEdge> connectedEdges = new ArrayList<IEdge>();
+        IGraph currentGraph = getGraph();
+        for (IEdge anEdge : currentGraph.getAllEdges())
+        {
+            INode start = anEdge.getStart();
+            if (this.equals(start))
             {
                 connectedEdges.add(anEdge);
             }

@@ -771,7 +771,14 @@ public class ModelExistValidationPanel extends JPanel{
 								System.out.println("message is not exist ");
 							}
 							else{
-								tmc.ColorizeTranAndState(pathTupleList, mainFrame.getModelExistValidationPanel().getUppaalworkspace());
+								System.out.println("pathTupleList.size() "+pathTupleList.size());
+								if(uppaalType==1){
+									tmc.ColorizeTranAndStateByDFS(pathTupleList, mainFrame.getModelExistValidationPanel().getUppaalworkspace());
+								}
+								else{
+									tmc.ColorizeTranAndState(pathTupleList, mainFrame.getModelExistValidationPanel().getUppaalworkspace());
+								}
+								
 								mainFrame.getValidationResultPanel().getFivenamelabel().setText("共找到一条路径，包含"+pathTupleList.size()+"个节点和"+pathTupleList.size()+"条消息：");
 								
 								mainFrame.getValidationResultPanel().getFiveresultpanel().removeAll();
@@ -788,7 +795,7 @@ public class ModelExistValidationPanel extends JPanel{
 								int i=0;
 								
 								for(PathTuple pt:pathTupleList){
-									System.out.println(pt.getLocation().toString()+ " --- "+pt.getTransition().toString());
+//									System.out.println(pt.getLocation().toString()+ " --- "+pt.getTransition().toString());
 									
 									ValidationLocationMessagePanel vlmpanel=new ValidationLocationMessagePanel(pt.getLocation());
 									resultpanel.add(vlmpanel);

@@ -9,14 +9,14 @@ public class Display {
 
 		System.out.println(value);
 		
-//		MainFrame mainFrame=ModelExistValidationPanel.getMainFrame();
-//		
-////		if(value.contains("匹配到消息")){
-////			ValidationToolPanel.startProcessCount();
-////		}
-//		
-//		mainFrame.getConsolePartPanel().getTextarea6().append(value+"\n");
-//		mainFrame.getConsolePartPanel().getTextarea6().setCaretPosition(mainFrame.getConsolePartPanel().getTextarea6().getDocument().getLength());
+		MainFrame mainFrame=ModelExistValidationPanel.getMainFrame();
+		
+//		if(value.contains("匹配到消息")){
+//			ValidationToolPanel.startProcessCount();
+//		}
+		
+		mainFrame.getConsolePartPanel().getTextarea6().append(value+"\n");
+		mainFrame.getConsolePartPanel().getTextarea6().setCaretPosition(mainFrame.getConsolePartPanel().getTextarea6().getDocument().getLength());
 		
 	}
 	

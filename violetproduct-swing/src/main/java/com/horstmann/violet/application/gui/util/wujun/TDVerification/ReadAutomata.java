@@ -122,6 +122,9 @@ public class ReadAutomata {
 						transition.setOut(true);//…Ë÷√out
 						
 					}
+					else{
+						transition.setName(label.getTextTrim());
+					}
 					
 				}
 				
