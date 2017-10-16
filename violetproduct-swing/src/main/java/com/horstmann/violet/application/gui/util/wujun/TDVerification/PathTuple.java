@@ -15,9 +15,6 @@ public class PathTuple {
 	public void setFinl(boolean finl) {
 		this.finl = finl;
 	}
-	private boolean getfinl() {
-		return finl;
-	}
 	public UppaalLocation getLocation() {
 		return location;
 	}

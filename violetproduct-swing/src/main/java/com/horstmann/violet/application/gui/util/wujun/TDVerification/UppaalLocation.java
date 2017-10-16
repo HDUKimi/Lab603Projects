@@ -1,18 +1,25 @@
 package com.horstmann.violet.application.gui.util.wujun.TDVerification;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.horstmann.violet.application.gui.util.wj.util.PathCoverUtil;
 
 public class UppaalLocation {
 	String id;
 	String name;
 	double x = 0;
-	ArrayList<UppaalTransition> transitions = new ArrayList<>();
+	ArrayList<UppaalTransition> uppaalTransitions = new ArrayList<>();
 	ArrayList<Integer> startTimeList = new ArrayList<>();
 	ArrayList<Integer> endTimeList = new ArrayList<>();
 	ArrayList<String> timeDurationList = new ArrayList<>();
-	String finl = "false";
-	String init = "false";
-	int visit = 0;
+	String timeDuration;
+	boolean init = false;
+	boolean finl = false;
+	// boolean visit = false;
+	public int visit = 0;
+	
+	List<List<PathTuple>> uppaalPathTuples = new ArrayList<>();
 
 	public ArrayList<Integer> getStartTimeList() {
 		return startTimeList;
@@ -38,28 +45,28 @@ public class UppaalLocation {
 		this.timeDurationList = timeDurationList;
 	}
 
-	public String getFinl() {
-		return finl;
-	}
-
-	public void setFinl(String finl) {
-		this.finl = finl;
-	}
-
-	public String getInit() {
+	public boolean isInit() {
 		return init;
 	}
 
-	public void setInit(String init) {
+	public void setInit(boolean init) {
 		this.init = init;
 	}
 
-	public ArrayList<UppaalTransition> getTransitions() {
-		return transitions;
+	public boolean isFinl() {
+		return finl;
 	}
 
-	public void setTransitions(ArrayList<UppaalTransition> transitions) {
-		this.transitions = transitions;
+	public void setFinl(boolean finl) {
+		this.finl = finl;
+	}
+
+	public ArrayList<UppaalTransition> getUppaalTransitions() {
+		return uppaalTransitions;
+	}
+
+	public void setUppaalTransitions(ArrayList<UppaalTransition> uppaalTransitions) {
+		this.uppaalTransitions = uppaalTransitions;
 	}
 
 	public String getId() {
@@ -94,9 +101,25 @@ public class UppaalLocation {
 		this.visit = visit;
 	}
 
+	public String getTimeDuration() {
+		return timeDuration;
+	}
+
+	public void setTimeDuration(String timeDuration) {
+		this.timeDuration = timeDuration;
+	}
+
+	public List<List<PathTuple>> getUppaalPathTuples() {
+		return uppaalPathTuples;
+	}
+
+	public void setUppaalPathTuples(List<List<PathTuple>> uppaalPathTuples) {
+		this.uppaalPathTuples = uppaalPathTuples;
+	}
+
 	@Override
 	public String toString() {
-		return "UppaalLocation [id=" + id + ", name=" + name + ", x=" + x + ", transitions=" + transitions + ", finl="
+		return "UppaalLocation [id=" + id + ", name=" + name + ", x=" + x + ", transitions=" + uppaalTransitions + ", finl="
 				+ finl + ", init=" + init + "]";
 	}
 

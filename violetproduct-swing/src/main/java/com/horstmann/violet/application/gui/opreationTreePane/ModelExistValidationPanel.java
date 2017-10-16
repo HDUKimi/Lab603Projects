@@ -188,6 +188,7 @@ public class ModelExistValidationPanel extends JPanel{
 	
 	
 	private int uppaalType=0;//0: 1:顺序图 2:时序图
+	private Evaluation evaluation;
 	
 	
 	public ModelExistValidationPanel(MainFrame mainFrame){
@@ -591,9 +592,15 @@ public class ModelExistValidationPanel extends JPanel{
 							uppaalMessageTransitionList.add(umt);
 
 							List<UppaalTransition> uppaalTransitionList = new ArrayList<>();
-							uppaalTransitionList=mainFrame.getModelExistValidationPanel().getEv().getSelectedTransitionsIfExist(uppaalMessageTransitionList);
+							
+							if(uppaalType==1){
+								uppaalTransitionList=evaluation.FindUppaalTransitionByMessage(message);
+							}
+							else{
+								uppaalTransitionList=mainFrame.getModelExistValidationPanel().getEv().getSelectedTransitionsIfExist(uppaalMessageTransitionList);
+							}
 
-							if(uppaalTransitionList==null){
+							if(uppaalTransitionList==null||uppaalTransitionList.size()==0){
 								JOptionPane.showMessageDialog(null, "消息 "+message+" 不存在！", "存在一致性评估" , JOptionPane.ERROR_MESSAGE);
 								System.out.println("message is not exist ");
 							}
@@ -751,9 +758,15 @@ public class ModelExistValidationPanel extends JPanel{
 							uppaalMessageTransitionList.add(umt2);
 
 							List<PathTuple> pathTupleList = new ArrayList<>();
-							pathTupleList=mainFrame.getModelExistValidationPanel().getEv().getPathOfSelectedTransitions(uppaalMessageTransitionList);
 							
-							if(pathTupleList==null){
+							if(uppaalType==1){
+								pathTupleList=evaluation.FindUppaalPathTupleByMessages(message1, message2);
+							}
+							else{
+								pathTupleList=mainFrame.getModelExistValidationPanel().getEv().getPathOfSelectedTransitions(uppaalMessageTransitionList);
+							}
+							
+							if(pathTupleList==null||pathTupleList.size()==0){
 								JOptionPane.showMessageDialog(null, "顺序一致性评估失败，找不到路径！", "顺序一致性评估" , JOptionPane.ERROR_MESSAGE);
 								System.out.println("message is not exist ");
 							}
@@ -900,7 +913,15 @@ public class ModelExistValidationPanel extends JPanel{
 						else{
 							
 							if(isInequality(message)){
-								Boolean result=mainFrame.getModelExistValidationPanel().getEv().getPathByInput(message);
+								
+								Boolean result=false;
+								
+								if(uppaalType==1){
+									result=evaluation.CheckTimeByInput(message);
+								}
+								else{
+									result=mainFrame.getModelExistValidationPanel().getEv().getPathByInput(message);
+								}
 								
 								System.out.println("result is "+result);
 								
@@ -1059,14 +1080,19 @@ public class ModelExistValidationPanel extends JPanel{
 					
 					showUppaalDiagram(uppaalname);
 					
-					int type=checkUppaalType(uppaalname);
+					uppaalType=checkUppaalType(uppaalname);
 					
-					Evaluation evaluation=new Evaluation(uppaalname, type);
-					try {
-						evaluation.LoadUppaalXmlData();
-					} catch (DocumentException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					if(uppaalType==1){
+						evaluation=new Evaluation(uppaalname, uppaalType);
+						evaluation.Ready();
+					}
+					else{
+						try {
+							ev=new ExistVerification("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\TimingToUppal\\"+uppaalname+"ForXStream.xml");
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 					
 //					String filePath="D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\uppaalTest1.uppaal.violet.xml";
@@ -2134,6 +2160,10 @@ public class ModelExistValidationPanel extends JPanel{
 
 	public static ExistVerification getEv() {
 		return ev;
+	}
+
+	public Evaluation getEvaluation() {
+		return evaluation;
 	}
 
 	public IWorkspace getUppaalworkspace() {

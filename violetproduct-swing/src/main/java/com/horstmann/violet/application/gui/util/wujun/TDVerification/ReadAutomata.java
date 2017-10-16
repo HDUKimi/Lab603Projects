@@ -46,8 +46,8 @@ public class ReadAutomata {
 				UppaalLocation location = new UppaalLocation();
 				location.setId(locationI.attributeValue("id"));
 				location.setName(locationI.element("name").getText());
-				location.setFinl(locationI.attributeValue("finl"));
-				location.setInit(locationI.attributeValue("init"));
+				location.setFinl(Boolean.valueOf(locationI.attributeValue("finl")));
+				location.setInit(Boolean.valueOf(locationI.attributeValue("init")));
 				if (locationI.element("label") != null
 						&& locationI.element("label").attributeValue("kind")
 								.equals("invariant")) {//…Ë÷√x
@@ -93,8 +93,8 @@ public class ReadAutomata {
 				ArrayList<Element> labels = (ArrayList) transitionI.elements("label");
 				Iterator label_Iterator = labels.iterator();
 				
-				transition.setSource(Integer.parseInt(transitionI.element("source").attributeValue("ref").substring(2)));
-				transition.setTarget(Integer.parseInt(transitionI.element("target").attributeValue("ref").substring(2)));
+				transition.setSource(transitionI.element("source").attributeValue("ref").substring(2));
+				transition.setTarget(transitionI.element("target").attributeValue("ref").substring(2));
 					
 				
 				while(label_Iterator.hasNext())

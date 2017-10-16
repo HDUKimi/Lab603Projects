@@ -43,7 +43,8 @@ public class WriteForXStream
 		    for(UppaalLocation locationData : uppaalTemplate.locations) {
 		    	Element location = locationList.addElement("location");
 		    	location.addElement("id").setText("loc_id"+locationData.getId());
-		    	location.addElement("name").setText(""+locationData.getName());
+//		    	location.addElement("name").setText(""+locationData.getName());
+		    	location.addElement("name").setText(locationData.getObjName()+":"+locationData.getName());
 		    	location.addElement("timeDuration").setText(""+locationData.getTimeDuration());
 		    	location.addElement("init").setText(""+locationData.getInit().toString());
 		    	location.addElement("final").setText(""+locationData.getFnal().toString());

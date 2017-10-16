@@ -221,7 +221,7 @@ public class ExistVerification {
 		for (UppaalTransition transitionI : templates.get(0).getTransitions()) {
 			String sourceId = "id" + transitionI.getSource();
 			UppaalLocation sourceLocation = locationById.get(sourceId);
-			sourceLocation.getTransitions().add(transitionI);
+			sourceLocation.getUppaalTransitions().add(transitionI);
 		}
 //		if(pathTuple.location==null){
 //		continue;

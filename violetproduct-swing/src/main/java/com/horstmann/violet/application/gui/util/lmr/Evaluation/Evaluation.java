@@ -10,21 +10,35 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.PathTuple;
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalLocation;
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalTransition;
+
 public class Evaluation {
 
 	private String uppaalName;
 	private int uppaalType;
-	private List<EvaluationUppaalLocation> uppaalLocations=new ArrayList<>();
-	private List<EvaluationUppaalTransition> uppaalTransitions=new ArrayList<>();
+	private List<UppaalLocation> uppaalLocations=new ArrayList<>();
+	private List<UppaalTransition> uppaalTransitions=new ArrayList<>();
 	
-	private HashMap<String, EvaluationUppaalLocation> uppaalLocationByIdMap = new HashMap<>();
-	private List<List<EvaluationUppaalTuple>> uppaalPaths=new ArrayList<>();
+	private HashMap<String, UppaalLocation> uppaalLocationByIdMap = new HashMap<>();
+	private List<List<PathTuple>> uppaalPaths=new ArrayList<>();
 	
 	private static boolean FindUppaalPathTupleEndState=false;
 	
 	public Evaluation(String uppaalName, int uppaalType){
 		this.uppaalName=uppaalName;
 		this.uppaalType=uppaalType;
+	}
+	
+	public void Ready(){
+		try {
+			LoadUppaalXmlData();
+			LinkUppaalLocationToUppaalTransition();
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void LoadUppaalXmlData() throws DocumentException{
@@ -56,7 +70,7 @@ public class Evaluation {
 		uppaalTransitions=new ArrayList<>();
 		
 		for(Element locationElement:locationElements){
-			EvaluationUppaalLocation uppaalLocation=new EvaluationUppaalLocation();
+			UppaalLocation uppaalLocation=new UppaalLocation();
 			uppaalLocation.setId(locationElement.element("id").getText());
 			uppaalLocation.setName(locationElement.element("name").getText());
 			uppaalLocation.setTimeDuration(locationElement.element("timeDuration").getText());
@@ -66,7 +80,7 @@ public class Evaluation {
 		}
 		
 		for(Element transitionElement:transitionElements){
-			EvaluationUppaalTransition uppaalTransition=new EvaluationUppaalTransition();
+			UppaalTransition uppaalTransition=new UppaalTransition();
 			uppaalTransition.setId(transitionElement.element("id").getText());
 			uppaalTransition.setName(transitionElement.element("name").getText());
 			uppaalTransition.setSource(transitionElement.element("source").getText());
@@ -79,16 +93,16 @@ public class Evaluation {
 	
 	public void LinkUppaalLocationToUppaalTransition(){
 		
-		for(EvaluationUppaalLocation uppaalLocation:uppaalLocations){
+		for(UppaalLocation uppaalLocation:uppaalLocations){
 			uppaalLocationByIdMap.put(uppaalLocation.getId(), uppaalLocation);
 		}
 		
-		for(EvaluationUppaalTransition uppaalTransition:uppaalTransitions){
-			EvaluationUppaalLocation uppaalLocation=uppaalLocationByIdMap.get(uppaalTransition.getSource());
+		for(UppaalTransition uppaalTransition:uppaalTransitions){
+			UppaalLocation uppaalLocation=uppaalLocationByIdMap.get(uppaalTransition.getSource());
 			uppaalLocation.getUppaalTransitions().add(uppaalTransition);
 		}
 		
-		for(EvaluationUppaalLocation uppaalLocation:uppaalLocations){
+		for(UppaalLocation uppaalLocation:uppaalLocations){
 			if(uppaalLocation.getUppaalTransitions().size()>0){
 				uppaalLocation.setFinl(false);
 			}
@@ -96,11 +110,11 @@ public class Evaluation {
 		
 	}
 	
-	public List<EvaluationUppaalTransition> FindUppaalTransitionByMessage(String message){
+	public List<UppaalTransition> FindUppaalTransitionByMessage(String message){
 		
-		List<EvaluationUppaalTransition> findTransitions=new ArrayList<>();
+		List<UppaalTransition> findTransitions=new ArrayList<>();
 		
-		for(EvaluationUppaalTransition uppaalTransition:uppaalTransitions){
+		for(UppaalTransition uppaalTransition:uppaalTransitions){
 			if(message.equals(uppaalTransition.getName())){
 				findTransitions.add(uppaalTransition);
 			}
@@ -110,17 +124,17 @@ public class Evaluation {
 		
 	}
 	
-//	public List<EvaluationUppaalTuple> FindUppaalPathTupleByMessages(String messageA, String messageB){
+//	public List<EvaluationPathTuple> FindUppaalPathTupleByMessages(String messageA, String messageB){
 //		
-//		List<EvaluationUppaalTuple> uppaalPathTuples=new ArrayList<>();
+//		List<EvaluationPathTuple> uppaalPathTuples=new ArrayList<>();
 //		boolean startflag=false;
 //		boolean endflag=false;
 //		
-//		for(List<EvaluationUppaalTuple> uppaalPath:uppaalPaths){
+//		for(List<EvaluationPathTuple> uppaalPath:uppaalPaths){
 //			uppaalPathTuples=new ArrayList<>();
 //			startflag=false;
 //			endflag=false;
-//			for(EvaluationUppaalTuple uppaalTuple:uppaalPath){
+//			for(EvaluationPathTuple uppaalTuple:uppaalPath){
 //				if(uppaalTuple.getUppaalTransition()==null){
 //					break;
 //				}
@@ -149,19 +163,21 @@ public class Evaluation {
 //		
 //	}
 	
-	public List<EvaluationUppaalTuple> FindUppaalPathTupleByMessages(String messageA, String messageB){
+	public List<PathTuple> FindUppaalPathTupleByMessages(String messageA, String messageB){
 		
-		List<EvaluationUppaalTuple> uppaalPathTuples=new ArrayList<>();
+		InitLocationVisit();
 		
-		List<EvaluationUppaalTransition> uppaalTransitionsA=FindUppaalTransitionByMessage(messageA);
-		List<EvaluationUppaalTransition> uppaalTransitionsB=FindUppaalTransitionByMessage(messageB);
+		List<PathTuple> uppaalPathTuples=new ArrayList<>();
+		
+		List<UppaalTransition> uppaalTransitionsA=FindUppaalTransitionByMessage(messageA);
+		List<UppaalTransition> uppaalTransitionsB=FindUppaalTransitionByMessage(messageB);
 		System.out.println(uppaalTransitionsA.size()+" - "+uppaalTransitionsB.size());
 		if(uppaalTransitionsA.size()>0&&uppaalTransitionsB.size()>0){
-			for(EvaluationUppaalTransition uppaalTransition:uppaalTransitionsA){
+			for(UppaalTransition uppaalTransition:uppaalTransitionsA){
 				FindUppaalPathTupleEndState=false;
-				EvaluationUppaalLocation uppaalLocationSource=uppaalLocationByIdMap.get(uppaalTransition.getSource());
-				EvaluationUppaalTuple uppaalTuple=new EvaluationUppaalTuple(uppaalLocationSource, uppaalTransition);
-				uppaalLocationSource.setVisit(true);
+				UppaalLocation uppaalLocationSource=uppaalLocationByIdMap.get(uppaalTransition.getSource());
+				PathTuple uppaalTuple=new PathTuple(uppaalLocationSource, uppaalTransition);
+				uppaalLocationSource.visit++;
 				uppaalPathTuples.add(uppaalTuple);
 				DFSFindUppaalPathTuple(uppaalLocationByIdMap.get(uppaalTransition.getTarget()),uppaalPathTuples,messageB);
 				if(FindUppaalPathTupleEndState){
@@ -177,23 +193,31 @@ public class Evaluation {
 		
 	}
 
-	private void DFSFindUppaalPathTuple(EvaluationUppaalLocation uppaalLocation, List<EvaluationUppaalTuple> uppaalPathTuples, String message) {
+	private void InitLocationVisit() {
+		
+		for(UppaalLocation location:uppaalLocations){
+			location.visit=0;
+		}
+		
+	}
+
+	private void DFSFindUppaalPathTuple(UppaalLocation uppaalLocation, List<PathTuple> uppaalPathTuples, String message) {
 		if(FindUppaalPathTupleEndState){
 			return ;
 		}
-		if(uppaalLocation.isVisit()||uppaalLocation.isFinl()){
+		if(uppaalLocation.visit>1||uppaalLocation.isFinl()){
 			return ;
 		}
-		uppaalLocation.setVisit(true);
-		for(EvaluationUppaalTransition uppaalTransition:uppaalLocation.getUppaalTransitions()){
+		uppaalLocation.visit++;
+		for(UppaalTransition uppaalTransition:uppaalLocation.getUppaalTransitions()){
 			if(uppaalTransition.getName().equals(message)){
 				FindUppaalPathTupleEndState=true;
-				EvaluationUppaalTuple uppaalTuple=new EvaluationUppaalTuple(uppaalLocation, uppaalTransition);
+				PathTuple uppaalTuple=new PathTuple(uppaalLocation, uppaalTransition);
 				uppaalPathTuples.add(uppaalTuple);
 				return ;
 			}
 			else{
-				EvaluationUppaalTuple uppaalTuple=new EvaluationUppaalTuple(uppaalLocation, uppaalTransition);
+				PathTuple uppaalTuple=new PathTuple(uppaalLocation, uppaalTransition);
 				uppaalPathTuples.add(uppaalTuple);
 				DFSFindUppaalPathTuple(uppaalLocationByIdMap.get(uppaalTransition.getTarget()),uppaalPathTuples,message);
 				if(FindUppaalPathTupleEndState){
@@ -209,14 +233,22 @@ public class Evaluation {
 
 	public boolean CheckTimeByInput(String input) {
 		
+		if(!CheckTimeDuration()){
+			return false;
+		}
+		
+		FindAllUppaalPath();
+		
+		System.out.println(uppaalPaths.size());
+		
 		int minTime=0;
 		int maxTime=0;
 		
-		for(List<EvaluationUppaalTuple> uppaalTuples:uppaalPaths){
+		for(List<PathTuple> uppaalTuples:uppaalPaths){
 			int min=0;
 			int max=0;
-			for(EvaluationUppaalTuple tuple:uppaalTuples){
-				String timeD=tuple.getUppaalLocation().getTimeDuration();
+			for(PathTuple tuple:uppaalTuples){
+				String timeD=tuple.getLocation().getTimeDuration();
 				if(timeD==null||timeD.equals("null")){
 				}
 				else{
@@ -304,9 +336,9 @@ public class Evaluation {
 
 	}
 	
-	public EvaluationUppaalLocation FindStartUppaalLocation(){
+	public UppaalLocation FindStartUppaalLocation(){
 		
-		for(EvaluationUppaalLocation uppaalLocation:uppaalLocations){
+		for(UppaalLocation uppaalLocation:uppaalLocations){
 			if(uppaalLocation.isInit()){
 				return uppaalLocation;
 			}
@@ -315,106 +347,113 @@ public class Evaluation {
 		
 	}
 	
+	public void FindAllUppaalPath(){
+		
+		InitLocationVisit();
+		
+		UppaalLocation uppaalLocation=FindStartUppaalLocation();
+		
+		List<PathTuple> uppaalTuples=new ArrayList<>();
+		
+		uppaalLocation.visit++;
+		for(UppaalTransition uppaalTransition:uppaalLocation.getUppaalTransitions()){
+			PathTuple tuple=new PathTuple(uppaalLocation, uppaalTransition);
+			uppaalTuples.add(tuple);
+			UppaalLocation nextUppaalLocation=uppaalLocationByIdMap.get(uppaalTransition.getTarget());
+			nextUppaalLocation.visit++;
+			DFSUppaalPath(nextUppaalLocation, uppaalTuples);
+			nextUppaalLocation.visit--;
+			uppaalTuples.remove(tuple);
+		}
+		uppaalLocation.visit--;
+		
+	}
+	
+	public void DFSUppaalPath(UppaalLocation uppaalLocation, List<PathTuple> uppaalTuples){
+
+		if(uppaalLocation.isFinl()||uppaalLocation.visit>1){
+			PathTuple tuple=new PathTuple(uppaalLocation, null);
+			uppaalTuples.add(tuple);
+			uppaalPaths.add(new ArrayList<>(uppaalTuples));
+			uppaalTuples.remove(tuple);
+		}
+		else{
+			for(UppaalTransition uppaalTransition:uppaalLocation.getUppaalTransitions()){
+				PathTuple tuple=new PathTuple(uppaalLocation, uppaalTransition);
+				uppaalTuples.add(tuple);
+				UppaalLocation nextUppaalLocation=uppaalLocationByIdMap.get(uppaalTransition.getTarget());
+				nextUppaalLocation.visit++;
+				DFSUppaalPath(nextUppaalLocation, uppaalTuples);
+				nextUppaalLocation.visit--;
+				uppaalTuples.remove(tuple);
+			}
+		}
+		
+	}
+
 //	public void FindAllUppaalPath(){
 //		
-//		EvaluationUppaalLocation uppaalLocation=FindStartUppaalLocation();
+//		UppaalLocation uppaalLocation=FindStartUppaalLocation();
 //		
-//		List<EvaluationUppaalTuple> uppaalTuples=new ArrayList<>();
-//		
-//		uppaalLocation.setVisit(true);
-//		for(EvaluationUppaalTransition uppaalTransition:uppaalLocation.getUppaalTransitions()){
-//			EvaluationUppaalTuple tuple=new EvaluationUppaalTuple(uppaalLocation, uppaalTransition);
-//			uppaalTuples.add(tuple);
-//			EvaluationUppaalLocation nextUppaalLocation=uppaalLocationByIdMap.get(uppaalTransition.getTarget());
-//			if(nextUppaalLocation.isVisit()){
-//				DFSUppaalPath(nextUppaalLocation, uppaalTuples, true);
-//			}
-//			else{
-//				nextUppaalLocation.setVisit(true);
-//				DFSUppaalPath(nextUppaalLocation, uppaalTuples, false);
-//			}
-////			uppaalLocation.setVisit(false);
-//			uppaalTuples.remove(tuple);
-//		}
+//		DFSUppaalPath(uppaalLocation);
 //		
 //	}
 //	
-//	public void DFSUppaalPath(EvaluationUppaalLocation uppaalLocation, List<EvaluationUppaalTuple> uppaalTuples, boolean visit){
+//	public void DFSUppaalPath(UppaalLocation uppaalLocation){
 //
-//		if(uppaalLocation.isFinl()||visit){
-//			EvaluationUppaalTuple tuple=new EvaluationUppaalTuple(uppaalLocation, null);
-//			uppaalTuples.add(tuple);
-//			uppaalPaths.add(new ArrayList<>(uppaalTuples));
-//			uppaalTuples.remove(tuple);
-//		}
-//		else{
-//			for(EvaluationUppaalTransition uppaalTransition:uppaalLocation.getUppaalTransitions()){
-//				EvaluationUppaalTuple tuple=new EvaluationUppaalTuple(uppaalLocation, uppaalTransition);
-//				uppaalTuples.add(tuple);
-//				EvaluationUppaalLocation nextUppaalLocation=uppaalLocationByIdMap.get(uppaalTransition.getTarget());
-//				if(nextUppaalLocation.isVisit()){
-//					DFSUppaalPath(nextUppaalLocation, uppaalTuples, true);
-//				}
-//				else{
-//					nextUppaalLocation.setVisit(true);
-//					DFSUppaalPath(nextUppaalLocation, uppaalTuples, false);
-//				}
-////					uppaalLocation.setVisit(false);
-//				uppaalTuples.remove(tuple);
-//			}
+//		if(uppaalLocation.visit>1){
+//			return ;
 //		}
 //		
-//	}
-	private int num=0;
-	public void FindAllUppaalPath(){
-		
-		EvaluationUppaalLocation uppaalLocation=FindStartUppaalLocation();
-		
-		DFSUppaalPath(uppaalLocation);
-		System.out.println(num+" +-+ ");
-	}
-	
-	public void DFSUppaalPath(EvaluationUppaalLocation uppaalLocation){
-		num++;
-		if(uppaalLocation.isVisit()){
-			return ;
-		}
-		
-		if(uppaalLocation.isFinl()){
-			EvaluationUppaalTuple tuple = new EvaluationUppaalTuple(uppaalLocation, null);
-			List<EvaluationUppaalTuple> list=new ArrayList<>();
-			list.add(tuple);
-			uppaalLocation.getUppaalPathTuples().add(list);
-			uppaalLocation.setVisit(true);
-			return ;
-		}
-		
-		uppaalLocation.setVisit(true);
-		for (EvaluationUppaalTransition uppaalTransition : uppaalLocation.getUppaalTransitions()) {
-			EvaluationUppaalLocation nextUppaalLocation = uppaalLocationByIdMap.get(uppaalTransition.getTarget());
-			DFSUppaalPath(nextUppaalLocation);
-			EvaluationUppaalTuple tuple = new EvaluationUppaalTuple(uppaalLocation, uppaalTransition);
-			if(nextUppaalLocation.getUppaalPathTuples().size()==0){
-				List<EvaluationUppaalTuple> uppaalTuples=new ArrayList<>();
-				uppaalTuples.add(tuple);
-				uppaalLocation.getUppaalPathTuples().add(uppaalTuples);
-			}
-			else{
-//				for(List<EvaluationUppaalTuple> nextUppaalTuples:nextUppaalLocation.getUppaalPathTuples()){
-//					List<EvaluationUppaalTuple> uppaalTuples=new ArrayList<>(nextUppaalTuples);
+//		if(uppaalLocation.isFinl()){
+//			PathTuple tuple = new PathTuple(uppaalLocation, null);
+//			List<PathTuple> list=new ArrayList<>();
+//			list.add(tuple);
+//			uppaalLocation.getUppaalPathTuples().add(list);
+//			uppaalLocation.visit++;
+//			return ;
+//		}
+//		
+//		uppaalLocation.visit++;
+//		for (UppaalTransition uppaalTransition : uppaalLocation.getUppaalTransitions()) {
+//			UppaalLocation nextUppaalLocation = uppaalLocationByIdMap.get(uppaalTransition.getTarget());
+//			DFSUppaalPath(nextUppaalLocation);
+//			PathTuple tuple = new PathTuple(uppaalLocation, uppaalTransition);
+//			if(nextUppaalLocation.getUppaalPathTuples().size()==0){
+//				List<PathTuple> uppaalTuples=new ArrayList<>();
+//				uppaalTuples.add(tuple);
+//				uppaalLocation.getUppaalPathTuples().add(uppaalTuples);
+//			}
+//			else{
+////				for(List<PathTuple> nextPathTuples:nextUppaalLocation.getUppaalPathTuples()){
+////					List<PathTuple> uppaalTuples=new ArrayList<>(nextPathTuples);
+////					uppaalTuples.add(tuple);
+////					uppaalLocation.getUppaalPathTuples().add(uppaalTuples);
+////				}
+//				for(int i=0;i<nextUppaalLocation.getUppaalPathTuples().size();i++){
+//					List<PathTuple> uppaalTuples=new ArrayList<>(nextUppaalLocation.getUppaalPathTuples().get(i));
 //					uppaalTuples.add(tuple);
 //					uppaalLocation.getUppaalPathTuples().add(uppaalTuples);
 //				}
-				for(int i=0;i<nextUppaalLocation.getUppaalPathTuples().size();i++){
-					List<EvaluationUppaalTuple> uppaalTuples=new ArrayList<>(nextUppaalLocation.getUppaalPathTuples().get(i));
-					uppaalTuples.add(tuple);
-					uppaalLocation.getUppaalPathTuples().add(uppaalTuples);
-				}
+//			}
+//		}
+//
+//	}
+	
+	public boolean CheckTimeDuration(){
+		
+		boolean result=false;
+
+		for(UppaalLocation location:uppaalLocations){
+			if(location.getTimeDuration()!=null&&!location.getTimeDuration().equals("null")){
+				result=true;
+				break;
 			}
 		}
-
+		
+		return result;
+		
 	}
-	
 
 	public String getUppaalName() {
 		return uppaalName;
@@ -424,19 +463,19 @@ public class Evaluation {
 		return uppaalType;
 	}
 
-	public List<EvaluationUppaalLocation> getUppaalLocations() {
+	public List<UppaalLocation> getUppaalLocations() {
 		return uppaalLocations;
 	}
 
-	public List<EvaluationUppaalTransition> getUppaalTransitions() {
+	public List<UppaalTransition> getUppaalTransitions() {
 		return uppaalTransitions;
 	}
 
-	public HashMap<String, EvaluationUppaalLocation> getUppaalLocationByIdMap() {
+	public HashMap<String, UppaalLocation> getUppaalLocationByIdMap() {
 		return uppaalLocationByIdMap;
 	}
 
-	public List<List<EvaluationUppaalTuple>> getUppaalPaths() {
+	public List<List<PathTuple>> getUppaalPaths() {
 		return uppaalPaths;
 	}
 	

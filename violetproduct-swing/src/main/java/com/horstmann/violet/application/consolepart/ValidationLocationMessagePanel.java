@@ -195,9 +195,9 @@ public class ValidationLocationMessagePanel extends JPanel{
         attributetablemodel.addRow(rowData1);
         Object[] rowData2={"x="+location.getX()};
         attributetablemodel.addRow(rowData2);
-        Object[] rowData3={"finl="+location.getFinl()};
+        Object[] rowData3={"finl="+location.isFinl()};
         attributetablemodel.addRow(rowData3);
-        Object[] rowData4={"init="+location.getInit()};
+        Object[] rowData4={"init="+location.isInit()};
         attributetablemodel.addRow(rowData4);
        
         

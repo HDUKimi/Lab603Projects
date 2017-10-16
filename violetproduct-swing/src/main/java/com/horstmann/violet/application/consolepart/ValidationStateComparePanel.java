@@ -260,7 +260,7 @@ public class ValidationStateComparePanel extends JPanel {
         	attributetablemodel.setValueAt(columnData1[i], i, 0);
         }
         
-        Object[] columnData2={"id="+location.getId(),"name="+location.getName(),"x="+location.getX(),"finl="+location.getFinl(),"init="+location.getInit()};
+        Object[] columnData2={"id="+location.getId(),"name="+location.getName(),"x="+location.getX(),"finl="+location.isFinl(),"init="+location.isInit()};
         
         for(int i=0;i<columnData2.length;i++){
         	attributetablemodel.setValueAt(columnData2[i], i, 1);

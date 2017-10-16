@@ -4,11 +4,12 @@ import java.util.HashMap;
 
 public class UppaalTransition {
 	
+	String id;
 	String name;
 	String fromName;
 	String toName;
-	int target;
-	int source;
+	String target;
+	String source;
 	double x = 0;
 	double time = 0;
 	int startTime;
@@ -64,17 +65,22 @@ public class UppaalTransition {
 	}
 	HashMap<String, String> label;
 	
-	
-	public int getTarget() {
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getTarget() {
 		return target;
 	}
-	public void setTarget(int target) {
+	public void setTarget(String target) {
 		this.target = target;
 	}
-	public int getSource() {
+	public String getSource() {
 		return source;
 	}
-	public void setSource(int source) {
+	public void setSource(String source) {
 		this.source = source;
 	}
 	public double getX() {

@@ -53,13 +53,14 @@ public class EvaluationTest {
 //		evaluation.FindAllUppaalPath();
 //		System.out.println(evaluation.FindUppaalPathTupleByMessages("loop()", "read_AHRS()").size());
 //		throttle_loop()
-		List<EvaluationUppaalTuple> uppaalTuples=evaluation.FindUppaalPathTupleByMessages("throttle_loop()", "auto_trim()");
 		
-		System.out.println(uppaalTuples.size());
-		for(EvaluationUppaalTuple uppaalTuple:uppaalTuples){
-		//		System.out.print((uppaalTuple.getUppaalTransition()!=null?uppaalTuple.getUppaalTransition().getName():"")+" -> ");
-			System.out.print(uppaalTuple.getUppaalTransition().getName()+" -> ");
-		}
+//		List<EvaluationUppaalTuple> uppaalTuples=evaluation.FindUppaalPathTupleByMessages("throttle_loop()", "auto_trim()");
+//		
+//		System.out.println(uppaalTuples.size());
+//		for(EvaluationUppaalTuple uppaalTuple:uppaalTuples){
+//		//		System.out.print((uppaalTuple.getUppaalTransition()!=null?uppaalTuple.getUppaalTransition().getName():"")+" -> ");
+//			System.out.print(uppaalTuple.getUppaalTransition().getName()+" -> ");
+//		}
 		
 //		for(EvaluationUppaalLocation uppaalLocation:evaluation.getUppaalLocations()){
 //			System.out.println(uppaalLocation.getName()+" - "+uppaalLocation.getUppaalTransitions().size());
