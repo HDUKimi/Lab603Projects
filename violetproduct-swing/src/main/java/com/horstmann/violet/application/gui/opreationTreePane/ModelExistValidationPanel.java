@@ -24,12 +24,14 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -50,6 +52,8 @@ import com.horstmann.violet.application.consolepart.ValidationTransitionMessageP
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.StepSixCenterTabbedPane;
+import com.horstmann.violet.application.gui.StepThreeCenterTabbedPane;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MoviePanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEditor;
@@ -84,8 +88,6 @@ public class ModelExistValidationPanel extends JPanel{
 
 	private static MainFrame mainFrame;
 	
-	private List<String> uppaallists=new ArrayList<String>();
-	
 	private JPanel titlepanel;
 	private JPanel treepanel;
 	
@@ -101,6 +103,7 @@ public class ModelExistValidationPanel extends JPanel{
 	private JPanel timingtoolpanel;
 	private JButton timingtoolbutton1;
 	private JButton timingtoolbutton2;
+	private JButton timingtoolbutton3;
 	private JPanel timingtablepanel;
 	private JScrollPane timingscrollpanel;
 	
@@ -169,6 +172,11 @@ public class ModelExistValidationPanel extends JPanel{
 	private JTextField assessdealtext31;
 	private JButton assessdealbutton3;
 	
+	private ButtonGroup buttonGroup;
+	private JRadioButton radioButton1;
+	private JRadioButton radioButton2;
+	private JRadioButton radioButton3;
+	
 	private List<UppaalTransition> uppaalmessagelist=new ArrayList<UppaalTransition>();
 	private List<UppaalTransition> selecteduppaalmessagelist=new ArrayList<UppaalTransition>();
 //	private JCheckBox[] uppaalMessageCheckBoxList;
@@ -189,6 +197,13 @@ public class ModelExistValidationPanel extends JPanel{
 	
 	private int uppaalType=0;//0: 1:Ë³ÐòÍ¼ 2:Ê±ÐòÍ¼
 	private Evaluation evaluation;
+	
+	private	MoviePanel moviePanel;
+	
+	private List<String> uppaallists=new ArrayList<String>();
+	
+	private JCheckBox selectUppaalCheckBox;
+	private JCheckBox[] uppaalCheckBoxList;
 	
 	
 	public ModelExistValidationPanel(MainFrame mainFrame){
@@ -212,6 +227,7 @@ public class ModelExistValidationPanel extends JPanel{
 		timingtoolpanel=new JPanel();
 		timingtoolbutton1=new JButton();
 		timingtoolbutton2=new JButton();
+		timingtoolbutton3=new JButton();
 		timingtablepanel=new JPanel();
 		
 		validationpanel=new JPanel();
@@ -236,34 +252,17 @@ public class ModelExistValidationPanel extends JPanel{
 		
 		initTreePanel();
 		
-//		GridBagLayout layout=new GridBagLayout();
-//		this.setLayout(layout);
-//		this.add(titlepanel);
-//		this.add(treepanel);
-//		layout.setConstraints(titlepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//		layout.setConstraints(treepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		GridBagLayout layout=new GridBagLayout();
+		this.setLayout(layout);
+		this.add(titlepanel);
+		this.add(treepanel);
+		layout.setConstraints(titlepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(treepanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		JPanel emptypanel=new JPanel();
 		emptypanel.setLayout(new GridLayout());
 		emptypanel.setBackground(new Color(255, 255, 255));
 		emptypanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
-		
-		GridBagLayout layout=new GridBagLayout();
-		this.setLayout(layout);
-		this.add(titlepanel);
-		this.add(timinglabelpanel);
-		this.add(timingscrollpanel);
-		this.add(assesslabelpanel);
-		this.add(assessscrollpanel);
-		this.add(validationpanel);
-//		this.add(emptypanel);
-		layout.setConstraints(titlepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(timinglabelpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(timingscrollpanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(assesslabelpanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(assessscrollpanel, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(validationpanel, new GBC(0, 5, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-//		layout.setConstraints(emptypanel, new GBC(0, 6, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenWidth = (int) screenSize.getWidth();
@@ -360,12 +359,23 @@ public class ModelExistValidationPanel extends JPanel{
 		
 		initAssessPanel();
 		
-//		GridBagLayout layout=new GridBagLayout();
-//		treepanel.setLayout(layout);
-//		treepanel.add(timingpanel);
-//		treepanel.add(validationpanel);
-//		layout.setConstraints(timingpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-//		layout.setConstraints(validationpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		GridBagLayout layout=new GridBagLayout();
+		treepanel.setLayout(layout);
+		treepanel.add(timinglabelpanel);
+		treepanel.add(timingscrollpanel);
+		treepanel.add(assesspanel);
+//		this.add(assesslabelpanel);
+//		this.add(assessscrollpanel);
+//		this.add(validationpanel);
+//		this.add(emptypanel);
+		layout.setConstraints(timinglabelpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(timingscrollpanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(assesspanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(assesslabelpanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//		layout.setConstraints(assessscrollpanel, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(validationpanel, new GBC(0, 5, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(emptypanel, new GBC(0, 6, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
 		
 	}
 
@@ -389,6 +399,10 @@ public class ModelExistValidationPanel extends JPanel{
 		assesslabelpanel.setMinimumSize(new Dimension(100, 29));
 		
 		initAssessDealPanel();
+		
+		assesspanel.setLayout(new BorderLayout());
+		assesspanel.add(assesslabelpanel,BorderLayout.NORTH);
+		assesspanel.add(assessscrollpanel,BorderLayout.CENTER);
 		
 	}
 
@@ -445,6 +459,12 @@ public class ModelExistValidationPanel extends JPanel{
 		initAssessDealPanelTwo();
 		
 		initAssessDealPanelThree();
+		
+		buttonGroup=new ButtonGroup();
+		buttonGroup.add(radioButton1);
+		buttonGroup.add(radioButton2);
+		buttonGroup.add(radioButton3);
+		radioButton1.setSelected(true);
 		
 		initAssessDealLinePanel();
 		
@@ -511,8 +531,10 @@ public class ModelExistValidationPanel extends JPanel{
 		
 	}
 	
-	protected void initAssessUIPanel() {
+	public static void initAssessUIPanel() {
 		// TODO Auto-generated method stub
+		
+		mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("µÈ´ý½øÐÐÄ£ÐÍÆÀ¹À");
 		
 		mainFrame.getValidationResultPanel().getFivenamelabel().setText("ÆÀ¹À½á¹û£º ");
 		mainFrame.getValidationResultPanel().getFiveresultpanel().removeAll();
@@ -530,11 +552,18 @@ public class ModelExistValidationPanel extends JPanel{
 		assessdeallabel11=new JLabel();
 		assessdealtext11=new JTextField();
 		assessdealbutton1=new JButton();
+		radioButton1=new JRadioButton();
 		
-		assessdeallabel1.setText("´æÔÚÒ»ÖÂÐÔÆÀ¹À");
-		assessdeallabel1.setForeground(new Color(0,0,0));
-		assessdeallabel1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-		assessdeallabel1.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		radioButton1.setText("´æÔÚÒ»ÖÂÐÔÆÀ¹À");
+		radioButton1.setForeground(new Color(0,0,0));
+		radioButton1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 13));
+		radioButton1.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		radioButton1.setOpaque(false);
+		
+//		assessdeallabel1.setText("´æÔÚÒ»ÖÂÐÔÆÀ¹À");
+//		assessdeallabel1.setForeground(new Color(0,0,0));
+//		assessdeallabel1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+//		assessdeallabel1.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		
 		assessdeallabel11.setText("ÏûÏ¢£º");
 		assessdeallabel11.setForeground(new Color(0,0,0));
@@ -651,8 +680,8 @@ public class ModelExistValidationPanel extends JPanel{
 		assessdeallabelpanel1.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 		assessdeallabelpanel1.setOpaque(false);
 		assessdeallabelpanel1.setLayout(new BorderLayout());
-		assessdeallabelpanel1.add(assessdeallabel1,BorderLayout.WEST);
-		assessdeallabelpanel1.add(assessdealbutton1, BorderLayout.EAST);
+		assessdeallabelpanel1.add(radioButton1,BorderLayout.WEST);
+//		assessdeallabelpanel1.add(assessdealbutton1, BorderLayout.EAST);
 		
 		assessdeallabelpanel11.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 		assessdeallabelpanel11.setOpaque(false);
@@ -681,6 +710,14 @@ public class ModelExistValidationPanel extends JPanel{
 		assessdealtext21=new JTextField();
 		assessdealtext22=new JTextField();
 		assessdealbutton2=new JButton();
+		
+		radioButton2=new JRadioButton();
+		
+		radioButton2.setText("Ë³ÐòÒ»ÖÂÐÔÆÀ¹À");
+		radioButton2.setForeground(new Color(0,0,0));
+		radioButton2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 13));
+		radioButton2.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		radioButton2.setOpaque(false);
 		
 		assessdeallabel2.setText("Ë³ÐòÒ»ÖÂÐÔÆÀ¹À");
 		assessdeallabel2.setForeground(new Color(0,0,0));
@@ -831,8 +868,8 @@ public class ModelExistValidationPanel extends JPanel{
 		assessdeallabelpanel2.setOpaque(false);
 		assessdeallabelpanel2.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 		assessdeallabelpanel2.setLayout(new BorderLayout());
-		assessdeallabelpanel2.add(assessdeallabel2,BorderLayout.WEST);
-		assessdeallabelpanel2.add(assessdealbutton2, BorderLayout.EAST);
+		assessdeallabelpanel2.add(radioButton2,BorderLayout.WEST);
+//		assessdeallabelpanel2.add(assessdealbutton2, BorderLayout.EAST);
 		
 		assessdeallabelpanel21.setOpaque(false);
 		assessdeallabelpanel21.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
@@ -866,6 +903,14 @@ public class ModelExistValidationPanel extends JPanel{
 		assessdeallabel31=new JLabel();
 		assessdealtext31=new JTextField();
 		assessdealbutton3=new JButton();
+		
+		radioButton3=new JRadioButton();
+		
+		radioButton3.setText("ÊµÊ±Ò»ÖÂÐÔÆÀ¹À");
+		radioButton3.setForeground(new Color(0,0,0));
+		radioButton3.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 13));
+		radioButton3.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		radioButton3.setOpaque(false);
 		
 		assessdeallabel3.setText("ÊµÊ±Ò»ÖÂÐÔÆÀ¹À");
 		assessdeallabel3.setForeground(new Color(0,0,0));
@@ -957,8 +1002,8 @@ public class ModelExistValidationPanel extends JPanel{
 		assessdeallabelpanel3.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 		assessdeallabelpanel3.setOpaque(false);
 		assessdeallabelpanel3.setLayout(new BorderLayout());
-		assessdeallabelpanel3.add(assessdeallabel3,BorderLayout.WEST);
-		assessdeallabelpanel3.add(assessdealbutton3, BorderLayout.EAST);
+		assessdeallabelpanel3.add(radioButton3,BorderLayout.WEST);
+//		assessdeallabelpanel3.add(assessdealbutton3, BorderLayout.EAST);
 		
 		assessdeallabelpanel31.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 		assessdeallabelpanel31.setOpaque(false);
@@ -975,7 +1020,7 @@ public class ModelExistValidationPanel extends JPanel{
 		
 	}
 	
-	public Boolean isInequality(String str){
+	public static Boolean isInequality(String str){
 		
 		Boolean result=false;
 		
@@ -993,7 +1038,7 @@ public class ModelExistValidationPanel extends JPanel{
 	private void initTimingPanel() {
 		// TODO Auto-generated method stub
 		
-		timinglabel.setText("Ê±ÐòÍ¼");
+		timinglabel.setText("Ê±¼ä×Ô¶¯»ú");
 		timinglabel.setForeground(new Color(0,0,0));
 		timinglabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		timinglabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
@@ -1009,9 +1054,24 @@ public class ModelExistValidationPanel extends JPanel{
 		timinglabelpanel.setMaximumSize(new Dimension(100, 29));
 		timinglabelpanel.setMinimumSize(new Dimension(100, 29));
 		
-		initTimingTablePanel();
+//		initTimingTablePanel();
+//		
+//		addDataToTimingTable();
+//		
+//		timingtablepanel.setLayout(new GridLayout());
+//		timingtablepanel.add(timingtable);
+//		timingtablepanel.setBorder(null);
 		
-		addDataToTimingTable();
+		timingtablepanel.setLayout(new BoxLayout(timingtablepanel, BoxLayout.Y_AXIS));
+		timingtablepanel.setBorder(BorderFactory.createEmptyBorder(0, 7, 0, 0));
+		timingtablepanel.setBackground(new Color(255, 255, 255));
+		
+		addCheckBoxToUppaalcheckboxpanel();
+		
+		timingscrollpanel=new JScrollPane(timingtablepanel);
+		timingscrollpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
+		timingscrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		timingscrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
 //		timingpanel.setLayout(new BorderLayout());
 //		timingpanel.add(timinglabelpanel, BorderLayout.NORTH);
@@ -1026,7 +1086,55 @@ public class ModelExistValidationPanel extends JPanel{
 		
 	}
 
+	private void addCheckBoxToUppaalcheckboxpanel() {
 		// TODO Auto-generated method stub
+		
+		timingtablepanel.removeAll();
+		uppaalCheckBoxList=new JCheckBox[uppaallists.size()];
+		for(int i=0;i<uppaallists.size();i++){
+			uppaalCheckBoxList[i]=new JCheckBox(uppaallists.get(i)){
+				
+			};
+			uppaalCheckBoxList[i].setOpaque(false);
+			timingtablepanel.add(Box.createVerticalStrut(7));
+			timingtablepanel.add(uppaalCheckBoxList[i]);
+		}
+		
+		if(uppaalCheckBoxList.length>0&&StepThreeCenterTabbedPane.getBecomeRunFileName()!=null){
+			for(JCheckBox checkBox:uppaalCheckBoxList){
+				if(StepSixCenterTabbedPane.getBecomeRunFileName().equals(checkBox.getText())){
+					checkBox.setSelected(true);
+					selectUppaalCheckBox=checkBox;
+				}
+			}
+		}
+		else{
+			selectUppaalCheckBox=new JCheckBox();
+		}
+		
+		for(final JCheckBox jcb:uppaalCheckBoxList){
+			
+			jcb.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					
+					if(jcb.isSelected()){
+						selectUppaalCheckBox.setSelected(false);
+						selectUppaalCheckBox=jcb;
+					}
+					else{
+						selectUppaalCheckBox=new JCheckBox();
+					}
+				}
+			});
+			
+		}
+		
+	}
+
+	// TODO Auto-generated method stub
 	private void addDataToTimingTable() {
 		
 		while(timingtablemodel.getRowCount()>0){
@@ -1061,6 +1169,9 @@ public class ModelExistValidationPanel extends JPanel{
 		timingtable.setFillsViewportHeight(true);
 		timingtable.setRowHeight(24);
 		timingtable.doLayout();
+		
+		timingtable.setBackground(new Color(255,255,255));
+		timingtable.setBorder(null);
 		
 		timingtable.getColumnModel().getColumn(0).setCellEditor(new MyLabelCellEditor());
 		timingtable.getColumnModel().getColumn(0).setCellRenderer(new MyGeneralLabelRenderer());
@@ -1150,18 +1261,6 @@ public class ModelExistValidationPanel extends JPanel{
         	
 		});
 		
-		timingtablepanel.setLayout(new GridLayout());
-		timingtablepanel.add(timingtable);
-//		timingtable.setBackground(new Color(238, 238, 242));
-		timingtable.setBackground(new Color(255,255,255));
-		timingtable.setBorder(null);
-		timingtablepanel.setBorder(null);
-		
-		timingscrollpanel=new JScrollPane(timingtablepanel);
-		timingscrollpanel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
-		timingscrollpanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		timingscrollpanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        
 	}
 
 	protected int checkUppaalType(String filename) {
@@ -1400,8 +1499,9 @@ public class ModelExistValidationPanel extends JPanel{
 		ValidationToolPanel toolPanel = new ValidationToolPanel(mainFrame,uppaalworkspace);
 		mainFrame.getStepSixCenterTabbedPane().setValidationToolPanel(toolPanel);
 		
-		MoviePanel moviePanel = new MoviePanel();
-
+		moviePanel = new MoviePanel();
+		moviePanel.getMovieLabel().setText("µÈ´ý½øÐÐÄ£ÐÍÆÀ¹À");
+		
 		GridBagLayout layout = new GridBagLayout();
 		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().setLayout(layout);
 		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().add(toolPanel);
@@ -1472,7 +1572,9 @@ public class ModelExistValidationPanel extends JPanel{
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 		ImageIcon icon2 = new ImageIcon(path + "refresh.png");
 		icon2.setImage(icon2.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-
+		ImageIcon icon3 = new ImageIcon(path + "resultset_next.png");
+		icon3.setImage(icon3.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+		
 		timingtoolbutton1.setIcon(icon1);
 		timingtoolbutton1.setFocusable(false);
 		timingtoolbutton1.setContentAreaFilled(false);
@@ -1509,18 +1611,73 @@ public class ModelExistValidationPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				uppaallists.clear();
-				initFileList();
-				addDataToTimingTable();
+				updateFileList();
+				
+//				uppaallists.clear();
+//				initFileList();
+////				addDataToTimingTable();
+//				addCheckBoxToUppaalcheckboxpanel();
 				
 			}
+		});
+		
+		timingtoolbutton3.setIcon(icon3);
+		timingtoolbutton3.setFocusable(false);
+		timingtoolbutton3.setContentAreaFilled(false);
+		timingtoolbutton3.setBorderPainted(false);
+		timingtoolbutton3.addMouseListener(new ButtonMouseListener());
+		timingtoolbutton3.setPreferredSize(new Dimension(21,21));
+		timingtoolbutton3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				String baseUrl = "D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\";
+				String filename=selectUppaalCheckBox.getText();
+				String uppaalname=filename.substring(0, filename.indexOf("Uppaal"));
+				
+				showUppaalDiagram(uppaalname);
+				
+				uppaalType=checkUppaalType(uppaalname);
+				
+				if(uppaalType==1){
+					evaluation=new Evaluation(uppaalname, uppaalType);
+					evaluation.Ready();
+				}
+				else{
+					try {
+						ev=new ExistVerification("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\TimingToUppal\\"+uppaalname+"ForXStream.xml");
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				
+				mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramButton().doClick();
+				
+				ChangeRepaint();
+				
+				mainFrame.getStepSixCenterTabbedPane().ChangeRepaint();
+				
+				
+			}
+			
 		});
 
 		timingtoolpanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,4));
 		timingtoolpanel.setOpaque(false);
+		timingtoolpanel.add(timingtoolbutton3);
 		timingtoolpanel.add(timingtoolbutton2);
 		timingtoolpanel.add(timingtoolbutton1);
 		
+	}
+
+	public void updateFileList() {
+		// TODO Auto-generated method stub
+		uppaallists.clear();
+		initFileList();
+		addCheckBoxToUppaalcheckboxpanel();
 	}
 
 	private void initValidationPanel() {
@@ -2165,12 +2322,16 @@ public class ModelExistValidationPanel extends JPanel{
 		return uppaalMessageCheckBoxList;
 	}
 
-	public static ExistVerification getEv() {
+	public ExistVerification getEv() {
 		return ev;
 	}
 
 	public Evaluation getEvaluation() {
 		return evaluation;
+	}
+
+	public int getUppaalType() {
+		return uppaalType;
 	}
 
 	public IWorkspace getUppaalworkspace() {
@@ -2231,6 +2392,22 @@ public class ModelExistValidationPanel extends JPanel{
 
 	public JTextField getAssessdealtext31() {
 		return assessdealtext31;
+	}
+
+	public JRadioButton getRadioButton1() {
+		return radioButton1;
+	}
+
+	public JRadioButton getRadioButton2() {
+		return radioButton2;
+	}
+
+	public JRadioButton getRadioButton3() {
+		return radioButton3;
+	}
+
+	public MoviePanel getMoviePanel() {
+		return moviePanel;
 	}
 	
 }

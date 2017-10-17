@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.plaf.ProgressBarUI;
@@ -31,6 +32,7 @@ import com.horstmann.violet.application.consolepart.ValidationTransitionMessageP
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.opreationTreePane.ModelExistValidationPanel;
 import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
 import com.horstmann.violet.application.gui.util.tanchao.XMLVerificationTranMessage;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.CompareEAtoAutomata;
@@ -173,20 +175,44 @@ public class ValidationToolPanel extends JPanel{
 					
 					initValidationProgressbar();
 					
-					int validationlabeltabindex;
-					validationlabeltabindex=mainFrame.getModelExistValidationPanel().getValidationlabeltabindex();
+//					int validationlabeltabindex;
+//					validationlabeltabindex=mainFrame.getModelExistValidationPanel().getValidationlabeltabindex();
+//					
+//					if(validationlabeltabindex==1){
+//
+//						startValidation();
+//					} else if (validationlabeltabindex == 2) {
+//						startValidation();
+//					} else if (validationlabeltabindex == 3) {
+//						startValidation3();
+//						
+//					} else if (validationlabeltabindex == 4) {
+//						startValidation4();
+//						
+//					}
 					
-					if(validationlabeltabindex==1){
-
-						startValidation();
-					} else if (validationlabeltabindex == 2) {
-						startValidation();
-					} else if (validationlabeltabindex == 3) {
-						startValidation3();
-						
-					} else if (validationlabeltabindex == 4) {
-						startValidation4();
-						
+					ModelExistValidationPanel.initAssessUIPanel();
+					
+					int assessindex=1;
+					
+					if(mainFrame.getModelExistValidationPanel().getRadioButton1().isSelected()){
+						assessindex=1;
+					}
+					else if(mainFrame.getModelExistValidationPanel().getRadioButton2().isSelected()){
+						assessindex=2;
+					}
+					else if(mainFrame.getModelExistValidationPanel().getRadioButton3().isSelected()){
+						assessindex=3;
+					}
+					
+					if(assessindex==1){
+						startAssessValidation1();
+					}
+					else if(assessindex==2){
+						startAssessValidation2();
+					}
+					else if(assessindex==3){
+						startAssessValidation3();
 					}
 					
 					
@@ -242,6 +268,7 @@ public class ValidationToolPanel extends JPanel{
 				threadstate=0;
 				
 				initValidationProgressbar();
+				ModelExistValidationPanel.initAssessUIPanel();
 				
 			}
 		});
@@ -292,6 +319,254 @@ public class ValidationToolPanel extends JPanel{
 		emptypanel2.setPreferredSize(new Dimension(16, 23));
 		emptypanel2.setBackground(new Color(133,145,162));
 		emptypanel2.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 10, new Color(207, 214, 229)));
+		
+	}
+
+	protected void startAssessValidation1() {
+		
+		t=new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				mainFrame.getValidationResultPanel().getValidationlabeltab5().doClick();
+				
+				TranMessageColorize tmc=new TranMessageColorize();
+				tmc.CleanColorize(mainFrame.getModelExistValidationPanel().getUppaalworkspace());
+				
+				String message=mainFrame.getModelExistValidationPanel().getAssessdealtext11().getText();
+				
+				if(message==null||message.trim().equals("")){
+					JOptionPane.showMessageDialog(null, "消息不能为空！", "存在一致性评估" , JOptionPane.WARNING_MESSAGE);
+					System.out.println("message is null");
+				}
+				else{
+					
+					mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("正在进行存在一致性评估");
+					
+					List<UppaalTransition> uppaalMessageTransitionList = new ArrayList<>();
+					UppaalTransition umt=new UppaalTransition();
+					umt.setName(message);
+					uppaalMessageTransitionList.add(umt);
+
+					List<UppaalTransition> uppaalTransitionList = new ArrayList<>();
+					
+					if(mainFrame.getModelExistValidationPanel().getUppaalType()==1){
+						uppaalTransitionList=mainFrame.getModelExistValidationPanel().getEvaluation().FindUppaalTransitionByMessage(message);
+					}
+					else{
+						uppaalTransitionList=mainFrame.getModelExistValidationPanel().getEv().getSelectedTransitionsIfExist(uppaalMessageTransitionList);
+					}
+
+					startProcessCount(1);
+					
+					if(uppaalTransitionList==null||uppaalTransitionList.size()==0){
+						JOptionPane.showMessageDialog(null, "消息 "+message+" 不存在！", "存在一致性评估" , JOptionPane.ERROR_MESSAGE);
+						System.out.println("message is not exist ");
+					}
+					else{
+						tmc.ColorizeTran(uppaalTransitionList,mainFrame.getModelExistValidationPanel().getUppaalworkspace());
+						
+						mainFrame.getValidationResultPanel().getFivenamelabel().setText("共找到"+uppaalTransitionList.size()+"条消息：");
+						
+						mainFrame.getValidationResultPanel().getFiveresultpanel().removeAll();
+						
+						System.out.println("++++++++++++++++++++");
+						
+						JPanel resultpanel=new JPanel();
+						JPanel emptypanel=new JPanel();
+						resultpanel.setOpaque(false);
+						emptypanel.setOpaque(false);
+						
+						GridBagLayout layout = new GridBagLayout();
+						resultpanel.setLayout(layout);
+						int i=0;
+						for(UppaalTransition ut:uppaalTransitionList){
+							System.out.println(ut);
+							
+							ValidationTransitionMessagePanel vtmpanel=new ValidationTransitionMessagePanel(ut);
+							resultpanel.add(vtmpanel);
+							layout.setConstraints(vtmpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+							
+						}
+						resultpanel.add(emptypanel);
+						layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+						mainFrame.getValidationResultPanel().getFiveresultpanel().add(resultpanel);
+						mainFrame.getValidationResultPanel().ChangeRepaint();
+						System.out.println("++++++++++++++++++++");
+						
+						JOptionPane.showMessageDialog(null, "消息 "+message+" 存在！", "存在一致性评估" , JOptionPane.INFORMATION_MESSAGE);
+						System.out.println("message is exist ");
+					}
+					
+					mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("存在一致性评估完成");
+					
+				}
+				
+				threadstate = 0;
+				
+			}
+		});
+		t.start();
+		
+	}
+
+	protected void startAssessValidation2() {
+		
+		t=new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				mainFrame.getValidationResultPanel().getValidationlabeltab5().doClick();
+				
+				TranMessageColorize tmc=new TranMessageColorize();
+				tmc.CleanColorize(mainFrame.getModelExistValidationPanel().getUppaalworkspace());
+				
+				String message1=mainFrame.getModelExistValidationPanel().getAssessdealtext21().getText();
+				String message2=mainFrame.getModelExistValidationPanel().getAssessdealtext22().getText();
+				
+				if(message1==null||message1.trim().equals("")||message2==null||message2.trim().equals("")){
+					JOptionPane.showMessageDialog(null, "消息A或消息B不能为空！", "顺序一致性评估" , JOptionPane.WARNING_MESSAGE);
+					System.out.println("message1 or message2 is null");
+				}
+				else{
+					mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("正在进行顺序一致性评估");
+					List<UppaalTransition> uppaalMessageTransitionList = new ArrayList<>();
+					UppaalTransition umt1=new UppaalTransition();
+					umt1.setName(message1);
+					uppaalMessageTransitionList.add(umt1);
+					UppaalTransition umt2=new UppaalTransition();
+					umt2.setName(message2);
+					uppaalMessageTransitionList.add(umt2);
+
+					List<PathTuple> pathTupleList = new ArrayList<>();
+					
+					if(mainFrame.getModelExistValidationPanel().getUppaalType()==1){
+						pathTupleList=mainFrame.getModelExistValidationPanel().getEvaluation().FindUppaalPathTupleByMessages(message1, message2);
+					}
+					else{
+						pathTupleList=mainFrame.getModelExistValidationPanel().getEv().getPathOfSelectedTransitions(uppaalMessageTransitionList);
+					}
+					
+					startProcessCount(1);
+					
+					if(pathTupleList==null||pathTupleList.size()==0){
+						JOptionPane.showMessageDialog(null, "顺序一致性评估失败，找不到路径！", "顺序一致性评估" , JOptionPane.ERROR_MESSAGE);
+						System.out.println("message is not exist ");
+					}
+					else{
+						System.out.println("pathTupleList.size() "+pathTupleList.size());
+						if(mainFrame.getModelExistValidationPanel().getUppaalType()==1){
+							tmc.ColorizeTranAndStateByDFS(pathTupleList, mainFrame.getModelExistValidationPanel().getUppaalworkspace());
+						}
+						else{
+							tmc.ColorizeTranAndState(pathTupleList, mainFrame.getModelExistValidationPanel().getUppaalworkspace());
+						}
+						
+						mainFrame.getValidationResultPanel().getFivenamelabel().setText("共找到一条路径，包含"+pathTupleList.size()+"个节点和"+pathTupleList.size()+"条消息：");
+						
+						mainFrame.getValidationResultPanel().getFiveresultpanel().removeAll();
+						
+						System.out.println("++++++++++++++++++++");
+						
+						JPanel resultpanel=new JPanel();
+						JPanel emptypanel=new JPanel();
+						resultpanel.setOpaque(false);
+						emptypanel.setOpaque(false);
+						
+						GridBagLayout layout = new GridBagLayout();
+						resultpanel.setLayout(layout);
+						int i=0;
+						
+						for(PathTuple pt:pathTupleList){
+//							System.out.println(pt.getLocation().toString()+ " --- "+pt.getTransition().toString());
+							
+							ValidationLocationMessagePanel vlmpanel=new ValidationLocationMessagePanel(pt.getLocation());
+							resultpanel.add(vlmpanel);
+							layout.setConstraints(vlmpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+							
+							ValidationTransitionMessagePanel vtmpanel=new ValidationTransitionMessagePanel(pt.getTransition());
+							resultpanel.add(vtmpanel);
+							layout.setConstraints(vtmpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+							
+						}
+						
+						resultpanel.add(emptypanel);
+						layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//						mainFrame.getValidationResultPanel().getResultpanel().add(Box.createVerticalGlue());
+						mainFrame.getValidationResultPanel().getFiveresultpanel().add(resultpanel);
+						mainFrame.getValidationResultPanel().ChangeRepaint();
+						
+						System.out.println("++++++++++++++++++++");
+						
+						JOptionPane.showMessageDialog(null, "顺序一致性评估成功，找到一组路径！", "顺序一致性评估" , JOptionPane.INFORMATION_MESSAGE);
+						System.out.println("message is exist ");
+					}
+					mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("顺序一致性评估完成");
+					
+				}
+				threadstate = 0;
+			}
+		});
+		t.start();
+		
+	}
+
+	protected void startAssessValidation3() {
+		
+		t=new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				mainFrame.getValidationResultPanel().getValidationlabeltab5().doClick();
+				
+				String message=mainFrame.getModelExistValidationPanel().getAssessdealtext31().getText();
+				
+				if(message==null||message.trim().equals("")){
+					JOptionPane.showMessageDialog(null, "时间不能为空！", "实时一致性评估" , JOptionPane.WARNING_MESSAGE);
+					System.out.println("message is null");
+				}
+				else{
+					if(ModelExistValidationPanel.isInequality(message)){
+						mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("正在进行实时一致性评估");						
+						Boolean result=false;
+						
+						if(mainFrame.getModelExistValidationPanel().getUppaalType()==1){
+							result=mainFrame.getModelExistValidationPanel().getEvaluation().CheckTimeByInput(message);
+						}
+						else{
+							result=mainFrame.getModelExistValidationPanel().getEv().getPathByInput(message);
+						}
+						
+						System.out.println("result is "+result);
+						
+						startProcessCount(1);
+						
+						if(result){
+							JOptionPane.showMessageDialog(null, "实时一致性评估成功！", "实时一致性评估" , JOptionPane.INFORMATION_MESSAGE);
+							mainFrame.getValidationResultPanel().getFivenamelabel().setText(message+" 实时一致性评估成功");
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "实时一致性评估失败！", "实时一致性评估" , JOptionPane.ERROR_MESSAGE);
+							mainFrame.getValidationResultPanel().getFivenamelabel().setText(message+" 实时一致性评估失败");
+						}
+						mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("实时一致性评估完成");
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "时间参数格式不符合要求！", "实时一致性评估" , JOptionPane.WARNING_MESSAGE);
+						System.out.println("message is not conform format");
+					}
+					
+				}
+				threadstate = 0;
+			}
+		});
+		t.start();
 		
 	}
 

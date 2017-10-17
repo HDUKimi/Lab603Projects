@@ -260,11 +260,11 @@ public class TestCaseInstantiationPanel extends JPanel{
 		treeinfopanel.setLayout(layout);
 		layout.setConstraints(abstractlabelpanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(abstractscrollpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(emptypanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(emptypanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 //		layout.setConstraints(instantiatepanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		treeinfopanel.add(abstractlabelpanel);
 		treeinfopanel.add(abstractscrollpanel);
-		treeinfopanel.add(emptypanel);
+//		treeinfopanel.add(emptypanel);
 //		treeinfopanel.add(instantiatepanel);
 		treeinfopanel.setBackground(new Color(255, 255, 255));
 		

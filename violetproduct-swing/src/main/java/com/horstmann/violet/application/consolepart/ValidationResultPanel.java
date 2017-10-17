@@ -1095,10 +1095,10 @@ public class ValidationResultPanel extends JPanel{
 		validationlabeltabpanel.setBackground(new Color(41, 57, 85));
 		validationlabeltabpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		validationlabeltabpanel.add(validationlabeltabpanel5);
-		validationlabeltabpanel.add(validationlabeltabpanel1);
-		validationlabeltabpanel.add(validationlabeltabpanel2);
-		validationlabeltabpanel.add(validationlabeltabpanel3);
-		validationlabeltabpanel.add(validationlabeltabpanel4);
+//		validationlabeltabpanel.add(validationlabeltabpanel1);
+//		validationlabeltabpanel.add(validationlabeltabpanel2);
+//		validationlabeltabpanel.add(validationlabeltabpanel3);
+//		validationlabeltabpanel.add(validationlabeltabpanel4);
 		
 		validationlabeltabpanel.setPreferredSize(new Dimension(100, 30));
 		validationlabeltabpanel.setMinimumSize(new Dimension(100, 30));

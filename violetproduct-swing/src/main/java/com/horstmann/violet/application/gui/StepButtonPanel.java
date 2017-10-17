@@ -1506,6 +1506,7 @@ public class StepButtonPanel extends JPanel {
 				
 				ClearOpreationPanel();
 			    operationPanel.add(mainFrame.getModelExistValidationPanel());
+			    mainFrame.getModelExistValidationPanel().updateFileList();
 				
 				mainFrame.getCenterTabPanel().removeAll();
 				mainFrame.getCenterTabPanel().add(mainFrame.getStepSixCenterTabbedPane());

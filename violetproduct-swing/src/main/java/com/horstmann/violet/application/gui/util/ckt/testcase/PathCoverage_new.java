@@ -79,6 +79,8 @@ public class PathCoverage_new {
 		a = auto;
 		State initialState = auto.getInitState();
 		initialState.setStateAccessTimes(1);
+		stateList=new ArrayList<>();
+		TT=new ArrayList<ArrayList<Transition>>();
 		stateList.add(initialState);
 		dfs(initialState);
 		ArrayList<Automatic> testcaseSet = GetAutomaticSet(TT);

@@ -51,6 +51,7 @@ import javax.swing.tree.TreePath;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.StepSixCenterTabbedPane;
 import com.horstmann.violet.application.gui.StepThreeCenterTabbedPane;
 import com.horstmann.violet.application.gui.StepTwoCenterTabbedPane;
 import com.horstmann.violet.application.gui.util.tanchao.ShowOnTableAndConsole;
@@ -571,6 +572,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 						String path = baseUrl + filename + ".seq.violet.xml";
 						
 						StepThreeCenterTabbedPane.setBecomeRunFileName(filename+"ForXStream");
+						StepSixCenterTabbedPane.setBecomeRunFileName(filename+"Uppaal");
 
 						if (!FileMenu.isVioletXML(path)) {// 打开ea平台的xml文件
 							
