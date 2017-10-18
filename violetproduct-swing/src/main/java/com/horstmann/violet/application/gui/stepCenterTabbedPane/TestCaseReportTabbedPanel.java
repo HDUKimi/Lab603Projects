@@ -1916,6 +1916,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					
 				}
 				
+				progressbar.setValue(50);
+				progressbarlabel.setText(progressbar.getValue()+"%");
+				
 				TextAreaPrint("处理完成！");
 				TextAreaPrint("正在接收服务器端返回的测试结果...");
 			}

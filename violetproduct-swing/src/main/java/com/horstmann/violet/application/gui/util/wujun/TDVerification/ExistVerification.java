@@ -266,11 +266,11 @@ public class ExistVerification {
 					else{
 						System.out.println(timeD);
 						if(timeD.contains("=")) {
-							minTime += timeD.contains("<=") ? Integer.valueOf(timeD.split("<=")[1]) : 0;
-							maxTime += timeD.contains(">=") ? Integer.valueOf(timeD.split(">=")[1]) : 0;
+							maxTime += timeD.contains("<=") ? Integer.valueOf(timeD.split("<=")[1]) : 0;
+							minTime += timeD.contains(">=") ? Integer.valueOf(timeD.split(">=")[1]) : 0;
 						} else {
-							minTime += timeD.contains("<") ? Integer.valueOf(timeD.split("<")[1]) : 0;
-							maxTime += timeD.contains(">") ? Integer.valueOf(timeD.split(">")[1]) : 0;
+							maxTime += timeD.contains("<") ? Integer.valueOf(timeD.split("<")[1]) : 0;
+							minTime += timeD.contains(">") ? Integer.valueOf(timeD.split(">")[1]) : 0;
 						}
 					}
 				}
@@ -285,14 +285,53 @@ public class ExistVerification {
 
 			}
 			System.out.println(minTime+" - - "+maxTime);
-			Display.process(1);
-			if(input.contains("<")) {
-				return satisfy(minTime, input);
-			} else if(input.contains(">")){
-				return satisfy(maxTime, input);
-			} else {
-				return false;
+//			Display.process(1);
+
+			if(input.contains("<")){
+				if(input.contains("<=")){
+					int inputTime=Integer.valueOf(input.split("<=")[1]);
+					if(minTime<=inputTime){
+						return true;
+					}
+					else{
+						return false;
+					}
+				}
+				else{
+					int inputTime=Integer.valueOf(input.split("<")[1]);
+					if(minTime<inputTime){
+						return true;
+					}
+					else{
+						return false;
+					}
+				}
 			}
+			else if(input.contains(">")){
+				if(maxTime==0){
+					return true;
+				}
+				if(input.contains(">=")){
+					int inputTime=Integer.valueOf(input.split(">=")[1]);
+					if(maxTime>=inputTime){
+						return true;
+					}
+					else{
+						return false;
+					}
+				}
+				else{
+					int inputTime=Integer.valueOf(input.split(">")[1]);
+					if(maxTime>inputTime){
+						return true;
+					}
+					else{
+						return false;
+					}
+				}
+			}
+			
+			return false;
 		}
 
 

@@ -100,7 +100,7 @@ public class XmlOfTime {
 						String getin[] = tran.getIn().split("--");
 						for (int ii = 0; ii < getin.length; ii++) {
 							if (!(GetMap.get_inMap(getin[ii]) == null)) {
-								String inn = getin[ii].replace("false", "False").replace("true", "True").replace("->",
+								String inn = getin[ii].replace("False", "false").replace("True", "true").replace("->",
 										"$");
 								//in_result1 = Result1.getResult(inn);
 								in_result1 = ResultOfTime.getResultOfTime(inn);
@@ -116,7 +116,7 @@ public class XmlOfTime {
 						}
 					} else {
 						if (!(GetMap.get_inMap(tran.getIn()) == null)) {// map里面为空，即没有参数
-							String inn = tran.getIn().replace("false", "False").replace("true", "True").replace("->",
+							String inn = tran.getIn().replace("False", "false").replace("True", "true").replace("->",
 									"$");
 							//result1 = Result1.getResult(inn);
 							result1 = ResultOfTime.getResultOfTime(inn);
@@ -137,7 +137,7 @@ public class XmlOfTime {
 							result2.add(null);
 						} else {
 							if (!(GetMap.get_condMap(tran.getCondition()) == null)) {
-								String tra = tran.getCondition().replace("false", "False").replace("true", "True")
+								String tra = tran.getCondition().replace("False", "false").replace("True", "true")
 										.replace("->", "$");
 								// result2 = Result.getResult(tra);
 								System.out.println("tra----" + tra);
@@ -356,7 +356,7 @@ public static ArrayList<Automatic> collectResult(ArrayList<Automatic> testcase){
 						String getin[] = tran.getIn().split("--");
 						for (int ii = 0; ii < getin.length; ii++) {
 							if (!(GetMap.get_inMap(getin[ii]) == null)) {
-								String inn = getin[ii].replace("false", "False").replace("true", "True").replace("->",
+								String inn = getin[ii].replace("False", "false").replace("True", "true").replace("->",
 										"$");
 								//in_result1 = Result1.getResult(inn);
 								in_result1 = ResultOfTime.getResultOfTime(inn);
@@ -372,7 +372,7 @@ public static ArrayList<Automatic> collectResult(ArrayList<Automatic> testcase){
 						}
 					} else {
 						if (!(GetMap.get_inMap(tran.getIn()) == null)) {// map里面为空，即没有参数
-							String inn = tran.getIn().replace("false", "False").replace("true", "True").replace("->",
+							String inn = tran.getIn().replace("False", "false").replace("True", "true").replace("->",
 									"$");
 							//result1 = Result1.getResult(inn);
 							result1 = ResultOfTime.getResultOfTime(inn);
@@ -393,7 +393,7 @@ public static ArrayList<Automatic> collectResult(ArrayList<Automatic> testcase){
 							result2.add(null);
 						} else {
 							if (!(GetMap.get_condMap(tran.getCondition()) == null)) {
-								String tra = tran.getCondition().replace("false", "False").replace("true", "True")
+								String tra = tran.getCondition().replace("False", "false").replace("True", "true")
 										.replace("->", "$");
 								// result2 = Result.getResult(tra);
 								System.out.println("tra----" + tra);

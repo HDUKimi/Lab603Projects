@@ -39,8 +39,8 @@ public class Controller {
 
     private static Logger logger = Logger.getLogger(Controller.class);
 
-//    private static long MAX_FILE_SIZE = 10 * 1024 * 1024;
-    private static long MAX_FILE_SIZE = 5*1024;
+    private static long MAX_FILE_SIZE = 10 * 1024 * 1024;
+//    private static long MAX_FILE_SIZE = 5*1024;
     
     // deploy
     private static IPDeploy IP_TYPE_DEPLOY = new IPDeploy();
@@ -156,6 +156,7 @@ public class Controller {
                 
                 i++;
                 if(i==1){
+//                	resultService.getScheduledService().shutdown();
                 	resultService = new ResultService(node.getType());
                 }
                 else if(i==2){

@@ -20,7 +20,7 @@ public class TestFileSpilt {
 		TestFileSpilt testFileSpilt=new TestFileSpilt();
 		
 //		File file=new File(System.getProperty("user.dir")+"//src//xx#1.xml");
-		File file=new File("D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\xxyy_1_1_1_1#3.xml");
+		File file=new File("D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\EAElevator31Time_2#3.xml");
 		
 		testFileSpilt.FileSpilt(file);
 		

@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 
 public class HandelService implements Callable {
@@ -148,8 +149,17 @@ public class HandelService implements Callable {
     public Object call() throws Exception {
     	try {
     		// 1.create connection
-            boolean isCon = connection();
-            if (isCon) {
+//            boolean isCon = connection();
+    		
+    		while(!connection()){
+    			try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+    		}
+    		
+//            if (isCon) {
                 // 2.send data
                 send();
 
@@ -158,10 +168,10 @@ public class HandelService implements Callable {
 
                 // 4.close socket
                 close();
-            }
-            else{
-            	node.setBusy(false);
-            }
+//            }
+//            else{
+//            	node.setBusy(false);
+//            }
 		} catch (Exception e) {
 			// TODO: handle exception
 			node.setBusy(false);

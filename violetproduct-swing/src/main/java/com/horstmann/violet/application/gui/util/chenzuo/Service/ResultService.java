@@ -26,8 +26,13 @@ public class ResultService {
     private ScheduledThreadPoolExecutor scheduledService = new ScheduledThreadPoolExecutor(1);
 
     public static List<TestCase> list = Collections.synchronizedList(new ArrayList());
+    
+    public List<String> writedlist=new ArrayList<>();
 
     public ResultService(String type) {
+    	list = Collections.synchronizedList(new ArrayList());
+    	writedlist=new ArrayList<>();
+    	DeleteFile();
         scheduledService.scheduleAtFixedRate(
                 new GetResult(type),
                 0,
@@ -35,7 +40,20 @@ public class ResultService {
                 Constants.TIME_TYPE);
     }
 
-    class GetResult implements Runnable {
+    private void DeleteFile() {
+    	
+    	File file = new File(FileUtil.LOCAL_TARGET_PATH);
+        if (file.isDirectory()) {
+            String[] filelist = file.list();
+            for (int i = 0; i < filelist.length; i++) {
+                String fileName = FileUtil.LOCAL_TARGET_PATH + filelist[i];
+                FileUtil.delete(fileName);
+            }
+        }
+    	
+	}
+
+	class GetResult implements Runnable {
 
         private String type;
 
@@ -58,12 +76,26 @@ public class ResultService {
                 for (int i = 0; i < filelist.length; i++) {
                 	System.out.println(filelist[i]);
                 }
-                System.out.println("readfile()-----------------------");
+                System.out.println("readfile()-----------------------"+type+" - "+Controller.offsetTestCaseId);
                 
                 for (int i = 0; i < filelist.length; i++) {
                 	
                 	if(!filelist[i].contains("89")&&!filelist[i].contains("93")){
                 		continue;
+                	}
+                	
+                	int flag=0;
+                	for(String s:writedlist){
+                		if(filelist[i].equals(s)){
+                			flag=1;
+                			break;
+                		}
+                	}
+                	if(flag==1){
+                		continue;
+                	}
+                	else{
+                		writedlist.add(filelist[i]);
                 	}
                 	
                     String fileName = FileUtil.LOCAL_TARGET_PATH + filelist[i];
@@ -79,7 +111,7 @@ public class ResultService {
                         	}
                         	
                             list.addAll(testcaselist);
-                            FileUtil.delete(fileName);
+//                            FileUtil.delete(fileName);
                             logger.debug("list size:"+list.size());
 //                            if(Constants.ISFINISH.get()){
 //                                logger.debug("scheduledService close");
@@ -108,4 +140,8 @@ public class ResultService {
         ResultService s = new ResultService("Function");
     }
 
+	public ScheduledThreadPoolExecutor getScheduledService() {
+		return scheduledService;
+	}
+	
 }

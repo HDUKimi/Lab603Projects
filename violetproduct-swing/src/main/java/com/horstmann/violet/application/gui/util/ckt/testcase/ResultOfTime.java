@@ -23,7 +23,7 @@ public class ResultOfTime {
 	 * @return
 	 */
 	public static List<String> getResultOfTime(String condition){
-		condition = condition.replace("false", "False").replace("true", "True");
+		condition = condition.replace("False", "false").replace("True", "true");
 		//int flag = 0;
 		List<String> list=new ArrayList<String>();//存放整数不等式
 		List<String> list1=new ArrayList<String>();//存放小数不等式

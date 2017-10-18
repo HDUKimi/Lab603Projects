@@ -51,6 +51,8 @@ import javax.swing.tree.TreePath;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.StepSixCenterTabbedPane;
+import com.horstmann.violet.application.gui.StepThreeCenterTabbedPane;
 import com.horstmann.violet.application.gui.StepTwoCenterTabbedPane;
 import com.horstmann.violet.application.gui.util.tanchao.ShowOnTableAndConsole;
 import com.horstmann.violet.application.gui.util.tanchao.XMLCopy;
@@ -557,8 +559,11 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 						
 						System.out.println(timinglistindex+"   "+timinglists.size()+"   "+baseUrl + filename);
 						String path = baseUrl + filename + ".timing.violet.xml";
+						
+						StepThreeCenterTabbedPane.setBecomeRunFileName(filename+"ForXStream");
+						StepSixCenterTabbedPane.setBecomeRunFileName(filename+"Uppaal");
 
-						if (filename.contains("EA")) {// 打开ea平台的xml文件
+						if (!FileMenu.isVioletXML(path)) {// 打开ea平台的xml文件
 							
 							moviepanel.getMovieLabel().setText("正在转换顺序图 "+filename+"...");
 							

@@ -248,6 +248,14 @@ public class Evaluation {
 		int minTime=0;
 		int maxTime=0;
 		
+//		System.out.println();
+//		for(List<PathTuple> uppaalTuples:uppaalPaths){
+//			for(PathTuple tuple:uppaalTuples){
+//				System.out.print(tuple.getLocation().getName()+" : "+tuple.getLocation().getTimeDuration()+" - ");
+//			}
+//			System.out.println();
+//		}
+		
 		for(List<PathTuple> uppaalTuples:uppaalPaths){
 			int min=0;
 			int max=0;
@@ -257,11 +265,11 @@ public class Evaluation {
 				}
 				else{
 					if(timeD.contains("=")) {
-						min += timeD.contains("<=") ? Integer.valueOf(timeD.split("<=")[1]) : 0;
-						max += timeD.contains(">=") ? Integer.valueOf(timeD.split(">=")[1]) : 0;
+						max += timeD.contains("<=") ? Integer.valueOf(timeD.split("<=")[1]) : 0;
+						min += timeD.contains(">=") ? Integer.valueOf(timeD.split(">=")[1]) : 0;
 					} else {
-						min += timeD.contains("<") ? Integer.valueOf(timeD.split("<")[1]) : 0;
-						max += timeD.contains(">") ? Integer.valueOf(timeD.split(">")[1]) : 0;
+						max += timeD.contains("<") ? Integer.valueOf(timeD.split("<")[1]) : 0;
+						min += timeD.contains(">") ? Integer.valueOf(timeD.split(">")[1]) : 0;
 					}
 				}
 			}
@@ -290,9 +298,6 @@ public class Evaluation {
 		System.out.println(minTime+" - - "+maxTime);
 		
 		if(input.contains("<")){
-			if(minTime==0){
-				return true;
-			}
 			if(input.contains("<=")){
 				int inputTime=Integer.valueOf(input.split("<=")[1]);
 				if(minTime<=inputTime){

@@ -22,7 +22,7 @@ public class Display {
 	
 	public static void process(int messagesize) {
 
-		ValidationToolPanel.startProcessCount(messagesize);
+//		ValidationToolPanel.startProcessCount(messagesize);
 		
 	}
 	

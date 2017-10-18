@@ -1265,6 +1265,7 @@ public class StepButtonPanel extends JPanel {
 				ClearOpreationPanel();
 			    operationPanel.add(mainFrame.getModelTransformationPanel());
 			    mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().updateFileList();
+			    mainFrame.getModelTransformationPanel().getModelTimingTreePanel().updateFileList();
 			    
 			    mainFrame.getConsolePartPanel().getTitlelabel().setText("UML模型转化时间自动机过程信息");
 			    mainFrame.getConsolePartPanel().getTextpanel().removeAll();
