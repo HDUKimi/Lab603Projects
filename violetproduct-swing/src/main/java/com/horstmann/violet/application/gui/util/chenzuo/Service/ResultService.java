@@ -122,14 +122,19 @@ public class ResultService {
                         }
                 }
                 
-            	if(Constants.ISFINISH.get()){
-					logger.debug("scheduledService close");
-					scheduledService.shutdown();
-				}
+//            	if(Constants.ISFINISH.get()){
+//					logger.debug("scheduledService close");
+//					scheduledService.shutdown();
+//				}
             }
 
         }
     }
+	
+	public void closeService(){
+		logger.debug("scheduledService close");
+		scheduledService.shutdown();
+	}
 
     public static List<TestCase> getResult() {
         return list;

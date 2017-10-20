@@ -764,7 +764,7 @@ public class TestCaseInstantiationPanel extends JPanel{
 
 	public void initFileList() {
 		
-		for(int i=1;i<=3;i++){
+		for(int i=1;i<=2;i++){
 			File[] filelists=getAllFileByDiagramType(i);
 			List<String> filenames=new ArrayList<>();
 		    for(File file : filelists)

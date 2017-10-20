@@ -27,7 +27,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -263,7 +268,29 @@ public class TestCaseReportTabbedPanel extends JPanel{
 							@Override
 							public void run() {
 								PropertyConfigurator.configure("src/log4j.properties");
-								Boolean connectstate=Controller.Ready(2);
+								
+								Callable<Boolean> readyCallable=new Callable<Boolean>() {
+
+									@Override
+									public Boolean call() throws Exception {
+										// TODO Auto-generated method stub
+										return Controller.Ready(2);
+									}
+								};
+								ExecutorService exector=Executors.newSingleThreadExecutor();
+								Future<Boolean> readyFuture=exector.submit(readyCallable);
+								exector.shutdown();
+								
+								Boolean connectstate = false;
+								try {
+									connectstate = readyFuture.get();
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (ExecutionException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 								
 								if(connectstate){
 									progressbar.setValue(0);
@@ -879,6 +906,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				TextAreaPrint("≤‚ ‘÷¥––Ω· ¯");
 				
+				Controller.resultService.closeService();
+				
 				threadstate = 0;
 				
 			}
@@ -1484,6 +1513,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				TextAreaPrint("≤‚ ‘÷¥––Ω· ¯");
 				
+				Controller.resultService.closeService();
+				
 				threadstate=0;
 				
 			}
@@ -1882,6 +1913,10 @@ public class TestCaseReportTabbedPanel extends JPanel{
 
 				progressbar.setValue(100);
 				progressbarlabel.setText(progressbar.getValue()+"%");
+				
+				TextAreaPrint("≤‚ ‘÷¥––Ω· ¯");
+				
+				Controller.resultService.closeService();
 				
 				threadstate=0;
 			}

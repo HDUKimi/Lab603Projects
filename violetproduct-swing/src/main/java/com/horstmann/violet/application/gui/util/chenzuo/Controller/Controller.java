@@ -53,7 +53,7 @@ public class Controller {
     public static int offsetTestCaseId=0;
     public static String offsetIP=null;
     
-    private static ResultService resultService;
+    public static ResultService resultService;
     
 //	private static ThreadPoolExecutor executorService ;
 

@@ -151,13 +151,32 @@ public class HandelService implements Callable {
     		// 1.create connection
 //            boolean isCon = connection();
     		
-    		while(!connection()){
+    		boolean isCon=false;
+    		for(;;){
     			try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+    				isCon=connection();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+    			if(isCon){
+    				break;
+    			}
+    			else{
+    				try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+    			}
     		}
+    		
+//    		while(!connection()){
+//    			try {
+//                    TimeUnit.SECONDS.sleep(1);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//    		}
     		
 //            if (isCon) {
                 // 2.send data
@@ -175,7 +194,7 @@ public class HandelService implements Callable {
 		} catch (Exception e) {
 			// TODO: handle exception
 			node.setBusy(false);
-			throw e;
+//			throw e;
 		} finally{
 			node.setBusy(false);
 		}
