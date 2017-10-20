@@ -162,20 +162,25 @@ public void setFragmentType(String fragmentType) {
        }     
        Rectangle2D bounds = getBounds();
        GeneralPath fold = new GeneralPath();
-       fold.moveTo((float) (bounds.getX()+5*d), (float) bounds.getY());  //将鼠标放置在某点
+       
+       fold.moveTo((float) bounds.getX(), (float) bounds.getY());
+       fold.lineTo((float) bounds.getX()+5*d, (float) bounds.getY());
        fold.lineTo((float) bounds.getX()+5*d, (float) bounds.getY()+(2*d));
-       fold.moveTo((float) bounds.getX()+5*d, (float) bounds.getY()+(2*d));
        fold.lineTo((float) bounds.getX()+4*d, (float) bounds.getY()+(2.5*d));
-       fold.moveTo((float) bounds.getX() +4*d, (float) bounds.getY()+(2.5*d));
        fold.lineTo((float) bounds.getX(), (float) bounds.getY()+(2.5*d));
        fold.closePath();
+       
+       g2.setColor(DEFAULT_COLOR);
+       g2.fill(fold);
+
        g2.setColor(Color.BLACK);
+       g2.draw(fold);
+       
        type.drawType(g2, bounds);
        String SplitProperties[]=type.toString().split("\\.");
 	   setFragmentType(SplitProperties[8]);
        Shape path = getShape();
        g2.draw(path);
-       g2.draw(fold);
        conditions.setParentNode(this);
     
    }
@@ -241,6 +246,8 @@ public void SetFragmentPartBorderLine()
    
    private String name;
   
+   private static Color DEFAULT_COLOR = new Color(255, 228, 181); // very pale pink
+
    private static int d =10;
    private double width=200,height=100 ;
    private static double Default_Distance=50;
