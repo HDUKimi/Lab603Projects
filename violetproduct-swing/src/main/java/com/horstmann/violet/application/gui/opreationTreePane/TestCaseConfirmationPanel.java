@@ -303,12 +303,12 @@ public class TestCaseConfirmationPanel extends JPanel{
 		rootnode1=new CheckBoxTreeNode("测试用例");
 		functionnode1=new CheckBoxTreeNode("功能测试");
 		performancenode1=new CheckBoxTreeNode("性能测试");
-		timenode1=new CheckBoxTreeNode("时间约束测试");
+//		timenode1=new CheckBoxTreeNode("时间约束测试");
 		bordernode1=new CheckBoxTreeNode("边界值测试");
 		
 		rootnode1.add(functionnode1);
 		rootnode1.add(performancenode1);
-		rootnode1.add(timenode1);
+//		rootnode1.add(timenode1);
 		rootnode1.add(bordernode1);
 		
 		AddTestCaseFileToTree();
@@ -317,6 +317,7 @@ public class TestCaseConfirmationPanel extends JPanel{
         testcasetree1=new JTree(testcasetreemodel1);
         testcasetree1.addMouseListener(new CheckBoxTreeNodeSelectionListener());  
         testcasetree1.setCellRenderer(new CheckBoxTreeCellRenderer());  
+        testcasetree1.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 0));
         testcasetreeinforscrollpanel1 = new JScrollPane(testcasetree1);  
 	}
 
@@ -325,47 +326,48 @@ public class TestCaseConfirmationPanel extends JPanel{
 		for(String name:testcasefilenamelists){
 			CheckBoxTreeNode node=new CheckBoxTreeNode(name);
 			if(name.contains("功能")&&!name.contains("Border")){
-				if(name.contains("场景1")){
-					int flag=0;
-					Enumeration<?> en=functionnode1.children();
-					while (en.hasMoreElements()) {
-						CheckBoxTreeNode object = (CheckBoxTreeNode) en.nextElement();
-						if("场景1".equals(object.getUserObject())){
-							object.add(node);
-							flag=1;
-							break;
-						}
-					}
-					if(flag==0){
-						CheckBoxTreeNode objectnode=new CheckBoxTreeNode("场景1");
-						functionnode1.add(objectnode);
-						objectnode.add(node);
-					}
-				}
-				else if(name.contains("场景2")){
-					int flag=0;
-					Enumeration<?> en=functionnode1.children();
-					while (en.hasMoreElements()) {
-						CheckBoxTreeNode object = (CheckBoxTreeNode) en.nextElement();
-						if("场景2".equals(object.getUserObject())){
-							object.add(node);
-							flag=1;
-							break;
-						}
-					}
-					if(flag==0){
-						CheckBoxTreeNode objectnode=new CheckBoxTreeNode("场景2");
-						functionnode1.add(objectnode);
-						objectnode.add(node);
-					}
-				}
+				functionnode1.add(node);
+//				if(name.contains("场景1")){
+//					int flag=0;
+//					Enumeration<?> en=functionnode1.children();
+//					while (en.hasMoreElements()) {
+//						CheckBoxTreeNode object = (CheckBoxTreeNode) en.nextElement();
+//						if("场景1".equals(object.getUserObject())){
+//							object.add(node);
+//							flag=1;
+//							break;
+//						}
+//					}
+//					if(flag==0){
+//						CheckBoxTreeNode objectnode=new CheckBoxTreeNode("场景1");
+//						functionnode1.add(objectnode);
+//						objectnode.add(node);
+//					}
+//				}
+//				else if(name.contains("场景2")){
+//					int flag=0;
+//					Enumeration<?> en=functionnode1.children();
+//					while (en.hasMoreElements()) {
+//						CheckBoxTreeNode object = (CheckBoxTreeNode) en.nextElement();
+//						if("场景2".equals(object.getUserObject())){
+//							object.add(node);
+//							flag=1;
+//							break;
+//						}
+//					}
+//					if(flag==0){
+//						CheckBoxTreeNode objectnode=new CheckBoxTreeNode("场景2");
+//						functionnode1.add(objectnode);
+//						objectnode.add(node);
+//					}
+//				}
 			}
 			else if(name.contains("性能")){
 				performancenode1.add(node);
 			}
-			else if(name.contains("Time")){
-				timenode1.add(node);
-			}
+//			else if(name.contains("Time")){
+//				timenode1.add(node);
+//			}
 			else if(name.contains("Border")){
 				bordernode1.add(node);
 			}
@@ -515,6 +517,7 @@ public class TestCaseConfirmationPanel extends JPanel{
         testcasetree2=new JTree(testcasetreemodel2);
         testcasetree2.addMouseListener(new CheckBoxTreeNodeSelectionListener());  
         testcasetree2.setCellRenderer(new CheckBoxTreeCellRenderer());  
+        testcasetree2.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 0));
         testcasetreeinforscrollpanel2 = new JScrollPane(testcasetree2);  
 		
 	}

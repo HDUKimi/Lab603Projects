@@ -94,7 +94,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 	
 	private String selectAbstract;
 	private String selectAbstractPath;
-	private int starttype;
+	private int starttype;//1-功能，2-性能
+	private int hastime=0;//0-不含时间，1-含有时间
 	
 	private ArrayList<Automatic> collectLimit;
 	private ArrayList<Automatic> collectResult;
@@ -337,13 +338,22 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
 		
 		starttype=mainFrame.getTestCaseInstantiationPanel().FindRadioButtonIndex(mainFrame.getTestCaseInstantiationPanel().getSelectTestRadioButton())+1;
+		
+		if(selectAbstract.contains("TimeAbstract")){
+			hastime=1;
+		}
+		else{
+			hastime=0;
+		}
+		
 		if(starttype == 1){
 			baseUrl += "\\FunctionalTest\\";
 		} else if (starttype == 2) {
 			baseUrl += "\\PerformanceTest\\";
-		} else if (starttype == 3) {
-			baseUrl += "\\TimeTest\\";
-		}
+		} 
+//		else if (starttype == 3) {
+//			baseUrl += "\\TimeTest\\";
+//		}
 		
 		mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().setStarttype(starttype);
 		
@@ -518,18 +528,28 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				TextAreaPrint("正在对测试序列进行实例化求解");
 				
 				if(starttype==1){//功能测试
-					//获取数据
-					collectResult = forPlatform.collectResult(collectLimit);
-					//获取边界值数据
-					bordercollectResult = borderTestXML.collectResult(bordercollectLimit);
+					if(hastime==1){
+						collectResult=XmlOfTime.collectResult(collectLimit);
+					}
+					else{
+						//获取数据
+						collectResult = forPlatform.collectResult(collectLimit);
+						//获取边界值数据
+						bordercollectResult = borderTestXML.collectResult(bordercollectLimit);
+					}
 				}
 				else if(starttype==2){//性能测试
-					PerAutomaticResult=PerformanceXML2.getPerformResultFromAutomatic(collectLimit.get(0));
-					collectResult.add(PerAutomaticResult);
+					if(hastime==1){
+						collectResult=XmlOfTime.collectResult(collectLimit);
+					}
+					else{
+						PerAutomaticResult=PerformanceXML2.getPerformResultFromAutomatic(collectLimit.get(0));
+						collectResult.add(PerAutomaticResult);
+					}
 				}
-				else if(starttype==3){
-					collectResult=XmlOfTime.collectResult(collectLimit);
-				}
+//				else if(starttype==3){
+//					collectResult=XmlOfTime.collectResult(collectLimit);
+//				}
 				
 //				int k=1;
 //				for (Automatic am : collectResult) {
@@ -681,9 +701,10 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					baseUrl += "\\FunctionalTest\\";
 				} else if (starttype == 2) {
 					baseUrl += "\\PerformanceTest\\";
-				} else if (starttype == 3) {
-					baseUrl += "\\TimeTest\\";
-				}
+				} 
+//				else if (starttype == 3) {
+//					baseUrl += "\\TimeTest\\";
+//				}
 				
 //				String path=baseUrl+name+"TestCase.xml";
 //				
@@ -691,7 +712,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				List<TestCase> testcaselist=new ArrayList<>();
 				List<TestCase> bordertestcaselist=new ArrayList<>();
-				if(starttype==1){//功能测试
+				if(starttype==1&&hastime==0){//功能测试
 					
 					String path=baseUrl+name+"TestCase.xml";
 					
@@ -765,7 +786,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					mainFrame.getStepFourCenterTabbedPane().getBorderTestCaseShowButtonPanel().setVisible(true);
 					
 				}
-				else if(starttype==2){//性能测试
+				else if(starttype==2&&hastime==0){//性能测试
 //					for(Transition t:PerAutomaticResult.getTransitionSet()){
 //						listcases.add(t.getResult());
 //					}
@@ -809,9 +830,9 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					
 					
 				}
-				else if(starttype==3){//时间约束测试
+				else if(hastime==1){//时间约束测试
 
-					String path=baseUrl+name+"TimeTestCase.xml";
+					String path=baseUrl+name+"TestCase.xml";
 //					GetTimeXML.produceXML(path,testCase);
 					XmlOfTime.produceXML(path, collectResult, collectLimit);
 					
@@ -859,7 +880,12 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				stepAllProcessList.add("第三步：生成测试用例");
 				timeAllProcessList.add(time2-time1+"ms");
 				if(starttype==1){
-					resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"个不含边界值的测试用例和"+bordertestcaselist.size()+"个含边界值的测试用例");
+					if(hastime==1){
+						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"个测试用例");
+					}
+					else{
+						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"个不含边界值的测试用例和"+bordertestcaselist.size()+"个含边界值的测试用例");						
+					}
 				}
 				else{
 					resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"个测试用例");
@@ -891,9 +917,10 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					baseUrl += "FunctionalTest\\";
 				} else if (starttype == 2) {
 					baseUrl += "PerformanceTest\\";
-				} else if (starttype == 3) {
-					baseUrl += "TimeTest\\";
-				}
+				} 
+//				else if (starttype == 3) {
+//					baseUrl += "TimeTest\\";
+//				}
 				
 				String path=baseUrl+name+"TestCase.xml";
 
@@ -905,28 +932,28 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				timeAllProcessList.add(time2-time1+"ms");
 				
 				if(starttype == 1){
-					
-					String borderpath=baseUrl+name+"BorderTestCase.xml";
-					resultAllProcessList.add("生成"+name+"TestCase.xml 和 "+name+"BorderTestCase.xml");
-					
-					TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
-					TextAreaPrint("生成"+name+"BorderTestCase.xml，保存路径："+borderpath);
+					if(hastime==1){
+						resultAllProcessList.add("生成"+name+"TestCase.xml");
+						TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
+					}
+					else{
+						String borderpath=baseUrl+name+"BorderTestCase.xml";
+						resultAllProcessList.add("生成"+name+"TestCase.xml 和 "+name+"BorderTestCase.xml");
+						
+						TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
+						TextAreaPrint("生成"+name+"BorderTestCase.xml，保存路径："+borderpath);
+					}
 				}
 				else if(starttype==2){
 					resultAllProcessList.add("生成"+name+"TestCase.xml");
 					TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
 				}
-				else if(starttype==3){
-					resultAllProcessList.add("生成"+name+"TimeTestCase.xml");
-					TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
-				}
+//				else if(starttype==3){
+//					resultAllProcessList.add("生成"+name+"TimeTestCase.xml");
+//					TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
+//				}
 				
-				if(starttype == 3){
-					StepFiveCenterTabbedPane.setBecomeRunFileName(name+"TimeTestCase");
-				}
-				else{
-					StepFiveCenterTabbedPane.setBecomeRunFileName(name+"TestCase");
-				}
+				StepFiveCenterTabbedPane.setBecomeRunFileName(name+"TestCase");
 				StepFiveCenterTabbedPane.setBecomeRunFileNameType(starttype);
 				
 				

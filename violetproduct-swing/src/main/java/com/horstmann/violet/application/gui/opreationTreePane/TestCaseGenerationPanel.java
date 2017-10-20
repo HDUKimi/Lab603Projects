@@ -511,7 +511,7 @@ public class TestCaseGenerationPanel extends JPanel {
 
 		testlists.add("功能测试");
 		testlists.add("性能测试");
-		testlists.add("时间约束测试");
+//		testlists.add("时间约束测试");
 		
 		coverlists.add("状态覆盖");
 		coverlists.add("迁移覆盖");

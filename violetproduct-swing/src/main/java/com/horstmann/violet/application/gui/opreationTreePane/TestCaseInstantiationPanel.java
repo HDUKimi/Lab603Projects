@@ -244,13 +244,13 @@ public class TestCaseInstantiationPanel extends JPanel{
 		
 		testlists.add("功能测试");
 		testlists.add("性能测试");
-		testlists.add("时间约束测试");
+//		testlists.add("时间约束测试");
 		
 		initFileList();
 		
 		initAbstractPanel();
 		
-		initInstantiatePanel();
+//		initInstantiatePanel();
 		
 		JPanel emptypanel=new JPanel();
 		emptypanel.setLayout(new GridLayout());

@@ -275,9 +275,9 @@ public class TestCaseShowTabbedPanel extends JPanel{
 		return tableresultpanel;
 	}
 
-	public int getStarttype() {
-		return starttype;
-	}
+//	public int getStarttype() {
+//		return starttype;
+//	}
 
 	public void setStarttype(int starttype) {
 		this.starttype = starttype;
