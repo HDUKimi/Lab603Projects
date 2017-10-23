@@ -22,6 +22,8 @@ public class TestCase implements Serializable{
 	TestCaseResult  result;
 	//detail of testcase, String of socket received
 	String  detail;
+	//
+	String exetime;
 	//Ê±¼äÔ¼Êø²»µÈÊ½
 	List<String> limit;
 	
@@ -84,6 +86,14 @@ public class TestCase implements Serializable{
 	public void setLimit(List<String> limit) {
 		this.limit = limit;
 	}
+	
+	public String getExetime() {
+		return exetime;
+	}
+
+	public void setExetime(String exetime) {
+		this.exetime = exetime;
+	}
 
 	@Override
 	public String toString() {
@@ -92,7 +102,7 @@ public class TestCase implements Serializable{
 			tmp = tmp + "\tmyProcess [processID=" + m.processID + ", processName=" + m.processName + ", processParam=" + m.processParam
 					+ ", processStatus=" + m.processStatus + ", processExec=" + m.processExec + "]\n";
 		}
-		tmp = tmp + ", state=" + state + ", result="+ result + ", detail=" + detail + "]";
+		tmp = tmp + ", state=²âÊÔºÄÊ±:" + exetime + " ms, result="+ result + ", detail=" + detail + "]";
 		return tmp;
 	}
 	/***
@@ -109,7 +119,7 @@ public class TestCase implements Serializable{
 					+ " ¼¤Àø×´Ì¬ :" + ((m.processStatus == "NULL")?"¿Õ":m.getProcessStatus())
 					+")";
 		}
-		tmp = tmp + " ]\n  -->²âÊÔÖ´ĞĞ×´Ì¬: [ " + state + " ]\n  -->½á¹û×´Ì¬: [ "+ result.getResultDetail()+" ]";
+		tmp = tmp + " ]\n  -->²âÊÔÖ´ĞĞ×´Ì¬: [ ²âÊÔºÄÊ±:" + exetime + " ms ]\n  -->½á¹û×´Ì¬: [ "+ result.getResultDetail()+" ]";
 		return tmp;
 	}
 }

@@ -26,12 +26,14 @@ import java.util.Map.Entry;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -56,6 +58,7 @@ import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.StepFiveCenterTabbedPane;
+import com.horstmann.violet.application.gui.StepFourCenterTabbedPane;
 import com.horstmann.violet.application.gui.opreationTreePane.CheckBoxTree.CheckBoxTreeCellRenderer;
 import com.horstmann.violet.application.gui.opreationTreePane.CheckBoxTree.CheckBoxTreeNode;
 import com.horstmann.violet.application.gui.opreationTreePane.CheckBoxTree.CheckBoxTreeNodeSelectionListener;
@@ -125,10 +128,29 @@ public class TestCaseConfirmationPanel extends JPanel{
 	private CheckBoxTreeNode timenode2;
 	private CheckBoxTreeNode bordernode2;
 	
-	private JPanel testcasecheckboxpanel;
-//	private JScrollPane testcasescrollpanel;
+	private List<String> testlists=new ArrayList<String>();
 	
-	private JCheckBox[] testCaseCheckBoxList;
+	private JPanel testcasecheckboxpanel;
+	
+	private JCheckBox selectTestCaseCheckBox;
+	private List<List<JCheckBox>> testCaseCheckBoxList=new ArrayList<>();
+	
+	private JRadioButton selectTestRadioButton;
+	private JRadioButton[] testRadioButtonList;
+	
+	private List<String> testcasefilenamelists=new ArrayList<String>();
+	private List<List<String>> testcasefilenamegroup=new ArrayList<>();
+	
+	private JPanel sqltestcasecheckboxpanel;
+	
+	private JCheckBox selectSqlTestCaseCheckBox;
+	private List<List<JCheckBox>> sqlTestCaseCheckBoxList=new ArrayList<>();
+	
+	private JRadioButton selectSqlTestRadioButton;
+	private JRadioButton[] testSqlRadioButtonList;
+	
+    private List<String> sqlcasedatalist=new ArrayList<>();
+    private List<List<String>> sqlcasedatagroup=new ArrayList<>();
 	
 	private String testcasename=null;
 	private List<TestCase> testcaselist=new ArrayList<TestCase>();
@@ -137,9 +159,6 @@ public class TestCaseConfirmationPanel extends JPanel{
 //	private List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
 //	private List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
 	
-    private List<String> testcasefilenamelists=new ArrayList<String>();
-    private List<String> sqlcasedatalist=new ArrayList<>();
-    
     private List<String> selectedtestcaselist=new ArrayList<>();
     private Map<String, List<String>> selectedtestcasemap=new HashMap<>();
     
@@ -172,6 +191,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		testcasetoolbutton4=new JButton();
 		
 		testcasecheckboxpanel=new JPanel();
+		sqltestcasecheckboxpanel=new JPanel();
 		
 		testcasetreeinforpanel=new JPanel();
 		testcasetreeinforpanel1=new JPanel();
@@ -214,6 +234,9 @@ public class TestCaseConfirmationPanel extends JPanel{
 	private void initTestCaseTreeInforPanel() {
 		// TODO Auto-generated method stub
 		
+		testlists.add("功能测试");
+		testlists.add("性能测试");
+		
 		initTestCaseTreeInforPanel1();
 		
 		initTestCaseTreeInforPanel2();
@@ -226,24 +249,27 @@ public class TestCaseConfirmationPanel extends JPanel{
 	private void initTestCaseTreeInforPanel1() {
 		// TODO Auto-generated method stub
 		
-//		initCheckBoxPanel();
-//		
-//		addDataToCheckBoxPanel();
-//		
-//		testcasetreeinforpanel1.setLayout(new GridLayout());
-//		testcasetreeinforpanel1.add(testcasetreeinforscrollpanel1);
-		
 		initTestCaseFileList();
 		
-		initTestCaseTree1();
+		initCheckBoxPanel();
 		
-		updateTestCaseTreeCount(testcasetree1,testcasetreemodel1,rootnode1);
-		
-		showTestCaseTree(testcasetree1,new TreePath(rootnode1),true);
+		addDataToCheckBoxPanel();
 		
 		testcasetreeinforpanel1.setLayout(new GridLayout());
 		testcasetreeinforpanel1.add(testcasetreeinforscrollpanel1);
 		testcasetreeinforscrollpanel1.setBorder(null);
+		
+//		initTestCaseFileList();
+//		
+//		initTestCaseTree1();
+//		
+//		updateTestCaseTreeCount(testcasetree1,testcasetreemodel1,rootnode1);
+//		
+//		showTestCaseTree(testcasetree1,new TreePath(rootnode1),true);
+//		
+//		testcasetreeinforpanel1.setLayout(new GridLayout());
+//		testcasetreeinforpanel1.add(testcasetreeinforscrollpanel1);
+//		testcasetreeinforscrollpanel1.setBorder(null);
 		
 	}
 
@@ -293,6 +319,19 @@ public class TestCaseConfirmationPanel extends JPanel{
 			    		testcasefilenamelists.add(fileName.substring(0, fileName.lastIndexOf(".xml")));
 			    	}
 			    }
+			}
+		}
+		
+		testcasefilenamegroup=new ArrayList<List<String>>();
+		testcasefilenamegroup.add(new ArrayList<String>());
+		testcasefilenamegroup.add(new ArrayList<String>());
+		
+		for(String name:testcasefilenamelists){
+			if(name.contains("功能")){
+				testcasefilenamegroup.get(0).add(name);
+			}
+			else if(name.contains("性能")){
+				testcasefilenamegroup.get(1).add(name);
 			}
 		}
 
@@ -377,11 +416,17 @@ public class TestCaseConfirmationPanel extends JPanel{
 	private void initTestCaseTreeInforPanel2() {
 		// TODO Auto-generated method stub
 		
-		initTestCaseTree2();
+		initSqlTestCaseFileList();
 		
-		updateTestCaseTreeCount(testcasetree2,testcasetreemodel2,rootnode2);
+		initSqlCheckBoxPanel();
 		
-		showTestCaseTree(testcasetree2,new TreePath(rootnode2),true);
+		addDataToSqlCheckBoxPanel();
+		
+//		initTestCaseTree2();
+//		
+//		updateTestCaseTreeCount(testcasetree2,testcasetreemodel2,rootnode2);
+//		
+//		showTestCaseTree(testcasetree2,new TreePath(rootnode2),true);
 		
 		testcasetreeinforpanel2.setLayout(new GridLayout());
 		testcasetreeinforpanel2.add(testcasetreeinforscrollpanel2);
@@ -389,6 +434,157 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 	}
 
+
+	private void addDataToSqlCheckBoxPanel() {
+		// TODO Auto-generated method stub
+		
+		sqltestcasecheckboxpanel.removeAll();
+		
+		testSqlRadioButtonList=new JRadioButton[testlists.size()];
+		sqlTestCaseCheckBoxList=new ArrayList<>();
+		ButtonGroup buttonGroup=new ButtonGroup();
+		
+		for(int i=0;i<testlists.size();i++){
+			
+			testSqlRadioButtonList[i]=new JRadioButton(testlists.get(i));
+			testSqlRadioButtonList[i].setOpaque(false);
+			buttonGroup.add(testSqlRadioButtonList[i]);
+			sqltestcasecheckboxpanel.add(Box.createVerticalStrut(7));
+			sqltestcasecheckboxpanel.add(testSqlRadioButtonList[i]);
+			
+			List<JCheckBox> checkBoxs=new ArrayList<>();
+			for(int j=0;j<sqlcasedatagroup.get(i).size();j++){
+				JCheckBox checkBox=new JCheckBox(sqlcasedatagroup.get(i).get(j));
+				checkBox.setOpaque(false);
+				checkBox.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+				sqltestcasecheckboxpanel.add(Box.createVerticalStrut(7));
+				sqltestcasecheckboxpanel.add(checkBox);
+				checkBoxs.add(checkBox);
+			}
+			sqlTestCaseCheckBoxList.add(checkBoxs);			
+		}
+		
+		selectSqlTestRadioButton=new JRadioButton();
+		for(final JRadioButton radioButton:testSqlRadioButtonList){
+			radioButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					if(radioButton.equals(selectSqlTestRadioButton)){
+						
+					}
+					else{
+						selectSqlTestRadioButton.setSelected(false);
+						selectSqlTestRadioButton=radioButton;
+						selectSqlTestRadioButton.setSelected(true);
+						
+						selectSqlTestCaseCheckBox.setSelected(false);
+						selectSqlTestCaseCheckBox=sqlTestCaseCheckBoxList.get(FindSqlRadioButtonIndex(radioButton)).get(0);
+						selectSqlTestCaseCheckBox.setSelected(true);
+					}
+					
+				}
+			});
+		}
+		
+		selectSqlTestCaseCheckBox=new JCheckBox();
+		for(int i=0;i<sqlTestCaseCheckBoxList.size();i++){
+			for(int j=0;j<sqlTestCaseCheckBoxList.get(i).size();j++){
+				final JCheckBox checkBox=sqlTestCaseCheckBoxList.get(i).get(j);
+				checkBox.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						if(checkBox.equals(selectSqlTestCaseCheckBox)){
+							checkBox.setSelected(true);
+						}
+						else{
+							selectSqlTestCaseCheckBox.setSelected(false);
+							selectSqlTestCaseCheckBox=checkBox;
+							selectSqlTestCaseCheckBox.setSelected(true);
+							
+							selectSqlTestRadioButton.setSelected(false);
+							selectSqlTestRadioButton=testSqlRadioButtonList[FindSqlCoverCheckBoxFromSqlRadioButtonIndex(checkBox)];
+							selectSqlTestRadioButton.setSelected(true);
+						}
+					}
+				});
+			}
+		}
+		
+		//默认选中
+//		int becomeRunFileNameType=StepFiveCenterTabbedPane.getBecomeRunFileNameType();
+//		if(becomeRunFileNameType!=-1){
+//			for(JCheckBox checkBox:testCaseCheckBoxList.get(becomeRunFileNameType-1)){
+//				if(StepFiveCenterTabbedPane.getBecomeRunFileName().equals(checkBox.getText())){
+//					checkBox.setSelected(true);
+//					selectTestCaseCheckBox=checkBox;
+//					testRadioButtonList[becomeRunFileNameType-1].setSelected(true);
+//					selectTestRadioButton=testRadioButtonList[becomeRunFileNameType-1];
+//				}
+//			}
+//		}
+		
+	}
+	
+	public int FindSqlCoverCheckBoxFromSqlRadioButtonIndex(JCheckBox checkBox) {
+		// TODO Auto-generated method stub
+		
+		for(int i=0;i<sqlTestCaseCheckBoxList.size();i++){
+			for(int j=0;j<sqlTestCaseCheckBoxList.get(i).size();j++){
+				if(checkBox.equals(sqlTestCaseCheckBoxList.get(i).get(j))){
+					return i;
+				}
+			}
+		}
+		
+		return -1;
+	}
+
+	public int FindSqlRadioButtonIndex(JRadioButton radioButton) {
+		// TODO Auto-generated method stub
+		
+		for(int i=0;i<testSqlRadioButtonList.length;i++){
+			if(radioButton.equals(testSqlRadioButtonList[i])){
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	private void initSqlCheckBoxPanel() {
+		// TODO Auto-generated method stub
+		sqltestcasecheckboxpanel.setLayout(new BoxLayout(sqltestcasecheckboxpanel, BoxLayout.Y_AXIS));
+		sqltestcasecheckboxpanel.setBorder(BorderFactory.createEmptyBorder(0, 7, 0, 0));
+		sqltestcasecheckboxpanel.setBackground(new Color(255, 255, 255));
+		
+		testcasetreeinforscrollpanel2=new JScrollPane(sqltestcasecheckboxpanel);
+		testcasetreeinforscrollpanel2.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, new Color(142, 155, 188)));
+		testcasetreeinforscrollpanel2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		testcasetreeinforscrollpanel2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
+	}
+
+	private void initSqlTestCaseFileList() {
+		// TODO Auto-generated method stub
+		
+		sqlcasedatalist=DataBaseUtil.queryCaseDataList();
+		
+		sqlcasedatagroup=new ArrayList<List<String>>();
+		sqlcasedatagroup.add(new ArrayList<String>());
+		sqlcasedatagroup.add(new ArrayList<String>());
+		
+		for(String name:sqlcasedatalist){
+			if(name.contains("功能")){
+				sqlcasedatagroup.get(0).add(name);
+			}
+			else if(name.contains("性能")){
+				sqlcasedatagroup.get(1).add(name);
+			}
+		}
+	}
 
 	private void updateTestCaseTreeCount(final JTree tree, final DefaultTreeModel testcasetreemodel, final CheckBoxTreeNode rootnode) {
 		// TODO Auto-generated method stub
@@ -791,21 +987,119 @@ public class TestCaseConfirmationPanel extends JPanel{
 		// TODO Auto-generated method stub
 		
 		testcasecheckboxpanel.removeAll();
-		testCaseCheckBoxList=new JCheckBox[testcasefilenamelists.size()];
-		for(int i=0;i<testcasefilenamelists.size();i++){
-			testCaseCheckBoxList[i]=new JCheckBox(testcasefilenamelists.get(i));
-			testCaseCheckBoxList[i].setOpaque(false);
-//			Object[]data={new JCheckBox(sequencelists.get(i))};
-//			Object[]data={sequencelists.get(i)};
-//			dtmDemo.addRow(data);
-			testcasecheckboxpanel.add(Box.createVerticalStrut(7));
-			testcasecheckboxpanel.add(testCaseCheckBoxList[i]);
-			if(i==0){
-				testCaseCheckBoxList[i].setSelected(true);
-			}
+		
+		testRadioButtonList=new JRadioButton[testlists.size()];
+		testCaseCheckBoxList=new ArrayList<>();
+		ButtonGroup buttonGroup=new ButtonGroup();
+		
+		for(int i=0;i<testlists.size();i++){
 			
+			testRadioButtonList[i]=new JRadioButton(testlists.get(i));
+			testRadioButtonList[i].setOpaque(false);
+			buttonGroup.add(testRadioButtonList[i]);
+			testcasecheckboxpanel.add(Box.createVerticalStrut(7));
+			testcasecheckboxpanel.add(testRadioButtonList[i]);
+			
+			List<JCheckBox> checkBoxs=new ArrayList<>();
+			for(int j=0;j<testcasefilenamegroup.get(i).size();j++){
+				JCheckBox checkBox=new JCheckBox(testcasefilenamegroup.get(i).get(j));
+				checkBox.setOpaque(false);
+				checkBox.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+				testcasecheckboxpanel.add(Box.createVerticalStrut(7));
+				testcasecheckboxpanel.add(checkBox);
+				checkBoxs.add(checkBox);
+			}
+			testCaseCheckBoxList.add(checkBoxs);			
 		}
 		
+		selectTestRadioButton=new JRadioButton();
+		for(final JRadioButton radioButton:testRadioButtonList){
+			radioButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					if(radioButton.equals(selectTestRadioButton)){
+						
+					}
+					else{
+						selectTestRadioButton.setSelected(false);
+						selectTestRadioButton=radioButton;
+						selectTestRadioButton.setSelected(true);
+						
+						selectTestCaseCheckBox.setSelected(false);
+						selectTestCaseCheckBox=testCaseCheckBoxList.get(FindRadioButtonIndex(radioButton)).get(0);
+						selectTestCaseCheckBox.setSelected(true);
+					}
+					
+				}
+			});
+		}
+		
+		selectTestCaseCheckBox=new JCheckBox();
+		for(int i=0;i<testCaseCheckBoxList.size();i++){
+			for(int j=0;j<testCaseCheckBoxList.get(i).size();j++){
+				final JCheckBox checkBox=testCaseCheckBoxList.get(i).get(j);
+				checkBox.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						if(checkBox.equals(selectTestCaseCheckBox)){
+							checkBox.setSelected(true);
+						}
+						else{
+							selectTestCaseCheckBox.setSelected(false);
+							selectTestCaseCheckBox=checkBox;
+							selectTestCaseCheckBox.setSelected(true);
+							
+							selectTestRadioButton.setSelected(false);
+							selectTestRadioButton=testRadioButtonList[FindCoverCheckBoxFrontRadioButtonIndex(checkBox)];
+							selectTestRadioButton.setSelected(true);
+						}
+					}
+				});
+			}
+		}
+		
+		//默认选中
+		int becomeRunFileNameType=StepFiveCenterTabbedPane.getBecomeRunFileNameType();
+		if(becomeRunFileNameType!=-1){
+			for(JCheckBox checkBox:testCaseCheckBoxList.get(becomeRunFileNameType-1)){
+				if(StepFiveCenterTabbedPane.getBecomeRunFileName().equals(checkBox.getText())){
+					checkBox.setSelected(true);
+					selectTestCaseCheckBox=checkBox;
+					testRadioButtonList[becomeRunFileNameType-1].setSelected(true);
+					selectTestRadioButton=testRadioButtonList[becomeRunFileNameType-1];
+				}
+			}
+		}
+		
+	}
+	
+	public int FindCoverCheckBoxFrontRadioButtonIndex(JCheckBox checkBox) {
+		// TODO Auto-generated method stub
+		
+		for(int i=0;i<testCaseCheckBoxList.size();i++){
+			for(int j=0;j<testCaseCheckBoxList.get(i).size();j++){
+				if(checkBox.equals(testCaseCheckBoxList.get(i).get(j))){
+					return i;
+				}
+			}
+		}
+		
+		return -1;
+	}
+
+	public int FindRadioButtonIndex(JRadioButton radioButton) {
+		// TODO Auto-generated method stub
+		
+		for(int i=0;i<testRadioButtonList.length;i++){
+			if(radioButton.equals(testRadioButtonList[i])){
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	private void initTitlePanel() {
@@ -998,14 +1292,6 @@ public class TestCaseConfirmationPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-
-				updateSelectedTestCaseList();
-				
-				updateSelectedTestCaseMap();
-				
-				for(Entry<String, List<String>> en:selectedtestcasemap.entrySet()){
-					System.out.println(en.getKey()+" - - "+en.getValue().toString());
-				}
 				
 				new Thread(new Runnable() {
 					
@@ -1013,89 +1299,181 @@ public class TestCaseConfirmationPanel extends JPanel{
 					public void run() {
 						// TODO Auto-generated method stub
 						
+						int starttype = 0;
+						String testcasename = null;
+						
+						if(testcaselabeltabindex==1){
+							starttype=FindRadioButtonIndex(selectTestRadioButton)+1;
+							testcasename=selectTestCaseCheckBox.getText();
+						}
+						else if(testcaselabeltabindex==2){
+							starttype=FindSqlRadioButtonIndex(selectSqlTestRadioButton)+1;
+							testcasename=selectSqlTestCaseCheckBox.getText();
+						}
+						
+//						int testcasetype=starttype;
+						int hastime=0;
+						
+						if(testcasename.contains("TimeTestCase")){
+							hastime=1;
+//							testcasetype=3;
+						}
+						
 						List<TestCaseDataPanel> testCaseDataPanels=mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList();
 						int flag=0;
-						int index=0;
 						TestCaseDataPanel nowtcdpanel = null;
+								
+						List<TestCase> testcaselist=new ArrayList<>();
 						
-						for(Entry<String, List<String>> en:selectedtestcasemap.entrySet()){
-							
-							if(!en.getValue().isEmpty()){
-								
-								List<TestCase> testcaselist=new ArrayList<>();
-								String name = null;
-								int type = 0;
-								
-								flag=0;
-								
-								if(en.getKey().equals("Function")){
-									name="功能测试";
-									type=1;
-								}
-								else if(en.getKey().equals("Performance")){
-									name="性能测试";
-									type=2;
-								}
-								else if(en.getKey().equals("Time")){
-									name="时间约束测试";
-									type=3;
-								}
-								else if(en.getKey().equals("Border")){
-									name="边界值测试";
-									type=1;
-								}
-								
-								for(String testcasename:en.getValue()){
-									
-									if(type==1){
-										testcaselist.addAll(extractFunctionalTestDataFromXml(findTestCaseXMLPath(testcasename)));
-									}
-									else if(type==2){
-										name="性能测试";
-										testcaselist.addAll(extractPerformanceTestDataFromXml(findTestCaseXMLPath(testcasename)));
-									}
-									else if(type==3){
-										name="时间约束测试";
-										testcaselist.addAll(extractTimeTestDataFromXml(findTestCaseXMLPath(testcasename)));
-									}
-									
-								}
-								
-								for(TestCaseDataPanel tcd:testCaseDataPanels){
-									if(tcd.getTestCaseName().equals(name)){
-										if(tcd.getTestcaselist().size()==testcaselist.size()){
-											flag=1;
-											nowtcdpanel=tcd;
-										}
-										else{
-											tcd.getTestCaseReportDiagramButtonPanel().setVisible(false);
-											tcd.getTestCaseChartDiagramButtonPanel().setVisible(false);
-											testCaseDataPanels.remove(tcd);
-										}
-										break;
-									}
-								}
-								
-								if(flag==0){
-									nowtcdpanel=new TestCaseDataPanel(mainFrame, name, testcaselist, type);
-									mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList().add(nowtcdpanel);
-								}
-								
-								if(index==0){
-									nowtcdpanel.getTestCaseReportDiagramButtonPanel().getTabbedbutton().doClick();
-								}
-								index++;
-								
-								TextAreaPrint(name+"的 "+testcaselist.size()+" 条测试用例提取完成");
-								
-								mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
-								
+						String name = null;
+						
+						if(starttype==1){
+							name="功能测试";
+							if(hastime==1){
+								testcaselist.addAll(extractTimeTestDataFromXml(findTestCaseXMLPath(testcasename)));
 							}
-							
+							else{
+								testcaselist.addAll(extractFunctionalTestDataFromXml(findTestCaseXMLPath(testcasename)));
+							}
 						}
+						else if(starttype==2){
+							name="性能测试";
+							if(hastime==1){
+								testcaselist.addAll(extractTimeTestDataFromXml(findTestCaseXMLPath(testcasename)));
+							}
+							else{
+								testcaselist.addAll(extractPerformanceTestDataFromXml(findTestCaseXMLPath(testcasename)));
+							}
+						}
+								
+								
+						for(TestCaseDataPanel tcd:testCaseDataPanels){
+							if(tcd.getTestCaseName().equals(name)){
+//								if(tcd.getTestcaselist().size()==testcaselist.size()){
+//									flag=1;
+//									nowtcdpanel=tcd;
+//								}
+//								else{
+									tcd.getTestCaseReportDiagramButtonPanel().setVisible(false);
+									tcd.getTestCaseChartDiagramButtonPanel().setVisible(false);
+									testCaseDataPanels.remove(tcd);
+//								}
+								break;
+							}
+						}
+						
+						if(flag==0){
+							nowtcdpanel=new TestCaseDataPanel(mainFrame, name, testcaselist, starttype, hastime);
+							mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList().add(nowtcdpanel);
+						}
+						
+						nowtcdpanel.getTestCaseReportDiagramButtonPanel().getTabbedbutton().doClick();
+						
+						TextAreaPrint(name+"的 "+testcaselist.size()+" 条测试用例提取完成");
+						
+						mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
+						
 						System.out.println("------------END------------");
 					}
 				}).start();
+
+//				updateSelectedTestCaseList();
+//				
+//				updateSelectedTestCaseMap();
+//				
+//				for(Entry<String, List<String>> en:selectedtestcasemap.entrySet()){
+//					System.out.println(en.getKey()+" - - "+en.getValue().toString());
+//				}
+//				
+//				new Thread(new Runnable() {
+//					
+//					@Override
+//					public void run() {
+//						// TODO Auto-generated method stub
+//						
+//						List<TestCaseDataPanel> testCaseDataPanels=mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList();
+//						int flag=0;
+//						int index=0;
+//						TestCaseDataPanel nowtcdpanel = null;
+//						
+//						for(Entry<String, List<String>> en:selectedtestcasemap.entrySet()){
+//							
+//							if(!en.getValue().isEmpty()){
+//								
+//								List<TestCase> testcaselist=new ArrayList<>();
+//								String name = null;
+//								int type = 0;
+//								
+//								flag=0;
+//								
+//								if(en.getKey().equals("Function")){
+//									name="功能测试";
+//									type=1;
+//								}
+//								else if(en.getKey().equals("Performance")){
+//									name="性能测试";
+//									type=2;
+//								}
+//								else if(en.getKey().equals("Time")){
+//									name="时间约束测试";
+//									type=3;
+//								}
+//								else if(en.getKey().equals("Border")){
+//									name="边界值测试";
+//									type=1;
+//								}
+//								
+//								for(String testcasename:en.getValue()){
+//									
+//									if(type==1){
+//										testcaselist.addAll(extractFunctionalTestDataFromXml(findTestCaseXMLPath(testcasename)));
+//									}
+//									else if(type==2){
+//										name="性能测试";
+//										testcaselist.addAll(extractPerformanceTestDataFromXml(findTestCaseXMLPath(testcasename)));
+//									}
+//									else if(type==3){
+//										name="时间约束测试";
+//										testcaselist.addAll(extractTimeTestDataFromXml(findTestCaseXMLPath(testcasename)));
+//									}
+//									
+//								}
+//								
+//								for(TestCaseDataPanel tcd:testCaseDataPanels){
+//									if(tcd.getTestCaseName().equals(name)){
+//										if(tcd.getTestcaselist().size()==testcaselist.size()){
+//											flag=1;
+//											nowtcdpanel=tcd;
+//										}
+//										else{
+//											tcd.getTestCaseReportDiagramButtonPanel().setVisible(false);
+//											tcd.getTestCaseChartDiagramButtonPanel().setVisible(false);
+//											testCaseDataPanels.remove(tcd);
+//										}
+//										break;
+//									}
+//								}
+//								
+//								if(flag==0){
+//									nowtcdpanel=new TestCaseDataPanel(mainFrame, name, testcaselist, type);
+//									mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList().add(nowtcdpanel);
+//								}
+//								
+//								if(index==0){
+//									nowtcdpanel.getTestCaseReportDiagramButtonPanel().getTabbedbutton().doClick();
+//								}
+//								index++;
+//								
+//								TextAreaPrint(name+"的 "+testcaselist.size()+" 条测试用例提取完成");
+//								
+//								mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
+//								
+//							}
+//							
+//						}
+//						System.out.println("------------END------------");
+//					}
+//				}).start();
 				
 //				new Thread(new Runnable() {
 //					
@@ -1171,6 +1549,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 	protected void updateTestCaseTree() {
 		// TODO Auto-generated method stub
 		
+		ChangeRepaint();
 		if(testcaselabeltabindex==1){
 			testcasetreeinforpanel1.removeAll();
 			initTestCaseTreeInforPanel1();
@@ -1682,16 +2061,17 @@ public class TestCaseConfirmationPanel extends JPanel{
 
 	public void initFileList() {
 		
-		int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+//		int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
+//		
+//		File[] filelists=getAllFileByDiagramType(starttype);
+//
+//		for (File file : filelists) {
+//			String fileName=file.getName();
+//	    	if(fileName.lastIndexOf(".xml")>0){
+//	    		testcasefilenamelists.add(fileName.substring(0, fileName.lastIndexOf(".xml")));
+//	    	}
+//	    }
 		
-		File[] filelists=getAllFileByDiagramType(starttype);
-
-		for (File file : filelists) {
-			String fileName=file.getName();
-	    	if(fileName.lastIndexOf(".xml")>0){
-	    		testcasefilenamelists.add(fileName.substring(0, fileName.lastIndexOf(".xml")));
-	    	}
-	    }
 	}
 	
 	public File[] getAllFileByDiagramType(int starttype) {

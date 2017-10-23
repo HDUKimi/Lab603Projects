@@ -20,12 +20,12 @@ public class IPR__1 {
 //		System.out.println("  拆分开始计算时间"+TimeString);
 		
 		long time=System.currentTimeMillis();
-		System.out.println("  IPR内部开始计算时间-----"+time+"ms");
+		//System.out.println("  IPR内部开始计算时间-----"+time+"ms");
 		
 		ArrayList<State> new_stateSet=Minimization__1.minimization(automatic);
 		
 		long time1=System.currentTimeMillis();
-		System.out.println("  Minimization所用总时间-----"+(time1-time)+"ms");
+		//System.out.println("  Minimization所用总时间-----"+(time1-time)+"ms");
 		//System.out.println("拆分后的状态总数： "+new_stateSet.size());
 		/*for(State s:new_stateSet){
 			System.out.println("状态name: "+s.getName());
@@ -45,10 +45,10 @@ public class IPR__1 {
 		}*/
 		
 		long time2=System.currentTimeMillis();
-		System.out.println("  bulidRelation开始计算时间-----"+time2+"ms");
+		//System.out.println("  bulidRelation开始计算时间-----"+time2+"ms");
 		ArrayList<Transition> transitions=BuildRelation__1.bulidRelation(automatic,new_stateSet);
 		long time3=System.currentTimeMillis();
-		System.out.println("  bulidRelation总耗时-----"+(time3-time2)+"ms");
+		//System.out.println("  bulidRelation总耗时-----"+(time3-time2)+"ms");
 		
 		/*System.out.println("边的数量："+transitions.size());
 		for(Transition t:transitions){
@@ -89,7 +89,7 @@ public class IPR__1 {
 //		System.out.println("  拆分结束后时间"+TimeString);
 		System.out.println("  Minimization所用总时间-----"+(time1-time)+"ms");
 		long time4=System.currentTimeMillis();
-		System.out.println("  IPR内部总耗时间-----"+(time4-time)+"ms");
+		//System.out.println("  IPR内部总耗时间-----"+(time4-time)+"ms");
 		
 		return newaotu;
 	}

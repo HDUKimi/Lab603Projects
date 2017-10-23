@@ -318,7 +318,10 @@ public class TcConvertUtil {
 				if (result == "3") {
 					result = "程序出现出现死循环或者抛出异常!";
 				} else {
-					testCaseResult.setTimeLimit(timeStatistics(result));
+					
+//					testCaseResult.setTimeLimit(timeStatistics(result));
+					
+					testCaseResult.setTimeLimit(timeStatistics(AddRepeatTime(testCase,result)));
 				}
 
 			} else {
@@ -334,14 +337,18 @@ public class TcConvertUtil {
 						break;
 					}
 				} else {
-					result = "测试执行成功!耗时:" + t.split(":")[1]+" ms";
+					result = "测试执行成功!";
 				}
 			}
 
 			testCaseResult.setResultDetail(result);
 			testCase.setResult(testCaseResult);
+			
+			CalculateAllExeTime(testCase,type);
+			
 			// 2.6.测试用例表现格式
 			testCase.setDetail(testCase.showTestCase());
+			
 			// 2.7.加入测试用例链表
 			list.add(testCase);
 		}
@@ -370,6 +377,62 @@ public class TcConvertUtil {
 		}
 		
 		return list;
+	}
+
+	private static String AddRepeatTime(TestCase testCase, String result) {
+		
+		String allresult;
+		
+		String[] tmp = result.split("\\|");
+		
+		String tmp0,tmp1,tmp2 = "";
+		tmp0=tmp[0];
+		if (tmp.length > 2) {
+			tmp2=tmp[2];
+		}
+		tmp1=tmp[1];
+
+		for(myProcess process:testCase.getProcessList()){
+			String temp;
+			temp=process.getProcessName()+"&"+process.getProcessStatus().split("=")[0];
+			if(!tmp1.contains(temp)){
+				String[] status=process.getProcessStatus().split("=");
+				tmp1+=","+process.getProcessName()+"&"+status[0]+"&"+status[1];
+			}
+		}
+		
+		return tmp0+"|"+tmp1+"|"+tmp2; 
+	}
+
+	private static void CalculateAllExeTime(TestCase testCase, String type) {
+		
+		double alltime=0;
+		
+		if("Function".equals(type)){
+			for(myProcess process:testCase.getProcessList()){
+				if(process.getProcessStatus()==null||process.getProcessStatus().equals("NULL")){
+				}
+				else{
+					alltime+=Double.parseDouble(process.getProcessStatus());
+				}
+			}
+		}
+		else if("Performance".equals(type)){
+			for(myProcess process:testCase.getProcessList()){
+				if(process.getProcessStatus()==null||process.getProcessStatus().equals("NULL")){
+				}
+				else{
+					alltime+=Double.parseDouble(process.getProcessStatus());
+				}
+			}
+		}
+		else if("Time".equals(type)){
+			for(myProcess process:testCase.getProcessList()){
+				alltime+=Double.parseDouble(process.getProcessStatus().split("=")[1]);
+			}
+		}
+		
+		testCase.setExetime(alltime+"");
 	}
 
 	/**

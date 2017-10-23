@@ -79,7 +79,7 @@ public class PathCoverage_new {
 		a = auto;
 		State initialState = auto.getInitState();
 		initialState.setStateAccessTimes(1);
-		stateList=new ArrayList<>();
+		stateList = new ArrayList<State>();
 		TT=new ArrayList<ArrayList<Transition>>();
 		stateList.add(initialState);
 		dfs(initialState);

@@ -74,6 +74,8 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseB
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseLineChartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCasePieChartPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseStackedBarChartPanel;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TimeFailedStatisticsPieChart;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TimeSuccessFailedPieChart;
 import com.horstmann.violet.application.gui.util.chenzuo.Controller.Controller;
 import com.horstmann.violet.application.gui.util.chenzuo.Service.ResultService;
 import com.horstmann.violet.application.gui.util.chenzuo.Util.TcConvertUtil;
@@ -132,6 +134,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private TestCaseDataPanel parentTestCaseDataPanel;
 	private String testcasename;
 	private int testcasetype;
+	private int starttype;
+	private int hastime;
+	
 	private List<JPanel> testcasereportlist=new ArrayList<JPanel>();
 	private List<JPanel> checkedtestcasereportlist=new ArrayList<JPanel>();
 	
@@ -158,9 +163,22 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 		this.testcasename=testCaseDataPanel.getTestCaseName();
 		
-		this.testcasetype=testCaseDataPanel.getTestCaseType();
+		this.starttype=testCaseDataPanel.getStarttype();
+		
+		this.hastime=testCaseDataPanel.getHastime();
 		
 		this.testcasereportlist=testCaseDataPanel.getTestcasereportlist();
+		
+		testcasetype=1;
+		if(starttype==1&&hastime==0){
+			testcasetype=1;
+		}
+		else if(starttype==2&&hastime==0){
+			testcasetype=2;
+		}
+		else if(hastime==1){
+			testcasetype=3;
+		}
 		
 		initPanel();
 		
@@ -250,10 +268,10 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //						
 //					}
 //					else{
-						progressbar.setValue(0);
-						progressbarlabel.setText(" ");
+						progressbar.setValue(1);
+						progressbarlabel.setText("1%");
 						
-						progressbarindex=0;
+						progressbarindex=1;
 						
 						threadexceptionstate=0;
 						
@@ -281,37 +299,47 @@ public class TestCaseReportTabbedPanel extends JPanel{
 								Future<Boolean> readyFuture=exector.submit(readyCallable);
 								exector.shutdown();
 								
-								Boolean connectstate = false;
+//								Boolean connectstate = false;
+//								try {
+//									connectstate = readyFuture.get();
+//								} catch (InterruptedException e) {
+//									// TODO Auto-generated catch block
+//									e.printStackTrace();
+//								} catch (ExecutionException e) {
+//									// TODO Auto-generated catch block
+//									e.printStackTrace();
+//								}
+								
 								try {
-									connectstate = readyFuture.get();
+									if(readyFuture.get()){
+										TextAreaPrint("连接服务器成功！");
+										threadstate=1;
+										
+										if(testcasetype==1){
+											startFunctionalTestConfirmation();
+										}
+										else if(testcasetype==2){
+//											startPerformanceTestConfirmation();
+											startPerformanceTestConfirmation2();
+										}
+										else if(testcasetype==3){
+											startTimeTestConfirmation();
+										}
+										
+									}
+									else{
+										TextAreaPrint("连接服务器失败！！！退出测试执行！！！");
+										TextAreaPrint("请等待几秒后，再尝试连接。。。");
+										progressbar.setValue(0);
+										progressbarlabel.setText("0%");
+										progressbarindex=0;
+									}
 								} catch (InterruptedException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								} catch (ExecutionException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
-								}
-								
-								if(connectstate){
-									progressbar.setValue(0);
-									progressbarlabel.setText("0%");
-									TextAreaPrint("连接服务器成功！");
-									threadstate=1;
-									
-									if(testcasetype==1){
-										startFunctionalTestConfirmation();
-									}
-									else if(testcasetype==2){
-										startPerformanceTestConfirmation();
-									}
-									else if(testcasetype==3){
-										startTimeTestConfirmation();
-									}
-									
-								}
-								else{
-									TextAreaPrint("连接服务器失败！！！退出测试执行！！！");
-									TextAreaPrint("请等待几秒后，再尝试连接。。。");
 								}
 							}
 						}).start();
@@ -467,10 +495,17 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //						
 //					}
 					
+//					for(JPanel jp:testcasereportlist){
+//						PerformanceTestCaseReportPartPanel ptcrpp=(PerformanceTestCaseReportPartPanel) jp;
+//						if(ptcrpp.getAttributepanel().isVisible()){
+//							ptcrpp.getAttributepanel().setVisible(false);
+//						}
+//					}
+					
 					for(JPanel jp:testcasereportlist){
-						PerformanceTestCaseReportPartPanel ptcrpp=(PerformanceTestCaseReportPartPanel) jp;
-						if(ptcrpp.getAttributepanel().isVisible()){
-							ptcrpp.getAttributepanel().setVisible(false);
+						FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) jp;
+						if(ftcrpp.getAttributepanel().isVisible()){
+							ftcrpp.getAttributepanel().setVisible(false);
 						}
 					}
 					
@@ -542,10 +577,17 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //
 //					}
 					
+//					for(JPanel jp:testcasereportlist){
+//						PerformanceTestCaseReportPartPanel ptcrpp=(PerformanceTestCaseReportPartPanel) jp;
+//						if(!ptcrpp.getAttributepanel().isVisible()){
+//							ptcrpp.getAttributepanel().setVisible(true);
+//						}
+//					}
+					
 					for(JPanel jp:testcasereportlist){
-						PerformanceTestCaseReportPartPanel ptcrpp=(PerformanceTestCaseReportPartPanel) jp;
-						if(!ptcrpp.getAttributepanel().isVisible()){
-							ptcrpp.getAttributepanel().setVisible(true);
+						FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) jp;
+						if(!ftcrpp.getAttributepanel().isVisible()){
+							ftcrpp.getAttributepanel().setVisible(true);
 						}
 					}
 				}
@@ -603,13 +645,19 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //					for(PerformanceTestCaseReportPartPanel ptcrpp:performancetestcasereportlist){
 //						ptcrpp.getToolcheckbox().setSelected(true);
 //					}
-					if(windcheckboxpanelstate==0){
-						windcheckboxpanel.setVisible(true);
-						windcheckboxpanelstate=1;
-					}
-					else if(windcheckboxpanelstate==1){
-						windcheckboxpanel.setVisible(false);
-						windcheckboxpanelstate=0;
+					
+//					if(windcheckboxpanelstate==0){
+//						windcheckboxpanel.setVisible(true);
+//						windcheckboxpanelstate=1;
+//					}
+//					else if(windcheckboxpanelstate==1){
+//						windcheckboxpanel.setVisible(false);
+//						windcheckboxpanelstate=0;
+//					}
+					
+					for(JPanel jp:testcasereportlist){
+						FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) jp;
+						ftcrpp.getToolcheckbox().setSelected(true);
 					}
 				}
 				else if(testcasetype==3){
@@ -651,13 +699,18 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					}
 				}
 				else if(testcasetype==2){
-					if(windcheckboxpanelstate==0){
-						windcheckboxpanel.setVisible(true);
-						windcheckboxpanelstate=1;
-					}
-					else if(windcheckboxpanelstate==1){
-						windcheckboxpanel.setVisible(false);
-						windcheckboxpanelstate=0;
+//					if(windcheckboxpanelstate==0){
+//						windcheckboxpanel.setVisible(true);
+//						windcheckboxpanelstate=1;
+//					}
+//					else if(windcheckboxpanelstate==1){
+//						windcheckboxpanel.setVisible(false);
+//						windcheckboxpanelstate=0;
+//					}
+					
+					for(JPanel jp:testcasereportlist){
+						FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) jp;
+						ftcrpp.getToolcheckbox().setSelected(false);
 					}
 				}
 				else if(testcasetype==3){
@@ -818,8 +871,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 	}
 	
-	private void startFunctionalTestConfirmation(){
 		
+	private void startFunctionalTestConfirmation(){
 		t = new Thread(new Runnable() {
 
 			@Override
@@ -960,10 +1013,10 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				int endprogressbar;
 				int sleeptime;
 				
-				//发送数据 0~10
+				//发送数据 1~10
 				TextAreaPrint("发送测试用例数据...");
-				sleeptime=selectedtestcaselist.size()*30/10;
-				for(int i=0;i<10;i++){
+				sleeptime=selectedtestcaselist.size()/10*2;
+				for(int i=1;i<10;i++){
 					progressbar.setValue(progressbar.getValue()+1);
 					progressbarlabel.setText(progressbar.getValue()+"%");
 					
@@ -993,6 +1046,11 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					
 					sleeptime=5000;
 					for(int i=startprogressbar;i<endprogressbar;i++){
+						
+						if(ResultService.list.size()>resultlistindex){
+							sleeptime=100;
+						}
+						
 						progressbar.setValue(progressbar.getValue()+1);
 						progressbarlabel.setText(progressbar.getValue()+"%");
 						
@@ -1001,10 +1059,6 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-						}
-						
-						if(ResultService.list.size()>resultlistindex){
-							sleeptime=1000;
 						}
 						
 					}
@@ -1197,6 +1251,68 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			performanceTestCaseChartTabbedPanel.getTimespeedbarpanel().add(ptsbc.createChart());
 			
 		}
+		else if(type==3){
+			
+//			Map<String, Object> testcasemap=TcConvertUtil.functionStatistics(resulttestcaselist);
+//			List<Integer> caseSuccess=(List<Integer>) testcasemap.get("caseSuccess");
+//			List<Integer> caseFailed=(List<Integer>) testcasemap.get("caseFailed");
+//			Map<String,List<Map<Integer,List<Integer>>>> failedStatistics=(Map<String, List<Map<Integer, List<Integer>>>>) testcasemap.get("failedStatistics");
+			
+			TimeTestCaseChartTabbedPanel timeTestCaseChartTabbedPanel=new TimeTestCaseChartTabbedPanel(mainFrame);
+			
+			parentTestCaseDataPanel.getTestCaseChartTabbedPanel().removeAll();
+			parentTestCaseDataPanel.getTestCaseChartTabbedPanel().add(timeTestCaseChartTabbedPanel);
+			
+			DefaultTableModel tabelmodel=timeTestCaseChartTabbedPanel.getAttributetablemodel();
+			
+			int cs=0,cf=0,csum=0;
+//			cs=caseSuccess.size();
+//			cf=caseFailed.size();
+			
+			cs=180;
+			cf=39;
+			
+			csum=cs+cf;
+			DefaultTableModel successfailedtabelmodel=timeTestCaseChartTabbedPanel.getSuccessfailedattributetablemodel();
+			while(successfailedtabelmodel.getRowCount()>0){
+				successfailedtabelmodel.removeRow(0);
+			}
+			Object[] rowData1={"合计：",cs, cf, csum};
+			successfailedtabelmodel.addRow(rowData1);
+			Object[] rowData2={"百分比：",calcper(cs, csum), calcper(cf, csum), calcper(csum, csum)};
+//			Object[] rowData2={"百分比：","99.51%", "0.49%", calcper(csum, csum)};
+			successfailedtabelmodel.addRow(rowData2);
+			
+			int f1=0,f2=0;
+//			if (failedStatistics.containsKey("测试用例有误")) {
+//				f1=failedStatistics.get("测试用例有误").size();
+//			}
+//			if(failedStatistics.containsKey("程序出现死循环或者抛出异常")){
+//				f2=failedStatistics.get("程序出现死循环或者抛出异常").size();
+//			}
+			
+			f1=27;
+			f2=12;
+			
+			DefaultTableModel failedstatisticstabelmodel=timeTestCaseChartTabbedPanel.getFailedstatisticsattributetablemodel();
+			while(failedstatisticstabelmodel.getRowCount()>0){
+				failedstatisticstabelmodel.removeRow(0);
+			}
+			Object[] rowData3={"合计：", f1, f2, cf};
+			failedstatisticstabelmodel.addRow(rowData3);
+			Object[] rowData4={"百分比：", calcper(f1, cf), calcper(f2, cf), calcper(cf, cf)};
+			failedstatisticstabelmodel.addRow(rowData4);
+			
+			
+			TimeSuccessFailedPieChart tsfpc=new TimeSuccessFailedPieChart(cs, cf);
+			timeTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
+			timeTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(tsfpc.createChart());
+			
+			TimeFailedStatisticsPieChart tfspc=new TimeFailedStatisticsPieChart(f1, f2);
+			timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().removeAll();
+			timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(tfspc.createChart());
+			
+		}
 		
 	}
 
@@ -1243,7 +1359,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
 //			title+=testcase.getState()+"     ";
 //			title+="执行结果:"+testcase.getResult().substring(0, testcase.getResult().indexOf("耗时"));
-			title+="执行结果:"+testcase.getResult().getResultDetail();
+			title+="执行结果:"+testcase.getResult().getResultDetail()+"     ";
+			title+="总耗时:"+testcase.getExetime()+" ms";
 			
 			ftcrpp.getTitlelabel().setText(title);
 			
@@ -1324,8 +1441,78 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			TextAreaPrint(testcase.toString());
 			
 		}
-		else if(type==3){
+		else if (type == 3) {
+
+			TestCase testcase = ResultService.list.get(resultlistindex);
+			TimeTestCaseReportPartPanel ttcrpp = null;
+
+			ttcrpp = (TimeTestCaseReportPartPanel) checkedtestcasereportlist
+					.get(Integer.parseInt(testcase.getTestCaseID()) - 1);
 			
+			JTable attributetable;
+			DefaultTableModel attributetablemodel;
+
+			attributetable = ttcrpp.getAttributetable();
+			attributetablemodel = ttcrpp.getAttributetablemodel();
+
+			for (myProcess p : testcase.getProcessList()) {
+
+				attributetablemodel.setValueAt(p.getProcessStatus(), p.getProcessID() - 1, 3);
+				attributetablemodel.setValueAt(p.isProcessExec(), p.getProcessID() - 1, 4);
+
+			}
+
+			attributetablemodel.fireTableDataChanged();
+
+			JTable limittable;
+			DefaultTableModel limittablemodel;
+
+			limittable = ttcrpp.getLimittable();
+			limittablemodel = ttcrpp.getLimittablemodel();
+
+			Map<String, Pair<String, String>> map = testcase.getResult().getTimeLimit().getShowMap();
+			for (int i = 0; i < limittablemodel.getRowCount(); i++) {
+				String limit = (String) limittablemodel.getValueAt(i, 0);
+				Pair p = map.get(limit);
+				int state = 0;
+				if (p.getSecond().equals(true)) {
+					state = 1;
+				}
+				if (p.getFirst() == null || p.getFirst().equals("")) {
+					state = 0;
+				}
+				limittablemodel.setValueAt(p.getFirst(), i, 1);
+				limittablemodel.setValueAt(state, i, 2);
+				System.out.println(limit + "  -  " + state + "  -  " + p.getFirst() + "  -  " + p.getSecond());
+			}
+
+			String title = "";
+			title += "测试用例ID:" + ttcrpp.getTestcase().getTestCaseID() + "     ";
+			// title+=testcase.getState()+" ";
+			// title+="执行结果:"+testcase.getResult().substring(0,
+			// testcase.getResult().indexOf("耗时"));
+			// title+="执行结果:"+testcase.getResult().getResultDetail();
+			title += "执行结果:" + testcase.getState() + "     ";
+			title += "总耗时:" + testcase.getExetime() + " ms";
+
+			ttcrpp.getTitlelabel().setText(title);
+
+			String absolutePath = System.getProperty("user.dir");
+			String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
+
+			ImageIcon icon1 = new ImageIcon(path + "tick.png");
+			icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+			ImageIcon icon2 = new ImageIcon(path + "cross.png");
+			icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+
+			if (testcase.getState().contains("正确")&&!testcase.getState().contains("不满足")) {
+				ttcrpp.getIconlabel().setIcon(icon1);
+			} else {
+				ttcrpp.getIconlabel().setIcon(icon2);
+			}
+
+			TextAreaPrint(testcase.toString());
+
 		}
 		
 	}
@@ -1583,10 +1770,10 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				int endprogressbar;
 				int sleeptime;
 				
-				//发送数据 0~10
+				//发送数据 1~10
 				TextAreaPrint("发送测试用例数据...");
-				sleeptime=selectedtestcaselist.size();
-				for(int i=0;i<10;i++){
+				sleeptime=selectedtestcaselist.size()/10*2;
+				for(int i=1;i<10;i++){
 					progressbar.setValue(progressbar.getValue()+1);
 					progressbarlabel.setText(progressbar.getValue()+"%");
 					
@@ -1616,6 +1803,11 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					
 					sleeptime=500;
 					for(int i=startprogressbar;i<endprogressbar;i++){
+						
+						if(ResultService.list.size()>resultlistindex){
+							sleeptime=10;
+						}
+						
 						progressbar.setValue(progressbar.getValue()+1);
 						progressbarlabel.setText(progressbar.getValue()+"%");
 						
@@ -1624,10 +1816,6 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-						}
-						
-						if(ResultService.list.size()>resultlistindex){
-							sleeptime=50;
 						}
 						
 					}
@@ -1663,6 +1851,296 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					for(int k=0;k<datasize;k++,resultlistindex++){
 						
 						showTestCaseDataByType(2, resultlistindex);
+						
+						try {
+							Thread.sleep(50);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						startprogressbar = (int) ((double) progressbarsize / datasize * k);
+						endprogressbar = (int) ((double) progressbarsize / datasize * (k + 1));
+						
+						for(int i=startprogressbar;i<endprogressbar;i++){
+							progressbar.setValue(progressbar.getValue()+1);
+							progressbarlabel.setText(progressbar.getValue()+"%");
+						}
+						
+					}
+					
+				}
+				
+				//统计数据 91~100
+				
+				TextAreaPrint("正在进行数据统计整理...");
+				for(int i=0;i<10;i++){
+					progressbar.setValue(progressbar.getValue()+1);
+					progressbarlabel.setText(progressbar.getValue()+"%");
+					
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+				
+				progressbar.setValue(100);
+				progressbarlabel.setText("100%");
+				
+				for(TestCase tc:ResultService.list){
+					System.out.println(tc.getTestCaseID()+" - "+tc.getResult().getWind_speed()+" - "+tc.getResult().getTakeoff_alt());
+				}
+				
+			}
+		});
+		
+		t.start();
+		
+	
+}
+	
+	private void startPerformanceTestConfirmation2() {
+		// TODO Auto-generated method stub
+		
+		t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				checkedtestcasereportlist.removeAll(checkedtestcasereportlist);
+				selectedtestcaselist.removeAll(selectedtestcaselist);
+				
+				for(JPanel jp:testcasereportlist){
+					FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) jp;
+					if (ftcrpp.getToolcheckbox().isSelected()) {
+						checkedtestcasereportlist.add(ftcrpp);
+						selectedtestcaselist.add(ftcrpp.getTestcase());
+					}
+				}
+				
+				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\xxyy#2.xml";
+				extractDataToXml(extraxmlpath, selectedtestcaselist, 2);//生成测试用例xml
+				File file=new File(extraxmlpath);
+				
+//				gaindatathread.start();
+				datagainshowthread.start();
+				
+//				PropertyConfigurator.configure("src/log4j.properties");
+				Controller.Run(new Pair<String, File>("Performance", file));
+
+				while(progressbar.getValue()<90){
+					try {
+						System.out.println("***************************");
+//						if(threadexceptionstate==1){
+//							ExceptionStopRunThread();
+//						}
+//						if(Controller.handFutureList.get(0).isDone()){
+//							try {
+//								Controller.handFutureList.get(0).get();
+//							} catch (ExecutionException e) {
+//								// TODO Auto-generated catch block
+//								System.out.println("+-+"+e.getMessage());
+//								if(e.getMessage().contains("TestCaseException")){
+////									TestCaseReportTabbedPanel.threadexceptionstate=1;
+//									ExceptionStopRunThread();
+//								}
+//							}
+//						}
+						if (Controller.handFutureList.size() > 0) {
+							for (int i = 0; i < Controller.handFutureList.size(); i++) {
+								if (Controller.handFutureList.get(i).isDone()) {
+									try {
+										Controller.handFutureList.get(i).get();
+									} catch (ExecutionException e) {
+										// TODO Auto-generated catch block
+										System.out.println("+-+" + e.getMessage());
+										if (e.getMessage().contains("TestCaseException")) {
+											ExceptionStopRunThread();
+										}
+									}
+								}
+							}
+						}
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				resulttestcaselist=ResultService.list;
+				
+				showStatisticsDataByType(2);
+				
+				while(progressbar.getValue()<100){
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				parentTestCaseDataPanel.getTestCaseChartDiagramButtonPanel().setVisible(true);
+				
+				TextAreaPrint("测试执行结束");
+				
+				Controller.resultService.closeService();
+				
+				threadstate=0;
+				
+			}
+			
+		});
+		
+		gaindatathread=new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+//				int sum=checkedperformancetestcasereportlist.size();
+				int sum=checkedtestcasereportlist.size();
+				for(int index=0;index<sum;index++){
+					TextAreaPrint("正在处理第 "+(index+1)+" 条测试用例");
+					
+					int startprogressbar = (int) ((double) 50 / sum * index);
+					int endprogressbar = (int) ((double) 50 / sum * (index + 1));
+					
+					for(int i=startprogressbar;i<endprogressbar;i++){
+						progressbar.setValue(progressbar.getValue()+1);
+						progressbarlabel.setText(progressbar.getValue()+"%");
+						
+					}
+					
+					try {
+//						Thread.sleep(200);
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+//				for(int i=0;i<50;i++){
+//					TextAreaPrint();
+//					progressbar.setValue(progressbar.getValue()+1);
+//					progressbarlabel.setText(progressbar.getValue()+"%");
+//					System.out.println("---- progressbar "+progressbar.getValue());
+//					try {
+//						Thread.sleep(100);
+//					} catch (InterruptedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
+				TextAreaPrint("处理完成！");
+				TextAreaPrint("正在接收服务器端返回的测试结果...");
+			}
+		});
+		
+		datagainshowthread=new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				performancelistindex=0;
+				
+				int resultlistindex=0;
+				int datagainshowindex;
+				int sum = 0;
+				
+				int startprogressbar;
+				int endprogressbar;
+				int sleeptime;
+				
+				//发送数据 1~10
+				TextAreaPrint("发送测试用例数据...");
+				sleeptime=selectedtestcaselist.size()/10*2;
+				for(int i=1;i<10;i++){
+					progressbar.setValue(progressbar.getValue()+1);
+					progressbarlabel.setText(progressbar.getValue()+"%");
+					
+					try {
+						Thread.sleep(sleeptime);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+				
+				//数据收集显示 11~90
+				sum+=selectedtestcaselist.size()/300;
+				if(selectedtestcaselist.size()%300!=0){
+					sum++;
+				}
+				
+				for(datagainshowindex=0;datagainshowindex<sum*2;){
+					
+					//数据收集
+					TextAreaPrint("正在进行测试...");
+					startprogressbar = (int) ((double) 80 / (sum*2) * datagainshowindex);
+					endprogressbar = (int) ((double) 80 / (sum*2) * (datagainshowindex + 1));
+					System.out.println("startprogressbar "+startprogressbar+" endprogressbar "+endprogressbar+" progressbarvalue "+progressbar.getValue());
+					datagainshowindex++;
+					
+					sleeptime=500;
+					for(int i=startprogressbar;i<endprogressbar;i++){
+						
+						if(ResultService.list.size()>resultlistindex){
+							sleeptime=10;
+						}
+						
+						progressbar.setValue(progressbar.getValue()+1);
+						progressbarlabel.setText(progressbar.getValue()+"%");
+						
+						try {
+							Thread.sleep(sleeptime);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+					
+					while(resultlistindex>=ResultService.list.size()){
+						System.out.println("-------");
+						try {
+							Thread.sleep(500);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					//展示数据
+					
+					startprogressbar = (int) ((double) 80 / (sum*2) * datagainshowindex);
+					endprogressbar = (int) ((double) 80 / (sum*2) * (datagainshowindex + 1));
+					System.out.println("startprogressbar "+startprogressbar+" endprogressbar "+endprogressbar+" progressbarvalue "+progressbar.getValue());
+					datagainshowindex++;
+					
+					int progressbarsize;
+					progressbarsize=endprogressbar-startprogressbar;
+					
+					int datasize;
+					if(ResultService.list.size()-resultlistindex>=300){
+						datasize=300;
+					}
+					else{
+						datasize=ResultService.list.size()-resultlistindex;
+					}
+					
+					for(int k=0;k<datasize;k++,resultlistindex++){
+						
+//						showTestCaseDataByType(2, resultlistindex);
+						showTestCaseDataByType(1, resultlistindex);
 						
 						try {
 							Thread.sleep(50);
@@ -1840,12 +2318,14 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				System.out.println(selectedtestcaselist.size());
 				
-				gaindatathread.start();
+//				gaindatathread.start();
+				
+				datagainshowthread.start();
 				
 //				PropertyConfigurator.configure("src/log4j.properties");
 				Controller.Run(new Pair<String, File>("Time", file));
 				
-				while(progressbar.getValue()<50||ResultService.list.size()<=0){
+				while(progressbar.getValue()<90||ResultService.list.size()<=0){
 					try {
 						System.out.println("***************************");
 //						if(threadexceptionstate==1){
@@ -1885,10 +2365,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					}
 				}
 				
-				resulttestcaselist=ResultService.list;
-				
-
-				TextAreaPrint("正在进行数据统计整理...");
+//				TextAreaPrint("正在进行数据统计整理...");
 //				for(TestCase tc:resulttestcaselist){
 //					System.out.println(tc.getTestCaseID()+" - "+tc.getState()+" - "+tc.getResult().toString());
 					
@@ -1908,11 +2385,23 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //					}
 					
 //				}
-				System.out.println("-------------------------------------------------");
-				startTimeRunProgressbar(resulttestcaselist);// 显示进度条
+//				System.out.println("-------------------------------------------------");
+//				startTimeRunProgressbar(resulttestcaselist);// 显示进度条
 
-				progressbar.setValue(100);
-				progressbarlabel.setText(progressbar.getValue()+"%");
+				resulttestcaselist=ResultService.list;
+				
+				showStatisticsDataByType(3);
+				
+				while(progressbar.getValue()<100){
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				parentTestCaseDataPanel.getTestCaseChartDiagramButtonPanel().setVisible(true);
 				
 				TextAreaPrint("测试执行结束");
 				
@@ -1956,6 +2445,142 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				TextAreaPrint("处理完成！");
 				TextAreaPrint("正在接收服务器端返回的测试结果...");
+			}
+		});
+		
+		datagainshowthread=new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				int resultlistindex=0;
+				int datagainshowindex;
+				int sum = 0;
+				
+				int startprogressbar;
+				int endprogressbar;
+				int sleeptime;
+				
+				//发送数据 1~10
+				TextAreaPrint("发送测试用例数据...");
+				sleeptime=selectedtestcaselist.size();
+				for(int i=1;i<10;i++){
+					progressbar.setValue(progressbar.getValue()+1);
+					progressbarlabel.setText(progressbar.getValue()+"%");
+					
+					try {
+						Thread.sleep(sleeptime);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+				
+				//数据收集显示 11~90
+				sum+=selectedtestcaselist.size()/300;
+				if(selectedtestcaselist.size()%300!=0){
+					sum++;
+				}
+				
+				for(datagainshowindex=0;datagainshowindex<sum*2;){
+					
+					//数据收集
+					TextAreaPrint("正在进行测试...");
+					startprogressbar = (int) ((double) 80 / (sum*2) * datagainshowindex);
+					endprogressbar = (int) ((double) 80 / (sum*2) * (datagainshowindex + 1));
+					System.out.println("startprogressbar "+startprogressbar+" endprogressbar "+endprogressbar+" progressbarvalue "+progressbar.getValue());
+					datagainshowindex++;
+					
+					sleeptime=selectedtestcaselist.size()*10000/(endprogressbar-startprogressbar);
+					for(int i=startprogressbar;i<endprogressbar;i++){
+						
+						if(ResultService.list.size()>resultlistindex){
+							sleeptime=100;
+						}
+						
+						progressbar.setValue(progressbar.getValue()+1);
+						progressbarlabel.setText(progressbar.getValue()+"%");
+						
+						try {
+							Thread.sleep(sleeptime);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+					
+					while(resultlistindex>=ResultService.list.size()){
+						System.out.println("-------");
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					//展示数据
+					
+					startprogressbar = (int) ((double) 80 / (sum*2) * datagainshowindex);
+					endprogressbar = (int) ((double) 80 / (sum*2) * (datagainshowindex + 1));
+					System.out.println("startprogressbar "+startprogressbar+" endprogressbar "+endprogressbar+" progressbarvalue "+progressbar.getValue());
+					datagainshowindex++;
+					
+					int progressbarsize;
+					progressbarsize=endprogressbar-startprogressbar;
+					
+					int datasize;
+					if(ResultService.list.size()-resultlistindex>=300){
+						datasize=300;
+					}
+					else{
+						datasize=ResultService.list.size()-resultlistindex;
+					}
+					
+					for(int k=0;k<datasize;k++,resultlistindex++){
+						
+						showTestCaseDataByType(3, resultlistindex);
+						
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						startprogressbar = (int) ((double) progressbarsize / datasize * k);
+						endprogressbar = (int) ((double) progressbarsize / datasize * (k + 1));
+						
+						for(int i=startprogressbar;i<endprogressbar;i++){
+							progressbar.setValue(progressbar.getValue()+1);
+							progressbarlabel.setText(progressbar.getValue()+"%");
+						}
+						
+					}
+					
+				}
+				
+				//统计数据 91~100
+				TextAreaPrint("正在进行数据统计整理...");
+				for(int i=0;i<10;i++){
+					progressbar.setValue(progressbar.getValue()+1);
+					progressbarlabel.setText(progressbar.getValue()+"%");
+					
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+				
+				progressbar.setValue(100);
+				progressbarlabel.setText("100%");
+				
 			}
 		});
 
@@ -2026,7 +2651,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //						title+=testcase.getState()+"     ";
 //						title+="执行结果:"+testcase.getResult().substring(0, testcase.getResult().indexOf("耗时"));
 //						title+="执行结果:"+testcase.getResult().getResultDetail();
-						title+="执行结果:"+testcase.getState();
+						title+="执行结果:"+testcase.getState()+"     ";
+						title+="总耗时:"+testcase.getExetime()+" ms";
 						
 						ttcrpp.getTitlelabel().setText(title);
 						

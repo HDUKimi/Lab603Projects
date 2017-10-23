@@ -31,7 +31,8 @@ public class TestCaseDataPanel{
 	private String testCaseName;
 	private String testCasePath;
 	
-	private int testCaseType;
+	private int starttype;
+	private int hastime;
 	
 	private JButton testCaseReportDiagramButton;
 	private JLabel testCaseReportDiagramDeleteLabel;
@@ -46,12 +47,13 @@ public class TestCaseDataPanel{
 	private List<TestCase> testcaselist=new ArrayList<TestCase>();
 	private List<JPanel> testcasereportlist=new ArrayList<JPanel>();
 	
-	public TestCaseDataPanel(MainFrame mainFrame, String testCaseName, List<TestCase> testcaselist, int testCaseType) {
+	public TestCaseDataPanel(MainFrame mainFrame, String testCaseName, List<TestCase> testcaselist, int starttype, int hastime) {
 
 		this.mainFrame=mainFrame;
 		this.testCaseName=testCaseName;
 		this.testcaselist=testcaselist;
-		this.testCaseType=testCaseType;
+		this.starttype=starttype;
+		this.hastime=hastime;
 		
 		initbuttonpanel();
 		
@@ -86,13 +88,13 @@ public class TestCaseDataPanel{
 
 	private void extractTestCaseData() {
 		
-		if(testCaseType==1){
+		if(starttype==1&&hastime==0){
 			testcaselist=mainFrame.getTestCaseConfirmationPanel().extractFunctionalTestDataFromXml(testCasePath);
 		}
-		else if(testCaseType==2){
+		else if(starttype==2&&hastime==0){
 			testcaselist=mainFrame.getTestCaseConfirmationPanel().extractPerformanceTestDataFromXml(testCasePath);
 		}
-		else if(testCaseType==3){
+		else if(hastime==1){
 			testcaselist=mainFrame.getTestCaseConfirmationPanel().extractTimeTestDataFromXml(testCasePath);
 		}
 		
@@ -100,13 +102,14 @@ public class TestCaseDataPanel{
 
 	private void showTestCase() {
 		
-		if(testCaseType==1){
+		if(starttype==1&&hastime==0){
 			showFunctionalTestCase();
 		}
-		else if(testCaseType==2){
-			showPerformanceTestCase();
+		else if(starttype==2&&hastime==0){
+//			showPerformanceTestCase();
+			showFunctionalTestCase();
 		}
-		else if(testCaseType==3){
+		else if(hastime==1){
 			showTimeTestCase();
 		}
 		
@@ -204,49 +207,49 @@ public class TestCaseDataPanel{
 		
 	}
 
-	private void findTestCaseXMLPath() {
-		
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
-		
-		File file = null;
-		int type=1;
-		if(type == 1){
-			testCasePath=baseUrl+"\\FunctionalTest\\"+testCaseName+".xml";
-			file=new File(testCasePath);
-			if(!file.exists()){
-				type++;
-			}
-		} 
-		if (type == 2) {
-			testCasePath=baseUrl+"\\PerformanceTest\\"+testCaseName+".xml";
-			file=new File(testCasePath);
-			if(!file.exists()){
-				type++;
-			}
-		} 
-		if (type == 3) {
-			testCasePath=baseUrl+"\\TimeTest\\"+testCaseName+".xml";
-			file=new File(testCasePath);
-			if(!file.exists()){
-				type++;
-			}
-		}
-		
-		if(!file.exists()){
-			
-			baseUrl = "D:\\ModelDriverProjectFile\\SqlTestCase\\";
-			
-			testCasePath=baseUrl+testCaseName+".xml";
-		}
-		
-		try {
-			testCaseType=TestCaseXMLType(testCasePath);
-		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+//	private void findTestCaseXMLPath() {
+//		
+//		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+//		
+//		File file = null;
+//		int type=1;
+//		if(type == 1){
+//			testCasePath=baseUrl+"\\FunctionalTest\\"+testCaseName+".xml";
+//			file=new File(testCasePath);
+//			if(!file.exists()){
+//				type++;
+//			}
+//		} 
+//		if (type == 2) {
+//			testCasePath=baseUrl+"\\PerformanceTest\\"+testCaseName+".xml";
+//			file=new File(testCasePath);
+//			if(!file.exists()){
+//				type++;
+//			}
+//		} 
+//		if (type == 3) {
+//			testCasePath=baseUrl+"\\TimeTest\\"+testCaseName+".xml";
+//			file=new File(testCasePath);
+//			if(!file.exists()){
+//				type++;
+//			}
+//		}
+//		
+//		if(!file.exists()){
+//			
+//			baseUrl = "D:\\ModelDriverProjectFile\\SqlTestCase\\";
+//			
+//			testCasePath=baseUrl+testCaseName+".xml";
+//		}
+//		
+//		try {
+//			testCaseType=TestCaseXMLType(testCasePath);
+//		} catch (DocumentException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//	}
 	
 	public int TestCaseXMLType(String path) throws DocumentException{
 		
@@ -462,8 +465,12 @@ public class TestCaseDataPanel{
 		return testCasePath;
 	}
 
-	public int getTestCaseType() {
-		return testCaseType;
+	public int getStarttype() {
+		return starttype;
+	}
+
+	public int getHastime() {
+		return hastime;
 	}
 
 	public List<TestCase> getTestcaselist() {

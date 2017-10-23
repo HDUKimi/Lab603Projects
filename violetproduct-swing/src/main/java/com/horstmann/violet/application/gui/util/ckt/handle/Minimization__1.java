@@ -69,7 +69,7 @@ public class Minimization__1 {
 //		TimeString = time.format(new java.util.Date());
 //		System.out.println("     可达集合、稳定集合"+TimeString);
 		long time1=System.currentTimeMillis();
-		System.out.println("  可达集与稳定集循环之前所用时间-----"+(time1-time)+"ms");
+		//System.out.println("  可达集与稳定集循环之前所用时间-----"+(time1-time)+"ms");
 		
 		int i1 = 0;
 		while(accessible.size()!=stable.size()){//当可达集合和稳定集合不相同时
@@ -83,7 +83,7 @@ public class Minimization__1 {
 			ArrayList<State> new_X=SplitSuseSs_new1__1.splitSuseSs(x, P, TransitionSet, ClockSet);//new_x为x被拆分后的状态集合
 			
 			long time3=System.currentTimeMillis();
-			System.out.println("  split拆分所用时间-----"+(time3-time2)+"ms");
+			//System.out.println("  split拆分所用时间-----"+(time3-time2)+"ms");
 			
 			//			TimeString = time.format(new java.util.Date());
 //			System.out.println("       拆分后时间："+TimeString);
@@ -321,9 +321,9 @@ public class Minimization__1 {
 		
 		}
 		System.out.println("  可达与稳定执行循环次数"+i1);
-		System.out.println("  可达集与稳定集循环之前所用时间-----"+(time1-time)+"ms");
+		//System.out.println("  可达集与稳定集循环之前所用时间-----"+(time1-time)+"ms");
 		long time4=System.currentTimeMillis();
-		System.out.println("  可达集与稳定集循环所用时间-----"+(time4-time1)+"ms");
+		//System.out.println("  可达集与稳定集循环所用时间-----"+(time4-time1)+"ms");
 		
 //		TimeString = time.format(new java.util.Date());
 //		System.out.println("     ----可达集合、稳定集合"+TimeString);

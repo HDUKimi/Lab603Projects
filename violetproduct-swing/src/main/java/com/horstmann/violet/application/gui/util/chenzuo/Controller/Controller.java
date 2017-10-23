@@ -39,8 +39,8 @@ public class Controller {
 
     private static Logger logger = Logger.getLogger(Controller.class);
 
-    private static long MAX_FILE_SIZE = 10 * 1024 * 1024;
-//    private static long MAX_FILE_SIZE = 5*1024;
+//    private static long MAX_FILE_SIZE = 10 * 1024 * 1024;
+    private static long MAX_FILE_SIZE = 5*1024;
     
     // deploy
     private static IPDeploy IP_TYPE_DEPLOY = new IPDeploy();
@@ -181,6 +181,7 @@ public class Controller {
     public static void Run(Pair<String, File> data){
     	ResultService.list.removeAll(ResultService.list);
     	Constants.ISFINISH.set(false);
+    	offsetTestCaseId=0;
     	
 //    	executorService = new ThreadPoolExecutor(0, Integer.MAX_VALUE,
 //                60L, TimeUnit.SECONDS,
