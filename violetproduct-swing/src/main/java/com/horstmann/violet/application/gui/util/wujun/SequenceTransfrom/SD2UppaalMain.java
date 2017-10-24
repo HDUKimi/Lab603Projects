@@ -69,56 +69,56 @@ public class SD2UppaalMain {
 		HashSet<String > template_names=new LinkedHashSet<String>();
 		
 //   ---读取EA导出的---	0	
-//		SAXReader reader=new SAXReader();//获取解析器
-//		File file = new File(path);
-//	    Document dom= reader.read(file);//解析XML获取代表整个文档的dom对象
-//	    Element root=dom.getRootElement();//获取根节点
-//	    
-//	    Read uml=new Read();
-//	    
-////	    DiagramsDataList = uml.getUmlAllDiagramData();
-////	    System.out.println("----------"+uml.getUmlAllDiagramData().size());
-////	    DiagramsDataList.removeAll(DiagramsDataList);
-////	    uml.setUmlAllDiagramData(DiagramsDataList);
-//	    
-////	    System.out.println("++++++++++"+uml.getUmlAllDiagramData().size());
-//	    
-//	    uml.load(root);
-//	    
-//
-//	    // 得到所有图对应的所有数据
-//	    
+		SAXReader reader=new SAXReader();//获取解析器
+		File file = new File(path);
+	    Document dom= reader.read(file);//解析XML获取代表整个文档的dom对象
+	    Element root=dom.getRootElement();//获取根节点
+	    
+	    Read uml=new Read();
+	    
 //	    DiagramsDataList = uml.getUmlAllDiagramData();
-//	    
-//	    diagramslistsize=DiagramsDataList.size();
+//	    System.out.println("----------"+uml.getUmlAllDiagramData().size());
+//	    DiagramsDataList.removeAll(DiagramsDataList);
+//	    uml.setUmlAllDiagramData(DiagramsDataList);
+	    
+//	    System.out.println("++++++++++"+uml.getUmlAllDiagramData().size());
+	    
+	    uml.load(root);
+	    
+
+	    // 得到所有图对应的所有数据
+	    
+	    DiagramsDataList = uml.getUmlAllDiagramData();
+	    
+	    diagramslistsize=DiagramsDataList.size();
 //   ***END***
 		
 		
 		
 		
  //  ---读取平台导出的---	1	
-		Display.println("================================正在读取导出的所有顺序图xml================================");
-		String folderPath = "D:\\ModelDriverProjectFile\\Test\\";
-		File file = new File(folderPath);
-		String fileNames[];
-		fileNames = file.list();
-		Display.println("===>  扫描到" + fileNames.length +"张图：\n");
-		for (int i = 0; i < fileNames.length; i++) {
-			if (!fileNames[i].contains(".seq.violet.xml")) {
-				continue;
-			}
-			Display.println(fileNames[i]);
-			SequenceDiagramGraph sd0 = XML2xmlbeanUtil.getSd(new File(folderPath + fileNames[i]));
-			WJDiagramsData platformDiagram = PlatformBean2WJclass.transform(sd0, fileNames[i].split(".seq.violet.xml")[0]);
-			DiagramsDataList.add(platformDiagram);
-			System.out.println("-------");
-		}
-		System.out.println("++++++++++");
-		Display.println();
-		Read.umlAllDiagramData.addAll(DiagramsDataList);
-		for(WJDiagramsData diagramData : DiagramsDataList) {
-			Read.DFSDiagramByREF(diagramData);
-		}
+//		Display.println("================================正在读取导出的所有顺序图xml================================");
+//		String folderPath = "D:\\ModelDriverProjectFile\\Test\\";
+//		File file = new File(folderPath);
+//		String fileNames[];
+//		fileNames = file.list();
+//		Display.println("===>  扫描到" + fileNames.length +"张图：\n");
+//		for (int i = 0; i < fileNames.length; i++) {
+//			if (!fileNames[i].contains(".seq.violet.xml")) {
+//				continue;
+//			}
+//			Display.println(fileNames[i]);
+//			SequenceDiagramGraph sd0 = XML2xmlbeanUtil.getSd(new File(folderPath + fileNames[i]));
+//			WJDiagramsData platformDiagram = PlatformBean2WJclass.transform(sd0, fileNames[i].split(".seq.violet.xml")[0]);
+//			DiagramsDataList.add(platformDiagram);
+//			System.out.println("-------");
+//		}
+//		System.out.println("++++++++++");
+//		Display.println();
+//		Read.umlAllDiagramData.addAll(DiagramsDataList);
+//		for(WJDiagramsData diagramData : DiagramsDataList) {
+//			Read.DFSDiagramByREF(diagramData);
+//		}
   // ***END***	    
 	
 	    
@@ -715,7 +715,8 @@ public class SD2UppaalMain {
 		    Display.println("\n------------------------------------------------------------------");
 		    Display.println("完成顺序图到自动机的转换，正在写入图名为"+diagramDaraI.name+"的xml");
 		    
-		    String baseurl="D:\\ModelDriverProjectFile\\WJXML\\";
+//		    String baseurl="D:\\ModelDriverProjectFile\\WJXML\\";
+		    String baseurl="D:\\ModelDriverProjectFile\\WJXML\\"+filename+"\\";
 		    File basefile=new File(baseurl);
 		    if(!basefile.exists()){
 		    	while(!basefile.mkdirs()){
@@ -727,7 +728,13 @@ public class SD2UppaalMain {
 		    setDiagramDataName(diagramDaraI.name);
 		    System.out.println("diagramDaraI.name-----"+diagramDaraI.name);
 		    //给ckt
-		    WriteForXStream.creatXML(baseurl+diagramDaraI.name+"ForXStream.xml", templates, template_names);
+		    try {
+		    	WriteForXStream.creatXML(baseurl+diagramDaraI.name+"ForXStream.xml", templates, template_names);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		    
 		    Display.println(".....写入完成!\n");
 		    
 	    }//遍历diagram结束
@@ -1374,8 +1381,5 @@ public class SD2UppaalMain {
 	public static int getDiagramslistsize() {
 		return diagramslistsize;
 	}
-	
-	
-	
 	
 }
