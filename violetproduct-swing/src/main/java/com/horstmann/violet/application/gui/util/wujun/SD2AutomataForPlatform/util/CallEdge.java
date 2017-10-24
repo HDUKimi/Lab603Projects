@@ -14,8 +14,8 @@ public class CallEdge extends Entity{
 	@XStreamAlias("ID")
 	String EAID;
 	
-	@XStreamAlias("name")
-	String name;
+	@XStreamAlias("message")
+	String message;
 	
 	// ²ÎÊý
 	@XStreamAlias("parameter")
@@ -57,12 +57,11 @@ public class CallEdge extends Entity{
 		public double y;
 	}
 	
-	
-	public String getName() {
-		return name;
+	public String getMessage() {
+		return message;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	public String getParameter() {
 		return parameter;

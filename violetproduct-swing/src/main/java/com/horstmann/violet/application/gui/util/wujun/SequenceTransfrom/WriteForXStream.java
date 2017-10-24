@@ -59,7 +59,7 @@ public class WriteForXStream
 		    for(UppaalTransition transitionData : uppaalTemplate.transitions) {
 		    	Element transition = transitionList.addElement("transition");
 		    	transition.addElement("id").setText("tran_id"+transitionData.getSourceId()+transitionData.getTargetId());
-		    	if (transitionData.getNameText().contains("->")) {
+		    	if (transitionData.getNameText()!=null&&transitionData.getNameText().contains("->")) {
 					transitionData.setNameText(transitionData.getNameText().replaceAll("->", "."));
 				}
 		    	transition.addElement("name").setText("" + transitionData.getNameText());

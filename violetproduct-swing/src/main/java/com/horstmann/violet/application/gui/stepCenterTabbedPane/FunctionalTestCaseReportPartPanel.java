@@ -244,47 +244,92 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 				// TODO Auto-generated method stub
 				if(e.getClickCount()==2){
 					
-					mainFrame.getStepButton();
+					int stepindex=mainFrame.getStepindex();
 					
-					mainFrame.getTestCaseConfirmResultPanel().getOnenamelabel().setText(titlelabel.getText().split(" ")[0]);
-					
-					JTable jt=mainFrame.getTestCaseConfirmResultPanel().getTestcaseinfortable();
-					DefaultTableModel dtm=mainFrame.getTestCaseConfirmResultPanel().getTestcaseinfortablemodel();
-					
-					int index=attributetable.getSelectedRow();
-					
-					final int[] columnindex=new int[columnNames.length];
-					int k=0;
-					int count=0;
-					
-					List<String> rowDataList=new ArrayList<String>();
-					
-					for(int i=0;i<columnNames.length;i++){
-						rowDataList.add("+-+"+columnNames[i]+":");
-						columnindex[k++]=count++;
+					if(stepindex==4){
+						mainFrame.getTestCaseInstantiationResultPanel().getOnenamelabel().setText(titlelabel.getText().split(" ")[0]);
 						
-						String str=attributetablemodel.getValueAt(index, i)+"";
-						String[] strdata=str.split(",|--");
+						JTable jt=mainFrame.getTestCaseInstantiationResultPanel().getTestcaseinfortable();
+						DefaultTableModel dtm=mainFrame.getTestCaseInstantiationResultPanel().getTestcaseinfortablemodel();
 						
-						for(String s:strdata){
-							rowDataList.add(s);
-							count++;
+						int index=attributetable.getSelectedRow();
+						
+						final int[] columnindex=new int[columnNames.length];
+						int k=0;
+						int count=0;
+						
+						List<String> rowDataList=new ArrayList<String>();
+						
+						for(int i=0;i<columnNames.length;i++){
+							rowDataList.add("+-+"+columnNames[i]+":");
+							columnindex[k++]=count++;
+							
+							String str=attributetablemodel.getValueAt(index, i)+"";
+							String[] strdata=str.split(",|--");
+							
+							for(String s:strdata){
+								rowDataList.add(s);
+								count++;
+							}
+							
 						}
 						
+						while(dtm.getRowCount()>0){
+							dtm.removeRow(dtm.getRowCount()-1);
+						}
+						
+						for(String s:rowDataList){
+							Object[] rowData={s};
+							dtm.addRow(rowData);
+						}
+						
+						dtm.fireTableDataChanged();
+						
+						mainFrame.getTestCaseInstantiationResultPanel().getTestcaselabeltab1().doClick();
+						
 					}
-					
-					while(dtm.getRowCount()>0){
-						dtm.removeRow(dtm.getRowCount()-1);
+					else if(stepindex==5){
+						mainFrame.getTestCaseConfirmResultPanel().getOnenamelabel().setText(titlelabel.getText().split(" ")[0]);
+						
+						JTable jt=mainFrame.getTestCaseConfirmResultPanel().getTestcaseinfortable();
+						DefaultTableModel dtm=mainFrame.getTestCaseConfirmResultPanel().getTestcaseinfortablemodel();
+						
+						int index=attributetable.getSelectedRow();
+						
+						final int[] columnindex=new int[columnNames.length];
+						int k=0;
+						int count=0;
+						
+						List<String> rowDataList=new ArrayList<String>();
+						
+						for(int i=0;i<columnNames.length;i++){
+							rowDataList.add("+-+"+columnNames[i]+":");
+							columnindex[k++]=count++;
+							
+							String str=attributetablemodel.getValueAt(index, i)+"";
+							String[] strdata=str.split(",|--");
+							
+							for(String s:strdata){
+								rowDataList.add(s);
+								count++;
+							}
+							
+						}
+						
+						while(dtm.getRowCount()>0){
+							dtm.removeRow(dtm.getRowCount()-1);
+						}
+						
+						for(String s:rowDataList){
+							Object[] rowData={s};
+							dtm.addRow(rowData);
+						}
+						
+						dtm.fireTableDataChanged();
+						
+						mainFrame.getTestCaseConfirmResultPanel().getTestcaselabeltab1().doClick();
+						
 					}
-					
-					for(String s:rowDataList){
-						Object[] rowData={s};
-						dtm.addRow(rowData);
-					}
-					
-					dtm.fireTableDataChanged();
-					
-					mainFrame.getTestCaseConfirmResultPanel().getTestcaselabeltab1().doClick();
 					
 				}
 			}

@@ -73,7 +73,7 @@ public class PlatformBean2WJclass {
 			//message.setName(callEdge.getParameterStringValue());// ?????
 			message.setSourceId(callEdge.getStart().fromNodeId);// 激活点id
 			message.setTargetId(callEdge.getEnd().toNodeId);// 激活点id
-			message.setName(callEdge.getName());// 消息的名字
+			message.setName(callEdge.getMessage());// 消息的名字
 			message.setInString(callEdge.getInput());// 输入
 			message.setOutString(callEdge.getOutput());// 输出
 			message.setSEQTC(callEdge.getTiming());// 时间约束

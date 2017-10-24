@@ -1046,7 +1046,7 @@ public class TransEAToViolet {
 			refnode.addElement("location").addAttribute("class", "Point2D.Double").addAttribute("id", GenerateID())
 					.addAttribute("x", refNodeInfo.getLocationX()).addAttribute("y", refNodeInfo.getLocationY());
 			refnode.addElement("ID").addText(GenerateID());
-			refnode.addElement("id").addText(GenerateID());
+			refnode.addElement("nid").addText(GenerateID());
 			Element text = refnode.addElement("text");
 			text.addAttribute("id", GenerateID());
 			text.addElement("text").addText(refNodeInfo.getText());

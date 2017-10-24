@@ -161,7 +161,7 @@ public class TestCaseDataPanel{
 //		performancetestcasereportlist.clear();
 		testcasereportlist.clear();
 		for (TestCase tc : testcaselist) {
-			PerformanceTestCaseReportPartPanel ptcrppanel = new PerformanceTestCaseReportPartPanel(tc);
+			PerformanceTestCaseReportPartPanel ptcrppanel = new PerformanceTestCaseReportPartPanel(mainFrame, tc);
 			resultpanel.add(ptcrppanel);
 			layout.setConstraints(ptcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //			performancetestcasereportlist.add(ptcrppanel);
@@ -191,7 +191,7 @@ public class TestCaseDataPanel{
 //		timetestcasereportlist.clear();
 		testcasereportlist.clear();
 		for(TestCase tc:testcaselist){
-			TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(tc);
+			TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(mainFrame, tc);
 			resultpanel.add(ttcrppanel);
 			layout.setConstraints(ttcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //			timetestcasereportlist.add(ttcrppanel);

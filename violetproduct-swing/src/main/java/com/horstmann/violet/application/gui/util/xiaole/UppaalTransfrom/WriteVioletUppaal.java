@@ -131,7 +131,7 @@ public class WriteVioletUppaal {
     	Element location=CircularStartNode.addElement("location");
     	location.addAttribute("class", "Point2D.Double").addAttribute("id", circularstartnode.GetLocation_id());
     	location.addAttribute("x", circularstartnode.GetLocation_x()).addAttribute("y", circularstartnode.GetLocation_y());
-    	Element id = CircularStartNode.addElement("id");
+    	Element id = CircularStartNode.addElement("nid");
     	id.addAttribute("id", circularstartnode.getUnderlocation_id());
     	Element name=CircularStartNode.addElement("name");
     	name.addAttribute("id", circularstartnode.GetName_id());
@@ -149,7 +149,7 @@ public class WriteVioletUppaal {
     		Element location1=CircularNode.addElement("location");
         	location1.addAttribute("class", "Point2D.Double").addAttribute("id", temp.GetLocation_id());
         	location1.addAttribute("x",temp.GetLocation_x()).addAttribute("y", temp.GetLocation_y());
-        	Element id1 = CircularNode.addElement("id");
+        	Element id1 = CircularNode.addElement("nid");
         	id1.addAttribute("id", temp.getUnderlocation_id());
         	Element name1=CircularNode.addElement("name");
         	name.addAttribute("id", temp.GetName_id());
@@ -177,7 +177,7 @@ public class WriteVioletUppaal {
     		endLocation.addAttribute("class", "Point2D.Double").addAttribute("id", temp.getEndlocation_id());
     		endLocation.addAttribute("x", temp.getEndlocation_x());
     		endLocation.addAttribute("y", temp.getEndlocation_y());
-    		Element id3=TransitionEdge.addElement("id");
+    		Element id3=TransitionEdge.addElement("eid");
     		id3.addAttribute("id", temp.getUnderEndLocation_id());
     		Element angle=TransitionEdge.addElement("angle");
     		angle.setText("10.0");

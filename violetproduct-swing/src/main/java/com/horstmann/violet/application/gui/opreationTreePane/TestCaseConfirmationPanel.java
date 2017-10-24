@@ -1299,6 +1299,15 @@ public class TestCaseConfirmationPanel extends JPanel{
 					public void run() {
 						// TODO Auto-generated method stub
 						
+						
+						DefaultTableModel dtm=mainFrame.getTestCaseConfirmResultPanel().getTestcaseinfortablemodel();
+						while(dtm.getRowCount()>0){
+							dtm.removeRow(dtm.getRowCount()-1);
+						}
+						dtm.fireTableDataChanged();
+						mainFrame.getTestCaseConfirmResultPanel().getOnenamelabel().setText("");
+						
+						
 						int starttype = 0;
 						String testcasename = null;
 						

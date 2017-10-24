@@ -1048,7 +1048,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					for(int i=startprogressbar;i<endprogressbar;i++){
 						
 						if(ResultService.list.size()>resultlistindex){
-							sleeptime=100;
+							if((ResultService.list.size()-resultlistindex>=300)||(ResultService.list.size()==selectedtestcaselist.size())){
+								sleeptime=100;
+							}
 						}
 						
 						progressbar.setValue(progressbar.getValue()+1);
@@ -1063,7 +1065,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						
 					}
 					
-					while(resultlistindex>=ResultService.list.size()){
+//					while(resultlistindex>=ResultService.list.size()){
+					while(!((ResultService.list.size()-resultlistindex>=300)||(ResultService.list.size()==selectedtestcaselist.size()))){
 						System.out.println("-------");
 						try {
 							Thread.sleep(1000);
@@ -1805,7 +1808,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					for(int i=startprogressbar;i<endprogressbar;i++){
 						
 						if(ResultService.list.size()>resultlistindex){
-							sleeptime=10;
+							if((ResultService.list.size()-resultlistindex>=300)||(ResultService.list.size()==selectedtestcaselist.size())){
+								sleeptime=100;
+							}
 						}
 						
 						progressbar.setValue(progressbar.getValue()+1);
@@ -1820,7 +1825,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						
 					}
 					
-					while(resultlistindex>=ResultService.list.size()){
+//					while(resultlistindex>=ResultService.list.size()){
+					while(!((ResultService.list.size()-resultlistindex>=300)||(ResultService.list.size()==selectedtestcaselist.size()))){
 						System.out.println("-------");
 						try {
 							Thread.sleep(500);
@@ -2094,7 +2100,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					for(int i=startprogressbar;i<endprogressbar;i++){
 						
 						if(ResultService.list.size()>resultlistindex){
-							sleeptime=10;
+							if((ResultService.list.size()-resultlistindex>=300)||(ResultService.list.size()==selectedtestcaselist.size())){
+								sleeptime=10;
+							}
 						}
 						
 						progressbar.setValue(progressbar.getValue()+1);
@@ -2109,7 +2117,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						
 					}
 					
-					while(resultlistindex>=ResultService.list.size()){
+//					while(resultlistindex>=ResultService.list.size()){
+					while(!((ResultService.list.size()-resultlistindex>=300)||(ResultService.list.size()==selectedtestcaselist.size()))){
 						System.out.println("-------");
 						try {
 							Thread.sleep(500);
@@ -2497,7 +2506,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					for(int i=startprogressbar;i<endprogressbar;i++){
 						
 						if(ResultService.list.size()>resultlistindex){
-							sleeptime=100;
+							if((ResultService.list.size()-resultlistindex>=300)||(ResultService.list.size()==selectedtestcaselist.size())){
+								sleeptime=100;
+							}
 						}
 						
 						progressbar.setValue(progressbar.getValue()+1);
@@ -2512,7 +2523,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						
 					}
 					
-					while(resultlistindex>=ResultService.list.size()){
+//					while(resultlistindex>=ResultService.list.size()){
+					while(!((ResultService.list.size()-resultlistindex>=300)||(ResultService.list.size()==selectedtestcaselist.size()))){
 						System.out.println("-------");
 						try {
 							Thread.sleep(1000);

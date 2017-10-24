@@ -942,8 +942,8 @@ public class Read
 		try {
 			String DCBM = "null";
 			String SEQDO = "null";
-			if (styleValue.contains("DCBM=")) {
-				DCBM = styleValue.split("DCBM=")[1].split(";")[0];
+			if (styleValue.contains("DCBMT=")) {
+				DCBM = styleValue.split("DCBMT=")[1].split(";")[0];
 				message.setDCBM(DCBM);
 			}
 			

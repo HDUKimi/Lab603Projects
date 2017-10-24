@@ -233,16 +233,16 @@ public abstract class AbstractEdge implements IEdge
     @Override
     public Id getId()
     {
-        if (this.id == null) {
-        	this.id = new Id();
+        if (this.eid == null) {
+        	this.eid = new Id();
         }
-    	return this.id;
+    	return this.eid;
     }
 
     @Override
     public void setId(Id id)
     {
-        this.id = id;
+        this.eid = id;
     }
 
     @Override
@@ -251,7 +251,7 @@ public abstract class AbstractEdge implements IEdge
         try
         {
             AbstractEdge cloned = (AbstractEdge) super.clone();
-            cloned.id = new Id();
+            cloned.eid = new Id();
             return cloned;
         }
         catch (CloneNotSupportedException ex)
@@ -329,7 +329,7 @@ public abstract class AbstractEdge implements IEdge
     private Point2D[] transitionPoints;
 
     /** Edge's current id (unique in all the graph) */
-    private Id id;
+    private Id eid;
     private String ID;
     /** Edge's current revision */
     @XStreamOmitField

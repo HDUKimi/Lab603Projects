@@ -741,6 +741,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					resultpanel.add(emptypanel);
 					layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 					
+					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().setStarttype(1);
 					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().setFunctionaltestcasereportlist(functionaltestcasereportlist);
 					
 					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().removeAll();
@@ -778,6 +779,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					borderresultpanel.add(borderemptypanel);
 					borderlayout.setConstraints(borderemptypanel, new GBC(0, borderi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 					
+					mainFrame.getStepFourCenterTabbedPane().getBorderTestCaseShowTabbedPanel().setStarttype(1);
 					mainFrame.getStepFourCenterTabbedPane().getBorderTestCaseShowTabbedPanel().setFunctionaltestcasereportlist(borderfunctionaltestcasereportlist);
 					
 					mainFrame.getStepFourCenterTabbedPane().getBorderTestCaseShowTabbedPanel().getTableresultpanel().removeAll();
@@ -813,7 +815,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					layout.setConstraints(ptcrthpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 					
 					for(TestCase tc:testcaselist){
-						PerformanceTestCaseReportPartPanel tcrppanel=new PerformanceTestCaseReportPartPanel(tc);
+						PerformanceTestCaseReportPartPanel tcrppanel=new PerformanceTestCaseReportPartPanel(mainFrame, tc);
 						resultpanel.add(tcrppanel);
 						layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 						performancetestcasereportlist.add(tcrppanel);
@@ -821,6 +823,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					resultpanel.add(emptypanel);
 					layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 					
+					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().setStarttype(2);
 					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().setPerformancetestcasereportlist(performancetestcasereportlist);
 					
 					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().removeAll();
@@ -855,7 +858,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 
 					int index=0;
 					for(TestCase tc:testcaselist){
-						TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(tc);
+						TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(mainFrame, tc);
 						resultpanel.add(ttcrppanel);
 						layout.setConstraints(ttcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 						timetestcasereportlist.add(ttcrppanel);
@@ -864,6 +867,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					resultpanel.add(emptypanel);
 					layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 					
+					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().setStarttype(3);
 					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().setTimetestcasereportlist(timetestcasereportlist);
 					
 					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().removeAll();

@@ -175,16 +175,17 @@ public abstract class AbstractNode implements INode
     @Override
     public Id getId()
     {
-        if (this.id == null) {
-        	this.id = new Id();
+        if (this.nid == null) {
+        	this.nid = new Id();
         }
-    	return this.id;
+    	return this.nid;
     }
 
     @Override
-    public void setId(Id id)
+    public void setId(Id 
+    		id)
     {
-        this.id = id;
+        this.nid = id;
     }
     
     @Override
@@ -318,7 +319,7 @@ public abstract class AbstractNode implements INode
         try
         {
             AbstractNode cloned = (AbstractNode) super.clone();
-            cloned.id = getId().clone();
+            cloned.nid = getId().clone();
             cloned.children = new ArrayList<INode>();
             cloned.location = (Point2D.Double) getLocation().clone();
             for (INode child : getChildren())
@@ -417,7 +418,7 @@ public abstract class AbstractNode implements INode
     
 //    private double height;
     /** Node's current id (unique in all the graph) */
-    private Id id;
+    private Id nid;
 
     /** Node's current revision */
     private transient Integer revision;

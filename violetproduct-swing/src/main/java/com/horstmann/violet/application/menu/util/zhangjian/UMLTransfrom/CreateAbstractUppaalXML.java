@@ -141,7 +141,7 @@ public class CreateAbstractUppaalXML {
 
 			TransitionEdge.addElement("endLocation").addAttribute("class", "Point2D.Double")
 					.addAttribute("id", k + 2 + "").addAttribute("x", x).addAttribute("y", y);
-			TransitionEdge.addElement("id").addAttribute("id", k + 3 + "");
+			TransitionEdge.addElement("eid").addAttribute("id", k + 3 + "");
 			// TransitionEdge.addElement("labelText").addText("type:"+edge.getType()//new
 			// String(edge.getType().getBytes(),"utf-8")
 			// +" source："+edge.getSource()//new
@@ -269,7 +269,7 @@ public class CreateAbstractUppaalXML {
 				cStartNode.addElement("location").addAttribute("class", "Point2D.Double").addAttribute("id", k + 2 + "")
 						.addAttribute("x", x)// 这里的坐标后期添加
 						.addAttribute("y", y);
-				cStartNode.addElement("id").addAttribute("id", k + 3 + "");
+				cStartNode.addElement("nid").addAttribute("id", k + 3 + "");
 				if (i == 0) {
 					Element backcolor = cStartNode.addElement("backgroundColor").addAttribute("id", backgroundid)
 							.addText("");
@@ -310,7 +310,7 @@ public class CreateAbstractUppaalXML {
 						.addAttribute("x", x)// 这里的坐标需要设计
 						.addAttribute("y", y);
 
-				cNode.addElement("id").addAttribute("id", k + 3 + "");
+				cNode.addElement("nid").addAttribute("id", k + 3 + "");
 				if (i == 0) {
 					Element backcolor = cNode.addElement("backgroundColor").addAttribute("id", backgroundid)
 							.addText("");
