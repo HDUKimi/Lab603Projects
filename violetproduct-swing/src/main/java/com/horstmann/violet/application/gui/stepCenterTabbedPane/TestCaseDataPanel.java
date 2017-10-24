@@ -128,7 +128,7 @@ public class TestCaseDataPanel{
 //		functionaltestcasereportlist.clear();
 		testcasereportlist.clear();
 		for(TestCase tc:testcaselist){
-			FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(tc);
+			FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame, tc);
 			resultpanel.add(ftcrppanel);
 			layout.setConstraints(ftcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //			functionaltestcasereportlist.add(ftcrppanel);

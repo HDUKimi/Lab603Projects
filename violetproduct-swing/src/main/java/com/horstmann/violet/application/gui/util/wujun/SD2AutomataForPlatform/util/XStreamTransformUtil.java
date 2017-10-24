@@ -33,7 +33,7 @@ public class XStreamTransformUtil {
         // xmStream.registerConverter(new ActivationBarNodeConverter());
         
         // 设置可忽略为在javabean类中定义的界面属性
-        //xmStream.ignoreUnknownElements();
+        xmStream.ignoreUnknownElements();
         xmStream.registerConverter(new MyIntCoverter());
         xmStream.registerConverter(new MyLongCoverter());
         xmStream.registerConverter(new MyFloatCoverter());

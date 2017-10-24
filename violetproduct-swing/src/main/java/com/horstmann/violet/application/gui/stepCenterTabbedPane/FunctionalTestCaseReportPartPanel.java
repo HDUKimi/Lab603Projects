@@ -10,6 +10,10 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -26,11 +30,14 @@ import javax.swing.table.DefaultTableModel;
 
 import com.horstmann.violet.application.consolepart.LocationTransitionLabelRenderer;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
+import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.myProcess;
 
 public class FunctionalTestCaseReportPartPanel extends JPanel {
 
+	private MainFrame mainFrame;
+	
 	private JPanel titlepanel;
 	private JPanel linepanel;
 	private JPanel attributepanel;
@@ -48,8 +55,9 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 	
 	private TestCase testcase;
 
-	public FunctionalTestCaseReportPartPanel(TestCase testcase) {
+	public FunctionalTestCaseReportPartPanel(MainFrame mainFrame,TestCase testcase) {
 
+		this.mainFrame=mainFrame;
 		this.testcase=testcase;
 		
 		init();
@@ -177,7 +185,7 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 	private void initAttributePanel() {
 		// TODO Auto-generated method stub
 
-		String[] columnNames = { "¼¤ÀøID", "¼¤ÀøÃû³Æ", "¼¤Àø²ÎÊý", "¼¤Àø×´Ì¬", "¼¤ÀøÖ´ÐÐÇé¿ö" };
+		final String[] columnNames = { "¼¤ÀøID", "¼¤ÀøÃû³Æ", "¼¤Àø²ÎÊý", "¼¤Àø×´Ì¬", "¼¤ÀøÖ´ÐÐÇé¿ö" };
 		String[][] tabelValues = {};
 
 		attributetablemodel = new DefaultTableModel(tabelValues, columnNames) {
@@ -229,6 +237,60 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 
 		attributetable.getTableHeader().setPreferredSize(new Dimension(100, 27));
 
+		attributetable.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getClickCount()==2){
+					
+					mainFrame.getStepButton();
+					
+					mainFrame.getTestCaseConfirmResultPanel().getOnenamelabel().setText(titlelabel.getText().split(" ")[0]);
+					
+					JTable jt=mainFrame.getTestCaseConfirmResultPanel().getTestcaseinfortable();
+					DefaultTableModel dtm=mainFrame.getTestCaseConfirmResultPanel().getTestcaseinfortablemodel();
+					
+					int index=attributetable.getSelectedRow();
+					
+					final int[] columnindex=new int[columnNames.length];
+					int k=0;
+					int count=0;
+					
+					List<String> rowDataList=new ArrayList<String>();
+					
+					for(int i=0;i<columnNames.length;i++){
+						rowDataList.add("+-+"+columnNames[i]+":");
+						columnindex[k++]=count++;
+						
+						String str=attributetablemodel.getValueAt(index, i)+"";
+						String[] strdata=str.split(",|--");
+						
+						for(String s:strdata){
+							rowDataList.add(s);
+							count++;
+						}
+						
+					}
+					
+					while(dtm.getRowCount()>0){
+						dtm.removeRow(dtm.getRowCount()-1);
+					}
+					
+					for(String s:rowDataList){
+						Object[] rowData={s};
+						dtm.addRow(rowData);
+					}
+					
+					dtm.fireTableDataChanged();
+					
+					mainFrame.getTestCaseConfirmResultPanel().getTestcaselabeltab1().doClick();
+					
+				}
+			}
+
+		});
+		
 //		DefaultTableCellRenderer renderer1 = new DefaultTableCellRenderer(){
 //
 //			@Override

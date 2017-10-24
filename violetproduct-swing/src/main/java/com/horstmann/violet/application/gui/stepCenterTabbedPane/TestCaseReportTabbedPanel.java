@@ -353,17 +353,17 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					
 					threadstate = 1;
 					t.resume();
-					if(testcasetype==3){
-						if(progressbar.getValue()>50){
-							progreseethread.resume();
-						}
-						else{
-							gaindatathread.resume();
-						}
-					}
-					else{
+//					if(testcasetype==3){
+//						if(progressbar.getValue()>50){
+//							progreseethread.resume();
+//						}
+//						else{
+//							gaindatathread.resume();
+//						}
+//					}
+//					else{
 						datagainshowthread.resume();
-					}
+//					}
 					System.out.println("t is not alive");
 				}
 				
@@ -383,17 +383,17 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				// TODO Auto-generated method stub
 				if(threadstate==1){
 					t.suspend();
-					if(testcasetype==3){
-						if(progressbar.getValue()>50){
-							progreseethread.suspend();
-						}
-						else{
-							gaindatathread.suspend();
-						}
-					}
-					else{
+//					if(testcasetype==3){
+//						if(progressbar.getValue()>50){
+//							progreseethread.suspend();
+//						}
+//						else{
+//							gaindatathread.suspend();
+//						}
+//					}
+//					else{
 						datagainshowthread.suspend();
-					}
+//					}
 //					datagainshowthread.suspend();
 //					if(progressbar.getValue()>50){
 //						progreseethread.suspend();
@@ -423,17 +423,17 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				if(threadstate!=0){
 //					Controller.Close();
 					t.stop();
-					if(testcasetype==3){
-						if(progressbar.getValue()>50){
-							progreseethread.stop();
-						}
-						else{
-							gaindatathread.stop();
-						}
-					}
-					else{
+//					if(testcasetype==3){
+//						if(progressbar.getValue()>50){
+//							progreseethread.stop();
+//						}
+//						else{
+//							gaindatathread.stop();
+//						}
+//					}
+//					else{
 						datagainshowthread.stop();
-					}
+//					}
 					
 					
 //					if(progressbar.getValue()>50){

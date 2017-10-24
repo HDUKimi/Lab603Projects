@@ -99,10 +99,15 @@ public class Time  implements Serializable{
         for (String key : keys) {
         	if(mapping.get(key)!=null){
         		v = (double) mapping.get(key).getSecond();
-                if (v == 300d)
-                    flag = false;
-                result += key + "=" + v + " ";
-                value += v;
+                if (v == 300d){
+                	flag = false;
+                	result += key + "= null ";
+                    value += 0;
+                }
+                else{
+                	result += key + "=" + v + " ";
+                    value += v;
+                }
         	}
         }
         if (flag)

@@ -396,8 +396,14 @@ public class TcConvertUtil {
 			String temp;
 			temp=process.getProcessName()+"&"+process.getProcessStatus().split("=")[0];
 			if(!tmp1.contains(temp)){
-				String[] status=process.getProcessStatus().split("=");
-				tmp1+=","+process.getProcessName()+"&"+status[0]+"&"+status[1];
+				if(process.getProcessStatus().contains("=")){
+					String[] status=process.getProcessStatus().split("=");
+					tmp1+=","+process.getProcessName()+"&"+status[0]+"&"+status[1];
+				}
+				else{
+					String[] status=process.getProcessStatus().split("=");
+					tmp1+=","+process.getProcessName()+"&"+status[0]+"&300";
+				}
 			}
 		}
 		
@@ -428,7 +434,9 @@ public class TcConvertUtil {
 		}
 		else if("Time".equals(type)){
 			for(myProcess process:testCase.getProcessList()){
-				alltime+=Double.parseDouble(process.getProcessStatus().split("=")[1]);
+				if(process.getProcessStatus().contains("=")){
+					alltime+=Double.parseDouble(process.getProcessStatus().split("=")[1]);
+				}
 			}
 		}
 		

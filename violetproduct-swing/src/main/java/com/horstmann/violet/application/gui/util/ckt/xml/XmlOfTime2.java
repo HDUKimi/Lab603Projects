@@ -32,7 +32,8 @@ public class XmlOfTime2 {
 
 		//String xml = "EAElevatorV2ForXStream.xml";
 //		String xml = "EAElevatorForXStream.xml";
-		String xml = "EAElevator53ForXStream.xml";
+//		String xml = "EAElevator53ForXStream.xml";
+		String xml="D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\SequenceToUppal\\EAElevator71ForXStream.xml";
 		Automatic automatic = GetAutomatic.getAutomatic(xml);// 获得原始的时间自动机
 		Automatic new_automatic = IPR__1.iPR(automatic);// 获得拆分后的时间自动机
 		Automatic aTDRTAutomatic = ATDTR__1.aTDRT(new_automatic, automatic);// 获得去除抽象时间迁移后的时间自动机

@@ -733,7 +733,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					int i=0;
 
 					for(TestCase tc:testcaselist){
-						FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(tc);
+						FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame, tc);
 						resultpanel.add(ftcrppanel);
 						layout.setConstraints(ftcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 						functionaltestcasereportlist.add(ftcrppanel);
@@ -770,7 +770,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					int borderi=0;
 
 					for(TestCase tc:bordertestcaselist){
-						FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(tc);
+						FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame,tc);
 						borderresultpanel.add(ftcrppanel);
 						borderlayout.setConstraints(ftcrppanel, new GBC(0, borderi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 						borderfunctionaltestcasereportlist.add(ftcrppanel);
