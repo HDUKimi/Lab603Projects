@@ -99,7 +99,7 @@ public class CompareEAtoAutomata {
 	public static ArrayList<Integer> verificationPathTupleTime(ArrayList<PathTuple> path) {
 		System.out.println("-------------------------累加路径时间值验证时间刻度-------------------------");
 		System.out.println("初始化时间和");
-		ArrayList<Integer> res = new ArrayList<>();
+		ArrayList<Integer> res = new ArrayList<Integer>();
 		int timeSum = 0;
 		int nextTime = 0;
 		

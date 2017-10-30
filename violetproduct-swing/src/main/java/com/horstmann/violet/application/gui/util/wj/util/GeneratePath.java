@@ -46,8 +46,8 @@ public class GeneratePath {
 		double impPoint;
 		public PathAndImpPoint(ArrayList<Transition> transitions) {
 			Automatic auto = new Automatic();
-			ArrayList<State> states = new ArrayList<>();
-			HashSet<State> stateSet = new HashSet<>();
+			ArrayList<State> states = new ArrayList<State>();
+			HashSet<State> stateSet = new HashSet<State>();
 			for(Transition tran : transitions) {
 				// 去掉标记符
 				tran.setName(tran.getName().replaceAll("@@", ""));
@@ -91,7 +91,7 @@ public class GeneratePath {
 		ShowInfor.print(3, "共有" + paths.size() + "条路径");
 		
 		int i=1;
-		ArrayList<Automatic> res = new ArrayList<>();
+		ArrayList<Automatic> res = new ArrayList<Automatic>();
 		for(ArrayList<Transition> tranList : paths) {
 			Automatic auto=GeneratePath.fromTranListToAuto(tranList);
 			auto.setName("测试用例"+(i++));
@@ -104,7 +104,7 @@ public class GeneratePath {
 		}else{
 			Map<Automatic, Double> map = new HashMap<Automatic, Double>();
 			map = findPointByPath;		
-			List<Map.Entry<Automatic, Double>> list=new ArrayList<>();
+			List<Map.Entry<Automatic, Double>> list=new ArrayList<Entry<Automatic, Double>>();
 	        list.addAll(map.entrySet());  
 	        ValueComparator vc=new ValueComparator();  
 	        Collections.sort(list,vc); 

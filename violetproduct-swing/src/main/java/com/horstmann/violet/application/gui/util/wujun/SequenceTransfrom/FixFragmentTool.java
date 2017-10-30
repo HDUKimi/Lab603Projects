@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 
 public class FixFragmentTool {
-	public static HashMap<String, WJRectangle> rectangleById = new HashMap<>();
-	public static HashMap<String, String> xrefValueById = new HashMap<>();
+	public static HashMap<String, WJRectangle> rectangleById = new HashMap<String, WJRectangle>();
+	public static HashMap<String, String> xrefValueById = new HashMap<String, String>();
 	
 	public static int refIndexInDiagram(REF ref, WJDiagramsData diagramsData) {
 		int index = 0;
@@ -65,8 +65,8 @@ public class FixFragmentTool {
 		String value = xrefValueById.get(fragment.comId);
 		String[] strs = value.split(";Name=");
 		
-		ArrayList<String> nameList = new ArrayList<>();
-		ArrayList<Double> sizeList = new ArrayList<>(); 
+		ArrayList<String> nameList = new ArrayList<String>();
+		ArrayList<Double> sizeList = new ArrayList<Double>(); 
 		double[] size;
 		for(String str: strs) {
 			//Ìõ¼þ;Size=100;~~~~~~~~

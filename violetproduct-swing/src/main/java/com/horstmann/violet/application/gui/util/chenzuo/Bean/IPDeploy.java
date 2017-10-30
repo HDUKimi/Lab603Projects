@@ -14,14 +14,14 @@ public class IPDeploy {
 	private static BlockingQueue waitQueue = new LinkedBlockingQueue(4);
 
 	//list of ip
-	private List<IPNode> ips = new ArrayList<>();
+	private List<IPNode> ips = new ArrayList<IPNode>();
 	
 	public IPDeploy(){
 		buildFromProperties();
 	}
 
     public List<IPNode> findNodeFree(int index){
-		List<IPNode> nodes = new ArrayList<>(index);
+		List<IPNode> nodes = new ArrayList<IPNode>(index);
 		int i=1;
 		for(IPNode node:ips){
 			if(i<=index && !node.isBusy()){

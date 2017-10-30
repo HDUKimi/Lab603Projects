@@ -61,7 +61,7 @@ public class PerformTestPath {
 		}
 		State targetState = findStateByID.get(tran.getTarget());
 		boolean hasNext = false;
-		ArrayList<Transition> nextTrans = new ArrayList<>();
+		ArrayList<Transition> nextTrans = new ArrayList<Transition>();
 		int markedIndex = -1;
 		for(int i = 0; i < transitions.size(); i++) {
 			Transition nextTran = transitions.get(i);

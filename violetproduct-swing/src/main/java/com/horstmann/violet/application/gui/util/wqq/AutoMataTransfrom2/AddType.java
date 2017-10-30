@@ -3,8 +3,6 @@ package com.horstmann.violet.application.gui.util.wqq.AutoMataTransfrom2;
 
 import java.util.ArrayList;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
-
 public class AddType {
 
 	public static void main(String[] args) {

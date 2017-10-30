@@ -134,34 +134,34 @@ public class TestCaseConfirmationPanel extends JPanel{
 	private JPanel testcasecheckboxpanel;
 	
 	private JCheckBox selectTestCaseCheckBox;
-	private List<List<JCheckBox>> testCaseCheckBoxList=new ArrayList<>();
+	private List<List<JCheckBox>> testCaseCheckBoxList=new ArrayList<List<JCheckBox>>();
 	
 	private JRadioButton selectTestRadioButton;
 	private JRadioButton[] testRadioButtonList;
 	
 	private List<String> testcasefilenamelists=new ArrayList<String>();
-	private List<List<String>> testcasefilenamegroup=new ArrayList<>();
+	private List<List<String>> testcasefilenamegroup=new ArrayList<List<String>>();
 	
 	private JPanel sqltestcasecheckboxpanel;
 	
 	private JCheckBox selectSqlTestCaseCheckBox;
-	private List<List<JCheckBox>> sqlTestCaseCheckBoxList=new ArrayList<>();
+	private List<List<JCheckBox>> sqlTestCaseCheckBoxList=new ArrayList<List<JCheckBox>>();
 	
 	private JRadioButton selectSqlTestRadioButton;
 	private JRadioButton[] testSqlRadioButtonList;
 	
-    private List<String> sqlcasedatalist=new ArrayList<>();
-    private List<List<String>> sqlcasedatagroup=new ArrayList<>();
+    private List<String> sqlcasedatalist=new ArrayList<String>();
+    private List<List<String>> sqlcasedatagroup=new ArrayList<List<String>>();
 	
 	private String testcasename=null;
 	private List<TestCase> testcaselist=new ArrayList<TestCase>();
-	private List<List<String>> limitlist=new ArrayList<>();
+	private List<List<String>> limitlist=new ArrayList<List<String>>();
 //	private List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
 //	private List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
 //	private List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
 	
-    private List<String> selectedtestcaselist=new ArrayList<>();
-    private Map<String, List<String>> selectedtestcasemap=new HashMap<>();
+    private List<String> selectedtestcaselist=new ArrayList<String>();
+    private Map<String, List<String>> selectedtestcasemap=new HashMap<String, List<String>>();
     
 	public TestCaseConfirmationPanel(MainFrame mainFrame) {
 		// TODO Auto-generated constructor stub			
@@ -442,7 +442,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		sqltestcasecheckboxpanel.removeAll();
 		
 		testSqlRadioButtonList=new JRadioButton[testlists.size()];
-		sqlTestCaseCheckBoxList=new ArrayList<>();
+		sqlTestCaseCheckBoxList=new ArrayList<List<JCheckBox>>();
 		ButtonGroup buttonGroup=new ButtonGroup();
 		
 		for(int i=0;i<testlists.size();i++){
@@ -453,7 +453,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 			sqltestcasecheckboxpanel.add(Box.createVerticalStrut(7));
 			sqltestcasecheckboxpanel.add(testSqlRadioButtonList[i]);
 			
-			List<JCheckBox> checkBoxs=new ArrayList<>();
+			List<JCheckBox> checkBoxs=new ArrayList<JCheckBox>();
 			for(int j=0;j<sqlcasedatagroup.get(i).size();j++){
 				JCheckBox checkBox=new JCheckBox(sqlcasedatagroup.get(i).get(j));
 				checkBox.setOpaque(false);
@@ -990,7 +990,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		testcasecheckboxpanel.removeAll();
 		
 		testRadioButtonList=new JRadioButton[testlists.size()];
-		testCaseCheckBoxList=new ArrayList<>();
+		testCaseCheckBoxList=new ArrayList<List<JCheckBox>>();
 		ButtonGroup buttonGroup=new ButtonGroup();
 		
 		for(int i=0;i<testlists.size();i++){
@@ -1001,7 +1001,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 			testcasecheckboxpanel.add(Box.createVerticalStrut(7));
 			testcasecheckboxpanel.add(testRadioButtonList[i]);
 			
-			List<JCheckBox> checkBoxs=new ArrayList<>();
+			List<JCheckBox> checkBoxs=new ArrayList<JCheckBox>();
 			for(int j=0;j<testcasefilenamegroup.get(i).size();j++){
 				JCheckBox checkBox=new JCheckBox(testcasefilenamegroup.get(i).get(j));
 				checkBox.setOpaque(false);
@@ -1496,7 +1496,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 				int flag=0;
 				TestCaseDataPanel nowtcdpanel = null;
 						
-				List<TestCase> testcaselist=new ArrayList<>();
+				List<TestCase> testcaselist=new ArrayList<TestCase>();
 				
 				String tabname = null;
 				
@@ -1574,8 +1574,8 @@ public class TestCaseConfirmationPanel extends JPanel{
 						
 				String tabname = testcasename;
 				
-				List<TestCase> testcaselist=new ArrayList<>();
-				List<String> testcasestringlist=new ArrayList<>();
+				List<TestCase> testcaselist=new ArrayList<TestCase>();
+				List<String> testcasestringlist=new ArrayList<String>();
 				
 				testcasestringlist=DataBaseUtil.queryTestCaseStringList(testcasename);
 				System.out.println("+-+**************"+testcasestringlist.size());
@@ -1640,10 +1640,10 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 		selectedtestcasemap.clear();
 		
-		List<String> functionlist=new ArrayList<>();
-		List<String> performancelist=new ArrayList<>();
-		List<String> timelist=new ArrayList<>();
-		List<String> borderlist=new ArrayList<>();
+		List<String> functionlist=new ArrayList<String>();
+		List<String> performancelist=new ArrayList<String>();
+		List<String> timelist=new ArrayList<String>();
+		List<String> borderlist=new ArrayList<String>();
 		
 		for(String name:selectedtestcaselist){
 			if(name.contains("¹¦ÄÜ")&&!name.contains("Border")){
@@ -2054,7 +2054,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 				
 				j=1;
 				
-				List<String> limits=new ArrayList<>();
+				List<String> limits=new ArrayList<String>();
 				String limit=testcase.element("limit").element("operation").getData().toString();
 				System.out.println(limit);
 				for (String str : limit.split(",")) {

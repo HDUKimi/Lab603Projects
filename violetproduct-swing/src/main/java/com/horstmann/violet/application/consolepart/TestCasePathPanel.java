@@ -184,8 +184,8 @@ public class TestCasePathPanel extends JPanel{
 //			layout.setConstraints(tcptipanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //		}
 		
-		List<State> statelist=new ArrayList<>();
-		List<Transition> transitionlist=new ArrayList<>();
+		List<State> statelist=new ArrayList<State>();
+		List<Transition> transitionlist=new ArrayList<Transition>();
 		
 		statelist=automatic.getStateSet();
 		transitionlist=automatic.getTransitionSet();

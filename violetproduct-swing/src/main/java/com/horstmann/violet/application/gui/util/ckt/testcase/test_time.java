@@ -175,7 +175,7 @@ public class test_time {
 		e1.setTarget(l2.getName());
 		ArrayList<String> reset1 =new ArrayList<String>();
 		e1.setResetClocks(reset1);
-		ArrayList<String> constraint1 =new ArrayList<>();
+		ArrayList<String> constraint1 =new ArrayList<String>();
 		e1.setConstraint(constraint1);
 		ArrayList<String> events1=new ArrayList<String>();
 		e1.setEvents(events1);
@@ -191,7 +191,7 @@ public class test_time {
 		ArrayList<String> reset2 =new ArrayList<String>();
 		reset2.add("x");
 		e2.setResetClocks(reset2);
-		ArrayList<String> constraint2 =new ArrayList<>();
+		ArrayList<String> constraint2 =new ArrayList<String>();
 		e2.setConstraint(constraint2);
 		ArrayList<String> events2=new ArrayList<String>();
 		e2.setEvents(events2);
@@ -207,7 +207,7 @@ public class test_time {
 		ArrayList<String> reset3 =new ArrayList<String>();
 		reset3.add("x");
 		e3.setResetClocks(reset3);
-		ArrayList<String> constraint3 =new ArrayList<>();
+		ArrayList<String> constraint3 =new ArrayList<String>();
 		e3.setConstraint(constraint3);
 		ArrayList<String> events3=new ArrayList<String>();
 		e3.setEvents(events3);
@@ -222,7 +222,7 @@ public class test_time {
 		e4.setTarget(l5.getName());
 		ArrayList<String> reset4 =new ArrayList<String>();
 		e4.setResetClocks(reset4);
-		ArrayList<String> constraint4 =new ArrayList<>();
+		ArrayList<String> constraint4 =new ArrayList<String>();
 		e4.setConstraint(constraint4);
 		ArrayList<String> events4=new ArrayList<String>();
 		e4.setEvents(events4);
@@ -238,7 +238,7 @@ public class test_time {
 		ArrayList<String> reset5 =new ArrayList<String>();
 		reset5.add("x");
 		e5.setResetClocks(reset5);
-		ArrayList<String> constraint5 =new ArrayList<>();
+		ArrayList<String> constraint5 =new ArrayList<String>();
 		e5.setConstraint(constraint5);
 		ArrayList<String> events5=new ArrayList<String>();
 		e5.setEvents(events5);
@@ -254,7 +254,7 @@ public class test_time {
 		ArrayList<String> reset6 =new ArrayList<String>();
 		reset6.add("x");
 		e6.setResetClocks(reset6);
-		ArrayList<String> constraint6 =new ArrayList<>();
+		ArrayList<String> constraint6 =new ArrayList<String>();
 		e6.setConstraint(constraint6);
 		ArrayList<String> events6=new ArrayList<String>();
 		e6.setEvents(events6);

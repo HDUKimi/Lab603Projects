@@ -121,13 +121,13 @@ public class DataBaseUtil {
 	
 	public static List<String> queryCaseDataList(){
 		
-		List<String> casedatalist=new ArrayList<>();
+		List<String> casedatalist=new ArrayList<String>();
 		
 		try {
 
 			init();
 			
-			casedatalist=new ArrayList<>();
+			casedatalist=new ArrayList<String>();
 			
 			sql = "SELECT id, name, type FROM casedata ";
 			
@@ -176,7 +176,7 @@ public class DataBaseUtil {
 	
 	public static List<String> queryTestCaseStringList(String testcasedataname){
 
-		List<String> testcasestringlist=new ArrayList<>();
+		List<String> testcasestringlist=new ArrayList<String>();
 		
 		int type=queryTestCaseDataType(testcasedataname);
 		
@@ -184,7 +184,7 @@ public class DataBaseUtil {
 
 			init();
 			
-			testcasestringlist=new ArrayList<>();
+			testcasestringlist=new ArrayList<String>();
 			
 			if (type == 1) {
 				sql = "SELECT b.id, b.content FROM casedata a left join functionalcase b on a.id=b.casedataid where a.name=? ";
@@ -411,7 +411,7 @@ public class DataBaseUtil {
 
 	private static void extractTimeLimitByString(TestCase testCase, String str) {
 
-		List<String> timeLimitList=new ArrayList<>();
+		List<String> timeLimitList=new ArrayList<String>();
 		Map<String, Pair<String, String>> timeLimitMap = new HashMap<String, Pair<String, String>>();
 		
 		List<String> timeLimitStringList=stringRegEx(str, "\\[([\\s|\\S]*?)\\]");
@@ -436,7 +436,7 @@ public class DataBaseUtil {
 
 	public static List<myProcess> extractProcessByString(String str) {
 		
-		List<myProcess> list=new ArrayList<>();
+		List<myProcess> list=new ArrayList<myProcess>();
 		
 		List<String> processStringlist=stringRegEx(str, "\\[processID:([\\s|\\S]*?)\\]");
 		

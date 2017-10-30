@@ -55,9 +55,9 @@ public class StepFiveCenterTabbedPane extends JPanel{
 	private PerformanceTestCaseChartTabbedPanel performanceTestCaseChartTabbedPanel;
 	private FunctionalTestCaseChartTabbedPanel functionalTestCaseChartTabbedPanel;
 	
-	private List<FixedButtonTabbedPanel> testCaseDiagramButtonPanelList=new ArrayList<>();
+	private List<FixedButtonTabbedPanel> testCaseDiagramButtonPanelList=new ArrayList<FixedButtonTabbedPanel>();
 	
-	private List<TestCaseDataPanel> testCaseDataPanelList=new ArrayList<>();
+	private List<TestCaseDataPanel> testCaseDataPanelList=new ArrayList<TestCaseDataPanel>();
 	
 	private int selectedIndex=1;
 	
@@ -433,8 +433,8 @@ public class StepFiveCenterTabbedPane extends JPanel{
 		buttonTabbedPanel.removeAll();
 		diagramPanel.removeAll();
 		
-		testCaseDiagramButtonPanelList=new ArrayList<>();
-		testCaseDataPanelList=new ArrayList<>();
+		testCaseDiagramButtonPanelList=new ArrayList<FixedButtonTabbedPanel>();
+		testCaseDataPanelList=new ArrayList<TestCaseDataPanel>();
 		selectedFixedButtonTabbedPanel=null;
 		
 	}

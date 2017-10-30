@@ -8,7 +8,7 @@ public class StartFileCheck {
 
 	public void FileCheck(){
 		
-		List<String> pathlist=new ArrayList<>();
+		List<String> pathlist=new ArrayList<String>();
 		pathlist.add("D:\\ModelDriverProjectFile\\ActivityDiagram\\Violet\\");
 		pathlist.add("D:\\ModelDriverProjectFile\\StateDiagram\\Violet\\");
 		pathlist.add("D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\");

@@ -8,7 +8,7 @@ public class WJLifeline
 	String lifeLineId="null";
 	String lifeLineName="null";
 	
-	ArrayList<String> activationIDs = new ArrayList<>();
+	ArrayList<String> activationIDs = new ArrayList<String>();
 	
 	
 	public String getLifeLineId() {

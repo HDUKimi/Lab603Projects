@@ -64,7 +64,7 @@ public class TestCaseSortContrastTabbedPanel extends JPanel{
 	private JScrollPane tablescrollpanel;
 	private JPanel tableresultpanel;
 	
-	private List<TestCaseSortContrastPartPanel> testCaseSortContrastPartPanelList=new ArrayList<>();
+	private List<TestCaseSortContrastPartPanel> testCaseSortContrastPartPanelList=new ArrayList<TestCaseSortContrastPartPanel>();
 	
 	private int showflag=0;
 	private Thread showthread;

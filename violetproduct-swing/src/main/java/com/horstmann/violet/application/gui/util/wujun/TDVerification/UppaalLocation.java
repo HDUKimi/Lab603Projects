@@ -9,17 +9,17 @@ public class UppaalLocation {
 	String id;
 	String name;
 	double x = 0;
-	ArrayList<UppaalTransition> uppaalTransitions = new ArrayList<>();
-	ArrayList<Integer> startTimeList = new ArrayList<>();
-	ArrayList<Integer> endTimeList = new ArrayList<>();
-	ArrayList<String> timeDurationList = new ArrayList<>();
+	ArrayList<UppaalTransition> uppaalTransitions = new ArrayList<UppaalTransition>();
+	ArrayList<Integer> startTimeList = new ArrayList<Integer>();
+	ArrayList<Integer> endTimeList = new ArrayList<Integer>();
+	ArrayList<String> timeDurationList = new ArrayList<String>();
 	String timeDuration;
 	boolean init = false;
 	boolean finl = false;
 	// boolean visit = false;
 	public int visit = 0;
 	
-	List<List<PathTuple>> uppaalPathTuples = new ArrayList<>();
+	List<List<PathTuple>> uppaalPathTuples = new ArrayList<List<PathTuple>>();
 
 	public ArrayList<Integer> getStartTimeList() {
 		return startTimeList;

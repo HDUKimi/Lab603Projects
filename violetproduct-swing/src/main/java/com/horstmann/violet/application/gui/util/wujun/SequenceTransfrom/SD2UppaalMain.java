@@ -432,7 +432,7 @@ public class SD2UppaalMain {
 			    Fi.add(table.size()-1);
 			    F.add(Fi);//最后一个F(i)并不存在，但是添加后作为终态的判定和loop的end判定
 			    for(int i = 0; i < F.size(); i++) {//保存一次跳跃的F 到 F1
-			    	HashSet<Integer> temp1 = new HashSet<>();
+			    	HashSet<Integer> temp1 = new HashSet<Integer>();
 			    	for(int x : F.get(i)) {
 			    		temp1.add(x);
 			    	}
@@ -744,7 +744,7 @@ public class SD2UppaalMain {
 
 
 	private static void setMessagePreName(ArrayList<WJMessage> messages, ArrayList<WJLifeline> lifeLines) {
-		HashMap<String, WJLifeline> findLifeLineByID = new HashMap<>();
+		HashMap<String, WJLifeline> findLifeLineByID = new HashMap<String, WJLifeline>();
 		for(WJLifeline lifeline : lifeLines) {
 			findLifeLineByID.put(lifeline.getLifeLineId().substring(13), lifeline);
 		}
@@ -797,8 +797,8 @@ public class SD2UppaalMain {
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 				if (map[i][j] > 0) {
-					ArrayList<String> loopConditionsI = new ArrayList<>();
-					ArrayList<String> loopConditionsJ = new ArrayList<>();
+					ArrayList<String> loopConditionsI = new ArrayList<String>();
+					ArrayList<String> loopConditionsJ = new ArrayList<String>();
 					// 获得消息i的所有loop条件
 					for (int c = 0; c < table.get(i).size(); c++) {
 						if (table.get(i).get(c).getFragType().equals("loop")) {
@@ -1094,7 +1094,7 @@ public class SD2UppaalMain {
 
 	// 设置一次跳跃的条件  I是上个组合片段的首个消息 rightI是下个组合片段的首个消息
 	private static void setJumpOnceContidion(int I, int rightI, int C) {
-		ArrayList<String> intoIConditions = new ArrayList<>();
+		ArrayList<String> intoIConditions = new ArrayList<String>();
 		String intoICondition = "";
 		// 得到C层以及之前的条件
 //		for(int k = 2; k <= C; k++) {

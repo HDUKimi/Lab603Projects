@@ -389,7 +389,7 @@ public class forPlatform {
 		int testNum = 0;
 		for (Automatic auto : testcaseresult) {
 
-			List<List<String>> cases = new ArrayList<>();
+			List<List<String>> cases = new ArrayList<List<String>>();
 
 			for (Transition t : auto.getTransitionSet()) {
 				cases.add(t.getResult());

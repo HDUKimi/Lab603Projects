@@ -38,8 +38,8 @@ public class TranCoverUtil {
 		transitions = automatic.getTransitionSet();//所有的迁移
 		initState = automatic.getInitState();// 获取初始状态
 		finalStates = getFinalStates();//获取终止状态
-		pathBacks = new ArrayList<>();// 初始化 回路记录
-		fromToIsCircle = new HashSet<>();// 记录所有回路   "a到b"    String
+		pathBacks = new ArrayList<pathBack>();// 初始化 回路记录
+		fromToIsCircle = new HashSet<String>();// 记录所有回路   "a到b"    String
 		originTranSize = transitions.size();//初始的transition数目
 		wantedSize = pathsLimitedSize;// 大致需要的测试路径数目
 		points = statePoints;// 状态重要度
@@ -59,9 +59,9 @@ public class TranCoverUtil {
 		
 		
 		// 找出开始节点到终止节点的路径
-		ArrayList<ArrayList<Transition>> noCirclePathsFromInitState = new ArrayList<>();
+		ArrayList<ArrayList<Transition>> noCirclePathsFromInitState = new ArrayList<ArrayList<Transition>>();
 		for(State finalState : finalStates) {
-			HashSet<ArrayList<Transition>> directPaths = new HashSet<>();
+			HashSet<ArrayList<Transition>> directPaths = new HashSet<ArrayList<Transition>>();
 			for(Transition tran : transitions) {
 				if (tran.getSource().equals(initState.getPosition())) { // 从初始点出发的迁移
 					ArrayList<Transition> path = new ArrayList<Transition>();
@@ -87,7 +87,7 @@ public class TranCoverUtil {
 				break;
 			}
 			int[] visitedTran = new int[originTranSize * 2];
-			ArrayList<Transition> pathPart = new ArrayList<>();
+			ArrayList<Transition> pathPart = new ArrayList<Transition>();
 			
 			dfsPathPart(transitions.get(0), visitedTran, pathPart);
 
@@ -105,8 +105,8 @@ public class TranCoverUtil {
 			ArrayList<ArrayList<Transition>> noCirclePathsFromInitState) {
 		Transition firstTran = pathPart.get(0);
 		Transition lastTran = pathPart.get(pathPart.size() - 1);
-		ArrayList<Transition> from = new ArrayList<>();
-		ArrayList<Transition> to = new ArrayList<>();
+		ArrayList<Transition> from = new ArrayList<Transition>();
+		ArrayList<Transition> to = new ArrayList<Transition>();
 		int indexFrom = -1, indexTo = -1;
 		for(ArrayList<Transition> arr : noCirclePathsFromInitState) {
 			for(int i = 0; i < arr.size(); i ++) {
@@ -176,7 +176,7 @@ public class TranCoverUtil {
 		visited[tran.getId()] = 1;
 		onePath.add(tran);
 		if (targetState == finalState) { // 到达目标节点
-			directPaths.add(new ArrayList<>(onePath));
+			directPaths.add(new ArrayList<Transition>(onePath));
 			ShowInfor.print(3, "得到一条路径到状态" +finalState.getId() + "----count :" +count++);
 			for(Transition tran1 : onePath) {
 				ShowInfor.print(3, tran1.getName());
@@ -189,7 +189,7 @@ public class TranCoverUtil {
 				return false;
 			}
 		}
-		ArrayList<Transition> nextTrans = new ArrayList<>();
+		ArrayList<Transition> nextTrans = new ArrayList<Transition>();
 		for(Transition nextTran : transitions) {// 根据概率生成下一个tran
 			State sourceStateNow = findStateByID.get(nextTran.getSource());
 			State targetStateNow = findStateByID.get(nextTran.getTarget());
@@ -201,7 +201,7 @@ public class TranCoverUtil {
 				nextTrans.add(nextTran);
 			}
 		}
-		ArrayList<Transition> nextTranSet = new ArrayList<>();
+		ArrayList<Transition> nextTranSet = new ArrayList<Transition>();
 		while(true) {
 			Transition selectedNextTran = selectNextTran(nextTrans);
 			nextTranSet.add(selectedNextTran);
@@ -222,7 +222,7 @@ public class TranCoverUtil {
 	
 	private static Transition selectNextTran(ArrayList<Transition> nextTrans) {
 		double sum = 0;
-		ArrayList<Double> rates = new ArrayList<>();
+		ArrayList<Double> rates = new ArrayList<Double>();
 		int index = 0;
 		for(Transition tran : nextTrans) {
 			State targetState = findStateByID.get(tran.getTarget());
@@ -267,7 +267,7 @@ public class TranCoverUtil {
 	}
 
 	private static ArrayList<State> getFinalStates() {
-		ArrayList<State> finalStates = new ArrayList<>();
+		ArrayList<State> finalStates = new ArrayList<State>();
 		for(State state : states) {
 			if (state.isFinalState()) {
 				finalStates.add(state);

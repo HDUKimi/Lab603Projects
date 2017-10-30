@@ -22,51 +22,20 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import com.horstmann.violet.application.gui.GBC;
 
-import chrriis.common.UIUtils;
-import chrriis.dj.nativeswing.swtimpl.NativeInterface;
-import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
-
 public class TestCasePieChartPanel extends JPanel{
 
 	private int[] count=new int[3];
 	
 	private JPanel webBrowserPanel;  
 	  
-    private JWebBrowser webBrowser;  
-    
 	public TestCasePieChartPanel(int[] count){
 		
 		this.count=count;
 		
 		init();
 		
-//		initWeb();
-		
 	}
 	
-	private void initWeb() {
-		// TODO Auto-generated method stub
-		
-		final String url = "http://demo.mycodes.net/houtai/H-ui.admin/";  
-//        UIUtils.setPreferredLookAndFeel();  
-//        NativeInterface.open();  
-
-		webBrowserPanel = new JPanel(new BorderLayout());
-		webBrowser = new JWebBrowser();
-		webBrowser.navigate(url);
-		webBrowser.setButtonBarVisible(false);
-		webBrowser.setMenuBarVisible(false);
-		webBrowser.setBarsVisible(false);
-		webBrowser.setStatusBarVisible(false);
-		webBrowserPanel.add(webBrowser, BorderLayout.CENTER);
-		
-//		setLayout(new GridLayout());
-		add(webBrowserPanel, BorderLayout.CENTER);  
-        
-//        NativeInterface.runEventPump();  
-		
-	}
-
 	private void init() {
 		// TODO Auto-generated method stub
 		

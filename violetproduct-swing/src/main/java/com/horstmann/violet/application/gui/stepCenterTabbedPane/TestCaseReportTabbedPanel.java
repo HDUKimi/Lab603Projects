@@ -91,8 +91,6 @@ import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseResult;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.Time;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.myProcess;
 
-import chrriis.dj.nativeswing.swtimpl.NativeInterface;
-
 public class TestCaseReportTabbedPanel extends JPanel{
 	
 	private MainFrame mainFrame;
@@ -1165,7 +1163,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private void SaveTestCaseToDBByType(int type) {
 		
 		if(type==1){
-			List<String> testcasestringlist=new ArrayList<>();
+			List<String> testcasestringlist=new ArrayList<String>();
 			for(TestCase testCase:resulttestcaselist){
 				testcasestringlist.add(testCase.SpellFunctionalTestCase());
 			}
@@ -1173,7 +1171,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			TextAreaPrint("保存成功！！！");
 		}
 		else if(type==2){
-			List<String> testcasestringlist=new ArrayList<>();
+			List<String> testcasestringlist=new ArrayList<String>();
 			for(TestCase testCase:resulttestcaselist){
 				testcasestringlist.add(testCase.SpellPerformanceTestCase());
 			}
@@ -1181,7 +1179,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			TextAreaPrint("保存成功！！！");
 		}
 		else if(type==3){
-			List<String> testcasestringlist=new ArrayList<>();
+			List<String> testcasestringlist=new ArrayList<String>();
 			for(TestCase testCase:resulttestcaselist){
 				testcasestringlist.add(testCase.SpellTimeTestCase());
 			}

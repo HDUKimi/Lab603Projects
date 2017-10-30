@@ -27,7 +27,7 @@ public class WJFragment implements Cloneable{//×éºÏÆ¬¶Î
 	
 	WJRectangle rectangle;
 	
-	ArrayList<String> containsMessageEAIDs = new ArrayList<>();
+	ArrayList<String> containsMessageEAIDs = new ArrayList<String>();
 	
 	public WJRectangle getRectangle() {
 		return rectangle;

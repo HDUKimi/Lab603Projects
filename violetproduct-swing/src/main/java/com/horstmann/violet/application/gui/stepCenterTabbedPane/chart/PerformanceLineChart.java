@@ -26,7 +26,7 @@ import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseResult;
 
 public class PerformanceLineChart {
 	
-	private List<TestCase> resultlist=new ArrayList<>();
+	private List<TestCase> resultlist=new ArrayList<TestCase>();
 	
 	public PerformanceLineChart(List<TestCase> resultlist) {
 		

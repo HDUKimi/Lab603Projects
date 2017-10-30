@@ -18,11 +18,11 @@ public class Evaluation {
 
 	private String uppaalName;
 	private int uppaalType;
-	private List<UppaalLocation> uppaalLocations=new ArrayList<>();
-	private List<UppaalTransition> uppaalTransitions=new ArrayList<>();
+	private List<UppaalLocation> uppaalLocations=new ArrayList<UppaalLocation>();
+	private List<UppaalTransition> uppaalTransitions=new ArrayList<UppaalTransition>();
 	
-	private HashMap<String, UppaalLocation> uppaalLocationByIdMap = new HashMap<>();
-	private List<List<PathTuple>> uppaalPaths=new ArrayList<>();
+	private HashMap<String, UppaalLocation> uppaalLocationByIdMap = new HashMap<String, UppaalLocation>();
+	private List<List<PathTuple>> uppaalPaths=new ArrayList<List<PathTuple>>();
 	
 	private static boolean FindUppaalPathTupleEndState=false;
 	
@@ -66,8 +66,8 @@ public class Evaluation {
 		List<Element> locationElements=template.element("locationList").elements("location");
 		List<Element> transitionElements=template.element("transitionList").elements("transition");
 		
-		uppaalLocations=new ArrayList<>();
-		uppaalTransitions=new ArrayList<>();
+		uppaalLocations=new ArrayList<UppaalLocation>();
+		uppaalTransitions=new ArrayList<UppaalTransition>();
 		
 		for(Element locationElement:locationElements){
 			UppaalLocation uppaalLocation=new UppaalLocation();
@@ -112,7 +112,7 @@ public class Evaluation {
 	
 	public List<UppaalTransition> FindUppaalTransitionByMessage(String message){
 		
-		List<UppaalTransition> findTransitions=new ArrayList<>();
+		List<UppaalTransition> findTransitions=new ArrayList<UppaalTransition>();
 		
 		for(UppaalTransition uppaalTransition:uppaalTransitions){
 			if(message.equals(uppaalTransition.getName())){
@@ -167,7 +167,7 @@ public class Evaluation {
 		
 		InitLocationVisit();
 		
-		List<PathTuple> uppaalPathTuples=new ArrayList<>();
+		List<PathTuple> uppaalPathTuples=new ArrayList<PathTuple>();
 		
 		List<UppaalTransition> uppaalTransitionsA=FindUppaalTransitionByMessage(messageA);
 		List<UppaalTransition> uppaalTransitionsB=FindUppaalTransitionByMessage(messageB);
@@ -362,7 +362,7 @@ public class Evaluation {
 		
 		UppaalLocation uppaalLocation=FindStartUppaalLocation();
 		
-		List<PathTuple> uppaalTuples=new ArrayList<>();
+		List<PathTuple> uppaalTuples=new ArrayList<PathTuple>();
 		
 		uppaalLocation.visit++;
 		for(UppaalTransition uppaalTransition:uppaalLocation.getUppaalTransitions()){
@@ -383,7 +383,7 @@ public class Evaluation {
 		if(uppaalLocation.isFinl()||uppaalLocation.visit>1){
 			PathTuple tuple=new PathTuple(uppaalLocation, null);
 			uppaalTuples.add(tuple);
-			uppaalPaths.add(new ArrayList<>(uppaalTuples));
+			uppaalPaths.add(new ArrayList<PathTuple>(uppaalTuples));
 			uppaalTuples.remove(tuple);
 		}
 		else{

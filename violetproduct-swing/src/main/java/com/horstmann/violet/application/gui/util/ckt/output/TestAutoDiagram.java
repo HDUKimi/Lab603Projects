@@ -34,7 +34,7 @@ public class TestAutoDiagram {
 	public static void main(String[] args) {
 		
 //		Automatic a=null;
-		List<Automatic> alist=new ArrayList<>();
+		List<Automatic> alist=new ArrayList<Automatic>();
 		
 		String xml="D:\\xml\\UAVForXStream3.1.6.xml";//有时间约束
 		
@@ -42,7 +42,7 @@ public class TestAutoDiagram {
 		Automatic automatic=IPR__1.iPR(a);
 		Automatic aTDRTAutomatic=ATDTR__1.aTDRT(automatic,a);
 		List<State> statelists=aTDRTAutomatic.getStateSet();
-		ArrayList<State> newstatelists=new ArrayList<>();
+		ArrayList<State> newstatelists=new ArrayList<State>();
 		int stateindex=1;
 		for(State s:statelists){
 			s.setId(stateindex++);

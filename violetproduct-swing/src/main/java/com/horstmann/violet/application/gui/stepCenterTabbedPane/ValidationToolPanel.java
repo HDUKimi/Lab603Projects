@@ -345,12 +345,12 @@ public class ValidationToolPanel extends JPanel{
 					
 					mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("正在进行存在一致性评估");
 					
-					List<UppaalTransition> uppaalMessageTransitionList = new ArrayList<>();
+					List<UppaalTransition> uppaalMessageTransitionList = new ArrayList<UppaalTransition>();
 					UppaalTransition umt=new UppaalTransition();
 					umt.setName(message);
 					uppaalMessageTransitionList.add(umt);
 
-					List<UppaalTransition> uppaalTransitionList = new ArrayList<>();
+					List<UppaalTransition> uppaalTransitionList = new ArrayList<UppaalTransition>();
 					
 					if(mainFrame.getModelExistValidationPanel().getUppaalType()==1){
 						uppaalTransitionList=mainFrame.getModelExistValidationPanel().getEvaluation().FindUppaalTransitionByMessage(message);
@@ -434,7 +434,7 @@ public class ValidationToolPanel extends JPanel{
 				}
 				else{
 					mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("正在进行顺序一致性评估");
-					List<UppaalTransition> uppaalMessageTransitionList = new ArrayList<>();
+					List<UppaalTransition> uppaalMessageTransitionList = new ArrayList<UppaalTransition>();
 					UppaalTransition umt1=new UppaalTransition();
 					umt1.setName(message1);
 					uppaalMessageTransitionList.add(umt1);
@@ -442,7 +442,7 @@ public class ValidationToolPanel extends JPanel{
 					umt2.setName(message2);
 					uppaalMessageTransitionList.add(umt2);
 
-					List<PathTuple> pathTupleList = new ArrayList<>();
+					List<PathTuple> pathTupleList = new ArrayList<PathTuple>();
 					
 					if(mainFrame.getModelExistValidationPanel().getUppaalType()==1){
 						pathTupleList=mainFrame.getModelExistValidationPanel().getEvaluation().FindUppaalPathTupleByMessages(message1, message2);

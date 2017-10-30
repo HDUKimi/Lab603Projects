@@ -94,10 +94,10 @@ public class TestCaseInstantiationPanel extends JPanel{
 	private JTable instantiatetable;
 	
 	private JCheckBox selectAbstractCheckBox;
-	private List<List<JCheckBox>> abstractCheckBoxList=new ArrayList<>();
+	private List<List<JCheckBox>> abstractCheckBoxList=new ArrayList<List<JCheckBox>>();
 	
 	private List<String> testlists=new ArrayList<String>();
-	private List<List<String>> abstractlists=new ArrayList<>();
+	private List<List<String>> abstractlists=new ArrayList<List<String>>();
 	
 	private JRadioButton selectTestRadioButton;
 	private JRadioButton[] testRadioButtonList;
@@ -422,7 +422,7 @@ public class TestCaseInstantiationPanel extends JPanel{
 		String name=selectAbstractCheckBox.getText();
 		System.out.println(name);
 		
-		List<Automatic> abstractAutomatic=new ArrayList<>();
+		List<Automatic> abstractAutomatic=new ArrayList<Automatic>();
 		try {
 			String serialpath = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\FunctionalTest\\"+name+".txt";
 			FileInputStream fis = new FileInputStream(serialpath);
@@ -488,7 +488,7 @@ public class TestCaseInstantiationPanel extends JPanel{
 //		}
 		
 		testRadioButtonList=new JRadioButton[testlists.size()];
-		abstractCheckBoxList=new ArrayList<>();
+		abstractCheckBoxList=new ArrayList<List<JCheckBox>>();
 		ButtonGroup buttonGroup=new ButtonGroup();
 		
 		for(int i=0;i<testlists.size();i++){
@@ -499,7 +499,7 @@ public class TestCaseInstantiationPanel extends JPanel{
 			abstractcheckboxpanel.add(Box.createVerticalStrut(7));
 			abstractcheckboxpanel.add(testRadioButtonList[i]);
 			
-			List<JCheckBox> checkBoxs=new ArrayList<>();
+			List<JCheckBox> checkBoxs=new ArrayList<JCheckBox>();
 			for(int j=0;j<abstractlists.get(i).size();j++){
 				JCheckBox checkBox=new JCheckBox(abstractlists.get(i).get(j));
 				checkBox.setOpaque(false);
@@ -766,7 +766,7 @@ public class TestCaseInstantiationPanel extends JPanel{
 		
 		for(int i=1;i<=2;i++){
 			File[] filelists=getAllFileByDiagramType(i);
-			List<String> filenames=new ArrayList<>();
+			List<String> filenames=new ArrayList<String>();
 		    for(File file : filelists)
 		    {
 		    	String fileName=file.getName();

@@ -13,7 +13,7 @@ public class OrderWrapperTool {
 	 */
 	public static String[] SortFileNameList(String[] file){
 		
-		List<OrderWrapper> namelist=new ArrayList<>();
+		List<OrderWrapper> namelist=new ArrayList<OrderWrapper>();
 		
 		for(String name:file){
 			namelist.add(new OrderWrapper(name));

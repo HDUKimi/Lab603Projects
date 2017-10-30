@@ -66,7 +66,7 @@ public class TestXingNengOut {
 		writeStr(w,"2---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		writeStr(w,"---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 		
-		ArrayList<Automatic> listauto=new ArrayList<>();
+		ArrayList<Automatic> listauto=new ArrayList<Automatic>();
 		listauto.add(a);
 		ArrayList<Automatic> collectLimit = forPlatform.collectLimit(listauto);
 		

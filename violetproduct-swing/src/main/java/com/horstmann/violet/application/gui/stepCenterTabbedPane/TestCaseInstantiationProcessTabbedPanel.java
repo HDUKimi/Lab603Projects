@@ -107,9 +107,9 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 	long time1;
 	long time2;
 	
-	private List<String> stepAllProcessList=new ArrayList<>();
-	private List<String> timeAllProcessList=new ArrayList<>();
-	private List<String> resultAllProcessList=new ArrayList<>();
+	private List<String> stepAllProcessList=new ArrayList<String>();
+	private List<String> timeAllProcessList=new ArrayList<String>();
+	private List<String> resultAllProcessList=new ArrayList<String>();
 	
 
 	public TestCaseInstantiationProcessTabbedPanel(MainFrame mainframe) {
@@ -361,11 +361,11 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		
 		System.out.println(selectAbstractPath+"  ------  ");
 		
-		stepAllProcessList=new ArrayList<>();
-		timeAllProcessList=new ArrayList<>();
-		resultAllProcessList=new ArrayList<>();
+		stepAllProcessList=new ArrayList<String>();
+		timeAllProcessList=new ArrayList<String>();
+		resultAllProcessList=new ArrayList<String>();
 		
-		collectResult=new ArrayList<>();
+		collectResult=new ArrayList<Automatic>();
 		
 		maincallable=new Callable<Integer>() {
 
@@ -420,7 +420,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 			}
 		};
-		maintask=new FutureTask<>(maincallable);
+		maintask=new FutureTask<Integer>(maincallable);
 		mainthread=new Thread(maintask);
 		
 		callable1=new Callable<Integer>() {
@@ -447,7 +447,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				tablepanel.add(copytcptpanel.getTabelpanel());
 				
 				//抽象测试用例
-				List<TestCaseProducePartPanel> producepartlist=new ArrayList<>();
+				List<TestCaseProducePartPanel> producepartlist=new ArrayList<TestCaseProducePartPanel>();
 				
 				JPanel resultpanel=new JPanel();
 				JPanel emptypanel=new JPanel();
@@ -511,7 +511,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				return 1;
 			}
 		};
-		task1=new FutureTask<>(callable1);
+		task1=new FutureTask<Integer>(callable1);
 		thread1=new Thread(task1);
 		
 		callable2=new Callable<Integer>() {
@@ -575,7 +575,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				tablepanel.add(copytcitpanel.getTabelpanel());
 				
 				//实例化
-				List<TestCaseInstantiationPartPanel> instantiationpartlist=new ArrayList<>();
+				List<TestCaseInstantiationPartPanel> instantiationpartlist=new ArrayList<TestCaseInstantiationPartPanel>();
 				
 				JPanel resultpanel=new JPanel();
 				JPanel emptypanel=new JPanel();
@@ -680,7 +680,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 			}
 		};
-		task2=new FutureTask<>(callable2);
+		task2=new FutureTask<Integer>(callable2);
 		thread2=new Thread(task2);
 		
 		callable3=new Callable<Integer>() {
@@ -710,8 +710,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 //				
 //				System.err.println(path);
 				
-				List<TestCase> testcaselist=new ArrayList<>();
-				List<TestCase> bordertestcaselist=new ArrayList<>();
+				List<TestCase> testcaselist=new ArrayList<TestCase>();
+				List<TestCase> bordertestcaselist=new ArrayList<TestCase>();
 				if(starttype==1&&hastime==0){//功能测试
 					
 					String path=baseUrl+name+"TestCase.xml";
@@ -719,7 +719,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 //					AtutomaticProduceXML(collectResult, path);
 					forPlatform.produceXML(path,collectResult);
 					
-					List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<>();
+					List<FunctionalTestCaseReportPartPanel> functionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
 					
 					testcaselist=TestCaseConfirmationPanel.extractFunctionalTestDataFromXml(path);
 					
@@ -757,7 +757,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					
 					borderTestXML.produceXML(borderpath,bordercollectResult);
 					
-					List<FunctionalTestCaseReportPartPanel> borderfunctionaltestcasereportlist=new ArrayList<>();
+					List<FunctionalTestCaseReportPartPanel> borderfunctionaltestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
 					
 					bordertestcaselist=TestCaseConfirmationPanel.extractFunctionalTestDataFromXml(borderpath);
 					
@@ -797,7 +797,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					String path=baseUrl+name+"TestCase.xml";
 					PerformanceXML2.produceXML(path);
 					
-					List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<>();
+					List<PerformanceTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
 					
 					testcaselist=TestCaseConfirmationPanel.extractPerformanceTestDataFromXml(path);
 					
@@ -839,8 +839,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 //					GetTimeXML.produceXML(path,testCase);
 					XmlOfTime.produceXML(path, collectResult, collectLimit);
 					
-					List<List<String>> limitlist=new ArrayList<>();
-					List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<>();
+					List<List<String>> limitlist=new ArrayList<List<String>>();
+					List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
 					
 					testcaselist=TestCaseConfirmationPanel.extractTimeTestDataFromXml(path);
 //					Map resultmap=TestCaseConfirmationPanel.extractTimeTestDataFromXml(path);
@@ -899,7 +899,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 			}
 		};
-		task3=new FutureTask<>(callable3);
+		task3=new FutureTask<Integer>(callable3);
 		thread3=new Thread(task3);
 		
 		callable4=new Callable<Integer>() {
@@ -964,7 +964,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				return 1;
 			}
 		};
-		task4=new FutureTask<>(callable4);
+		task4=new FutureTask<Integer>(callable4);
 		thread4=new Thread(task4);
 		
 		callable5=new Callable<Integer>() {
@@ -989,11 +989,11 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				return 1;
 			}
 		};
-		task5=new FutureTask<>(callable5);
+		task5=new FutureTask<Integer>(callable5);
 		thread5=new Thread(task5);
 		
-		futuretasklist=new ArrayList<>();
-		threadlist=new ArrayList<>();
+		futuretasklist=new ArrayList<FutureTask<Integer>>();
+		threadlist=new ArrayList<Thread>();
 	
 		futuretasklist.add(task1);
 		futuretasklist.add(task2);

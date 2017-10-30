@@ -404,11 +404,11 @@ public class PerformanceXML2 {
 		}
 	}
 	
-	public static List<List<List<String>>> allcases=new ArrayList<>();
+	public static List<List<List<String>>> allcases=new ArrayList<List<List<String>>>();
 	
 	public static Automatic getPerformResultFromAutomatic(Automatic automatic){
 		
-		allcases=new ArrayList<>();
+		allcases=new ArrayList<List<List<String>>>();
 		
 		for(int Fspeed=0;Fspeed<=16;Fspeed=Fspeed+1){
 			int i = 1;					

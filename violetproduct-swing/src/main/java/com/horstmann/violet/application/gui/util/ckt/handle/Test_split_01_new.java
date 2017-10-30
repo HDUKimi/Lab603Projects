@@ -70,7 +70,7 @@ public class Test_split_01_new {
 		UppaalTransition e1=new UppaalTransition();
 		e1.setSource(l1.getName());
 		e1.setTarget(l3.getName());
-		ArrayList<String> constraint1 =new ArrayList<>();
+		ArrayList<String> constraint1 =new ArrayList<String>();
 		constraint1.add("y>1");
 		constraint1.add("x<=3");
 		e1.setConstraint(constraint1);
@@ -81,7 +81,7 @@ public class Test_split_01_new {
 		UppaalTransition e2 =new UppaalTransition();
 		e2.setSource(l3.getName());
 		e2.setTarget(l1.getName());
-		ArrayList<String> constraint2 =new ArrayList<>();
+		ArrayList<String> constraint2 =new ArrayList<String>();
 		constraint2.add("y<2");
 		e2.setConstraint(constraint2);
 		ArrayList<String> events2=new ArrayList<String>();
@@ -91,7 +91,7 @@ public class Test_split_01_new {
 		UppaalTransition e3 =new UppaalTransition();
 		e3.setSource(l1.getName());
 		e3.setTarget(l2.getName());
-		ArrayList<String> constraint3 =new ArrayList<>();
+		ArrayList<String> constraint3 =new ArrayList<String>();
 		constraint3.add("y<=2");
 		constraint3.add("y>=2");
 		e3.setConstraint(constraint3);
@@ -102,7 +102,7 @@ public class Test_split_01_new {
 		UppaalTransition e4 =new UppaalTransition();
 		e4.setSource(l2.getName());
 		e4.setTarget(l3.getName());
-		ArrayList<String> constraint4 =new ArrayList<>();
+		ArrayList<String> constraint4 =new ArrayList<String>();
 		constraint4.add("x<=3");
 		e4.setConstraint(constraint4);
 		ArrayList<String> events4=new ArrayList<String>();

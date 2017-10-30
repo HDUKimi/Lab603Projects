@@ -174,9 +174,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	long time1;
 	long time2;
 	
-	private List<String> stepAllProcessList=new ArrayList<>();
-	private List<String> timeAllProcessList=new ArrayList<>();
-	private List<String> resultAllProcessList=new ArrayList<>();
+	private List<String> stepAllProcessList=new ArrayList<String>();
+	private List<String> timeAllProcessList=new ArrayList<String>();
+	private List<String> resultAllProcessList=new ArrayList<String>();
 	
 
 	public TestCaseProcessTabbedPanel(MainFrame mainframe) {
@@ -447,13 +447,13 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		a=null;
 		type_a=null;
 		
-		stepAllProcessList=new ArrayList<>();
-		timeAllProcessList=new ArrayList<>();
-		resultAllProcessList=new ArrayList<>();
+		stepAllProcessList=new ArrayList<String>();
+		timeAllProcessList=new ArrayList<String>();
+		resultAllProcessList=new ArrayList<String>();
 		
-		testCase=new ArrayList<>();
-		beforeSortTestCase=new ArrayList<>();
-		afterSortTestCase=new ArrayList<>();
+		testCase=new ArrayList<Automatic>();
+		beforeSortTestCase=new ArrayList<Automatic>();
+		afterSortTestCase=new ArrayList<Automatic>();
 		
 		maincallable=new Callable<Integer>() {
 			
@@ -509,7 +509,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				return progressbarindex;
 			}
 		};
-		maintask=new FutureTask<>(maincallable);
+		maintask=new FutureTask<Integer>(maincallable);
 		mainthread=new Thread(maintask);
 		
 		callable1=new Callable<Integer>() {
@@ -600,7 +600,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				return 1;
 			}
 		};
-		task1=new FutureTask<>(callable1);
+		task1=new FutureTask<Integer>(callable1);
 		thread1=new Thread(task1);
 		
 		callable2=new Callable<Integer>() {
@@ -629,7 +629,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				XmlOfTime.findEndStateList(aTDRTAutomatic);
 				
 				List<State> oldstatelists=aTDRTAutomatic.getStateSet();//ÃÌº”◊¥Ã¨ID
-				ArrayList<State> newstatelists=new ArrayList<>();
+				ArrayList<State> newstatelists=new ArrayList<State>();
 				int stateindex=1;
 				for(State s:oldstatelists){
 					s.setId(stateindex++);
@@ -724,7 +724,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				return 1;
 			}
 		};
-		task2=new FutureTask<>(callable2);
+		task2=new FutureTask<Integer>(callable2);
 		thread2=new Thread(task2);
 		
 		callable3=new Callable<Integer>() {
@@ -900,7 +900,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				return 1;
 			}
 		};
-		task3=new FutureTask<>(callable3);
+		task3=new FutureTask<Integer>(callable3);
 		thread3=new Thread(task3);
 		
 		callable4 = new Callable<Integer>() {
@@ -1070,7 +1070,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 //				oldTestCase=XMLGet.testcaseNew(testCase);
 				
-				List<TestCaseCoverPartPanel> coverpartlist=new ArrayList<>();
+				List<TestCaseCoverPartPanel> coverpartlist=new ArrayList<TestCaseCoverPartPanel>();
 				
 				JPanel resultpanel=new JPanel();
 				JPanel emptypanel=new JPanel();
@@ -1177,7 +1177,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				return 1;
 			}
 		};
-		task4 = new FutureTask<>(callable4);
+		task4 = new FutureTask<Integer>(callable4);
 		thread4 = new Thread(task4);
 
 		callable5 = new Callable<Integer>() {
@@ -1219,7 +1219,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				tablepanel.add(copytcptpanel.getTabelpanel());
 				
 				//≥ÈœÛ≤‚ ‘”√¿˝
-				List<TestCaseProducePartPanel> producepartlist=new ArrayList<>();
+				List<TestCaseProducePartPanel> producepartlist=new ArrayList<TestCaseProducePartPanel>();
 				
 				JPanel resultpanel=new JPanel();
 				JPanel emptypanel=new JPanel();
@@ -1300,7 +1300,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				return 1;
 			}
 		};
-		task5 = new FutureTask<>(callable5);
+		task5 = new FutureTask<Integer>(callable5);
 		thread5 = new Thread(task5);
 		
 		callable6=new Callable<Integer>() {
@@ -1407,7 +1407,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				return 1;
 			}
 		};
-		task6=new FutureTask<>(callable6);
+		task6=new FutureTask<Integer>(callable6);
 		thread6=new Thread(task6);
 		
 		callable7=new Callable<Integer>() {
@@ -1440,7 +1440,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				Thread.sleep(1000);
 				
-				List<TestCaseSortContrastPartPanel> sortcontrastpartlist=new ArrayList<>();
+				List<TestCaseSortContrastPartPanel> sortcontrastpartlist=new ArrayList<TestCaseSortContrastPartPanel>();
 				
 				JPanel resultpanel=new JPanel();
 				JPanel emptypanel=new JPanel();
@@ -1541,11 +1541,11 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				return 1;
 			}
 		};
-		task7=new FutureTask<>(callable7);
+		task7=new FutureTask<Integer>(callable7);
 		thread7=new Thread(task7);
 		
-		futuretasklist=new ArrayList<>();
-		threadlist=new ArrayList<>();
+		futuretasklist=new ArrayList<FutureTask<Integer>>();
+		threadlist=new ArrayList<Thread>();
 		
 		if(starttype==1){//π¶ƒ‹≤‚ ‘
 			
@@ -1707,13 +1707,13 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			e.printStackTrace();
 		}
 		
-		abStateList=new ArrayList<>();
-		abTransList=new ArrayList<>();
+		abStateList=new ArrayList<AbstractState>();
+		abTransList=new ArrayList<AbstractTransition>();
 		
-		stateIdToNameMap=new HashMap<>();
-		stateNameToIdMap=new HashMap<>();
-		transitionIdToNameMap=new HashMap<>();
-		transitionNameToIdMap=new HashMap<>();
+		stateIdToNameMap=new HashMap<String, String>();
+		stateNameToIdMap=new HashMap<String, String>();
+		transitionIdToNameMap=new HashMap<String, String>();
+		transitionNameToIdMap=new HashMap<String, String>();
 		
 		System.out.println("ABCABCABCABCABCABCABCABCABCABCABCABC");
 		

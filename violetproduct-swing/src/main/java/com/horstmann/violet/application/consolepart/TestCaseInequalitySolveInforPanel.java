@@ -36,7 +36,7 @@ public class TestCaseInequalitySolveInforPanel extends JPanel{
 	private Transition resulttransition;
 	
 	private String id;
-	private List<String> limit=new ArrayList<>();
+	private List<String> limit=new ArrayList<String>();
 	private String result;
 	
 	private JPanel titlepanel;

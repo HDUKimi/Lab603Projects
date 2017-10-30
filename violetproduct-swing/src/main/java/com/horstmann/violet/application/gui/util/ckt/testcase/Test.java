@@ -17,7 +17,7 @@ public class Test {
 		Automatic new_automatic=IPR__1.iPR(automatic);//获得拆分后的时间自动机
 		
 		List<State> statelists=new_automatic.getStateSet();
-		ArrayList<State> newstatelists=new ArrayList<>();
+		ArrayList<State> newstatelists=new ArrayList<State>();
 		int i=1;
 		for(State s:statelists){
 			s.setId(i++);

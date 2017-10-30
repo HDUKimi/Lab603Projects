@@ -26,7 +26,7 @@ public class XStreamBean2EAClass {
 	}
 
 	private static void setMessages(EADiagramsData eaDiagramsData, TimingDiagramGraph td) {
-		ArrayList<EAMessage> resMessageArray = new ArrayList<>();
+		ArrayList<EAMessage> resMessageArray = new ArrayList<EAMessage>();
 		for(SendMessageEdge message : td.getEdges().getSendMessageEdge()) {
 			EAMessage eaMessage = new EAMessage();
 			eaMessage.setConnectorId(message.getId());
@@ -53,13 +53,13 @@ public class XStreamBean2EAClass {
 	}
 
 	private static void setLifelines(EADiagramsData eaDiagramsData, TimingDiagramGraph td) {
-		ArrayList<EALifeline> reslifelineArray = new ArrayList<>();
+		ArrayList<EALifeline> reslifelineArray = new ArrayList<EALifeline>();
 		for(Lifeline lifeline : td.getNodes().getLiflines()) {
 			EALifeline eaLifeline = new EALifeline();
 			eaLifeline.setLifelineID(lifeline.getId());
 			eaLifeline.setName(lifeline.getName().text);
 			// 设置lifelin 的所有状态
-			ArrayList<EAStateInfo> lifelineStates = new ArrayList<>();
+			ArrayList<EAStateInfo> lifelineStates = new ArrayList<EAStateInfo>();
 			for(LifelineState state: lifeline.getSchildren().horizontalchild.states) {
 				EAStateInfo eaStateInfo = new EAStateInfo();
 				eaStateInfo.setName(state.getName());

@@ -41,7 +41,7 @@ public class TestCaseInstantiationTabbedPanel extends JPanel {
 	private JScrollPane tabelscrollpanel;
 	private JPanel tableresultpanel;
 	
-	private List<TestCaseInstantiationPartPanel> testCaseInstantiationPartPanelList=new ArrayList<>();
+	private List<TestCaseInstantiationPartPanel> testCaseInstantiationPartPanelList=new ArrayList<TestCaseInstantiationPartPanel>();
 
 	public TestCaseInstantiationTabbedPanel(MainFrame mainframe) {
 

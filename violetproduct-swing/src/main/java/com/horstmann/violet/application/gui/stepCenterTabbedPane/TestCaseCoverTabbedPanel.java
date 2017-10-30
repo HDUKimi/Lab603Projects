@@ -67,7 +67,7 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 	private JScrollPane tablescrollpanel;
 	private JPanel tableresultpanel;
 	
-	private List<TestCaseCoverPartPanel> testCaseCoverPartPanelList=new ArrayList<>();
+	private List<TestCaseCoverPartPanel> testCaseCoverPartPanelList=new ArrayList<TestCaseCoverPartPanel>();
 	
 	private int showflag=0;
 	private Thread showthread;

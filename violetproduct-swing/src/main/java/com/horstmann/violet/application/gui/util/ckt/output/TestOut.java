@@ -89,7 +89,7 @@ public class TestOut {
 		}
 		
 		List<State> statelists=aTDRTAutomatic.getStateSet();
-		ArrayList<State> newstatelists=new ArrayList<>();
+		ArrayList<State> newstatelists=new ArrayList<State>();
 		int i=1;
 		for(State s:statelists){
 			s.setId(i++);

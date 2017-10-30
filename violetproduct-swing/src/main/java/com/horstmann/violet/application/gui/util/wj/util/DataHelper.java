@@ -10,7 +10,7 @@ public class DataHelper {
 
 	// 设置根据id找状态的hashmap
 	public static HashMap<String, State> getStateIdHashMap(ArrayList<State> states) {
-		HashMap<String, State> findStateByID = new HashMap<>();
+		HashMap<String, State> findStateByID = new HashMap<String, State>();
 		for (State state : states) {
 			findStateByID.put(state.getPosition(), state);
 		}

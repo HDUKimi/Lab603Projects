@@ -33,8 +33,8 @@ public class PathCoverUtil {
 		transitions = automatic.getTransitionSet();//所有的迁移
 		initState = automatic.getInitState();// 获取初始状态
 		finalStates = getFinalStates();//获取终止状态
-		pathBacks = new ArrayList<>();// 初始化 回路记录
-		fromToIsCircle = new HashSet<>();// 记录所有回路   "a到b"    String
+		pathBacks = new ArrayList<pathBack>();// 初始化 回路记录
+		fromToIsCircle = new HashSet<String>();// 记录所有回路   "a到b"    String
 		count = 0;// 记录路径的条数
 		if (isEmpty()) {// 如果以上的成员变量有一个为空 则直接返回null
 			System.err.println("空指针");
@@ -45,9 +45,9 @@ public class PathCoverUtil {
 		
 		
 		
-		HashSet<ArrayList<Transition>> noCirclePathsFromInitState = new HashSet<>();
+		HashSet<ArrayList<Transition>> noCirclePathsFromInitState = new HashSet<ArrayList<Transition>>();
 		for(State finalState : finalStates) {
-			HashSet<ArrayList<Transition>> directPaths = new HashSet<>();
+			HashSet<ArrayList<Transition>> directPaths = new HashSet<ArrayList<Transition>>();
 //			if (finalState.getId() ==  initState.getId()) {
 //				continue;
 //			}
@@ -80,7 +80,7 @@ public class PathCoverUtil {
 //			System.out.println(1);
 //		}
 		if (targetState == finalState) { // 到达目标节点
-			directPaths.add(new ArrayList<>(onePath));
+			directPaths.add(new ArrayList<Transition>(onePath));
 			count++;
 			System.out.println("得到一条路径到状态" +finalState.getId() + "----count :" +count);
 			
@@ -141,7 +141,7 @@ public class PathCoverUtil {
 	}
 
 	private static ArrayList<State> getFinalStates() {
-		ArrayList<State> finalStates = new ArrayList<>();
+		ArrayList<State> finalStates = new ArrayList<State>();
 		for(State state : states) {
 			if (state.isFinalState()) {
 				finalStates.add(state);

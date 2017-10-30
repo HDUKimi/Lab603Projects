@@ -3,8 +3,6 @@ package com.horstmann.violet.application.gui.util.wqq.AutoMataTransfrom2;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
 public class StateCoverage__1 {
 	public static void main(String[] args) {
 		/*Automatic automatic=Test_split_01_new.getAutomatic();

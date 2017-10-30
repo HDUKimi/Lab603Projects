@@ -104,7 +104,7 @@ public class TcConvertUtil {
 	
 	public static Map<String, Integer> timeStatistics(List<TestCase> testCases) {
 		
-		Map<String, Integer> resultmap=new HashMap<>();
+		Map<String, Integer> resultmap=new HashMap<String, Integer>();
 		
 		int successnum,failednum,testcasefailednum,timefailednum;
 		
@@ -283,7 +283,7 @@ public class TcConvertUtil {
 	 */
 	public static List<TestCase> buildTestCaseList(String type, String fileName) {
 
-		List<TestCase> list = new ArrayList<>();
+		List<TestCase> list = new ArrayList<TestCase>();
 		String str = readFileByLines(fileName);
 		// 1.按*号将测试用例划分
 		String[] tmp = str.split("\\*");

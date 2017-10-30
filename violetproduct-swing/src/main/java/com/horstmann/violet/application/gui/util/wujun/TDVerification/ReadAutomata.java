@@ -69,7 +69,7 @@ public class ReadAutomata {
 					location.setX(Double.valueOf(sb.toString()));  
 				}
 				
-				ArrayList<Element> momentElements = new ArrayList<>();
+				ArrayList<Element> momentElements = new ArrayList<Element>();
 				momentElements.addAll((ArrayList<Element>) locationI.elements("moment"));
 				for(Element element : momentElements) {
 					location.startTimeList.add(Integer.valueOf(element.attributeValue("startTime")));

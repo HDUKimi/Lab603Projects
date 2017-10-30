@@ -27,11 +27,11 @@ public class ResultService {
 
     public static List<TestCase> list = Collections.synchronizedList(new ArrayList());
     
-    public List<String> writedlist=new ArrayList<>();
+    public List<String> writedlist=new ArrayList<String>();
 
     public ResultService(String type) {
     	list = Collections.synchronizedList(new ArrayList());
-    	writedlist=new ArrayList<>();
+    	writedlist=new ArrayList<String>();
     	DeleteFile();
         scheduledService.scheduleAtFixedRate(
                 new GetResult(type),

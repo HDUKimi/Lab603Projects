@@ -47,7 +47,7 @@ public class Controller {
     // thread pool
     private static ExecutorService executorService = Executors.newCachedThreadPool();
     
-    public static List<FutureTask<Integer>> handFutureList=new ArrayList<>();
+    public static List<FutureTask<Integer>> handFutureList=new ArrayList<FutureTask<Integer>>();
     
     public static int executeNum=1;
     public static int offsetTestCaseId=0;
@@ -120,7 +120,7 @@ public class Controller {
         
         executeNum=num;
         
-        handFutureList=new ArrayList<>();
+        handFutureList=new ArrayList<FutureTask<Integer>>();
         
         if ((nodes = IP_TYPE_DEPLOY.findNodeFree(num)) != null) {
             for (IPNode node : nodes) {
@@ -150,7 +150,7 @@ public class Controller {
 //                }
 //                handCallable.call();
                 
-                FutureTask<Integer> handFuture=new FutureTask<>(handCallable);
+                FutureTask<Integer> handFuture=new FutureTask<Integer>(handCallable);
                 handFutureList.add(handFuture);
                 executorService.submit(handFuture);
                 

@@ -158,7 +158,7 @@ public class Test__1 {
 		e1.setTarget(l3.getName());
 		ArrayList<String> reset1 =new ArrayList<String>();
 		e1.setResetClocks(reset1);
-		ArrayList<String> constraint1 =new ArrayList<>();
+		ArrayList<String> constraint1 =new ArrayList<String>();
 		constraint1.add("y>1");
 		constraint1.add("x<=3");
 		e1.setConstraint(constraint1);
@@ -175,7 +175,7 @@ public class Test__1 {
 		e2.setTarget(l1.getName());
 		ArrayList<String> reset2 =new ArrayList<String>();
 		e2.setResetClocks(reset2);
-		ArrayList<String> constraint2 =new ArrayList<>();
+		ArrayList<String> constraint2 =new ArrayList<String>();
 		constraint2.add("y<2");
 		e2.setConstraint(constraint2);
 		ArrayList<String> events2=new ArrayList<String>();
@@ -191,7 +191,7 @@ public class Test__1 {
 		e3.setTarget(l2.getName());
 		ArrayList<String> reset3 =new ArrayList<String>();
 		e3.setResetClocks(reset3);
-		ArrayList<String> constraint3 =new ArrayList<>();
+		ArrayList<String> constraint3 =new ArrayList<String>();
 		constraint3.add("y<=2");
 		constraint3.add("y>=2");
 		e3.setConstraint(constraint3);
@@ -208,7 +208,7 @@ public class Test__1 {
 		e4.setTarget(l3.getName());
 		ArrayList<String> reset4 =new ArrayList<String>();
 		e4.setResetClocks(reset4);
-		ArrayList<String> constraint4 =new ArrayList<>();
+		ArrayList<String> constraint4 =new ArrayList<String>();
 		constraint4.add("x<=3");
 		e4.setConstraint(constraint4);
 		ArrayList<String> events4=new ArrayList<String>();

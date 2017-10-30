@@ -64,9 +64,9 @@ public class TestCaseProcessEndPanel extends JPanel{
 	private JTable attributetable;
 	private DefaultTableModel attributetablemodel;
 	
-	private List<String> stepAllProcessList=new ArrayList<>();
-	private List<String> timeAllProcessList=new ArrayList<>();
-	private List<String> resultAllProcessList=new ArrayList<>();
+	private List<String> stepAllProcessList=new ArrayList<String>();
+	private List<String> timeAllProcessList=new ArrayList<String>();
+	private List<String> resultAllProcessList=new ArrayList<String>();
 	
 	
 	public TestCaseProcessEndPanel(MainFrame mainFrame,List<String> stepAllProcessList,List<String> timeAllProcessList,List<String> resultAllProcessList){

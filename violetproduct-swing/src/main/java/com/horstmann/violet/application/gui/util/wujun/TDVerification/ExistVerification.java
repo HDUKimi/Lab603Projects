@@ -25,11 +25,11 @@ public class ExistVerification {
 	private static String[] types = { "", "存在一致性验证", "前向一致性验证", "逆向一致性验证", "双向一致性验证" };
 	private String filePath;
 	private static ArrayList<UppaalTemPlate> templates = new ArrayList<UppaalTemPlate>();
-	private static ArrayList<UppaalTransition> transitions = new ArrayList<>();
-	private static ArrayList<UppaalLocation> locations = new ArrayList<>();
-	private static HashMap<String, UppaalLocation> locationById = new HashMap<>();
-	private static ArrayList<PathTuple> pathTuples = new ArrayList<>();// 路径
-	private static ArrayList<UppaalTransition> messages = new ArrayList<>();// 消息序列
+	private static ArrayList<UppaalTransition> transitions = new ArrayList<UppaalTransition>();
+	private static ArrayList<UppaalLocation> locations = new ArrayList<UppaalLocation>();
+	private static HashMap<String, UppaalLocation> locationById = new HashMap<String, UppaalLocation>();
+	private static ArrayList<PathTuple> pathTuples = new ArrayList<PathTuple>();// 路径
+	private static ArrayList<UppaalTransition> messages = new ArrayList<UppaalTransition>();// 消息序列
 	private static boolean verificationResult = true;
 	public boolean getVerificationResult() {
 		return verificationResult;
@@ -83,7 +83,7 @@ public class ExistVerification {
 	// 输入 return 输出
 	// 返回需要标记的边
 	public List<UppaalTransition> getSelectedTransitionsIfExist(List<UppaalTransition> selectedTransition) {
-		ArrayList<UppaalTransition> exists=new ArrayList<>();
+		ArrayList<UppaalTransition> exists=new ArrayList<UppaalTransition>();
 		Display.println("-------------------------正在进行存在一致性验证-------------------------\n");
 		Display.println("选择的消息如下：");
 		for (UppaalTransition transition : selectedTransition) {
@@ -120,7 +120,7 @@ public class ExistVerification {
 	// 输入 return 输出
 	// 返回路径
 	public List<PathTuple> getPathOfSelectedTransitions(List<UppaalTransition> selectedTransition) {
-		ArrayList<PathTuple> res = new ArrayList<>();
+		ArrayList<PathTuple> res = new ArrayList<PathTuple>();
 		Display.println("-------------------------正在进行顺序性验证-------------------------\n");
 		Display.println("选择的消息如下：");
 		for (UppaalTransition transition : selectedTransition) {
@@ -161,7 +161,7 @@ public class ExistVerification {
 
 	// 根据排序的消息 确定一条路径
 	private ArrayList<PathTuple> findPathByTime() {
-		ArrayList<PathTuple> res = new ArrayList<>();
+		ArrayList<PathTuple> res = new ArrayList<PathTuple>();
 		Display.println("-------------------------根据消息确定路径-------------------------\n");
 		for (UppaalTransition transition : transitions) {
 			UppaalLocation location = locationById.get("id" + transition.getSource());
@@ -187,7 +187,7 @@ public class ExistVerification {
 	// 获得按照时间顺序排序的消息序列 给平台显示
 	public ArrayList<UppaalTransition> sortedMessages() {
 
-		ArrayList<UppaalTransition> res = new ArrayList<>();
+		ArrayList<UppaalTransition> res = new ArrayList<UppaalTransition>();
 		for (UppaalTransition transition : templates.get(0).getTransitions()) {
 			// 消息名不包含? 且不是null
 			if (!transition.getName().contains("?") && !transition.getName().equals("null")) {
@@ -406,7 +406,7 @@ public class ExistVerification {
 	
 	// 获取所有location的时间约束验证结果
 	public List<LocationVerificationDisplay> verificationLocationTimeDuration() {
-		ArrayList<LocationVerificationDisplay> res = new ArrayList<>();
+		ArrayList<LocationVerificationDisplay> res = new ArrayList<LocationVerificationDisplay>();
 		System.out.println("-------------------------验证每一个location是否满足时间约束-------------------------");
 		for (UppaalLocation location : locations) {
 			for (int i = 0; i < location.getStartTimeList().size(); i++) {
@@ -435,7 +435,7 @@ public class ExistVerification {
 	}
 	// 获取所有transition的时间约束验证结果
 	public List<TransitionVerificationDisplay> verificationTransitionTimeDuration() {
-		ArrayList<TransitionVerificationDisplay> res = new ArrayList<>();
+		ArrayList<TransitionVerificationDisplay> res = new ArrayList<TransitionVerificationDisplay>();
 		System.out.println("-------------------------验证每一个transition是否满足时间约束-------------------------");
 		for (UppaalTransition transition : transitions) {
 			String timeDuration = transition.getTimeDuration();

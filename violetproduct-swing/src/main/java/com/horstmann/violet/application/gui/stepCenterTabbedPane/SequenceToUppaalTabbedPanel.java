@@ -119,7 +119,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 	private FutureTask<Integer> trantask;
 	private Thread tranthread;
 	
-	private List<String> tranprocesslist=new ArrayList<>();
+	private List<String> tranprocesslist=new ArrayList<String>();
 	private int tranprocesslistindex;
 	private int tranprocessstate;
 	private String tranxmlname=null;
@@ -268,7 +268,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 					sequencetouppaaltablemodel.removeRow(sequencetouppaaltablemodel.getRowCount()-1);
 				}
 
-				moviepanel.getMovieLabel().setText("æ­£åœ¨è¯»å–å¯¼å‡ºçš„æ‰€æœ‰é¡ºåºå›¾");
+				moviepanel.getMovieLabel().setText("ÕıÔÚ¶ÁÈ¡µ¼³öµÄËùÓĞË³ĞòÍ¼");
 				
 			}
 		});
@@ -290,7 +290,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
         progressbar.setPreferredSize(new Dimension(400, 23)); 
         
         progressbarlabel=new JLabel();
-        progressbarlabel.setFont(new Font("å¾®è½¯é›…é»‘", Font.PLAIN, 12));
+        progressbarlabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
         progressbarlabel.setText("0%");
 		
 
@@ -335,17 +335,17 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButton().doClick();
 //		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
 		
-		tranprocesslist=new ArrayList<>();
-		tranprocesslist.add("æ­£åœ¨è·å–é¡ºåºå›¾ä¿¡æ¯");
-		tranprocesslist.add("åˆå§‹åŒ–æ•°æ®");
-		tranprocesslist.add("åˆ›å»ºçŠ¶æ€");
-		tranprocesslist.add("æ ¹æ®æ¶ˆæ¯æ‰€åœ¨çš„ç»„åˆç‰‡æ®µï¼Œæ„å»ºç»„åˆç‰‡æ®µåµŒå¥—è¡¨");
-		tranprocesslist.add("è·å–è·³å‡ºloopçš„æ¡ä»¶");
-		tranprocesslist.add("è·å–ç»„åˆç‰‡æ®µçš„å–åæ¡ä»¶");
-		tranprocesslist.add("å¾—åˆ°é‚»æ¥çŸ©é˜µ");
-		tranprocesslist.add("æ ¹æ®é‚»æ¥çŸ©é˜µè¿æ¥çŠ¶æ€");
-		tranprocesslist.add("å®Œæˆé¡ºåºå›¾åˆ°è‡ªåŠ¨æœºçš„è½¬æ¢ï¼Œæ­£åœ¨å†™å…¥xml");
-		tranprocesslist.add("å†™å…¥å®Œæˆ");
+		tranprocesslist=new ArrayList<String>();
+		tranprocesslist.add("ÕıÔÚ»ñÈ¡Ë³ĞòÍ¼ĞÅÏ¢");
+		tranprocesslist.add("³õÊ¼»¯Êı¾İ");
+		tranprocesslist.add("´´½¨×´Ì¬");
+		tranprocesslist.add("¸ù¾İÏûÏ¢ËùÔÚµÄ×éºÏÆ¬¶Î£¬¹¹½¨×éºÏÆ¬¶ÎÇ¶Ì×±í");
+		tranprocesslist.add("»ñÈ¡Ìø³öloopµÄÌõ¼ş");
+		tranprocesslist.add("»ñÈ¡×éºÏÆ¬¶ÎµÄÈ¡·´Ìõ¼ş");
+		tranprocesslist.add("µÃµ½ÁÚ½Ó¾ØÕó");
+		tranprocesslist.add("¸ù¾İÁÚ½Ó¾ØÕóÁ¬½Ó×´Ì¬");
+		tranprocesslist.add("Íê³ÉË³ĞòÍ¼µ½×Ô¶¯»úµÄ×ª»»£¬ÕıÔÚĞ´Èëxml");
+		tranprocesslist.add("Ğ´ÈëÍê³É");
 		
 		tranprocesslistindex=0;
 		
@@ -375,7 +375,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 		
 		final JTextArea StepTwoArea= mainFrame.getConsolePartPanel().getTextarea2();
 		
-		StepTwoArea.append("UMLæ¨¡å‹æ­£åœ¨è½¬æ¢ä¸­......\n");	
+		StepTwoArea.append("UMLÄ£ĞÍÕıÔÚ×ª»»ÖĞ......\n");	
 		
 		maincallable=new Callable<Integer>() {
 
@@ -509,8 +509,8 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 					}
 				}
 				System.err.println(trantask.isDone()+" - - "+progressbarindex+" + + "+(!trantask.isDone()||progressbarindex<=100));
-				moviepanel.getMovieLabel().setText("æ‰€æœ‰é¡ºåºå›¾å…¨éƒ¨è½¬æ¢å®Œæˆï¼Œæ€»å…±æœ‰"+sequencelists.size()+"å¼ é¡ºåºå›¾ï¼Œè½¬æ¢æˆåŠŸäº†"+successcount+"å¼ é¡ºåºå›¾ï¼Œè½¬æ¢ç‡ä¸ºï¼š"+(double)successcount/sequencelists.size()*100+"%");
-				StepTwoArea.append("UMLæ¨¡å‹è½¬æ¢å®Œæˆ......\n");
+				moviepanel.getMovieLabel().setText("ËùÓĞË³ĞòÍ¼È«²¿×ª»»Íê³É£¬×Ü¹²ÓĞ"+sequencelists.size()+"ÕÅË³ĞòÍ¼£¬×ª»»³É¹¦ÁË"+successcount+"ÕÅË³ĞòÍ¼£¬×ª»»ÂÊÎª£º"+(double)successcount/sequencelists.size()*100+"%");
+				StepTwoArea.append("UMLÄ£ĞÍ×ª»»Íê³É......\n");
 				StepTwoArea.setCaretPosition(StepTwoArea.getDocument().getLength()*progressbar.getValue()/100);
 
 				System.out.println(uppaallists.size());
@@ -523,7 +523,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 				return 1;
 			}
 		};
-		maintask=new FutureTask<>(maincallable);
+		maintask=new FutureTask<Integer>(maincallable);
 		mainthread=new Thread(maintask);
 		
 		trancallable=new Callable<Integer>() {
@@ -574,13 +574,13 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 						StepThreeCenterTabbedPane.setBecomeRunFileName(filename+"ForXStream");
 						StepSixCenterTabbedPane.setBecomeRunFileName(filename+"Uppaal");
 
-						if (!FileMenu.isVioletXML(path)) {// æ‰“å¼€eaå¹³å°çš„xmlæ–‡ä»¶
+						if (!FileMenu.isVioletXML(path)) {// ´ò¿ªeaÆ½Ì¨µÄxmlÎÄ¼ş
 							
-							moviepanel.getMovieLabel().setText("æ­£åœ¨è½¬æ¢é¡ºåºå›¾ "+filename+"...");
+							moviepanel.getMovieLabel().setText("ÕıÔÚ×ª»»Ë³ĞòÍ¼ "+filename+"...");
 							
 //							path="D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\EATiming2.timing.violet.xml";
 							
-							SD2UppaalMain.transEA(filename, path, mainFrame);// ä¸»è¦æ˜¯å°†eaçš„xmlè½¬æ¢æˆæˆ‘ä»¬çš„wujunçš„xml(é‡Œé¢æœ‰ä»–çš„è·¯å¾„)
+							SD2UppaalMain.transEA(filename, path, mainFrame);// Ö÷ÒªÊÇ½«eaµÄxml×ª»»³ÉÎÒÃÇµÄwujunµÄxml(ÀïÃæÓĞËûµÄÂ·¾¶)
 							
 //							tranprocessstate=1;
 							
@@ -659,7 +659,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							
 							successcount++;
 
-						} else {// æ‰“å¼€æˆ‘ä»¬å¹³å°çš„xmlæ–‡ä»¶
+						} else {// ´ò¿ªÎÒÃÇÆ½Ì¨µÄxmlÎÄ¼ş
 
 						}
 					}
@@ -669,7 +669,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 				return 1;
 			}
 		};
-		trantask=new FutureTask<>(trancallable);
+		trantask=new FutureTask<Integer>(trancallable);
 		tranthread=new Thread(trantask);
 		
 	}
@@ -685,7 +685,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 			sequencetouppaaltablemodel.removeRow(sequencetouppaaltablemodel.getRowCount()-1);
 		}
 		
-		moviepanel.getMovieLabel().setText("æ­£åœ¨è¯»å–å¯¼å‡ºçš„æ‰€æœ‰é¡ºåºå›¾");
+		moviepanel.getMovieLabel().setText("ÕıÔÚ¶ÁÈ¡µ¼³öµÄËùÓĞË³ĞòÍ¼");
 		
 //		DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel();
 //		for (int i = 0; i < dtm.getRowCount(); i++) {
@@ -721,10 +721,10 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //		
 //		final JTextArea StepTwoArea= mainFrame.getConsolePartPanel().getTextarea2();
 //		
-//		StepTwoArea.append("UMLæ¨¡å‹æ­£åœ¨è½¬æ¢ä¸­......\n");	
+//		StepTwoArea.append("UMLÄ£ĞÍÕıÔÚ×ª»»ÖĞ......\n");	
 //		// TODO Auto-generated method stub
 //	   	try {
-//	   		//äº‹ä»¶åˆ†å‘çº¿ç¨‹(gumå¤„ç†äº‹ä»¶å’Œç”»å›¾çš„æ—¶å€™)
+//	   		//ÊÂ¼ş·Ö·¢Ïß³Ì(gum´¦ÀíÊÂ¼şºÍ»­Í¼µÄÊ±ºò)
 ////	   		SwingUtilities.invokeLater(new Runnable() {
 //	   		t = new Thread(new Runnable(){
 //				
@@ -732,8 +732,8 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //				public void run() {
 //					String filename1 = null;
 //					try {
-//						//umlè½¬åŒ–æˆäº‹ä»¶è‡ªåŠ¨æœº
-//                         //ç”¨äºè·å¾—å½“å‰å·¥ä½œçš„sequence
+//						//uml×ª»¯³ÉÊÂ¼ş×Ô¶¯»ú
+//                         //ÓÃÓÚ»ñµÃµ±Ç°¹¤×÷µÄsequence
 //
 //						successcount=0;
 //						
@@ -745,22 +745,22 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //							System.out.println(sequencelistindex+"   "+sequencelists.size()+"   "+baseUrl + filename);
 //							String path = baseUrl + filename + ".seq.violet.xml";
 //
-//							if (filename.contains("EA")) {// æ‰“å¼€eaå¹³å°çš„xmlæ–‡ä»¶
+//							if (filename.contains("EA")) {// ´ò¿ªeaÆ½Ì¨µÄxmlÎÄ¼ş
 //								
-//								moviepanel.getMovieLabel().setText("æ­£åœ¨è½¬æ¢é¡ºåºå›¾ "+filename+"...");
+//								moviepanel.getMovieLabel().setText("ÕıÔÚ×ª»»Ë³ĞòÍ¼ "+filename+"...");
 //								
 ////								path="D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\EATiming2.timing.violet.xml";
 //								
-//								SD2UppaalMain.transEA(path, mainFrame);// ä¸»è¦æ˜¯å°†eaçš„xmlè½¬æ¢æˆæˆ‘ä»¬çš„wujunçš„xml(é‡Œé¢æœ‰ä»–çš„è·¯å¾„)
+//								SD2UppaalMain.transEA(path, mainFrame);// Ö÷ÒªÊÇ½«eaµÄxml×ª»»³ÉÎÒÃÇµÄwujunµÄxml(ÀïÃæÓĞËûµÄÂ·¾¶)
 //								
 //								ShowData();
 //								
 //								System.out.println("*************************+++++++++++++++++++++++");
-//								// ä»¥ä¸‹dç›˜ä¸­å†™çš„æ–‡ä»¶æ˜¯æ­»çš„è·¯å¾„ï¼Œä½†æ˜¯ä¸Šé¢æ˜¯åŠ¨æ€ç”Ÿæˆçš„éœ€è¦ä¿®æ”¹D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\
+//								// ÒÔÏÂdÅÌÖĞĞ´µÄÎÄ¼şÊÇËÀµÄÂ·¾¶£¬µ«ÊÇÉÏÃæÊÇ¶¯Ì¬Éú³ÉµÄĞèÒªĞŞ¸ÄD:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\
 ////								LayoutUppaal.layout(
 ////										"UseCase4-Sequence1-Normal.xml");// ("sequence.xml");
 //								
-////								System.out.println("SD2UppaalMain.getDiagramDataName():+++++++++"+SD2UppaalMain.getDiagramDataName()+" - - "+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml");//å‰è€…æ–‡ä»¶ä¸ºæ—¶é—´è‡ªåŠ¨æœºéœ€è¦ï¼Œåè€…æ–‡ä»¶ä¸ºæµ‹è¯•ç”¨ä¾‹ç”Ÿæˆéœ€è¦
+////								System.out.println("SD2UppaalMain.getDiagramDataName():+++++++++"+SD2UppaalMain.getDiagramDataName()+" - - "+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml");//Ç°ÕßÎÄ¼şÎªÊ±¼ä×Ô¶¯»úĞèÒª£¬ºóÕßÎÄ¼şÎª²âÊÔÓÃÀıÉú³ÉĞèÒª
 //								
 ////								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\"+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
 //								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\UAVForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
@@ -768,7 +768,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 ////								LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\"+SD2UppaalMain.getDiagramDataName()+".xml");
 //								LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\UAV.xml");
 //								
-//								filename1 = TransToVioletUppaal.TransToViolet(filename);//wujunçš„xmlè½¬æ¢ä¸ºå¹³å°æ˜¾ç¤ºçš„æ—¶é—´è‡ªåŠ¨æœºxml
+//								filename1 = TransToVioletUppaal.TransToViolet(filename);//wujunµÄxml×ª»»ÎªÆ½Ì¨ÏÔÊ¾µÄÊ±¼ä×Ô¶¯»úxml
 //								// String
 //								// filename1="uppaalTest1.uppaal.violet.xml";
 //								// GraphFile
@@ -785,7 +785,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //								// fGraphFile2=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename2);
 //								// IWorkspace workspace2=new
 //								// Workspace(fGraphFile2);
-//								// StepTwoArea.append("UMLæ¨¡å‹åˆ°æ—¶é—´è‡ªåŠ¨æœºæ¨¡å‹å·²ç»è½¬æ¢å®Œæˆ!\n");
+//								// StepTwoArea.append("UMLÄ£ĞÍµ½Ê±¼ä×Ô¶¯»úÄ£ĞÍÒÑ¾­×ª»»Íê³É!\n");
 //
 ////								uppaallists.add(filename1);
 //								
@@ -804,10 +804,10 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //								
 //								successcount++;
 //
-//							} else {// æ‰“å¼€æˆ‘ä»¬å¹³å°çš„xmlæ–‡ä»¶
+//							} else {// ´ò¿ªÎÒÃÇÆ½Ì¨µÄxmlÎÄ¼ş
 //
 //							}
-//							// SD2UppaalMain.transEA(path);//ä¸»è¦æ˜¯å°†eaçš„xmlè½¬æ¢æˆæˆ‘ä»¬çš„wujunçš„xml(é‡Œé¢æœ‰ä»–çš„è·¯å¾„)
+//							// SD2UppaalMain.transEA(path);//Ö÷ÒªÊÇ½«eaµÄxml×ª»»³ÉÎÒÃÇµÄwujunµÄxml(ÀïÃæÓĞËûµÄÂ·¾¶)
 //							// String
 //							// filename1=TransToVioletUppaal.TransToViolet();
 //							// GraphFile
@@ -816,16 +816,16 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //							// mainFrame.addTabbedPane(workspace1,2);
 //							// mainFrame.repaint();
 //							// Thread.sleep(5000);
-//							// å…ˆè¿›è¡Œå¸ƒå±€
-//							// å°†æ—¶é—´è‡ªåŠ¨æœºå±•ç¤ºåœ¨æˆ‘ä»¬çš„å¹³å°ä¸Š
+//							// ÏÈ½øĞĞ²¼¾Ö
+//							// ½«Ê±¼ä×Ô¶¯»úÕ¹Ê¾ÔÚÎÒÃÇµÄÆ½Ì¨ÉÏ
 //							// LayoutUppaal.layout
-//							// ("C:\\Users\\Admin\\Desktop\\é¡¹ç›®æœ€æ–°ä»£ç \\violetumleditor-master\\violetproduct-swing\\sequence.xml");//("stabilize_run.xml");
+//							// ("C:\\Users\\Admin\\Desktop\\ÏîÄ¿×îĞÂ´úÂë\\violetumleditor-master\\violetproduct-swing\\sequence.xml");//("stabilize_run.xml");
 //							// String
 //							// filename2=TransToVioletUppaal.TransToViolet();
 //							// GraphFile
 //							// fGraphFile2=ImportByDoubleClick.importFileByDoubleClick("UPPAAL",filename2);
 //							// IWorkspace workspace2=new Workspace(fGraphFile2);
-//							// StepTwoArea.append("UMLæ¨¡å‹åˆ°æ—¶é—´è‡ªåŠ¨æœºæ¨¡å‹å·²ç»è½¬æ¢å®Œæˆ!\n");
+//							// StepTwoArea.append("UMLÄ£ĞÍµ½Ê±¼ä×Ô¶¯»úÄ£ĞÍÒÑ¾­×ª»»Íê³É!\n");
 //							// mainFrame.addTabbedPane(workspace1,2);
 //						}
 //						
@@ -855,8 +855,8 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //					
 ////					int count=mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel().getRowCount();
 //					
-//					moviepanel.getMovieLabel().setText("æ‰€æœ‰é¡ºåºå›¾å…¨éƒ¨è½¬æ¢å®Œæˆï¼Œæ€»å…±æœ‰"+sequencelists.size()+"å¼ é¡ºåºå›¾ï¼Œè½¬æ¢æˆåŠŸäº†"+successcount+"å¼ é¡ºåºå›¾ï¼Œè½¬æ¢ç‡ä¸ºï¼š"+(double)successcount/sequencelists.size()*100+"%");
-//					StepTwoArea.append("UMLæ¨¡å‹è½¬æ¢å®Œæˆ......\n");
+//					moviepanel.getMovieLabel().setText("ËùÓĞË³ĞòÍ¼È«²¿×ª»»Íê³É£¬×Ü¹²ÓĞ"+sequencelists.size()+"ÕÅË³ĞòÍ¼£¬×ª»»³É¹¦ÁË"+successcount+"ÕÅË³ĞòÍ¼£¬×ª»»ÂÊÎª£º"+(double)successcount/sequencelists.size()*100+"%");
+//					StepTwoArea.append("UMLÄ£ĞÍ×ª»»Íê³É......\n");
 //					threadstate=0;
 //
 //				}
@@ -959,7 +959,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //							int startprogressbarvalue = (int) ((double) totalprogressbar / uppaalprocesslistsize
 //									* uppaalprocesslistindex) + 1 + startprogressbar;
 //							int endprogressbarvalue = (int) ((double) totalprogressbar / uppaalprocesslistsize
-//									* (uppaalprocesslistindex + 1)) + startprogressbar;// æ¯ä¸ªå°æ­¥éª¤æ‰€è¦çš„è¿›åº¦æ¡å€¼åŒºé—´
+//									* (uppaalprocesslistindex + 1)) + startprogressbar;// Ã¿¸öĞ¡²½ÖèËùÒªµÄ½ø¶ÈÌõÖµÇø¼ä
 //
 //							// System.out.println("---------------------------------------------------------------");
 //							System.out.println("startprogressbarvalue:" + startprogressbarvalue
@@ -970,8 +970,8 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //								progressbar.setValue(i);
 //								progressbarlabel.setText(i + "%");
 //
-//								double modelprocess = endprogressbarvalue - startprogressbarvalue + 1;// è¿›åº¦æ¡å€¼åŒºé—´
-//								double avemodelprocess = 100 / (double) uppaalprocesslistsize;// å°æ­¥éª¤çš„æ€»æ•°å€¼åŒºé—´
+//								double modelprocess = endprogressbarvalue - startprogressbarvalue + 1;// ½ø¶ÈÌõÖµÇø¼ä
+//								double avemodelprocess = 100 / (double) uppaalprocesslistsize;// Ğ¡²½ÖèµÄ×ÜÊıÖµÇø¼ä
 //								int modelprocessindex = uppaalprocesslistindex % uppaalprocesslistsize;
 //								// System.out.println("j:"+j+"
 //								// modelprocess:"+modelprocess+"
@@ -980,7 +980,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //								int startmodelprocess = (int) ((double) avemodelprocess * modelprocessindex
 //										+ avemodelprocess / modelprocess * j) + 1;
 //								int endmodelprocess = (int) ((double) avemodelprocess * modelprocessindex
-//										+ avemodelprocess / modelprocess * (j + 1));// é€šè¿‡å°æ­¥éª¤çš„æ€»æ•°å€¼åŒºé—´ï¼Œæ¥è®¡ç®—è¿›åº¦æ¡åŠ 1æ—¶ï¼Œå°æ­¥éª¤çš„æ•°å€¼é¡»åŠ å¤šå°‘
+//										+ avemodelprocess / modelprocess * (j + 1));// Í¨¹ıĞ¡²½ÖèµÄ×ÜÊıÖµÇø¼ä£¬À´¼ÆËã½ø¶ÈÌõ¼Ó1Ê±£¬Ğ¡²½ÖèµÄÊıÖµĞë¼Ó¶àÉÙ
 //								// System.out.println("startmodelprocess:"+startmodelprocess+"
 //								// avemodelprocess/modelprocess*(j+1):"+avemodelprocess/modelprocess*(j+1)+"
 //								// endmodelprocess:"+endmodelprocess);
@@ -1022,14 +1022,14 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("æ­£åœ¨è¯»å–å¯¼å‡ºçš„æ‰€æœ‰é¡ºåºå›¾");
+		moviepanel.getMovieLabel().setText("ÕıÔÚ¶ÁÈ¡µ¼³öµÄËùÓĞË³ĞòÍ¼");
 		
 	}
 
 	private void initTablePanel() {
 		// TODO Auto-generated method stub
 		
-		String[] columnNames={"åºå·","çŠ¶æ€","é¡ºåºå›¾","æ“ä½œ","è¿›åº¦","","å®Œæˆæ—¶é—´"};
+		String[] columnNames={"ĞòºÅ","×´Ì¬","Ë³ĞòÍ¼","²Ù×÷","½ø¶È","","Íê³ÉÊ±¼ä"};
 //		String[][] tabelValues={{"1","1","3","4","5","6"}};
 		String[][] tabelValues={};
 		sequencetouppaaltablemodel=new DefaultTableModel(tabelValues, columnNames){
@@ -1061,29 +1061,29 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 		
 //		sequencetouppaaltable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
-		sequencetouppaaltable.getColumn("åºå·").setPreferredWidth(50);
-		sequencetouppaaltable.getColumn("åºå·").setMinWidth(50);
-		sequencetouppaaltable.getColumn("åºå·").setMaxWidth(50);
-		sequencetouppaaltable.getColumn("çŠ¶æ€").setPreferredWidth(50);
-		sequencetouppaaltable.getColumn("çŠ¶æ€").setMinWidth(50);
-		sequencetouppaaltable.getColumn("çŠ¶æ€").setMaxWidth(50);
-		sequencetouppaaltable.getColumn("é¡ºåºå›¾").setPreferredWidth(150);
-		sequencetouppaaltable.getColumn("é¡ºåºå›¾").setMinWidth(150);
-		sequencetouppaaltable.getColumn("æ“ä½œ").setPreferredWidth(450);
-		sequencetouppaaltable.getColumn("æ“ä½œ").setMinWidth(450);
-		sequencetouppaaltable.getColumn("è¿›åº¦").setPreferredWidth(50);
-		sequencetouppaaltable.getColumn("è¿›åº¦").setMinWidth(50);
-		sequencetouppaaltable.getColumn("è¿›åº¦").setMaxWidth(50);
+		sequencetouppaaltable.getColumn("ĞòºÅ").setPreferredWidth(50);
+		sequencetouppaaltable.getColumn("ĞòºÅ").setMinWidth(50);
+		sequencetouppaaltable.getColumn("ĞòºÅ").setMaxWidth(50);
+		sequencetouppaaltable.getColumn("×´Ì¬").setPreferredWidth(50);
+		sequencetouppaaltable.getColumn("×´Ì¬").setMinWidth(50);
+		sequencetouppaaltable.getColumn("×´Ì¬").setMaxWidth(50);
+		sequencetouppaaltable.getColumn("Ë³ĞòÍ¼").setPreferredWidth(150);
+		sequencetouppaaltable.getColumn("Ë³ĞòÍ¼").setMinWidth(150);
+		sequencetouppaaltable.getColumn("²Ù×÷").setPreferredWidth(450);
+		sequencetouppaaltable.getColumn("²Ù×÷").setMinWidth(450);
+		sequencetouppaaltable.getColumn("½ø¶È").setPreferredWidth(50);
+		sequencetouppaaltable.getColumn("½ø¶È").setMinWidth(50);
+		sequencetouppaaltable.getColumn("½ø¶È").setMaxWidth(50);
 		sequencetouppaaltable.getColumn("").setPreferredWidth(100);
 		sequencetouppaaltable.getColumn("").setMinWidth(100);
 		sequencetouppaaltable.getColumn("").setMaxWidth(100);
-		sequencetouppaaltable.getColumn("å®Œæˆæ—¶é—´").setPreferredWidth(150);
-		sequencetouppaaltable.getColumn("å®Œæˆæ—¶é—´").setMinWidth(150);
+		sequencetouppaaltable.getColumn("Íê³ÉÊ±¼ä").setPreferredWidth(150);
+		sequencetouppaaltable.getColumn("Íê³ÉÊ±¼ä").setMinWidth(150);
         
         DefaultTableCellRenderer renderer=new DefaultTableCellRenderer();
         renderer.setBackground(new Color(71, 80, 93));
         renderer.setForeground(new Color(255, 255, 255));
-        renderer.setFont(new Font("å¾®è½¯é›…é»‘", Font.PLAIN, 13));
+        renderer.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 13));
         renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
         sequencetouppaaltable.getTableHeader().setDefaultRenderer(renderer); 
         
@@ -1092,7 +1092,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
         DefaultTableCellRenderer renderer1=new DefaultTableCellRenderer();
         renderer1.setForeground(new Color(115, 110, 102));
         renderer1.setBackground(new Color(255, 255, 255));
-        renderer1.setFont(new Font("å¾®è½¯é›…é»‘", Font.PLAIN, 12));
+        renderer1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
         renderer1.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
         sequencetouppaaltable.setDefaultRenderer(Object.class, renderer1); 
         

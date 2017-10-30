@@ -955,7 +955,7 @@ public class FileMenu extends JMenu {
 					String url = selectedFile.getDirectory() + "\\" + selectedFile.getFilename();
 					boolean flag = isVioletXML(url);// 是EA格式的文件
 
-					final List<IFile> files = new ArrayList<>();
+					final List<IFile> files = new ArrayList<IFile>();
 					if (flag == false) {
 						List<IFile> eafiles = openEAXML(selectedFile, url);
 						files.addAll(eafiles);

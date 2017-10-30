@@ -121,7 +121,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 	private FutureTask<Integer> trantask;
 	private Thread tranthread;
 	
-	private List<String> tranprocesslist=new ArrayList<>();
+	private List<String> tranprocesslist=new ArrayList<String>();
 	private int tranprocesslistindex;
 	private int tranprocessstate;
 	private String tranxmlname=null;
@@ -337,7 +337,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 //		mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessButton().doClick();
 //		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
 		
-		tranprocesslist=new ArrayList<>();
+		tranprocesslist=new ArrayList<String>();
 		tranprocesslist.add("正在获取时序图信息");
 		tranprocesslist.add("初始化数据");
 		tranprocesslist.add("获取生命线信息");
@@ -512,7 +512,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 				return 1;
 			}
 		};
-		maintask=new FutureTask<>(maincallable);
+		maintask=new FutureTask<Integer>(maincallable);
 		mainthread=new Thread(maintask);
 		
 		trancallable=new Callable<Integer>() {
@@ -636,7 +636,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 				return 1;
 			}
 		};
-		trantask=new FutureTask<>(trancallable);
+		trantask=new FutureTask<Integer>(trancallable);
 		tranthread=new Thread(trantask);
 		
 	}

@@ -41,7 +41,7 @@ public class TestCaseProduceTabbedPanel extends JPanel{
 	private JScrollPane tabelscrollpanel;
 	private JPanel tableresultpanel;
 	
-	private List<TestCaseProducePartPanel> testCaseProducePartPanelList=new ArrayList<>();
+	private List<TestCaseProducePartPanel> testCaseProducePartPanelList=new ArrayList<TestCaseProducePartPanel>();
 	
 	public TestCaseProduceTabbedPanel(MainFrame mainframe){
 		

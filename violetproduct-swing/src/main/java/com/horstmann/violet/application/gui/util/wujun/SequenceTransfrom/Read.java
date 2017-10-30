@@ -546,7 +546,7 @@ public class Read
 		}
 //***************************************	 组合片段的嵌套读取	end	
 		//虽然这里已经获得了组合片段的嵌套读取， 由于EA导出时组合片段的嵌套关系有可能会错乱， 需要用坐标信息作验证， 不符合的进行修正
-		ArrayList<Element> EAElements = new ArrayList<>();
+		ArrayList<Element> EAElements = new ArrayList<Element>();
 		EAElements.addAll(root.element("Extension").element("elements").elements("element"));
 		for(Element element : EAElements) {
 			try{
@@ -722,7 +722,7 @@ public class Read
 		}
 		
 		if(fragment.attribute("type").getValue().equals("uml:CombinedFragment")) {
-			ArrayList<Element> operandList = new ArrayList<>();
+			ArrayList<Element> operandList = new ArrayList<Element>();
 			operandList.addAll(fragment.elements("operand"));
 			
 			
@@ -793,7 +793,7 @@ public class Read
 		}
 		
 		//修改最外层的fragment 复制一份到父图中
-		ArrayList<WJFragment> copyFragmentArray = new ArrayList<>();
+		ArrayList<WJFragment> copyFragmentArray = new ArrayList<WJFragment>();
 		for(WJFragment fragment : childDiagram.getFragmentArray()) {//添加所有的组合片段
 			WJFragment copyFragment = (WJFragment) fragment.clone();
 			//改变fragment的id 避免重复引用导致的重复fragment id
@@ -806,7 +806,7 @@ public class Read
 		diagramData.getFragmentArray().addAll(copyFragmentArray);
 		
 		//先复制一份子图的messageArray
-		ArrayList<WJMessage> copyMessageArray = new ArrayList<>(); 
+		ArrayList<WJMessage> copyMessageArray = new ArrayList<WJMessage>(); 
 		for(WJMessage message : childDiagram.getMessageArray()) {
 			WJMessage copyMessage = (WJMessage) message.clone();
 			copyMessageArray.add(copyMessage);

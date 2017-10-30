@@ -615,12 +615,12 @@ public class ModelExistValidationPanel extends JPanel{
 						}
 						else{
 							
-							List<UppaalTransition> uppaalMessageTransitionList = new ArrayList<>();
+							List<UppaalTransition> uppaalMessageTransitionList = new ArrayList<UppaalTransition>();
 							UppaalTransition umt=new UppaalTransition();
 							umt.setName(message);
 							uppaalMessageTransitionList.add(umt);
 
-							List<UppaalTransition> uppaalTransitionList = new ArrayList<>();
+							List<UppaalTransition> uppaalTransitionList = new ArrayList<UppaalTransition>();
 							
 							if(uppaalType==1){
 								uppaalTransitionList=evaluation.FindUppaalTransitionByMessage(message);
@@ -786,7 +786,7 @@ public class ModelExistValidationPanel extends JPanel{
 						}
 						else{
 							
-							List<UppaalTransition> uppaalMessageTransitionList = new ArrayList<>();
+							List<UppaalTransition> uppaalMessageTransitionList = new ArrayList<UppaalTransition>();
 							UppaalTransition umt1=new UppaalTransition();
 							umt1.setName(message1);
 							uppaalMessageTransitionList.add(umt1);
@@ -794,7 +794,7 @@ public class ModelExistValidationPanel extends JPanel{
 							umt2.setName(message2);
 							uppaalMessageTransitionList.add(umt2);
 
-							List<PathTuple> pathTupleList = new ArrayList<>();
+							List<PathTuple> pathTupleList = new ArrayList<PathTuple>();
 							
 							if(uppaalType==1){
 								pathTupleList=evaluation.FindUppaalPathTupleByMessages(message1, message2);

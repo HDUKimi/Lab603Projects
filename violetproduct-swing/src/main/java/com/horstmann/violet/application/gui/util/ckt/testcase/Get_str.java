@@ -11,7 +11,6 @@ import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
 import com.horstmann.violet.application.gui.util.ckt.handle.DBM_element;
 import com.horstmann.violet.application.gui.util.ckt.handle.State;
 import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
-import com.sun.media.sound.SoftSynthesizer;
 
 public class Get_str {
 /**

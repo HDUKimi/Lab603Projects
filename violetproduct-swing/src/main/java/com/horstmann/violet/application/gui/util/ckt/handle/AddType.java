@@ -2,9 +2,6 @@ package com.horstmann.violet.application.gui.util.ckt.handle;
 
 import java.util.ArrayList;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
-
-
 public class AddType {
 
 	public static void main(String[] args) {
