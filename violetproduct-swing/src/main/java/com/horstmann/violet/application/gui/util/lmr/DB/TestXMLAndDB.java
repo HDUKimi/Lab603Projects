@@ -1,6 +1,6 @@
-package com.horstmann.violet.application.gui.util.tanchao;
+package com.horstmann.violet.application.gui.util.lmr.DB;
 
-import com.horstmann.violet.application.gui.util.lmr.DB.DataBaseUtil;
+import com.horstmann.violet.application.gui.util.tanchao.TestCaseXMLToStringList;
 
 public class TestXMLAndDB {
 

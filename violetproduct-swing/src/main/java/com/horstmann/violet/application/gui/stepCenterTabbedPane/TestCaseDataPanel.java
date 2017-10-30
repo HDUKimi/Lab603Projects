@@ -9,11 +9,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -22,17 +26,30 @@ import org.dom4j.io.SAXReader;
 
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.FunctionFailedStatisticsPieChart;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.FunctionSuccessFailedPieChart;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.PerformanceHighBatteryLineChart;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.PerformanceHighSpeedBarChart;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.PerformanceHighTimeLineChart;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.PerformanceTimeSpeedBarChart;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TimeFailedStatisticsPieChart;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TimeSuccessFailedPieChart;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.Pair;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseResult;
+import com.horstmann.violet.application.gui.util.chenzuo.Util.TcConvertUtil;
 
 public class TestCaseDataPanel{
 
 	private MainFrame mainFrame;
 	
+	private String testCaseTabName;
 	private String testCaseName;
 	private String testCasePath;
 	
 	private int starttype;
 	private int hastime;
+	private int showAll;//0:本地	1:DB
 	
 	private JButton testCaseReportDiagramButton;
 	private JLabel testCaseReportDiagramDeleteLabel;
@@ -47,13 +64,15 @@ public class TestCaseDataPanel{
 	private List<TestCase> testcaselist=new ArrayList<TestCase>();
 	private List<JPanel> testcasereportlist=new ArrayList<JPanel>();
 	
-	public TestCaseDataPanel(MainFrame mainFrame, String testCaseName, List<TestCase> testcaselist, int starttype, int hastime) {
+	public TestCaseDataPanel(MainFrame mainFrame, String testCaseTabName, String testCaseName, List<TestCase> testcaselist, int starttype, int hastime, int showAll) {
 
 		this.mainFrame=mainFrame;
+		this.testCaseTabName=testCaseTabName;
 		this.testCaseName=testCaseName;
 		this.testcaselist=testcaselist;
 		this.starttype=starttype;
 		this.hastime=hastime;
+		this.showAll=showAll;
 		
 		initbuttonpanel();
 		
@@ -82,10 +101,204 @@ public class TestCaseDataPanel{
 			index++;
 		}
 		
+		Collections.sort(testcaselist, new Comparator<TestCase>() {
+
+			@Override
+			public int compare(TestCase o1, TestCase o2) {
+				
+				int id1=Integer.parseInt(o1.getTestCaseID());
+				int id2=Integer.parseInt(o2.getTestCaseID());
+				
+				return id1-id2;
+			}
+		});
+		
 		showTestCase();
+		
+		if(showAll==1){
+			int type=starttype;
+			if(hastime==1){
+				type=3;
+			}
+			showStatisticsDataByType(type);
+			testCaseChartDiagramButtonPanel.setVisible(true);
+		}
+		
+	}
+	
+	protected void showStatisticsDataByType(int type) {
+		
+		if(type==1){//统计功能数据
+			
+			Map<String, Object> testcasemap=TcConvertUtil.functionStatistics(testcaselist);
+			List<Integer> caseSuccess=(List<Integer>) testcasemap.get("caseSuccess");
+			List<Integer> caseFailed=(List<Integer>) testcasemap.get("caseFailed");
+			Map<String,List<Map<Integer,List<Integer>>>> failedStatistics=(Map<String, List<Map<Integer, List<Integer>>>>) testcasemap.get("failedStatistics");
+					
+			FunctionalTestCaseChartTabbedPanel functionalTestCaseChartTabbedPanel=new FunctionalTestCaseChartTabbedPanel(mainFrame);
+			
+			testCaseChartTabbedPanel.removeAll();
+			testCaseChartTabbedPanel.add(functionalTestCaseChartTabbedPanel);
+			
+			DefaultTableModel tabelmodel=functionalTestCaseChartTabbedPanel.getAttributetablemodel();
+			
+			int cs=0,cf=0,csum=0;
+			cs=caseSuccess.size();
+			cf=caseFailed.size();
+			
+//			cs=7935;
+//			cf=39;
+			
+			csum=cs+cf;
+			DefaultTableModel successfailedtabelmodel=functionalTestCaseChartTabbedPanel.getSuccessfailedattributetablemodel();
+			while(successfailedtabelmodel.getRowCount()>0){
+				successfailedtabelmodel.removeRow(0);
+			}
+			Object[] rowData1={"合计：",cs, cf, csum};
+			successfailedtabelmodel.addRow(rowData1);
+			Object[] rowData2={"百分比：",calcper(cs, csum), calcper(cf, csum), calcper(csum, csum)};
+			successfailedtabelmodel.addRow(rowData2);
+			
+			int f1=0,f2=0;
+			if (failedStatistics.containsKey("测试用例有误")) {
+				f1=failedStatistics.get("测试用例有误").size();
+			}
+			if(failedStatistics.containsKey("程序出现死循环或者抛出异常")){
+				f2=failedStatistics.get("程序出现死循环或者抛出异常").size();
+			}
+			
+//			f1=39;
+//			f2=0;
+			
+			DefaultTableModel failedstatisticstabelmodel=functionalTestCaseChartTabbedPanel.getFailedstatisticsattributetablemodel();
+			while(failedstatisticstabelmodel.getRowCount()>0){
+				failedstatisticstabelmodel.removeRow(0);
+			}
+			Object[] rowData3={"合计：", f1, f2, cf};
+			failedstatisticstabelmodel.addRow(rowData3);
+			Object[] rowData4={"百分比：", calcper(f1, cf), calcper(f2, cf), calcper(cf, cf)};
+			failedstatisticstabelmodel.addRow(rowData4);
+			
+			
+			FunctionSuccessFailedPieChart fsfpc=new FunctionSuccessFailedPieChart(cs, cf);
+			functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
+			functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(fsfpc.createChart());
+			
+			FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(f1, f2);
+			functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().removeAll();
+			functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(ffspc.createChart());
+		}
+		else if(type==2){//统计性能数据
+
+			Map testcasemap=TcConvertUtil.testCaseStatistics(testcaselist);
+
+			List<Pair> highspeeddata=(List<Pair>) testcasemap.get("high-speed");
+			List<Pair> timespeeddata=(List<Pair>) testcasemap.get("time-speed");
+			Map<String, List<Pair>> highbatterydata=(Map<String, List<Pair>>) testcasemap.get("high-battery");
+			Map<String, List<Pair>> hightimedata=(Map<String, List<Pair>>) testcasemap.get("high-time");
+			
+			PerformanceTestCaseChartTabbedPanel performanceTestCaseChartTabbedPanel=new PerformanceTestCaseChartTabbedPanel(mainFrame);
+			
+			testCaseChartTabbedPanel.removeAll();
+			testCaseChartTabbedPanel.add(performanceTestCaseChartTabbedPanel);
+			
+			DefaultTableModel tabelmodel=performanceTestCaseChartTabbedPanel.getAttributetablemodel();
+			while(tabelmodel.getRowCount()>0){
+				tabelmodel.removeRow(0);
+			}
+			for(TestCase tc:testcaselist){
+				TestCaseResult tcr=tc.getResult();
+				Object[] rowData={tc.getTestCaseID(),tcr.getWind_speed(),tcr.getTakeoff_alt(),tcr.getBattery_remaining(),tcr.getTime()};
+				tabelmodel.addRow(rowData);
+			}
+			
+			PerformanceHighBatteryLineChart phblc=new PerformanceHighBatteryLineChart(highbatterydata);
+			performanceTestCaseChartTabbedPanel.getHighbatterylinepanel().removeAll();
+			performanceTestCaseChartTabbedPanel.getHighbatterylinepanel().add(phblc.createChart());
+			
+			PerformanceHighTimeLineChart phtlc=new PerformanceHighTimeLineChart(hightimedata);
+			performanceTestCaseChartTabbedPanel.getHightimelinepanel().removeAll();
+			performanceTestCaseChartTabbedPanel.getHightimelinepanel().add(phtlc.createChart());
+			
+			PerformanceHighSpeedBarChart phsbc=new PerformanceHighSpeedBarChart(highspeeddata);
+			performanceTestCaseChartTabbedPanel.getHighspeedbarpanel().removeAll();
+			performanceTestCaseChartTabbedPanel.getHighspeedbarpanel().add(phsbc.createChart());
+			
+			PerformanceTimeSpeedBarChart ptsbc=new PerformanceTimeSpeedBarChart(timespeeddata);
+			performanceTestCaseChartTabbedPanel.getTimespeedbarpanel().removeAll();
+			performanceTestCaseChartTabbedPanel.getTimespeedbarpanel().add(ptsbc.createChart());
+			
+		}
+		else if(type==3){
+			
+			Map<String, Integer> resultmap=TcConvertUtil.timeStatistics(testcaselist);
+			
+			TimeTestCaseChartTabbedPanel timeTestCaseChartTabbedPanel=new TimeTestCaseChartTabbedPanel(mainFrame);
+			
+			testCaseChartTabbedPanel.removeAll();
+			testCaseChartTabbedPanel.add(timeTestCaseChartTabbedPanel);
+			
+			DefaultTableModel tabelmodel=timeTestCaseChartTabbedPanel.getAttributetablemodel();
+			
+			int cs=0,cf=0,csum=0;
+			cs=resultmap.get("success");
+			cf=resultmap.get("failed");
+			
+//			cs=180;
+//			cf=39;
+			
+			csum=cs+cf;
+			DefaultTableModel successfailedtabelmodel=timeTestCaseChartTabbedPanel.getSuccessfailedattributetablemodel();
+			while(successfailedtabelmodel.getRowCount()>0){
+				successfailedtabelmodel.removeRow(0);
+			}
+			Object[] rowData1={"合计：",cs, cf, csum};
+			successfailedtabelmodel.addRow(rowData1);
+			Object[] rowData2={"百分比：",calcper(cs, csum), calcper(cf, csum), calcper(csum, csum)};
+			successfailedtabelmodel.addRow(rowData2);
+			
+			int f1=0,f2=0;
+			
+			f1=resultmap.get("testcasefailed");
+			f2=resultmap.get("timefailed");
+			
+//			f1=27;
+//			f2=12;
+			
+			DefaultTableModel failedstatisticstabelmodel=timeTestCaseChartTabbedPanel.getFailedstatisticsattributetablemodel();
+			while(failedstatisticstabelmodel.getRowCount()>0){
+				failedstatisticstabelmodel.removeRow(0);
+			}
+			Object[] rowData3={"合计：", f1, f2, cf};
+			failedstatisticstabelmodel.addRow(rowData3);
+			Object[] rowData4={"百分比：", calcper(f1, cf), calcper(f2, cf), calcper(cf, cf)};
+			failedstatisticstabelmodel.addRow(rowData4);
+			
+			
+			TimeSuccessFailedPieChart tsfpc=new TimeSuccessFailedPieChart(cs, cf);
+			timeTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
+			timeTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(tsfpc.createChart());
+			
+			TimeFailedStatisticsPieChart tfspc=new TimeFailedStatisticsPieChart(f1, f2);
+			timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().removeAll();
+			timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(tfspc.createChart());
+			
+		}
 		
 	}
 
+	public String calcper(int a,int b){
+		if(a==b){
+			return "100 %";
+		}
+		else if(a==0){
+			return "0 %";
+		}
+		else{
+			return (int)(a*1.0/b*100+0.5)+" %";
+		}
+	}
+	
 	private void extractTestCaseData() {
 		
 		if(starttype==1&&hastime==0){
@@ -128,7 +341,7 @@ public class TestCaseDataPanel{
 //		functionaltestcasereportlist.clear();
 		testcasereportlist.clear();
 		for(TestCase tc:testcaselist){
-			FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame, tc);
+			FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame, tc, showAll);
 			resultpanel.add(ftcrppanel);
 			layout.setConstraints(ftcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //			functionaltestcasereportlist.add(ftcrppanel);
@@ -161,7 +374,7 @@ public class TestCaseDataPanel{
 //		performancetestcasereportlist.clear();
 		testcasereportlist.clear();
 		for (TestCase tc : testcaselist) {
-			PerformanceTestCaseReportPartPanel ptcrppanel = new PerformanceTestCaseReportPartPanel(mainFrame, tc);
+			PerformanceTestCaseReportPartPanel ptcrppanel = new PerformanceTestCaseReportPartPanel(mainFrame, tc, showAll);
 			resultpanel.add(ptcrppanel);
 			layout.setConstraints(ptcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //			performancetestcasereportlist.add(ptcrppanel);
@@ -191,7 +404,7 @@ public class TestCaseDataPanel{
 //		timetestcasereportlist.clear();
 		testcasereportlist.clear();
 		for(TestCase tc:testcaselist){
-			TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(mainFrame, tc);
+			TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(mainFrame, tc, showAll);
 			resultpanel.add(ttcrppanel);
 			layout.setConstraints(ttcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //			timetestcasereportlist.add(ttcrppanel);
@@ -287,12 +500,12 @@ public class TestCaseDataPanel{
 	private void initbuttonpanel() {
 		// TODO Auto-generated method stub
 		
-		testCaseReportDiagramButtonPanel=new FixedButtonTabbedPanel(testCaseName);
+		testCaseReportDiagramButtonPanel=new FixedButtonTabbedPanel(testCaseTabName);
 		testCaseReportDiagramButtonPanel.setBackground(new Color(77, 96, 130));
 		testCaseReportDiagramButton=testCaseReportDiagramButtonPanel.getTabbedbutton();
 		testCaseReportDiagramDeleteLabel=testCaseReportDiagramButtonPanel.getDelectlabel();
 		
-		testCaseChartDiagramButtonPanel=new FixedButtonTabbedPanel(testCaseName+"结果报告");
+		testCaseChartDiagramButtonPanel=new FixedButtonTabbedPanel(testCaseTabName+"结果报告");
 		testCaseChartDiagramButtonPanel.setBackground(new Color(77, 96, 130));
 		testCaseChartDiagramButton=testCaseChartDiagramButtonPanel.getTabbedbutton();
 		testCaseChartDiagramDeleteLabel=testCaseChartDiagramButtonPanel.getDelectlabel();
@@ -455,6 +668,10 @@ public class TestCaseDataPanel{
 
 	public FixedButtonTabbedPanel getTestCaseChartDiagramButtonPanel() {
 		return testCaseChartDiagramButtonPanel;
+	}
+
+	public String getTestCaseTabName() {
+		return testCaseTabName;
 	}
 
 	public String getTestCaseName() {

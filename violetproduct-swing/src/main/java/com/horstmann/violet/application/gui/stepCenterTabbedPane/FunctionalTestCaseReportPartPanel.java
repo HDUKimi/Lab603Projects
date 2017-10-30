@@ -54,11 +54,13 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 	private DefaultTableModel attributetablemodel;
 	
 	private TestCase testcase;
+	private int showAll;
 
-	public FunctionalTestCaseReportPartPanel(MainFrame mainFrame,TestCase testcase) {
+	public FunctionalTestCaseReportPartPanel(MainFrame mainFrame,TestCase testcase,int showAll) {
 
 		this.mainFrame=mainFrame;
 		this.testcase=testcase;
+		this.showAll=showAll;
 		
 		init();
 
@@ -106,33 +108,42 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 
 		ImageIcon icon1 = new ImageIcon(path + "tick.png");
 		icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+		ImageIcon icon2 = new ImageIcon(path + "cross.png");
+		icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
 		ImageIcon icon3 = new ImageIcon(path + "dropdown1.png");
 		icon3.setImage(icon3.getImage().getScaledInstance(11, 11, Image.SCALE_DEFAULT));
 
 		String title = "";
 		title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
-//		if(testcase.getState()!=null){
-//			title+=testcase.getState()+"     ";
-//		}
-//		else{
-//			title+="测试耗时:     ";
-//		}
 		title+="执行结果:";
-//		if(testcase.getResult()!=null){
-//			title+=testcase.getResult().substring(0, testcase.getResult().indexOf("耗时"));
-//		}
 		
 		titlelabel.setText(title);
 		titlelabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
 		titlelabel.setForeground(new Color(60,0,255));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 
-//		iconlabel.setIcon(icon1);
 		iconlabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		
+		
+		if(showAll==1){
+			title = "";
+			title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
+			title+="执行结果:"+testcase.getState()+"     ";
+			title+="总耗时:"+testcase.getExetime()+" ms";
+			
+			titlelabel.setText(title);
+			
+			if(testcase.getState().contains("成功")){
+				iconlabel.setIcon(icon1);
+			}
+			else{
+				iconlabel.setIcon(icon2);
+			}
+		}
+		
 
 		toolcheckbox.setSelected(false);
 		toolcheckbox.setOpaque(false);
-		
 		
 		titlelabelpanel.setLayout(new FlowLayout(0, 0, FlowLayout.LEFT));
 		titlelabelpanel.add(toolcheckbox);
@@ -387,11 +398,19 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 		attributepanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 		attributepanel.setOpaque(false);
 
-		for(myProcess p:testcase.getProcessList()){
-			
-			Object[] rowData={p.getProcessID(),p.getProcessName(),p.getProcessParam(),"",""};
-			attributetablemodel.addRow(rowData);
-			
+		if(showAll==0){
+			for(myProcess p:testcase.getProcessList()){
+				Object[] rowData={p.getProcessID(),p.getProcessName(),p.getProcessParam(),"",""};
+				attributetablemodel.addRow(rowData);
+				
+			}
+		}
+		else{
+			for(myProcess p:testcase.getProcessList()){
+				Object[] rowData={p.getProcessID(),p.getProcessName(),p.getProcessParam(),p.getProcessStatus(),p.isProcessExec()+""};
+				attributetablemodel.addRow(rowData);
+				
+			}
 		}
 
 	}

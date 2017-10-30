@@ -69,9 +69,9 @@ public class ResultService {
         public void readfile() {
             File file = new File(FileUtil.LOCAL_TARGET_PATH);
             if (file.isDirectory()) {
-                String[] filelist = file.list();
+//                String[] filelist = file.list();
                 
-//            	String[] filelist=OrderWrapperTool.SortFileNameList(file.list());
+            	String[] filelist=OrderWrapperTool.SortFileNameList(file.list());
                 System.out.println("readfile()+++++++++++++++++++++"+filelist.length);
                 for (int i = 0; i < filelist.length; i++) {
                 	System.out.println(filelist[i]);
@@ -103,7 +103,7 @@ public class ResultService {
                         	
                         	List<TestCase> testcaselist=TcConvertUtil.buildTestCaseList(type, fileName);
                         	
-                        	//IDÆ«ÒÆ
+                        	//IDÆ«ÒÆÁ¿
                         	if(Controller.offsetIP!=null&&filelist[i].contains(Controller.offsetIP)){
                         		for(TestCase testCase:testcaselist){
                         			testCase.setTestCaseID(String.valueOf(Integer.parseInt(testCase.getTestCaseID())+Controller.offsetTestCaseId));

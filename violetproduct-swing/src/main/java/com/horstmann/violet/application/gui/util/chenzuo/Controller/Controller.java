@@ -39,8 +39,8 @@ public class Controller {
 
     private static Logger logger = Logger.getLogger(Controller.class);
 
-//    private static long MAX_FILE_SIZE = 10 * 1024 * 1024;
-    private static long MAX_FILE_SIZE = 5*1024;
+    private static long MAX_FILE_SIZE = 10000 * 1024 * 1024;
+//    private static long MAX_FILE_SIZE = 5*1024;
     
     // deploy
     private static IPDeploy IP_TYPE_DEPLOY = new IPDeploy();
@@ -100,6 +100,8 @@ public class Controller {
         } else {
             execute(type, 1, files);
         }
+        
+//        resultService = new ResultService(type);
     }
 
     /////to do
@@ -210,6 +212,8 @@ public class Controller {
     	
     	List<IPNode> nodes;
     	int successnum=0;
+    	
+    	needNodeNum=1;
     	
     	logger.debug("Controller Ready Start");
 		if ((nodes = IP_TYPE_DEPLOY.findNodeFree(needNodeNum)) != null) {

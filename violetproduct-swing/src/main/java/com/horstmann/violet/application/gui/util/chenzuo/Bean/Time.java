@@ -62,8 +62,12 @@ public class Time  implements Serializable{
     public Map<String, Pair<String, String>> getShowMap() {
         return showMap;
     }
+    
+    public void setShowMap(Map<String, Pair<String, String>> showMap) {
+		this.showMap = showMap;
+	}
 
-    public void setShowMap() {
+	public void setShowMapByJudge() {
         showMap = new HashMap<String, Pair<String, String>>();
         String[] oStrings = original.split(",");
         for (String t : oStrings) {
@@ -101,7 +105,7 @@ public class Time  implements Serializable{
         		v = (double) mapping.get(key).getSecond();
                 if (v == 300d){
                 	flag = false;
-                	result += key + "= null ";
+                	result += key + "=null ";
                     value += 0;
                 }
                 else{
@@ -112,7 +116,7 @@ public class Time  implements Serializable{
         }
         if (flag)
             r = charge(symbol, value, Double.parseDouble(pV));
-        return new Pair(result, r);
+        return new Pair(result, String.valueOf(r));
     }
 
     boolean charge(String symbol, double a, double b) {

@@ -1,6 +1,8 @@
 package com.horstmann.violet.application.gui.util.chenzuo.Bean;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /***
  * 
@@ -119,7 +121,92 @@ public class TestCase implements Serializable{
 					+ " ¼¤Àø×´Ì¬ :" + ((m.processStatus == "NULL")?"¿Õ":m.getProcessStatus())
 					+")";
 		}
-		tmp = tmp + " ]\n  -->²âÊÔÖ´ÐÐ×´Ì¬: [ ²âÊÔºÄÊ±:" + exetime + " ms ]\n  -->½á¹û×´Ì¬: [ "+ result.getResultDetail()+" ]";
+		tmp = tmp + " ]\n  -->²âÊÔÖ´ÐÐ×´Ì¬: [ ²âÊÔºÄÊ±:" + exetime + " ms ]\n  -->½á¹û×´Ì¬: [ "+ state+" ]";
 		return tmp;
 	}
+	
+	public String SpellFunctionalTestCase(){
+		
+		StringBuffer sb=new StringBuffer();
+		
+		sb.append("testCaseID:"+testCaseID+"\n");
+		sb.append("-->processList:[");
+		for(myProcess process:processList){
+			sb.append("\n\t[");
+			sb.append("processID:"+process.getProcessID()+"\t");
+			sb.append("processName:"+process.getProcessName()+"\t");
+			sb.append("processParam:"+process.getProcessParam()+"\t");
+			sb.append("processStatus:"+process.getProcessStatus()+"\t");
+			sb.append("processExec:"+process.isProcessExec()+"]");
+		}
+		sb.append("\n]\n");
+		sb.append("-->exetime:["+exetime+"]\n");
+		sb.append("-->state:["+state+"]\n");
+		
+		return sb.toString();
+	}
+	
+	public String SpellPerformanceTestCase(){
+		
+		StringBuffer sb=new StringBuffer();
+		
+		sb.append("testCaseID:"+testCaseID+"\n");
+		sb.append("-->processList:[");
+		for(myProcess process:processList){
+			sb.append("\n\t[");
+			sb.append("processID:"+process.getProcessID()+"\t");
+			sb.append("processName:"+process.getProcessName()+"\t");
+			sb.append("processParam:"+process.getProcessParam()+"\t");
+			sb.append("processStatus:"+process.getProcessStatus()+"\t");
+			sb.append("processExec:"+process.isProcessExec()+"]");
+		}
+		sb.append("\n]\n");
+		sb.append("-->performanceParam:[");
+		sb.append("wind_speed:"+result.getWind_speed()+"\t");
+		sb.append("takeoff_alt:"+result.getTakeoff_alt()+"\t");
+		sb.append("battery_remaining:"+result.getBattery_remaining()+"\t");
+		sb.append("time:"+result.getTime()+"]");
+		sb.append("\n");
+		sb.append("-->exetime:["+exetime+"]\n");
+		sb.append("-->state:["+state+"]\n");
+		
+		return sb.toString();
+	}	
+	
+	public String SpellTimeTestCase(){
+		
+		StringBuffer sb=new StringBuffer();
+		
+		sb.append("testCaseID:"+testCaseID+"\n");
+		sb.append("-->processList:[");
+		for(myProcess process:processList){
+			sb.append("\n\t[");
+			sb.append("processID:"+process.getProcessID()+"\t");
+			sb.append("processName:"+process.getProcessName()+"\t");
+			sb.append("processParam:"+process.getProcessParam()+"\t");
+			sb.append("processStatus:"+process.getProcessStatus()+"\t");
+			sb.append("processExec:"+process.isProcessExec()+"]");
+		}
+		sb.append("\n]\n");
+		sb.append("-->timeLimit:[");
+//		for(Entry<String, Pair<String, String>> entry:result.getTimeLimit().showMap.entrySet()){
+//			sb.append("\n\t[");
+//			sb.append("uninquery:"+entry.getKey()+"\t");
+//			sb.append("timeAttribute:"+entry.getValue().getFirst()+"\t");
+//			sb.append("isOk:"+entry.getValue().getSecond()+"]");
+//		}
+		for(String time:limit){
+			sb.append("\n\t[");
+			sb.append("uninquery:"+time+"\t");
+			Pair<String, String> pair=result.getTimeLimit().getShowMap().get(time);
+			sb.append("timeAttribute:"+pair.getFirst()+"\t");
+			sb.append("isOk:"+pair.getSecond()+"]");
+		}
+		sb.append("\n]\n");
+		sb.append("-->exetime:["+exetime+"]\n");
+		sb.append("-->state:["+state+"]\n");
+		
+		return sb.toString();
+	}
+	
 }

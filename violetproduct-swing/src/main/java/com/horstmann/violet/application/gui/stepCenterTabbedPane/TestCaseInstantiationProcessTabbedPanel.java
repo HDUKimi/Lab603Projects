@@ -733,7 +733,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					int i=0;
 
 					for(TestCase tc:testcaselist){
-						FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame, tc);
+						FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame, tc,0);
 						resultpanel.add(ftcrppanel);
 						layout.setConstraints(ftcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 						functionaltestcasereportlist.add(ftcrppanel);
@@ -771,7 +771,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					int borderi=0;
 
 					for(TestCase tc:bordertestcaselist){
-						FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame,tc);
+						FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame,tc,0);
 						borderresultpanel.add(ftcrppanel);
 						borderlayout.setConstraints(ftcrppanel, new GBC(0, borderi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 						borderfunctionaltestcasereportlist.add(ftcrppanel);
@@ -815,7 +815,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					layout.setConstraints(ptcrthpanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 					
 					for(TestCase tc:testcaselist){
-						PerformanceTestCaseReportPartPanel tcrppanel=new PerformanceTestCaseReportPartPanel(mainFrame, tc);
+						PerformanceTestCaseReportPartPanel tcrppanel=new PerformanceTestCaseReportPartPanel(mainFrame, tc,0);
 						resultpanel.add(tcrppanel);
 						layout.setConstraints(tcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 						performancetestcasereportlist.add(tcrppanel);
@@ -858,7 +858,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 
 					int index=0;
 					for(TestCase tc:testcaselist){
-						TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(mainFrame, tc);
+						TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(mainFrame, tc,0);
 						resultpanel.add(ttcrppanel);
 						layout.setConstraints(ttcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 						timetestcasereportlist.add(ttcrppanel);

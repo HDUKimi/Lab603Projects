@@ -37,8 +37,16 @@ public class RecvTransService implements Callable {
             long l = System.currentTimeMillis();
             scpclient.getFile(FileUtil.REMOTE_RS_PATH + fileName, FileUtil.LOCAL_TARGET_PATH);
             
-            File file=new File(FileUtil.LOCAL_TARGET_PATH+fileName);
-            file.renameTo(new File(FileUtil.LOCAL_TARGET_PATH+fileName1));
+            for(;;){
+            	File file=new File(FileUtil.LOCAL_TARGET_PATH+fileName);
+                file.renameTo(new File(FileUtil.LOCAL_TARGET_PATH+fileName1));
+                
+                File newfile=new File(FileUtil.LOCAL_TARGET_PATH+fileName1);
+                if(newfile.exists()){
+                	break;
+                }
+                System.out.println(FileUtil.LOCAL_TARGET_PATH+fileName+" - - "+FileUtil.LOCAL_TARGET_PATH+fileName1);
+            }
             
             logger.debug(node.getIp()+" file " + id + " get ok,cost time is:" + (System.currentTimeMillis() - l) + " ms");
 

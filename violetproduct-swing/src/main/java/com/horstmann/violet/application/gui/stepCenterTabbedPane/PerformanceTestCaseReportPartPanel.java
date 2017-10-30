@@ -57,11 +57,13 @@ public class PerformanceTestCaseReportPartPanel extends JPanel {
 	private DefaultTableModel attributetablemodel;
 	
 	private TestCase testcase;
+	private int showAll;
 
-	public PerformanceTestCaseReportPartPanel(MainFrame mainFrame,TestCase testcase) {
+	public PerformanceTestCaseReportPartPanel(MainFrame mainFrame,TestCase testcase,int showAll) {
 
 		this.mainFrame=mainFrame;
 		this.testcase=testcase;
+		this.showAll=showAll;
 		
 		init();
 
@@ -114,16 +116,8 @@ public class PerformanceTestCaseReportPartPanel extends JPanel {
 
 		String title = "";
 		title+="≤‚ ‘”√¿˝ID:"+testcase.getTestCaseID()+"     ";
-//		if(testcase.getState()!=null){
-//			title+=testcase.getState()+"     ";
-//		}
-//		else{
-			title+="≤‚ ‘∫ƒ ±:     ";
-//		}
+		title+="≤‚ ‘∫ƒ ±:     ";
 		title+="÷¥––Ω·π˚:";
-//		if(testcase.getResult()!=null){
-//			title+=testcase.getResult().substring(0, testcase.getResult().indexOf("∫ƒ ±"));
-//		}
 		
 		titlelabel.setText(title);
 		titlelabel.setFont(new Font("Œ¢»Ì—≈∫⁄", Font.BOLD, 12));
@@ -235,9 +229,14 @@ public class PerformanceTestCaseReportPartPanel extends JPanel {
 
 //		titletable.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(224, 225, 220)));
 		
-		Object[] rowData={testcase.getTestCaseID(),testcase.getResult().getWind_speed(),testcase.getResult().getTakeoff_alt(),"",""};
-		titletablemodel.addRow(rowData);
-
+		if(showAll==0){
+			Object[] rowData={testcase.getTestCaseID(),testcase.getResult().getWind_speed(),testcase.getResult().getTakeoff_alt(),"",""};
+			titletablemodel.addRow(rowData);
+		}
+		else{
+			Object[] rowData={testcase.getTestCaseID(),testcase.getResult().getWind_speed(),testcase.getResult().getTakeoff_alt(),testcase.getResult().getBattery_remaining(),testcase.getResult().getTime()};
+			titletablemodel.addRow(rowData);
+		}
 		
 	}
 
@@ -464,12 +463,18 @@ public class PerformanceTestCaseReportPartPanel extends JPanel {
 
 		attributepanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		attributepanel.setOpaque(false);
-
-		for(myProcess p:testcase.getProcessList()){
-			
-			Object[] rowData={p.getProcessID(),p.getProcessName(),p.getProcessParam(),"",""};
-			attributetablemodel.addRow(rowData);
-			
+		
+		if(showAll==0){
+			for(myProcess p:testcase.getProcessList()){
+				Object[] rowData={p.getProcessID(),p.getProcessName(),p.getProcessParam(),"",""};
+				attributetablemodel.addRow(rowData);
+			}
+		}
+		else{
+			for(myProcess p:testcase.getProcessList()){
+				Object[] rowData={p.getProcessID(),p.getProcessName(),p.getProcessParam(),p.getProcessStatus(),p.isProcessExec()+""};
+				attributetablemodel.addRow(rowData);
+			}
 		}
 
 	}

@@ -73,6 +73,7 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCaseP
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseResult;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.myProcess;
+import com.horstmann.violet.application.gui.util.lmr.DB.DataBaseUtil;
 import com.horstmann.violet.application.gui.util.tanchao.SaveText;
 import com.horstmann.violet.application.gui.util.tanchao.TestCaseXMLToStringList;
 import com.l2fprod.common.swing.JTaskPane;
@@ -1293,99 +1294,15 @@ public class TestCaseConfirmationPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				new Thread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						
-						
-						DefaultTableModel dtm=mainFrame.getTestCaseConfirmResultPanel().getTestcaseinfortablemodel();
-						while(dtm.getRowCount()>0){
-							dtm.removeRow(dtm.getRowCount()-1);
-						}
-						dtm.fireTableDataChanged();
-						mainFrame.getTestCaseConfirmResultPanel().getOnenamelabel().setText("");
-						
-						
-						int starttype = 0;
-						String testcasename = null;
-						
-						if(testcaselabeltabindex==1){
-							starttype=FindRadioButtonIndex(selectTestRadioButton)+1;
-							testcasename=selectTestCaseCheckBox.getText();
-						}
-						else if(testcaselabeltabindex==2){
-							starttype=FindSqlRadioButtonIndex(selectSqlTestRadioButton)+1;
-							testcasename=selectSqlTestCaseCheckBox.getText();
-						}
-						
-//						int testcasetype=starttype;
-						int hastime=0;
-						
-						if(testcasename.contains("TimeTestCase")){
-							hastime=1;
-//							testcasetype=3;
-						}
-						
-						List<TestCaseDataPanel> testCaseDataPanels=mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList();
-						int flag=0;
-						TestCaseDataPanel nowtcdpanel = null;
-								
-						List<TestCase> testcaselist=new ArrayList<>();
-						
-						String name = null;
-						
-						if(starttype==1){
-							name="功能测试";
-							if(hastime==1){
-								testcaselist.addAll(extractTimeTestDataFromXml(findTestCaseXMLPath(testcasename)));
-							}
-							else{
-								testcaselist.addAll(extractFunctionalTestDataFromXml(findTestCaseXMLPath(testcasename)));
-							}
-						}
-						else if(starttype==2){
-							name="性能测试";
-							if(hastime==1){
-								testcaselist.addAll(extractTimeTestDataFromXml(findTestCaseXMLPath(testcasename)));
-							}
-							else{
-								testcaselist.addAll(extractPerformanceTestDataFromXml(findTestCaseXMLPath(testcasename)));
-							}
-						}
-								
-								
-						for(TestCaseDataPanel tcd:testCaseDataPanels){
-							if(tcd.getTestCaseName().equals(name)){
-//								if(tcd.getTestcaselist().size()==testcaselist.size()){
-//									flag=1;
-//									nowtcdpanel=tcd;
-//								}
-//								else{
-									tcd.getTestCaseReportDiagramButtonPanel().setVisible(false);
-									tcd.getTestCaseChartDiagramButtonPanel().setVisible(false);
-									testCaseDataPanels.remove(tcd);
-//								}
-								break;
-							}
-						}
-						
-						if(flag==0){
-							nowtcdpanel=new TestCaseDataPanel(mainFrame, name, testcaselist, starttype, hastime);
-							mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList().add(nowtcdpanel);
-						}
-						
-						nowtcdpanel.getTestCaseReportDiagramButtonPanel().getTabbedbutton().doClick();
-						
-						TextAreaPrint(name+"的 "+testcaselist.size()+" 条测试用例提取完成");
-						
-						mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
-						
-						System.out.println("------------END------------");
-					}
-				}).start();
-
+				initUI();
+				
+				if(testcaselabeltabindex==1){
+					showTestCaseByLocal();
+				}
+				else if(testcaselabeltabindex==2){
+					showTestCaseByDB();
+				}
+				
 //				updateSelectedTestCaseList();
 //				
 //				updateSelectedTestCaseMap();
@@ -1553,6 +1470,154 @@ public class TestCaseConfirmationPanel extends JPanel{
 		toolpanel.setMaximumSize(new Dimension(100, 29));
 		toolpanel.setMinimumSize(new Dimension(100, 29));
 		
+	}
+
+	protected void showTestCaseByLocal() {
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				int starttype = 0;
+				String testcasename = null;
+				
+				starttype=FindRadioButtonIndex(selectTestRadioButton)+1;
+				testcasename=selectTestCaseCheckBox.getText();
+				
+				int hastime=0;
+				
+				if(testcasename.contains("TimeTestCase")){
+					hastime=1;
+				}
+				
+				List<TestCaseDataPanel> testCaseDataPanels=mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList();
+				int flag=0;
+				TestCaseDataPanel nowtcdpanel = null;
+						
+				List<TestCase> testcaselist=new ArrayList<>();
+				
+				String tabname = null;
+				
+				if(starttype==1){
+					tabname="功能测试";
+					if(hastime==1){
+						testcaselist.addAll(extractTimeTestDataFromXml(findTestCaseXMLPath(testcasename)));
+					}
+					else{
+						testcaselist.addAll(extractFunctionalTestDataFromXml(findTestCaseXMLPath(testcasename)));
+					}
+				}
+				else if(starttype==2){
+					tabname="性能测试";
+					if(hastime==1){
+						testcaselist.addAll(extractTimeTestDataFromXml(findTestCaseXMLPath(testcasename)));
+					}
+					else{
+						testcaselist.addAll(extractPerformanceTestDataFromXml(findTestCaseXMLPath(testcasename)));
+					}
+				}
+						
+						
+				for(TestCaseDataPanel tcd:testCaseDataPanels){
+					if(tcd.getTestCaseTabName().equals(tabname)){
+						tcd.getTestCaseReportDiagramButtonPanel().setVisible(false);
+						tcd.getTestCaseChartDiagramButtonPanel().setVisible(false);
+						testCaseDataPanels.remove(tcd);
+						break;
+					}
+				}
+				
+				if(flag==0){
+					nowtcdpanel=new TestCaseDataPanel(mainFrame, tabname,testcasename, testcaselist, starttype, hastime, 0);
+					mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList().add(nowtcdpanel);
+				}
+				
+				nowtcdpanel.getTestCaseReportDiagramButtonPanel().getTabbedbutton().doClick();
+				
+				TextAreaPrint(testcasename+"的 "+testcaselist.size()+" 条测试用例提取完成");
+				
+				mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
+				
+				System.out.println("------------END------------");
+			}
+		}).start();
+
+	}
+
+	protected void showTestCaseByDB() {
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				int starttype = 0;
+				int type=0;
+				String testcasename = null;
+				
+				starttype=FindSqlRadioButtonIndex(selectSqlTestRadioButton)+1;
+				testcasename=selectSqlTestCaseCheckBox.getText();
+				type=starttype;
+				
+				int hastime=0;
+				
+				if(testcasename.contains("TimeTestCase")){
+					hastime=1;
+					type=3;
+				}
+				
+				List<TestCaseDataPanel> testCaseDataPanels=mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList();
+				int flag=0;
+				TestCaseDataPanel nowtcdpanel = null;
+						
+				String tabname = testcasename;
+				
+				List<TestCase> testcaselist=new ArrayList<>();
+				List<String> testcasestringlist=new ArrayList<>();
+				
+				testcasestringlist=DataBaseUtil.queryTestCaseStringList(testcasename);
+				System.out.println("+-+**************"+testcasestringlist.size());
+				for(String str:testcasestringlist){
+					TestCase testCase=DataBaseUtil.extractTestCaseByString(type, str);
+					System.out.println(testCase.showTestCase());
+					testcaselist.add(testCase);
+				}
+						
+				for(TestCaseDataPanel tcd:testCaseDataPanels){
+					if(tcd.getTestCaseTabName().equals(tabname)){
+						tcd.getTestCaseReportDiagramButtonPanel().setVisible(false);
+						tcd.getTestCaseChartDiagramButtonPanel().setVisible(false);
+						testCaseDataPanels.remove(tcd);
+						break;
+					}
+				}
+				
+				if(flag==0){
+					nowtcdpanel=new TestCaseDataPanel(mainFrame, tabname, testcasename, testcaselist, starttype, hastime, 1);
+					mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList().add(nowtcdpanel);
+				}
+				
+				nowtcdpanel.getTestCaseReportDiagramButtonPanel().getTabbedbutton().doClick();
+				
+				TextAreaPrint(testcasename+"的 "+testcaselist.size()+" 条测试用例以及测试报告提取完成");
+				
+				mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
+				
+				System.out.println("------------END------------");
+			}
+		}).start();
+
+	}
+
+	protected void initUI() {
+		DefaultTableModel dtm=mainFrame.getTestCaseConfirmResultPanel().getTestcaseinfortablemodel();
+		while(dtm.getRowCount()>0){
+			dtm.removeRow(dtm.getRowCount()-1);
+		}
+		dtm.fireTableDataChanged();
+		mainFrame.getTestCaseConfirmResultPanel().getOnenamelabel().setText("");
 	}
 
 	protected void updateTestCaseTree() {

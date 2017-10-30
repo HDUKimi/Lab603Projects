@@ -101,6 +101,45 @@ public class TcConvertUtil {
 		return finallStatisticsResult;
 
 	}
+	
+	public static Map<String, Integer> timeStatistics(List<TestCase> testCases) {
+		
+		Map<String, Integer> resultmap=new HashMap<>();
+		
+		int successnum,failednum,testcasefailednum,timefailednum;
+		
+		successnum=0;
+		failednum=0;
+		testcasefailednum=0;
+		timefailednum=0;
+		
+		for(TestCase testCase:testCases){
+			
+			String detail=testCase.getState();
+			
+			if(detail.contains("正确执行")&&!detail.contains("不满足")){
+				successnum++;
+			}
+			else{
+				failednum++;
+				if(detail.contains("测试用例有误")){
+					testcasefailednum++;
+				}
+				else{
+					timefailednum++;
+				}
+			}
+			
+		}
+		
+		resultmap.put("success", successnum);
+		resultmap.put("failed", failednum);
+		resultmap.put("testcasefailed", testcasefailednum);
+		resultmap.put("timefailed", timefailednum);
+		
+		return resultmap;
+		
+	}
 
 	/**
 	 * 功能测试统计工具
@@ -123,7 +162,8 @@ public class TcConvertUtil {
 		Map<String, List<Map<Integer, List<Integer>>>> failedStatistics = new HashMap();
 
 		for (TestCase testCase : testCases) {
-			String tmpStr = testCase.getResult().getResultDetail();
+//			String tmpStr = testCase.getResult().getResultDetail();
+			String tmpStr = testCase.getState();
 			int id = Integer.parseInt(testCase.getTestCaseID());
 			String keyTmp = null;
 			// 出错用例 纪录并统计
@@ -192,7 +232,7 @@ public class TcConvertUtil {
 		time.setMapping(tmp[1]);
 
 		// 2.4封装结果
-		time.setShowMap();
+		time.setShowMapByJudge();
 		return time;
 	}
 
@@ -285,13 +325,24 @@ public class TcConvertUtil {
 				} else {
 					// 功能、性能
 					switch (Integer.valueOf(r[0])) {
+//					case 1:
+//						exeState = "测试用例有误,无法对应到执行程序，且测试耗时:" + r[1] + " ms [不准确]";
+//						break;
+//					case 2:
+//						exeState = "测试耗时:" + r[1] +" ms";
+//						break;
+					
 					case 1:
-						exeState = "测试用例有误,无法对应到执行程序，且测试耗时:" + r[1] + " ms [不准确]";
+						exeState = "测试用例有误,无法对应到执行程序!";
 						break;
 					case 2:
-						exeState = "测试耗时:" + r[1] +" ms";
+						exeState = "测试执行成功!";
+						break;
+					case 3:
+						exeState = "程序出现出现死循环或者抛出异常!";
 						break;
 					}
+					
 					if (type != "Function") {
 						testCaseResult.setExeTime(Double.valueOf(r[1]));
 						testCaseResult.setTakeoff_alt(Double.valueOf(r[2].substring("takeoff_alt".length())));

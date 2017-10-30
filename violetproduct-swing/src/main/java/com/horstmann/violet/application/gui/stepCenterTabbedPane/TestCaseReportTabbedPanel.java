@@ -23,6 +23,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -41,6 +44,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
@@ -79,6 +83,7 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TimeSucce
 import com.horstmann.violet.application.gui.util.chenzuo.Controller.Controller;
 import com.horstmann.violet.application.gui.util.chenzuo.Service.ResultService;
 import com.horstmann.violet.application.gui.util.chenzuo.Util.TcConvertUtil;
+import com.horstmann.violet.application.gui.util.lmr.DB.DataBaseUtil;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.Pair;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseException;
@@ -961,6 +966,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				Controller.resultService.closeService();
 				
+				CheckIsSaveDB();
+				
 				threadstate = 0;
 				
 			}
@@ -1142,7 +1149,61 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 	}
 
+	protected void CheckIsSaveDB() {
+		
+		int issave=JOptionPane.showConfirmDialog(null, "是否需要保存该次测试用例及测试报告", "提示", JOptionPane.YES_NO_OPTION);
+		
+		if(issave==JOptionPane.YES_OPTION){
+			SaveTestCaseToDBByType(testcasetype);
+		}
+		else{
+			
+		}
+		
+	}
+
+	private void SaveTestCaseToDBByType(int type) {
+		
+		if(type==1){
+			List<String> testcasestringlist=new ArrayList<>();
+			for(TestCase testCase:resulttestcaselist){
+				testcasestringlist.add(testCase.SpellFunctionalTestCase());
+			}
+			DataBaseUtil.insertTestCaseStringList(type, testcasestringlist, testcasename);
+			TextAreaPrint("保存成功！！！");
+		}
+		else if(type==2){
+			List<String> testcasestringlist=new ArrayList<>();
+			for(TestCase testCase:resulttestcaselist){
+				testcasestringlist.add(testCase.SpellPerformanceTestCase());
+			}
+			DataBaseUtil.insertTestCaseStringList(type, testcasestringlist, testcasename);
+			TextAreaPrint("保存成功！！！");
+		}
+		else if(type==3){
+			List<String> testcasestringlist=new ArrayList<>();
+			for(TestCase testCase:resulttestcaselist){
+				testcasestringlist.add(testCase.SpellTimeTestCase());
+			}
+			DataBaseUtil.insertTestCaseStringList(type, testcasestringlist, testcasename);
+			TextAreaPrint("保存成功！！！");
+		}
+		
+	}
+
 	protected void showStatisticsDataByType(int type) {
+		
+		Collections.sort(resulttestcaselist, new Comparator<TestCase>() {
+
+			@Override
+			public int compare(TestCase o1, TestCase o2) {
+				
+				int id1=Integer.parseInt(o1.getTestCaseID());
+				int id2=Integer.parseInt(o2.getTestCaseID());
+				
+				return id1-id2;
+			}
+		});
 		
 		if(type==1){//统计功能数据
 			
@@ -1256,10 +1317,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		}
 		else if(type==3){
 			
-//			Map<String, Object> testcasemap=TcConvertUtil.functionStatistics(resulttestcaselist);
-//			List<Integer> caseSuccess=(List<Integer>) testcasemap.get("caseSuccess");
-//			List<Integer> caseFailed=(List<Integer>) testcasemap.get("caseFailed");
-//			Map<String,List<Map<Integer,List<Integer>>>> failedStatistics=(Map<String, List<Map<Integer, List<Integer>>>>) testcasemap.get("failedStatistics");
+			Map<String, Integer> resultmap=TcConvertUtil.timeStatistics(resulttestcaselist);
 			
 			TimeTestCaseChartTabbedPanel timeTestCaseChartTabbedPanel=new TimeTestCaseChartTabbedPanel(mainFrame);
 			
@@ -1269,11 +1327,11 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			DefaultTableModel tabelmodel=timeTestCaseChartTabbedPanel.getAttributetablemodel();
 			
 			int cs=0,cf=0,csum=0;
-//			cs=caseSuccess.size();
-//			cf=caseFailed.size();
+			cs=resultmap.get("success");
+			cf=resultmap.get("failed");
 			
-			cs=180;
-			cf=39;
+//			cs=180;
+//			cf=39;
 			
 			csum=cs+cf;
 			DefaultTableModel successfailedtabelmodel=timeTestCaseChartTabbedPanel.getSuccessfailedattributetablemodel();
@@ -1294,8 +1352,11 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				f2=failedStatistics.get("程序出现死循环或者抛出异常").size();
 //			}
 			
-			f1=27;
-			f2=12;
+			f1=resultmap.get("testcasefailed");
+			f2=resultmap.get("timefailed");
+			
+//			f1=27;
+//			f2=12;
 			
 			DefaultTableModel failedstatisticstabelmodel=timeTestCaseChartTabbedPanel.getFailedstatisticsattributetablemodel();
 			while(failedstatisticstabelmodel.getRowCount()>0){
@@ -1362,7 +1423,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
 //			title+=testcase.getState()+"     ";
 //			title+="执行结果:"+testcase.getResult().substring(0, testcase.getResult().indexOf("耗时"));
-			title+="执行结果:"+testcase.getResult().getResultDetail()+"     ";
+//			title+="执行结果:"+testcase.getResult().getResultDetail()+"     ";
+			title+="执行结果:"+testcase.getState()+"     ";
 			title+="总耗时:"+testcase.getExetime()+" ms";
 			
 			ftcrpp.getTitlelabel().setText(title);
@@ -1375,7 +1437,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			ImageIcon icon2 = new ImageIcon(path + "cross.png");
 			icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
 			
-			if(testcase.getResult().getResultDetail().contains("成功")){
+			if(testcase.getState().contains("成功")){
 				ftcrpp.getIconlabel().setIcon(icon1);
 			}
 			else{
@@ -1383,6 +1445,14 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			}
 			
 			TextAreaPrint(testcase.toString());
+			
+//			System.out.println("----------+++++++++++");
+//			System.out.println(testcase.SpellFunctionalTestCase());
+//			System.out.println("----------+++++++++++");
+			
+//			System.out.println("----------+++++++++++");
+//			System.out.println(testcase.SpellPerformanceTestCase());
+//			System.out.println("----------+++++++++++");
 			
 		}
 		else if(type==2){
@@ -1443,6 +1513,10 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			
 			TextAreaPrint(testcase.toString());
 			
+//			System.out.println("----------+++++++++++");
+//			System.out.println(testcase.SpellPerformanceTestCase());
+//			System.out.println("----------+++++++++++");
+			
 		}
 		else if (type == 3) {
 
@@ -1473,20 +1547,23 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			limittable = ttcrpp.getLimittable();
 			limittablemodel = ttcrpp.getLimittablemodel();
 
+			testcase.setLimit(ttcrpp.getTestcase().getLimit());
+			
 			Map<String, Pair<String, String>> map = testcase.getResult().getTimeLimit().getShowMap();
 			for (int i = 0; i < limittablemodel.getRowCount(); i++) {
 				String limit = (String) limittablemodel.getValueAt(i, 0);
 				Pair p = map.get(limit);
 				int state = 0;
-				if (p.getSecond().equals(true)) {
+				if (p.getSecond().equals("true")) {
 					state = 1;
 				}
 				if (p.getFirst() == null || p.getFirst().equals("")) {
 					state = 0;
 				}
+				System.out.println(limit + "  -  " + state + "  -  " + p.getFirst() + "  -  " + p.getSecond());
 				limittablemodel.setValueAt(p.getFirst(), i, 1);
 				limittablemodel.setValueAt(state, i, 2);
-				System.out.println(limit + "  -  " + state + "  -  " + p.getFirst() + "  -  " + p.getSecond());
+				
 			}
 
 			String title = "";
@@ -1516,6 +1593,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 
 			TextAreaPrint(testcase.toString());
 
+			System.out.println("----------+++++++++++");
+			System.out.println(testcase.SpellTimeTestCase());
+			System.out.println("----------+++++++++++");
 		}
 		
 	}
@@ -1704,6 +1784,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				TextAreaPrint("测试执行结束");
 				
 				Controller.resultService.closeService();
+				
+				CheckIsSaveDB();
 				
 				threadstate=0;
 				
@@ -1996,6 +2078,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				TextAreaPrint("测试执行结束");
 				
 				Controller.resultService.closeService();
+				
+				CheckIsSaveDB();
 				
 				threadstate=0;
 				
@@ -2416,6 +2500,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				Controller.resultService.closeService();
 				
+				CheckIsSaveDB();
+				
 				threadstate=0;
 			}
 			
@@ -2798,7 +2884,13 @@ public class TestCaseReportTabbedPanel extends JPanel{
 
 					operation.setText(p.getProcessName());
 					input.setText(p.getProcessParam());
-					time.setText(p.getProcessStatus());
+					
+					if(p.getProcessStatus().contains("=")){
+						time.setText(p.getProcessStatus().split("=")[0]);
+					}
+					else{
+						time.setText(p.getProcessStatus());
+					}
 				}
 				
 				Element limit = testcase.addElement("limit");
@@ -2827,6 +2919,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 
 					operation.setText(p.getProcessName());
 					input.setText(p.getProcessParam());
+					
 				}
 			}
 		}

@@ -376,7 +376,7 @@ public class WriteVioletTimingDiagram {
          Element location=Statelifeline.addElement("location");
          location.addAttribute("class", "Point2D.Double").addAttribute("id", UUID.randomUUID().toString()).
          addAttribute("x", violetstateline.getLocationX()).addAttribute("y", violetstateline.getLocationY());
-    	 Element id= Statelifeline.addElement("id");   	 
+    	 Element id= Statelifeline.addElement("nid");   	 
          id.addAttribute("id", UUID.randomUUID().toString());
          Element state0=Statelifeline.addElement("state0");
          state0.addAttribute("id", UUID.randomUUID().toString());
