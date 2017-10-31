@@ -252,22 +252,22 @@ public class ConsolePartPanel extends JPanel {
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "ytriangulararrow.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/ytriangulararrow.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(8, 4, Image.SCALE_DEFAULT));
 		titleiconlabel1.setIcon(icon1);
 		titleiconlabel1.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 6));
-		ImageIcon icon2 = new ImageIcon(path + "ydownarrow.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/ydownarrow.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(7, 11, Image.SCALE_DEFAULT));
 		titleiconlabel2.setIcon(icon2);
 		titleiconlabel2.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
-		ImageIcon icon3 = new ImageIcon(path + "yfork.png");
+		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/yfork.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(10, 8, Image.SCALE_DEFAULT));
 		titleiconlabel3.setIcon(icon3);
 		titleiconlabel3.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
-		ImageIcon icon4 = new ImageIcon(path + "remove.png");
+		ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/remove.png"));
 		icon4.setImage(icon4.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 		titleiconlabel4.setIcon(icon4);
-		ImageIcon icon5 = new ImageIcon(path + "export.png");
+		ImageIcon icon5 = new ImageIcon(this.getClass().getResource("ImagePart/export.png"));
 		icon5.setImage(icon5.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 		titleiconlabel5.setIcon(icon5);
 		

@@ -30,7 +30,7 @@ public class MoviePanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon = new ImageIcon(path + "movie.png");
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("ImagePart/movie.png"));
 		icon.setImage(icon.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
 		
 		movieLabel.setIcon(icon);

@@ -109,9 +109,9 @@ public class PerformanceTestCaseReportPartPanel extends JPanel {
 		String absolutePath = System.getProperty("user.dir");
 		String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "tick.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/tick.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(path + "dropdown1.png");
+		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/dropdown1.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(11, 11, Image.SCALE_DEFAULT));
 
 		String title = "";

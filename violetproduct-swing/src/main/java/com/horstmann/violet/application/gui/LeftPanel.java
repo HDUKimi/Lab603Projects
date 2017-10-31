@@ -33,7 +33,7 @@ public class LeftPanel extends JPanel{
 	
 //	private JPanel emptypanel;
 	private JPanel mainpanel;
-	private JButton testbutton;
+//	private JButton testbutton;
 	
 	public LeftPanel(MainFrame mainFrame){
 		this.setBackground(new Color(71,80,93));
@@ -60,52 +60,52 @@ public class LeftPanel extends JPanel{
 //		this.add(emptypanel,BorderLayout.NORTH);
 		this.add(mainpanel,BorderLayout.CENTER);
 		
-		testbutton=new JButton();
+//		testbutton=new JButton();
 //		testbutton.setBackground(Color.BLUE);
 		
 //		URL url=this.getClass().getResource("buttonUI.png");
 //        ImageIcon icon=new ImageIcon(url);
 //        icon.setImage(icon.getImage().getScaledInstance(50,30, Image.SCALE_DEFAULT));
-        testbutton.setFocusable(false);
-        testbutton.setContentAreaFilled(false);
-        testbutton.setBorderPainted(false);
+//        testbutton.setFocusable(false);
+//        testbutton.setContentAreaFilled(false);
+//        testbutton.setBorderPainted(false);
 //		testbutton.setIcon(icon);
 //		testbutton.addMouseListener(new TestButtonListener());
         
 //		this.add(testbutton,BorderLayout.SOUTH);
-		testbutton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-//				mainFrame.getActiveWorkspace().getAWTComponent().getWorkspacejs().setDividerLocation(2000);
-				System.out.println("-------------------------------");
-				
-				GraphToolsBar toolbar= (GraphToolsBar) mainFrame.getActiveWorkspace().getAWTComponent().getWorkspace().getSideBar().getGraphToolsBar();
-				List<GraphToolsBarButton> bl=GraphToolsBarPanel.getToggleButtons(toolbar.getNodeTools());
-				int i=0;
-				System.out.println("--++-------------+++++++++------"+bl.size());
-				for(GraphToolsBarButton b:bl){
-					if(i==1){
-						((GraphToolsBarPanel) mainFrame.getActiveWorkspace().getAWTComponent().getWorkspace().getSideBar().getGraphToolsBar().getAWTComponent()).setOnClickSelectedButton(b);
-						//GraphToolsBarPanel须设置相等条件
-					}
-					System.out.println(b.isSelected());
-					i++;
-				}
-				
-				
-//				JButton jb=mainFrame.getActiveWorkspace().getAWTComponent().getWorkspace().getSideBar().getEditorToolsBar().getZoomInButton();
-//				jb.doClick();
-				
-//				mainFrame.getActiveWorkspace().getEditorPart().changeZoom(1);
-				
-//				ColorChoice c=new ColorChoice(Color.BLUE, Color.BLUE, Color.WHITE);
-//				((ColorToolsBarPanel)mainFrame.getActiveWorkspace().getAWTComponent().getWorkspace().getSideBar().getColorChoiceBar().getAWTComponent()).fireColorChoiceChanged(c);
-				
-				System.out.println("-------------------------------");
-			}
-		});
+//		testbutton.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//				// TODO Auto-generated method stub
+////				mainFrame.getActiveWorkspace().getAWTComponent().getWorkspacejs().setDividerLocation(2000);
+//				System.out.println("-------------------------------");
+//				
+//				GraphToolsBar toolbar= (GraphToolsBar) mainFrame.getActiveWorkspace().getAWTComponent().getWorkspace().getSideBar().getGraphToolsBar();
+//				List<GraphToolsBarButton> bl=GraphToolsBarPanel.getToggleButtons(toolbar.getNodeTools());
+//				int i=0;
+//				System.out.println("--++-------------+++++++++------"+bl.size());
+//				for(GraphToolsBarButton b:bl){
+//					if(i==1){
+//						((GraphToolsBarPanel) mainFrame.getActiveWorkspace().getAWTComponent().getWorkspace().getSideBar().getGraphToolsBar().getAWTComponent()).setOnClickSelectedButton(b);
+//						//GraphToolsBarPanel须设置相等条件
+//					}
+//					System.out.println(b.isSelected());
+//					i++;
+//				}
+//				
+//				
+////				JButton jb=mainFrame.getActiveWorkspace().getAWTComponent().getWorkspace().getSideBar().getEditorToolsBar().getZoomInButton();
+////				jb.doClick();
+//				
+////				mainFrame.getActiveWorkspace().getEditorPart().changeZoom(1);
+//				
+////				ColorChoice c=new ColorChoice(Color.BLUE, Color.BLUE, Color.WHITE);
+////				((ColorToolsBarPanel)mainFrame.getActiveWorkspace().getAWTComponent().getWorkspace().getSideBar().getColorChoiceBar().getAWTComponent()).fireColorChoiceChanged(c);
+//				
+//				System.out.println("-------------------------------");
+//			}
+//		});
 		
 //		this.setLayout(new GridLayout());
 //

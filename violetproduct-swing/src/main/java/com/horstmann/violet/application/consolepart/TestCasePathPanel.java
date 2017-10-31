@@ -89,9 +89,9 @@ public class TestCasePathPanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "test17.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/test17.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "dropdown1.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/dropdown1.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(11,11, Image.SCALE_DEFAULT));
 		
 //		titlelabel.setText(automatic.getName().substring(automatic.getName().indexOf("≤‚ ‘”√¿˝")));

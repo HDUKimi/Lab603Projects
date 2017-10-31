@@ -35,7 +35,7 @@ public class MyUppaalLabelRender extends JLabel implements TableCellRenderer{
 		
 		
 		
-		ImageIcon icon = new ImageIcon(path + "table_uppaal.png");
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("ImagePart/table_uppaal.png"));
 		icon.setImage(icon.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 		
         setIcon(icon);

@@ -100,15 +100,15 @@ public class TestCaseUppaalTabbedPanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "zoomin1.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/zoomin1.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(20,20, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "zoomout1.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/zoomout1.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(20,20, Image.SCALE_DEFAULT));
-		final ImageIcon icon3 = new ImageIcon(path + "test12.png");
+		final ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/test12.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(18,18, Image.SCALE_DEFAULT));
-		final ImageIcon icon4 = new ImageIcon(path + "test11.png");
+		final ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/test11.png"));
 		icon4.setImage(icon4.getImage().getScaledInstance(18,18, Image.SCALE_DEFAULT));
-		ImageIcon icon5 = new ImageIcon(path + "test13.png");
+		ImageIcon icon5 = new ImageIcon(this.getClass().getResource("ImagePart/test13.png"));
 		icon5.setImage(icon5.getImage().getScaledInstance(18,18, Image.SCALE_DEFAULT));
 	
 		toolbutton1.setIcon(icon1);

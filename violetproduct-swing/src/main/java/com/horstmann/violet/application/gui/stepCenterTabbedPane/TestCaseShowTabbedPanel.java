@@ -81,9 +81,9 @@ public class TestCaseShowTabbedPanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon6 = new ImageIcon(path + "up_arrow.png");
+		ImageIcon icon6 = new ImageIcon(this.getClass().getResource("ImagePart/up_arrow.png"));
 		icon6.setImage(icon6.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon7 = new ImageIcon(path + "down_arrow.png");
+		ImageIcon icon7 = new ImageIcon(this.getClass().getResource("ImagePart/down_arrow.png"));
 		icon7.setImage(icon7.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 	
 		

@@ -182,13 +182,13 @@ public class StepFiveCenterTabbedPane extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		final ImageIcon icon1 = new ImageIcon(path + "left1.png");
+		final ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/left1.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
-		final ImageIcon icon2 = new ImageIcon(path + "right1.png");
+		final ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/right1.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
-		final ImageIcon icon3 = new ImageIcon(path + "left3.png");
+		final ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/left3.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
-		final ImageIcon icon4 = new ImageIcon(path + "right3.png");
+		final ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/right3.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(15, 15, Image.SCALE_DEFAULT));
 		
 		leftButton.setIcon(icon1);

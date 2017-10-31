@@ -116,15 +116,15 @@ public class ValidationToolPanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "zoomin1.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/zoomin1.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(20,20, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "zoomout1.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/zoomout1.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(20,20, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(path + "start.png");
+		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/start.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon4 = new ImageIcon(path + "suspend.png");
+		ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/suspend.png"));
 		icon4.setImage(icon4.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon5 = new ImageIcon(path + "stop.png");
+		ImageIcon icon5 = new ImageIcon(this.getClass().getResource("ImagePart/stop.png"));
 		icon5.setImage(icon5.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 	
 		toolbutton1.setIcon(icon1);

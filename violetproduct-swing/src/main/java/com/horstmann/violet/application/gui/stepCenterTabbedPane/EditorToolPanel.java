@@ -88,24 +88,24 @@ public class EditorToolPanel extends JPanel {
 	private void init() {
 		// TODO Auto-generated method stub
 		
-		String absolutePath=System.getProperty("user.dir");
-		String path = absolutePath+"\\src\\site\\resources\\icons\\22x22\\";
+//		String absolutePath=System.getProperty("user.dir");
+//		String path = absolutePath+"\\src\\site\\resources\\icons\\22x22\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "undo.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/22x22/undo.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "redo.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/22x22/redo.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(path + "zoomin.png");
+		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/22x22/zoomin.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon4 = new ImageIcon(path + "zoomout.png");
+		ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/22x22/zoomout.png"));
 		icon4.setImage(icon4.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon5 = new ImageIcon(path + "delete.png");
+		ImageIcon icon5 = new ImageIcon(this.getClass().getResource("ImagePart/22x22/delete.png"));
 		icon5.setImage(icon5.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon6 = new ImageIcon(path + "cut.png");
+		ImageIcon icon6 = new ImageIcon(this.getClass().getResource("ImagePart/22x22/cut.png"));
 		icon6.setImage(icon6.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon7 = new ImageIcon(path + "copy.png");
+		ImageIcon icon7 = new ImageIcon(this.getClass().getResource("ImagePart/22x22/copy.png"));
 		icon7.setImage(icon7.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon8 = new ImageIcon(path + "paste.png");
+		ImageIcon icon8 = new ImageIcon(this.getClass().getResource("ImagePart/22x22/paste.png"));
 		icon8.setImage(icon8.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 
 		toolbutton1.setIcon(icon1);

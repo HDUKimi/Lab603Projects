@@ -1,11 +1,8 @@
 package com.horstmann.violet.application.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -14,84 +11,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JViewport;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
-
-import com.horstmann.violet.application.consolepart.ConsoleMessageTabbedPane;
-import com.horstmann.violet.application.consolepart.ConsolePart;
-import com.horstmann.violet.application.consolepart.ConsolePartDataTestDao;
-import com.horstmann.violet.application.consolepart.ConsolePartDetailInfoTable;
-import com.horstmann.violet.application.consolepart.ConsolePartTextArea;
-import com.horstmann.violet.application.gui.opreationTreePane.TestCaseConfirmationPanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.MoviePanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.PerformanceTestCaseReportPartPanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.ValidationToolPanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCasePieChartPanel;
-import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
-import com.horstmann.violet.application.gui.util.chenzuo.Bean.myProcess;
-import com.horstmann.violet.application.gui.util.wqq.AutoMataTransfrom1.GetAutomatic;
-import com.horstmann.violet.application.gui.util.wqq.AutoMataTransfrom1.Main;
-import com.horstmann.violet.application.gui.util.wujun.SequenceTransfrom.SD2UppaalMain;
-import com.horstmann.violet.application.gui.util.xiaole.GraghLayout.LayoutUppaal;
-import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.ImportByDoubleClick;
-import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.TransToVioletUppaal;
-import com.horstmann.violet.application.menu.FileMenu;
-import com.horstmann.violet.application.menu.util.zhangjian.Database.AbstractState;
-import com.horstmann.violet.application.menu.util.zhangjian.Database.RealTestCaseVO;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.AbstractTestCaseInsertByTan;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.AbstractTestCaseUppaalCreate;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.AbstractTestCaseUppaalSequenceCreate;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.AbstractTrasitionAndStateInsertByTan;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.RealTestCaseXMLRead;
-import com.horstmann.violet.framework.file.GraphFile;
-import com.horstmann.violet.framework.file.IFile;
-import com.horstmann.violet.framework.file.IGraphFile;
-import com.horstmann.violet.framework.file.chooser.IFileChooserService;
-import com.horstmann.violet.framework.file.naming.ExtensionFilter;
-import com.horstmann.violet.framework.file.naming.FileNamingService;
-import com.horstmann.violet.framework.file.persistence.IFileReader;
-import com.horstmann.violet.framework.file.persistence.XHTMLPersistenceService;
-import com.horstmann.violet.framework.injection.bean.ManiocFramework.InjectedBean;
-import com.horstmann.violet.workspace.IWorkspace;
-import com.horstmann.violet.workspace.Workspace;
 
 public class StepButtonPanel extends JPanel {
-	@InjectedBean
-    private IFileChooserService fileChooserService;
-	@InjectedBean
-	private FileNamingService fileNamingService;
+//	@InjectedBean
+//    private IFileChooserService fileChooserService;
+//	@InjectedBean
+//	private FileNamingService fileNamingService;
 	private JPanel homebuttonpanel;
 	private JPanel step1buttonpanel;
 	private JPanel step2buttonpanel;
@@ -120,19 +55,19 @@ public class StepButtonPanel extends JPanel {
 //    private JButton Fourstart=new JButton("开始");
 //    private JButton Twostart=new JButton("开始");
 //    private JButton fivestart=new JButton("开始");
-    private JButton fiveshow=new JButton("显示");
+//    private JButton fiveshow=new JButton("显示");
 //    private JButton Sixstart=new JButton("开始");
 	
-	private JButton Buttonstart=new JButton();
-    private JButton Buttonstop=new JButton();
-    
-    private JButton Twostart=new JButton();
-    private JButton Threestart=new JButton();
-    private JButton Fourstart=new JButton();
-    private JButton Fivestart=new JButton();
-    private JButton Sixstart=new JButton();
-    
-    private JButton tabbutton=new JButton();
+//	private JButton Buttonstart=new JButton();
+//    private JButton Buttonstop=new JButton();
+//    
+//    private JButton Twostart=new JButton();
+//    private JButton Threestart=new JButton();
+//    private JButton Fourstart=new JButton();
+//    private JButton Fivestart=new JButton();
+//    private JButton Sixstart=new JButton();
+//    
+//    private JButton tabbutton=new JButton();
 	
 //    JTextArea StepOneArea=new JTextArea();
 //	JTextArea StepTwoArea=new JTextArea();
@@ -151,7 +86,7 @@ public class StepButtonPanel extends JPanel {
 	JScrollPane StepSixScrollTree;
 	
 	
-	List<PerformanceTestCaseReportPartPanel> testcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
+//	List<PerformanceTestCaseReportPartPanel> testcasereportlist=new ArrayList<PerformanceTestCaseReportPartPanel>();
 	
 	public StepButtonPanel(MainFrame mainFrame) {
 //		this.setBackground(new Color(174,199,225));
@@ -253,26 +188,26 @@ public class StepButtonPanel extends JPanel {
 //		step4button.setText("第四步:测试用例实例化");
 //		step5button.setText("第五步:测试用例实例化验证");
 		
-//		URL url=this.getClass().getResource("testbutton.png");
+//		URL url=this.getClass().getResource("testbutton.png"));
 //        ImageIcon icon=new ImageIcon(url);
 //        icon.setImage(icon.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
         
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon0 = new ImageIcon(path + "stepbutton0.png");
+		ImageIcon icon0 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton0.png"));
 		icon0.setImage(icon0.getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
-		ImageIcon icon1 = new ImageIcon(path + "stepbutton1.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton1.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "stepbutton2.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton2.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(path + "stepbutton3.png");
+		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton3.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
-		ImageIcon icon4 = new ImageIcon(path + "stepbutton4.png");
+		ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton4.png"));
 		icon4.setImage(icon4.getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
-		ImageIcon icon5 = new ImageIcon(path + "stepbutton5.png");
+		ImageIcon icon5 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton5.png"));
 		icon5.setImage(icon5.getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
-		ImageIcon icon6 = new ImageIcon(path + "stepbutton1.png");
+		ImageIcon icon6 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton1.png"));
 		icon6.setImage(icon6.getImage().getScaledInstance(40,40, Image.SCALE_DEFAULT));
 		
 //		step1button.setContentAreaFilled(false);//btn背景透明
@@ -677,53 +612,53 @@ public class StepButtonPanel extends JPanel {
 		step6buttonpanel.add(step6button);
 		
 		
-//		URL urlstart=this.getClass().getResource("teststart.png");
-        ImageIcon iconstart=new ImageIcon(path + "teststart.png");
-        iconstart.setImage(iconstart.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
-        Twostart.setIcon(iconstart);
-        Twostart.setFocusable(false);
-        Twostart.setContentAreaFilled(false);
-        Twostart.setBorderPainted(false);
-        Twostart.addMouseListener(new ButtonMouseListener());
-        Twostart.setPreferredSize(new Dimension(30,30));
-        Threestart.setIcon(iconstart);
-        Threestart.setFocusable(false);
-        Threestart.setContentAreaFilled(false);
-        Threestart.setBorderPainted(false);
-        Threestart.addMouseListener(new ButtonMouseListener());
-        Threestart.setPreferredSize(new Dimension(30,30));
-        Fourstart.setIcon(iconstart);
-        Fourstart.setFocusable(false);
-        Fourstart.setContentAreaFilled(false);
-        Fourstart.setBorderPainted(false);
-        Fourstart.addMouseListener(new ButtonMouseListener());
-        Fourstart.setPreferredSize(new Dimension(30,30));
-        Fivestart.setIcon(iconstart);
-        Fivestart.setFocusable(false);
-        Fivestart.setContentAreaFilled(false);
-        Fivestart.setBorderPainted(false);
-        Fivestart.addMouseListener(new ButtonMouseListener());
-        Fivestart.setPreferredSize(new Dimension(30,30));
-        Sixstart.setIcon(iconstart);
-        Sixstart.setFocusable(false);
-        Sixstart.setContentAreaFilled(false);
-        Sixstart.setBorderPainted(false);
-        Sixstart.addMouseListener(new ButtonMouseListener());
-        Sixstart.setPreferredSize(new Dimension(30,30));
+//		URL urlstart=this.getClass().getResource("teststart.png"));
+//        ImageIcon iconstart=new ImageIcon(this.getClass().getResource("ImagePart/teststart.png"));
+//        iconstart.setImage(iconstart.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+//        Twostart.setIcon(iconstart);
+//        Twostart.setFocusable(false);
+//        Twostart.setContentAreaFilled(false);
+//        Twostart.setBorderPainted(false);
+//        Twostart.addMouseListener(new ButtonMouseListener());
+//        Twostart.setPreferredSize(new Dimension(30,30));
+//        Threestart.setIcon(iconstart);
+//        Threestart.setFocusable(false);
+//        Threestart.setContentAreaFilled(false);
+//        Threestart.setBorderPainted(false);
+//        Threestart.addMouseListener(new ButtonMouseListener());
+//        Threestart.setPreferredSize(new Dimension(30,30));
+//        Fourstart.setIcon(iconstart);
+//        Fourstart.setFocusable(false);
+//        Fourstart.setContentAreaFilled(false);
+//        Fourstart.setBorderPainted(false);
+//        Fourstart.addMouseListener(new ButtonMouseListener());
+//        Fourstart.setPreferredSize(new Dimension(30,30));
+//        Fivestart.setIcon(iconstart);
+//        Fivestart.setFocusable(false);
+//        Fivestart.setContentAreaFilled(false);
+//        Fivestart.setBorderPainted(false);
+//        Fivestart.addMouseListener(new ButtonMouseListener());
+//        Fivestart.setPreferredSize(new Dimension(30,30));
+//        Sixstart.setIcon(iconstart);
+//        Sixstart.setFocusable(false);
+//        Sixstart.setContentAreaFilled(false);
+//        Sixstart.setBorderPainted(false);
+//        Sixstart.addMouseListener(new ButtonMouseListener());
+//        Sixstart.setPreferredSize(new Dimension(30,30));
         
         
 //        String absolutePath=System.getProperty("user.dir");
 //		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-//        URL urlstop=this.getClass().getResource("teststop.png");
-        ImageIcon iconstop=new ImageIcon(path + "teststop.png");
-        iconstop.setImage(iconstop.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
-        Buttonstop.setIcon(iconstop);
-        Buttonstop.setFocusable(false);
-        Buttonstop.setContentAreaFilled(false);
-        Buttonstop.setBorderPainted(false);
-        Buttonstop.addMouseListener(new ButtonMouseListener());
-        Buttonstop.setPreferredSize(new Dimension(30,30));
+//        URL urlstop=this.getClass().getResource("teststop.png"));
+//        ImageIcon iconstop=new ImageIcon(this.getClass().getResource("ImagePart/teststop.png"));
+//        iconstop.setImage(iconstop.getImage().getScaledInstance(22, 22, Image.SCALE_DEFAULT));
+//        Buttonstop.setIcon(iconstop);
+//        Buttonstop.setFocusable(false);
+//        Buttonstop.setContentAreaFilled(false);
+//        Buttonstop.setBorderPainted(false);
+//        Buttonstop.addMouseListener(new ButtonMouseListener());
+//        Buttonstop.setPreferredSize(new Dimension(30,30));
 		
 		stepButtonGroup = new ArrayList<JButton>();
 		stepButtonGroup.add(homebutton);
@@ -1247,11 +1182,11 @@ public class StepButtonPanel extends JPanel {
 				jLabel.setText(step2button.getText());
 				jLabel.setFont(new Font("宋体", Font.BOLD, 20));
 				jLabel.setForeground(Color.white);
-				JPanel labelpanel=mainFrame.getStepJLabel();
-				labelpanel.setLayout(new GridBagLayout());
-				labelpanel.removeAll();
+//				JPanel labelpanel=mainFrame.getStepJLabel();
+//				labelpanel.setLayout(new GridBagLayout());
+//				labelpanel.removeAll();
 //				labelpanel.add(jLabel,new GBC(0, 0).setWeight(1, 0));
-				labelpanel.add(Twostart,new GBC(0, 1));
+//				labelpanel.add(Twostart,new GBC(0, 1));
 //				labelpanel.add(Buttonstop,new GBC(0, 2));
 				
 				mainFrame.getCenterPanel().removeAll();
@@ -1318,15 +1253,15 @@ public class StepButtonPanel extends JPanel {
 				
 				mainFrame.getCenterTabPanel().add(mainFrame.getStepThreeCenterTabbedPane());
 				
-				JLabel jLabel=new JLabel();
-				jLabel.setText(step3button.getText());
-				jLabel.setFont(new Font("宋体", Font.BOLD, 20));
-				jLabel.setForeground(Color.white);
-				JPanel labelpanel=mainFrame.getStepJLabel();
-				labelpanel.setLayout(new GridLayout(1, 1));
-				labelpanel.removeAll();
+//				JLabel jLabel=new JLabel();
+//				jLabel.setText(step3button.getText());
+//				jLabel.setFont(new Font("宋体", Font.BOLD, 20));
+//				jLabel.setForeground(Color.white);
+//				JPanel labelpanel=mainFrame.getStepJLabel();
+//				labelpanel.setLayout(new GridLayout(1, 1));
+//				labelpanel.removeAll();
 //				labelpanel.add(jLabel,new GBC(0, 0).setWeight(1, 0));																			
-				labelpanel.add(Threestart);
+//				labelpanel.add(Threestart);
 //				labelpanel.add(Buttonstop);		
 				
 				ClearOpreationPanel();
@@ -1438,15 +1373,15 @@ public class StepButtonPanel extends JPanel {
 //				step5button.setForeground(Color.RED);
 				mainFrame.getMainPanel().remove(mainFrame.getWelcomePanel());
 				
-				JLabel jLabel=new JLabel();
-				jLabel.setText(step5button.getText());
-				jLabel.setFont(new Font("宋体", Font.BOLD, 20));
-				jLabel.setForeground(Color.white);
-				JPanel labelpanel=mainFrame.getStepJLabel();
-				labelpanel.setLayout(new GridLayout(1, 1));
-				labelpanel.removeAll();
+//				JLabel jLabel=new JLabel();
+//				jLabel.setText(step5button.getText());
+//				jLabel.setFont(new Font("宋体", Font.BOLD, 20));
+//				jLabel.setForeground(Color.white);
+//				JPanel labelpanel=mainFrame.getStepJLabel();
+//				labelpanel.setLayout(new GridLayout(1, 1));
+//				labelpanel.removeAll();
 //				labelpanel.add(jLabel,new GBC(0, 0).setWeight(1, 0));
-				labelpanel.add(Fivestart);
+//				labelpanel.add(Fivestart);
 //				labelpanel.add(Buttonstop);
 				
 				ClearOpreationPanel();
@@ -1493,15 +1428,15 @@ public class StepButtonPanel extends JPanel {
 //				step5button.setForeground(Color.RED);
 				mainFrame.getMainPanel().remove(mainFrame.getWelcomePanel());
 				
-				JLabel jLabel=new JLabel();
-				jLabel.setText(step6button.getText());
-				jLabel.setFont(new Font("宋体", Font.BOLD, 20));
-				jLabel.setForeground(Color.white);
-				JPanel labelpanel=mainFrame.getStepJLabel();
-				labelpanel.setLayout(new GridLayout(1, 1));
-				labelpanel.removeAll();
+//				JLabel jLabel=new JLabel();
+//				jLabel.setText(step6button.getText());
+//				jLabel.setFont(new Font("宋体", Font.BOLD, 20));
+//				jLabel.setForeground(Color.white);
+//				JPanel labelpanel=mainFrame.getStepJLabel();
+//				labelpanel.setLayout(new GridLayout(1, 1));
+//				labelpanel.removeAll();
 //				labelpanel.add(jLabel,new GBC(0, 0).setWeight(1, 0));
-				labelpanel.add(Sixstart);
+//				labelpanel.add(Sixstart);
 //				labelpanel.add(Buttonstop);
 				//labelpanel.add(new JButton("暂停"),new GBC(2, 0));
 				
@@ -1534,52 +1469,52 @@ public class StepButtonPanel extends JPanel {
 			}
 		});
 	}
-	protected void StartThread() {
-		// TODO Auto-generated method stub
-		
-		Thread thread1=new Thread(){
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				for(int i=1;i<100;i++){
-//					mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getProgressbar().setValue(i);
-					try {
-						sleep(1000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-			
-		};
-		
-		Thread thread2=new Thread(){
-
-			@Override
-			public void run() {
-				
-//				List<RealTestCaseVO> list = ConsolePartDataTestDao.getRealTestCaseList();
-//				System.out.println("list.size()"+list.size());
-				
-				// TODO Auto-generated method stub
+//	protected void StartThread() {
+//		// TODO Auto-generated method stub
+//		
+//		Thread thread1=new Thread(){
+//
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				for(int i=1;i<100;i++){
+////					mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getProgressbar().setValue(i);
 //					try {
-						mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().getViewport().add(new ConsolePartDetailInfoTable(1));
-						mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().getViewport().repaint();
-//						sleep(100);
+//						sleep(1000);
 //					} catch (InterruptedException e) {
 //						// TODO Auto-generated catch block
 //						e.printStackTrace();
 //					}
-				}
-			
-		};
-		
-		thread1.start();
-		thread2.start();
-		
-	}
+//				}
+//			}
+//			
+//		};
+//		
+//		Thread thread2=new Thread(){
+//
+//			@Override
+//			public void run() {
+//				
+////				List<RealTestCaseVO> list = ConsolePartDataTestDao.getRealTestCaseList();
+////				System.out.println("list.size()"+list.size());
+//				
+//				// TODO Auto-generated method stub
+////					try {
+//						mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().getViewport().add(new ConsolePartDetailInfoTable(1));
+//						mainFrame.getStepFourCenterTabbedPane().getTestCaseInstantiationTabbedPanel().getTabelscrollpanel().getViewport().repaint();
+////						sleep(100);
+////					} catch (InterruptedException e) {
+////						// TODO Auto-generated catch block
+////						e.printStackTrace();
+////					}
+//				}
+//			
+//		};
+//		
+//		thread1.start();
+//		thread2.start();
+//		
+//	}
 
 	/*
 	 * 使原来不可见的界面重新可见(除了首页,都需要重新可见,首页已使其他界面不可见)
@@ -1591,210 +1526,210 @@ public class StepButtonPanel extends JPanel {
 		mainFrame.getOneTouchExpandablePanel().setVisible(true);
 	}
 
-	public JButton getButtonstop() {
-		return Buttonstop;
-	}
-
-	public JButton getTwostart() {
-		return Twostart;
-	}
-
-	public List<PerformanceTestCaseReportPartPanel> getTestcasereportlist() {
-		return testcasereportlist;
-	}
+//	public JButton getButtonstop() {
+//		return Buttonstop;
+//	}
+//
+//	public JButton getTwostart() {
+//		return Twostart;
+//	}
+//
+//	public List<PerformanceTestCaseReportPartPanel> getTestcasereportlist() {
+//		return testcasereportlist;
+//	}
 	
-	public List<TestCase> extractDataToXml(){
-		
-		int i=1,j=1;
-		
-		List<TestCase> testcaseList = new ArrayList<TestCase>();
-		List<myProcess> processList = new ArrayList<myProcess>();
-		
-		SAXReader reader = new SAXReader();
-		
-		String path="D:\\rc_loopForXStream1.0.1.xml";
-		
-		File file=new File(path);
-		
-		try {
-			
-			Document dom = reader.read(file);
-			
-			Element TCS=dom.getRootElement();
-			List<Element> testcaseElements=TCS.elements("testcase");
-			for(Element testcase:testcaseElements){
-				
-//				System.out.println(i++);
-				
-				List<Element> processElements=testcase.elements("process");
-				
-				for(Element process:processElements){
-					
-//					System.out.println(j++);
-					
-					Element operation=process.element("operation");
-//					System.out.println(operation.getData());
-					
-					Element input=process.element("input");
-//					System.out.println(input.getData());
-					
-					myProcess p = new myProcess();
-					p.setProcessID(j++);
-					p.setProcessName(operation.getData().toString());
-					p.setProcessParam(input.getData().toString());
-//					p.setProcessStatus(processStatus);
-//					p.setProcessExec(processExec);
-
-					processList.add(p);
-					
-				}
-				
-				j=1;
-				
-				TestCase tc = new TestCase();
-				tc.setTestCaseID(String.valueOf(i++));
-				tc.setProcessList(processList);
-//				tc.setState(state);
-//				tc.setResult(result);
-
-				testcaseList.add(tc);
-				
-				processList = new ArrayList<myProcess>();
-				
-			}
-			
-		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-//		System.out.println(testcaseList.size());
+//	public List<TestCase> extractDataToXml(){
 //		
-//		for(TestCase tc:testcaseList){
+//		int i=1,j=1;
+//		
+//		List<TestCase> testcaseList = new ArrayList<TestCase>();
+//		List<myProcess> processList = new ArrayList<myProcess>();
+//		
+//		SAXReader reader = new SAXReader();
+//		
+//		String path="D:\\rc_loopForXStream1.0.1.xml";
+//		
+//		File file=new File(path);
+//		
+//		try {
 //			
-//			System.out.println(tc);
+//			Document dom = reader.read(file);
 //			
+//			Element TCS=dom.getRootElement();
+//			List<Element> testcaseElements=TCS.elements("testcase");
+//			for(Element testcase:testcaseElements){
+//				
+////				System.out.println(i++);
+//				
+//				List<Element> processElements=testcase.elements("process");
+//				
+//				for(Element process:processElements){
+//					
+////					System.out.println(j++);
+//					
+//					Element operation=process.element("operation");
+////					System.out.println(operation.getData());
+//					
+//					Element input=process.element("input");
+////					System.out.println(input.getData());
+//					
+//					myProcess p = new myProcess();
+//					p.setProcessID(j++);
+//					p.setProcessName(operation.getData().toString());
+//					p.setProcessParam(input.getData().toString());
+////					p.setProcessStatus(processStatus);
+////					p.setProcessExec(processExec);
+//
+//					processList.add(p);
+//					
+//				}
+//				
+//				j=1;
+//				
+//				TestCase tc = new TestCase();
+//				tc.setTestCaseID(String.valueOf(i++));
+//				tc.setProcessList(processList);
+////				tc.setState(state);
+////				tc.setResult(result);
+//
+//				testcaseList.add(tc);
+//				
+//				processList = new ArrayList<myProcess>();
+//				
+//			}
+//			
+//		} catch (DocumentException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 //		}
-		return testcaseList;
-		
-	}
+//		
+////		System.out.println(testcaseList.size());
+////		
+////		for(TestCase tc:testcaseList){
+////			
+////			System.out.println(tc);
+////			
+////		}
+//		return testcaseList;
+//		
+//	}
 	
-	public List<TestCase> extractData() {
-
-		// 测试用例ID
-		String testCaseID = null;
-		// 测试用例 激励链表
-		List<myProcess> processList = new ArrayList<myProcess>();
-		// 测试用例执行状态
-		String state = null;
-		// 测试用例执行结果
-		String result = null;
-
-		String process;
-
-		// 激励ID
-		int processID;
-		// 激励名称
-		String processName;
-		// 激励参数
-		String processParam;
-		// 激励状态
-		String processStatus;
-		// 激励执行情况
-		boolean processExec;
-
-		int startendstate = 0;
-
-		List<TestCase> testcaseList = new ArrayList<TestCase>();
-
-		try {
-
-//			 String encoding = "utf-8";
-			String encoding = "GBK";
-
-			String filePath="D:\\123.txt";
-			
-			File file = new File(filePath);
-			if (file.isFile() && file.exists()) { // 判断文件是否存在
-				InputStreamReader read = new InputStreamReader(new FileInputStream(file), encoding);// 考虑到编码格式
-				BufferedReader bufferedReader = new BufferedReader(read);
-				String lineTxt = null;
-				while ((lineTxt = bufferedReader.readLine()) != null) {
-
-					if (startendstate == 1) {
-
-						processList = new ArrayList<myProcess>();
-						startendstate = 0;
-
-					}
-
-					if (lineTxt.substring(0, 8).equals("TestCase")) {
-
-						testCaseID = lineTxt.substring(lineTxt.indexOf("testCaseID=") + 11, lineTxt.indexOf(","));
-
-					} else if (lineTxt.substring(1, 10).equals("myProcess")) {
-
-						process = lineTxt.substring(lineTxt.indexOf("[") + 1, lineTxt.indexOf("]"));
-						processID = Integer.valueOf(process.substring(process.indexOf("processID=") + 10,
-								process.indexOf(", processName=")));
-						processName = process.substring(process.indexOf("processName=") + 12,
-								process.indexOf(", processParam="));
-						processParam = process.substring(process.indexOf("processParam=") + 13,
-								process.indexOf(", processStatus="));
-						processStatus = process.substring(process.indexOf("processStatus=") + 14,
-								process.indexOf(", processExec="));
-						processExec = Boolean
-								.valueOf(process.substring(process.indexOf("processExec="), process.length()));
-
-						myProcess p = new myProcess();
-						p.setProcessID(processID);
-						p.setProcessName(processName);
-						p.setProcessParam(processParam);
-						p.setProcessStatus(processStatus);
-						p.setProcessExec(processExec);
-
-						processList.add(p);
-
-					} else if (lineTxt.substring(0, 2).equals(", ")) {
-
-						state = lineTxt.substring(lineTxt.indexOf("state=") + 6, lineTxt.indexOf(", result="));
-						result = lineTxt.substring(lineTxt.indexOf("result=") + 7, lineTxt.indexOf(", detail="));
-
-					} else if (lineTxt.substring(lineTxt.length() - 2, lineTxt.length()).equals("]]")) {
-
-						TestCase tc = new TestCase();
-						tc.setTestCaseID(testCaseID);
-						tc.setProcessList(processList);
-						tc.setState(state);
-//						tc.setResult(result);
-
-						testcaseList.add(tc);
-
-						startendstate = 1;
-
-					}
-
-				}
-				read.close();
-			} else {
-				System.out.println("找不到指定的文件");
-			}
-		} catch (Exception e) {
-			System.out.println("读取文件内容出错");
-			e.printStackTrace();
-		}
-
-//		System.out.println(testcaseList.size());
+//	public List<TestCase> extractData() {
 //
-//		for (TestCase tc : testcaseList) {
+//		// 测试用例ID
+//		String testCaseID = null;
+//		// 测试用例 激励链表
+//		List<myProcess> processList = new ArrayList<myProcess>();
+//		// 测试用例执行状态
+//		String state = null;
+//		// 测试用例执行结果
+//		String result = null;
 //
-//			System.out.println(tc.toString());
+//		String process;
 //
+//		// 激励ID
+//		int processID;
+//		// 激励名称
+//		String processName;
+//		// 激励参数
+//		String processParam;
+//		// 激励状态
+//		String processStatus;
+//		// 激励执行情况
+//		boolean processExec;
+//
+//		int startendstate = 0;
+//
+//		List<TestCase> testcaseList = new ArrayList<TestCase>();
+//
+//		try {
+//
+////			 String encoding = "utf-8";
+//			String encoding = "GBK";
+//
+//			String filePath="D:\\123.txt";
+//			
+//			File file = new File(filePath);
+//			if (file.isFile() && file.exists()) { // 判断文件是否存在
+//				InputStreamReader read = new InputStreamReader(new FileInputStream(file), encoding);// 考虑到编码格式
+//				BufferedReader bufferedReader = new BufferedReader(read);
+//				String lineTxt = null;
+//				while ((lineTxt = bufferedReader.readLine()) != null) {
+//
+//					if (startendstate == 1) {
+//
+//						processList = new ArrayList<myProcess>();
+//						startendstate = 0;
+//
+//					}
+//
+//					if (lineTxt.substring(0, 8).equals("TestCase")) {
+//
+//						testCaseID = lineTxt.substring(lineTxt.indexOf("testCaseID=") + 11, lineTxt.indexOf(","));
+//
+//					} else if (lineTxt.substring(1, 10).equals("myProcess")) {
+//
+//						process = lineTxt.substring(lineTxt.indexOf("[") + 1, lineTxt.indexOf("]"));
+//						processID = Integer.valueOf(process.substring(process.indexOf("processID=") + 10,
+//								process.indexOf(", processName=")));
+//						processName = process.substring(process.indexOf("processName=") + 12,
+//								process.indexOf(", processParam="));
+//						processParam = process.substring(process.indexOf("processParam=") + 13,
+//								process.indexOf(", processStatus="));
+//						processStatus = process.substring(process.indexOf("processStatus=") + 14,
+//								process.indexOf(", processExec="));
+//						processExec = Boolean
+//								.valueOf(process.substring(process.indexOf("processExec="), process.length()));
+//
+//						myProcess p = new myProcess();
+//						p.setProcessID(processID);
+//						p.setProcessName(processName);
+//						p.setProcessParam(processParam);
+//						p.setProcessStatus(processStatus);
+//						p.setProcessExec(processExec);
+//
+//						processList.add(p);
+//
+//					} else if (lineTxt.substring(0, 2).equals(", ")) {
+//
+//						state = lineTxt.substring(lineTxt.indexOf("state=") + 6, lineTxt.indexOf(", result="));
+//						result = lineTxt.substring(lineTxt.indexOf("result=") + 7, lineTxt.indexOf(", detail="));
+//
+//					} else if (lineTxt.substring(lineTxt.length() - 2, lineTxt.length()).equals("]]")) {
+//
+//						TestCase tc = new TestCase();
+//						tc.setTestCaseID(testCaseID);
+//						tc.setProcessList(processList);
+//						tc.setState(state);
+////						tc.setResult(result);
+//
+//						testcaseList.add(tc);
+//
+//						startendstate = 1;
+//
+//					}
+//
+//				}
+//				read.close();
+//			} else {
+//				System.out.println("找不到指定的文件");
+//			}
+//		} catch (Exception e) {
+//			System.out.println("读取文件内容出错");
+//			e.printStackTrace();
 //		}
-		
-		return testcaseList;
-
-	}
+//
+////		System.out.println(testcaseList.size());
+////
+////		for (TestCase tc : testcaseList) {
+////
+////			System.out.println(tc.toString());
+////
+////		}
+//		
+//		return testcaseList;
+//
+//	}
 
 	public JButton getStep1button() {
 		return step1button;

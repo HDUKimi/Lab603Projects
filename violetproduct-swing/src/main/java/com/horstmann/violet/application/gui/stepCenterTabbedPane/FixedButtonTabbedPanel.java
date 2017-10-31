@@ -71,9 +71,9 @@ public class FixedButtonTabbedPanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "leftarrow.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/leftarrow.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(8, 7, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "fork.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/fork.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(10, 8, Image.SCALE_DEFAULT));
 
 		fixedlabel.setIcon(icon1);

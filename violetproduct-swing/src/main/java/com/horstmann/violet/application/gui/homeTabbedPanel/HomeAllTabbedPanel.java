@@ -11,7 +11,11 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -19,6 +23,7 @@ import javax.swing.JPanel;
 
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.framework.injection.resources.annotation.ResourceBundleBean;
 
 public class HomeAllTabbedPanel extends JPanel {
 
@@ -65,14 +70,14 @@ public class HomeAllTabbedPanel extends JPanel {
 
 	private JPanel imagelabelpanel;
 	private JLabel imagelabel;
-
+	
 	public HomeAllTabbedPanel(MainFrame mainFrame) {
 
 		this.mainFrame = mainFrame;
 
-		functionalTestTabbedPanel = new HomeFunctionalTestTabbedPanel(mainFrame);
-		performanceTestTabbedPanel = new HomePerformanceTestTabbedPanel(mainFrame);
-		timeTestTabbedPanel = new HomeTimeTestTabbedPanel(mainFrame);
+//		functionalTestTabbedPanel = new HomeFunctionalTestTabbedPanel(mainFrame);
+//		performanceTestTabbedPanel = new HomePerformanceTestTabbedPanel(mainFrame);
+//		timeTestTabbedPanel = new HomeTimeTestTabbedPanel(mainFrame);
 
 		optiontabpanel = new JPanel();
 		inforresultpanel = new JPanel();
@@ -133,14 +138,14 @@ public class HomeAllTabbedPanel extends JPanel {
 		titlelabel.setFont(new Font("System", Font.PLAIN, 12));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 
-		String absolutePath = System.getProperty("user.dir");
-		String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
+//		String absolutePath = System.getProperty("user.dir");
+//		String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "yleftarrow.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/yleftarrow.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(8, 7, Image.SCALE_DEFAULT));
 		titleiconlabel1.setIcon(icon1);
 		titleiconlabel1.setBorder(BorderFactory.createEmptyBorder(5, 4, 4, 4));
-		ImageIcon icon2 = new ImageIcon(path + "yfork.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/yfork.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(10, 8, Image.SCALE_DEFAULT));
 		titleiconlabel2.setIcon(icon2);
 		titleiconlabel2.setBorder(BorderFactory.createEmptyBorder(5, 4, 4, 6));
@@ -260,7 +265,7 @@ public class HomeAllTabbedPanel extends JPanel {
 		// String path =
 		// absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 		//
-		// ImageIcon icon = new ImageIcon(path + "homepanelright.png");
+		// ImageIcon icon = new ImageIcon(this.getClass().getResource("ImagePart/homepanelright.png");
 		// icon.setImage(icon.getImage().getScaledInstance(227,377,
 		// Image.SCALE_DEFAULT));
 		//
@@ -347,7 +352,12 @@ public class HomeAllTabbedPanel extends JPanel {
 		//
 		// initLinkAction();
 
-		initImagePanel();
+		try {
+			initImagePanel();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		inforrightpanel.setBackground(Color.WHITE);
 		// inforrightpanel.setLayout(new GridLayout(1, 4));
@@ -381,18 +391,23 @@ public class HomeAllTabbedPanel extends JPanel {
 
 	}
 
-	private void initImagePanel() {
+	private void initImagePanel() throws IOException {
 		// TODO Auto-generated method stub
 
 		imagelabel = new JLabel();
 		imagelabelpanel = new JPanel();
 
-		String absolutePath = System.getProperty("user.dir");
-		String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
+//		String absolutePath = System.getProperty("user.dir");
+//		String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
+//		String path = "../src/site/resources/icons/OpreationPart/";
+		
+//		ClassLoader cl = this.getClass().getClassLoader();     
+//		URL iconURL = cl.getResource(this.getClass().getResource("ImagePart/home.png"); 
 
-		ImageIcon icon = new ImageIcon(path + "home.png");
+//		ImageIcon icon = new ImageIcon(ImageIO.read(new File(path+"home.png")));
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("ImagePart/home.png"));
 		icon.setImage(icon.getImage().getScaledInstance(935, 377, Image.SCALE_DEFAULT));
-
+		
 		imagelabel.setIcon(icon);
 //		imagelabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 100, 0));
 		imagelabel.setBorder(BorderFactory.createMatteBorder(0, 0, 250, 0, new Color(255, 255, 255)));

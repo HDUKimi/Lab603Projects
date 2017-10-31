@@ -271,14 +271,14 @@ public class MainFrame extends JFrame
 //		ImageIcon Tree_expanded_icon = new ImageIcon(Tree_expanded_url);
 //		Tree_expanded_icon.setImage(Tree_expanded_icon.getImage().getScaledInstance(20,20, Image.SCALE_DEFAULT));
 		
-		String absolutePath=System.getProperty("user.dir");
-		String pngpath = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
+//		String absolutePath=System.getProperty("user.dir");
+//		String pngpath = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 //        demoRenderer.setClosedIcon(new ImageIcon(pngpath+"jiahao.png"));
 //        demoRenderer.setOpenIcon(new ImageIcon(pngpath+"jianhao.png"));
 		
 		
-		UIManager.put("Tree.collapsedIcon", new ImageIcon(pngpath+"collapsed.png"));
-		UIManager.put("Tree.expandedIcon", new ImageIcon(pngpath+"expanded.png"));
+		UIManager.put("Tree.collapsedIcon", new ImageIcon(this.getClass().getResource("ImagePart/collapsed.png")));
+		UIManager.put("Tree.expandedIcon", new ImageIcon(this.getClass().getResource("ImagePart/expanded.png")));
 //		UIManager.put("Tree.openIcon", null);
 //		UIManager.put("Tree.closeIcon", null);
 		

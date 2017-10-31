@@ -175,71 +175,71 @@ public class GraphToolPanel extends JPanel {
 		
 		if(label.length()>23){
 			if(label.substring(1, 7).equals("extend")){
-				icon = new ImageIcon(path + "extend.png");
+				icon = new ImageIcon(this.getClass().getResource("ImagePart/extend.png"));
 			}
 			else if(label.substring(1, 8).equals("include")){
-				icon = new ImageIcon(path + "include.png");
+				icon = new ImageIcon(this.getClass().getResource("ImagePart/include.png"));
 			}
 			else if(label.substring(0, 14).equals("Generalization")){
-				icon = new ImageIcon(path + "generalization.png");
+				icon = new ImageIcon(this.getClass().getResource("ImagePart/generalization.png"));
 			}
 		}
 		else if(label.equals("Select")){
-			icon = new ImageIcon(path + "select.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/select.png"));
 		}
 		else if(label.equals("Object lifeline")){
-			icon = new ImageIcon(path + "object_lifeline.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/object_lifeline.png"));
 		}
 		else if(label.equals("Activation bar")){
-			icon = new ImageIcon(path + "activation_bar.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/activation_bar.png"));
 		}
 		else if(label.equals("Note")){
-			icon = new ImageIcon(path + "note.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/note.png"));
 		}
 		else if(label.equals("CombinedFragment")){
-			icon = new ImageIcon(path + "combined_fragment.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/combined_fragment.png"));
 		}
 		else if(label.equals("Ref")){
-			icon = new ImageIcon(path + "ref.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/ref.png"));
 		}
 		else if(label.equals("Call / Create message")){
-			icon = new ImageIcon(path + "call_message.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/call_message.png"));
 		}
 		else if(label.equals("Return message")){
-			icon = new ImageIcon(path + "return_message.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/return_message.png"));
 		}
 		else if(label.equals("Note connector")){
-			icon = new ImageIcon(path + "note_connector.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/note_connector.png"));
 		}
 		else if(label.equals("Time condition")){
-			icon = new ImageIcon(path + "time_condition.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/time_condition.png"));
 		}
 		else if(label.equals("State_lifeline")){
-			icon = new ImageIcon(path + "state_lifeline.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/state_lifeline.png"));
 		}
 		else if(label.equals("Send_MessageEdge")){
-			icon = new ImageIcon(path + "send_message.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/send_message.png"));
 		}
 		else if(label.equals("Scenario start")){
-			icon = new ImageIcon(path + "scenario_start.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/scenario_start.png"));
 		}
 		else if(label.equals("State")){
-			icon = new ImageIcon(path + "state.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/state.png"));
 		}
 		else if(label.equals("Scenario end")){
-			icon = new ImageIcon(path + "scenario_end.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/scenario_end.png"));
 		}
 		else if(label.equals("Event / Action")){
-			icon = new ImageIcon(path + "event_ation.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/event_ation.png"));
 		}
 		else if(label.equals("Actor")){
-			icon = new ImageIcon(path + "actor.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/actor.png"));
 		}
 		else if(label.equals("Use case")){
-			icon = new ImageIcon(path + "use_case.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/use_case.png"));
 		}
 		else if(label.equals("Interaction")){
-			icon = new ImageIcon(path + "interaction.png");
+			icon = new ImageIcon(this.getClass().getResource("ImagePart/interaction.png"));
 		}
 		
 		

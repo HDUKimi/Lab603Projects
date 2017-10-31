@@ -167,7 +167,7 @@ public class ModelSequenceTreePanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "dropdown.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/dropdown.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 		
 		uppaaltoolbutton1.setIcon(icon1);
@@ -430,13 +430,13 @@ public class ModelSequenceTreePanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "allselect.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/allselect.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "cancelselect.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/cancelselect.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(path + "refresh.png");
+		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/refresh.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon4 = new ImageIcon(path + "dropdown.png");
+		ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/dropdown.png"));
 		icon4.setImage(icon4.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 
 		sequencetoolbutton1.setIcon(icon1);

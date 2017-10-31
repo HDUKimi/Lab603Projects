@@ -100,13 +100,13 @@ public class ImageCarouselPanel extends JPanel{
 			
 		}
 
-//		ImageIcon icon1 = new ImageIcon(path + "1.jpg");
+//		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/1.jpg");
 //		icon1.setImage(icon1.getImage().getScaledInstance(500, 300, Image.SCALE_DEFAULT));
-//		ImageIcon icon2 = new ImageIcon(path + "2.jpg");
+//		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/2.jpg");
 //		icon2.setImage(icon2.getImage().getScaledInstance(500, 300, Image.SCALE_DEFAULT));
-//		ImageIcon icon3 = new ImageIcon(path + "3.jpg");
+//		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/3.jpg");
 //		icon3.setImage(icon3.getImage().getScaledInstance(500, 300, Image.SCALE_DEFAULT));
-//		ImageIcon icon4 = new ImageIcon(path + "4.jpg");
+//		ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/4.jpg");
 //		icon4.setImage(icon4.getImage().getScaledInstance(500, 300, Image.SCALE_DEFAULT));
 //		
 //		imagelabel1=new JLabel();
@@ -157,13 +157,13 @@ public class ImageCarouselPanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		final ImageIcon icon1 = new ImageIcon(path + "image_left1.png");
+		final ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/image_left1.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(50, 60, Image.SCALE_DEFAULT));
-		final ImageIcon icon2 = new ImageIcon(path + "image_left2.png");
+		final ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/image_left2.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(50, 60, Image.SCALE_DEFAULT));
-		final ImageIcon icon3 = new ImageIcon(path + "image_right1.png");
+		final ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/image_right1.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(50, 60, Image.SCALE_DEFAULT));
-		final ImageIcon icon4 = new ImageIcon(path + "image_right2.png");
+		final ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/image_right2.png"));
 		icon4.setImage(icon4.getImage().getScaledInstance(50, 60, Image.SCALE_DEFAULT));
 		
 		leftbutton.setIcon(icon1);

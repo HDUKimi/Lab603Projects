@@ -239,19 +239,19 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "start.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/start.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "suspend.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/suspend.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(path + "stop.png");
+		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/stop.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon4 = new ImageIcon(path + "up_arrow.png");
+		ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/up_arrow.png"));
 		icon4.setImage(icon4.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon5 = new ImageIcon(path + "down_arrow.png");
+		ImageIcon icon5 = new ImageIcon(this.getClass().getResource("ImagePart/down_arrow.png"));
 		icon5.setImage(icon5.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon6 = new ImageIcon(path + "allselect.png");
+		ImageIcon icon6 = new ImageIcon(this.getClass().getResource("ImagePart/allselect.png"));
 		icon6.setImage(icon6.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon7 = new ImageIcon(path + "cancelselect.png");
+		ImageIcon icon7 = new ImageIcon(this.getClass().getResource("ImagePart/cancelselect.png"));
 		icon7.setImage(icon7.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 	
 		toolbutton1.setIcon(icon1);
@@ -1430,9 +1430,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			String absolutePath = System.getProperty("user.dir");
 			String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
 
-			ImageIcon icon1 = new ImageIcon(path + "tick.png");
+			ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/tick.png"));
 			icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
-			ImageIcon icon2 = new ImageIcon(path + "cross.png");
+			ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/cross.png"));
 			icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
 			
 			if(testcase.getState().contains("成功")){
@@ -1578,9 +1578,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			String absolutePath = System.getProperty("user.dir");
 			String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
 
-			ImageIcon icon1 = new ImageIcon(path + "tick.png");
+			ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/tick.png"));
 			icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
-			ImageIcon icon2 = new ImageIcon(path + "cross.png");
+			ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/cross.png"));
 			icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
 
 			if (testcase.getState().contains("正确")&&!testcase.getState().contains("不满足")) {
@@ -1646,9 +1646,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						String absolutePath = System.getProperty("user.dir");
 						String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
 
-						ImageIcon icon1 = new ImageIcon(path + "tick.png");
+						ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/tick.png"));
 						icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
-						ImageIcon icon2 = new ImageIcon(path + "cross.png");
+						ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/cross.png"));
 						icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
 						
 						if(testcase.getResult().getResultDetail().contains("成功")){
@@ -2755,9 +2755,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						String absolutePath = System.getProperty("user.dir");
 						String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
 
-						ImageIcon icon1 = new ImageIcon(path + "tick.png");
+						ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/tick.png"));
 						icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
-						ImageIcon icon2 = new ImageIcon(path + "cross.png");
+						ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/cross.png"));
 						icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
 
 						if(testcase.getState().contains("正确")){

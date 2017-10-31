@@ -48,9 +48,9 @@ public class OptionalToolPanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\22x22\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "print.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/22x22/print.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "exporttoclipboard.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/22x22/exporttoclipboard.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 		
 		button1.setIcon(icon1);

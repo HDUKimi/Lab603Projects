@@ -301,11 +301,11 @@ public class TestCaseInstantiationResultPanel extends JPanel {
 		String absolutePath = System.getProperty("user.dir");
 		String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "downarrow.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/downarrow.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(7, 11, Image.SCALE_DEFAULT));
 		titleiconlabel1.setIcon(icon1);
 		titleiconlabel1.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 6));
-		ImageIcon icon2 = new ImageIcon(path + "fork.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/fork.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(10, 8, Image.SCALE_DEFAULT));
 		titleiconlabel2.setIcon(icon2);
 		titleiconlabel2.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));

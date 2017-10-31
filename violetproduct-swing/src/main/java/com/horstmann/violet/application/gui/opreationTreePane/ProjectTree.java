@@ -231,15 +231,15 @@ public class ProjectTree extends JPanel {
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "triangulararrow.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/triangulararrow.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(8,4, Image.SCALE_DEFAULT));
 		titleiconlabel1.setIcon(icon1);
 		titleiconlabel1.setBorder(BorderFactory.createEmptyBorder(4, 4,4, 6));
-		ImageIcon icon2 = new ImageIcon(path + "downarrow.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/downarrow.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(7,11, Image.SCALE_DEFAULT));
 		titleiconlabel2.setIcon(icon2);
 		titleiconlabel2.setBorder(BorderFactory.createEmptyBorder(4, 4,4, 4));
-		ImageIcon icon3 = new ImageIcon(path + "fork.png");
+		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/fork.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(10,8, Image.SCALE_DEFAULT));
 		titleiconlabel3.setIcon(icon3);
 		titleiconlabel3.setBorder(BorderFactory.createEmptyBorder(4, 4,4, 4));
@@ -312,13 +312,13 @@ public class ProjectTree extends JPanel {
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "usecase_diagram.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/usecase_diagram.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "state_diagram.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/state_diagram.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(path + "sequence_diagram.png");
+		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/sequence_diagram.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon4 = new ImageIcon(path + "timing_diagram.png");
+		ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/timing_diagram.png"));
 		icon4.setImage(icon4.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 
 		diagrambutton1.setIcon(icon1);
@@ -672,17 +672,17 @@ public class ProjectTree extends JPanel {
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\16x16\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "save.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/16x16/save.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "new.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/16x16/new.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(path + "open.png");
+		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/16x16/open.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon4 = new ImageIcon(path + "delete.png");
+		ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/16x16/delete.png"));
 		icon4.setImage(icon4.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon5 = new ImageIcon(path + "save.png");
+		ImageIcon icon5 = new ImageIcon(this.getClass().getResource("ImagePart/16x16/save.png"));
 		icon5.setImage(icon5.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon6 = new ImageIcon(path + "saveas.png");
+		ImageIcon icon6 = new ImageIcon(this.getClass().getResource("ImagePart/16x16/saveas.png"));
 		icon6.setImage(icon6.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 
 		toolbutton1.setIcon(icon1);

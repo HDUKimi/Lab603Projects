@@ -83,7 +83,7 @@ public class InforGeneralizePanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon = new ImageIcon(path + "inforgeneralize.png");
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("ImagePart/inforgeneralize.png"));
 		icon.setImage(icon.getImage().getScaledInstance(203,157, Image.SCALE_DEFAULT));
 		
 		imagelabel.setIcon(icon);
@@ -159,7 +159,7 @@ public class InforGeneralizePanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon = new ImageIcon(path + "homelink.png");
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("ImagePart/homelink.png"));
 		icon.setImage(icon.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT));
 		
 		linklabel.setText("Á¬½Ó");

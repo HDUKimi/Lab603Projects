@@ -1114,15 +1114,15 @@ public class TestCaseConfirmationPanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "triangulararrow.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/triangulararrow.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(8,4, Image.SCALE_DEFAULT));
 		titleiconlabel1.setIcon(icon1);
 		titleiconlabel1.setBorder(BorderFactory.createEmptyBorder(4, 4,4, 6));
-		ImageIcon icon2 = new ImageIcon(path + "downarrow.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/downarrow.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(7,11, Image.SCALE_DEFAULT));
 		titleiconlabel2.setIcon(icon2);
 		titleiconlabel2.setBorder(BorderFactory.createEmptyBorder(4, 4,4, 4));
-		ImageIcon icon3 = new ImageIcon(path + "fork.png");
+		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/fork.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(10,8, Image.SCALE_DEFAULT));
 		titleiconlabel3.setIcon(icon3);
 		titleiconlabel3.setBorder(BorderFactory.createEmptyBorder(4, 4,4, 4));
@@ -1191,13 +1191,13 @@ public class TestCaseConfirmationPanel extends JPanel{
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon1 = new ImageIcon(path + "dropdown.png");
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/dropdown.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(path + "refresh.png");
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/refresh.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(path + "database_refresh.png");
+		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/database_refresh.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-		ImageIcon icon4 = new ImageIcon(path + "resultset_next.png");
+		ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/resultset_next.png"));
 		icon4.setImage(icon4.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 
 		testcasetoolbutton1.setIcon(icon1);
@@ -1581,7 +1581,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 				System.out.println("+-+**************"+testcasestringlist.size());
 				for(String str:testcasestringlist){
 					TestCase testCase=DataBaseUtil.extractTestCaseByString(type, str);
-					System.out.println(testCase.showTestCase());
+//					System.out.println(testCase.showTestCase());
 					testcaselist.add(testCase);
 				}
 						
