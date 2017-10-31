@@ -94,6 +94,8 @@ public class DataBaseUtil {
 				sql = "delete from performancecase where casedataid="+caseid;
 			} else if (type == 3) {
 				sql = "delete from timecase where casedataid="+caseid;
+			} else if (type == 4) {
+				sql = "delete from bordercase where casedataid="+caseid;
 			}
 
 			pst = conn.prepareStatement(sql);
@@ -192,7 +194,10 @@ public class DataBaseUtil {
 				sql = "SELECT b.id, b.content FROM casedata a left join performancecase b on a.id=b.casedataid where a.name=? ";
 			} else if (type == 3) {
 				sql = "SELECT b.id, b.content FROM casedata a left join timecase b on a.id=b.casedataid where a.name=? ";
+			} else if (type == 4) {
+				sql = "SELECT b.id, b.content FROM casedata a left join bordercase b on a.id=b.casedataid where a.name=? ";
 			}
+			
 			
 			pst = conn.prepareStatement(sql);// ×¼±¸Ö´ÐÐÓï¾ä
 			pst.setString(1, testcasedataname);
@@ -306,6 +311,8 @@ public class DataBaseUtil {
 				sql = "insert into performancecase(id,content,casedataid) values(?,?,?)";
 			} else if (type == 3) {
 				sql = "insert into timecase(id,content,casedataid) values(?,?,?)";
+			} else if (type == 4) {
+				sql = "insert into bordercase(id,content,casedataid) values(?,?,?)";
 			}
 
 			conn.setAutoCommit(false);
@@ -342,17 +349,19 @@ public class DataBaseUtil {
 		
 		str = str.replace("\n", "");
 		TestCase testCase=new TestCase();
-		
+
 		if(type==1){
 			testCase.setTestCaseID(stringRegEx(str, "testCaseID:([\\s|\\S]*?)-->processList:").get(0));
-			testCase.setExetime(stringRegEx(str, "exetime:\\[([\\s|\\S]*?)\\]-->state:").get(0));
+			testCase.setExetime(stringRegEx(str, "exetime:\\[([\\s|\\S]*?)\\]-->expectResult:").get(0));
+			testCase.setExpectResult(stringRegEx(str, "expectResult:\\[([\\s|\\S]*?)\\]-->state:").get(0));
 			testCase.setState(stringRegEx(str, "state:\\[([\\s|\\S]*?)\\]").get(0));
 			String processstr=stringRegEx(str, "processList:\\[([\\s|\\S]*?)\\]-->exetime:").get(0);
 			testCase.setProcessList(extractProcessByString(processstr));
 		}
 		else if(type==2){
 			testCase.setTestCaseID(stringRegEx(str, "testCaseID:([\\s|\\S]*?)-->processList:").get(0));
-			testCase.setExetime(stringRegEx(str, "exetime:\\[([\\s|\\S]*?)\\]-->state:").get(0));
+			testCase.setExetime(stringRegEx(str, "exetime:\\[([\\s|\\S]*?)\\]-->expectResult:").get(0));
+			testCase.setExpectResult(stringRegEx(str, "expectResult:\\[([\\s|\\S]*?)\\]-->state:").get(0));
 			testCase.setState(stringRegEx(str, "state:\\[([\\s|\\S]*?)\\]").get(0));
 			String processstr=stringRegEx(str, "processList:\\[([\\s|\\S]*?)\\]-->performanceParam:").get(0);
 			testCase.setProcessList(extractProcessByString(processstr));
@@ -361,7 +370,8 @@ public class DataBaseUtil {
 		}
 		else if(type==3){
 			testCase.setTestCaseID(stringRegEx(str, "testCaseID:([\\s|\\S]*?)-->processList:").get(0));
-			testCase.setExetime(stringRegEx(str, "exetime:\\[([\\s|\\S]*?)\\]-->state:").get(0));
+			testCase.setExetime(stringRegEx(str, "exetime:\\[([\\s|\\S]*?)\\]-->expectResult:").get(0));
+			testCase.setExpectResult(stringRegEx(str, "expectResult:\\[([\\s|\\S]*?)\\]-->state:").get(0));
 			testCase.setState(stringRegEx(str, "state:\\[([\\s|\\S]*?)\\]").get(0));
 			String processstr=stringRegEx(str, "processList:\\[([\\s|\\S]*?)\\]-->timeLimit:").get(0);
 			testCase.setProcessList(extractProcessByString(processstr));

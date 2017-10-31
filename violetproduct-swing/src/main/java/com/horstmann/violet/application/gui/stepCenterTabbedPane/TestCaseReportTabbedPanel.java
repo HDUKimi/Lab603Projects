@@ -322,8 +322,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 											startFunctionalTestConfirmation();
 										}
 										else if(testcasetype==2){
-//											startPerformanceTestConfirmation();
-											startPerformanceTestConfirmation2();
+											startPerformanceTestConfirmation();
+//											startPerformanceTestConfirmation2();
 										}
 										else if(testcasetype==3){
 											startTimeTestConfirmation();
@@ -1149,10 +1149,11 @@ public class TestCaseReportTabbedPanel extends JPanel{
 
 	protected void CheckIsSaveDB() {
 		
-		int issave=JOptionPane.showConfirmDialog(null, "是否需要保存该次测试用例及测试报告", "提示", JOptionPane.YES_NO_OPTION);
+		int issave=JOptionPane.showConfirmDialog(mainFrame, "是否需要保存该次测试用例及测试报告", "提示", JOptionPane.YES_NO_OPTION);
 		
 		if(issave==JOptionPane.YES_OPTION){
 			SaveTestCaseToDBByType(testcasetype);
+			JOptionPane.showMessageDialog(mainFrame, "保存成功！", "消息" , JOptionPane.INFORMATION_MESSAGE);
 		}
 		else{
 			
@@ -1163,6 +1164,11 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private void SaveTestCaseToDBByType(int type) {
 		
 		if(type==1){
+			
+			if(testcasename.contains("BorderTestCase")){
+				type=4;
+			}
+			
 			List<String> testcasestringlist=new ArrayList<String>();
 			for(TestCase testCase:resulttestcaselist){
 				testcasestringlist.add(testCase.SpellFunctionalTestCase());
@@ -1402,6 +1408,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				}
 //			}
 			
+			testcase.setExpectResult(ftcrpp.getTestcase().getExpectResult());
+			
 			JTable attributetable;
 			DefaultTableModel attributetablemodel;
 			
@@ -1419,9 +1427,17 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			
 			String title = "";
 			title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
-//			title+=testcase.getState()+"     ";
-//			title+="执行结果:"+testcase.getResult().substring(0, testcase.getResult().indexOf("耗时"));
-//			title+="执行结果:"+testcase.getResult().getResultDetail()+"     ";
+
+			if(testcase.getExpectResult().equals("right")){
+				title+="预期结果:测试用例正确     ";
+			}
+			else if(testcase.getExpectResult().equals("GNerror")){
+				title+="预期结果:测试用例不正确     ";
+			}
+			else if(testcase.getExpectResult().equals("TIMEerror")){
+				title+="预期结果:测试用例正确但不满足时间约束     ";
+			}
+			
 			title+="执行结果:"+testcase.getState()+"     ";
 			title+="总耗时:"+testcase.getExetime()+" ms";
 			
@@ -1461,7 +1477,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				tcrpp.setVisible(false);//同时为0的时候，数据会消掉，panel要去除
 //			}
 		
-			PerformanceTestCaseReportPartPanel tcrpp = null;
+			PerformanceTestCaseReportPartPanel ptcrpp = null;
 //			tcrpp=(PerformanceTestCaseReportPartPanel) checkedtestcasereportlist.get(performancelistindex);
 //			performancelistindex++;
 			
@@ -1475,7 +1491,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				testcase.getResult().setBattery_remaining(0);
 //			}
 			
-			tcrpp=(PerformanceTestCaseReportPartPanel) checkedtestcasereportlist.get(Integer.parseInt(testcase.getTestCaseID())-1);
+			ptcrpp=(PerformanceTestCaseReportPartPanel) checkedtestcasereportlist.get(Integer.parseInt(testcase.getTestCaseID())-1);
 //			for(JPanel jp:checkedtestcasereportlist){
 //				tcrpp=(PerformanceTestCaseReportPartPanel)jp;
 //				if(testcase.getTestCaseID().equals(tcrpp.getTestcase().getTestCaseID())){
@@ -1490,11 +1506,13 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				performancelistindex++;
 //			}
 			
+			testcase.setExpectResult(ptcrpp.getTestcase().getExpectResult());
+			
 			JTable attributetable;
 			DefaultTableModel attributetablemodel;
 			
-			attributetable=tcrpp.getAttributetable();
-			attributetablemodel=tcrpp.getAttributetablemodel();
+			attributetable=ptcrpp.getAttributetable();
+			attributetablemodel=ptcrpp.getAttributetablemodel();
 			
 			for(myProcess p:testcase.getProcessList()){
 				
@@ -1505,7 +1523,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			
 			attributetablemodel.fireTableDataChanged();
 			
-			DefaultTableModel dtm=tcrpp.getTitletablemodel();
+			DefaultTableModel dtm=ptcrpp.getTitletablemodel();
 			dtm.setValueAt(testcase.getResult().getBattery_remaining(), 0, 3);
 			dtm.setValueAt(testcase.getResult().getTime(), 0, 4);
 			
@@ -1523,6 +1541,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 
 			ttcrpp = (TimeTestCaseReportPartPanel) checkedtestcasereportlist
 					.get(Integer.parseInt(testcase.getTestCaseID()) - 1);
+			
+			testcase.setExpectResult(ttcrpp.getTestcase().getExpectResult());
 			
 			JTable attributetable;
 			DefaultTableModel attributetablemodel;
@@ -1566,10 +1586,17 @@ public class TestCaseReportTabbedPanel extends JPanel{
 
 			String title = "";
 			title += "测试用例ID:" + ttcrpp.getTestcase().getTestCaseID() + "     ";
-			// title+=testcase.getState()+" ";
-			// title+="执行结果:"+testcase.getResult().substring(0,
-			// testcase.getResult().indexOf("耗时"));
-			// title+="执行结果:"+testcase.getResult().getResultDetail();
+			
+			if(testcase.getExpectResult().equals("right")){
+				title+="预期结果:测试用例正确且满足时间约束     ";
+			}
+			else if(testcase.getExpectResult().equals("GNerror")){
+				title+="预期结果:测试用例不正确     ";
+			}
+			else if(testcase.getExpectResult().equals("TIMEerror")){
+				title+="预期结果:测试用例正确但不满足时间约束     ";
+			}
+			
 			title += "执行结果:" + testcase.getState() + "     ";
 			title += "总耗时:" + testcase.getExetime() + " ms";
 

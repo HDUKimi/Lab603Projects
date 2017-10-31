@@ -504,7 +504,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				time2=System.currentTimeMillis();
 				
-				stepAllProcessList.add("第一步：读取测试序列文件");
+				stepAllProcessList.add("第一步：读取测试序列");
 				timeAllProcessList.add(time2-time1+"ms");
 				resultAllProcessList.add("得到"+collectLimit.size()+"条含有约束条件的抽象测试用例");
 				
@@ -885,14 +885,14 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				timeAllProcessList.add(time2-time1+"ms");
 				if(starttype==1){
 					if(hastime==1){
-						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"个测试用例");
+						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条测试用例");
 					}
 					else{
-						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"个不含边界值的测试用例和"+bordertestcaselist.size()+"个含边界值的测试用例");						
+						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条不含边界值的测试用例和"+bordertestcaselist.size()+"条含边界值的测试用例");						
 					}
 				}
 				else{
-					resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"个测试用例");
+					resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条测试用例");
 				}
 				
 				return 1;

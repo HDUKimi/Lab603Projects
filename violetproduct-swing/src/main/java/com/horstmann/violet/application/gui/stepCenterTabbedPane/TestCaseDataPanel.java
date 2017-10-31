@@ -319,8 +319,8 @@ public class TestCaseDataPanel{
 			showFunctionalTestCase();
 		}
 		else if(starttype==2&&hastime==0){
-//			showPerformanceTestCase();
-			showFunctionalTestCase();
+			showPerformanceTestCase();
+//			showFunctionalTestCase();
 		}
 		else if(hastime==1){
 			showTimeTestCase();

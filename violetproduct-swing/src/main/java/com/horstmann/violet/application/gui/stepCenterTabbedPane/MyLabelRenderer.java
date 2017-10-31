@@ -35,8 +35,8 @@ public class MyLabelRenderer extends JLabel implements TableCellRenderer{
 		// TODO Auto-generated method stub
 		
 		
-		String absolutePath=System.getProperty("user.dir");
-		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
+//		String absolutePath=System.getProperty("user.dir");
+//		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
 
 		pngstate=Integer.parseInt(value.toString());
 		
@@ -49,7 +49,7 @@ public class MyLabelRenderer extends JLabel implements TableCellRenderer{
 			else if(pngstate==1){
 				pngname="table_end";
 			}
-			ImageIcon icon = new ImageIcon(path + pngname+".png");
+			ImageIcon icon = new ImageIcon(this.getClass().getResource("ImagePart/"+pngname+".png"));
 			icon.setImage(icon.getImage().getScaledInstance(22,22, Image.SCALE_DEFAULT));
 			
 	        setIcon(icon);
@@ -68,7 +68,7 @@ public class MyLabelRenderer extends JLabel implements TableCellRenderer{
 			else if(pngstate==1){
 				pngname="tick";
 			}
-			ImageIcon icon = new ImageIcon(path + pngname+".png");
+			ImageIcon icon = new ImageIcon(this.getClass().getResource("ImagePart/"+pngname+".png"));
 			icon.setImage(icon.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 			
 	        setIcon(icon);

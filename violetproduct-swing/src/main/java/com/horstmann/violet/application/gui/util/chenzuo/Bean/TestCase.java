@@ -26,6 +26,9 @@ public class TestCase implements Serializable{
 	String  detail;
 	//
 	String exetime;
+	//
+	String expectResult="right";
+
 	//时间约束不等式
 	List<String> limit;
 	
@@ -97,6 +100,14 @@ public class TestCase implements Serializable{
 		this.exetime = exetime;
 	}
 
+	public String getExpectResult() {
+		return expectResult;
+	}
+
+	public void setExpectResult(String expectResult) {
+		this.expectResult = expectResult;
+	}
+
 	@Override
 	public String toString() {
 		String tmp = "TestCase [testCaseID=" + testCaseID + ", processList=\n";
@@ -141,6 +152,7 @@ public class TestCase implements Serializable{
 		}
 		sb.append("\n]\n");
 		sb.append("-->exetime:["+exetime+"]\n");
+		sb.append("-->expectResult:["+expectResult+"]\n");
 		sb.append("-->state:["+state+"]\n");
 		
 		return sb.toString();
@@ -168,6 +180,7 @@ public class TestCase implements Serializable{
 		sb.append("time:"+result.getTime()+"]");
 		sb.append("\n");
 		sb.append("-->exetime:["+exetime+"]\n");
+		sb.append("-->expectResult:["+expectResult+"]\n");
 		sb.append("-->state:["+state+"]\n");
 		
 		return sb.toString();
@@ -204,6 +217,7 @@ public class TestCase implements Serializable{
 		}
 		sb.append("\n]\n");
 		sb.append("-->exetime:["+exetime+"]\n");
+		sb.append("-->expectResult:["+expectResult+"]\n");
 		sb.append("-->state:["+state+"]\n");
 		
 		return sb.toString();

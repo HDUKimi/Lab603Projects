@@ -32,6 +32,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -237,6 +238,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 		testlists.add("功能测试");
 		testlists.add("性能测试");
+		testlists.add("边界值测试");
 		
 		initTestCaseTreeInforPanel1();
 		
@@ -326,9 +328,13 @@ public class TestCaseConfirmationPanel extends JPanel{
 		testcasefilenamegroup=new ArrayList<List<String>>();
 		testcasefilenamegroup.add(new ArrayList<String>());
 		testcasefilenamegroup.add(new ArrayList<String>());
+		testcasefilenamegroup.add(new ArrayList<String>());
 		
 		for(String name:testcasefilenamelists){
-			if(name.contains("功能")){
+			if(name.contains("Border")){
+				testcasefilenamegroup.get(2).add(name);
+			}
+			else if(name.contains("功能")){
 				testcasefilenamegroup.get(0).add(name);
 			}
 			else if(name.contains("性能")){
@@ -576,9 +582,13 @@ public class TestCaseConfirmationPanel extends JPanel{
 		sqlcasedatagroup=new ArrayList<List<String>>();
 		sqlcasedatagroup.add(new ArrayList<String>());
 		sqlcasedatagroup.add(new ArrayList<String>());
+		sqlcasedatagroup.add(new ArrayList<String>());
 		
 		for(String name:sqlcasedatalist){
-			if(name.contains("功能")){
+			if(name.contains("Border")){
+				sqlcasedatagroup.get(2).add(name);
+			}
+			else if(name.contains("功能")){
 				sqlcasedatagroup.get(0).add(name);
 			}
 			else if(name.contains("性能")){
@@ -1518,6 +1528,19 @@ public class TestCaseConfirmationPanel extends JPanel{
 						testcaselist.addAll(extractPerformanceTestDataFromXml(findTestCaseXMLPath(testcasename)));
 					}
 				}
+				else if(starttype==3){
+					tabname="边界值测试";
+					if(hastime==1){
+						testcaselist.addAll(extractTimeTestDataFromXml(findTestCaseXMLPath(testcasename)));
+					}
+					else{
+						testcaselist.addAll(extractFunctionalTestDataFromXml(findTestCaseXMLPath(testcasename)));
+					}
+				}
+				
+				if(starttype==3){
+					starttype=1;
+				}
 						
 						
 				for(TestCaseDataPanel tcd:testCaseDataPanels){
@@ -1540,6 +1563,8 @@ public class TestCaseConfirmationPanel extends JPanel{
 				
 				mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
 				
+				JOptionPane.showMessageDialog(mainFrame, "测试用例提取完成！", "消息" , JOptionPane.INFORMATION_MESSAGE);
+				
 				System.out.println("------------END------------");
 			}
 		}).start();
@@ -1559,6 +1584,11 @@ public class TestCaseConfirmationPanel extends JPanel{
 				
 				starttype=FindSqlRadioButtonIndex(selectSqlTestRadioButton)+1;
 				testcasename=selectSqlTestCaseCheckBox.getText();
+				
+				if(starttype==3){
+					starttype=1;
+				}
+				
 				type=starttype;
 				
 				int hastime=0;
@@ -1578,7 +1608,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 				List<String> testcasestringlist=new ArrayList<String>();
 				
 				testcasestringlist=DataBaseUtil.queryTestCaseStringList(testcasename);
-				System.out.println("+-+**************"+testcasestringlist.size());
+				System.out.println(type+"+-+**************"+testcasestringlist.size());
 				for(String str:testcasestringlist){
 					TestCase testCase=DataBaseUtil.extractTestCaseByString(type, str);
 //					System.out.println(testCase.showTestCase());
@@ -1604,6 +1634,8 @@ public class TestCaseConfirmationPanel extends JPanel{
 				TextAreaPrint(testcasename+"的 "+testcaselist.size()+" 条测试用例以及测试报告提取完成");
 				
 				mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
+				
+				JOptionPane.showMessageDialog(mainFrame, "测试用例提取完成！", "消息" , JOptionPane.INFORMATION_MESSAGE);
 				
 				System.out.println("------------END------------");
 			}
@@ -1848,6 +1880,12 @@ public class TestCaseConfirmationPanel extends JPanel{
 				tc.setProcessList(processList);
 //				tc.setState(state);
 //				tc.setResult(result);
+				
+				if(testcase.attribute("result")!=null){
+					String expectResult=testcase.attribute("result").getData().toString();
+					System.out.println(expectResult);
+					tc.setExpectResult(expectResult);
+				}
 
 				testcaseList.add(tc);
 				
@@ -1956,6 +1994,12 @@ public class TestCaseConfirmationPanel extends JPanel{
 				tc.setProcessList(processList);
 				// tc.setState(state);
 				// tc.setResult(result);
+				
+				if(testcase.attribute("result")!=null){
+					String expectResult=testcase.attribute("result").getData().toString();
+					System.out.println(expectResult);
+					tc.setExpectResult(expectResult);
+				}
 
 				TestCaseResult tcr = new TestCaseResult();
 				tcr.setTakeoff_alt(highcm);
@@ -2068,7 +2112,14 @@ public class TestCaseConfirmationPanel extends JPanel{
 //				tc.setState(state);
 //				tc.setResult(result);
 				tc.setLimit(limits);
-
+				
+				
+				if(testcase.attribute("result")!=null){
+					String expectResult=testcase.attribute("result").getData().toString();
+					System.out.println(expectResult);
+					tc.setExpectResult(expectResult);
+				}
+				
 				testcaseList.add(tc);
 				
 				processList = new ArrayList<myProcess>();

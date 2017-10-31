@@ -131,7 +131,18 @@ public class TimeTestCaseReportPartPanel extends JPanel {
 
 		String title = "";
 		title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
-		title+="执行结果:";
+		
+		if(testcase.getExpectResult().equals("right")){
+			title+="预期结果:测试用例正确且满足时间约束     ";
+		}
+		else if(testcase.getExpectResult().equals("GNerror")){
+			title+="预期结果:测试用例不正确     ";
+		}
+		else if(testcase.getExpectResult().equals("TIMEerror")){
+			title+="预期结果:测试用例正确但不满足时间约束     ";
+		}
+		
+//		title+="执行结果:";
 		
 		titlelabel.setText(title);
 		titlelabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
@@ -143,6 +154,17 @@ public class TimeTestCaseReportPartPanel extends JPanel {
 		if(showAll==1){
 			title = "";
 			title += "测试用例ID:" + testcase.getTestCaseID() + "     ";
+			
+			if(testcase.getExpectResult().equals("right")){
+				title+="预期结果:测试用例正确且满足时间约束     ";
+			}
+			else if(testcase.getExpectResult().equals("GNerror")){
+				title+="预期结果:测试用例不正确     ";
+			}
+			else if(testcase.getExpectResult().equals("TIMEerror")){
+				title+="预期结果:测试用例正确但不满足时间约束     ";
+			}
+			
 			title += "执行结果:" + testcase.getState() + "     ";
 			title += "总耗时:" + testcase.getExetime() + " ms";
 

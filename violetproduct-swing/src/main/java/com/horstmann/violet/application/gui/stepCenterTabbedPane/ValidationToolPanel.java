@@ -338,7 +338,7 @@ public class ValidationToolPanel extends JPanel{
 				String message=mainFrame.getModelExistValidationPanel().getAssessdealtext11().getText();
 				
 				if(message==null||message.trim().equals("")){
-					JOptionPane.showMessageDialog(null, "消息不能为空！", "存在一致性评估" , JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(mainFrame, "消息不能为空！", "存在一致性评估" , JOptionPane.WARNING_MESSAGE);
 					System.out.println("message is null");
 				}
 				else{
@@ -362,7 +362,7 @@ public class ValidationToolPanel extends JPanel{
 					startProcessCount(1);
 					
 					if(uppaalTransitionList==null||uppaalTransitionList.size()==0){
-						JOptionPane.showMessageDialog(null, "消息 "+message+" 不存在！", "存在一致性评估" , JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(mainFrame, "消息 "+message+" 不存在！", "存在一致性评估" , JOptionPane.ERROR_MESSAGE);
 						System.out.println("message is not exist ");
 					}
 					else{
@@ -396,7 +396,7 @@ public class ValidationToolPanel extends JPanel{
 						mainFrame.getValidationResultPanel().ChangeRepaint();
 						System.out.println("++++++++++++++++++++");
 						
-						JOptionPane.showMessageDialog(null, "消息 "+message+" 存在！", "存在一致性评估" , JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(mainFrame, "消息 "+message+" 存在！", "存在一致性评估" , JOptionPane.INFORMATION_MESSAGE);
 						System.out.println("message is exist ");
 					}
 					
