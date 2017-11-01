@@ -36,7 +36,7 @@ public class TimeFailedStatisticsPieChart {
 //		Object[] datas = new Object[failedStatistics.size()];
 		
 		String[] categories = { "测试用例有误", "不满足时间约束" };
-		Object[] datas = { f2, f1 };
+		Object[] datas = { f1, f2 };
 		
 		DefaultPieDataset dataset = ChartUtils.createDefaultPieDataset(categories, datas);
 		return dataset;

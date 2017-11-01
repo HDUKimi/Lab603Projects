@@ -42,6 +42,7 @@ import com.horstmann.violet.application.gui.util.ckt.output.forPlatform;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML2;
 import com.horstmann.violet.application.gui.util.ckt.xml.XmlOfTime;
 import com.horstmann.violet.application.gui.util.ckt.xml.borderTestXML;
+import com.horstmann.violet.application.gui.util.ckt.xml.outXMLofTime;
 import com.horstmann.violet.application.gui.util.tanchao.SaveText;
 
 public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
@@ -837,7 +838,14 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 
 					String path=baseUrl+name+"TestCase.xml";
 //					GetTimeXML.produceXML(path,testCase);
-					XmlOfTime.produceXML(path, collectResult, collectLimit);
+//					XmlOfTime.produceXML(path, collectResult, collectLimit);
+					XmlOfTime.produceXML(path, collectLimit);
+					
+//					String path1=baseUrl+name+"TestCase1.xml";
+//					String path2=baseUrl+name+"TestCase2.xml";
+//					
+//					XmlOfTime.produceXML(path1, collectLimit);
+//					outXMLofTime.produceXML(path2, collectLimit);
 					
 					List<List<String>> limitlist=new ArrayList<List<String>>();
 					List<TimeTestCaseReportPartPanel> timetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();

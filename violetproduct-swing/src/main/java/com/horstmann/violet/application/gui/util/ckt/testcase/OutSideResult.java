@@ -303,6 +303,9 @@ public class OutSideResult {
 					//System.out.println("整数不等式:"+bbb);
 					//System.out.println("整数数参数："+cs1);
 					int resultNum = getMathNum(bbb);
+					if(bbb.contains("!!")){
+						bbb = bbb.replace("!!", "!");
+					}
 					String solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);					
 					if(solution1.equals("{}")){
 						System.out.println("原求得矛盾空解"+solution1);
@@ -313,8 +316,9 @@ public class OutSideResult {
 							flag = 1;
 						}*/	
 						bbb = OutSide.getOutSide(Remove11(bds1))+","+s1;
-
-
+						if(bbb.contains("!!")){
+							bbb = bbb.replace("!!", "!");
+						}
 						resultNum = getMathNum(bbb);
 						solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);
 						System.out.println("删除矛盾后不等式"+bbb);
@@ -343,6 +347,9 @@ public class OutSideResult {
 						//System.out.println("整数数参数："+cs1);
 						int resultNum = getMathNum(s1);
 						//s1 = OutSide.getOutSide(s1)
+						if(s1.contains("!!")){
+							s1 = s1.replace("!!", "!");
+						}
 						String solution1 = Mathematica.getSolution2(s1, cs1, resultNum);
 
 						if(solution1.contains("ndInstance")){
@@ -375,6 +382,9 @@ public class OutSideResult {
 					//System.out.println("小数不等式:"+bb);
 					//System.out.println("小数参数："+cs2);
 					int resultNum = getMathNum(bb);
+					if(bb.contains("!!")){
+						bb = bb.replace("!!", "!");
+					}
 					String solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
 					if(solution2.equals("{}")){
 						//bb = Remove11(bb);
@@ -385,6 +395,9 @@ public class OutSideResult {
 						//bb = Remove11(bds2)+","+s2;
 						bb = OutSide.getOutSide(Remove11(bds2))+","+s2;
 						resultNum = getMathNum(bb);
+						if(bb.contains("!!")){
+							bb = bb.replace("!!", "!");
+						}
 						solution2 = Mathematica.getSolution4(bb, cs2, resultNum);
 					}
 
@@ -407,10 +420,16 @@ public class OutSideResult {
 						//System.out.println("小数不等式:"+s2);
 						//System.out.println("小数参数："+cs2);
 						int resultNum = getMathNum(s2);
+						if(s2.contains("!!")){
+							s2 = s2.replace("!!", "!");
+						}
 						String solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
 						if(solution2.equals("{}")){
 							s2 = Remove11(s2);
 						    resultNum = getMathNum(s2);
+						    if(s2.contains("!!")){
+								s2 = s2.replace("!!", "!");
+							}
 							solution2 = Mathematica.getSolution4(s2, cs2, resultNum);
 						}
 						if(solution2.contains("ndInstance")){
@@ -431,7 +450,14 @@ public class OutSideResult {
 
 				//System.out.println("condition布尔型值解为："+boolbds);//condition上布尔不等式	
 				if(boolbds!=null){
-					//System.out.println("        ===>  condition上布尔型的不等式："+boolbds);
+					boolbds = OutSide.getOutSide(boolbds);
+					System.out.println("        ===>  condition上布尔型的不等式："+boolbds);
+					
+					/*if(boolbds.contains("!")){
+						boolbds = boolbds.replace("!", "");
+					}else{
+						 boolbds = boolbds.replace("True", "false").replace("true", "false").replace("False", "true").replace("false", "true");
+					}	*/			
 					if((results!=null)&&(results1!=null)){
 						//Object results;
 						//for(int i=0;;i++){
@@ -508,9 +534,9 @@ public class OutSideResult {
 
 
 				}
-				for(int i=0;i<tt3.size();i++){
+				/*for(int i=0;i<tt3.size();i++){
 					//System.out.println("list中解:"+tt3.get(i));
-				}
+				}*/
 				if(bds00!=null){
 					//System.out.println("bds00:"+bds00);
 					for(int i=0;i<tt3.size();i++){	
@@ -585,6 +611,9 @@ public class OutSideResult {
 						String cs = cs1;
 						//if()
 						int resultNum = getMathNum(bds1);
+						if(bds1.contains("!!")){
+							bds1 = bds1.replace("!!", "!");
+						}
 						String solution = Mathematica.getSolution2(bds1, cs, resultNum);
 						//System.out.println("solution---"+solution);
 						if(solution.equals("{}")){

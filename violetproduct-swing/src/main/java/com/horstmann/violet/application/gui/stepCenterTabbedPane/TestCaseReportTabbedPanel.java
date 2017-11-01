@@ -1568,17 +1568,18 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			testcase.setLimit(ttcrpp.getTestcase().getLimit());
 			
 			Map<String, Pair<String, String>> map = testcase.getResult().getTimeLimit().getShowMap();
+			
 			for (int i = 0; i < limittablemodel.getRowCount(); i++) {
 				String limit = (String) limittablemodel.getValueAt(i, 0);
 				Pair p = map.get(limit);
 				int state = 0;
-				if (p.getSecond().equals("true")) {
+				if (p.getSecond()!=null&&p.getSecond().equals("true")) {
 					state = 1;
 				}
 				if (p.getFirst() == null || p.getFirst().equals("")) {
 					state = 0;
 				}
-				System.out.println(limit + "  -  " + state + "  -  " + p.getFirst() + "  -  " + p.getSecond());
+//				System.out.println(limit + "  -  " + state + "  -  " + p.getFirst() + "  -  " + p.getSecond());
 				limittablemodel.setValueAt(p.getFirst(), i, 1);
 				limittablemodel.setValueAt(state, i, 2);
 				
@@ -1618,9 +1619,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 
 			TextAreaPrint(testcase.toString());
 
-			System.out.println("----------+++++++++++");
-			System.out.println(testcase.SpellTimeTestCase());
-			System.out.println("----------+++++++++++");
+//			System.out.println("----------+++++++++++");
+//			System.out.println(testcase.SpellTimeTestCase());
+//			System.out.println("----------+++++++++++");
 		}
 		
 	}
@@ -2445,7 +2446,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				while(progressbar.getValue()<90||ResultService.list.size()<=0){
 					try {
-						System.out.println("***************************");
+						System.out.println("***************************"+ResultService.list.size());
 //						if(threadexceptionstate==1){
 //							ExceptionStopRunThread();
 //						}
@@ -2613,7 +2614,13 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					System.out.println("startprogressbar "+startprogressbar+" endprogressbar "+endprogressbar+" progressbarvalue "+progressbar.getValue());
 					datagainshowindex++;
 					
-					sleeptime=selectedtestcaselist.size()*10000/(endprogressbar-startprogressbar);
+					if(selectedtestcaselist.size()>300){
+						sleeptime=300*8000/(endprogressbar-startprogressbar);
+					}
+					else{
+						sleeptime=selectedtestcaselist.size()*8000/(endprogressbar-startprogressbar);
+					}
+					
 					for(int i=startprogressbar;i<endprogressbar;i++){
 						
 						if(ResultService.list.size()>resultlistindex){

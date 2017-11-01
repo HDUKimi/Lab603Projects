@@ -56,22 +56,21 @@ public class MyLabelRenderer extends JLabel implements TableCellRenderer{
 		}
 		else if(table.getName().equals("TimeTestCaseReportLimitPartPanel")){
 			
-//			if(pngstate==-1){
-//			}
-//			else{
-//				
-//			}
-			
-			if(pngstate==0){
-				pngname="cross";
+			if(pngstate==-1){
+				
 			}
-			else if(pngstate==1){
-				pngname="tick";
+			else{
+				if(pngstate==0){
+					pngname="cross";
+				}
+				else if(pngstate==1){
+					pngname="tick";
+				}
+				ImageIcon icon = new ImageIcon(this.getClass().getResource("ImagePart/"+pngname+".png"));
+				icon.setImage(icon.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+				
+		        setIcon(icon);
 			}
-			ImageIcon icon = new ImageIcon(this.getClass().getResource("ImagePart/"+pngname+".png"));
-			icon.setImage(icon.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
-			
-	        setIcon(icon);
 		}
 		
 //		if(pngstate==0){

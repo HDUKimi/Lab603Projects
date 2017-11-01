@@ -50,7 +50,7 @@ public class TestFileSpilt {
 			List<Element> testcaseElements2=TCS2.elements("testcase");
 			
 			spiltindex=testcaseElements1.size()/2;
-			Controller.offsetTestCaseId=spiltindex;
+			Controller.offsetTestCaseId=testcaseElements1.size()-spiltindex;
 			System.out.println(spiltindex+" - "+(testcaseElements1.size()-spiltindex));
 			
 			for(int i=0;i<testcaseElements1.size()-spiltindex;i++){

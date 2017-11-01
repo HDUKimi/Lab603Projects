@@ -2100,7 +2100,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 				
 				List<String> limits=new ArrayList<String>();
 				String limit=testcase.element("limit").element("operation").getData().toString();
-				System.out.println(limit);
+//				System.out.println(limit);
 				for (String str : limit.split(",")) {
 					limits.add(str);
 				}
@@ -2116,7 +2116,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 				
 				if(testcase.attribute("result")!=null){
 					String expectResult=testcase.attribute("result").getData().toString();
-					System.out.println(expectResult);
+//					System.out.println(expectResult);
 					tc.setExpectResult(expectResult);
 				}
 				
