@@ -1426,7 +1426,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			attributetablemodel.fireTableDataChanged();
 			
 			String title = "";
-			title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
+			title+="测试用例ID:"+ftcrpp.getTestcase().getTestCaseID()+"     ";
 
 			if(testcase.getExpectResult().equals("right")){
 				title+="预期结果:测试用例正确     ";

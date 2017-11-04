@@ -684,6 +684,8 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 			btp.setVisible(false);
 		}
 		
+		mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().initUIPanel();
+		
 		mainFrame.getAttributePartTwoPanel().getNamelabel().setText("");
 		mainFrame.getAttributePartTwoPanel().getAttributepanel().removeAll();
 		

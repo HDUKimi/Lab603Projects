@@ -429,7 +429,7 @@ public class ValidationToolPanel extends JPanel{
 				String message2=mainFrame.getModelExistValidationPanel().getAssessdealtext22().getText();
 				
 				if(message1==null||message1.trim().equals("")||message2==null||message2.trim().equals("")){
-					JOptionPane.showMessageDialog(null, "消息A或消息B不能为空！", "顺序一致性评估" , JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(mainFrame, "消息A或消息B不能为空！", "顺序一致性评估" , JOptionPane.WARNING_MESSAGE);
 					System.out.println("message1 or message2 is null");
 				}
 				else{
@@ -454,7 +454,7 @@ public class ValidationToolPanel extends JPanel{
 					startProcessCount(1);
 					
 					if(pathTupleList==null||pathTupleList.size()==0){
-						JOptionPane.showMessageDialog(null, "顺序一致性评估失败，找不到路径！", "顺序一致性评估" , JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(mainFrame, "顺序一致性评估失败，找不到路径！", "顺序一致性评估" , JOptionPane.ERROR_MESSAGE);
 						System.out.println("message is not exist ");
 					}
 					else{
@@ -502,7 +502,7 @@ public class ValidationToolPanel extends JPanel{
 						
 						System.out.println("++++++++++++++++++++");
 						
-						JOptionPane.showMessageDialog(null, "顺序一致性评估成功，找到一组路径！", "顺序一致性评估" , JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(mainFrame, "顺序一致性评估成功，找到一组路径！", "顺序一致性评估" , JOptionPane.INFORMATION_MESSAGE);
 						System.out.println("message is exist ");
 					}
 					mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("顺序一致性评估完成");
@@ -528,7 +528,7 @@ public class ValidationToolPanel extends JPanel{
 				String message=mainFrame.getModelExistValidationPanel().getAssessdealtext31().getText();
 				
 				if(message==null||message.trim().equals("")){
-					JOptionPane.showMessageDialog(null, "时间不能为空！", "实时一致性评估" , JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(mainFrame, "时间不能为空！", "实时一致性评估" , JOptionPane.WARNING_MESSAGE);
 					System.out.println("message is null");
 				}
 				else{
@@ -548,17 +548,17 @@ public class ValidationToolPanel extends JPanel{
 						startProcessCount(1);
 						
 						if(result){
-							JOptionPane.showMessageDialog(null, "实时一致性评估成功！", "实时一致性评估" , JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(mainFrame, "实时一致性评估成功！", "实时一致性评估" , JOptionPane.INFORMATION_MESSAGE);
 							mainFrame.getValidationResultPanel().getFivenamelabel().setText(message+" 实时一致性评估成功");
 						}
 						else{
-							JOptionPane.showMessageDialog(null, "实时一致性评估失败！", "实时一致性评估" , JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(mainFrame, "实时一致性评估失败！", "实时一致性评估" , JOptionPane.ERROR_MESSAGE);
 							mainFrame.getValidationResultPanel().getFivenamelabel().setText(message+" 实时一致性评估失败");
 						}
 						mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("实时一致性评估完成");
 					}
 					else{
-						JOptionPane.showMessageDialog(null, "时间参数格式不符合要求！", "实时一致性评估" , JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(mainFrame, "时间参数格式不符合要求！", "实时一致性评估" , JOptionPane.WARNING_MESSAGE);
 						System.out.println("message is not conform format");
 					}
 					

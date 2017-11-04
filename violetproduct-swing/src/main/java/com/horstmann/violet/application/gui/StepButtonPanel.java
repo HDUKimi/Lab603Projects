@@ -1038,9 +1038,7 @@ public class StepButtonPanel extends JPanel {
 				mainFrame.getConsolePartPanel().setVisible(false);
 				mainFrame.getOpreationPart().setVisible(false);	
 				mainFrame.getOneTouchExpandablePanel().setVisible(false);	
-				mainFrame.setVisible(false);
-				mainFrame.getContentPane().repaint();
-				mainFrame.setVisible(true);
+				mainFrame.ChangeRepaint();
 			}
 		});						
 		// TODO Auto-generated method stub
@@ -1164,9 +1162,7 @@ public class StepButtonPanel extends JPanel {
 				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 
 				wakeupUI();
-				mainFrame.setVisible(false);
-				mainFrame.getContentPane().repaint();
-				mainFrame.setVisible(true);
+				mainFrame.ChangeRepaint();
 				step2button.setEnabled(true);//第一步点击之后，第二步可点击
 			}
 		});
@@ -1227,9 +1223,7 @@ public class StepButtonPanel extends JPanel {
 //				mainFrame.getStepTwoCenterTabbedPane().initUIPanelData();
 				
 				wakeupUI();
-				mainFrame.setVisible(false);
-				mainFrame.getContentPane().repaint();
-				mainFrame.setVisible(true);
+				mainFrame.ChangeRepaint();
 				
 				step3button.setEnabled(true);
 				step6button.setEnabled(true);
@@ -1295,9 +1289,8 @@ public class StepButtonPanel extends JPanel {
 				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			    
 			    wakeupUI();
-			    mainFrame.setVisible(false);
-				mainFrame.getContentPane().repaint();
-				mainFrame.setVisible(true);
+			    mainFrame.ChangeRepaint();
+			    
 				step4button.setEnabled(true);
 			}
 		});
@@ -1352,9 +1345,8 @@ public class StepButtonPanel extends JPanel {
 				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			    
 			    wakeupUI();
-				mainFrame.setVisible(false);
-				mainFrame.getContentPane().repaint();
-				mainFrame.setVisible(true);
+			    mainFrame.ChangeRepaint();
+			    
 				step5button.setEnabled(true);
 			}
 		});
@@ -1407,9 +1399,7 @@ public class StepButtonPanel extends JPanel {
 				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			    
 			    wakeupUI();
-				mainFrame.setVisible(false);
-				mainFrame.getContentPane().repaint();
-				mainFrame.setVisible(true);
+			    mainFrame.ChangeRepaint();
 			}
 		});
 		//测试按钮的触发事件
@@ -1462,9 +1452,7 @@ public class StepButtonPanel extends JPanel {
 				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			    
 			    wakeupUI();
-				mainFrame.setVisible(false);
-				mainFrame.getContentPane().repaint();
-				mainFrame.setVisible(true);
+			    mainFrame.ChangeRepaint();
 				
 			}
 		});

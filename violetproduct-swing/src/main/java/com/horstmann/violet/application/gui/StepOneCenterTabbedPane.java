@@ -171,6 +171,7 @@ public class StepOneCenterTabbedPane extends JPanel {
 		mainFrame.getStepOneCenterTabbedPane().getAllDiagramButtonTabbedPanelLists().clear();
 		mainFrame.getStepOneCenterTabbedPane().getButtonTabbedPanel().removeAll();
 		mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().removeAll();
+		mainFrame.getStepOneCenterTabbedPane().ChangeRepaint();
 		
 		mainFrame.getAttributePartOnePanel().getNamelabel().setText("");
 		mainFrame.getAttributePartOnePanel().getAttributepanel().removeAll();

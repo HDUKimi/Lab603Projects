@@ -663,6 +663,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 		for(ButtonTabbedPanel btp:mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists()){
 			btp.setVisible(false);
 		}
+		mainFrame.getModelTransformationPanel().getModelTimingTreePanel().initUIPanel();
 		
 		mainFrame.getAttributePartTwoPanel().getNamelabel().setText("");
 		mainFrame.getAttributePartTwoPanel().getAttributepanel().removeAll();

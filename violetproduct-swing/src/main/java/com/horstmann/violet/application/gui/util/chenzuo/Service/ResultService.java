@@ -103,6 +103,7 @@ public class ResultService {
                         	
                         	List<TestCase> testcaselist=TcConvertUtil.buildTestCaseList(type, fileName);
                         	
+//                        	System.out.println(Controller.offsetIP+" - - "+Controller.offsetTestCaseId);
                         	//IDÆ«ÒÆÁ¿
                         	if(Controller.offsetIP!=null&&filelist[i].contains(Controller.offsetIP)){
                         		for(TestCase testCase:testcaselist){

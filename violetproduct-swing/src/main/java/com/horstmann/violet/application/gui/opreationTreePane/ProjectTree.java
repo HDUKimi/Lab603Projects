@@ -88,12 +88,14 @@ public class ProjectTree extends JPanel {
 	private JPanel toolbuttonpanel4;
 	private JPanel toolbuttonpanel5;
 	private JPanel toolbuttonpanel6;
+	private JPanel toolbuttonpanel7;
 	private JButton toolbutton1;
 	private JButton toolbutton2;
 	private JButton toolbutton3;
 	private JButton toolbutton4;
 	private JButton toolbutton5;
 	private JButton toolbutton6;
+	private JButton toolbutton7;
 
 	private JPanel diagrambuttonpanel1;
 	private JPanel diagrambuttonpanel2;
@@ -661,6 +663,7 @@ public class ProjectTree extends JPanel {
 		toolbuttonpanel4 = new JPanel();
 		toolbuttonpanel5 = new JPanel();
 		toolbuttonpanel6 = new JPanel();
+		toolbuttonpanel7 = new JPanel();
 
 		toolbutton1 = new JButton();
 		toolbutton2 = new JButton();
@@ -668,6 +671,7 @@ public class ProjectTree extends JPanel {
 		toolbutton4 = new JButton();
 		toolbutton5 = new JButton();
 		toolbutton6 = new JButton();
+		toolbutton7 = new JButton();
 		
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\16x16\\";
@@ -684,6 +688,8 @@ public class ProjectTree extends JPanel {
 		icon5.setImage(icon5.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 		ImageIcon icon6 = new ImageIcon(this.getClass().getResource("ImagePart/16x16/saveas.png"));
 		icon6.setImage(icon6.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
+		ImageIcon icon7 = new ImageIcon(this.getClass().getResource("ImagePart/ui_delete.png"));
+		icon7.setImage(icon7.getImage().getScaledInstance(16,16, Image.SCALE_DEFAULT));
 
 		toolbutton1.setIcon(icon1);
 		toolbutton1.setFocusable(false);
@@ -797,6 +803,23 @@ public class ProjectTree extends JPanel {
 				
 			}
 		});
+		
+		toolbutton7.setIcon(icon7);
+		toolbutton7.setFocusable(false);
+		toolbutton7.setContentAreaFilled(false);
+		toolbutton7.setBorderPainted(false);
+		toolbutton7.addMouseListener(new ButtonMouseListener());
+		toolbutton7.setPreferredSize(new Dimension(21,21));
+		toolbutton7.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				mainFrame.getStepOneCenterTabbedPane().initUIPanelData();
+				
+			}
+		});
 
 		toolbuttonpanel1.setLayout(new GridLayout());
 //		toolbuttonpanel1.setPreferredSize(new Dimension(27, 27));
@@ -830,6 +853,8 @@ public class ProjectTree extends JPanel {
 		toolbuttonpanel6.setBackground(new Color(207, 214, 229));
 //		toolbuttonpanel6.setBorder(BorderFactory.createEmptyBorder(1, 0, 0, 0));
 		toolbuttonpanel6.add(toolbutton6);
+		toolbuttonpanel7.setBackground(new Color(207, 214, 229));
+		toolbuttonpanel7.add(toolbutton7);
 
 		toolpanel.setBackground(new Color(207, 214, 229));
 //		toolpanel.setBackground(Color.RED);
@@ -843,6 +868,7 @@ public class ProjectTree extends JPanel {
 		toolpanel.add(toolbutton4);
 		toolpanel.add(toolbutton5);
 		toolpanel.add(toolbutton6);
+		toolpanel.add(toolbutton7);
 		
 		toolpanel.setPreferredSize(new Dimension(100, 29));
 		toolpanel.setMaximumSize(new Dimension(100, 29));

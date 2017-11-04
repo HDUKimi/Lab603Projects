@@ -572,9 +572,9 @@ public class ModelExistValidationPanel extends JPanel{
 		
 		assessdealtext11.setForeground(new Color(0,0,0));
 		assessdealtext11.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-		assessdealtext11.setPreferredSize(new Dimension(100, 20));
-		assessdealtext11.setMaximumSize(new Dimension(100, 20));
-		assessdealtext11.setMinimumSize(new Dimension(100, 20));
+		assessdealtext11.setPreferredSize(new Dimension(100, 21));
+		assessdealtext11.setMaximumSize(new Dimension(100, 21));
+		assessdealtext11.setMinimumSize(new Dimension(100, 21));
 		
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
@@ -736,15 +736,15 @@ public class ModelExistValidationPanel extends JPanel{
 		
 		assessdealtext21.setForeground(new Color(0,0,0));
 		assessdealtext21.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-		assessdealtext21.setPreferredSize(new Dimension(100, 20));
-		assessdealtext21.setMaximumSize(new Dimension(100, 20));
-		assessdealtext21.setMinimumSize(new Dimension(100, 20));
+		assessdealtext21.setPreferredSize(new Dimension(100, 21));
+		assessdealtext21.setMaximumSize(new Dimension(100, 21));
+		assessdealtext21.setMinimumSize(new Dimension(100, 21));
 		
 		assessdealtext22.setForeground(new Color(0,0,0));
 		assessdealtext22.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-		assessdealtext22.setPreferredSize(new Dimension(100, 20));
-		assessdealtext22.setMaximumSize(new Dimension(100, 20));
-		assessdealtext22.setMinimumSize(new Dimension(100, 20));
+		assessdealtext22.setPreferredSize(new Dimension(100, 21));
+		assessdealtext22.setMaximumSize(new Dimension(100, 21));
+		assessdealtext22.setMinimumSize(new Dimension(100, 21));
 		
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
@@ -924,9 +924,9 @@ public class ModelExistValidationPanel extends JPanel{
 		
 		assessdealtext31.setForeground(new Color(0,0,0));
 		assessdealtext31.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-		assessdealtext31.setPreferredSize(new Dimension(100, 20));
-		assessdealtext31.setMaximumSize(new Dimension(100, 20));
-		assessdealtext31.setMinimumSize(new Dimension(100, 20));
+		assessdealtext31.setPreferredSize(new Dimension(100, 21));
+		assessdealtext31.setMaximumSize(new Dimension(100, 21));
+		assessdealtext31.setMinimumSize(new Dimension(100, 21));
 		
 		String absolutePath=System.getProperty("user.dir");
 		String path = absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";

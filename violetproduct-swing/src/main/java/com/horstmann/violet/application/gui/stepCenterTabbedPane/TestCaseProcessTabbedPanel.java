@@ -978,13 +978,13 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					if(hastime==1){
 						if(selectCoverState==0){//状态覆盖
 							moviepanel.getMovieLabel().setText("正在进行状态覆盖，生成测试路径");
-							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行状态覆盖，生成测试序列");
+							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行状态覆盖，生成测试路径");
 							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("状态覆盖");
 							TextAreaPrint("正在进行状态覆盖，生成测试路径");
 						}
 						else if(selectCoverState==1){//迁移覆盖
 							moviepanel.getMovieLabel().setText("正在进行迁移覆盖，生成测试路径");
-							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行迁移覆盖，生成测试序列");
+							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行迁移覆盖，生成测试路径");
 							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("迁移覆盖");
 							TextAreaPrint("正在进行迁移覆盖，生成测试路径");
 						}
@@ -992,13 +992,13 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					else{
 						if(selectCoverState==0){//状态覆盖
 							moviepanel.getMovieLabel().setText("正在进行状态覆盖，生成测试路径");
-							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行状态覆盖，生成测试序列");
+							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行状态覆盖，生成测试路径");
 							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("状态覆盖");
 							TextAreaPrint("正在进行状态覆盖，生成测试路径");
 						}
 						else if(selectCoverState==1){//迁移覆盖
 							moviepanel.getMovieLabel().setText("正在进行迁移覆盖，生成测试路径");
-							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行迁移覆盖，生成测试序列");
+							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行迁移覆盖，生成测试路径");
 							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("迁移覆盖");
 							TextAreaPrint("正在进行迁移覆盖，生成测试路径");
 						}
@@ -1007,13 +1007,13 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				else if(starttype==2){//性能测试
 					if(hastime==1){
 						moviepanel.getMovieLabel().setText("正在进行性能测试，生成测试路径");
-						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行性能测试，生成测试序列");
+						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行性能测试，生成测试路径");
 						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("性能测试");
 						TextAreaPrint("正在进行性能测试，生成测试路径");
 					}
 					else{
 						moviepanel.getMovieLabel().setText("正在进行性能测试，生成测试路径");
-						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行性能测试，生成测试序列");
+						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行性能测试，生成测试路径");
 						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("性能测试");
 						TextAreaPrint("正在进行性能测试，生成测试路径");
 					}
@@ -1418,8 +1418,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在对测试序列进行排序");
-				TextAreaPrint("正在对测试序列进行排序");
+				moviepanel.getMovieLabel().setText("正在对测试路径进行排序");
+				TextAreaPrint("正在对测试路径进行排序");
 				
 				//上一步的xml
 				GraphFile absfGraphFile=ImportByDoubleClick.importFileByDoubleClick("UPPAAL","abs.uppaal.violet.xml");
@@ -1535,7 +1535,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				stepAllProcessList.add("第四步：重要度排序");
 				timeAllProcessList.add(time2-time1+"ms");
-				resultAllProcessList.add("完成对测试序列的排序，并将排序前后的测试序列进行对比");
+				resultAllProcessList.add("完成对测试路径的排序，并将排序前后的测试路径进行对比");
 				
 				
 				return 1;

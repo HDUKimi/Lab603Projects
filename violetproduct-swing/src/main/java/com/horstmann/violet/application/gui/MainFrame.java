@@ -1388,6 +1388,13 @@ public class MainFrame extends JFrame
         }
         return this.mainPanel;
     }
+    
+    public void ChangeRepaint() {
+		// TODO Auto-generated method stub
+		this.mainPanel.setVisible(false);
+		this.mainPanel.getRootPane().repaint();
+		this.mainPanel.setVisible(true);
+	}
 
     public StepOneCenterTabbedPane getStepOneCenterTabbedPane()
     {
