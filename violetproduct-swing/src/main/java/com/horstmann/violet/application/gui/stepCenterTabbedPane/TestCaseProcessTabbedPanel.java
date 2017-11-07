@@ -423,7 +423,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 		starttype=mainFrame.getTestCaseGenerationPanel().FindRadioButtonIndex(mainFrame.getTestCaseGenerationPanel().getSelectTestRadioButton())+1;
 		
-		if(selectUppaal.contains("Elevator")){
+		if(selectUppaal.contains("电梯")){
 			hastime=1;
 		}
 		else{
@@ -544,17 +544,19 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				Thread.sleep(1000);
 				
-				mainFrame.getStepThreeCenterTabbedPane().getUppaalParseInforTabbedPanel().getGeneralinforlabel1().setText("时间自动机名字："+a.getName());
+//				mainFrame.getStepThreeCenterTabbedPane().getUppaalParseInforTabbedPanel().getGeneralinforlabel1().setText("时间自动机名字："+a.getName());
+				mainFrame.getStepThreeCenterTabbedPane().getUppaalParseInforTabbedPanel().getGeneralinforlabel1().setText("时间自动机名字："+selectUppaal.replace("ForXStream", ""));
 				mainFrame.getStepThreeCenterTabbedPane().getUppaalParseInforTabbedPanel().getGeneralinforlabel2().setText("是否含有时间约束："+clockstate);
 				mainFrame.getStepThreeCenterTabbedPane().getUppaalParseInforTabbedPanel().getGeneralinforlabel3().setText("模型中总状态个数："+a.getStateSet().size());
 				mainFrame.getStepThreeCenterTabbedPane().getUppaalParseInforTabbedPanel().getGeneralinforlabel4().setText("模型中总迁移个数："+a.getTransitionSet().size());
 				
-				copyupitpanel.getGeneralinforlabel1().setText("时间自动机名字："+a.getName());
+//				copyupitpanel.getGeneralinforlabel1().setText("时间自动机名字："+a.getName());
+				copyupitpanel.getGeneralinforlabel1().setText("时间自动机名字："+selectUppaal.replace("ForXStream", ""));
 				copyupitpanel.getGeneralinforlabel2().setText("是否含有时间约束："+clockstate);
 				copyupitpanel.getGeneralinforlabel3().setText("模型中总状态个数："+a.getStateSet().size());
 				copyupitpanel.getGeneralinforlabel4().setText("模型中总迁移个数："+a.getTransitionSet().size());
 				
-				TextAreaPrint("时间自动机名字："+a.getName());
+				TextAreaPrint("时间自动机名字："+selectUppaal.replace("ForXStream", ""));
 				TextAreaPrint("是否含有时间约束："+clockstate);
 				TextAreaPrint("模型中总状态个数："+a.getStateSet().size());
 				TextAreaPrint("模型中总迁移个数："+a.getTransitionSet().size());
@@ -641,17 +643,17 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				Thread.sleep(1000);
 				
-				mainFrame.getStepThreeCenterTabbedPane().getUppaalOptimizationTabbedPanel().getGeneralinforlabel1().setText("时间自动机名字："+aTDRTAutomatic.getName());
+				mainFrame.getStepThreeCenterTabbedPane().getUppaalOptimizationTabbedPanel().getGeneralinforlabel1().setText("时间自动机名字："+selectUppaal.replace("ForXStream", ""));
 				mainFrame.getStepThreeCenterTabbedPane().getUppaalOptimizationTabbedPanel().getGeneralinforlabel2().setText("是否含有时间约束："+clockstate);
 				mainFrame.getStepThreeCenterTabbedPane().getUppaalOptimizationTabbedPanel().getGeneralinforlabel3().setText("模型中总状态个数："+aTDRTAutomatic.getStateSet().size());
 				mainFrame.getStepThreeCenterTabbedPane().getUppaalOptimizationTabbedPanel().getGeneralinforlabel4().setText("模型中总迁移个数："+aTDRTAutomatic.getTransitionSet().size());
 				
-				copyuotpanel.getGeneralinforlabel1().setText("时间自动机名字："+aTDRTAutomatic.getName());
+				copyuotpanel.getGeneralinforlabel1().setText("时间自动机名字："+selectUppaal.replace("ForXStream", ""));
 				copyuotpanel.getGeneralinforlabel2().setText("是否含有时间约束："+clockstate);
 				copyuotpanel.getGeneralinforlabel3().setText("模型中总状态个数："+aTDRTAutomatic.getStateSet().size());
 				copyuotpanel.getGeneralinforlabel4().setText("模型中总迁移个数："+aTDRTAutomatic.getTransitionSet().size());
 				
-				TextAreaPrint("时间自动机名字："+aTDRTAutomatic.getName());
+				TextAreaPrint("时间自动机名字："+selectUppaal.replace("ForXStream", ""));
 				TextAreaPrint("是否含有时间约束："+clockstate);
 				TextAreaPrint("模型中总状态个数："+aTDRTAutomatic.getStateSet().size());
 				TextAreaPrint("模型中总迁移个数："+aTDRTAutomatic.getTransitionSet().size());
