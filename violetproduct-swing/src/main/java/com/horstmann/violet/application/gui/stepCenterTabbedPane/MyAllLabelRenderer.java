@@ -211,10 +211,10 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 		else if(tablename.equals("TimeTestCaseReportPartPanel")){
 //			String[] columnNames = { "¼¤ÀøID", "¼¤ÀøÃû³Æ", "¼¤Àø²ÎÊı", "¼¤Àø×´Ì¬", "¼¤ÀøÖ´ĞĞÇé¿ö" };
 //			setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 10));
-//			if(table.getValueAt(row, 4).toString().equals("false")){
-//				setForeground(new Color(115, 110, 102));
-//				setBackground(new Color(255, 135, 135));
-//			}
+			if(table.getValueAt(row, 4).toString().equals("false")){
+				setForeground(new Color(115, 110, 102));
+				setBackground(new Color(255, 135, 135));
+			}
 			
 //			setBackground(new Color(250, 248, 236));
 			if(table.getColumnName(column).equals("¼¤ÀøID")||table.getColumnName(column).equals("¼¤Àø×´Ì¬")||table.getColumnName(column).equals("¼¤ÀøÖ´ĞĞÇé¿ö")){

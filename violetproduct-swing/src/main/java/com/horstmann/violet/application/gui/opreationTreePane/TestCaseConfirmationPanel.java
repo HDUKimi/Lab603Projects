@@ -1611,7 +1611,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 				System.out.println(type+"+-+**************"+testcasestringlist.size());
 				for(String str:testcasestringlist){
 					TestCase testCase=DataBaseUtil.extractTestCaseByString(type, str);
-//					System.out.println(testCase.showTestCase());
+//					System.out.println(testCase.showTimeTestCase());
 					testcaselist.add(testCase);
 				}
 						
