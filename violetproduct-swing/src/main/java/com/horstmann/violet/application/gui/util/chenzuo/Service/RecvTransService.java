@@ -46,7 +46,7 @@ public class RecvTransService implements Callable {
                 	break;
                 }
                 System.out.println(FileUtil.LOCAL_TARGET_PATH+fileName+" - - "+FileUtil.LOCAL_TARGET_PATH+fileName1);
-            }
+            } 
             
             logger.debug(node.getIp()+" file " + id + " get ok,cost time is:" + (System.currentTimeMillis() - l) + " ms");
 

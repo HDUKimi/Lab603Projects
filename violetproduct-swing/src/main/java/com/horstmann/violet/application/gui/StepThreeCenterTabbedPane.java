@@ -171,7 +171,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		
 		initleftrightbuttonpanel();
 
-		testCaseProcessButtonPanel = new FixedButtonTabbedPanel("测试用例生成进程");
+		testCaseProcessButtonPanel = new FixedButtonTabbedPanel("抽象测试用例生成进程");
 		testCaseProcessButton = testCaseProcessButtonPanel.getTabbedbutton();
 		
 		uppaalParseInforButtonPanel = new FixedButtonTabbedPanel("获取时间自动机");

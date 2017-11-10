@@ -331,7 +331,7 @@ public class TestCaseConfirmResultPanel extends JPanel{
 	private void initTitlePanel() {
 		// TODO Auto-generated method stub
 		
-		titlelabel.setText("测试结果");
+		titlelabel.setText("测试执行结果");
 		titlelabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		titlelabel.setForeground(new Color(255, 255, 255));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(1, 8, 1, 0));
