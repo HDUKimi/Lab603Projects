@@ -1238,13 +1238,13 @@ public class XmlOfTime {
 						if(tran.getResult().get(0).toString().contains("***********")){
 							input.addAttribute("GN", "Error");
 						}
-						String str = tran.getResult().get(0).toString().replace("False", "false").replace("True", "true").replace("***********", "")/*.replace("||", ",")*/.replace("==", "=");
+						String str = tran.getResult().get(0).toString().replace("False", "false").replace("True", "true").replace("***********", "").replace("||", ",").replace("==", "=");
 						input.setText(str);
-						if((tran.getResult().get(0).contains("False")) ||(tran.getResult().get(0).contains("True"))){
-							input.setText(tran.getResult().get(0).replace("False", "false").replace("True", "true").replace("***********", "").replace("==", "=")/*.replace("||", ",")*/);
-						}else{
-							input.setText(tran.getResult().get(0).toString().replace("***********", "").replace("==", "=")/*.replace("||", ",")*/);
-						}
+//						if((tran.getResult().get(0).contains("False")) ||(tran.getResult().get(0).contains("True"))){
+//							input.setText(tran.getResult().get(0).replace("False", "false").replace("True", "true").replace("***********", "").replace("==", "=")/*.replace("||", ",")*/);
+//						}else{
+//							input.setText(tran.getResult().get(0).toString().replace("***********", "").replace("==", "=").replace("||", ","));
+//						}
 						
 						Element time = process.addElement("time");
 						time.setText(tran.getTranTimeName());

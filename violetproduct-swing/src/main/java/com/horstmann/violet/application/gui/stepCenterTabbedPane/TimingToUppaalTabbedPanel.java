@@ -270,7 +270,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 					timingtouppaaltablemodel.removeRow(timingtouppaaltablemodel.getRowCount()-1);
 				}
 				
-				moviepanel.getMovieLabel().setText("正在读取导出的所有顺序图");
+				moviepanel.getMovieLabel().setText("正在读取导出的所有时序图");
 				
 			}
 		});
@@ -565,7 +565,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 
 						if (!FileMenu.isVioletXML(path)) {// 打开ea平台的xml文件
 							
-							moviepanel.getMovieLabel().setText("正在转换顺序图 "+filename+"...");
+							moviepanel.getMovieLabel().setText("正在转换时序图 "+filename+"...");
 							
 //							path="D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\EATiming2.timing.violet.xml";
 							
@@ -652,7 +652,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 			timingtouppaaltablemodel.removeRow(timingtouppaaltablemodel.getRowCount()-1);
 		}
 		
-		moviepanel.getMovieLabel().setText("正在读取导出的所有顺序图");
+		moviepanel.getMovieLabel().setText("正在读取导出的所有时序图");
 		
 //		DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel();
 //		for (int i = 0; i < dtm.getRowCount(); i++) {

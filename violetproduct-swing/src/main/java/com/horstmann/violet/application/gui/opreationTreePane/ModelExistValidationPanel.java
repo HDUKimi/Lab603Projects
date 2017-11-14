@@ -34,6 +34,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
@@ -1633,9 +1634,16 @@ public class ModelExistValidationPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
+				if(selectUppaalCheckBox.getText()==null||selectUppaalCheckBox.getText().equals("")){
+					JOptionPane.showMessageDialog(mainFrame, "请选择要进行模型评估的时间自动机！", "提示" , JOptionPane.ERROR_MESSAGE);
+					return ;
+				}
+				
 				String baseUrl = "D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\";
 				String filename=selectUppaalCheckBox.getText();
 				String uppaalname=filename.substring(0, filename.indexOf("Uppaal"));
+				
+				TextAreaPrint("载入"+uppaalname+"时间自动机");
 				
 				showUppaalDiagram(uppaalname);
 				
@@ -1659,7 +1667,6 @@ public class ModelExistValidationPanel extends JPanel{
 				ChangeRepaint();
 				
 				mainFrame.getStepSixCenterTabbedPane().ChangeRepaint();
-				
 				
 			}
 			
@@ -2305,6 +2312,14 @@ public class ModelExistValidationPanel extends JPanel{
 	    }
 	    
 	}
+	
+	
+	public void TextAreaPrint(String word){
+		JTextArea textarea=mainFrame.getConsolePartPanel().getTextarea6();
+		textarea.append(word+"\n");
+		textarea.setCaretPosition(textarea.getDocument().getLength());
+	}
+	
 
 	public static MainFrame getMainFrame() {
 		return mainFrame;

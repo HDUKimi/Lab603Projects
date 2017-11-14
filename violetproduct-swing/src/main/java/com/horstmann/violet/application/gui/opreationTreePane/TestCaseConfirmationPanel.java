@@ -1307,9 +1307,17 @@ public class TestCaseConfirmationPanel extends JPanel{
 				initUI();
 				
 				if(testcaselabeltabindex==1){
+					if(selectTestCaseCheckBox.getText()==null||selectTestCaseCheckBox.getText().equals("")){
+						JOptionPane.showMessageDialog(mainFrame, "请选择要进行测试执行的测试用例！", "提示" , JOptionPane.ERROR_MESSAGE);
+						return ;
+					}
 					showTestCaseByLocal();
 				}
 				else if(testcaselabeltabindex==2){
+					if(selectSqlTestCaseCheckBox.getText()==null||selectSqlTestCaseCheckBox.getText().equals("")){
+						JOptionPane.showMessageDialog(mainFrame, "请选择要进行测试执行的测试用例！", "提示" , JOptionPane.ERROR_MESSAGE);
+						return ;
+					}
 					showTestCaseByDB();
 				}
 				

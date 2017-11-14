@@ -22,6 +22,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
@@ -180,6 +181,11 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				
+				if(mainFrame.getTestCaseInstantiationPanel().getSelectAbstractCheckBox().getText()==null||mainFrame.getTestCaseInstantiationPanel().getSelectAbstractCheckBox().getText().equals("")){
+					JOptionPane.showMessageDialog(mainFrame, "请选择要进行实例化的测试序列！", "提示" , JOptionPane.ERROR_MESSAGE);
+					return ;
+				}
 				
 				if(threadstate==0){
 					initThread();

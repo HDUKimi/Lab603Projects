@@ -10,12 +10,16 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.opreationTreePane.ModelExistValidationPanel;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.PathTuple;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalLocation;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalTransition;
 
 public class Evaluation {
 
+	private MainFrame mainFrame;
+	
 	private String uppaalName;
 	private int uppaalType;
 	private List<UppaalLocation> uppaalLocations=new ArrayList<UppaalLocation>();
@@ -29,6 +33,7 @@ public class Evaluation {
 	public Evaluation(String uppaalName, int uppaalType){
 		this.uppaalName=uppaalName;
 		this.uppaalType=uppaalType;
+		mainFrame=ModelExistValidationPanel.getMainFrame();
 	}
 	
 	public void Ready(){
@@ -77,6 +82,7 @@ public class Evaluation {
 			uppaalLocation.setInit(Boolean.valueOf(locationElement.element("init").getText()));
 			uppaalLocation.setFinl(Boolean.valueOf(locationElement.element("final").getText()));
 			uppaalLocations.add(uppaalLocation);
+			mainFrame.getModelExistValidationPanel().TextAreaPrint(uppaalLocation.toString());
 		}
 		
 		for(Element transitionElement:transitionElements){
@@ -87,6 +93,7 @@ public class Evaluation {
 			uppaalTransition.setTarget(transitionElement.element("target").getText());
 			uppaalTransition.setTimeDuration(transitionElement.element("timeDuration").getText());
 			uppaalTransitions.add(uppaalTransition);
+			mainFrame.getModelExistValidationPanel().TextAreaPrint(uppaalTransition.toString());
 		}
 		
 	}
@@ -117,6 +124,8 @@ public class Evaluation {
 		for(UppaalTransition uppaalTransition:uppaalTransitions){
 			if(message.equals(uppaalTransition.getName())){
 				findTransitions.add(uppaalTransition);
+				mainFrame.getModelExistValidationPanel().TextAreaPrint("匹配到一条消息：");
+				mainFrame.getModelExistValidationPanel().TextAreaPrint(uppaalTransition.toString());
 			}
 		}
 		
@@ -244,6 +253,7 @@ public class Evaluation {
 		FindAllUppaalPath();
 		
 		System.out.println(uppaalPaths.size());
+		mainFrame.getModelExistValidationPanel().TextAreaPrint("共找到"+uppaalPaths.size()+"条路径，开始计算最大最小时间");
 		
 		int minTime=0;
 		int maxTime=0;
@@ -296,6 +306,8 @@ public class Evaluation {
 		}
 		
 		System.out.println(minTime+" - - "+maxTime);
+		mainFrame.getModelExistValidationPanel().TextAreaPrint("最小时间： "+minTime);
+		mainFrame.getModelExistValidationPanel().TextAreaPrint("最大时间： "+maxTime);
 		
 		if(input.contains("<")){
 			if(input.contains("<=")){

@@ -139,7 +139,7 @@ public class ValidationToolPanel extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				workspace.getSideBar().getEditorToolsBar().getZoomInButton().doClick();
-				mainFrame.getConsolePartPanel().getTextarea6().append("放大一倍视图\n");
+				mainFrame.getModelExistValidationPanel().TextAreaPrint("放大一倍视图");
 			}
 		});
 		
@@ -155,7 +155,7 @@ public class ValidationToolPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				workspace.getSideBar().getEditorToolsBar().getZoomOutButton().doClick();
-				mainFrame.getConsolePartPanel().getTextarea6().append("缩小一倍视图\n");
+				mainFrame.getModelExistValidationPanel().TextAreaPrint("缩小一倍视图");
 			}
 		});
 		
@@ -345,6 +345,9 @@ public class ValidationToolPanel extends JPanel{
 					
 					mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("正在进行存在一致性评估");
 					
+					mainFrame.getModelExistValidationPanel().TextAreaPrint("正在进行存在一致性评估");
+					mainFrame.getModelExistValidationPanel().TextAreaPrint("输入的消息为： "+message);
+					
 					List<UppaalTransition> uppaalMessageTransitionList = new ArrayList<UppaalTransition>();
 					UppaalTransition umt=new UppaalTransition();
 					umt.setName(message);
@@ -363,6 +366,7 @@ public class ValidationToolPanel extends JPanel{
 					
 					if(uppaalTransitionList==null||uppaalTransitionList.size()==0){
 						JOptionPane.showMessageDialog(mainFrame, "消息 "+message+" 不存在！", "存在一致性评估" , JOptionPane.ERROR_MESSAGE);
+						mainFrame.getModelExistValidationPanel().TextAreaPrint("消息 "+message+" 不存在！");
 						System.out.println("message is not exist ");
 					}
 					else{
@@ -383,7 +387,7 @@ public class ValidationToolPanel extends JPanel{
 						resultpanel.setLayout(layout);
 						int i=0;
 						for(UppaalTransition ut:uppaalTransitionList){
-							System.out.println(ut);
+//							System.out.println(ut);
 							
 							ValidationTransitionMessagePanel vtmpanel=new ValidationTransitionMessagePanel(ut);
 							resultpanel.add(vtmpanel);
@@ -397,9 +401,11 @@ public class ValidationToolPanel extends JPanel{
 						System.out.println("++++++++++++++++++++");
 						
 						JOptionPane.showMessageDialog(mainFrame, "消息 "+message+" 存在！", "存在一致性评估" , JOptionPane.INFORMATION_MESSAGE);
+						mainFrame.getModelExistValidationPanel().TextAreaPrint("消息 "+message+" 存在！");
 						System.out.println("message is exist ");
 					}
 					
+					mainFrame.getModelExistValidationPanel().TextAreaPrint("存在一致性评估完成");
 					mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("存在一致性评估完成");
 					
 				}
@@ -434,6 +440,12 @@ public class ValidationToolPanel extends JPanel{
 				}
 				else{
 					mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("正在进行顺序一致性评估");
+					
+					mainFrame.getModelExistValidationPanel().TextAreaPrint("正在进行顺序一致性评估");
+					mainFrame.getModelExistValidationPanel().TextAreaPrint("输入的消息为：");
+					mainFrame.getModelExistValidationPanel().TextAreaPrint("消息A: "+message1);
+					mainFrame.getModelExistValidationPanel().TextAreaPrint("消息B: "+message2);
+					
 					List<UppaalTransition> uppaalMessageTransitionList = new ArrayList<UppaalTransition>();
 					UppaalTransition umt1=new UppaalTransition();
 					umt1.setName(message1);
@@ -455,6 +467,7 @@ public class ValidationToolPanel extends JPanel{
 					
 					if(pathTupleList==null||pathTupleList.size()==0){
 						JOptionPane.showMessageDialog(mainFrame, "顺序一致性评估失败，找不到路径！", "顺序一致性评估" , JOptionPane.ERROR_MESSAGE);
+						mainFrame.getModelExistValidationPanel().TextAreaPrint("顺序一致性评估失败，找不到路径！");
 						System.out.println("message is not exist ");
 					}
 					else{
@@ -503,9 +516,11 @@ public class ValidationToolPanel extends JPanel{
 						System.out.println("++++++++++++++++++++");
 						
 						JOptionPane.showMessageDialog(mainFrame, "顺序一致性评估成功，找到一组路径！", "顺序一致性评估" , JOptionPane.INFORMATION_MESSAGE);
+						mainFrame.getModelExistValidationPanel().TextAreaPrint("顺序一致性评估成功，找到一组路径！");
 						System.out.println("message is exist ");
 					}
 					mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("顺序一致性评估完成");
+					mainFrame.getModelExistValidationPanel().TextAreaPrint("顺序一致性评估完成");
 					
 				}
 				threadstate = 0;
@@ -533,7 +548,11 @@ public class ValidationToolPanel extends JPanel{
 				}
 				else{
 					if(ModelExistValidationPanel.isInequality(message)){
-						mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("正在进行实时一致性评估");						
+						mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("正在进行实时一致性评估");
+						
+						mainFrame.getModelExistValidationPanel().TextAreaPrint("正在进行实时一致性评估");
+						mainFrame.getModelExistValidationPanel().TextAreaPrint("输入的时间参数为： "+message);
+						
 						Boolean result=false;
 						
 						if(mainFrame.getModelExistValidationPanel().getUppaalType()==1){
@@ -550,12 +569,15 @@ public class ValidationToolPanel extends JPanel{
 						if(result){
 							JOptionPane.showMessageDialog(mainFrame, "实时一致性评估成功！", "实时一致性评估" , JOptionPane.INFORMATION_MESSAGE);
 							mainFrame.getValidationResultPanel().getFivenamelabel().setText(message+" 实时一致性评估成功");
+							mainFrame.getModelExistValidationPanel().TextAreaPrint(message+" 实时一致性评估成功");
 						}
 						else{
 							JOptionPane.showMessageDialog(mainFrame, "实时一致性评估失败！", "实时一致性评估" , JOptionPane.ERROR_MESSAGE);
 							mainFrame.getValidationResultPanel().getFivenamelabel().setText(message+" 实时一致性评估失败");
+							mainFrame.getModelExistValidationPanel().TextAreaPrint(message+" 实时一致性评估失败");
 						}
 						mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("实时一致性评估完成");
+						mainFrame.getModelExistValidationPanel().TextAreaPrint("实时一致性评估完成");
 					}
 					else{
 						JOptionPane.showMessageDialog(mainFrame, "时间参数格式不符合要求！", "实时一致性评估" , JOptionPane.WARNING_MESSAGE);

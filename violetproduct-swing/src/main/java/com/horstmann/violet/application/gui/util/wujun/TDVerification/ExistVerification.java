@@ -22,7 +22,7 @@ public class ExistVerification {
 	public static final int VERIFICATION_TYPE_FRONT = 2;
 	public static final int VERIFICATION_TYPE_BACK = 3;
 	public static final int VERIFICATION_TYPE_TWOWAY = 4;
-	private static String[] types = { "", "存在一致性验证", "前向一致性验证", "逆向一致性验证", "双向一致性验证" };
+	private static String[] types = { "", "存在一致性评估", "前向一致性评估", "逆向一致性评估", "双向一致性评估" };
 	private String filePath;
 	private static ArrayList<UppaalTemPlate> templates = new ArrayList<UppaalTemPlate>();
 	private static ArrayList<UppaalTransition> transitions = new ArrayList<UppaalTransition>();
@@ -38,11 +38,12 @@ public class ExistVerification {
 	// 文件路径
 	public ExistVerification(String filePath) throws Exception {
 		this.filePath = filePath;
+		File file=new File(filePath);
 
 		Display.println("================================正在读取自动机================================");
 
 		SAXReader reader = new SAXReader();// 获取解析器
-		Document dom = reader.read(filePath);// 解析XML获取代表整个文档的dom对象
+		Document dom = reader.read(file);// 解析XML获取代表整个文档的dom对象
 		Element root = dom.getRootElement();// 获取根节点
 
 		ReadAutomata uppaal = new ReadAutomata();
@@ -84,7 +85,7 @@ public class ExistVerification {
 	// 返回需要标记的边
 	public List<UppaalTransition> getSelectedTransitionsIfExist(List<UppaalTransition> selectedTransition) {
 		ArrayList<UppaalTransition> exists=new ArrayList<UppaalTransition>();
-		Display.println("-------------------------正在进行存在一致性验证-------------------------\n");
+		Display.println("-------------------------正在进行存在一致性评估-------------------------\n");
 		Display.println("选择的消息如下：");
 		for (UppaalTransition transition : selectedTransition) {
 			Display.println(transition.getName() + "\n");
@@ -105,14 +106,14 @@ public class ExistVerification {
 			}
 		}
 		if (i == selectedTransition.size()) {
-			Display.println("一致性验证完成");
+			Display.println("一致性评估完成");
 			return exists;
 		} else {
 			while(i<selectedTransition.size()){
 				Display.process(selectedTransition.size());
 				i++;
 			}
-			Display.println("一致性验证失败");
+			Display.println("一致性评估失败");
 			return null;
 		}
 	}
@@ -121,7 +122,7 @@ public class ExistVerification {
 	// 返回路径
 	public List<PathTuple> getPathOfSelectedTransitions(List<UppaalTransition> selectedTransition) {
 		ArrayList<PathTuple> res = new ArrayList<PathTuple>();
-		Display.println("-------------------------正在进行顺序性验证-------------------------\n");
+		Display.println("-------------------------正在进行顺序性评估-------------------------\n");
 		Display.println("选择的消息如下：");
 		for (UppaalTransition transition : selectedTransition) {
 			Display.println(transition.getName() + "\n");
@@ -285,6 +286,8 @@ public class ExistVerification {
 
 			}
 			System.out.println(minTime+" - - "+maxTime);
+//			Display.println("最小时间： "+minTime);
+//			Display.println("最大时间： "+maxTime);
 //			Display.process(1);
 
 			if(input.contains("<")){
@@ -335,7 +338,7 @@ public class ExistVerification {
 		}
 
 
-	// *实时一致性验证
+	// *实时一致性评估
 	public boolean verificationTimeDuration() {
 		//1 点
 		List<LocationVerificationDisplay> lvdList = verificationLocationTimeDuration();
@@ -347,7 +350,7 @@ public class ExistVerification {
 		//4 矛盾的约束
 //		boolean counterDuration = verificationCounterDuration();
 		
-		System.out.println("实时一致性验证完成" + verificationResult);
+		System.out.println("实时一致性评估完成" + verificationResult);
 		return verificationResult;
 	}
 
@@ -404,10 +407,10 @@ public class ExistVerification {
 	}
 
 	
-	// 获取所有location的时间约束验证结果
+	// 获取所有location的时间约束评估结果
 	public List<LocationVerificationDisplay> verificationLocationTimeDuration() {
 		ArrayList<LocationVerificationDisplay> res = new ArrayList<LocationVerificationDisplay>();
-		System.out.println("-------------------------验证每一个location是否满足时间约束-------------------------");
+		System.out.println("-------------------------评估每一个location是否满足时间约束-------------------------");
 		for (UppaalLocation location : locations) {
 			for (int i = 0; i < location.getStartTimeList().size(); i++) {
 				String timeDuration = location.getTimeDurationList().get(i);
@@ -433,10 +436,10 @@ public class ExistVerification {
 		}
 		return res;
 	}
-	// 获取所有transition的时间约束验证结果
+	// 获取所有transition的时间约束评估结果
 	public List<TransitionVerificationDisplay> verificationTransitionTimeDuration() {
 		ArrayList<TransitionVerificationDisplay> res = new ArrayList<TransitionVerificationDisplay>();
-		System.out.println("-------------------------验证每一个transition是否满足时间约束-------------------------");
+		System.out.println("-------------------------评估每一个transition是否满足时间约束-------------------------");
 		for (UppaalTransition transition : transitions) {
 			String timeDuration = transition.getTimeDuration();
 			int startTime = transition.getStartTime();

@@ -37,6 +37,7 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TimeSucce
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.Pair;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseResult;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.myProcess;
 import com.horstmann.violet.application.gui.util.chenzuo.Util.TcConvertUtil;
 
 public class TestCaseDataPanel{
@@ -314,6 +315,15 @@ public class TestCaseDataPanel{
 	}
 
 	private void showTestCase() {
+//		System.out.println("-------------------------");
+//		for(TestCase tc:testcaselist){
+//			for(myProcess process:tc.getProcessList()){
+//				if(process.getProcessName().equals("thisFloorPeopleIn()")){
+//					System.out.println(process.getProcessParam());
+//				}
+//			}
+//		}
+//		System.out.println("-------------------------");
 		
 		if(starttype==1&&hastime==0){
 			showFunctionalTestCase();

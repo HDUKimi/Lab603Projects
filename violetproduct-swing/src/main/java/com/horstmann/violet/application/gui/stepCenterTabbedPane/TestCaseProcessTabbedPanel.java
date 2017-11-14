@@ -29,6 +29,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
@@ -246,6 +247,11 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				
+				if(mainFrame.getTestCaseGenerationPanel().getSelectUppaalCheckBox().getText()==null||mainFrame.getTestCaseGenerationPanel().getSelectUppaalCheckBox().getText().equals("")){
+					JOptionPane.showMessageDialog(mainFrame, "请选择要进行抽象测试用例生成的时间自动机！", "提示" , JOptionPane.ERROR_MESSAGE);
+					return ;
+				}
 				
 				if(threadstate==0){
 					initThread();

@@ -1,175 +1,552 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <nta>
-  <declaration>// Place global declarations here.</declaration>
+  <declaration>chan response(), thisFloorPeopleIn_return(), peopleOutIn(), open(), thisFloorPeopleOut_return(), pushCallUp(int), open_return(), close_return, thisFloorPeopleOut(), thisFloorPeopleIn(), prepareMove(), ready, newPeople(), peopleComing(), doorready, return, close();clock x;</declaration>
   <template>
-    <name x="30" y="30">template_</name>
+    <name x="30" y="30">5</name>
     <declaration/>
-    <location id="loc_id_init" x="48" y="438">
-      <name x="18" y="408">loc_id_init</name>
+    <location init="false" finl="false" id="id0" x="600" y="1023">
+      <name x="570" y="993">idle:building:Building</name>
+      <moment startTime="0" endTime="15" timeDuration="null"/>
     </location>
-    <location id="loc_id_2994C157_4854_4351_A947_F4E7BC16C968" x="324" y="438">
-      <name x="294" y="408">loc_id_2994C157_4854_4351_A947_F4E7BC16C968</name>
+    <location init="false" finl="false" id="id1" x="876" y="1023">
+      <name x="846" y="993">Waiting input:building:Building</name>
+      <moment startTime="15" endTime="20" timeDuration="null"/>
     </location>
-    <location id="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087" x="600" y="438">
-      <name x="570" y="408">loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087</name>
+    <location init="false" finl="true" id="id2" x="600" y="798">
+      <name x="570" y="768">ready:building:Building</name>
+      <moment startTime="20" endTime="140" timeDuration="null"/>
+      <moment startTime="260" endTime="2147483647" timeDuration="null"/>
     </location>
-    <location id="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3" x="876" y="438">
-      <name x="846" y="408">loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3</name>
+    <location init="false" finl="false" id="id3" x="876" y="660">
+      <name x="846" y="630">working:building:Building</name>
+      <moment startTime="140" endTime="145" timeDuration="null"/>
+      <moment startTime="185" endTime="215" timeDuration="null"/>
+      <moment startTime="255" endTime="260" timeDuration="null"/>
     </location>
-    <location id="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6" x="1152" y="438">
-      <name x="1122" y="408">loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6</name>
+    <location init="false" finl="false" id="id4" x="600" y="300">
+      <name x="570" y="270">PIN:building:Building</name>
+      <moment startTime="145" endTime="185" timeDuration="null"/>
     </location>
-    <location id="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2" x="1428" y="438">
-      <name x="1398" y="408">loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2</name>
+    <location init="false" finl="false" id="id5" x="600" y="525">
+      <name x="570" y="495">POUT:building:Building</name>
+      <moment startTime="215" endTime="255" timeDuration="null"/>
     </location>
-    <location id="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5" x="1704" y="303">
-      <name x="1674" y="273">loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5</name>
+    <location init="false" finl="true" id="id6" x="1152" y="714">
+      <name x="1122" y="684">hold:door:Door</name>
+      <moment startTime="0" endTime="85" timeDuration="null"/>
+      <moment startTime="110" endTime="275" timeDuration="null"/>
+      <moment startTime="305" endTime="2147483647" timeDuration="null"/>
     </location>
-    <location id="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC" x="2256" y="438">
-      <name x="2226" y="408">loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC</name>
+    <location init="false" finl="false" id="id7" x="1428" y="477">
+      <name x="1398" y="447">opening:door:Door</name>
+      <label kind="invariant" x="30" y="30">&lt;=25</label>
+      <moment startTime="85" endTime="110" timeDuration="&lt;=25"/>
     </location>
-    <location id="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24" x="1980" y="303">
-      <name x="1950" y="273">loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24</name>
+    <location init="false" finl="false" id="id8" x="1428" y="702">
+      <name x="1398" y="672">closing:door:Door</name>
+      <label kind="invariant" x="30" y="30">&lt;=25</label>
+      <moment startTime="275" endTime="305" timeDuration="&lt;=25"/>
     </location>
-    <location id="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B" x="2532" y="303">
-      <name x="2502" y="273">loc_id_50B8F800_23CD_4431_9778_042103F2DA5B</name>
+    <location init="false" finl="true" id="id9" x="1704" y="1023">
+      <name x="1674" y="993">idle:elevator:Elevator</name>
+      <moment startTime="0" endTime="35" timeDuration="null"/>
+      <moment startTime="40" endTime="55" timeDuration="null"/>
+      <moment startTime="120" endTime="265" timeDuration="null"/>
+      <moment startTime="315" endTime="334" timeDuration="null"/>
     </location>
-    <location id="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD" x="3084" y="438">
-      <name x="3054" y="408">loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</name>
+    <location init="false" finl="false" id="id10" x="1980" y="837">
+      <name x="1950" y="807">working:elevator:Elevator</name>
+      <moment startTime="35" endTime="40" timeDuration="null"/>
+      <moment startTime="55" endTime="80" timeDuration="&lt;=25"/>
+      <moment startTime="115" endTime="120" timeDuration="null"/>
+      <moment startTime="265" endTime="270" timeDuration="null"/>
+      <moment startTime="310" endTime="315" timeDuration="null"/>
     </location>
-    <location id="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE" x="3636" y="438">
-      <name x="3606" y="408">loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</name>
+    <location init="false" finl="false" id="id11" x="1704" y="702">
+      <name x="1674" y="672">doorcontrol:elevator:Elevator</name>
+      <moment startTime="80" endTime="115" timeDuration="null"/>
+      <moment startTime="270" endTime="310" timeDuration="null"/>
     </location>
-    <location id="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3" x="2808" y="303">
-      <name x="2778" y="273">loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3</name>
+    <location init="false" finl="true" id="id12" x="1980" y="1062">
+      <name x="1950" y="1032">going up:elevator:Elevator</name>
+      <moment startTime="334" endTime="2147483647" timeDuration="null"/>
     </location>
-    <location id="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7" x="3360" y="438">
-      <name x="3330" y="408">loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7</name>
+    <location init="false" finl="false" id="id13" x="1152" y="1023">
+      <name x="1122" y="993">Idle:people:People</name>
+      <moment startTime="0" endTime="25" timeDuration="null"/>
     </location>
-    <location id="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4" x="3912" y="438">
-      <name x="3882" y="408">loc_id_3085365D_8B34_423f_B39A_463F262E5CF4</name>
+    <location init="false" finl="false" id="id14" x="1428" y="1023">
+      <name x="1398" y="993">callup:people:People</name>
+      <moment startTime="25" endTime="30" timeDuration="null"/>
     </location>
-    <location id="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F" x="4188" y="438">
-      <name x="4158" y="408">loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F</name>
+    <location init="false" finl="false" id="id15" x="48" y="537">
+      <name x="18" y="507">waiting:people:People</name>
+      <moment startTime="30" endTime="150" timeDuration="null"/>
+      <moment startTime="180" endTime="220" timeDuration="null"/>
+      <moment startTime="250" endTime="2147483647" timeDuration="null"/>
     </location>
-    <location id="loc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED" x="4464" y="438">
-      <name x="4434" y="408">loc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED</name>
+    <location init="false" finl="false" id="id16" x="324" y="300">
+      <name x="294" y="270">marching out:people:People</name>
+      <label kind="invariant" x="30" y="30">&lt;=30</label>
+      <moment startTime="150" endTime="180" timeDuration="&lt;=30"/>
     </location>
-    <transition id="tran_idloc_id_initloc_id_2994C157_4854_4351_A947_F4E7BC16C968">
-      <source ref="loc_id_init"/>
-      <target ref="loc_id_2994C157_4854_4351_A947_F4E7BC16C968"/>
-      <label kind="synchronisation" x="166" y="418">tran_idloc_id_initloc_id_2994C157_4854_4351_A947_F4E7BC16C968</label>
+    <location init="false" finl="false" id="id17" x="324" y="525">
+      <name x="294" y="495">marching in:people:People</name>
+      <label kind="invariant" x="30" y="30">&lt;=30</label>
+      <moment startTime="220" endTime="250" timeDuration="&lt;=30"/>
+    </location>
+    <location init="true" finl="false" id="id18" x="48" y="1158">
+      <name x="18" y="1128">start:timer:Timer</name>
+      <moment startTime="0" endTime="5" timeDuration="null"/>
+    </location>
+    <location init="false" finl="false" id="id19" x="324" y="1158">
+      <name x="294" y="1128">idle:timer:Timer</name>
+      <moment startTime="5" endTime="10" timeDuration="null"/>
+      <moment startTime="45" endTime="50" timeDuration="null"/>
+      <moment startTime="125" endTime="135" timeDuration="null"/>
+      <moment startTime="320" endTime="330" timeDuration="null"/>
+    </location>
+    <location init="false" finl="false" id="id20" x="2256" y="1206">
+      <name x="2226" y="1176">counting:timer:Timer</name>
+      <moment startTime="10" endTime="45" timeDuration="null"/>
+      <moment startTime="50" endTime="125" timeDuration="t1:t1+t2&lt;=300"/>
+      <moment startTime="135" endTime="320" timeDuration="t2:t1+t2&lt;=300"/>
+      <moment startTime="330" endTime="2147483647" timeDuration="null"/>
+    </location>
+    <init ref="id18"/>
+    <transition out="false">
+      <source ref="id0"/>
+      <target ref="id1"/>
+      <label kind="synchronisation" x="718" y="1003" startTime="15" endTime="15" from="timer:Timer" to="building:Building" duration="null">peopleComing()?</label>
     </transition>
-    <transition id="tran_idloc_id_2994C157_4854_4351_A947_F4E7BC16C968loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087">
-      <source ref="loc_id_2994C157_4854_4351_A947_F4E7BC16C968"/>
-      <target ref="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087"/>
-      <label kind="synchronisation" x="442" y="418">tran_idloc_id_2994C157_4854_4351_A947_F4E7BC16C968loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087</label>
+    <transition out="false">
+      <source ref="id2"/>
+      <target ref="id3"/>
+      <label kind="synchronisation" x="718" y="709" startTime="140" endTime="140" from="timer:Timer" to="building:Building" duration="null">peopleOutIn()?</label>
     </transition>
-    <transition id="tran_idloc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3">
-      <source ref="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087"/>
-      <target ref="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3"/>
-      <label kind="synchronisation" x="718" y="418">tran_idloc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3</label>
+    <transition out="false">
+      <source ref="id4"/>
+      <target ref="id3"/>
+      <label kind="synchronisation" x="718" y="460" startTime="185" endTime="185" from="people:People" to="building:Building" duration="null">thisFloorPeopleOut_return()?</label>
     </transition>
-    <transition id="tran_idloc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6">
-      <source ref="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3"/>
-      <target ref="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6"/>
-      <label kind="synchronisation" x="994" y="418">tran_idloc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6</label>
+    <transition out="false">
+      <source ref="id5"/>
+      <target ref="id3"/>
+      <label kind="synchronisation" x="718" y="572" startTime="255" endTime="255" from="people:People" to="building:Building" duration="null">thisFloorPeopleIn_return()?</label>
     </transition>
-    <transition id="tran_idloc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2">
-      <source ref="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6"/>
-      <target ref="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2"/>
-      <label kind="synchronisation" x="1270" y="418">tran_idloc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2</label>
+    <transition out="false">
+      <source ref="id6"/>
+      <target ref="id7"/>
+      <label kind="synchronisation" x="1270" y="575" startTime="85" endTime="85" from="elevator:Elevator" to="door:Door" duration="null">open()?</label>
     </transition>
-    <transition id="tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5">
-      <source ref="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2"/>
-      <target ref="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5"/>
-      <label kind="synchronisation" x="1546" y="350">tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5</label>
+    <transition out="false">
+      <source ref="id6"/>
+      <target ref="id8"/>
+      <label kind="synchronisation" x="1270" y="688" startTime="275" endTime="275" from="elevator:Elevator" to="door:Door" duration="null">close()?</label>
     </transition>
-    <transition id="tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC">
-      <source ref="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2"/>
-      <target ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <label kind="synchronisation" x="1822" y="418">tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC</label>
+    <transition out="false">
+      <source ref="id9"/>
+      <target ref="id10"/>
+      <label kind="synchronisation" x="1822" y="910" startTime="35" endTime="35" from="people:People" to="elevator:Elevator" duration="null">pushCallUp(int)?</label>
     </transition>
-    <transition id="tran_idloc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24">
-      <source ref="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5"/>
-      <target ref="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24"/>
-      <label kind="synchronisation" x="1822" y="283">tran_idloc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24</label>
+    <transition out="false">
+      <source ref="id9"/>
+      <target ref="id10"/>
+      <label kind="synchronisation" x="1822" y="910" startTime="55" endTime="55" from="timer:Timer" to="elevator:Elevator" duration="null">response()?</label>
     </transition>
-    <transition id="tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_50B8F800_23CD_4431_9778_042103F2DA5B">
-      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <target ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
-      <label kind="synchronisation" x="2374" y="350">tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_50B8F800_23CD_4431_9778_042103F2DA5B</label>
+    <transition out="false">
+      <source ref="id11"/>
+      <target ref="id10"/>
+      <label kind="synchronisation" x="1822" y="749" startTime="115" endTime="115" from="door:Door" to="elevator:Elevator" duration="null">open_return()?</label>
     </transition>
-    <transition id="tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD">
-      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <label kind="synchronisation" x="2650" y="418">tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</label>
+    <transition out="false">
+      <source ref="id9"/>
+      <target ref="id10"/>
+      <label kind="synchronisation" x="1822" y="910" startTime="265" endTime="265" from="building:Building" to="elevator:Elevator" duration="null">ready?</label>
     </transition>
-    <transition id="tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE">
-      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <label kind="synchronisation" x="2926" y="418">tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</label>
+    <transition out="false">
+      <source ref="id11"/>
+      <target ref="id10"/>
+      <label kind="synchronisation" x="1822" y="749" startTime="310" endTime="310" from="door:Door" to="elevator:Elevator" duration="null">close_return?</label>
     </transition>
-    <transition id="tran_idloc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC">
-      <source ref="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24"/>
-      <target ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <label kind="synchronisation" x="2098" y="350">tran_idloc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC</label>
+    <transition out="false">
+      <source ref="id9"/>
+      <target ref="id12"/>
+      <label kind="synchronisation" x="1822" y="1022" startTime="334" endTime="334" from="timer:Timer" to="elevator:Elevator" duration="null">prepareMove()?</label>
     </transition>
-    <transition id="tran_idloc_id_50B8F800_23CD_4431_9778_042103F2DA5Bloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3">
-      <source ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
-      <target ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
-      <label kind="synchronisation" x="2670" y="323">tran_idloc_id_50B8F800_23CD_4431_9778_042103F2DA5Bloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3</label>
-      <nail y="323" x="2670"/>
+    <transition out="false">
+      <source ref="id13"/>
+      <target ref="id14"/>
+      <label kind="synchronisation" x="1270" y="1003" startTime="25" endTime="25" from="building:Building" to="people:People" duration="null">newPeople()?</label>
     </transition>
-    <transition id="tran_idloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBDloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7">
-      <source ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <target ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
-      <label kind="synchronisation" x="3222" y="458">tran_idloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBDloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7</label>
-      <nail y="458" x="3222"/>
+    <transition out="false">
+      <source ref="id15"/>
+      <target ref="id16"/>
+      <label kind="synchronisation" x="166" y="398" startTime="150" endTime="150" from="building:Building" to="people:People" duration="null">thisFloorPeopleOut()?</label>
     </transition>
-    <transition id="tran_idloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EEloc_id_3085365D_8B34_423f_B39A_463F262E5CF4">
-      <source ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <target ref="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4"/>
-      <label kind="synchronisation" x="3754" y="418">tran_idloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EEloc_id_3085365D_8B34_423f_B39A_463F262E5CF4</label>
+    <transition out="false">
+      <source ref="id15"/>
+      <target ref="id17"/>
+      <label kind="synchronisation" x="166" y="511" startTime="220" endTime="220" from="building:Building" to="people:People" duration="null">thisFloorPeopleIn()?</label>
     </transition>
-    <transition id="tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_50B8F800_23CD_4431_9778_042103F2DA5B">
-      <source ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
-      <target ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
-      <label kind="synchronisation" x="2670" y="283">tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_50B8F800_23CD_4431_9778_042103F2DA5B</label>
-      <nail y="283" x="2670"/>
+    <transition out="false">
+      <source ref="id18"/>
+      <target ref="id19"/>
+      <label kind="none" x="166" y="1138" startTime="5" endTime="5" duration="null">null</label>
     </transition>
-    <transition id="tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD">
-      <source ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
-      <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <label kind="synchronisation" x="2926" y="350">tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</label>
+    <transition out="false">
+      <source ref="id20"/>
+      <target ref="id19"/>
+      <label kind="synchronisation" x="1270" y="1162" startTime="45" endTime="45" from="elevator:Elevator" to="timer:Timer" duration="null">return?</label>
     </transition>
-    <transition id="tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE">
-      <source ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
-      <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <label kind="synchronisation" x="3202" y="350">tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</label>
+    <transition out="false">
+      <source ref="id20"/>
+      <target ref="id19"/>
+      <label kind="synchronisation" x="1270" y="1162" startTime="125" endTime="125" from="elevator:Elevator" to="timer:Timer" duration="null">doorready?</label>
     </transition>
-    <transition id="tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD">
-      <source ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
-      <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <label kind="synchronisation" x="3222" y="418">tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</label>
-      <nail y="418" x="3222"/>
+    <transition out="false">
+      <source ref="id20"/>
+      <target ref="id19"/>
+      <label kind="synchronisation" x="1270" y="1162" startTime="320" endTime="320" from="elevator:Elevator" to="timer:Timer" duration="null">ready?</label>
     </transition>
-    <transition id="tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE">
-      <source ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
-      <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <label kind="synchronisation" x="3478" y="418">tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</label>
+    <transition out="true">
+      <source ref="id1"/>
+      <target ref="id13"/>
+      <label kind="synchronisation" x="994" y="1003" startTime="20" endTime="25" from="building:Building" to="people:People" duration="null">newPeople()</label>
     </transition>
-    <transition id="tran_idloc_id_3085365D_8B34_423f_B39A_463F262E5CF4loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F">
-      <source ref="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4"/>
-      <target ref="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F"/>
-      <label kind="synchronisation" x="4030" y="418">tran_idloc_id_3085365D_8B34_423f_B39A_463F262E5CF4loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F</label>
+    <transition out="true">
+      <source ref="id3"/>
+      <target ref="id15"/>
+      <label kind="synchronisation" x="442" y="578" startTime="145" endTime="150" from="building:Building" to="people:People" duration="null">thisFloorPeopleOut()</label>
     </transition>
-    <transition id="tran_idloc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8Floc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED">
-      <source ref="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F"/>
-      <target ref="loc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED"/>
-      <label kind="synchronisation" x="4306" y="418">tran_idloc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8Floc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED</label>
+    <transition out="true">
+      <source ref="id3"/>
+      <target ref="id15"/>
+      <label kind="synchronisation" x="442" y="578" startTime="215" endTime="220" from="building:Building" to="people:People" duration="null">thisFloorPeopleIn()</label>
+    </transition>
+    <transition out="true">
+      <source ref="id3"/>
+      <target ref="id9"/>
+      <label kind="synchronisation" x="1270" y="821" startTime="260" endTime="265" from="building:Building" to="elevator:Elevator" duration="null">ready</label>
+    </transition>
+    <transition out="true">
+      <source ref="id7"/>
+      <target ref="id11"/>
+      <label kind="synchronisation" x="1546" y="569" startTime="110" endTime="115" from="door:Door" to="elevator:Elevator" duration="null">open_return()</label>
+    </transition>
+    <transition out="true">
+      <source ref="id8"/>
+      <target ref="id11"/>
+      <label kind="synchronisation" x="1546" y="682" startTime="305" endTime="310" from="door:Door" to="elevator:Elevator" duration="null">close_return</label>
+    </transition>
+    <transition out="true">
+      <source ref="id10"/>
+      <target ref="id20"/>
+      <label kind="synchronisation" x="2098" y="1001" startTime="40" endTime="45" from="elevator:Elevator" to="timer:Timer" duration="null">return</label>
+    </transition>
+    <transition out="true">
+      <source ref="id10"/>
+      <target ref="id6"/>
+      <label kind="synchronisation" x="1546" y="755" startTime="80" endTime="85" from="elevator:Elevator" to="door:Door" duration="null">open()</label>
+    </transition>
+    <transition out="true">
+      <source ref="id10"/>
+      <target ref="id20"/>
+      <label kind="synchronisation" x="2098" y="1001" startTime="120" endTime="125" from="elevator:Elevator" to="timer:Timer" duration="null">doorready</label>
+    </transition>
+    <transition out="true">
+      <source ref="id10"/>
+      <target ref="id6"/>
+      <label kind="synchronisation" x="1546" y="755" startTime="270" endTime="275" from="elevator:Elevator" to="door:Door" duration="null">close()</label>
+    </transition>
+    <transition out="true">
+      <source ref="id10"/>
+      <target ref="id20"/>
+      <label kind="synchronisation" x="2098" y="1001" startTime="315" endTime="320" from="elevator:Elevator" to="timer:Timer" duration="null">ready</label>
+    </transition>
+    <transition out="true">
+      <source ref="id14"/>
+      <target ref="id9"/>
+      <label kind="synchronisation" x="1546" y="1003" startTime="30" endTime="35" from="people:People" to="elevator:Elevator" duration="null">pushCallUp(int)</label>
+    </transition>
+    <transition out="true">
+      <source ref="id16"/>
+      <target ref="id4"/>
+      <label kind="synchronisation" x="442" y="280" startTime="180" endTime="185" from="people:People" to="building:Building" duration="null">thisFloorPeopleOut_return()</label>
+    </transition>
+    <transition out="true">
+      <source ref="id17"/>
+      <target ref="id5"/>
+      <label kind="synchronisation" x="442" y="505" startTime="250" endTime="255" from="people:People" to="building:Building" duration="null">thisFloorPeopleIn_return()</label>
+    </transition>
+    <transition out="true">
+      <source ref="id19"/>
+      <target ref="id0"/>
+      <label kind="synchronisation" x="442" y="1070" startTime="10" endTime="15" from="timer:Timer" to="building:Building" duration="null">peopleComing()</label>
+    </transition>
+    <transition out="true">
+      <source ref="id19"/>
+      <target ref="id9"/>
+      <label kind="synchronisation" x="994" y="1070" startTime="50" endTime="55" from="timer:Timer" to="elevator:Elevator" duration="null">response()</label>
+    </transition>
+    <transition out="true">
+      <source ref="id19"/>
+      <target ref="id2"/>
+      <label kind="synchronisation" x="442" y="958" startTime="135" endTime="140" from="timer:Timer" to="building:Building" duration="null">peopleOutIn()</label>
+    </transition>
+    <transition out="true">
+      <source ref="id19"/>
+      <target ref="id9"/>
+      <label kind="synchronisation" x="994" y="1070" startTime="330" endTime="334" from="timer:Timer" to="elevator:Elevator" duration="null">prepareMove()</label>
     </transition>
   </template>
-  <system/>
+  <temp>
+    <name x="31" y="31">door:Door</name>
+    <declaration/>
+    <location init="false" finl="true" id="id6" x="31" y="31">
+      <name x="31" y="31">hold:door:Door</name>
+      <moment startTime="0" endTime="85" timeDuration="null"/>
+      <moment startTime="110" endTime="275" timeDuration="null"/>
+      <moment startTime="305" endTime="2147483647" timeDuration="null"/>
+    </location>
+    <location init="false" finl="false" id="id7" x="31" y="31">
+      <name x="31" y="31">opening:door:Door</name>
+      <label kind="invariant" x="31" y="31">&lt;=25</label>
+      <moment startTime="85" endTime="110" timeDuration="&lt;=25"/>
+    </location>
+    <location init="false" finl="false" id="id8" x="31" y="31">
+      <name x="31" y="31">closing:door:Door</name>
+      <label kind="invariant" x="31" y="31">&lt;=25</label>
+      <moment startTime="275" endTime="305" timeDuration="&lt;=25"/>
+    </location>
+    <init ref="id-1"/>
+    <transition out="false">
+      <source ref="id6"/>
+      <target ref="id7"/>
+      <label kind="synchronisation" x="31" y="31" startTime="85" endTime="85" from="elevator:Elevator" to="door:Door" duration="null">open()?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id7"/>
+      <target ref="id6"/>
+      <label kind="synchronisation" x="31" y="31" startTime="110" endTime="115" from="door:Door" to="elevator:Elevator" duration="null">open_return()!</label>
+    </transition>
+    <transition out="false">
+      <source ref="id6"/>
+      <target ref="id8"/>
+      <label kind="synchronisation" x="31" y="31" startTime="275" endTime="275" from="elevator:Elevator" to="door:Door" duration="null">close()?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id8"/>
+      <target ref="id6"/>
+      <label kind="synchronisation" x="31" y="31" startTime="305" endTime="310" from="door:Door" to="elevator:Elevator" duration="null">close_return!</label>
+    </transition>
+  </temp>
+  <temp>
+    <name x="32" y="32">elevator:Elevator</name>
+    <declaration/>
+    <location init="false" finl="true" id="id9" x="32" y="32">
+      <name x="32" y="32">idle:elevator:Elevator</name>
+      <moment startTime="0" endTime="35" timeDuration="null"/>
+      <moment startTime="40" endTime="55" timeDuration="null"/>
+      <moment startTime="120" endTime="265" timeDuration="null"/>
+      <moment startTime="315" endTime="334" timeDuration="null"/>
+    </location>
+    <location init="false" finl="false" id="id10" x="32" y="32">
+      <name x="32" y="32">working:elevator:Elevator</name>
+      <moment startTime="35" endTime="40" timeDuration="null"/>
+      <moment startTime="55" endTime="80" timeDuration="&lt;=25"/>
+      <moment startTime="115" endTime="120" timeDuration="null"/>
+      <moment startTime="265" endTime="270" timeDuration="null"/>
+      <moment startTime="310" endTime="315" timeDuration="null"/>
+    </location>
+    <location init="false" finl="false" id="id11" x="32" y="32">
+      <name x="32" y="32">doorcontrol:elevator:Elevator</name>
+      <moment startTime="80" endTime="115" timeDuration="null"/>
+      <moment startTime="270" endTime="310" timeDuration="null"/>
+    </location>
+    <location init="false" finl="true" id="id12" x="32" y="32">
+      <name x="32" y="32">going up:elevator:Elevator</name>
+      <moment startTime="334" endTime="2147483647" timeDuration="null"/>
+    </location>
+    <init ref="id-1"/>
+    <transition out="false">
+      <source ref="id9"/>
+      <target ref="id10"/>
+      <label kind="synchronisation" x="32" y="32" startTime="35" endTime="35" from="people:People" to="elevator:Elevator" duration="null">pushCallUp(int)?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id10"/>
+      <target ref="id9"/>
+      <label kind="synchronisation" x="32" y="32" startTime="40" endTime="45" from="elevator:Elevator" to="timer:Timer" duration="null">return!</label>
+    </transition>
+    <transition out="false">
+      <source ref="id9"/>
+      <target ref="id10"/>
+      <label kind="synchronisation" x="32" y="32" startTime="55" endTime="55" from="timer:Timer" to="elevator:Elevator" duration="null">response()?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id10"/>
+      <target ref="id11"/>
+      <label kind="synchronisation" x="32" y="32" startTime="80" endTime="85" from="elevator:Elevator" to="door:Door" duration="null">open()!</label>
+    </transition>
+    <transition out="false">
+      <source ref="id11"/>
+      <target ref="id10"/>
+      <label kind="synchronisation" x="32" y="32" startTime="115" endTime="115" from="door:Door" to="elevator:Elevator" duration="null">open_return()?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id10"/>
+      <target ref="id9"/>
+      <label kind="synchronisation" x="32" y="32" startTime="120" endTime="125" from="elevator:Elevator" to="timer:Timer" duration="null">doorready!</label>
+    </transition>
+    <transition out="false">
+      <source ref="id9"/>
+      <target ref="id10"/>
+      <label kind="synchronisation" x="32" y="32" startTime="265" endTime="265" from="building:Building" to="elevator:Elevator" duration="null">ready?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id10"/>
+      <target ref="id11"/>
+      <label kind="synchronisation" x="32" y="32" startTime="270" endTime="275" from="elevator:Elevator" to="door:Door" duration="null">close()!</label>
+    </transition>
+    <transition out="false">
+      <source ref="id11"/>
+      <target ref="id10"/>
+      <label kind="synchronisation" x="32" y="32" startTime="310" endTime="310" from="door:Door" to="elevator:Elevator" duration="null">close_return?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id10"/>
+      <target ref="id9"/>
+      <label kind="synchronisation" x="32" y="32" startTime="315" endTime="320" from="elevator:Elevator" to="timer:Timer" duration="null">ready!</label>
+    </transition>
+    <transition out="false">
+      <source ref="id9"/>
+      <target ref="id12"/>
+      <label kind="synchronisation" x="32" y="32" startTime="334" endTime="334" from="timer:Timer" to="elevator:Elevator" duration="null">prepareMove()?</label>
+    </transition>
+  </temp>
+  <temp>
+    <name x="33" y="33">people:People</name>
+    <declaration/>
+    <location init="false" finl="false" id="id13" x="33" y="33">
+      <name x="33" y="33">Idle:people:People</name>
+      <moment startTime="0" endTime="25" timeDuration="null"/>
+    </location>
+    <location init="false" finl="false" id="id14" x="33" y="33">
+      <name x="33" y="33">callup:people:People</name>
+      <moment startTime="25" endTime="30" timeDuration="null"/>
+    </location>
+    <location init="false" finl="false" id="id15" x="33" y="33">
+      <name x="33" y="33">waiting:people:People</name>
+      <moment startTime="30" endTime="150" timeDuration="null"/>
+      <moment startTime="180" endTime="220" timeDuration="null"/>
+      <moment startTime="250" endTime="2147483647" timeDuration="null"/>
+    </location>
+    <location init="false" finl="false" id="id16" x="33" y="33">
+      <name x="33" y="33">marching out:people:People</name>
+      <label kind="invariant" x="33" y="33">&lt;=30</label>
+      <moment startTime="150" endTime="180" timeDuration="&lt;=30"/>
+    </location>
+    <location init="false" finl="false" id="id17" x="33" y="33">
+      <name x="33" y="33">marching in:people:People</name>
+      <label kind="invariant" x="33" y="33">&lt;=30</label>
+      <moment startTime="220" endTime="250" timeDuration="&lt;=30"/>
+    </location>
+    <init ref="id-1"/>
+    <transition out="false">
+      <source ref="id13"/>
+      <target ref="id14"/>
+      <label kind="synchronisation" x="33" y="33" startTime="25" endTime="25" from="building:Building" to="people:People" duration="null">newPeople()?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id14"/>
+      <target ref="id15"/>
+      <label kind="synchronisation" x="33" y="33" startTime="30" endTime="35" from="people:People" to="elevator:Elevator" duration="null">pushCallUp(int)!</label>
+    </transition>
+    <transition out="false">
+      <source ref="id15"/>
+      <target ref="id16"/>
+      <label kind="synchronisation" x="33" y="33" startTime="150" endTime="150" from="building:Building" to="people:People" duration="null">thisFloorPeopleOut()?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id16"/>
+      <target ref="id15"/>
+      <label kind="synchronisation" x="33" y="33" startTime="180" endTime="185" from="people:People" to="building:Building" duration="null">thisFloorPeopleOut_return()!</label>
+    </transition>
+    <transition out="false">
+      <source ref="id15"/>
+      <target ref="id17"/>
+      <label kind="synchronisation" x="33" y="33" startTime="220" endTime="220" from="building:Building" to="people:People" duration="null">thisFloorPeopleIn()?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id17"/>
+      <target ref="id15"/>
+      <label kind="synchronisation" x="33" y="33" startTime="250" endTime="255" from="people:People" to="building:Building" duration="null">thisFloorPeopleIn_return()!</label>
+    </transition>
+  </temp>
+  <temp>
+    <name x="34" y="34">timer:Timer</name>
+    <declaration/>
+    <location init="true" finl="false" id="id18" x="34" y="34">
+      <name x="34" y="34">start:timer:Timer</name>
+      <moment startTime="0" endTime="5" timeDuration="null"/>
+    </location>
+    <location init="false" finl="false" id="id19" x="34" y="34">
+      <name x="34" y="34">idle:timer:Timer</name>
+      <moment startTime="5" endTime="10" timeDuration="null"/>
+      <moment startTime="45" endTime="50" timeDuration="null"/>
+      <moment startTime="125" endTime="135" timeDuration="null"/>
+      <moment startTime="320" endTime="330" timeDuration="null"/>
+    </location>
+    <location init="false" finl="false" id="id20" x="34" y="34">
+      <name x="34" y="34">counting:timer:Timer</name>
+      <moment startTime="10" endTime="45" timeDuration="null"/>
+      <moment startTime="50" endTime="125" timeDuration="t1:t1+t2&lt;=300"/>
+      <moment startTime="135" endTime="320" timeDuration="t2:t1+t2&lt;=300"/>
+      <moment startTime="330" endTime="2147483647" timeDuration="null"/>
+    </location>
+    <init ref="id18"/>
+    <transition out="false">
+      <source ref="id18"/>
+      <target ref="id19"/>
+      <label kind="none" x="34" y="34" startTime="5" endTime="5" duration="null">null</label>
+    </transition>
+    <transition out="true">
+      <source ref="id19"/>
+      <target ref="id20"/>
+      <label kind="synchronisation" x="34" y="34" startTime="10" endTime="15" from="timer:Timer" to="building:Building" duration="null">peopleComing()!</label>
+    </transition>
+    <transition out="false">
+      <source ref="id20"/>
+      <target ref="id19"/>
+      <label kind="synchronisation" x="34" y="34" startTime="45" endTime="45" from="elevator:Elevator" to="timer:Timer" duration="null">return?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id19"/>
+      <target ref="id20"/>
+      <label kind="synchronisation" x="34" y="34" startTime="50" endTime="55" from="timer:Timer" to="elevator:Elevator" duration="null">response()!</label>
+    </transition>
+    <transition out="false">
+      <source ref="id20"/>
+      <target ref="id19"/>
+      <label kind="synchronisation" x="34" y="34" startTime="125" endTime="125" from="elevator:Elevator" to="timer:Timer" duration="null">doorready?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id19"/>
+      <target ref="id20"/>
+      <label kind="synchronisation" x="34" y="34" startTime="135" endTime="140" from="timer:Timer" to="building:Building" duration="null">peopleOutIn()!</label>
+    </transition>
+    <transition out="false">
+      <source ref="id20"/>
+      <target ref="id19"/>
+      <label kind="synchronisation" x="34" y="34" startTime="320" endTime="320" from="elevator:Elevator" to="timer:Timer" duration="null">ready?</label>
+    </transition>
+    <transition out="true">
+      <source ref="id19"/>
+      <target ref="id20"/>
+      <label kind="synchronisation" x="34" y="34" startTime="330" endTime="334" from="timer:Timer" to="elevator:Elevator" duration="null">prepareMove()!</label>
+    </transition>
+  </temp>
+  <system>system people:People, door:Door, building:Building, timer:Timer, elevator:Elevator;</system>
 </nta>
