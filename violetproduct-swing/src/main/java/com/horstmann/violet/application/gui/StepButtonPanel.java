@@ -1123,11 +1123,11 @@ public class StepButtonPanel extends JPanel {
 //			    StepOneScrollTree.setBackground(new Color(255, 255, 255));
 //			    mainFrame.getAttributePartPanel().getAttributepanel().add(StepOneScrollTree);
 			    
-				mainFrame.getConsolePartPanel().getTitlelabel().setText("UML模型建立过程信息");
+				mainFrame.getConsolePartPanel().getTitlelabel().setText("系统建模过程信息");
 				mainFrame.getConsolePartPanel().getTextpanel().removeAll();
 				
 			    mainFrame.getConsolePartPanel().getTextpanel().add(mainFrame.getConsolePartPanel().getTextscrollpanel1());
-			    mainFrame.getConsolePartPanel().getTextarea1().append("UML模型正在建立中......\n");
+//			    mainFrame.getConsolePartPanel().getTextarea1().append("UML模型正在建立中......\n");
 			   
 			    //对点开的xml文件的处理 by tan
 //			    IFile selectedFile=null;
@@ -1198,7 +1198,7 @@ public class StepButtonPanel extends JPanel {
 			    mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().updateFileList();
 			    mainFrame.getModelTransformationPanel().getModelTimingTreePanel().updateFileList();
 			    
-			    mainFrame.getConsolePartPanel().getTitlelabel().setText("UML模型转化时间自动机过程信息");
+			    mainFrame.getConsolePartPanel().getTitlelabel().setText("模型转换过程信息");
 			    mainFrame.getConsolePartPanel().getTextpanel().removeAll();
 			    mainFrame.getConsolePartPanel().getTextpanel().add(mainFrame.getConsolePartPanel().getTextscrollpanel2());
 			    

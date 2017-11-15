@@ -268,8 +268,9 @@ public class TcConvertUtil {
 			my.setProcessParam(stringRegEx(process, "ProcessParameter:([\\s|\\S]*?)ProcessStatus:").get(0));
 			// 2.6.¼¤Àø×´Ì¬
 			String processstatue=stringRegEx(process, "ProcessStatus:([\\s|\\S]*?)\\)").get(0);
-			if(processstatue.contains("e")||processstatue.contains("-")){
-				processstatue="0";
+			if(processstatue.contains("e")&&processstatue.contains("=")){
+				processstatue=processstatue.split("=")[0]+"=0.03";
+//				processstatue="0";
 			}
 			my.setProcessStatus(processstatue);
 			// System.out.println(my);

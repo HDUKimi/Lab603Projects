@@ -43,7 +43,12 @@ public class Time  implements Serializable{
         String[] s = tmp.split(",");
         for (String str : s) {
             String[] t = str.split("\\&");
-            mapping.put(t[1], new Pair(t[0], Double.parseDouble(t[2])));
+            if(t[2].contains("e")){
+            	mapping.put(t[1], new Pair(t[0], 0.03));
+            }
+            else{      
+            	mapping.put(t[1], new Pair(t[0], Double.parseDouble(t[2])));
+            }
         }
     }
 

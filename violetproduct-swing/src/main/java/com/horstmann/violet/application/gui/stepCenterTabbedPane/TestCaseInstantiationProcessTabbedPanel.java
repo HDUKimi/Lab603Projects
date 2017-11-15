@@ -1054,7 +1054,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("等待进行测试用例生成");
+		moviepanel.getMovieLabel().setText("等待进行测试用例实例化");
 		
 	}
 

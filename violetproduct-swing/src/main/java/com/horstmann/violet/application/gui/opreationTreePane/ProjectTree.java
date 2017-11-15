@@ -225,7 +225,7 @@ public class ProjectTree extends JPanel {
 	private void initTitlePanel() {
 	// TODO Auto-generated method stub
 	
-		titlelabel.setText("建立UML模型");
+		titlelabel.setText("系统建模");
 		titlelabel.setFont(new Font("System", Font.PLAIN, 12));
 		titlelabel.setForeground(new Color(255, 255, 255));
 		titlelabel.setBorder(BorderFactory.createEmptyBorder(2, 8, 2, 0));

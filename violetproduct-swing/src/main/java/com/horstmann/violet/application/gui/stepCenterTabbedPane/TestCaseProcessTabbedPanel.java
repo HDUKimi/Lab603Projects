@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -41,6 +42,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
 import com.horstmann.violet.application.consolepart.TestCaseInequalitySolveInforPanel;
@@ -80,7 +82,9 @@ import com.horstmann.violet.application.gui.util.ckt.xml.XMLGet;
 import com.horstmann.violet.application.gui.util.ckt.xml.XmlOfTime;
 import com.horstmann.violet.application.gui.util.tanchao.SaveText;
 import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
+import com.horstmann.violet.application.gui.util.wj.bean.UppaalLocation;
 import com.horstmann.violet.application.gui.util.wj.util.GeneratePath;
+import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalTransition;
 
 public class TestCaseProcessTabbedPanel extends JPanel{
 	
@@ -429,12 +433,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 		starttype=mainFrame.getTestCaseGenerationPanel().FindRadioButtonIndex(mainFrame.getTestCaseGenerationPanel().getSelectTestRadioButton())+1;
 		
-		if(selectUppaal.contains("电梯")){
-			hastime=1;
-		}
-		else{
-			hastime=0;
-		}
+//		if(selectUppaal.contains("电梯")){
+//			hastime=1;
+//		}
+//		else{
+//			hastime=0;
+//		}
 		
 //		if(starttype == 1){
 //			baseUrl += "\\FunctionalTest\\";
@@ -447,6 +451,13 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		selectUppaalPath = baseUrl + selectUppaal + ".xml";
 		
 		System.out.println(selectUppaalPath+"  ----------  "+selectCoverState);
+		
+		if(CheckIsContainTime(selectUppaalPath)){
+			hastime=1;
+		}
+		else{
+			hastime=0;
+		}
 		
 		automatictimestate=0;
 		
@@ -1808,6 +1819,38 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 	}
 	
+	private boolean CheckIsContainTime(String path){
+		
+		boolean result=false;
+		
+		try {
+			File file=new File(path);
+			
+			SAXReader reader = new SAXReader();
+			
+			Document dom = reader.read(file);
+			Element root = dom.getRootElement();
+			
+			Element template=root.element("templateList").element("template");
+			List<Element> locationElements=template.element("locationList").elements("location");
+
+			for(Element locationElement:locationElements){
+				String time=locationElement.element("timeDuration").getText();
+				if(time!=null&&!time.equals("null")){
+					result=true;
+					break;
+				}
+			}
+			
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+	}
+	
 	private void AtutomaticProduceXML(List<Automatic> listauto, String path){
 		Document doc = DocumentHelper.createDocument();
 		Element TCS=doc.addElement("TCS");
@@ -1845,7 +1888,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("等待进行测试用例生成");
+		moviepanel.getMovieLabel().setText("等待进行抽象测试用例生成");
 		
 	}
 

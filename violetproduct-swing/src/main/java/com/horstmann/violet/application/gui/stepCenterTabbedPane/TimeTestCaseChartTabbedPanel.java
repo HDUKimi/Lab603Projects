@@ -731,6 +731,10 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 	public JPanel getFailedstatisticspiepanel() {
 		return failedstatisticspiepanel;
 	}
+	
+	public JPanel getFailedstatisticstablepanel() {
+		return failedstatisticstablepanel;
+	}
 
 	public JTable getSuccessfailedattributetable() {
 		return successfailedattributetable;

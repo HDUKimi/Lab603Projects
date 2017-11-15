@@ -441,8 +441,8 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							String nodename=uppaalworkspace.getTitle().toString().replace(".uppaal.violet.xml", "");
 							DefaultMutableTreeNode node=new DefaultMutableTreeNode(nodename);
 							
-	                    	uppaaltreemodel.insertNodeInto(node, currentnode, currentnode.getChildCount());
-	                    	
+							uppaaltreemodel.insertNodeInto(node, currentnode, currentnode.getChildCount());
+							
 							TreePath path=new TreePath(uppaaltreerootnode.getPath());
 							if(!uppaaltree.isVisible(path)){
 								uppaaltree.makeVisible(path);
@@ -1024,7 +1024,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("正在读取导出的所有顺序图");
+		moviepanel.getMovieLabel().setText("等待进行模型转换");
 		
 	}
 

@@ -306,7 +306,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						
 						threadexceptionstate=0;
 						
-//						initTestCaseUI();
+						initTestCaseUI();
 						
 //						mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(false);
 						
@@ -983,17 +983,25 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	protected void ExceptionStopRunThread() {
 		// TODO Auto-generated method stub
 		
-		if (testcasetype == 3) {
-			if (progressbar.getValue() > 50) {
-				progreseethread.stop();
-			} else {
-				gaindatathread.stop();
-			}
-		} else {
+		if(threadstate!=0){
 			datagainshowthread.stop();
 		}
 		
+//		if (testcasetype == 3) {
+//			if (progressbar.getValue() > 50) {
+//				progreseethread.stop();
+//			} else {
+//				gaindatathread.stop();
+//			}
+//		} else {
+//			datagainshowthread.stop();
+//		}
+		
 		threadstate=0;
+		
+		if(Controller.resultService!=null){
+			Controller.resultService.closeService();
+		}
 		
 		progressbar.setValue(0);
 		progressbarlabel.setText("0%");
@@ -1446,6 +1454,12 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(f1, f2);
 			functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().removeAll();
 			functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(ffspc.createChart());
+			
+			if(cf==0){
+				functionalTestCaseChartTabbedPanel.getFailedstatisticstablepanel().setVisible(false);
+				functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().setVisible(false);
+			}
+			
 		}
 		else if(type==2){//统计性能数据
 
@@ -1528,8 +1542,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			f1=resultmap.get("testcasefailed");
 			f2=resultmap.get("timefailed");
 			
-//			f1=27;
-//			f2=12;
+//			f1=0;
+//			f2=0;
+//			cf=0;
 			
 			DefaultTableModel failedstatisticstabelmodel=timeTestCaseChartTabbedPanel.getFailedstatisticsattributetablemodel();
 			while(failedstatisticstabelmodel.getRowCount()>0){
@@ -1548,6 +1563,11 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			TimeFailedStatisticsPieChart tfspc=new TimeFailedStatisticsPieChart(f1, f2);
 			timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().removeAll();
 			timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(tfspc.createChart());
+			
+			if(cf==0){
+				timeTestCaseChartTabbedPanel.getFailedstatisticstablepanel().setVisible(false);
+				timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().setVisible(false);
+			}
 			
 		}
 		

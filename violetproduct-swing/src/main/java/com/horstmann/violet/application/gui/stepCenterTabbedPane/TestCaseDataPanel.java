@@ -188,6 +188,12 @@ public class TestCaseDataPanel{
 			FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(f1, f2);
 			functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().removeAll();
 			functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(ffspc.createChart());
+			
+			if(cf==0){
+				functionalTestCaseChartTabbedPanel.getFailedstatisticstablepanel().setVisible(false);
+				functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().setVisible(false);
+			}
+			
 		}
 		else if(type==2){//统计性能数据
 
@@ -263,8 +269,9 @@ public class TestCaseDataPanel{
 			f1=resultmap.get("testcasefailed");
 			f2=resultmap.get("timefailed");
 			
-//			f1=27;
-//			f2=12;
+//			f1=0;
+//			f2=0;
+//			cf=0;
 			
 			DefaultTableModel failedstatisticstabelmodel=timeTestCaseChartTabbedPanel.getFailedstatisticsattributetablemodel();
 			while(failedstatisticstabelmodel.getRowCount()>0){
@@ -275,7 +282,6 @@ public class TestCaseDataPanel{
 			Object[] rowData4={"百分比：", calcper(f1, cf), calcper(f2, cf), calcper(cf, cf)};
 			failedstatisticstabelmodel.addRow(rowData4);
 			
-			
 			TimeSuccessFailedPieChart tsfpc=new TimeSuccessFailedPieChart(cs, cf);
 			timeTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
 			timeTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(tsfpc.createChart());
@@ -283,6 +289,11 @@ public class TestCaseDataPanel{
 			TimeFailedStatisticsPieChart tfspc=new TimeFailedStatisticsPieChart(f1, f2);
 			timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().removeAll();
 			timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(tfspc.createChart());
+			
+			if(cf==0){
+				timeTestCaseChartTabbedPanel.getFailedstatisticstablepanel().setVisible(false);
+				timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().setVisible(false);
+			}
 			
 		}
 		

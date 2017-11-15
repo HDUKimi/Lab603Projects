@@ -466,6 +466,7 @@ public class Evaluation {
 		boolean result=false;
 
 		for(UppaalLocation location:uppaalLocations){
+			System.out.println(location.getTimeDuration());
 			if(location.getTimeDuration()!=null&&!location.getTimeDuration().equals("null")){
 				result=true;
 				break;

@@ -29,6 +29,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollBar;
@@ -190,6 +191,18 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				
+				JCheckBox[] cb=mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getTimingCheckBoxList();
+				int selectcount=0;
+				for(JCheckBox checkBox:cb){
+					if(checkBox.isSelected()){
+						selectcount++;
+					}
+				}
+				if(selectcount==0){
+					JOptionPane.showMessageDialog(mainFrame, "请选择要进行模型转换的时序图！", "提示" , JOptionPane.ERROR_MESSAGE);
+					return ;
+				}
 				
 //				if(t==null){
 //					startTimingToUppaal();
@@ -987,7 +1000,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("正在读取导出的所有时序图");
+		moviepanel.getMovieLabel().setText("等待进行模型转换");
 		
 	}
 
