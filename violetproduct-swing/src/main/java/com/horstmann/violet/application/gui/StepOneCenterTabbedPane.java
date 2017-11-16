@@ -27,6 +27,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -459,6 +460,12 @@ public class StepOneCenterTabbedPane extends JPanel {
 				ChangeRepaint();
 			}
 		});
+	}
+	
+	public void TextAreaPrint(String word){
+		JTextArea textarea=mainFrame.getConsolePartPanel().getTextarea1();
+		textarea.append(word+"\n");
+		textarea.setCaretPosition(textarea.getDocument().getLength());
 	}
 
 	public void ChangeRepaint() {

@@ -268,7 +268,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 					sequencetouppaaltablemodel.removeRow(sequencetouppaaltablemodel.getRowCount()-1);
 				}
 
-				moviepanel.getMovieLabel().setText("正在读取导出的所有顺序图");
+				moviepanel.getMovieLabel().setText("等待进行模型转换");
 				
 			}
 		});
@@ -512,6 +512,8 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 				moviepanel.getMovieLabel().setText("所有顺序图全部转换完成，总共有"+sequencelists.size()+"张顺序图，转换成功了"+successcount+"张顺序图，转换率为："+(double)successcount/sequencelists.size()*100+"%");
 				StepTwoArea.append("UML模型转换完成......\n");
 				StepTwoArea.setCaretPosition(StepTwoArea.getDocument().getLength()*progressbar.getValue()/100);
+				StepTwoArea.append("所有顺序图全部转换完成，总共有"+sequencelists.size()+"张顺序图，转换成功了"+successcount+"张顺序图，转换率为："+(double)successcount/sequencelists.size()*100+"%\n");
+				StepTwoArea.setCaretPosition(StepTwoArea.getDocument().getLength()*progressbar.getValue()/100);
 
 				System.out.println(uppaallists.size());
 				for(String s:uppaallists){
@@ -519,6 +521,8 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 				}
 				
 				threadstate=0;
+				
+				JOptionPane.showMessageDialog(mainFrame, "模型转换完成！", "消息" , JOptionPane.INFORMATION_MESSAGE);
 				
 				return 1;
 			}
@@ -685,7 +689,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 			sequencetouppaaltablemodel.removeRow(sequencetouppaaltablemodel.getRowCount()-1);
 		}
 		
-		moviepanel.getMovieLabel().setText("正在读取导出的所有顺序图");
+		moviepanel.getMovieLabel().setText("正在读取顺序图");
 		
 //		DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel();
 //		for (int i = 0; i < dtm.getRowCount(); i++) {

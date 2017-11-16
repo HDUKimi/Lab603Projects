@@ -5,171 +5,172 @@
   <template>
     <name x="30" y="30">template_</name>
     <declaration/>
-    <location id="loc_id_init" x="48" y="438">
-      <name x="18" y="408">loc_id_init</name>
+    <location id="loc_id_init" x="48" y="438" timeDuration="null" final="false">
+      <name x="18" y="408">timer:_init time:null</name>
     </location>
-    <location id="loc_id_2994C157_4854_4351_A947_F4E7BC16C968" x="324" y="438">
-      <name x="294" y="408">loc_id_2994C157_4854_4351_A947_F4E7BC16C968</name>
+    <location id="loc_id_2994C157_4854_4351_A947_F4E7BC16C968" x="324" y="438" timeDuration="null" final="false">
+      <name x="294" y="408">building:peopleComing() time:null</name>
     </location>
-    <location id="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087" x="600" y="438">
-      <name x="570" y="408">loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087</name>
+    <location id="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087" x="600" y="438" timeDuration="null" final="false">
+      <name x="570" y="408">people:newPeople() time:null</name>
     </location>
-    <location id="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3" x="876" y="438">
-      <name x="846" y="408">loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3</name>
+    <location id="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3" x="876" y="438" timeDuration="null" final="false">
+      <name x="846" y="408">elevator:pushCallUp(int) time:null</name>
     </location>
-    <location id="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6" x="1152" y="438">
-      <name x="1122" y="408">loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6</name>
+    <location id="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6" x="1152" y="438" timeDuration="null" final="false">
+      <name x="1122" y="408">elevator:response() time:null</name>
     </location>
-    <location id="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2" x="1428" y="438">
-      <name x="1398" y="408">loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2</name>
+    <location id="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2" x="1428" y="438" timeDuration="t&lt;=2500" final="false">
+      <name x="1398" y="408">elevator:controller() time:t&lt;=2500</name>
     </location>
-    <location id="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5" x="1704" y="303">
-      <name x="1674" y="273">loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5</name>
+    <location id="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5" x="1704" y="303" timeDuration="t&lt;=2500" final="false">
+      <name x="1674" y="273">door:open() time:t&lt;=2500</name>
     </location>
-    <location id="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC" x="2256" y="438">
-      <name x="2226" y="408">loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC</name>
+    <location id="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24" x="1980" y="303" timeDuration="null" final="false">
+      <name x="1950" y="273">elevator:open_return time:null</name>
     </location>
-    <location id="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24" x="1980" y="303">
-      <name x="1950" y="273">loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24</name>
+    <location id="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC" x="2256" y="438" timeDuration="null" final="false">
+      <name x="2226" y="408">building:peopleOutIn() time:null</name>
     </location>
-    <location id="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B" x="2532" y="303">
-      <name x="2502" y="273">loc_id_50B8F800_23CD_4431_9778_042103F2DA5B</name>
+    <location id="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B" x="2532" y="303" timeDuration="t&lt;=3000" final="false">
+      <name x="2502" y="273">elevator:thisFloorPeopleOut() time:t&lt;=3000</name>
     </location>
-    <location id="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD" x="3084" y="438">
-      <name x="3054" y="408">loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</name>
+    <location id="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3" x="2808" y="303" timeDuration="null" final="false">
+      <name x="2778" y="273">building:thisFloorPeopleOut_return time:null</name>
     </location>
-    <location id="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE" x="3636" y="438">
-      <name x="3606" y="408">loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</name>
+    <location id="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD" x="3084" y="438" timeDuration="t&lt;=3000" final="false">
+      <name x="3054" y="408">elevator:thisFloorPeopleIn() time:t&lt;=3000</name>
     </location>
-    <location id="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3" x="2808" y="303">
-      <name x="2778" y="273">loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3</name>
+    <location id="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7" x="3360" y="438" timeDuration="null" final="false">
+      <name x="3330" y="408">building:thisFloorPeopleIn_return time:null</name>
     </location>
-    <location id="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7" x="3360" y="438">
-      <name x="3330" y="408">loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7</name>
+    <location id="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE" x="3636" y="438" timeDuration="t&lt;=2500" final="false">
+      <name x="3606" y="408">door:close() time:t&lt;=2500</name>
     </location>
-    <location id="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4" x="3912" y="438">
-      <name x="3882" y="408">loc_id_3085365D_8B34_423f_B39A_463F262E5CF4</name>
+    <location id="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4" x="3912" y="438" timeDuration="null" final="false">
+      <name x="3882" y="408">elevator:close_return time:null</name>
     </location>
-    <location id="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F" x="4188" y="438">
-      <name x="4158" y="408">loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F</name>
+    <location id="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F" x="4188" y="438" timeDuration="t&lt;=1500" final="false">
+      <name x="4158" y="408">elevator:prepareMove time:t&lt;=1500</name>
     </location>
-    <location id="loc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED" x="4464" y="438">
-      <name x="4434" y="408">loc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED</name>
+    <location id="loc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED" x="4464" y="438" timeDuration="null" final="true">
+      <name x="4434" y="408">elevator:goUpstairs() time:null</name>
     </location>
-    <transition id="tran_idloc_id_initloc_id_2994C157_4854_4351_A947_F4E7BC16C968">
+    <init ref="loc_id_init"/>
+    <transition id="tran_id_init_2994C157_4854_4351_A947_F4E7BC16C968" timeDuration="null" name="peopleComing()" receiveOrSend="" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null">
       <source ref="loc_id_init"/>
       <target ref="loc_id_2994C157_4854_4351_A947_F4E7BC16C968"/>
-      <label kind="synchronisation" x="166" y="418">tran_idloc_id_initloc_id_2994C157_4854_4351_A947_F4E7BC16C968</label>
+      <label kind="synchronisation" x="166" y="418">#name:peopleComing() #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_idloc_id_2994C157_4854_4351_A947_F4E7BC16C968loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087">
+    <transition id="tran_id_2994C157_4854_4351_A947_F4E7BC16C968_AB770414_2510_47b1_A5E9_2A0B2DB55087" timeDuration="null" name="newPeople()" receiveOrSend="" type="null" condition="null" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="null">
       <source ref="loc_id_2994C157_4854_4351_A947_F4E7BC16C968"/>
       <target ref="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087"/>
-      <label kind="synchronisation" x="442" y="418">tran_idloc_id_2994C157_4854_4351_A947_F4E7BC16C968loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087</label>
+      <label kind="synchronisation" x="442" y="418">#name:newPeople() #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_idloc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3">
+    <transition id="tran_id_AB770414_2510_47b1_A5E9_2A0B2DB55087_2E1A464A_417F_47b9_A7AD_B775BB5DECF3" timeDuration="null" name="pushCallUp(int)" receiveOrSend="" type="null" condition="null" in="null" out="null" use="floorvoid" def="null" typeId="null" RESET="null">
       <source ref="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087"/>
       <target ref="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3"/>
-      <label kind="synchronisation" x="718" y="418">tran_idloc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3</label>
+      <label kind="synchronisation" x="718" y="418">#name:pushCallUp(int) #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_idloc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6">
+    <transition id="tran_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3_94B18EE0_6C97_47af_9ECE_B6A502CC12E6" timeDuration="null" name="response()" receiveOrSend="" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null">
       <source ref="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3"/>
       <target ref="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6"/>
-      <label kind="synchronisation" x="994" y="418">tran_idloc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6</label>
+      <label kind="synchronisation" x="994" y="418">#name:response() #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_idloc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2">
+    <transition id="tran_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6_757CFC82_7ABE_4211_BF8E_17CA02229CB2" timeDuration="null" name="controller()" receiveOrSend="!" type="null" condition="null" in="-1&lt;=State&lt;=1,0&lt;=Floor&lt;=4#State:int,Floor:int" out="null" use="null" def="-1&lt;=State&lt;=1,0&lt;=Floor&lt;=4#State:int,Floor:int" typeId="null" RESET="t">
       <source ref="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6"/>
       <target ref="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2"/>
-      <label kind="synchronisation" x="1270" y="418">tran_idloc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2</label>
+      <label kind="synchronisation" x="1270" y="418">#name:controller() #receiveOrSend:! #typeAndCondition:null #time:null #in:-1&lt;=State&lt;=1,0&lt;=Floor&lt;=4#State:int,Floor:int #out:null</label>
     </transition>
-    <transition id="tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5">
+    <transition id="tran_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2_E8C2F626_8CEC_40cb_A3C3_8350257A56C5" timeDuration="null" name="open()" receiveOrSend="?" type="[opt-opt]" condition="State==0,-1&lt;=State&lt;=1#State:int--callUp[1] != false || callDown[1] != false || callCar[1] != false) &amp;&amp; Floor == 1,0&lt;=Floor&lt;=4#callUp[1]:bool,callDown[1]:bool,callCar[1]:bool,Floor:int" in="null" out="null" use="nullvoid" def="null" typeId="EAID_7F0777BF_CE38_4dcf_A0F9_5CADCE6E110D-EAID_F74E2ECE_D038_4bf7_A76C_64239EDD2F01" RESET="t;DCBM=t&lt;=2500;">
       <source ref="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2"/>
       <target ref="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5"/>
-      <label kind="synchronisation" x="1546" y="350">tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5</label>
+      <label kind="synchronisation" x="1546" y="350">#name:open() #receiveOrSend:? #typeAndCondition:[opt-opt]/State==0,-1&lt;=State&lt;=1#State:int--callUp[1] != false || callDown[1] != false || callCar[1] != false) &amp;&amp; Floor == 1,0&lt;=Floor&lt;=4#callUp[1]:bool,callDown[1]:bool,callCar[1]:bool,Floor:int #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC">
+    <transition id="tran_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2_863E40B4_D7CC_41f3_AD20_0F51B84401DC" timeDuration="null" name="peopleOutIn()" receiveOrSend="" type="!(State==0,-1&lt;=State&lt;=1)#State:int" condition="!(State==0,-1&lt;=State&lt;=1)#State:int" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="null">
       <source ref="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2"/>
       <target ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <label kind="synchronisation" x="1822" y="418">tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC</label>
+      <label kind="synchronisation" x="1822" y="418">#name:peopleOutIn() #receiveOrSend: #typeAndCondition:!(State==0,-1&lt;=State&lt;=1)#State:int #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_idloc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24">
+    <transition id="tran_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5_B962B7F7_0DE7_49e0_94FF_78514ADD9E24" timeDuration="null" name="open_return" receiveOrSend="" type="[opt-opt]" condition="State==0,-1&lt;=State&lt;=1#State:int--callUp[1] != false || callDown[1] != false || callCar[1] != false) &amp;&amp; Floor == 1,0&lt;=Floor&lt;=4#callUp[1]:bool,callDown[1]:bool,callCar[1]:bool,Floor:int" in="null" out="null" use="nullvoid" def="null" typeId="EAID_7F0777BF_CE38_4dcf_A0F9_5CADCE6E110D-EAID_F74E2ECE_D038_4bf7_A76C_64239EDD2F01" RESET="null">
       <source ref="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5"/>
       <target ref="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24"/>
-      <label kind="synchronisation" x="1822" y="283">tran_idloc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24</label>
+      <label kind="synchronisation" x="1822" y="283">#name:open_return #receiveOrSend: #typeAndCondition:[opt-opt]/State==0,-1&lt;=State&lt;=1#State:int--callUp[1] != false || callDown[1] != false || callCar[1] != false) &amp;&amp; Floor == 1,0&lt;=Floor&lt;=4#callUp[1]:bool,callDown[1]:bool,callCar[1]:bool,Floor:int #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_50B8F800_23CD_4431_9778_042103F2DA5B">
-      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <target ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
-      <label kind="synchronisation" x="2374" y="350">tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_50B8F800_23CD_4431_9778_042103F2DA5B</label>
-    </transition>
-    <transition id="tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD">
-      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <label kind="synchronisation" x="2650" y="418">tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</label>
-    </transition>
-    <transition id="tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE">
-      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <label kind="synchronisation" x="2926" y="418">tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</label>
-    </transition>
-    <transition id="tran_idloc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC">
+    <transition id="tran_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24_863E40B4_D7CC_41f3_AD20_0F51B84401DC" timeDuration="null" name="peopleOutIn()" receiveOrSend="" type="null" condition="null" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="null">
       <source ref="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24"/>
       <target ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
-      <label kind="synchronisation" x="2098" y="350">tran_idloc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC</label>
+      <label kind="synchronisation" x="2098" y="350">#name:peopleOutIn() #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_idloc_id_50B8F800_23CD_4431_9778_042103F2DA5Bloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3">
+    <transition id="tran_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC_50B8F800_23CD_4431_9778_042103F2DA5B" timeDuration="null" name="thisFloorPeopleOut()" receiveOrSend="" type="[loop]" condition="elevator_thisFloorOut == true#elevator_thisFloorOut:bool" in="null" out="null" use="nullvoid" def="null" typeId="EAID_2F6A3A06_C3EA_4add_BDDF_8D293713C7F0" RESET="t;">
+      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
+      <target ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
+      <label kind="synchronisation" x="2374" y="350">#name:thisFloorPeopleOut() #receiveOrSend: #typeAndCondition:[loop]/elevator_thisFloorOut == true#elevator_thisFloorOut:bool #time:null #in:null #out:null</label>
+    </transition>
+    <transition id="tran_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC_409350B8_616A_4af1_92A3_C1E16EE75EBD" timeDuration="null" name="thisFloorPeopleIn()" receiveOrSend="" type="[loop]" condition="getCurrentFloor_empty == false#getCurrentFloor_empty:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool" in="null" out="null" use="nullvoid" def="null" typeId="EAID_9355FD6A_E850_4b35_AE6A_3F869ADF2DFC" RESET="t;">
+      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
+      <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
+      <label kind="synchronisation" x="2650" y="418">#name:thisFloorPeopleIn() #receiveOrSend: #typeAndCondition:[loop]/getCurrentFloor_empty == false#getCurrentFloor_empty:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool #time:null #in:null #out:null</label>
+    </transition>
+    <transition id="tran_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE" timeDuration="null" name="close()" receiveOrSend="" type="!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool--!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool" condition="!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool--!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="t;">
+      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
+      <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
+      <label kind="synchronisation" x="2926" y="418">#name:close() #receiveOrSend: #typeAndCondition:!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool--!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool #time:null #in:null #out:null</label>
+    </transition>
+    <transition id="tran_id_50B8F800_23CD_4431_9778_042103F2DA5B_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3" timeDuration="null" name="thisFloorPeopleOut_return" receiveOrSend="" type="[loop]" condition="elevator_thisFloorOut == true#elevator_thisFloorOut:bool" in="null" out="null" use="nullvoid" def="null" typeId="EAID_2F6A3A06_C3EA_4add_BDDF_8D293713C7F0" RESET="null">
       <source ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
       <target ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
-      <label kind="synchronisation" x="2670" y="323">tran_idloc_id_50B8F800_23CD_4431_9778_042103F2DA5Bloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3</label>
+      <label kind="synchronisation" x="2670" y="323">#name:thisFloorPeopleOut_return #receiveOrSend: #typeAndCondition:[loop]/elevator_thisFloorOut == true#elevator_thisFloorOut:bool #time:null #in:null #out:null</label>
       <nail y="323" x="2670"/>
     </transition>
-    <transition id="tran_idloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBDloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7">
-      <source ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <target ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
-      <label kind="synchronisation" x="3222" y="458">tran_idloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBDloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7</label>
-      <nail y="458" x="3222"/>
-    </transition>
-    <transition id="tran_idloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EEloc_id_3085365D_8B34_423f_B39A_463F262E5CF4">
-      <source ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <target ref="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4"/>
-      <label kind="synchronisation" x="3754" y="418">tran_idloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EEloc_id_3085365D_8B34_423f_B39A_463F262E5CF4</label>
-    </transition>
-    <transition id="tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_50B8F800_23CD_4431_9778_042103F2DA5B">
+    <transition id="tran_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3_50B8F800_23CD_4431_9778_042103F2DA5B" timeDuration="null" name="thisFloorPeopleOut()" receiveOrSend="" type="[loop]" condition="elevator_thisFloorOut == true#elevator_thisFloorOut:bool" in="null" out="null" use="nullvoid" def="null" typeId="EAID_2F6A3A06_C3EA_4add_BDDF_8D293713C7F0" RESET="t;">
       <source ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
       <target ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
-      <label kind="synchronisation" x="2670" y="283">tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_50B8F800_23CD_4431_9778_042103F2DA5B</label>
+      <label kind="synchronisation" x="2670" y="283">#name:thisFloorPeopleOut() #receiveOrSend: #typeAndCondition:[loop]/elevator_thisFloorOut == true#elevator_thisFloorOut:bool #time:null #in:null #out:null</label>
       <nail y="283" x="2670"/>
     </transition>
-    <transition id="tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD">
+    <transition id="tran_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3_409350B8_616A_4af1_92A3_C1E16EE75EBD" timeDuration="null" name="thisFloorPeopleIn()" receiveOrSend="" type="[loop]" condition="getCurrentFloor_empty == false#getCurrentFloor_empty:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool" in="null" out="null" use="nullvoid" def="null" typeId="EAID_9355FD6A_E850_4b35_AE6A_3F869ADF2DFC" RESET="t;">
       <source ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
       <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <label kind="synchronisation" x="2926" y="350">tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</label>
+      <label kind="synchronisation" x="2926" y="350">#name:thisFloorPeopleIn() #receiveOrSend: #typeAndCondition:[loop]/getCurrentFloor_empty == false#getCurrentFloor_empty:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE">
+    <transition id="tran_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE" timeDuration="null" name="close()" receiveOrSend="" type="!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool" condition="!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="t;">
       <source ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
       <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <label kind="synchronisation" x="3202" y="350">tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</label>
+      <label kind="synchronisation" x="3202" y="350">#name:close() #receiveOrSend: #typeAndCondition:!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool--!(elevator_thisFloorOut == true)#elevator_thisFloorOut:bool #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD">
+    <transition id="tran_id_409350B8_616A_4af1_92A3_C1E16EE75EBD_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7" timeDuration="null" name="thisFloorPeopleIn_return" receiveOrSend="" type="[loop]" condition="getCurrentFloor_empty == false#getCurrentFloor_empty:bool" in="null" out="null" use="nullvoid" def="null" typeId="EAID_9355FD6A_E850_4b35_AE6A_3F869ADF2DFC" RESET="null">
+      <source ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
+      <target ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
+      <label kind="synchronisation" x="3222" y="458">#name:thisFloorPeopleIn_return #receiveOrSend: #typeAndCondition:[loop]/getCurrentFloor_empty == false#getCurrentFloor_empty:bool #time:null #in:null #out:null</label>
+      <nail y="458" x="3222"/>
+    </transition>
+    <transition id="tran_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7_409350B8_616A_4af1_92A3_C1E16EE75EBD" timeDuration="null" name="thisFloorPeopleIn()" receiveOrSend="" type="[loop]" condition="getCurrentFloor_empty == false#getCurrentFloor_empty:bool" in="null" out="null" use="nullvoid" def="null" typeId="EAID_9355FD6A_E850_4b35_AE6A_3F869ADF2DFC" RESET="t;">
       <source ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
       <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
-      <label kind="synchronisation" x="3222" y="418">tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</label>
+      <label kind="synchronisation" x="3222" y="418">#name:thisFloorPeopleIn() #receiveOrSend: #typeAndCondition:[loop]/getCurrentFloor_empty == false#getCurrentFloor_empty:bool #time:null #in:null #out:null</label>
       <nail y="418" x="3222"/>
     </transition>
-    <transition id="tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE">
+    <transition id="tran_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE" timeDuration="null" name="close()" receiveOrSend="" type="!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool--!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool" condition="!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool--!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="t;">
       <source ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
       <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
-      <label kind="synchronisation" x="3478" y="418">tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</label>
+      <label kind="synchronisation" x="3478" y="418">#name:close() #receiveOrSend: #typeAndCondition:!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool--!(getCurrentFloor_empty == false)#getCurrentFloor_empty:bool #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_idloc_id_3085365D_8B34_423f_B39A_463F262E5CF4loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F">
+    <transition id="tran_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE_3085365D_8B34_423f_B39A_463F262E5CF4" timeDuration="null" name="close_return" receiveOrSend="" type="null" condition="null" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="null">
+      <source ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
+      <target ref="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4"/>
+      <label kind="synchronisation" x="3754" y="418">#name:close_return #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
+    </transition>
+    <transition id="tran_id_3085365D_8B34_423f_B39A_463F262E5CF4_88E4EF84_3952_4078_AF71_0B0BF13EAD8F" timeDuration="null" name="prepareMove" receiveOrSend="" type="null" condition="null" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="t;">
       <source ref="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4"/>
       <target ref="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F"/>
-      <label kind="synchronisation" x="4030" y="418">tran_idloc_id_3085365D_8B34_423f_B39A_463F262E5CF4loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F</label>
+      <label kind="synchronisation" x="4030" y="418">#name:prepareMove #receiveOrSend: #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
-    <transition id="tran_idloc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8Floc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED">
+    <transition id="tran_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F_03DEB7D0_543B_475b_BADF_609BE49BFAED" timeDuration="null" name="goUpstairs()" receiveOrSend="!?" type="null" condition="null" in="null" out="null" use="nullvoid" def="null" typeId="null" RESET="null">
       <source ref="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F"/>
       <target ref="loc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED"/>
-      <label kind="synchronisation" x="4306" y="418">tran_idloc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8Floc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED</label>
+      <label kind="synchronisation" x="4306" y="418">#name:goUpstairs() #receiveOrSend:!? #typeAndCondition:null #time:null #in:null #out:null</label>
     </transition>
   </template>
-  <system/>
+  <system>system template_;</system>
 </nta>

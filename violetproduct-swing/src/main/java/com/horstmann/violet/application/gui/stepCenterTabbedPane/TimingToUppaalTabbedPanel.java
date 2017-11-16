@@ -283,7 +283,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 					timingtouppaaltablemodel.removeRow(timingtouppaaltablemodel.getRowCount()-1);
 				}
 				
-				moviepanel.getMovieLabel().setText("正在读取导出的所有时序图");
+				moviepanel.getMovieLabel().setText("等待进行模型转换");
 				
 			}
 		});
@@ -519,8 +519,12 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 				moviepanel.getMovieLabel().setText("所有时序图全部转换完成，总共有"+timinglists.size()+"张时序图，转换成功了"+successcount+"张时序图，转换率为："+(double)successcount/timinglists.size()*100+"%");
 				StepTwoArea.append("UML模型转换完成......\n");
 				StepTwoArea.setCaretPosition(StepTwoArea.getDocument().getLength()*progressbar.getValue()/100);
-
+				StepTwoArea.append("所有时序图全部转换完成，总共有"+timinglists.size()+"张时序图，转换成功了"+successcount+"张时序图，转换率为："+(double)successcount/timinglists.size()*100+"%\n");
+				StepTwoArea.setCaretPosition(StepTwoArea.getDocument().getLength()*progressbar.getValue()/100);
+				
 				threadstate=0;
+				
+				JOptionPane.showMessageDialog(mainFrame, "模型转换完成！", "消息" , JOptionPane.INFORMATION_MESSAGE);
 				
 				return 1;
 			}
@@ -665,7 +669,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 			timingtouppaaltablemodel.removeRow(timingtouppaaltablemodel.getRowCount()-1);
 		}
 		
-		moviepanel.getMovieLabel().setText("正在读取导出的所有时序图");
+		moviepanel.getMovieLabel().setText("正在读取时序图");
 		
 //		DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel();
 //		for (int i = 0; i < dtm.getRowCount(); i++) {

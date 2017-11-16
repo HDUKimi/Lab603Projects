@@ -1,6 +1,7 @@
 package com.horstmann.violet.application.gui.util.tanchao;
 
 import java.io.File;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 import org.dom4j.Attribute;
 import org.dom4j.Document;
@@ -75,8 +78,31 @@ public class XMLToTree {
         jTree.putClientProperty("JTree.lineStyle","None"); 
 //        jp.add(jTree);
 //       return jp;
+        
+        expandAll(jTree, new TreePath(rootTree), true);
+        
         return jTree;
     }
+    
+    protected static void expandAll(JTree tree, TreePath parent, boolean expand) {
+		// TODO Auto-generated method stub
+		
+		TreeNode node = (TreeNode) parent.getLastPathComponent();
+
+        if (node.getChildCount() > 0) {
+            for (Enumeration e = node.children(); e.hasMoreElements();) {
+                TreeNode n = (TreeNode) e.nextElement();
+                TreePath path = parent.pathByAddingChild(n);
+                expandAll(tree, path, expand);
+            }
+        }
+        if (expand) {
+            tree.expandPath(parent);
+        } else {
+            tree.collapsePath(parent);
+        }
+		
+	}
     
     
     //获得当前Element 建立当前树node的子节点

@@ -1668,6 +1668,8 @@ public class ModelExistValidationPanel extends JPanel{
 				
 				mainFrame.getStepSixCenterTabbedPane().ChangeRepaint();
 				
+				JOptionPane.showMessageDialog(mainFrame, "时间自动机："+uppaalname+"  载入完成！", "消息" , JOptionPane.INFORMATION_MESSAGE);
+				
 			}
 			
 		});
