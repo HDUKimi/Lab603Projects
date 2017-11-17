@@ -169,7 +169,7 @@ public class UppaalOptimizationTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("正在进行符号状态拆分,去除抽象时间迁移");
+		moviepanel.getMovieLabel().setText("进行符号状态拆分,去除抽象时间迁移");
 		
 	}
 	

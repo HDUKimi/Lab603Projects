@@ -68,7 +68,7 @@ public class TestCaseUppaalTabbedPanel extends JPanel{
 		
 		initToolPanel();
 		
-		moviePanel.getMovieLabel().setText("正在进行深度遍历时间自动机，生成深度优先生成树");
+		moviePanel.getMovieLabel().setText("进行深度遍历时间自动机，生成深度优先生成树");
 		
 		initDiagramPanel();
 		

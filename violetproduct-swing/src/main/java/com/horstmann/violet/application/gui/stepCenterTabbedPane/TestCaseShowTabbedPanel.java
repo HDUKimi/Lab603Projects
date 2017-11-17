@@ -206,7 +206,7 @@ public class TestCaseShowTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("正在生成测试用例");
+		moviepanel.getMovieLabel().setText("生成测试用例");
 		
 	}
 

@@ -342,7 +342,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
         
         progressbarlabel=new JLabel();
         progressbarlabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-        progressbarlabel.setText("0%");
+        progressbarlabel.setText(" ");
 		
 
 		toolbuttonpanel1.setLayout(new GridLayout());
@@ -381,7 +381,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 		progressbarindex=0;
 		progressbar.setValue(0);
-		progressbarlabel.setText("");
+		progressbarlabel.setText(" ");
 		
 		for(FixedButtonTabbedPanel fbtpanel:mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelList()){
 			fbtpanel.setVisible(false);
@@ -390,7 +390,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		mainFrame.getStepThreeCenterTabbedPane().setFixButtonTabbedPanelSelectedIndex(0);
 		tablepanel.removeAll();
 		
-		moviepanel.getMovieLabel().setText("等待进行测试用例生成");
+		moviepanel.getMovieLabel().setText("等待进行抽象测试用例生成");
 		
 		DefaultTableModel dtm=mainFrame.getAbstractTestCaseResultPanel().getTestcaseinfortablemodel();
 		while(dtm.getRowCount()>0){
@@ -523,6 +523,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				threadstate=0;
 				
+				JOptionPane.showMessageDialog(mainFrame, "测试序列生成完毕！", "消息" , JOptionPane.INFORMATION_MESSAGE);
+				
 				return progressbarindex;
 			}
 		};
@@ -537,8 +539,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在解析xml，获取时间自动机");
-				TextAreaPrint("正在解析xml，获取时间自动机");
+				moviepanel.getMovieLabel().setText("解析xml，获取时间自动机");
+				TextAreaPrint("解析xml，获取时间自动机");
 				
 				UppaalParseInforTabbedPanel copyupitpanel=new UppaalParseInforTabbedPanel(mainFrame);
 				
@@ -630,8 +632,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在进行符号状态拆分,去除抽象时间迁移");
-				TextAreaPrint("正在进行符号状态拆分,去除抽象时间迁移");
+				moviepanel.getMovieLabel().setText("进行符号状态拆分,去除抽象时间迁移");
+				TextAreaPrint("进行符号状态拆分,去除抽象时间迁移");
 				
 				Thread.sleep(1000);
 				
@@ -754,8 +756,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在进行深度遍历时间自动机，生成深度优先生成树");
-				TextAreaPrint("正在进行深度遍历时间自动机，生成深度优先生成树");
+				moviepanel.getMovieLabel().setText("进行深度遍历时间自动机，生成深度优先生成树");
+				TextAreaPrint("进行深度遍历时间自动机，生成深度优先生成树");
 
 				if(starttype==1){//功能测试
 					if(hastime==1){
@@ -996,45 +998,45 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				if(starttype==1){//功能测试
 					if(hastime==1){
 						if(selectCoverState==0){//状态覆盖
-							moviepanel.getMovieLabel().setText("正在进行状态覆盖，生成测试路径");
-							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行状态覆盖，生成测试路径");
+							moviepanel.getMovieLabel().setText("进行状态覆盖，生成测试路径");
+							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("进行状态覆盖，生成测试路径");
 							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("状态覆盖");
-							TextAreaPrint("正在进行状态覆盖，生成测试路径");
+							TextAreaPrint("进行状态覆盖，生成测试路径");
 						}
 						else if(selectCoverState==1){//迁移覆盖
-							moviepanel.getMovieLabel().setText("正在进行迁移覆盖，生成测试路径");
-							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行迁移覆盖，生成测试路径");
+							moviepanel.getMovieLabel().setText("进行迁移覆盖，生成测试路径");
+							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("进行迁移覆盖，生成测试路径");
 							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("迁移覆盖");
-							TextAreaPrint("正在进行迁移覆盖，生成测试路径");
+							TextAreaPrint("进行迁移覆盖，生成测试路径");
 						}
 					}
 					else{
 						if(selectCoverState==0){//状态覆盖
-							moviepanel.getMovieLabel().setText("正在进行状态覆盖，生成测试路径");
-							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行状态覆盖，生成测试路径");
+							moviepanel.getMovieLabel().setText("进行状态覆盖，生成测试路径");
+							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("进行状态覆盖，生成测试路径");
 							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("状态覆盖");
-							TextAreaPrint("正在进行状态覆盖，生成测试路径");
+							TextAreaPrint("进行状态覆盖，生成测试路径");
 						}
 						else if(selectCoverState==1){//迁移覆盖
-							moviepanel.getMovieLabel().setText("正在进行迁移覆盖，生成测试路径");
-							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行迁移覆盖，生成测试路径");
+							moviepanel.getMovieLabel().setText("进行迁移覆盖，生成测试路径");
+							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("进行迁移覆盖，生成测试路径");
 							mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("迁移覆盖");
-							TextAreaPrint("正在进行迁移覆盖，生成测试路径");
+							TextAreaPrint("进行迁移覆盖，生成测试路径");
 						}
 					}
 				}
 				else if(starttype==2){//性能测试
 					if(hastime==1){
-						moviepanel.getMovieLabel().setText("正在进行性能测试，生成测试路径");
-						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行性能测试，生成测试路径");
+						moviepanel.getMovieLabel().setText("进行性能测试，生成测试路径");
+						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("进行性能测试，生成测试路径");
 						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("性能测试");
-						TextAreaPrint("正在进行性能测试，生成测试路径");
+						TextAreaPrint("进行性能测试，生成测试路径");
 					}
 					else{
-						moviepanel.getMovieLabel().setText("正在进行性能测试，生成测试路径");
-						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("正在进行性能测试，生成测试路径");
+						moviepanel.getMovieLabel().setText("进行性能测试，生成测试路径");
+						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("进行性能测试，生成测试路径");
 						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("性能测试");
-						TextAreaPrint("正在进行性能测试，生成测试路径");
+						TextAreaPrint("进行性能测试，生成测试路径");
 					}
 				}
 //				else if(starttype==3){//时间约束测试
@@ -1207,8 +1209,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在筛选、添加、组合实例化约束条件，生成测试序列");
-				TextAreaPrint("正在筛选、添加、组合实例化约束条件，生成测试序列");
+				moviepanel.getMovieLabel().setText("筛选、添加、组合实例化约束条件，生成测试序列");
+				TextAreaPrint("筛选、添加、组合实例化约束条件，生成测试序列");
 				
 				//获取数据
 				collectLimit = forPlatform.collectLimit(testCase);
@@ -1330,16 +1332,16 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在生成测试序列文件");
-				TextAreaPrint("正在生成测试序列文件");
+				moviepanel.getMovieLabel().setText("生成测试序列文件");
+				TextAreaPrint("生成测试序列文件");
 				
 				String abstractName=selectUppaal.substring(0, selectUppaal.indexOf("ForXStream"));
 				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
 				
 				if(starttype == 1){
-					baseUrl += "\\FunctionalTest\\";
+					baseUrl += "FunctionalTest\\";
 				} else if (starttype == 2) {
-					baseUrl += "\\PerformanceTest\\";
+					baseUrl += "PerformanceTest\\";
 				} 
 //				else if (starttype == 3) {
 //					baseUrl += "\\TimeTest\\";
@@ -1416,8 +1418,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 //				}
 				
 				timeAllProcessList.add(time2-time1+"ms");
-				resultAllProcessList.add("生成"+ abstractName + "Abstract.txt，保存路径："+path);
-				
+				resultAllProcessList.add("生成"+ abstractName + "Abstract.txt");
+				TextAreaPrint("生成"+ abstractName + "Abstract.txt，保存路径："+path);
 				
 				StepFourCenterTabbedPane.setBecomeRunFileName(abstractName + "Abstract");
 				StepFourCenterTabbedPane.setBecomeRunFileNameType(starttype);
@@ -1437,8 +1439,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在对测试路径进行排序");
-				TextAreaPrint("正在对测试路径进行排序");
+				moviepanel.getMovieLabel().setText("对测试路径进行排序");
+				TextAreaPrint("对测试路径进行排序");
 				
 				//上一步的xml
 				GraphFile absfGraphFile=ImportByDoubleClick.importFileByDoubleClick("UPPAAL","abs.uppaal.violet.xml");

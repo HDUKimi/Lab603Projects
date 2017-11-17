@@ -262,7 +262,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 				
 				progressbarindex=0;
 				progressbar.setValue(0);
-				progressbarlabel.setText("0%");
+				progressbarlabel.setText(" ");
 				
 				while(sequencetouppaaltablemodel.getRowCount()>0){
 					sequencetouppaaltablemodel.removeRow(sequencetouppaaltablemodel.getRowCount()-1);
@@ -291,7 +291,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
         
         progressbarlabel=new JLabel();
         progressbarlabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-        progressbarlabel.setText("0%");
+        progressbarlabel.setText(" ");
 		
 
 		toolbuttonpanel1.setLayout(new GridLayout());

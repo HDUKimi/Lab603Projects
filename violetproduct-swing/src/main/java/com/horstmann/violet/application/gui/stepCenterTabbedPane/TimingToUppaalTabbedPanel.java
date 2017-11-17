@@ -277,7 +277,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 				
 				progressbarindex=0;
 				progressbar.setValue(0);
-				progressbarlabel.setText("0%");
+				progressbarlabel.setText(" ");
 				
 				while(timingtouppaaltablemodel.getRowCount()>0){
 					timingtouppaaltablemodel.removeRow(timingtouppaaltablemodel.getRowCount()-1);
@@ -306,7 +306,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
         
         progressbarlabel=new JLabel();
         progressbarlabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-        progressbarlabel.setText("0%");
+        progressbarlabel.setText(" ");
 		
 
 		toolbuttonpanel1.setLayout(new GridLayout());

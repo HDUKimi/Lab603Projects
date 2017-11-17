@@ -488,7 +488,7 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("正在进行路径覆盖");
+		moviepanel.getMovieLabel().setText("进行路径覆盖");
 		
 	}
 

@@ -484,7 +484,7 @@ public class TestCaseSortContrastTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("正在对测试路径进行排序");
+		moviepanel.getMovieLabel().setText("对测试路径进行排序");
 		
 	}
 

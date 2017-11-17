@@ -272,7 +272,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
         
         progressbarlabel=new JLabel();
         progressbarlabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-        progressbarlabel.setText("0%");
+        progressbarlabel.setText(" ");
 		
 
 		toolbuttonpanel1.setLayout(new GridLayout());
@@ -311,7 +311,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		
 		progressbarindex=0;
 		progressbar.setValue(0);
-		progressbarlabel.setText("");
+		progressbarlabel.setText(" ");
 		
 		for(FixedButtonTabbedPanel fbtpanel:mainFrame.getStepFourCenterTabbedPane().getFixButtonTabbedPanelList()){
 			fbtpanel.setVisible(false);
@@ -354,9 +354,9 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		}
 		
 		if(starttype == 1){
-			baseUrl += "\\FunctionalTest\\";
+			baseUrl += "FunctionalTest\\";
 		} else if (starttype == 2) {
-			baseUrl += "\\PerformanceTest\\";
+			baseUrl += "PerformanceTest\\";
 		} 
 //		else if (starttype == 3) {
 //			baseUrl += "\\TimeTest\\";
@@ -423,6 +423,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				threadstate=0;
 				
+				JOptionPane.showMessageDialog(mainFrame, "测试用例生成完毕！", "消息" , JOptionPane.INFORMATION_MESSAGE);
+				
 				return progressbarindex;
 				
 			}
@@ -438,8 +440,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在读取测试序列");
-				TextAreaPrint("正在读取测试序列");
+				moviepanel.getMovieLabel().setText("读取测试序列");
+				TextAreaPrint("读取测试序列");
 				
 				//获取数据
 				collectLimit=(ArrayList<Automatic>) readAbstractTestCaseSerialFile(selectAbstractPath);
@@ -500,7 +502,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				copyresultpanel.add(copyemptypanel);
 				copylayout.setConstraints(copyemptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 				
-				mainFrame.getStepFourCenterTabbedPane().getTestCaseProduceTabbedPanel().getMoviepanel().getMovieLabel().setText("正在读取测试序列");
+				mainFrame.getStepFourCenterTabbedPane().getTestCaseProduceTabbedPanel().getMoviepanel().getMovieLabel().setText("读取测试序列");
 				mainFrame.getStepFourCenterTabbedPane().getTestCaseProduceTabbedPanel().getTableresultpanel().removeAll();
 				mainFrame.getStepFourCenterTabbedPane().getTestCaseProduceTabbedPanel().getTableresultpanel().add(resultpanel);
 				
@@ -531,8 +533,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在对测试序列进行实例化求解");
-				TextAreaPrint("正在对测试序列进行实例化求解");
+				moviepanel.getMovieLabel().setText("对测试序列进行实例化求解");
+				TextAreaPrint("对测试序列进行实例化求解");
 				
 				if(starttype==1){//功能测试
 					if(hastime==1){
@@ -698,16 +700,16 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在生成测试用例");
-				TextAreaPrint("正在生成测试用例");
+				moviepanel.getMovieLabel().setText("生成测试用例");
+				TextAreaPrint("生成测试用例");
 				
 				String name=selectAbstract.substring(0, selectAbstract.indexOf("Abstract"));
 				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
 				
 				if(starttype == 1){
-					baseUrl += "\\FunctionalTest\\";
+					baseUrl += "FunctionalTest\\";
 				} else if (starttype == 2) {
-					baseUrl += "\\PerformanceTest\\";
+					baseUrl += "PerformanceTest\\";
 				} 
 //				else if (starttype == 3) {
 //					baseUrl += "\\TimeTest\\";
@@ -924,9 +926,9 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("正在生成测试用例xml");
+				moviepanel.getMovieLabel().setText("生成测试用例xml");
 				
-				TextAreaPrint("正在生成测试用例xml");
+				TextAreaPrint("生成测试用例xml");
 				
 				String name=selectAbstract.substring(0, selectAbstract.indexOf("Abstract"));
 				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";

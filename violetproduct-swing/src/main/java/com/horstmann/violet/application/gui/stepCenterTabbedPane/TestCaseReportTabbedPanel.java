@@ -484,7 +484,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				threadstate=0;
 				
 				progressbar.setValue(0);
-				progressbarlabel.setText("0%");
+				progressbarlabel.setText(" ");
 				
 				initUIPanel();
 				
@@ -789,7 +789,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
         
         progressbarlabel=new JLabel();
         progressbarlabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-        progressbarlabel.setText("0%");
+        progressbarlabel.setText(" ");
 		
 
 		toolbuttonpanel1.setLayout(new GridLayout());
@@ -3043,7 +3043,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("正在进行测试");
+		moviepanel.getMovieLabel().setText("等待进行测试执行");
 		
 	}
 

@@ -145,7 +145,7 @@ public class TestCaseInstantiationTabbedPanel extends JPanel {
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("正在对测试序列进行实例化求解");
+		moviepanel.getMovieLabel().setText("对测试序列进行实例化求解");
 		
 	}
 

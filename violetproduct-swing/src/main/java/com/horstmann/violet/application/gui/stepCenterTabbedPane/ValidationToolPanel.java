@@ -291,7 +291,7 @@ public class ValidationToolPanel extends JPanel{
         
         progressbarlabel=new JLabel();
         progressbarlabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
-        progressbarlabel.setText("0%");
+        progressbarlabel.setText(" ");
 		
 
         toolbuttonpanel1.setLayout(new GridLayout());
