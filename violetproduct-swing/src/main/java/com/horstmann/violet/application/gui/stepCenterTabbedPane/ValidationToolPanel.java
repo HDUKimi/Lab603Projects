@@ -575,9 +575,16 @@ public class ValidationToolPanel extends JPanel{
 							mainFrame.getModelExistValidationPanel().TextAreaPrint(message+" 实时一致性评估成功");
 						}
 						else{
-							JOptionPane.showMessageDialog(mainFrame, "实时一致性评估失败！", "实时一致性评估" , JOptionPane.ERROR_MESSAGE);
-							mainFrame.getValidationResultPanel().getFivenamelabel().setText(message+" 实时一致性评估失败");
-							mainFrame.getModelExistValidationPanel().TextAreaPrint(message+" 实时一致性评估失败");
+							if(!mainFrame.getModelExistValidationPanel().getEvaluation().CheckTimeDuration()){
+								JOptionPane.showMessageDialog(mainFrame, "该模型不存在时间约束，实时一致性评估失败！", "实时一致性评估" , JOptionPane.WARNING_MESSAGE);
+								mainFrame.getValidationResultPanel().getFivenamelabel().setText(message+" 实时一致性评估失败");
+								mainFrame.getModelExistValidationPanel().TextAreaPrint("由于该模型不存在时间约束，所以实时一致性评估失败");
+							}
+							else{
+								JOptionPane.showMessageDialog(mainFrame, "实时一致性评估失败！", "实时一致性评估" , JOptionPane.ERROR_MESSAGE);
+								mainFrame.getValidationResultPanel().getFivenamelabel().setText(message+" 实时一致性评估失败");
+								mainFrame.getModelExistValidationPanel().TextAreaPrint(message+" 实时一致性评估失败");
+							}
 						}
 						mainFrame.getModelExistValidationPanel().getMoviePanel().getMovieLabel().setText("实时一致性评估完成");
 						mainFrame.getModelExistValidationPanel().TextAreaPrint("实时一致性评估完成");

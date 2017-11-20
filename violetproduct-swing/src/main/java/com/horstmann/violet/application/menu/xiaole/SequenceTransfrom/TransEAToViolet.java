@@ -99,6 +99,11 @@ public class TransEAToViolet {
 					ReturnEdgeInfo returnedge = new ReturnEdgeInfo();
 					returnedge.setId(messageElement.attributeValue("id"));
 					returnedge.setName(messageElement.attributeValue("name"));
+					if (messageElement.attributeValue("name") != null) {
+						returnedge.setMessage(messageElement.attributeValue("name"));
+					} else {
+						returnedge.setMessage("");
+					}
 					if (parameter != null) {
 						returnedge.setParameter(parameter);
 					}
@@ -148,9 +153,14 @@ public class TransEAToViolet {
 							if (value.contains("alias=")) {
 								String aliasText = value.replace("alias=", "");
 								callEdge.setAlias(aliasText);
-							} else if (value.contains("paramvalues=")) {
+							}
+							if (value.contains("paramvalues=")) {
 								String argumentsText = value.replace("paramvalues=", "");
 								callEdge.setArguments(argumentsText);
+							}
+							if(value.contains("DCBM=")){
+								String dcbmText=value.replace("DCBM=", "");
+								callEdge.setTimeconstraint(dcbmText);
 							}
 						}
 
@@ -236,43 +246,79 @@ public class TransEAToViolet {
 					Element intputAndouput = connectorElement.element("labels");
 					String judgeStyle = judgeInputOrOutput.attributeValue("value");
 					String intputOrouput = intputAndouput.attributeValue("mt");
+					
 					if (judgeStyle != null) {
-						String returnjudgeStyleList[] = judgeStyle.split("\\;");
-						if (judgeStyle.contains("io=in")) {
-							String outputlist[] = returnjudgeStyleList[0].split("\\=");
-							ReturnEdge.setInput(outputlist[1]);
-						}
-						if (judgeStyle.contains("io=out")) {
-							String outputList[] = intputOrouput.split("\\:");
-							ReturnEdge.setOutput(outputList[1]);
-						}
-						if (judgeStyle.contains("RESET")) {
-							for (String reset : returnjudgeStyleList) {
-								if (reset.contains("RESET")) {
-									String resetList[] = reset.split("\\=");
-									ReturnEdge.setTimereset(resetList[1]);
-								}
-							}
-						}
+						String judgeStyleList[] = judgeStyle.split("\\;");
 
-						if (judgeStyle.contains("RESET")) {
-							for (String reset : returnjudgeStyleList) {
-								if (reset.contains("RESET")) {
-									String resetList[] = reset.split("\\,");
-									for (String getreset : resetList) {
-										if (getreset.contains("RESET")) {
-											String finalResetValue[] = getreset.split("\\=");
-											for (int i = 0; i < finalResetValue.length; i++) {
-												if (finalResetValue[i].equals("RESET")) {
-													ReturnEdge.setTimereset(finalResetValue[++i]);
-												}
-											}
-										}
-									}
-								}
+						for (String value : judgeStyleList) {
+							if (value.contains("alias=")) {
+								String aliasText = value.replace("alias=", "");
+								ReturnEdge.setAlias(aliasText);
+							}
+							if (value.contains("paramvalues=")) {
+								String argumentsText = value.replace("paramvalues=", "");
+								ReturnEdge.setArguments(argumentsText);
+							}
+							if(value.contains("DCBM=")){
+								String dcbmText=value.replace("DCBM=", "");
+								ReturnEdge.setTimeconstraint(dcbmText);
 							}
 						}
 					}
+					
+					Element rvaluesElement = connectorElement.element("extendedProperties");
+					String rvalues = rvaluesElement.attributeValue("privatedata2");
+					
+					if (rvalues != null) {
+						String value[] = rvalues.split("\\;");
+						for (String data : value) {
+							if (data.contains("retval=")) {
+								ReturnEdge.setReturnvalue(data.replace("retval=", ""));
+							} else if (data.contains("paramsDlg=")) {
+								ReturnEdge.setParameter(data.replace("paramsDlg=", ""));
+							} else if (data.contains("retatt=")) {
+								ReturnEdge.setAssign(data.replace("retatt=", ""));
+							}
+						}
+					}
+					
+//					if (judgeStyle != null) {
+//						String returnjudgeStyleList[] = judgeStyle.split("\\;");
+//						if (judgeStyle.contains("io=in")) {
+//							String outputlist[] = returnjudgeStyleList[0].split("\\=");
+//							ReturnEdge.setInput(outputlist[1]);
+//						}
+//						if (judgeStyle.contains("io=out")) {
+//							String outputList[] = intputOrouput.split("\\:");
+//							ReturnEdge.setOutput(outputList[1]);
+//						}
+//						if (judgeStyle.contains("RESET")) {
+//							for (String reset : returnjudgeStyleList) {
+//								if (reset.contains("RESET")) {
+//									String resetList[] = reset.split("\\=");
+//									ReturnEdge.setTimereset(resetList[1]);
+//								}
+//							}
+//						}
+//						
+//						if (judgeStyle.contains("RESET")) {
+//							for (String reset : returnjudgeStyleList) {
+//								if (reset.contains("RESET")) {
+//									String resetList[] = reset.split("\\,");
+//									for (String getreset : resetList) {
+//										if (getreset.contains("RESET")) {
+//											String finalResetValue[] = getreset.split("\\=");
+//											for (int i = 0; i < finalResetValue.length; i++) {
+//												if (finalResetValue[i].equals("RESET")) {
+//													ReturnEdge.setTimereset(finalResetValue[++i]);
+//												}
+//											}
+//										}
+//									}
+//								}
+//							}
+//						}
+//					}
 				}
 			} // 返回消息解析到此结束
 		} // connector标签解析到此结束
@@ -1073,9 +1119,10 @@ public class TransEAToViolet {
 			Calledge.addElement("assign").addText(calledge.getAssign());
 			Calledge.addElement("returnvalue").addText(calledge.getReturnvalue());
 			Calledge.addElement("message").addText(calledge.getmessage());
-			Calledge.addElement("condition").addText(calledge.getmessage());
-			Calledge.addElement("constraint").addText(calledge.getmessage());
+			Calledge.addElement("condition").addText(calledge.getCondition());
+			Calledge.addElement("constraint").addText(calledge.getCondition());
 			Calledge.addElement("alias").addText(calledge.getAlias());
+			Calledge.addElement("timeconstraint").addText(calledge.getTimeconstraint());
 		}
 		// 处理ReturnEdges
 		for (ReturnEdgeInfo returnedge : ReturnEdges) {
@@ -1090,14 +1137,15 @@ public class TransEAToViolet {
 			Returnedge.addElement("endLocation").addAttribute("class", "Point2D.Double")
 					.addAttribute("id", GenerateID()).addAttribute("x", returnedge.getEndLocationX())
 					.addAttribute("y", returnedge.getEndLocationY());
-			Returnedge.addElement("parameters").addText(Returnedge.getName());
-			Returnedge.addElement("arguments").addText(Returnedge.getName());
-			Returnedge.addElement("assign").addText(Returnedge.getName());
-			Returnedge.addElement("returnvalue").addText(Returnedge.getName());
-			Returnedge.addElement("message").addText(Returnedge.getName());
-			Returnedge.addElement("condition").addText(Returnedge.getName());
-			Returnedge.addElement("constraint").addText(Returnedge.getName());
-			Returnedge.addElement("alias").addText(Returnedge.getName());
+			Returnedge.addElement("parameters").addText(returnedge.getParameter());
+			Returnedge.addElement("arguments").addText(returnedge.getArguments());
+			Returnedge.addElement("assign").addText(returnedge.getAssign());
+			Returnedge.addElement("returnvalue").addText(returnedge.getReturnvalue());
+			Returnedge.addElement("message").addText(returnedge.getMessage());
+			Returnedge.addElement("condition").addText(returnedge.getCondition());
+			Returnedge.addElement("constraint").addText(returnedge.getCondition());
+			Returnedge.addElement("alias").addText(returnedge.getAlias());
+			Returnedge.addElement("timeconstraint").addText(returnedge.getTimeconstraint());
 		}
 		outputXml(doc, filename);
 
