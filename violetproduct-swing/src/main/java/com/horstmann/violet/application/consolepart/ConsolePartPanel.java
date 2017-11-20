@@ -115,7 +115,7 @@ public class ConsolePartPanel extends JPanel {
 		
 		initTextPanel();
 		
-		initToolButton();
+//		initToolButton();
 
 //		this.setLayout(new BorderLayout());
 //
@@ -136,10 +136,10 @@ public class ConsolePartPanel extends JPanel {
 		this.setLayout(layout);
 		this.add(titlepanel);
 		this.add(textpanel);
-		this.add(toolpanel);
+//		this.add(toolpanel);
 		layout.setConstraints(titlepanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(textpanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(toolpanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//		layout.setConstraints(toolpanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenWidth = (int) screenSize.getWidth();

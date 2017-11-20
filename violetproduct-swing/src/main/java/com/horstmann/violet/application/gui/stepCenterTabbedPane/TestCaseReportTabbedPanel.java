@@ -318,6 +318,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 							
 							@Override
 							public void run() {
+								
+								moviepanel.getMovieLabel().setText("正在连接服务器...");
+								
 								PropertyConfigurator.configure("src/log4j.properties");
 								
 								Callable<Boolean> readyCallable=new Callable<Boolean>() {
@@ -363,6 +366,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 									else{
 										TextAreaPrint("连接服务器失败！！！退出测试执行！！！");
 										TextAreaPrint("请等待几秒后，再尝试连接。。。");
+										moviepanel.getMovieLabel().setText("等待进行测试执行");
 										progressbar.setValue(0);
 										progressbarlabel.setText("0%");
 										progressbarindex=0;
@@ -885,15 +889,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			title += "测试用例ID:" + ftcrpp.getTestcase().getTestCaseID() + "     ";
 			TestCase testcase=ftcrpp.getTestcase();
 			
-			if(testcase.getExpectResult().equals("right")){
-				title+="预期结果:测试用例正确且满足时间约束     ";
-			}
-			else if(testcase.getExpectResult().equals("GNerror")){
-				title+="预期结果:测试用例不正确     ";
-			}
-			else if(testcase.getExpectResult().equals("TIMEerror")){
-				title+="预期结果:测试用例正确但不满足时间约束     ";
-			}
+			title+="预期结果:测试用例正确     ";
 			
 			ftcrpp.getTitlelabel().setText(title);
 			ftcrpp.getIconlabel().setIcon(null);
@@ -1143,6 +1139,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				CheckIsSaveDB();
 				
+				moviepanel.getMovieLabel().setText("测试执行结束");
+				
 				threadstate = 0;
 				
 			}
@@ -1197,6 +1195,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				//发送数据 1~10
 				TextAreaPrint("发送测试用例数据...");
+				moviepanel.getMovieLabel().setText("发送测试用例数据...");
 				sleeptime=selectedtestcaselist.size()/10*2;
 				for(int i=1;i<10;i++){
 					progressbar.setValue(progressbar.getValue()+1);
@@ -1216,6 +1215,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				if(selectedtestcaselist.size()%300!=0){
 					sum++;
 				}
+				
+				moviepanel.getMovieLabel().setText("正在进行测试...");
 				
 				for(datagainshowindex=0;datagainshowindex<sum*2;){
 					
@@ -1281,7 +1282,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						showTestCaseDataByType(1, resultlistindex);
 						
 						try {
-							Thread.sleep(100);
+							Thread.sleep(60);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -1301,6 +1302,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				//统计数据 91~100
 				TextAreaPrint("正在进行数据统计整理...");
+				moviepanel.getMovieLabel().setText("正在进行数据统计整理...");
+				
 				for(int i=0;i<10;i++){
 					progressbar.setValue(progressbar.getValue()+1);
 					progressbarlabel.setText(progressbar.getValue()+"%");
@@ -1616,16 +1619,17 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			
 			String title = "";
 			title+="测试用例ID:"+ftcrpp.getTestcase().getTestCaseID()+"     ";
+			title+="预期结果:测试用例正确     ";
 
-			if(testcase.getExpectResult().equals("right")){
-				title+="预期结果:测试用例正确     ";
-			}
-			else if(testcase.getExpectResult().equals("GNerror")){
-				title+="预期结果:测试用例不正确     ";
-			}
-			else if(testcase.getExpectResult().equals("TIMEerror")){
-				title+="预期结果:测试用例正确但不满足时间约束     ";
-			}
+//			if(testcase.getExpectResult().equals("right")){
+//				title+="预期结果:测试用例正确     ";
+//			}
+//			else if(testcase.getExpectResult().equals("GNerror")){
+//				title+="预期结果:测试用例不正确     ";
+//			}
+//			else if(testcase.getExpectResult().equals("TIMEerror")){
+//				title+="预期结果:测试用例正确但不满足时间约束     ";
+//			}
 			
 			title+="执行结果:"+testcase.getState()+"     ";
 			title+="总耗时:"+testcase.getExetime()+" ms";
@@ -1647,7 +1651,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				ftcrpp.getIconlabel().setIcon(icon2);
 			}
 			
-//			TextAreaPrint(testcase.toString());
+			TextAreaPrint(testcase.toString());
 			
 //			System.out.println("----------+++++++++++");
 //			System.out.println(testcase.SpellFunctionalTestCase());
@@ -1716,7 +1720,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			dtm.setValueAt(testcase.getResult().getBattery_remaining(), 0, 3);
 			dtm.setValueAt(testcase.getResult().getTime(), 0, 4);
 			
-//			TextAreaPrint(testcase.toString());
+			TextAreaPrint(testcase.toString());
 			
 //			System.out.println("----------+++++++++++");
 //			System.out.println(testcase.SpellPerformanceTestCase());
@@ -1806,7 +1810,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				ttcrpp.getIconlabel().setIcon(icon2);
 			}
 
-//			TextAreaPrint(testcase.toString());
+			TextAreaPrint(testcase.toString());
 
 //			System.out.println("----------+++++++++++");
 //			System.out.println(testcase.SpellTimeTestCase());
@@ -2002,6 +2006,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				CheckIsSaveDB();
 				
+				moviepanel.getMovieLabel().setText("测试执行结束");
+				
 				threadstate=0;
 				
 			}
@@ -2072,6 +2078,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				//发送数据 1~10
 				TextAreaPrint("发送测试用例数据...");
+				moviepanel.getMovieLabel().setText("发送测试用例数据...");
 				sleeptime=selectedtestcaselist.size()/10*2;
 				for(int i=1;i<10;i++){
 					progressbar.setValue(progressbar.getValue()+1);
@@ -2091,6 +2098,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				if(selectedtestcaselist.size()%300!=0){
 					sum++;
 				}
+				
+				moviepanel.getMovieLabel().setText("正在进行测试...");
 				
 				for(datagainshowindex=0;datagainshowindex<sum*2;){
 					
@@ -2156,7 +2165,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						showTestCaseDataByType(2, resultlistindex);
 						
 						try {
-							Thread.sleep(50);
+							Thread.sleep(30);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -2177,6 +2186,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				//统计数据 91~100
 				
 				TextAreaPrint("正在进行数据统计整理...");
+				moviepanel.getMovieLabel().setText("正在进行数据统计整理...");
+				
 				for(int i=0;i<10;i++){
 					progressbar.setValue(progressbar.getValue()+1);
 					progressbarlabel.setText(progressbar.getValue()+"%");
@@ -2366,6 +2377,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				//发送数据 1~10
 				TextAreaPrint("发送测试用例数据...");
+				moviepanel.getMovieLabel().setText("发送测试用例数据...");
 				sleeptime=selectedtestcaselist.size()/10*2;
 				for(int i=1;i<10;i++){
 					progressbar.setValue(progressbar.getValue()+1);
@@ -2472,6 +2484,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				//统计数据 91~100
 				
 				TextAreaPrint("正在进行数据统计整理...");
+				moviepanel.getMovieLabel().setText("正在进行数据统计整理...");
+				
 				for(int i=0;i<10;i++){
 					progressbar.setValue(progressbar.getValue()+1);
 					progressbarlabel.setText(progressbar.getValue()+"%");
@@ -2717,6 +2731,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				CheckIsSaveDB();
 				
+				moviepanel.getMovieLabel().setText("测试执行结束");
+				
 				threadstate=0;
 			}
 			
@@ -2774,6 +2790,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				//发送数据 1~10
 				TextAreaPrint("发送测试用例数据...");
+				moviepanel.getMovieLabel().setText("发送测试用例数据...");
 				sleeptime=selectedtestcaselist.size();
 				for(int i=1;i<10;i++){
 					progressbar.setValue(progressbar.getValue()+1);
@@ -2793,6 +2810,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				if(selectedtestcaselist.size()%300!=0){
 					sum++;
 				}
+				
+				moviepanel.getMovieLabel().setText("正在进行测试...");
 				
 				for(datagainshowindex=0;datagainshowindex<sum*2;){
 					
@@ -2884,6 +2903,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				//统计数据 91~100
 				TextAreaPrint("正在进行数据统计整理...");
+				moviepanel.getMovieLabel().setText("正在进行数据统计整理...");
+				
 				for(int i=0;i<10;i++){
 					progressbar.setValue(progressbar.getValue()+1);
 					progressbarlabel.setText(progressbar.getValue()+"%");

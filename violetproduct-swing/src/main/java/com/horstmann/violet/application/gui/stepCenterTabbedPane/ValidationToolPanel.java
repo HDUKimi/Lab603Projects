@@ -540,6 +540,9 @@ public class ValidationToolPanel extends JPanel{
 				
 				mainFrame.getValidationResultPanel().getValidationlabeltab5().doClick();
 				
+				TranMessageColorize tmc=new TranMessageColorize();
+				tmc.CleanColorize(mainFrame.getModelExistValidationPanel().getUppaalworkspace());
+				
 				String message=mainFrame.getModelExistValidationPanel().getAssessdealtext31().getText();
 				
 				if(message==null||message.trim().equals("")){

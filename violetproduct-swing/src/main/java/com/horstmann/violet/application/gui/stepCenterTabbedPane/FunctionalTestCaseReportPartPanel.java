@@ -140,15 +140,15 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 			title = "";
 			title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
 			
-			if(testcase.getExpectResult().equals("right")){
-				title+="预期结果:测试用例正确且满足时间约束     ";
-			}
-			else if(testcase.getExpectResult().equals("GNerror")){
-				title+="预期结果:测试用例不正确     ";
-			}
-			else if(testcase.getExpectResult().equals("TIMEerror")){
-				title+="预期结果:测试用例正确但不满足时间约束     ";
-			}
+//			if(testcase.getExpectResult().equals("right")){
+				title+="预期结果:测试用例正确     ";
+//			}
+//			else if(testcase.getExpectResult().equals("GNerror")){
+//				title+="预期结果:测试用例不正确     ";
+//			}
+//			else if(testcase.getExpectResult().equals("TIMEerror")){
+//				title+="预期结果:测试用例正确但不满足时间约束     ";
+//			}
 			
 			title+="执行结果:"+testcase.getState()+"     ";
 			title+="总耗时:"+testcase.getExetime()+" ms";
