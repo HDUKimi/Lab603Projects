@@ -62,12 +62,16 @@ public class TimeTestCaseReportPartPanel extends JPanel {
 	private List<String> limit;
 	private Map<String, Pair<String, String>> showTimeLimitMap;
  	private int showAll;
+ 	
+ 	private int testcaseattribute;
 
-	public TimeTestCaseReportPartPanel(MainFrame mainFrame,TestCase testcase, int showAll) {
+	public TimeTestCaseReportPartPanel(MainFrame mainFrame,TestCase testcase, int testcaseattribute, int showAll) {
 
 		this.mainFrame=mainFrame;
 		this.testcase=testcase;
+		this.testcaseattribute=testcaseattribute;
 		this.showAll=showAll;
+		
 		this.limit=testcase.getLimit();
 		if(showAll==1){
 			this.showTimeLimitMap=testcase.getResult().getTimeLimit().getShowMap();
@@ -132,14 +136,16 @@ public class TimeTestCaseReportPartPanel extends JPanel {
 		String title = "";
 		title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
 		
-		if(testcase.getExpectResult().equals("right")){
-			title+="预期结果:测试用例正确且满足时间约束     ";
-		}
-		else if(testcase.getExpectResult().equals("GNerror")){
-			title+="预期结果:测试用例不正确     ";
-		}
-		else if(testcase.getExpectResult().equals("TIMEerror")){
-			title+="预期结果:测试用例正确但不满足时间约束     ";
+		if(testcaseattribute!=2){
+			if(testcase.getExpectResult().equals("right")){
+				title+="预期结果:测试用例正确且满足时间约束     ";
+			}
+			else if(testcase.getExpectResult().equals("GNerror")){
+				title+="预期结果:测试用例不正确     ";
+			}
+			else if(testcase.getExpectResult().equals("TIMEerror")){
+				title+="预期结果:测试用例正确但不满足时间约束     ";
+			}
 		}
 		
 //		title+="执行结果:";

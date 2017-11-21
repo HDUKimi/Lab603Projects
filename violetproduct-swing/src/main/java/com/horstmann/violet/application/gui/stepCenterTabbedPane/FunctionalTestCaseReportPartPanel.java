@@ -54,12 +54,14 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 	private DefaultTableModel attributetablemodel;
 	
 	private TestCase testcase;
+	private int testcaseattribute;
 	private int showAll;
-
-	public FunctionalTestCaseReportPartPanel(MainFrame mainFrame,TestCase testcase,int showAll) {
+	
+	public FunctionalTestCaseReportPartPanel(MainFrame mainFrame,TestCase testcase,int testcaseattribute,int showAll) {
 
 		this.mainFrame=mainFrame;
 		this.testcase=testcase;
+		this.testcaseattribute=testcaseattribute;
 		this.showAll=showAll;
 		
 		init();
@@ -116,15 +118,19 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 		String title = "";
 		title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
 		
-		if(testcase.getExpectResult().equals("right")){
+		if(testcaseattribute!=2){
 			title+="预期结果:测试用例正确     ";
 		}
-		else if(testcase.getExpectResult().equals("GNerror")){
-			title+="预期结果:测试用例不正确     ";
-		}
-		else if(testcase.getExpectResult().equals("TIMEerror")){
-			title+="预期结果:测试用例正确但不满足时间约束     ";
-		}
+		
+//		if(testcase.getExpectResult().equals("right")){
+//			title+="预期结果:测试用例正确     ";
+//		}
+//		else if(testcase.getExpectResult().equals("GNerror")){
+//			title+="预期结果:测试用例不正确     ";
+//		}
+//		else if(testcase.getExpectResult().equals("TIMEerror")){
+//			title+="预期结果:测试用例正确但不满足时间约束     ";
+//		}
 		
 //		title+="执行结果:";
 		

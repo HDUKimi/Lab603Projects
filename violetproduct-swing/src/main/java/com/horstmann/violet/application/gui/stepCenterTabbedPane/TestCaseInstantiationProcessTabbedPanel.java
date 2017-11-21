@@ -721,8 +721,11 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				List<TestCase> testcaselist=new ArrayList<TestCase>();
 				List<TestCase> bordertestcaselist=new ArrayList<TestCase>();
+				List<TestCase> performancetestcaselist=new ArrayList<TestCase>();
+				
 				if(starttype==1&&hastime==0){//功能测试
 					
+					//普通功能测试用例生成
 					String path=baseUrl+name+"TestCase.xml";
 					
 //					AtutomaticProduceXML(collectResult, path);
@@ -742,7 +745,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					int i=0;
 
 					for(TestCase tc:testcaselist){
-						FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame, tc,0);
+						FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame, tc, 1, 0);
 						resultpanel.add(ftcrppanel);
 						layout.setConstraints(ftcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 						functionaltestcasereportlist.add(ftcrppanel);
@@ -780,7 +783,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					int borderi=0;
 
 					for(TestCase tc:bordertestcaselist){
-						FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame,tc,0);
+						FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame,tc,3,0);
 						borderresultpanel.add(ftcrppanel);
 						borderlayout.setConstraints(ftcrppanel, new GBC(0, borderi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 						borderfunctionaltestcasereportlist.add(ftcrppanel);
@@ -795,6 +798,41 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					mainFrame.getStepFourCenterTabbedPane().getBorderTestCaseShowTabbedPanel().getTableresultpanel().add(borderresultpanel);
 					
 					mainFrame.getStepFourCenterTabbedPane().getBorderTestCaseShowButtonPanel().setVisible(true);
+					
+					//性能测试用例生成
+					String performancepath=baseUrl+name+"PerformanceTestCase.xml";
+					
+					forPlatform.produceXML(performancepath,collectResult);
+					
+					List<FunctionalTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
+					
+					performancetestcaselist=TestCaseConfirmationPanel.extractFunctionalTestDataFromXml(performancepath);
+					
+					JPanel performanceresultpanel=new JPanel();
+					JPanel performanceemptypanel=new JPanel();
+					performanceresultpanel.setOpaque(false);
+					performanceemptypanel.setOpaque(false);
+					
+					GridBagLayout performancelayout = new GridBagLayout();
+					performanceresultpanel.setLayout(performancelayout);
+					int performancei=0;
+
+					for(TestCase tc:performancetestcaselist){
+						FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame, tc, 2, 0);
+						performanceresultpanel.add(ftcrppanel);
+						performancelayout.setConstraints(ftcrppanel, new GBC(0, performancei++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+						performancetestcasereportlist.add(ftcrppanel);
+					}
+					performanceresultpanel.add(performanceemptypanel);
+					performancelayout.setConstraints(performanceemptypanel, new GBC(0, performancei++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+					
+					mainFrame.getStepFourCenterTabbedPane().getPerformanceTestCaseShowTabbedPanel().setStarttype(1);
+					mainFrame.getStepFourCenterTabbedPane().getPerformanceTestCaseShowTabbedPanel().setFunctionaltestcasereportlist(performancetestcasereportlist);
+					
+					mainFrame.getStepFourCenterTabbedPane().getPerformanceTestCaseShowTabbedPanel().getTableresultpanel().removeAll();
+					mainFrame.getStepFourCenterTabbedPane().getPerformanceTestCaseShowTabbedPanel().getTableresultpanel().add(performanceresultpanel);
+					
+					mainFrame.getStepFourCenterTabbedPane().getPerformanceTestCaseShowButtonPanel().setVisible(true);
 					
 				}
 				else if(starttype==2&&hastime==0){//性能测试
@@ -844,12 +882,13 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				}
 				else if(hastime==1){//时间约束测试
 
+					//普通功能测试用例
 					String path=baseUrl+name+"TestCase.xml";
 //					GetTimeXML.produceXML(path,testCase);
 //					XmlOfTime.produceXML(path, collectResult, collectLimit);
 					
-//					XmlOfTime.produceXML(path, collectLimit);
-					XmlOfTime.producePerformanceXML(path, collectLimit);
+					XmlOfTime.produceXML(path, collectLimit);
+//					XmlOfTime.producePerformanceXML(path, collectLimit);
 					
 //					String path1=baseUrl+name+"TestCase1.xml";
 //					String path2=baseUrl+name+"TestCase2.xml";
@@ -876,7 +915,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 
 					int index=0;
 					for(TestCase tc:testcaselist){
-						TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(mainFrame, tc,0);
+						TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(mainFrame, tc, 1, 0);
 						resultpanel.add(ttcrppanel);
 						layout.setConstraints(ttcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 						timetestcasereportlist.add(ttcrppanel);
@@ -893,6 +932,47 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					
 					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowButtonPanel().setVisible(true);
 					
+					//性能测试用例
+					String performancepath=baseUrl+name+"PerformanceTestCase.xml";
+					
+					XmlOfTime.producePerformanceXML(performancepath, collectLimit);
+					
+					List<List<String>> performancelimitlist=new ArrayList<List<String>>();
+					List<TimeTestCaseReportPartPanel> performancetimetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
+					
+					performancetestcaselist=TestCaseConfirmationPanel.extractTimeTestDataFromXml(performancepath);
+//					Map resultmap=TestCaseConfirmationPanel.extractTimeTestDataFromXml(path);
+//					testcaselist=(List<TestCase>) resultmap.get("testcase");
+//					limitlist=(List<List<String>>) resultmap.get("limit");
+					
+					JPanel performanceresultpanel=new JPanel();
+					JPanel performanceemptypanel=new JPanel();
+					performanceresultpanel.setOpaque(false);
+					performanceemptypanel.setOpaque(false);
+					
+					GridBagLayout performancelayout = new GridBagLayout();
+					performanceresultpanel.setLayout(performancelayout);
+					int performancei=0;
+
+					int performanceindex=0;
+					for(TestCase tc:performancetestcaselist){
+						TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(mainFrame, tc, 2, 0);
+						performanceresultpanel.add(ttcrppanel);
+						performancelayout.setConstraints(ttcrppanel, new GBC(0, performancei++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+						performancetimetestcasereportlist.add(ttcrppanel);
+						performanceindex++;
+					}
+					performanceresultpanel.add(performanceemptypanel);
+					performancelayout.setConstraints(performanceemptypanel, new GBC(0, performancei++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+					
+					mainFrame.getStepFourCenterTabbedPane().getPerformanceTestCaseShowTabbedPanel().setStarttype(3);
+					mainFrame.getStepFourCenterTabbedPane().getPerformanceTestCaseShowTabbedPanel().setTimetestcasereportlist(performancetimetestcasereportlist);
+					
+					mainFrame.getStepFourCenterTabbedPane().getPerformanceTestCaseShowTabbedPanel().getTableresultpanel().removeAll();
+					mainFrame.getStepFourCenterTabbedPane().getPerformanceTestCaseShowTabbedPanel().getTableresultpanel().add(performanceresultpanel);
+					
+					mainFrame.getStepFourCenterTabbedPane().getPerformanceTestCaseShowButtonPanel().setVisible(true);
+					
 				}
 				
 				Thread.sleep(new Random().nextInt(1000)+1000);
@@ -903,10 +983,10 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				timeAllProcessList.add(time2-time1+"ms");
 				if(starttype==1){
 					if(hastime==1){
-						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条测试用例");
+						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条测试用例，"+performancetestcaselist.size()+"条性能测试用例");
 					}
 					else{
-						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条不含边界值的测试用例和"+bordertestcaselist.size()+"条含边界值的测试用例");						
+						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条功能测试用例，"+bordertestcaselist.size()+"条边界测试用例，"+performancetestcaselist.size()+"条性能测试用例");						
 					}
 				}
 				else{
@@ -945,6 +1025,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 //				}
 				
 				String path=baseUrl+name+"TestCase.xml";
+				String borderpath=baseUrl+name+"BorderTestCase.xml";
+				String performancepath=baseUrl+name+"PerformanceTestCase.xml";
 
 				Thread.sleep(new Random().nextInt(1000)+1000);
 				
@@ -955,15 +1037,17 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				if(starttype == 1){
 					if(hastime==1){
-						resultAllProcessList.add("生成"+name+"TestCase.xml");
+						resultAllProcessList.add("生成"+name+"TestCase.xml，"+name+"PerformanceTestCase.xml");
+						
 						TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
+						TextAreaPrint("生成"+name+"PerformanceTestCase.xml，保存路径："+performancepath);
 					}
 					else{
-						String borderpath=baseUrl+name+"BorderTestCase.xml";
-						resultAllProcessList.add("生成"+name+"TestCase.xml 和 "+name+"BorderTestCase.xml");
+						resultAllProcessList.add("生成"+name+"TestCase.xml，"+name+"BorderTestCase.xml，"+name+"PerformanceTestCase.xml");
 						
 						TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
 						TextAreaPrint("生成"+name+"BorderTestCase.xml，保存路径："+borderpath);
+						TextAreaPrint("生成"+name+"PerformanceTestCase.xml，保存路径："+performancepath);
 					}
 				}
 				else if(starttype==2){

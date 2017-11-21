@@ -51,26 +51,27 @@ public class LineChart {
 		XYSeries xyseries1 = new XYSeries("Æ½¾ù");
 		
 		Random rand = new Random();
-		int min,max;
+		int min,max,count;
 		double value,sum,average;
 		
-		min=100;
-		max=150;
+		min=6010;
+		max=6020;
 		sum=0;
+		count=10;
 		
-		for(int i=0;i<100;i++){
+		for(int i=1;i<=count;i++){
 //			System.out.println(min + ((max - min) * new Random().nextDouble()));
 			value=min + ((max - min) * new Random().nextDouble());
 			sum+=value;
 			xyseries.add(i,value);
 		}
-		average=sum/100;
-		for(int i=0;i<100;i++){
+		average=sum/count;
+		for(int i=0;i<count;i++){
 			xyseries1.add(i,average);
 		}
 		
 		xyseriescollection.addSeries(xyseries);
-		xyseriescollection.addSeries(xyseries1);
+//		xyseriescollection.addSeries(xyseries1);
 		
 		return xyseriescollection;
 	}

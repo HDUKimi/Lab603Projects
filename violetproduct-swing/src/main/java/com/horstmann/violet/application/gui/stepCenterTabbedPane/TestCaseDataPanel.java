@@ -48,9 +48,10 @@ public class TestCaseDataPanel{
 	private String testCaseName;
 	private String testCasePath;
 	
-	private int starttype;
-	private int hastime;
+	private int hastime;//是否含有时间，0：不含，1含有
 	private int showAll;//0:本地	1:DB
+	private int testcasetype;//测试用例显示类别，1：功能，2：性能，3：时间
+	private int testcaseattribute;//测试用例xml类别，1：功能，2：性能，3：边界值
 	
 	private JButton testCaseReportDiagramButton;
 	private JLabel testCaseReportDiagramDeleteLabel;
@@ -65,13 +66,14 @@ public class TestCaseDataPanel{
 	private List<TestCase> testcaselist=new ArrayList<TestCase>();
 	private List<JPanel> testcasereportlist=new ArrayList<JPanel>();
 	
-	public TestCaseDataPanel(MainFrame mainFrame, String testCaseTabName, String testCaseName, List<TestCase> testcaselist, int starttype, int hastime, int showAll) {
+	public TestCaseDataPanel(MainFrame mainFrame, String testCaseTabName, String testCaseName, List<TestCase> testcaselist, int testcasetype, int testcaseattribute, int hastime, int showAll) {
 
 		this.mainFrame=mainFrame;
 		this.testCaseTabName=testCaseTabName;
 		this.testCaseName=testCaseName;
 		this.testcaselist=testcaselist;
-		this.starttype=starttype;
+		this.testcasetype=testcasetype;
+		this.testcaseattribute=testcaseattribute;
 		this.hastime=hastime;
 		this.showAll=showAll;
 		
@@ -117,11 +119,7 @@ public class TestCaseDataPanel{
 		showTestCase();
 		
 		if(showAll==1){
-			int type=starttype;
-			if(hastime==1){
-				type=3;
-			}
-			showStatisticsDataByType(type);
+			showStatisticsDataByType(testcasetype);
 			testCaseChartDiagramButtonPanel.setVisible(true);
 		}
 		
@@ -313,13 +311,13 @@ public class TestCaseDataPanel{
 	
 	private void extractTestCaseData() {
 		
-		if(starttype==1&&hastime==0){
+		if(testcasetype==1){
 			testcaselist=mainFrame.getTestCaseConfirmationPanel().extractFunctionalTestDataFromXml(testCasePath);
 		}
-		else if(starttype==2&&hastime==0){
+		else if(testcasetype==2){
 			testcaselist=mainFrame.getTestCaseConfirmationPanel().extractPerformanceTestDataFromXml(testCasePath);
 		}
-		else if(hastime==1){
+		else if(testcasetype==3){
 			testcaselist=mainFrame.getTestCaseConfirmationPanel().extractTimeTestDataFromXml(testCasePath);
 		}
 		
@@ -336,14 +334,14 @@ public class TestCaseDataPanel{
 //		}
 //		System.out.println("-------------------------");
 		
-		if(starttype==1&&hastime==0){
+		if(testcasetype==1){
 			showFunctionalTestCase();
 		}
-		else if(starttype==2&&hastime==0){
+		else if(testcasetype==2){
 			showPerformanceTestCase();
 //			showFunctionalTestCase();
 		}
-		else if(hastime==1){
+		else if(testcasetype==3){
 			showTimeTestCase();
 		}
 		
@@ -362,7 +360,7 @@ public class TestCaseDataPanel{
 //		functionaltestcasereportlist.clear();
 		testcasereportlist.clear();
 		for(TestCase tc:testcaselist){
-			FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame, tc, showAll);
+			FunctionalTestCaseReportPartPanel ftcrppanel=new FunctionalTestCaseReportPartPanel(mainFrame, tc, testcaseattribute, showAll);
 			resultpanel.add(ftcrppanel);
 			layout.setConstraints(ftcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //			functionaltestcasereportlist.add(ftcrppanel);
@@ -425,7 +423,7 @@ public class TestCaseDataPanel{
 //		timetestcasereportlist.clear();
 		testcasereportlist.clear();
 		for(TestCase tc:testcaselist){
-			TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(mainFrame, tc, showAll);
+			TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(mainFrame, tc, testcaseattribute, showAll);
 			resultpanel.add(ttcrppanel);
 			layout.setConstraints(ttcrppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 //			timetestcasereportlist.add(ttcrppanel);
@@ -703,8 +701,12 @@ public class TestCaseDataPanel{
 		return testCasePath;
 	}
 
-	public int getStarttype() {
-		return starttype;
+	public int getTestcasetype() {
+		return testcasetype;
+	}
+
+	public int getTestcaseattribute() {
+		return testcaseattribute;
 	}
 
 	public int getHastime() {

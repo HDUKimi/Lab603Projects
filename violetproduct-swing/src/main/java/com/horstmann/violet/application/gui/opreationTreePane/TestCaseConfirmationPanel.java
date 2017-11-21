@@ -334,11 +334,11 @@ public class TestCaseConfirmationPanel extends JPanel{
 			if(name.contains("Border")){
 				testcasefilenamegroup.get(2).add(name);
 			}
+			else if(name.contains("性能")||name.contains("Performance")){
+				testcasefilenamegroup.get(1).add(name);
+			}
 			else if(name.contains("功能")){
 				testcasefilenamegroup.get(0).add(name);
-			}
-			else if(name.contains("性能")){
-				testcasefilenamegroup.get(1).add(name);
 			}
 		}
 
@@ -588,11 +588,11 @@ public class TestCaseConfirmationPanel extends JPanel{
 			if(name.contains("Border")){
 				sqlcasedatagroup.get(2).add(name);
 			}
+			else if(name.contains("性能")||name.contains("Performance")){
+				sqlcasedatagroup.get(1).add(name);
+			}
 			else if(name.contains("功能")){
 				sqlcasedatagroup.get(0).add(name);
-			}
-			else if(name.contains("性能")){
-				sqlcasedatagroup.get(1).add(name);
 			}
 		}
 	}
@@ -1498,16 +1498,22 @@ public class TestCaseConfirmationPanel extends JPanel{
 			public void run() {
 				// TODO Auto-generated method stub
 				
-				int starttype = 0;
+				int testcasetype=1;
+				int testcaseattribute=0;
 				String testcasename = null;
 				
-				starttype=FindRadioButtonIndex(selectTestRadioButton)+1;
+				testcaseattribute=FindRadioButtonIndex(selectTestRadioButton)+1;
 				testcasename=selectTestCaseCheckBox.getText();
 				
 				int hastime=0;
 				
-				if(testcasename.contains("TimeTestCase")){
+				if(testcasename.contains("Time")){
 					hastime=1;
+					testcasetype=3;
+				}
+				
+				if(testcasename.contains("起飞高度")){
+					testcasetype=2;
 				}
 				
 				List<TestCaseDataPanel> testCaseDataPanels=mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList();
@@ -1518,39 +1524,43 @@ public class TestCaseConfirmationPanel extends JPanel{
 				
 				String tabname = null;
 				
-				if(starttype==1){
+				if(testcaseattribute==1){
 					tabname="功能测试";
-					if(hastime==1){
-						testcaselist.addAll(extractTimeTestDataFromXml(findTestCaseXMLPath(testcasename)));
-					}
-					else{
+					if(testcasetype==1){
 						testcaselist.addAll(extractFunctionalTestDataFromXml(findTestCaseXMLPath(testcasename)));
 					}
-				}
-				else if(starttype==2){
-					tabname="性能测试";
-					if(hastime==1){
-						testcaselist.addAll(extractTimeTestDataFromXml(findTestCaseXMLPath(testcasename)));
-					}
-					else{
+					else if(testcasetype==2){
 						testcaselist.addAll(extractPerformanceTestDataFromXml(findTestCaseXMLPath(testcasename)));
 					}
-				}
-				else if(starttype==3){
-					tabname="边界值测试";
-					if(hastime==1){
+					else if(testcasetype==3){
 						testcaselist.addAll(extractTimeTestDataFromXml(findTestCaseXMLPath(testcasename)));
 					}
-					else{
+				}
+				else if(testcaseattribute==2){
+					tabname="性能测试";
+					if(testcasetype==1){
 						testcaselist.addAll(extractFunctionalTestDataFromXml(findTestCaseXMLPath(testcasename)));
+					}
+					else if(testcasetype==2){
+						testcaselist.addAll(extractPerformanceTestDataFromXml(findTestCaseXMLPath(testcasename)));
+					}
+					else if(testcasetype==3){
+						testcaselist.addAll(extractTimeTestDataFromXml(findTestCaseXMLPath(testcasename)));
+					}
+				}
+				else if(testcaseattribute==3){
+					tabname="边界值测试";
+					if(testcasetype==1){
+						testcaselist.addAll(extractFunctionalTestDataFromXml(findTestCaseXMLPath(testcasename)));
+					}
+					else if(testcasetype==2){
+						testcaselist.addAll(extractPerformanceTestDataFromXml(findTestCaseXMLPath(testcasename)));
+					}
+					else if(testcasetype==3){
+						testcaselist.addAll(extractTimeTestDataFromXml(findTestCaseXMLPath(testcasename)));
 					}
 				}
 				
-				if(starttype==3){
-					starttype=1;
-				}
-						
-						
 				for(TestCaseDataPanel tcd:testCaseDataPanels){
 					if(tcd.getTestCaseTabName().equals(tabname)){
 						tcd.getTestCaseReportDiagramButtonPanel().setVisible(false);
@@ -1561,7 +1571,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 				}
 				
 				if(flag==0){
-					nowtcdpanel=new TestCaseDataPanel(mainFrame, tabname,testcasename, testcaselist, starttype, hastime, 0);
+					nowtcdpanel=new TestCaseDataPanel(mainFrame, tabname,testcasename, testcaselist, testcasetype, testcaseattribute, hastime, 0);
 					mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList().add(nowtcdpanel);
 				}
 				
@@ -1586,24 +1596,22 @@ public class TestCaseConfirmationPanel extends JPanel{
 			public void run() {
 				// TODO Auto-generated method stub
 				
-				int starttype = 0;
-				int type=0;
+				int testcasetype=1;
+				int testcaseattribute=0;
 				String testcasename = null;
 				
-				starttype=FindSqlRadioButtonIndex(selectSqlTestRadioButton)+1;
+				testcaseattribute=FindSqlRadioButtonIndex(selectSqlTestRadioButton)+1;
 				testcasename=selectSqlTestCaseCheckBox.getText();
-				
-				if(starttype==3){
-					starttype=1;
-				}
-				
-				type=starttype;
 				
 				int hastime=0;
 				
-				if(testcasename.contains("TimeTestCase")){
+				if(testcasename.contains("Time")){
 					hastime=1;
-					type=3;
+					testcasetype=3;
+				}
+				
+				if(testcasename.contains("起飞高度")){
+					testcasetype=2;
 				}
 				
 				List<TestCaseDataPanel> testCaseDataPanels=mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList();
@@ -1616,9 +1624,9 @@ public class TestCaseConfirmationPanel extends JPanel{
 				List<String> testcasestringlist=new ArrayList<String>();
 				
 				testcasestringlist=DataBaseUtil.queryTestCaseStringList(testcasename);
-				System.out.println(type+"+-+**************"+testcasestringlist.size());
+				System.out.println(testcasetype+"+-+**************"+testcasestringlist.size());
 				for(String str:testcasestringlist){
-					TestCase testCase=DataBaseUtil.extractTestCaseByString(type, str);
+					TestCase testCase=DataBaseUtil.extractTestCaseByString(testcasetype, str);
 //					System.out.println(testCase.showTimeTestCase());
 					testcaselist.add(testCase);
 				}
@@ -1633,7 +1641,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 				}
 				
 				if(flag==0){
-					nowtcdpanel=new TestCaseDataPanel(mainFrame, tabname, testcasename, testcaselist, starttype, hastime, 1);
+					nowtcdpanel=new TestCaseDataPanel(mainFrame, tabname, testcasename, testcaselist,  testcasetype, testcaseattribute, hastime, 1);
 					mainFrame.getStepFiveCenterTabbedPane().getTestCaseDataPanelList().add(nowtcdpanel);
 				}
 				

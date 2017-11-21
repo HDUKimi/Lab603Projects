@@ -47,6 +47,13 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 	private JCheckBox checkbox5;
 	private JCheckBox checkbox6;
 	
+	private JPanel checkboxpanel1;
+	private JPanel checkboxpanel2;
+	private JPanel checkboxpanel3;
+	private JPanel checkboxpanel4;
+	private JPanel checkboxpanel5;
+	private JPanel checkboxpanel6;
+	
 	private JScrollPane reportscrollpanel;
 	private JPanel reportresultpanel;
 	
@@ -154,6 +161,13 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 		checkbox5=new JCheckBox();
 		checkbox6=new JCheckBox();
 		
+		checkboxpanel1=new JPanel();
+		checkboxpanel2=new JPanel();
+		checkboxpanel3=new JPanel();
+		checkboxpanel4=new JPanel();
+		checkboxpanel5=new JPanel();
+		checkboxpanel6=new JPanel();
+		
 		checkbox1.setText("统计表格");
 		checkbox1.setOpaque(false);
 		checkbox1.setSelected(true);
@@ -244,17 +258,31 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 			}
 		});
 		
+		checkboxpanel1.setOpaque(false);
+		checkboxpanel1.setLayout(new GridLayout());
+		checkboxpanel1.add(checkbox1);
+		checkboxpanel5.setOpaque(false);
+		checkboxpanel5.setLayout(new GridLayout());
+		checkboxpanel5.add(checkbox5);
+		checkboxpanel6.setOpaque(false);
+		checkboxpanel6.setLayout(new GridLayout());
+		checkboxpanel6.add(checkbox6);
+		
 		toolpanel.setBackground(new Color(207, 214, 229));
 		toolpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5,3));
 		
 //		toolpanel.add(toolbuttonpanel1);
 		
-		toolpanel.add(checkbox1);
-//		toolpanel.add(checkbox2);
-//		toolpanel.add(checkbox3);
-//		toolpanel.add(checkbox4);
-		toolpanel.add(checkbox5);
-		toolpanel.add(checkbox6);
+//		toolpanel.add(checkbox1);
+////		toolpanel.add(checkbox2);
+////		toolpanel.add(checkbox3);
+////		toolpanel.add(checkbox4);
+//		toolpanel.add(checkbox5);
+//		toolpanel.add(checkbox6);
+		
+		toolpanel.add(checkboxpanel1);
+		toolpanel.add(checkboxpanel5);
+		toolpanel.add(checkboxpanel6);
 		
 		toolpanel.setPreferredSize(new Dimension(100, 29));
 		toolpanel.setMaximumSize(new Dimension(100, 29));

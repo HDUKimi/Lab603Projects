@@ -49,18 +49,21 @@ public class StepFourCenterTabbedPane extends JPanel {
 	private FixedButtonTabbedPanel testCaseInstantiationButtonPanel;
 	private FixedButtonTabbedPanel testCaseShowButtonPanel;
 	private FixedButtonTabbedPanel borderTestCaseShowButtonPanel;
+	private FixedButtonTabbedPanel performanceTestCaseShowButtonPanel;
 
 	private JButton testCaseInstantiationProcessButton;
 	private JButton testCaseProduceButton;
 	private JButton testCaseInstantiationButton;
 	private JButton testCaseShowButton;
 	private JButton borderTestCaseShowButton;
+	private JButton performanceTestCaseShowButton;
 	
 	private TestCaseInstantiationProcessTabbedPanel testCaseInstantiationProcessTabbedPanel;
 	private TestCaseProduceTabbedPanel testCaseProduceTabbedPanel;
 	private TestCaseInstantiationTabbedPanel testCaseInstantiationTabbedPanel;
 	private TestCaseShowTabbedPanel testCaseShowTabbedPanel;
 	private TestCaseShowTabbedPanel borderTestCaseShowTabbedPanel;
+	private TestCaseShowTabbedPanel performanceTestCaseShowTabbedPanel;
 	
 	private static String BecomeRunFileName=null;
 	private static int BecomeRunFileNameType=-1;
@@ -74,7 +77,9 @@ public class StepFourCenterTabbedPane extends JPanel {
 		testCaseInstantiationTabbedPanel=new TestCaseInstantiationTabbedPanel(mainFrame);
 		testCaseShowTabbedPanel=new TestCaseShowTabbedPanel(mainFrame,1);
 		borderTestCaseShowTabbedPanel=new TestCaseShowTabbedPanel(mainFrame,1);
-		borderTestCaseShowTabbedPanel.getMoviepanel().getMovieLabel().setText("正在生成边界值测试用例");
+		borderTestCaseShowTabbedPanel.getMoviepanel().getMovieLabel().setText("生成边界值测试用例");
+		performanceTestCaseShowTabbedPanel=new TestCaseShowTabbedPanel(mainFrame,1);
+		performanceTestCaseShowTabbedPanel.getMoviepanel().getMovieLabel().setText("生成性能测试用例");
 
 		buttonPanel = new JPanel();
 		diagramPanel = new JPanel();
@@ -129,6 +134,9 @@ public class StepFourCenterTabbedPane extends JPanel {
 		
 		borderTestCaseShowButtonPanel = new FixedButtonTabbedPanel("生成边界值测试用例");
 		borderTestCaseShowButton = borderTestCaseShowButtonPanel.getTabbedbutton();
+		
+		performanceTestCaseShowButtonPanel = new FixedButtonTabbedPanel("生成性能测试用例");
+		performanceTestCaseShowButton = performanceTestCaseShowButtonPanel.getTabbedbutton();
 
 		buttonTabbedPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		buttonTabbedPanel.setBackground(new Color(41, 57, 85));
@@ -138,6 +146,7 @@ public class StepFourCenterTabbedPane extends JPanel {
 		buttonTabbedPanel.add(testCaseInstantiationButtonPanel);
 		buttonTabbedPanel.add(testCaseShowButtonPanel);
 		buttonTabbedPanel.add(borderTestCaseShowButtonPanel);
+		buttonTabbedPanel.add(performanceTestCaseShowButtonPanel);
 		
 		buttonScrollPanel=new JScrollPane(buttonTabbedPanel);
 		buttonScrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -151,6 +160,7 @@ public class StepFourCenterTabbedPane extends JPanel {
 		fixButtonTabbedPanelList.add(testCaseInstantiationButtonPanel);
 		fixButtonTabbedPanelList.add(testCaseShowButtonPanel);
 		fixButtonTabbedPanelList.add(borderTestCaseShowButtonPanel);
+		fixButtonTabbedPanelList.add(performanceTestCaseShowButtonPanel);
 		
 		setFixButtonTabbedPanelVisible();
 		
@@ -385,6 +395,23 @@ public class StepFourCenterTabbedPane extends JPanel {
 				ChangeRepaint();
 			}
 		});
+		
+		performanceTestCaseShowButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				getDiagramPanel().removeAll();
+				getDiagramPanel().add(performanceTestCaseShowTabbedPanel);
+
+				ChangeAllButtonPanelState();
+				performanceTestCaseShowButtonPanel.setBackground(new Color(58, 105, 190));
+				
+				fixButtonTabbedPanelSelectedIndex=5;
+
+				ChangeRepaint();
+			}
+		});
 
 	}
 
@@ -396,6 +423,7 @@ public class StepFourCenterTabbedPane extends JPanel {
 		testCaseInstantiationButtonPanel.setBackground(new Color(77, 96, 130));
 		testCaseShowButtonPanel.setBackground(new Color(77, 96, 130));
 		borderTestCaseShowButtonPanel.setBackground(new Color(77, 96, 130));
+		performanceTestCaseShowButtonPanel.setBackground(new Color(77, 96, 130));
 		
 	}
 	
@@ -454,6 +482,10 @@ public class StepFourCenterTabbedPane extends JPanel {
 		return borderTestCaseShowTabbedPanel;
 	}
 
+	public TestCaseShowTabbedPanel getPerformanceTestCaseShowTabbedPanel() {
+		return performanceTestCaseShowTabbedPanel;
+	}
+
 	public FixedButtonTabbedPanel getTestCaseInstantiationProcessButtonPanel() {
 		return testCaseInstantiationProcessButtonPanel;
 	}
@@ -472,6 +504,10 @@ public class StepFourCenterTabbedPane extends JPanel {
 
 	public FixedButtonTabbedPanel getBorderTestCaseShowButtonPanel() {
 		return borderTestCaseShowButtonPanel;
+	}
+	
+	public FixedButtonTabbedPanel getPerformanceTestCaseShowButtonPanel() {
+		return performanceTestCaseShowButtonPanel;
 	}
 
 	public JButton getTestCaseInstantiationProcessButton() {
@@ -492,6 +528,10 @@ public class StepFourCenterTabbedPane extends JPanel {
 
 	public JButton getBorderTestCaseShowButton() {
 		return borderTestCaseShowButton;
+	}
+	
+	public JButton getPerformanceTestCaseShowButton() {
+		return performanceTestCaseShowButton;
 	}
 
 	public static String getBecomeRunFileName() {

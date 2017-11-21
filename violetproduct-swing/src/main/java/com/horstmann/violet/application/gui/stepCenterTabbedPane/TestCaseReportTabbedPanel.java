@@ -137,7 +137,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private TestCaseDataPanel parentTestCaseDataPanel;
 	private String testcasename;
 	private int testcasetype;
-	private int starttype;
+	private int testcaseattribute;
 	private int hastime;
 	
 	private List<JPanel> testcasereportlist=new ArrayList<JPanel>();
@@ -166,22 +166,13 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 		this.testcasename=testCaseDataPanel.getTestCaseName();
 		
-		this.starttype=testCaseDataPanel.getStarttype();
+		this.testcasetype=testCaseDataPanel.getTestcasetype();
+		
+		this.testcaseattribute=testCaseDataPanel.getTestcaseattribute();
 		
 		this.hastime=testCaseDataPanel.getHastime();
 		
 		this.testcasereportlist=testCaseDataPanel.getTestcasereportlist();
-		
-		testcasetype=1;
-		if(starttype==1&&hastime==0){
-			testcasetype=1;
-		}
-		else if(starttype==2&&hastime==0){
-			testcasetype=2;
-		}
-		else if(hastime==1){
-			testcasetype=3;
-		}
 		
 		initPanel();
 		
@@ -889,7 +880,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			title += "测试用例ID:" + ftcrpp.getTestcase().getTestCaseID() + "     ";
 			TestCase testcase=ftcrpp.getTestcase();
 			
-			title+="预期结果:测试用例正确     ";
+			if(testcaseattribute!=2){
+				title+="预期结果:测试用例正确     ";
+			}
 			
 			ftcrpp.getTitlelabel().setText(title);
 			ftcrpp.getIconlabel().setIcon(null);
@@ -959,14 +952,16 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			title += "测试用例ID:" + ttcrpp.getTestcase().getTestCaseID() + "     ";
 			TestCase testcase=ttcrpp.getTestcase();
 			
-			if(testcase.getExpectResult().equals("right")){
-				title+="预期结果:测试用例正确且满足时间约束     ";
-			}
-			else if(testcase.getExpectResult().equals("GNerror")){
-				title+="预期结果:测试用例不正确     ";
-			}
-			else if(testcase.getExpectResult().equals("TIMEerror")){
-				title+="预期结果:测试用例正确但不满足时间约束     ";
+			if(testcaseattribute!=2){
+				if(testcase.getExpectResult().equals("right")){
+					title+="预期结果:测试用例正确且满足时间约束     ";
+				}
+				else if(testcase.getExpectResult().equals("GNerror")){
+					title+="预期结果:测试用例不正确     ";
+				}
+				else if(testcase.getExpectResult().equals("TIMEerror")){
+					title+="预期结果:测试用例正确但不满足时间约束     ";
+				}
 			}
 			
 			ttcrpp.getTitlelabel().setText(title);
@@ -1120,7 +1115,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				resulttestcaselist=ResultService.list;
 				
-				showStatisticsDataByType(1);
+				showStatisticsDataByType(1,testcaseattribute);
 				
 				while(progressbar.getValue()<100){
 					try {
@@ -1279,7 +1274,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					
 					for(int k=0;k<datasize;k++,resultlistindex++){
 						
-						showTestCaseDataByType(1, resultlistindex);
+						showTestCaseDataByType(1, testcaseattribute,resultlistindex);
 						
 						try {
 							Thread.sleep(60);
@@ -1375,7 +1370,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 	}
 
-	protected void showStatisticsDataByType(int type) {
+	protected void showStatisticsDataByType(int type, int attribute) {
 		
 		Collections.sort(resulttestcaselist, new Comparator<TestCase>() {
 
@@ -1391,76 +1386,147 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 		if(type==1){//统计功能数据
 			
-			Map<String, Object> testcasemap=TcConvertUtil.functionStatistics(resulttestcaselist);
-			List<Integer> caseSuccess=(List<Integer>) testcasemap.get("caseSuccess");
-			List<Integer> caseFailed=(List<Integer>) testcasemap.get("caseFailed");
-			Map<String,List<Map<Integer,List<Integer>>>> failedStatistics=(Map<String, List<Map<Integer, List<Integer>>>>) testcasemap.get("failedStatistics");
-					
-//			System.out.println("caseSuccess "+caseSuccess.size());
-//			System.out.println("caseFailed "+caseFailed.size());
-//			for(Entry<String, List<Map<Integer,List<Integer>>>> en:failedStatistics.entrySet()){
-//				System.out.println(en.getKey()+"  "+en.getValue().size());
-//			}
-			
-			FunctionalTestCaseChartTabbedPanel functionalTestCaseChartTabbedPanel=new FunctionalTestCaseChartTabbedPanel(mainFrame);
-			
-			parentTestCaseDataPanel.getTestCaseChartTabbedPanel().removeAll();
-			parentTestCaseDataPanel.getTestCaseChartTabbedPanel().add(functionalTestCaseChartTabbedPanel);
-			
-			DefaultTableModel tabelmodel=functionalTestCaseChartTabbedPanel.getAttributetablemodel();
-			
-			int cs=0,cf=0,csum=0;
-			cs=caseSuccess.size();
-			cf=caseFailed.size();
-			
-//			cs=7935;
-//			cf=39;
-			
-			csum=cs+cf;
-			DefaultTableModel successfailedtabelmodel=functionalTestCaseChartTabbedPanel.getSuccessfailedattributetablemodel();
-			while(successfailedtabelmodel.getRowCount()>0){
-				successfailedtabelmodel.removeRow(0);
+			if(attribute==2){
+				Map<String, Object> testcasemap=TcConvertUtil.functionStatistics(resulttestcaselist);
+				List<Integer> caseSuccess=(List<Integer>) testcasemap.get("caseSuccess");
+				List<Integer> caseFailed=(List<Integer>) testcasemap.get("caseFailed");
+				Map<String,List<Map<Integer,List<Integer>>>> failedStatistics=(Map<String, List<Map<Integer, List<Integer>>>>) testcasemap.get("failedStatistics");
+						
+//				System.out.println("caseSuccess "+caseSuccess.size());
+//				System.out.println("caseFailed "+caseFailed.size());
+//				for(Entry<String, List<Map<Integer,List<Integer>>>> en:failedStatistics.entrySet()){
+//					System.out.println(en.getKey()+"  "+en.getValue().size());
+//				}
+				
+				FunctionalTestCaseChartTabbedPanel functionalTestCaseChartTabbedPanel=new FunctionalTestCaseChartTabbedPanel(mainFrame);
+				
+				parentTestCaseDataPanel.getTestCaseChartTabbedPanel().removeAll();
+				parentTestCaseDataPanel.getTestCaseChartTabbedPanel().add(functionalTestCaseChartTabbedPanel);
+				
+				DefaultTableModel tabelmodel=functionalTestCaseChartTabbedPanel.getAttributetablemodel();
+				
+				int cs=0,cf=0,csum=0;
+				cs=caseSuccess.size();
+				cf=caseFailed.size();
+				
+//				cs=7935;
+//				cf=39;
+				
+				csum=cs+cf;
+				DefaultTableModel successfailedtabelmodel=functionalTestCaseChartTabbedPanel.getSuccessfailedattributetablemodel();
+				while(successfailedtabelmodel.getRowCount()>0){
+					successfailedtabelmodel.removeRow(0);
+				}
+				Object[] rowData1={"合计：",cs, cf, csum};
+				successfailedtabelmodel.addRow(rowData1);
+				Object[] rowData2={"百分比：",calcper(cs, csum), calcper(cf, csum), calcper(csum, csum)};
+//				Object[] rowData2={"百分比：","99.51%", "0.49%", calcper(csum, csum)};
+				successfailedtabelmodel.addRow(rowData2);
+				
+				int f1=0,f2=0;
+				if (failedStatistics.containsKey("测试用例有误")) {
+					f1=failedStatistics.get("测试用例有误").size();
+				}
+				if(failedStatistics.containsKey("程序出现死循环或者抛出异常")){
+					f2=failedStatistics.get("程序出现死循环或者抛出异常").size();
+				}
+				
+//				f1=39;
+//				f2=0;
+				
+				DefaultTableModel failedstatisticstabelmodel=functionalTestCaseChartTabbedPanel.getFailedstatisticsattributetablemodel();
+				while(failedstatisticstabelmodel.getRowCount()>0){
+					failedstatisticstabelmodel.removeRow(0);
+				}
+				Object[] rowData3={"合计：", f1, f2, cf};
+				failedstatisticstabelmodel.addRow(rowData3);
+				Object[] rowData4={"百分比：", calcper(f1, cf), calcper(f2, cf), calcper(cf, cf)};
+				failedstatisticstabelmodel.addRow(rowData4);
+				
+				
+//				FunctionSuccessFailedPieChart fsfpc=new FunctionSuccessFailedPieChart(caseSuccess, caseFailed);
+				FunctionSuccessFailedPieChart fsfpc=new FunctionSuccessFailedPieChart(cs, cf);
+				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
+				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(fsfpc.createChart());
+				
+//				FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(failedStatistics);
+				FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(f1, f2);
+				functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().removeAll();
+				functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(ffspc.createChart());
+				
 			}
-			Object[] rowData1={"合计：",cs, cf, csum};
-			successfailedtabelmodel.addRow(rowData1);
-			Object[] rowData2={"百分比：",calcper(cs, csum), calcper(cf, csum), calcper(csum, csum)};
-//			Object[] rowData2={"百分比：","99.51%", "0.49%", calcper(csum, csum)};
-			successfailedtabelmodel.addRow(rowData2);
-			
-			int f1=0,f2=0;
-			if (failedStatistics.containsKey("测试用例有误")) {
-				f1=failedStatistics.get("测试用例有误").size();
-			}
-			if(failedStatistics.containsKey("程序出现死循环或者抛出异常")){
-				f2=failedStatistics.get("程序出现死循环或者抛出异常").size();
-			}
-			
-//			f1=39;
-//			f2=0;
-			
-			DefaultTableModel failedstatisticstabelmodel=functionalTestCaseChartTabbedPanel.getFailedstatisticsattributetablemodel();
-			while(failedstatisticstabelmodel.getRowCount()>0){
-				failedstatisticstabelmodel.removeRow(0);
-			}
-			Object[] rowData3={"合计：", f1, f2, cf};
-			failedstatisticstabelmodel.addRow(rowData3);
-			Object[] rowData4={"百分比：", calcper(f1, cf), calcper(f2, cf), calcper(cf, cf)};
-			failedstatisticstabelmodel.addRow(rowData4);
-			
-			
-//			FunctionSuccessFailedPieChart fsfpc=new FunctionSuccessFailedPieChart(caseSuccess, caseFailed);
-			FunctionSuccessFailedPieChart fsfpc=new FunctionSuccessFailedPieChart(cs, cf);
-			functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
-			functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(fsfpc.createChart());
-			
-//			FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(failedStatistics);
-			FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(f1, f2);
-			functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().removeAll();
-			functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(ffspc.createChart());
-			
-			if(cf==0){
-				functionalTestCaseChartTabbedPanel.getFailedstatisticstablepanel().setVisible(false);
-				functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().setVisible(false);
+			else{
+				Map<String, Object> testcasemap=TcConvertUtil.functionStatistics(resulttestcaselist);
+				List<Integer> caseSuccess=(List<Integer>) testcasemap.get("caseSuccess");
+				List<Integer> caseFailed=(List<Integer>) testcasemap.get("caseFailed");
+				Map<String,List<Map<Integer,List<Integer>>>> failedStatistics=(Map<String, List<Map<Integer, List<Integer>>>>) testcasemap.get("failedStatistics");
+						
+//				System.out.println("caseSuccess "+caseSuccess.size());
+//				System.out.println("caseFailed "+caseFailed.size());
+//				for(Entry<String, List<Map<Integer,List<Integer>>>> en:failedStatistics.entrySet()){
+//					System.out.println(en.getKey()+"  "+en.getValue().size());
+//				}
+				
+				FunctionalTestCaseChartTabbedPanel functionalTestCaseChartTabbedPanel=new FunctionalTestCaseChartTabbedPanel(mainFrame);
+				
+				parentTestCaseDataPanel.getTestCaseChartTabbedPanel().removeAll();
+				parentTestCaseDataPanel.getTestCaseChartTabbedPanel().add(functionalTestCaseChartTabbedPanel);
+				
+				DefaultTableModel tabelmodel=functionalTestCaseChartTabbedPanel.getAttributetablemodel();
+				
+				int cs=0,cf=0,csum=0;
+				cs=caseSuccess.size();
+				cf=caseFailed.size();
+				
+//				cs=7935;
+//				cf=39;
+				
+				csum=cs+cf;
+				DefaultTableModel successfailedtabelmodel=functionalTestCaseChartTabbedPanel.getSuccessfailedattributetablemodel();
+				while(successfailedtabelmodel.getRowCount()>0){
+					successfailedtabelmodel.removeRow(0);
+				}
+				Object[] rowData1={"合计：",cs, cf, csum};
+				successfailedtabelmodel.addRow(rowData1);
+				Object[] rowData2={"百分比：",calcper(cs, csum), calcper(cf, csum), calcper(csum, csum)};
+//				Object[] rowData2={"百分比：","99.51%", "0.49%", calcper(csum, csum)};
+				successfailedtabelmodel.addRow(rowData2);
+				
+				int f1=0,f2=0;
+				if (failedStatistics.containsKey("测试用例有误")) {
+					f1=failedStatistics.get("测试用例有误").size();
+				}
+				if(failedStatistics.containsKey("程序出现死循环或者抛出异常")){
+					f2=failedStatistics.get("程序出现死循环或者抛出异常").size();
+				}
+				
+//				f1=39;
+//				f2=0;
+				
+				DefaultTableModel failedstatisticstabelmodel=functionalTestCaseChartTabbedPanel.getFailedstatisticsattributetablemodel();
+				while(failedstatisticstabelmodel.getRowCount()>0){
+					failedstatisticstabelmodel.removeRow(0);
+				}
+				Object[] rowData3={"合计：", f1, f2, cf};
+				failedstatisticstabelmodel.addRow(rowData3);
+				Object[] rowData4={"百分比：", calcper(f1, cf), calcper(f2, cf), calcper(cf, cf)};
+				failedstatisticstabelmodel.addRow(rowData4);
+				
+				
+//				FunctionSuccessFailedPieChart fsfpc=new FunctionSuccessFailedPieChart(caseSuccess, caseFailed);
+				FunctionSuccessFailedPieChart fsfpc=new FunctionSuccessFailedPieChart(cs, cf);
+				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
+				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(fsfpc.createChart());
+				
+//				FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(failedStatistics);
+				FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(f1, f2);
+				functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().removeAll();
+				functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(ffspc.createChart());
+				
+				if(cf==0){
+					functionalTestCaseChartTabbedPanel.getFailedstatisticstablepanel().setVisible(false);
+					functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().setVisible(false);
+				}
 			}
 			
 		}
@@ -1576,7 +1642,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 	}
 
-	protected void showTestCaseDataByType(int type, int resultlistindex) {
+	protected void showTestCaseDataByType(int type, int attribute, int resultlistindex) {
 		
 		if(type==1){
 			
@@ -1618,37 +1684,34 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			attributetablemodel.fireTableDataChanged();
 			
 			String title = "";
-			title+="测试用例ID:"+ftcrpp.getTestcase().getTestCaseID()+"     ";
-			title+="预期结果:测试用例正确     ";
-
-//			if(testcase.getExpectResult().equals("right")){
-//				title+="预期结果:测试用例正确     ";
-//			}
-//			else if(testcase.getExpectResult().equals("GNerror")){
-//				title+="预期结果:测试用例不正确     ";
-//			}
-//			else if(testcase.getExpectResult().equals("TIMEerror")){
-//				title+="预期结果:测试用例正确但不满足时间约束     ";
-//			}
 			
-			title+="执行结果:"+testcase.getState()+"     ";
-			title+="总耗时:"+testcase.getExetime()+" ms";
-			
-			ftcrpp.getTitlelabel().setText(title);
-			
-			String absolutePath = System.getProperty("user.dir");
-			String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
-
-			ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/tick.png"));
-			icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
-			ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/cross.png"));
-			icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
-			
-			if(testcase.getState().contains("成功")){
-				ftcrpp.getIconlabel().setIcon(icon1);
+			if(attribute==2){
+				title+="测试用例ID:"+ftcrpp.getTestcase().getTestCaseID()+"     ";
+				title+="总耗时:"+testcase.getExetime()+" ms";
+				ftcrpp.getTitlelabel().setText(title);
 			}
 			else{
-				ftcrpp.getIconlabel().setIcon(icon2);
+				title+="测试用例ID:"+ftcrpp.getTestcase().getTestCaseID()+"     ";
+				title+="预期结果:测试用例正确     ";
+				title+="执行结果:"+testcase.getState()+"     ";
+				title+="总耗时:"+testcase.getExetime()+" ms";
+				
+				ftcrpp.getTitlelabel().setText(title);
+				
+				String absolutePath = System.getProperty("user.dir");
+				String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
+
+				ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/tick.png"));
+				icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+				ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/cross.png"));
+				icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+				
+				if(testcase.getState().contains("成功")){
+					ftcrpp.getIconlabel().setIcon(icon1);
+				}
+				else{
+					ftcrpp.getIconlabel().setIcon(icon2);
+				}
 			}
 			
 			TextAreaPrint(testcase.toString());
@@ -1779,37 +1842,46 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			}
 
 			String title = "";
-			title += "测试用例ID:" + ttcrpp.getTestcase().getTestCaseID() + "     ";
 			
-			if(testcase.getExpectResult().equals("right")){
-				title+="预期结果:测试用例正确且满足时间约束     ";
+			if(attribute==2){
+				title += "测试用例ID:" + ttcrpp.getTestcase().getTestCaseID() + "     ";
+				title += "总耗时:" + testcase.getExetime() + " ms";
+				ttcrpp.getTitlelabel().setText(title);
 			}
-			else if(testcase.getExpectResult().equals("GNerror")){
-				title+="预期结果:测试用例不正确     ";
-			}
-			else if(testcase.getExpectResult().equals("TIMEerror")){
-				title+="预期结果:测试用例正确但不满足时间约束     ";
+			else{
+				title += "测试用例ID:" + ttcrpp.getTestcase().getTestCaseID() + "     ";
+				
+				if(testcase.getExpectResult().equals("right")){
+					title+="预期结果:测试用例正确且满足时间约束     ";
+				}
+				else if(testcase.getExpectResult().equals("GNerror")){
+					title+="预期结果:测试用例不正确     ";
+				}
+				else if(testcase.getExpectResult().equals("TIMEerror")){
+					title+="预期结果:测试用例正确但不满足时间约束     ";
+				}
+				
+				title += "执行结果:" + testcase.getState() + "     ";
+				title += "总耗时:" + testcase.getExetime() + " ms";
+
+				ttcrpp.getTitlelabel().setText(title);
+
+				String absolutePath = System.getProperty("user.dir");
+				String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
+
+				ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/tick.png"));
+				icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+				ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/cross.png"));
+				icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
+
+				if (testcase.getState().contains("正确")&&!testcase.getState().contains("不满足")) {
+					ttcrpp.getIconlabel().setIcon(icon1);
+				} else {
+					ttcrpp.getIconlabel().setIcon(icon2);
+				}
+
 			}
 			
-			title += "执行结果:" + testcase.getState() + "     ";
-			title += "总耗时:" + testcase.getExetime() + " ms";
-
-			ttcrpp.getTitlelabel().setText(title);
-
-			String absolutePath = System.getProperty("user.dir");
-			String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
-
-			ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/tick.png"));
-			icon1.setImage(icon1.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
-			ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/cross.png"));
-			icon2.setImage(icon2.getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT));
-
-			if (testcase.getState().contains("正确")&&!testcase.getState().contains("不满足")) {
-				ttcrpp.getIconlabel().setIcon(icon1);
-			} else {
-				ttcrpp.getIconlabel().setIcon(icon2);
-			}
-
 			TextAreaPrint(testcase.toString());
 
 //			System.out.println("----------+++++++++++");
@@ -1987,7 +2059,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				resulttestcaselist=ResultService.list;
 				
-				showStatisticsDataByType(2);
+				showStatisticsDataByType(2,testcaseattribute);
 				
 				while(progressbar.getValue()<100){
 					try {
@@ -2162,7 +2234,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					
 					for(int k=0;k<datasize;k++,resultlistindex++){
 						
-						showTestCaseDataByType(2, resultlistindex);
+						showTestCaseDataByType(2,testcaseattribute, resultlistindex);
 						
 						try {
 							Thread.sleep(30);
@@ -2288,7 +2360,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				resulttestcaselist=ResultService.list;
 				
-				showStatisticsDataByType(2);
+				showStatisticsDataByType(2,testcaseattribute);
 				
 				while(progressbar.getValue()<100){
 					try {
@@ -2460,7 +2532,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					for(int k=0;k<datasize;k++,resultlistindex++){
 						
 //						showTestCaseDataByType(2, resultlistindex);
-						showTestCaseDataByType(1, resultlistindex);
+						showTestCaseDataByType(1, testcaseattribute,resultlistindex);
 						
 						try {
 							Thread.sleep(50);
@@ -2712,7 +2784,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 
 				resulttestcaselist=ResultService.list;
 				
-				showStatisticsDataByType(3);
+				showStatisticsDataByType(3,testcaseattribute);
 				
 				while(progressbar.getValue()<100){
 					try {
@@ -2880,7 +2952,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					
 					for(int k=0;k<datasize;k++,resultlistindex++){
 						
-						showTestCaseDataByType(3, resultlistindex);
+						showTestCaseDataByType(3,testcaseattribute, resultlistindex);
 						
 						try {
 							Thread.sleep(100);
