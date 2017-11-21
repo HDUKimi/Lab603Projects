@@ -58,6 +58,7 @@ import com.horstmann.violet.application.gui.util.chenzuo.Bean.myProcess;
 import com.horstmann.violet.application.gui.util.ckt.handle.ATDTR__1;
 import com.horstmann.violet.application.gui.util.ckt.handle.AddType;
 import com.horstmann.violet.application.gui.util.ckt.handle.GetAutomatic;
+import com.horstmann.violet.application.gui.util.ckt.handle.Get_inequality__1;
 import com.horstmann.violet.application.gui.util.ckt.handle.IPR__1;
 import com.horstmann.violet.application.gui.util.xiaole.GraghLayout.LayoutUppaal;
 import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.ImportByDoubleClick;
@@ -957,8 +958,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				}
 				else if(starttype==2){//性能测试
 					if(hastime==1){
-						testCase=StateCoverage__1.testCase(aTDRTAutomatic);						
-//						testCase=PathCoverage_new.testCase(aTDRTAutomatic);
+//						testCase=StateCoverage__1.testCase(aTDRTAutomatic);						
+						testCase=PathCoverage_new.testCase(aTDRTAutomatic);
 					}
 					else{
 						DFStree.setName("测试用例1");
@@ -1215,21 +1216,27 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				//获取数据
 				collectLimit = forPlatform.collectLimit(testCase);
 				
-				
-				int k=1;
-				for (Automatic am : collectLimit) {
-
-					SaveText.init("D:\\Text\\testyueshu.txt");
-					SaveText.SaveWord("测试用例ID: " + k);
-					SaveText.SaveWord("迁移列表: ");
-					for (Transition t : am.getTransitionSet()) {
-						SaveText.SaveWord(t.toString());
+				if(hastime==1){
+					for(Automatic am:collectLimit){
+						am.setInequalitySet(Get_inequality__1.get_Inequalitys(am));
+						System.out.println(am.getInequalitySet().size());
 					}
-					SaveText.SaveFenGe();
-					SaveText.End();
-
-					k++;
 				}
+				
+//				int k=1;
+//				for (Automatic am : collectLimit) {
+//
+//					SaveText.init("D:\\Text\\testyueshu.txt");
+//					SaveText.SaveWord("测试用例ID: " + k);
+//					SaveText.SaveWord("迁移列表: ");
+//					for (Transition t : am.getTransitionSet()) {
+//						SaveText.SaveWord(t.toString());
+//					}
+//					SaveText.SaveFenGe();
+//					SaveText.End();
+//
+//					k++;
+//				}
 				
 				
 				Thread.sleep(1000);

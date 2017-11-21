@@ -14,6 +14,7 @@ public class Automatic implements Serializable{
 	private ArrayList<Transition> TransitionSet;//转换集合
 	private ArrayList<State> StateSet;//状态集合
 	private ArrayList<String> ClockSet;//时钟集合
+	private ArrayList<String> InequalitySet;//不等式集合
 	
 	
 	public String getName() {
@@ -46,6 +47,11 @@ public class Automatic implements Serializable{
 	public void setClockSet(ArrayList<String> clockSet) {
 		ClockSet = clockSet;
 	}
-	
+	public ArrayList<String> getInequalitySet() {
+		return InequalitySet;
+	}
+	public void setInequalitySet(ArrayList<String> inequalitySet) {
+		InequalitySet = inequalitySet;
+	}
 	
 }

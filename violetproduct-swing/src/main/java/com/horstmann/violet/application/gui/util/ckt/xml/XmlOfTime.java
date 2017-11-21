@@ -687,6 +687,238 @@ public class XmlOfTime {
 		}
 	}
 	
+	public static void producePerformanceXML(String path, List<Automatic> testCase) {
+		
+		ArrayList<ArrayList<String>> all_inequalitys = Get_inequality__1.get_AllInequalitys((ArrayList<Automatic>) testCase);// 每个抽象测试序列有一个不等式组
+		int i = 0;
+		for (Automatic a : testCase) {
+			System.out.println("===========================正在读取第" + i + "条测试用例");
+			System.out.println("  ===>  测试用例名字:" + a.getName());
+			int j = 1;
+			for (Transition tran : a.getTransitionSet()) {
+				System.out.println();
+				System.out.println("======第" + j + "条迁移开始======");
+				System.out.println("迁移名称" + tran.getName());
+				System.out.println("迁移内容:" + tran.getIn() + "---" + tran.getCondition());
+				List<String> result1 = new ArrayList<String>();// 存放in里面最终实例化结果
+				List<String> result2 = new ArrayList<String>();// 存放condition里面最终实例化结果
+
+				// 处理in里面的不等式和参数，得到参数类型与参数一一对应的map，进行添加不等式操作
+				// System.out.println("========================in========================");
+				System.out.println("in---->" + tran.getIn()); // in里面的内容
+				if (tran.getIn().equals("null")) {
+					result1.add(null);
+				} else {
+					
+					if (tran.getIn().contains("--")) {
+						List<List<String>> in_result = new ArrayList<List<String>>();
+						List<String> in_result1;
+						// String rrr = null;
+						String getin[] = tran.getIn().split("--");
+						for (int ii = 0; ii < getin.length; ii++) {
+							if (!(GetMap.get_inMap(getin[ii]) == null)) {
+								String inn = getin[ii].replace("False", "false").replace("True", "true").replace("->",
+										"$");
+								//in_result1 = Result1.getResult(inn);
+								in_result1 = ResultOfTime.getResultOfTime(inn);
+								if ((in_result1.size() > 0) && !(in_result1.get(0).equals(null))) {
+									in_result.add(in_result1);
+								}
+							}
+						}
+						if ((in_result.size() > 0) && !(in_result.get(0).equals(null))) {
+							System.out.println("in_result.size()--->" + in_result.size());
+							dis(0, in_result);
+							result1 = re;
+						}
+					} else {
+						if (!(GetMap.get_inMap(tran.getIn()) == null)) {// map里面为空，即没有参数
+							String inn = tran.getIn().replace("False", "false").replace("True", "true").replace("->",
+									"$");
+							//result1 = Result1.getResult(inn);
+							result1 = ResultOfTime.getResultOfTime(inn);
+						} else {
+							if ((GetMap.get_inMap(tran.getIn()) == null)) {
+								result1.add(null);
+							}
+						}
+					}
+				}
+				///////////////////////////////////////////// condition处理开始///////////////////////////////////////
+				// System.out.println("condition---->"+tran.getCondition());
+				if (tran.getCondition().equals("null")) {
+					result2.add(null);
+				} else {
+					if (!tran.getCondition().equals("null")) {
+						if (GetMap.get_condMap(tran.getCondition()) == null) {
+							result2.add(null);
+						} else {
+							if (!(GetMap.get_condMap(tran.getCondition()) == null)) {
+								String tra = tran.getCondition().replace("False", "false").replace("True", "true")
+										.replace("->", "$");
+								// result2 = Result.getResult(tra);
+								System.out.println("tra----" + tra);
+								//result2 = Result1.getResult(tra);
+								result2 = ResultOfTime.getResultOfTime(tra);
+								// result2 = testbdscs.getResult(tra);
+								System.out.println("condition:"+tran.getCondition().toString());
+								for (int ii = 0; ii < result2.size(); ii++) {
+									System.out.println("condition里解"+ii+"为:"+result2.get(ii));
+								}
+							}
+						}
+
+					}
+				}
+				List<String> result = new ArrayList<String>();// 存放一条迁移上的结果
+				String res = new String();
+				if ((result1.toString().equals("[null]")) && (result2.toString().equals("[null]"))) {
+					// res = sss + "%" + null;
+					res = "null";
+					result.add(res.toString());
+				} else {
+					if (!(result1.toString().equals("[null]")) && (result2.toString().equals("[null]"))) {
+						for (String ttt2 : result1) {
+							if (ttt2 != null) {
+								res = ttt2.replace("flag=1", "");
+								result.add(res.toString());
+							}
+						}
+					}
+					if ((result1.toString().equals("[null]")) && !(result2.toString().equals("[null]"))) {
+						for (String ttt3 : result2) {
+							res = ttt3.replace("flag=1", "");
+							result.add(res.toString());
+						}
+					}
+					if (!(result1.toString().equals("[null]")) && !(result2.toString().equals("[null]"))) {
+						for (String ttt2 : result1) {
+							for (String ttt3 : result2) {
+								res = ttt2.replace("flag=1", "") + "," + ttt3.replace("flag=1", "");
+								result.add(res.toString());
+							}
+
+						}
+					}
+				}
+				System.out.println("result--------------" + result);
+				if (result.size() == 0) {
+					// System.out.println("-----------------0000000---------------------");
+					// Element input = process.addElement("input");
+					// input.setText("解1为:"+null);
+				} else {
+					for (int ii = 1; ii <= result.size(); ii++) {
+						System.out.println("解" + ii + "为:" + result.get(ii - 1));// 输出所有解
+						String s = "解" + ii + "为:" + result.get(ii - 1);
+						// Element input = process.addElement("input");
+						// input.setText(s);
+					}
+				}
+				tran.setResult(result);
+				////////////////////////////////////////////////////////////////////////////////////
+				// System.out.println(" ======第"+j+"条迁移结束======");
+				j++;
+			} // for(Transition tran:a.getTransitionSet())
+
+			// cases里放的是一条测试用例上上每条迁移上的解，result放的是一条迁移上的多组解
+
+		}
+		
+		System.out.println();
+		System.out.println("----------------------------");
+		System.out.println("总共" + all_inequalitys.size() + "个不等式组");
+		System.out.println();
+		
+		int e = 1;
+		for (ArrayList<String> inequalitys : all_inequalitys) {
+			System.out.println("第" + e + "个不等式组");
+			for (String s : inequalitys) {
+				System.out.println(s);
+			}
+			System.out.println("***************");
+			e++;
+		}
+		System.out.println(testCase.size() + "-----测试路径的个数");
+		// 1、创建document对象，代表整个xml文档
+		Document dom = DocumentHelper.createDocument();
+		// 2、创建根节点TCS
+		org.dom4j.Element tcs = dom.addElement("TCS");
+		// 3、向TCS节点中添加version属性
+		
+		//************************************************************************************
+		int rightNum = 0;
+		int addNum = 0;
+		
+		for (int i1 = 0; i1 < testCase.size(); i1++) {
+			int max = tranMaxNumber(testCase.get(i1).getTransitionSet());
+			System.out.println("---------------------------------------------------"+max);
+			for(int i2 = 0; i2 < max; i2++){
+				// 4、生成子节点及节点内容
+				Element testcase = tcs.addElement("testcase");
+				for (int j = 0; j < testCase.get(i1).getTransitionSet().size(); j++) {
+					// 添加节点
+					Element process = testcase.addElement("process");
+					Element operation = process.addElement("operation");
+					operation.setText(testCase.get(i1).getTransitionSet().get(j).getName());
+					Element input = process.addElement("input");
+					//功能按顺序取值
+					if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
+						input.setText(testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true"));
+					}else{
+						int random = -1;
+						if (random == -1) {
+							random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
+						}
+						input.setText(testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true"));
+					}					
+					
+					Element time = process.addElement("time");
+					time.setText(testCase.get(i1).getTransitionSet().get(j).getTranTimeName());
+				}
+				Element limit = testcase.addElement("limit");
+				Element operation = limit.addElement("operation");
+				String s = null;
+				for (int k = 0; k < all_inequalitys.get(i1).size(); k++) {
+					if (k == 0) {
+						s = all_inequalitys.get(i1).get(0).toString();
+					}
+					// System.out.println("
+					// "+all_inequalitys.get(i).get(k).toString());
+					if (/* (all_inequalitys.get(i).size()>1)&& */(k > 0)) {
+						// System.out.println("--===");
+						s = s + "," + all_inequalitys.get(i1).get(k).toString();
+						// System.out.println("sss:"+s);
+					}
+					// s = s.replace("&lt;", "<").replace("&gt;",
+					// ">").replace("&lt;=",
+					// "<=").replace("&gt;=", ">=");
+					// String s = all_inequalitys.get(i).get(k);
+
+				}
+				rightNum++;
+				System.out.println("第"+rightNum+"个测试用例集合----" + s);
+				operation.setText(s);
+				addNum++;
+			}				
+		}
+
+		OutputFormat format = OutputFormat.createPrettyPrint();
+		// 6、生成xml文件
+		//File file = new File("E:\\XML\\EAElevatorForXStream-State-time.xml"); //状态覆盖
+		File file = new File(path); //路径覆盖
+		// formatXML(file);
+		XMLWriter writer;
+
+		try {
+			writer = new XMLWriter(new FileOutputStream(file), format);
+			writer.write(dom);
+			writer.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+	}
+	
 	public static void produceXML(String path, List<Automatic> testCase) {
 		
 		ArrayList<ArrayList<String>> all_inequalitys = Get_inequality__1.get_AllInequalitys((ArrayList<Automatic>) testCase);// 每个抽象测试序列有一个不等式组
@@ -901,7 +1133,7 @@ public class XmlOfTime {
 				addNum++;
 			}				
 		}
-		
+	
 		//**********************************************************
 		//为了满足定义域覆盖，增加错误的测试用例
 		int add2Num = 0;
@@ -1288,17 +1520,17 @@ public class XmlOfTime {
 		}
 		
 		
-		//输出测试路径
-		System.out.println(testCase.size() + "-----测试路径的个数");
-		int number = 0;
-		for(Automatic auto : testCase){
-			number++;
-			System.out.println("测试路径" + number);
-			for(Transition tran : auto.getTransitionSet()){
-				System.out.println(tran.getName() + "------" + tran.getTranTimeName());
-			}	
-			System.out.println();
-		}
+//		//输出测试路径
+//		System.out.println(testCase.size() + "-----测试路径的个数");
+//		int number = 0;
+//		for(Automatic auto : testCase){
+//			number++;
+//			System.out.println("测试路径" + number);
+//			for(Transition tran : auto.getTransitionSet()){
+//				System.out.println(tran.getName() + "------" + tran.getTranTimeName());
+//			}	
+//			System.out.println();
+//		}
 		
 	}
 	

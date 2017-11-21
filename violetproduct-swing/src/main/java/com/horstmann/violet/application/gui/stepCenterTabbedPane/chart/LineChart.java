@@ -1,6 +1,9 @@
 package com.horstmann.violet.application.gui.stepCenterTabbedPane.chart;
 
 import java.awt.Color;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -10,11 +13,15 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.block.BlockBorder;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RectangleEdge;
 
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.ChartUtils;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.Serie;
+import com.horstmann.violet.application.gui.util.chenzuo.Bean.Pair;
 
 /**
  * 
@@ -35,34 +42,72 @@ public class LineChart {
 	public LineChart() {
 	}
 
-	public DefaultCategoryDataset createDataset() {
-		// 标注类别
-		String[] categories = { "V1.0", "V1.1", "V1.2", "V1.3", "V1.4" };
-		Vector<Serie> series = new Vector<Serie>();
-		// 柱子名称：柱子所有的值集合
-		series.add(new Serie("本次发现数", new Integer[] { 30, 23, 37, 25, 19 }));
-		series.add(new Serie("本次解决缺陷数", new Integer[] { 15, 20, 23, 21, 15 }));
-//		series.add(new Serie("London", new Double[] { 48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2 }));
-//		series.add(new Serie("Berlin", new Double[] { 42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1 }));
-		// 1：创建数据集合
-		DefaultCategoryDataset dataset = ChartUtils.createDefaultCategoryDataset(series, categories);
-		return dataset;
+	private XYSeriesCollection createDataset() {
+		// TODO Auto-generated method stub
+		
+		XYSeriesCollection xyseriescollection=new XYSeriesCollection();
+		
+		XYSeries xyseries = new XYSeries("耗时");
+		XYSeries xyseries1 = new XYSeries("平均");
+		
+		Random rand = new Random();
+		int min,max;
+		double value,sum,average;
+		
+		min=100;
+		max=150;
+		sum=0;
+		
+		for(int i=0;i<100;i++){
+//			System.out.println(min + ((max - min) * new Random().nextDouble()));
+			value=min + ((max - min) * new Random().nextDouble());
+			sum+=value;
+			xyseries.add(i,value);
+		}
+		average=sum/100;
+		for(int i=0;i<100;i++){
+			xyseries1.add(i,average);
+		}
+		
+		xyseriescollection.addSeries(xyseries);
+		xyseriescollection.addSeries(xyseries1);
+		
+		return xyseriescollection;
 	}
+	
+//	public DefaultCategoryDataset createDataset() {
+//		// 标注类别
+//		String[] categories = { "V1.0", "V1.1", "V1.2", "V1.3", "V1.4" };
+//		Vector<Serie> series = new Vector<Serie>();
+//		// 柱子名称：柱子所有的值集合
+//		series.add(new Serie("本次发现数", new Integer[] { 30, 23, 37, 25, 19 }));
+//		series.add(new Serie("本次解决缺陷数", new Integer[] { 15, 20, 23, 21, 15 }));
+////		series.add(new Serie("London", new Double[] { 48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2 }));
+////		series.add(new Serie("Berlin", new Double[] { 42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1 }));
+//		// 1：创建数据集合
+//		DefaultCategoryDataset dataset = ChartUtils.createDefaultCategoryDataset(series, categories);
+//		return dataset;
+//	}
 
 	public ChartPanel createChart() {
 		// 2：创建Chart[创建不同图形]
-		JFreeChart chart = ChartFactory.createLineChart("", "", "数量 (个)", createDataset());
+//		JFreeChart chart = ChartFactory.createLineChart("", "", "数量 (个)", createDataset());
+		JFreeChart chart = ChartFactory.createXYLineChart("", "", "数量 (个)", createDataset());
 		// 3:设置抗锯齿，防止字体显示不清楚
 		ChartUtils.setAntiAlias(chart);// 抗锯齿
 		// 4:对柱子进行渲染[[采用不同渲染]]
-		ChartUtils.setLineRender(chart.getCategoryPlot(), false,true);//
-		// 5:对其他部分进行渲染
-		ChartUtils.setXAixs(chart.getCategoryPlot());// X坐标轴渲染
-		ChartUtils.setYAixs(chart.getCategoryPlot());// Y坐标轴渲染
+//		ChartUtils.setLineRender(chart.getCategoryPlot(), false,true);//
+//		// 5:对其他部分进行渲染
+//		ChartUtils.setXAixs(chart.getCategoryPlot());// X坐标轴渲染
+//		ChartUtils.setYAixs(chart.getCategoryPlot());// Y坐标轴渲染
 		// 设置标注无边框
 		chart.getLegend().setFrame(new BlockBorder(Color.WHITE));
 		// 标注位于右侧
 		chart.getLegend().setPosition(RectangleEdge.RIGHT);
+		
+		XYPlot plot=(XYPlot) chart.getPlot();
+		plot.setDomainGridlinesVisible(false);
+		
 		// 6:使用chartPanel接收
 		ChartPanel chartPanel = new ChartPanel(chart);
 		return chartPanel;

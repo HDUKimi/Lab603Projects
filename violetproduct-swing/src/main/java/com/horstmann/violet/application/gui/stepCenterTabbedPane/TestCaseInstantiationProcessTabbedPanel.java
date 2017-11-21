@@ -847,7 +847,9 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					String path=baseUrl+name+"TestCase.xml";
 //					GetTimeXML.produceXML(path,testCase);
 //					XmlOfTime.produceXML(path, collectResult, collectLimit);
-					XmlOfTime.produceXML(path, collectLimit);
+					
+//					XmlOfTime.produceXML(path, collectLimit);
+					XmlOfTime.producePerformanceXML(path, collectLimit);
 					
 //					String path1=baseUrl+name+"TestCase1.xml";
 //					String path2=baseUrl+name+"TestCase2.xml";

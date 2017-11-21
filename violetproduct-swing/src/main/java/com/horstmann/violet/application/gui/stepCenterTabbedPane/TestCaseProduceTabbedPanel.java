@@ -102,6 +102,7 @@ public class TestCaseProduceTabbedPanel extends JPanel{
 				
 				for(TestCaseProducePartPanel tcpppanel:testCaseProducePartPanelList){
 					tcpppanel.getAttributepanel().setVisible(false);
+					tcpppanel.getLimitpanel().setVisible(false);
 				}
 			}
 		});
@@ -120,6 +121,7 @@ public class TestCaseProduceTabbedPanel extends JPanel{
 				
 				for(TestCaseProducePartPanel tcpppanel:testCaseProducePartPanelList){
 					tcpppanel.getAttributepanel().setVisible(true);
+					tcpppanel.getLimitpanel().setVisible(true);
 				}
 			}
 		});
