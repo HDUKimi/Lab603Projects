@@ -69,6 +69,7 @@ import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.FunctionFailedStatisticsPieChart;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.FunctionSuccessFailedPieChart;
+import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.PerformanceExeTimeLineChart;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.PerformanceHighBatteryLineChart;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.PerformanceHighSpeedBarChart;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.PerformanceHighTimeLineChart;
@@ -1369,7 +1370,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		}
 		
 	}
-
+	
 	protected void showStatisticsDataByType(int type, int attribute) {
 		
 		Collections.sort(resulttestcaselist, new Comparator<TestCase>() {
@@ -1384,75 +1385,27 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			}
 		});
 		
+		System.out.println("attribute ----------- "+attribute);
+		
 		if(type==1){//统计功能数据
 			
 			if(attribute==2){
-				Map<String, Object> testcasemap=TcConvertUtil.functionStatistics(resulttestcaselist);
-				List<Integer> caseSuccess=(List<Integer>) testcasemap.get("caseSuccess");
-				List<Integer> caseFailed=(List<Integer>) testcasemap.get("caseFailed");
-				Map<String,List<Map<Integer,List<Integer>>>> failedStatistics=(Map<String, List<Map<Integer, List<Integer>>>>) testcasemap.get("failedStatistics");
-						
-//				System.out.println("caseSuccess "+caseSuccess.size());
-//				System.out.println("caseFailed "+caseFailed.size());
-//				for(Entry<String, List<Map<Integer,List<Integer>>>> en:failedStatistics.entrySet()){
-//					System.out.println(en.getKey()+"  "+en.getValue().size());
-//				}
+				
+				List<Double> exetimelist=new ArrayList<>();
+				
+				for(TestCase testCase:resulttestcaselist){
+					exetimelist.add(Double.parseDouble(testCase.getExetime()));
+				}
+				
 				
 				FunctionalTestCaseChartTabbedPanel functionalTestCaseChartTabbedPanel=new FunctionalTestCaseChartTabbedPanel(mainFrame);
 				
 				parentTestCaseDataPanel.getTestCaseChartTabbedPanel().removeAll();
 				parentTestCaseDataPanel.getTestCaseChartTabbedPanel().add(functionalTestCaseChartTabbedPanel);
 				
-				DefaultTableModel tabelmodel=functionalTestCaseChartTabbedPanel.getAttributetablemodel();
-				
-				int cs=0,cf=0,csum=0;
-				cs=caseSuccess.size();
-				cf=caseFailed.size();
-				
-//				cs=7935;
-//				cf=39;
-				
-				csum=cs+cf;
-				DefaultTableModel successfailedtabelmodel=functionalTestCaseChartTabbedPanel.getSuccessfailedattributetablemodel();
-				while(successfailedtabelmodel.getRowCount()>0){
-					successfailedtabelmodel.removeRow(0);
-				}
-				Object[] rowData1={"合计：",cs, cf, csum};
-				successfailedtabelmodel.addRow(rowData1);
-				Object[] rowData2={"百分比：",calcper(cs, csum), calcper(cf, csum), calcper(csum, csum)};
-//				Object[] rowData2={"百分比：","99.51%", "0.49%", calcper(csum, csum)};
-				successfailedtabelmodel.addRow(rowData2);
-				
-				int f1=0,f2=0;
-				if (failedStatistics.containsKey("测试用例有误")) {
-					f1=failedStatistics.get("测试用例有误").size();
-				}
-				if(failedStatistics.containsKey("程序出现死循环或者抛出异常")){
-					f2=failedStatistics.get("程序出现死循环或者抛出异常").size();
-				}
-				
-//				f1=39;
-//				f2=0;
-				
-				DefaultTableModel failedstatisticstabelmodel=functionalTestCaseChartTabbedPanel.getFailedstatisticsattributetablemodel();
-				while(failedstatisticstabelmodel.getRowCount()>0){
-					failedstatisticstabelmodel.removeRow(0);
-				}
-				Object[] rowData3={"合计：", f1, f2, cf};
-				failedstatisticstabelmodel.addRow(rowData3);
-				Object[] rowData4={"百分比：", calcper(f1, cf), calcper(f2, cf), calcper(cf, cf)};
-				failedstatisticstabelmodel.addRow(rowData4);
-				
-				
-//				FunctionSuccessFailedPieChart fsfpc=new FunctionSuccessFailedPieChart(caseSuccess, caseFailed);
-				FunctionSuccessFailedPieChart fsfpc=new FunctionSuccessFailedPieChart(cs, cf);
+				PerformanceExeTimeLineChart pxtlc=new PerformanceExeTimeLineChart(exetimelist);
 				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
-				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(fsfpc.createChart());
-				
-//				FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(failedStatistics);
-				FunctionFailedStatisticsPieChart ffspc=new FunctionFailedStatisticsPieChart(f1, f2);
-				functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().removeAll();
-				functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(ffspc.createChart());
+				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(pxtlc.createChart());
 				
 			}
 			else{

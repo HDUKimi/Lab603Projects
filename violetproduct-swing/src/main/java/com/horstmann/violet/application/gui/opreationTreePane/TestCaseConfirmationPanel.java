@@ -1505,6 +1505,8 @@ public class TestCaseConfirmationPanel extends JPanel{
 				testcaseattribute=FindRadioButtonIndex(selectTestRadioButton)+1;
 				testcasename=selectTestCaseCheckBox.getText();
 				
+				TextAreaPrint("正在从本地提取"+testcasename+"的测试用例以及测试报告。。。");
+				
 				int hastime=0;
 				
 				if(testcasename.contains("Time")){
@@ -1602,6 +1604,8 @@ public class TestCaseConfirmationPanel extends JPanel{
 				
 				testcaseattribute=FindSqlRadioButtonIndex(selectSqlTestRadioButton)+1;
 				testcasename=selectSqlTestCaseCheckBox.getText();
+				
+				TextAreaPrint("正在从数据库中提取"+testcasename+"的测试用例以及测试报告。。。");
 				
 				int hastime=0;
 				
