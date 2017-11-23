@@ -434,6 +434,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 		starttype=mainFrame.getTestCaseGenerationPanel().FindRadioButtonIndex(mainFrame.getTestCaseGenerationPanel().getSelectTestRadioButton())+1;
 		
+		if(selectUppaal.contains("Æğ·É¸ß¶È")){
+			starttype=2;
+		}
+		
 //		if(selectUppaal.contains("µçÌİ")){
 //			hastime=1;
 //		}
@@ -1357,28 +1361,28 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				if(starttype==1){//¹¦ÄÜ²âÊÔ
 					if(hastime==1){
 						if(selectCoverState==0){//×´Ì¬¸²¸Ç
-							abstractName+="_¹¦ÄÜ×´Ì¬¸²¸ÇTime";
+							abstractName+="_×´Ì¬¸²¸ÇTime";
 						}
 						else if(selectCoverState==1){//Ç¨ÒÆ¸²¸Ç
-							abstractName+="_¹¦ÄÜÇ¨ÒÆ¸²¸ÇTime";
+							abstractName+="_Ç¨ÒÆ¸²¸ÇTime";
 						}
 					}
 					else{
 						if(selectCoverState==0){//×´Ì¬¸²¸Ç
-							abstractName+="_¹¦ÄÜ×´Ì¬¸²¸Ç";
+							abstractName+="_×´Ì¬¸²¸Ç";
 						}
 						else if(selectCoverState==1){//Ç¨ÒÆ¸²¸Ç
-							abstractName+="_¹¦ÄÜÇ¨ÒÆ¸²¸Ç";
+							abstractName+="_Ç¨ÒÆ¸²¸Ç";
 						}
 					}
 				}
 				else if(starttype==2){//ĞÔÄÜ²âÊÔ
-					if(hastime==1){
-						abstractName+="_ĞÔÄÜTime";
-					}
-					else{
+//					if(hastime==1){
+//						abstractName+="_ĞÔÄÜTime";
+//					}
+//					else{
 						abstractName+="_ĞÔÄÜ";
-					}
+//					}
 				}
 //				else if(starttype==3){//Ê±¼äÔ¼Êø²âÊÔ
 //					abstractName+="_¹¦ÄÜ_";
@@ -1632,24 +1636,24 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		}
 		else if(starttype==2){//ĞÔÄÜ²âÊÔ
 			
-			if(hastime==1){
-				futuretasklist.add(task1);
-				futuretasklist.add(task2);
-				futuretasklist.add(task3);
-				futuretasklist.add(task4);
-				futuretasklist.add(task5);
-				futuretasklist.add(task6);
-				
-				threadlist.add(thread1);
-				threadlist.add(thread2);
-				threadlist.add(thread3);
-				threadlist.add(thread4);
-				threadlist.add(thread5);
-				threadlist.add(thread6);
-				
-				stepsum=6;
-			}
-			else{
+//			if(hastime==1){
+//				futuretasklist.add(task1);
+//				futuretasklist.add(task2);
+//				futuretasklist.add(task3);
+//				futuretasklist.add(task4);
+//				futuretasklist.add(task5);
+//				futuretasklist.add(task6);
+//				
+//				threadlist.add(thread1);
+//				threadlist.add(thread2);
+//				threadlist.add(thread3);
+//				threadlist.add(thread4);
+//				threadlist.add(thread5);
+//				threadlist.add(thread6);
+//				
+//				stepsum=6;
+//			}
+//			else{
 				futuretasklist.add(task1);
 				futuretasklist.add(task3);
 				futuretasklist.add(task4);
@@ -1663,7 +1667,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				threadlist.add(thread6);
 				
 				stepsum=5;
-			}
+//			}
 			
 		}
 		

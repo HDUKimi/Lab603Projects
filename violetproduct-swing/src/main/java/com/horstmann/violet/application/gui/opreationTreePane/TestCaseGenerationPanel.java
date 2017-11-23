@@ -412,9 +412,7 @@ public class TestCaseGenerationPanel extends JPanel {
 		uppaalcheckboxpanel.removeAll();
 		uppaalCheckBoxList=new JCheckBox[uppaallists.size()];
 		for(int i=0;i<uppaallists.size();i++){
-			uppaalCheckBoxList[i]=new JCheckBox(uppaallists.get(i)){
-				
-			};
+			uppaalCheckBoxList[i]=new JCheckBox(uppaallists.get(i));
 			uppaalCheckBoxList[i].setOpaque(false);
 			uppaalcheckboxpanel.add(Box.createVerticalStrut(7));
 			uppaalcheckboxpanel.add(uppaalCheckBoxList[i]);
@@ -555,8 +553,8 @@ public class TestCaseGenerationPanel extends JPanel {
 			testRadioButtonList[i]=new JRadioButton(testlists.get(i));
 			testRadioButtonList[i].setOpaque(false);
 			buttonGroup.add(testRadioButtonList[i]);
-			covercheckboxpanel.add(Box.createVerticalStrut(7));
-			covercheckboxpanel.add(testRadioButtonList[i]);
+//			covercheckboxpanel.add(Box.createVerticalStrut(7));
+//			covercheckboxpanel.add(testRadioButtonList[i]);
 			
 			if(i==1){
 				continue;
@@ -565,7 +563,7 @@ public class TestCaseGenerationPanel extends JPanel {
 			for(int j=0;j<coverlists.size();j++){
 				coverCheckBoxList[i][j]=new JCheckBox(coverlists.get(j));
 				coverCheckBoxList[i][j].setOpaque(false);
-				coverCheckBoxList[i][j].setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+//				coverCheckBoxList[i][j].setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
 				covercheckboxpanel.add(Box.createVerticalStrut(7));
 				covercheckboxpanel.add(coverCheckBoxList[i][j]);
 			}
@@ -681,6 +679,19 @@ public class TestCaseGenerationPanel extends JPanel {
 		selectCoverType=1;
 		selectTestRadioButton=testRadioButtonList[0];
 		selectCoverCheckBox=coverCheckBoxList[0][0];//Ä¬ÈÏÑ¡ÖÐ
+		
+		for(JRadioButton radioButton:testRadioButtonList){
+			radioButton.setVisible(false);
+		}
+		for(int i=0;i<coverCheckBoxList.length;i++){
+			if(i==1){
+				continue;
+			}
+			for(int j=0;j<coverCheckBoxList[i].length;j++){
+				JCheckBox checkBox=coverCheckBoxList[i][j];
+//				checkBox.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+			}
+		}
 		
 	}
 

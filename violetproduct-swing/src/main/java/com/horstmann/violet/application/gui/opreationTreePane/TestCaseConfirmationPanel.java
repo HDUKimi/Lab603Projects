@@ -337,7 +337,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 			else if(name.contains("性能")||name.contains("Performance")){
 				testcasefilenamegroup.get(1).add(name);
 			}
-			else if(name.contains("功能")){
+			else if(name.contains("功能")||name.contains("Functional")){
 				testcasefilenamegroup.get(0).add(name);
 			}
 		}

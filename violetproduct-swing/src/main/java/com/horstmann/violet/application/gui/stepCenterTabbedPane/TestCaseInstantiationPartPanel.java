@@ -39,6 +39,7 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 	private JPanel titlepanel;
 	private JPanel linepanel;
 	private JPanel attributepanel;
+	private JPanel limitpanel;
 
 	private JPanel titlelabelpanel;
 	private JLabel iconlabel;
@@ -50,12 +51,23 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 	private JTable attributetable;
 	private DefaultTableModel attributetablemodel;
 	
+	private JTable limittable;
+	private DefaultTableModel limittablemodel;
+	
+	private List<String> limit;
+	private int hastime=0; 
+	
 	
 	public TestCaseInstantiationPartPanel(MainFrame mainFrame, Automatic automatic){
 		
 		this.mainFrame=mainFrame;
 		
 		this.automatic=automatic;
+		
+		if(automatic.getInequalitySet()!=null&&automatic.getInequalitySet().size()>0){
+			hastime=1;
+			limit=automatic.getInequalitySet();
+		}
 		
 		init();
 		
@@ -73,6 +85,7 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 		titlepanel = new JPanel();
 		linepanel = new JPanel();
 		attributepanel = new JPanel();
+		limitpanel=new JPanel();
 
 		titlelabelpanel = new JPanel();
 		iconlabel=new JLabel();
@@ -82,17 +95,26 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 		linelabel = new JLabel();
 		
 		attributepanel.setVisible(false);
+		limitpanel.setVisible(false);
 
 		initTitlePanel();
 
 		initLinePanel();
 
 		initAttributePanel();
+		
+		if(hastime==1){
+			initLimitPanel();
+		}
+		else{
+			limitpanel.setOpaque(false);
+		}
 
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.add(titlepanel);
 		this.add(linepanel);
 		this.add(attributepanel);
+		this.add(limitpanel);
 
 	}
 
@@ -133,8 +155,10 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 				// TODO Auto-generated method stub
 				if (attributepanel.isVisible()) {
 					attributepanel.setVisible(false);
+					limitpanel.setVisible(false);
 				} else {
 					attributepanel.setVisible(true);
+					limitpanel.setVisible(true);
 				}
 			}
 		});
@@ -324,9 +348,84 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 		
 	}
 
+	private void initLimitPanel() {
+		// TODO Auto-generated method stub
+		
+		String[] columnNames = { "不等式组", "详细属性", "结果" };
+		String[][] tabelValues = {};
+
+		limittablemodel = new DefaultTableModel(tabelValues, columnNames) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+
+		limittable = new JTable(limittablemodel);
+		
+		limittable.setName("TimeTestCaseReportLimitPartPanel");
+
+		limittable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		limittable.setSelectionBackground(new Color(250, 248, 236));
+		limittable.setGridColor(new Color(224, 226, 220));
+		limittable.setShowGrid(false);
+		limittable.setShowHorizontalLines(true);
+		limittable.setShowVerticalLines(false);
+		limittable.setFillsViewportHeight(true);
+		limittable.setRowHeight(27);
+		limittable.doLayout();
+		limittable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+		limittable.getColumnModel().getColumn(0).setCellRenderer(new MyAllLabelRenderer());
+		limittable.getColumnModel().getColumn(1).setCellRenderer(new MyAllLabelRenderer());
+		limittable.getColumnModel().getColumn(2).setCellRenderer(new MyLabelRenderer());
+//		limittable.getColumnModel().getColumn(3).setCellRenderer(new MyAllLabelRenderer());
+//		limittable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
+//		limittable.getColumnModel().getColumn(5).setCellRenderer(new MyAllLabelRenderer());
+//		limittable.getColumnModel().getColumn(6).setCellRenderer(new MyAllLabelRenderer());
+
+		limittable.getColumn("不等式组").setPreferredWidth(150);
+		limittable.getColumn("不等式组").setMinWidth(150);
+		limittable.getColumn("不等式组").setMaxWidth(150);
+		limittable.getColumn("详细属性").setPreferredWidth(600);
+		limittable.getColumn("详细属性").setMinWidth(600);
+		limittable.getColumn("结果").setPreferredWidth(50);
+		limittable.getColumn("结果").setMinWidth(50);
+		limittable.getColumn("结果").setMaxWidth(50);
+
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+		renderer.setBackground(new Color(71, 80, 93));
+		renderer.setForeground(new Color(255, 255, 255));
+		renderer.setFont(new Font("微软雅黑", Font.PLAIN, 13));
+		renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+		limittable.getTableHeader().setDefaultRenderer(renderer);
+
+		limittable.getTableHeader().setPreferredSize(new Dimension(100, 27));
+
+		limittable.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(224, 225, 220)));
+
+//		limittable.setBackground(new Color(255, 255, 255));
+
+		limitpanel.setLayout(new BorderLayout());
+		limitpanel.add(limittable.getTableHeader(), BorderLayout.NORTH);
+		limitpanel.add(limittable, BorderLayout.CENTER);
+
+		limitpanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+		limitpanel.setOpaque(false);
+
+		for (String l : limit) {
+			Object[] rowData = { l, "", -1 };
+			limittablemodel.addRow(rowData);
+		}
+		
+	}
 
 	public JPanel getAttributepanel() {
 		return attributepanel;
+	}
+	
+	public JPanel getLimitpanel() {
+		return limitpanel;
 	}
 	
 }

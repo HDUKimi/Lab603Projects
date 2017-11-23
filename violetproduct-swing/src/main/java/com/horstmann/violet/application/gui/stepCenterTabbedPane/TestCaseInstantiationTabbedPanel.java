@@ -102,6 +102,7 @@ public class TestCaseInstantiationTabbedPanel extends JPanel {
 				
 				for(TestCaseInstantiationPartPanel tcippanel:testCaseInstantiationPartPanelList){
 					tcippanel.getAttributepanel().setVisible(false);
+					tcippanel.getLimitpanel().setVisible(false);
 				}
 			}
 		});
@@ -120,6 +121,7 @@ public class TestCaseInstantiationTabbedPanel extends JPanel {
 				
 				for(TestCaseInstantiationPartPanel tcippanel:testCaseInstantiationPartPanelList){
 					tcippanel.getAttributepanel().setVisible(true);
+					tcippanel.getLimitpanel().setVisible(true);
 				}
 			}
 		});

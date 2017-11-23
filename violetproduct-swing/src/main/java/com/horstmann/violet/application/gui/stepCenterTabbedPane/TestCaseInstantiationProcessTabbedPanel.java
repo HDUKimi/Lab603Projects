@@ -347,6 +347,10 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		
 		starttype=mainFrame.getTestCaseInstantiationPanel().FindRadioButtonIndex(mainFrame.getTestCaseInstantiationPanel().getSelectTestRadioButton())+1;
 		
+		if(selectAbstract.contains("起飞高度")){
+			starttype=2;
+		}
+		
 		if(selectAbstract.contains("TimeAbstract")){
 			hastime=1;
 		}
@@ -727,7 +731,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				if(starttype==1&&hastime==0){//功能测试
 					
 					//普通功能测试用例生成
-					String path=baseUrl+name+"TestCase.xml";
+					String path=baseUrl+name+"FunctionalTestCase.xml";
 					
 //					AtutomaticProduceXML(collectResult, path);
 					forPlatform.produceXML(path,collectResult);
@@ -871,20 +875,20 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					resultpanel.add(emptypanel);
 					layout.setConstraints(emptypanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 					
-					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().setStarttype(2);
-					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().setPerformancetestcasereportlist(performancetestcasereportlist);
+					mainFrame.getStepFourCenterTabbedPane().getPerformanceTestCaseShowTabbedPanel().setStarttype(2);
+					mainFrame.getStepFourCenterTabbedPane().getPerformanceTestCaseShowTabbedPanel().setPerformancetestcasereportlist(performancetestcasereportlist);
 					
-					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().removeAll();
-					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowTabbedPanel().getTableresultpanel().add(resultpanel);
+					mainFrame.getStepFourCenterTabbedPane().getPerformanceTestCaseShowTabbedPanel().getTableresultpanel().removeAll();
+					mainFrame.getStepFourCenterTabbedPane().getPerformanceTestCaseShowTabbedPanel().getTableresultpanel().add(resultpanel);
 					
-					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowButtonPanel().setVisible(true);
+					mainFrame.getStepFourCenterTabbedPane().getPerformanceTestCaseShowButtonPanel().setVisible(true);
 					
 					
 				}
 				else if(hastime==1){//时间约束测试
 
 					//普通功能测试用例
-					String path=baseUrl+name+"TestCase.xml";
+					String path=baseUrl+name+"FunctionalTestCase.xml";
 //					GetTimeXML.produceXML(path,testCase);
 //					XmlOfTime.produceXML(path, collectResult, collectLimit);
 					
@@ -1028,7 +1032,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 //					}
 				}
 				else{
-					resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条测试用例");
+					resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条性能测试用例");
 				}
 				
 				return 1;
@@ -1062,9 +1066,12 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 //					baseUrl += "TimeTest\\";
 //				}
 				
-				String path=baseUrl+name+"TestCase.xml";
+				String path=baseUrl+name+"FunctionalTestCase.xml";
 				String borderpath=baseUrl+name+"BorderTestCase.xml";
 				String performancepath=baseUrl+name+"PerformanceTestCase.xml";
+				String path1=baseUrl+name+"TestCase.xml";
+				
+				String nextRunFileName = null;
 
 				Thread.sleep(new Random().nextInt(1000)+1000);
 				
@@ -1081,23 +1088,27 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 //						TextAreaPrint("生成"+name+"PerformanceTestCase.xml，保存路径："+performancepath);
 //					}
 //					else{
-						resultAllProcessList.add("生成"+name+"TestCase.xml，"+name+"BorderTestCase.xml，"+name+"PerformanceTestCase.xml");
+						resultAllProcessList.add("生成"+name+"FunctionalTestCase.xml，"+name+"BorderTestCase.xml，"+name+"PerformanceTestCase.xml");
 						
-						TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
+						TextAreaPrint("生成"+name+"FunctionalTestCase.xml，保存路径："+path);
 						TextAreaPrint("生成"+name+"BorderTestCase.xml，保存路径："+borderpath);
 						TextAreaPrint("生成"+name+"PerformanceTestCase.xml，保存路径："+performancepath);
+						
+						nextRunFileName=name+"FunctionalTestCase";
 //					}
 				}
 				else if(starttype==2){
 					resultAllProcessList.add("生成"+name+"TestCase.xml");
-					TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
+					TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path1);
+					
+					nextRunFileName=name+"TestCase";
 				}
 //				else if(starttype==3){
 //					resultAllProcessList.add("生成"+name+"TimeTestCase.xml");
 //					TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
 //				}
 				
-				StepFiveCenterTabbedPane.setBecomeRunFileName(name+"TestCase");
+				StepFiveCenterTabbedPane.setBecomeRunFileName(nextRunFileName);
 				StepFiveCenterTabbedPane.setBecomeRunFileNameType(starttype);
 				
 				
