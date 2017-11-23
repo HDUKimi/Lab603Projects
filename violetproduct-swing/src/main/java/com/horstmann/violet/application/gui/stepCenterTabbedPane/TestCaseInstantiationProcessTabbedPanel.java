@@ -43,6 +43,7 @@ import com.horstmann.violet.application.gui.util.ckt.output.forPlatform;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML2;
 import com.horstmann.violet.application.gui.util.ckt.xml.XmlOfTime;
 import com.horstmann.violet.application.gui.util.ckt.xml.borderTestXML;
+import com.horstmann.violet.application.gui.util.ckt.xml.borderTimeXML;
 import com.horstmann.violet.application.gui.util.ckt.xml.outXMLofTime;
 import com.horstmann.violet.application.gui.util.tanchao.SaveText;
 
@@ -932,6 +933,43 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					
 					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowButtonPanel().setVisible(true);
 					
+					//边界值测试用例
+					String borderpath=baseUrl+name+"BorderTestCase.xml";
+					borderTimeXML.produceBorderXML(borderpath, collectLimit);
+					
+					List<List<String>> borderlimitlist=new ArrayList<List<String>>();
+					List<TimeTestCaseReportPartPanel> bordertimetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
+					
+					bordertestcaselist=TestCaseConfirmationPanel.extractTimeTestDataFromXml(borderpath);
+					
+					JPanel borderresultpanel=new JPanel();
+					JPanel borderemptypanel=new JPanel();
+					borderresultpanel.setOpaque(false);
+					borderemptypanel.setOpaque(false);
+					
+					GridBagLayout borderlayout = new GridBagLayout();
+					borderresultpanel.setLayout(borderlayout);
+					int borderi=0;
+
+					int borderindex=0;
+					for(TestCase tc:bordertestcaselist){
+						TimeTestCaseReportPartPanel ttcrppanel=new TimeTestCaseReportPartPanel(mainFrame, tc, 1, 0);
+						borderresultpanel.add(ttcrppanel);
+						borderlayout.setConstraints(ttcrppanel, new GBC(0, borderi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+						bordertimetestcasereportlist.add(ttcrppanel);
+						borderindex++;
+					}
+					borderresultpanel.add(borderemptypanel);
+					borderlayout.setConstraints(borderemptypanel, new GBC(0, borderi++, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+					
+					mainFrame.getStepFourCenterTabbedPane().getBorderTestCaseShowTabbedPanel().setStarttype(3);
+					mainFrame.getStepFourCenterTabbedPane().getBorderTestCaseShowTabbedPanel().setTimetestcasereportlist(bordertimetestcasereportlist);
+					
+					mainFrame.getStepFourCenterTabbedPane().getBorderTestCaseShowTabbedPanel().getTableresultpanel().removeAll();
+					mainFrame.getStepFourCenterTabbedPane().getBorderTestCaseShowTabbedPanel().getTableresultpanel().add(borderresultpanel);
+					
+					mainFrame.getStepFourCenterTabbedPane().getBorderTestCaseShowButtonPanel().setVisible(true);
+					
 					//性能测试用例
 					String performancepath=baseUrl+name+"PerformanceTestCase.xml";
 					
@@ -982,12 +1020,12 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				stepAllProcessList.add("第三步：生成测试用例");
 				timeAllProcessList.add(time2-time1+"ms");
 				if(starttype==1){
-					if(hastime==1){
-						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条测试用例，"+performancetestcaselist.size()+"条性能测试用例");
-					}
-					else{
+//					if(hastime==1){
+//						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条测试用例，"+performancetestcaselist.size()+"条性能测试用例");
+//					}
+//					else{
 						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条功能测试用例，"+bordertestcaselist.size()+"条边界测试用例，"+performancetestcaselist.size()+"条性能测试用例");						
-					}
+//					}
 				}
 				else{
 					resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条测试用例");
@@ -1036,19 +1074,19 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				timeAllProcessList.add(time2-time1+"ms");
 				
 				if(starttype == 1){
-					if(hastime==1){
-						resultAllProcessList.add("生成"+name+"TestCase.xml，"+name+"PerformanceTestCase.xml");
-						
-						TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
-						TextAreaPrint("生成"+name+"PerformanceTestCase.xml，保存路径："+performancepath);
-					}
-					else{
+//					if(hastime==1){
+//						resultAllProcessList.add("生成"+name+"TestCase.xml，"+name+"PerformanceTestCase.xml");
+//						
+//						TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
+//						TextAreaPrint("生成"+name+"PerformanceTestCase.xml，保存路径："+performancepath);
+//					}
+//					else{
 						resultAllProcessList.add("生成"+name+"TestCase.xml，"+name+"BorderTestCase.xml，"+name+"PerformanceTestCase.xml");
 						
 						TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
 						TextAreaPrint("生成"+name+"BorderTestCase.xml，保存路径："+borderpath);
 						TextAreaPrint("生成"+name+"PerformanceTestCase.xml，保存路径："+performancepath);
-					}
+//					}
 				}
 				else if(starttype==2){
 					resultAllProcessList.add("生成"+name+"TestCase.xml");

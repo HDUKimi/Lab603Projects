@@ -112,7 +112,19 @@ public class outXMLofTime {
 				}
 				
 				int yesOrNo = 0; //判断能否求出定义域外的值
+				//回路边，同迁移，取值越界，但是取值相同
+				int vvv = 0;
 				for(int m=0; m<a.getTransitionSet().size(); m++){
+					for(int n=0; n<m; n++){
+						if(path.getTransitionSet().get(n).getName().equals(path.getTransitionSet().get(m).getName())){
+							vvv = 1;
+							path.getTransitionSet().get(m).setResult(path.getTransitionSet().get(n).getResult());
+							break;
+						}
+					}
+					if(vvv == 1){
+						continue;
+					}else{
 					System.out.println("===========================================================================m值："+m);
 					
 					System.out.println();
@@ -292,6 +304,9 @@ public class outXMLofTime {
 						}
 					}
 					tran.setResult(result);			
+					}
+					
+						
 				}
 				if(yesOrNo == 1){		
 					casesAndTime.put(path, s);
@@ -322,13 +337,14 @@ public class outXMLofTime {
 						if(tran.getResult().get(0).toString().contains("***********")){
 							input.addAttribute("GN", "Error");
 						}
-						String str = tran.getResult().get(0).toString().replace("False", "false").replace("True", "true").replace("***********", "")/*.replace("||", ",")*/.replace("==", "=");
+						String str = tran.getResult().get(0).toString().replace("False", "false").replace("True", "true").replace("***********", "").replace("||", ",").replace("==", "=");
+						str = XmlOfTime.dealresult(str);
 						input.setText(str);
-						if((tran.getResult().get(0).contains("False")) ||(tran.getResult().get(0).contains("True"))){
-							input.setText(tran.getResult().get(0).replace("False", "false").replace("True", "true").replace("***********", "").replace("==", "=")/*.replace("||", ",")*/);
+						/*if((tran.getResult().get(0).contains("False")) ||(tran.getResult().get(0).contains("True"))){
+							input.setText(tran.getResult().get(0).replace("False", "false").replace("True", "true").replace("***********", "").replace("==", "=").replace("||", ","));
 						}else{
-							input.setText(tran.getResult().get(0).toString().replace("***********", "").replace("==", "=")/*.replace("||", ",")*/);
-						}
+							input.setText(tran.getResult().get(0).toString().replace("***********", "").replace("==", "=").replace("||", ","));
+						}*/
 						
 						Element time = process.addElement("time");
 						time.setText(tran.getTranTimeName());

@@ -297,7 +297,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						
 						threadexceptionstate=0;
 						
-						initTestCaseUI();
+//						initTestCaseUI();
 						
 //						mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(false);
 						

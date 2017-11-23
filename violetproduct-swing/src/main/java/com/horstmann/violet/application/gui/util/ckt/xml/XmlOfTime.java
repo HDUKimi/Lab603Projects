@@ -248,13 +248,17 @@ public class XmlOfTime {
 					Element input = process.addElement("input");
 					//功能按顺序取值
 					if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
-						input.setText(testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true"));
+						String cs =testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true");
+						cs = dealresult(cs);//把解中的！给替换掉
+						input.setText(cs);
 					}else{
 						int random = -1;
 						if (random == -1) {
 							random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
 						}
-						input.setText(testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true"));
+						String cs = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
+						cs = dealresult(cs);
+						input.setText(cs);
 					}					
 					
 					Element time = process.addElement("time");
@@ -444,7 +448,32 @@ public class XmlOfTime {
 		return s;
 	}
 
-	public static int tranMaxNumber(ArrayList<Transition> tranSet) {
+	//处理解中有！，把！替换，解取反
+	public static String dealresult(String cs){
+		//把解的值非去掉 换成确切值
+		if(!(cs.toString() == null)){
+			String[] val = cs.split(",");
+			for(int k=0; k<val.length; k++){
+				if(val[k].contains("!") && !(val[k].contains("!!"))){
+					if(val[k].contains("false")){
+						val[k] = val[k].replace("!", "").replace("false", "true");
+					}else{
+						if(val[k].contains("true")){
+							val[k] = val[k].replace("!", "").replace("true", "false");
+						}
+					}
+				}
+			}
+			String vall = val[0];
+			for(int k=1; k<val.length; k++){
+				vall = vall + "," +val[k];
+			}
+			cs = vall;
+		}
+		return cs;
+	}
+	
+	public static int tranMaxNumber(ArrayList<Transition> tranSet){
 		int max = 0;
 		for (int i = 0; i < tranSet.size(); i++) {
 			int num = tranSet.get(i).getResult().size();
@@ -863,13 +892,17 @@ public class XmlOfTime {
 					Element input = process.addElement("input");
 					//功能按顺序取值
 					if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
-						input.setText(testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true"));
+						String cs =testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true");
+						cs = dealresult(cs);//把解中的！给替换掉
+						input.setText(cs);
 					}else{
 						int random = -1;
 						if (random == -1) {
 							random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
 						}
-						input.setText(testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true"));
+						String cs = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
+						cs = dealresult(cs);
+						input.setText(cs);
 					}					
 					
 					Element time = process.addElement("time");
@@ -1095,13 +1128,17 @@ public class XmlOfTime {
 					Element input = process.addElement("input");
 					//功能按顺序取值
 					if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
-						input.setText(testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true"));
+						String cs =testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true");
+						cs = dealresult(cs);//把解中的！给替换掉
+						input.setText(cs);
 					}else{
 						int random = -1;
 						if (random == -1) {
 							random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
 						}
-						input.setText(testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true"));
+						String cs = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
+						cs = dealresult(cs);
+						input.setText(cs);
 					}					
 					
 					Element time = process.addElement("time");
@@ -1157,16 +1194,22 @@ public class XmlOfTime {
 							Element operation = process.addElement("operation");
 							operation.setText(testCase.get(i1).getTransitionSet().get(j).getName());
 							Element input = process.addElement("input");
+							
 							//功能按顺序取值
 							if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
-								input.setText(testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true"));
+								String cs =testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true");
+								cs = dealresult(cs);//把解中的！给替换掉
+								input.setText(cs);
 							}else{
 								int random = -1;
 								if (random == -1) {
 									random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
 								}
-								input.setText(testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true"));
+								String cs = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
+								cs = dealresult(cs);
+								input.setText(cs);
 							}	
+							
 							Element time = process.addElement("time");
 							time.setText(testCase.get(i1).getTransitionSet().get(j).getTranTimeName());
 						}
@@ -1260,7 +1303,20 @@ public class XmlOfTime {
 				}
 				
 				int yesOrNo = 0; //判断能否求出定义域外的值
+				//回路边，同迁移，取值越界，但是取值相同
+				int vvv = 0;
 				for(int m=0; m<a.getTransitionSet().size(); m++){
+					vvv=0;
+					for(int n=0; n<m; n++){
+						if(pathAuto.getTransitionSet().get(n).getName().equals(pathAuto.getTransitionSet().get(m).getName())){
+							vvv = 1;
+							pathAuto.getTransitionSet().get(m).setResult(pathAuto.getTransitionSet().get(n).getResult());
+							break;
+						}
+					}
+					if(vvv == 1){
+						continue;
+					}else{
 					System.out.println("===========================================================================m值："+m);
 					
 					System.out.println();
@@ -1439,7 +1495,8 @@ public class XmlOfTime {
 							// input.setText(s);
 						}
 					}
-					tran.setResult(result);			
+					tran.setResult(result);	
+					}
 				}
 				if(yesOrNo == 1){		
 					casesAndTime.put(pathAuto, s);
@@ -1471,6 +1528,7 @@ public class XmlOfTime {
 							input.addAttribute("GN", "Error");
 						}
 						String str = tran.getResult().get(0).toString().replace("False", "false").replace("True", "true").replace("***********", "").replace("||", ",").replace("==", "=");
+						str = dealresult(str);//把解中的！给替换掉
 						input.setText(str);
 //						if((tran.getResult().get(0).contains("False")) ||(tran.getResult().get(0).contains("True"))){
 //							input.setText(tran.getResult().get(0).replace("False", "false").replace("True", "true").replace("***********", "").replace("==", "=")/*.replace("||", ",")*/);
@@ -1533,5 +1591,5 @@ public class XmlOfTime {
 //		}
 		
 	}
-	
+
 }
