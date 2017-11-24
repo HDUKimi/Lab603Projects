@@ -327,6 +327,9 @@ public class TcConvertUtil {
 						eStatus = "满足时间约束";
 					}
 					exeState = tStatus + ",且" + eStatus;
+					
+					testCase.setProgramExeResult("电梯最后停靠在第"+Integer.valueOf(r[2])+"层");
+					
 				} else {
 					// 功能、性能
 					switch (Integer.valueOf(r[0])) {
@@ -355,6 +358,14 @@ public class TcConvertUtil {
 								.setBattery_remaining(Double.valueOf(r[3].substring("battery_remaining".length())));
 						testCaseResult.setTime(Double.valueOf(r[4].substring("time".length())));
 						testCaseResult.setWind_speed(Double.valueOf(r[5].substring("wind_speed".length())));
+					}
+					else{
+						if(Integer.valueOf(r[2])==1){
+							testCase.setProgramExeResult("无人机运行出现异常");
+						}
+						else{
+							testCase.setProgramExeResult("无人机成功返航，并完成加锁");
+						}
 					}
 
 				}

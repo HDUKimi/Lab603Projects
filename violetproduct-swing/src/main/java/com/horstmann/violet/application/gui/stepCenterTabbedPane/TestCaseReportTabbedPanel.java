@@ -512,6 +512,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					for(JPanel jp:testcasereportlist){
 						FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) jp;
 						if(ftcrpp.getAttributepanel().isVisible()){
+							ftcrpp.getExeresultpanel().setVisible(false);
 							ftcrpp.getAttributepanel().setVisible(false);
 						}
 					}
@@ -558,6 +559,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					for(JPanel jp:testcasereportlist){
 						TimeTestCaseReportPartPanel ttcrpp=(TimeTestCaseReportPartPanel) jp;
 						if(ttcrpp.getAttributepanel().isVisible()){
+							ttcrpp.getExeresultpanel().setVisible(false);
 							ttcrpp.getAttributepanel().setVisible(false);
 							ttcrpp.getLimitpanel().setVisible(false);
 						}
@@ -594,6 +596,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					for(JPanel jp:testcasereportlist){
 						FunctionalTestCaseReportPartPanel ftcrpp=(FunctionalTestCaseReportPartPanel) jp;
 						if(!ftcrpp.getAttributepanel().isVisible()){
+							ftcrpp.getExeresultpanel().setVisible(true);
 							ftcrpp.getAttributepanel().setVisible(true);
 						}
 					}
@@ -639,6 +642,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					for(JPanel jp:testcasereportlist){
 						TimeTestCaseReportPartPanel ttcrpp=(TimeTestCaseReportPartPanel) jp;
 						if(!ttcrpp.getAttributepanel().isVisible()){
+							ttcrpp.getExeresultpanel().setVisible(true);
 							ttcrpp.getAttributepanel().setVisible(true);
 							ttcrpp.getLimitpanel().setVisible(true);
 						}
@@ -1636,6 +1640,10 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			
 			attributetablemodel.fireTableDataChanged();
 			
+			String exeresult="";
+			exeresult+="被测程序执行结果："+testcase.getProgramExeResult();
+			ftcrpp.getExeresultlabel().setText(exeresult);
+			
 			String title = "";
 			
 			if(attribute==2){
@@ -1793,6 +1801,10 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				limittablemodel.setValueAt(state, i, 2);
 				
 			}
+			
+			String exeresult="";
+			exeresult+="被测程序执行结果："+testcase.getProgramExeResult();
+			ttcrpp.getExeresultlabel().setText(exeresult);
 
 			String title = "";
 			

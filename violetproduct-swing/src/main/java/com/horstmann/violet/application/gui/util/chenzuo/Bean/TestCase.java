@@ -28,6 +28,8 @@ public class TestCase implements Serializable{
 	String exetime;
 	//
 	String expectResult="right";
+	//被测程序结果
+	String programExeResult;
 
 	//时间约束不等式
 	List<String> limit;
@@ -107,6 +109,14 @@ public class TestCase implements Serializable{
 	public void setExpectResult(String expectResult) {
 		this.expectResult = expectResult;
 	}
+	
+	public String getProgramExeResult() {
+		return programExeResult;
+	}
+
+	public void setProgramExeResult(String programExeResult) {
+		this.programExeResult = programExeResult;
+	}
 
 	@Override
 	public String toString() {
@@ -115,7 +125,7 @@ public class TestCase implements Serializable{
 			tmp = tmp + "\tmyProcess [processID=" + m.processID + ", processName=" + m.processName + ", processParam=" + m.processParam
 					+ ", processStatus=" + m.processStatus + ", processExec=" + m.processExec + "]\n";
 		}
-		tmp = tmp + ", state=测试耗时:" + exetime + " ms, result="+ result + ", detail=" + detail + "]";
+		tmp = tmp + ", state=测试耗时:" + exetime + " ms, result="+ result + ",\n detail=" + detail + "]";
 		return tmp;
 	}
 	/***
@@ -132,7 +142,7 @@ public class TestCase implements Serializable{
 					+ " 激励状态 :" + ((m.processStatus == "NULL")?"空":m.getProcessStatus())
 					+")";
 		}
-		tmp = tmp + " ]\n  -->测试执行状态: [ 测试耗时:" + exetime + " ms ]\n  -->结果状态: [ "+ state+" ]";
+		tmp = tmp + " ]\n  -->测试执行状态: [ 测试耗时:" + exetime + " ms ]\n  -->结果状态: [ "+ state+" ]\n  -->被测程序执行结果: [ "+ programExeResult+" ]";
 		return tmp;
 	}
 	

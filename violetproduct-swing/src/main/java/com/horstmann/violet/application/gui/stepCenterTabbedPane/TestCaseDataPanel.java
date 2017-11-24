@@ -129,10 +129,6 @@ public class TestCaseDataPanel{
 	
 	protected void showStatisticsDataByType(int type, int attribute) {
 		
-		System.out.println("attribute ----------- "+attribute);
-		
-		attribute=2;
-		
 		if(type==1){//统计功能数据
 			
 			if(attribute==2){

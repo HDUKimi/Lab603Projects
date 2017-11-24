@@ -40,6 +40,7 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 	
 	private JPanel titlepanel;
 	private JPanel linepanel;
+	private JPanel exeresultpanel;
 	private JPanel attributepanel;
 
 	private JPanel titlelabelpanel;
@@ -49,6 +50,8 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 	private JButton toolbutton;
 
 	private JLabel linelabel;
+	
+	private JLabel exeresultlabel;
 
 	private JTable attributetable;
 	private DefaultTableModel attributetablemodel;
@@ -77,6 +80,7 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 
 		titlepanel = new JPanel();
 		linepanel = new JPanel();
+		exeresultpanel=new JPanel();
 		attributepanel = new JPanel();
 
 		titlelabelpanel = new JPanel();
@@ -87,17 +91,23 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 
 		linelabel = new JLabel();
 		
+		exeresultlabel=new JLabel();
+		
+		exeresultpanel.setVisible(false);
 		attributepanel.setVisible(false);
 
 		initTitlePanel();
 
 		initLinePanel();
+		
+		initExeResulePanel();
 
 		initAttributePanel();
 
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.add(titlepanel);
 		this.add(linepanel);
+		this.add(exeresultpanel);
 		this.add(attributepanel);
 
 	}
@@ -191,8 +201,10 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				if (attributepanel.isVisible()) {
+					exeresultpanel.setVisible(false);
 					attributepanel.setVisible(false);
 				} else {
+					exeresultpanel.setVisible(true);
 					attributepanel.setVisible(true);
 				}
 			}
@@ -219,6 +231,23 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 		linepanel.add(linelabel);
 		linepanel.setOpaque(false);
 
+	}
+	
+	private void initExeResulePanel() {
+		// TODO Auto-generated method stub
+		
+		String title = "";
+		title+="被测程序执行结果：";
+		
+		exeresultlabel.setText(title);
+		exeresultlabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
+		exeresultlabel.setForeground(new Color(0,0,0));
+		exeresultlabel.setBorder(BorderFactory.createEmptyBorder(5, 20, 0, 0));
+
+		exeresultpanel.setLayout(new GridLayout());
+		exeresultpanel.add(exeresultlabel);
+		exeresultpanel.setOpaque(false);
+		
 	}
 
 	private void initAttributePanel() {
@@ -441,6 +470,14 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 			}
 		}
 
+	}
+
+	public JPanel getExeresultpanel() {
+		return exeresultpanel;
+	}
+
+	public JLabel getExeresultlabel() {
+		return exeresultlabel;
 	}
 
 	public JPanel getAttributepanel() {
