@@ -144,8 +144,8 @@ public class TestCaseDataPanel{
 				testCaseChartTabbedPanel.add(functionalTestCaseChartTabbedPanel);
 				
 				PerformanceExeTimeLineChart petlc=new PerformanceExeTimeLineChart(exetimelist);
-				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
-				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(petlc.createChart());
+				functionalTestCaseChartTabbedPanel.getPerformanceexetimelinepanel().removeAll();
+				functionalTestCaseChartTabbedPanel.getPerformanceexetimelinepanel().add(petlc.createChart());
 				
 				functionalTestCaseChartTabbedPanel.showPerformaneExeTimeLine();
 				

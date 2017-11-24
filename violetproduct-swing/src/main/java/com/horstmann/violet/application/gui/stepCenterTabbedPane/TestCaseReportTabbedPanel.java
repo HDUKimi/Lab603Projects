@@ -298,7 +298,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 						
 						threadexceptionstate=0;
 						
-//						initTestCaseUI();
+						initTestCaseUI();
 						
 //						mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(false);
 						
@@ -1332,7 +1332,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		int issave=JOptionPane.showConfirmDialog(mainFrame, "是否需要保存该次测试用例及测试报告", "提示", JOptionPane.YES_NO_OPTION);
 		
 		if(issave==JOptionPane.YES_OPTION){
-			SaveTestCaseToDBByType(testcasetype);
+			SaveTestCaseToDBByType(testcasetype,testcaseattribute);
 			JOptionPane.showMessageDialog(mainFrame, "保存成功！", "消息" , JOptionPane.INFORMATION_MESSAGE);
 		}
 		else{
@@ -1341,19 +1341,14 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		
 	}
 
-	private void SaveTestCaseToDBByType(int type) {
+	private void SaveTestCaseToDBByType(int type, int attribute) {
 		
 		if(type==1){
-			
-			if(testcasename.contains("BorderTestCase")){
-				type=4;
-			}
-			
 			List<String> testcasestringlist=new ArrayList<String>();
 			for(TestCase testCase:resulttestcaselist){
 				testcasestringlist.add(testCase.SpellFunctionalTestCase());
 			}
-			DataBaseUtil.insertTestCaseStringList(type, testcasestringlist, testcasename);
+			DataBaseUtil.insertTestCaseStringList(attribute, testcasestringlist, testcasename);
 			TextAreaPrint("保存成功！！！");
 		}
 		else if(type==2){
@@ -1369,7 +1364,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			for(TestCase testCase:resulttestcaselist){
 				testcasestringlist.add(testCase.SpellTimeTestCase());
 			}
-			DataBaseUtil.insertTestCaseStringList(type, testcasestringlist, testcasename);
+			DataBaseUtil.insertTestCaseStringList(4, testcasestringlist, testcasename);
 			TextAreaPrint("保存成功！！！");
 		}
 		

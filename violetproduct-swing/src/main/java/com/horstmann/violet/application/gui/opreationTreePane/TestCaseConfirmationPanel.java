@@ -591,7 +591,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 			else if(name.contains("性能")||name.contains("Performance")){
 				sqlcasedatagroup.get(1).add(name);
 			}
-			else if(name.contains("功能")){
+			else if(name.contains("功能")||name.contains("Functional")){
 				sqlcasedatagroup.get(0).add(name);
 			}
 		}
@@ -1633,6 +1633,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 					TestCase testCase=DataBaseUtil.extractTestCaseByString(testcasetype, str);
 //					System.out.println(testCase.showTimeTestCase());
 					testcaselist.add(testCase);
+					System.out.println(testCase.getTestCaseID()+" - - "+testCase.getExetime());
 				}
 						
 				for(TestCaseDataPanel tcd:testCaseDataPanels){

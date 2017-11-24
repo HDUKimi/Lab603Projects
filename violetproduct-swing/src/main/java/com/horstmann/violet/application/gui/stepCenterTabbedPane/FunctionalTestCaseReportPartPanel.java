@@ -128,8 +128,33 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 		String title = "";
 		title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
 		
-		if(testcaseattribute!=2){
-			title+="预期结果:测试用例正确     ";
+		if(testcaseattribute==2){
+			if(showAll==1){
+				title += "总耗时:" + testcase.getExetime() + " ms";
+			}
+		}
+		else{
+			if(showAll==1){
+				title = "";
+				title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
+				
+				title+="预期结果:测试用例正确     ";
+				
+				title+="执行结果:"+testcase.getState()+"     ";
+				title+="总耗时:"+testcase.getExetime()+" ms";
+				
+				titlelabel.setText(title);
+				
+				if(testcase.getState().contains("成功")){
+					iconlabel.setIcon(icon1);
+				}
+				else{
+					iconlabel.setIcon(icon2);
+				}
+			}
+			else{
+				title+="预期结果:测试用例正确     ";
+			}
 		}
 		
 //		if(testcase.getExpectResult().equals("right")){
@@ -151,35 +176,6 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 
 		iconlabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		
-		
-		if(showAll==1){
-			title = "";
-			title+="测试用例ID:"+testcase.getTestCaseID()+"     ";
-			
-//			if(testcase.getExpectResult().equals("right")){
-				title+="预期结果:测试用例正确     ";
-//			}
-//			else if(testcase.getExpectResult().equals("GNerror")){
-//				title+="预期结果:测试用例不正确     ";
-//			}
-//			else if(testcase.getExpectResult().equals("TIMEerror")){
-//				title+="预期结果:测试用例正确但不满足时间约束     ";
-//			}
-			
-			title+="执行结果:"+testcase.getState()+"     ";
-			title+="总耗时:"+testcase.getExetime()+" ms";
-			
-			titlelabel.setText(title);
-			
-			if(testcase.getState().contains("成功")){
-				iconlabel.setIcon(icon1);
-			}
-			else{
-				iconlabel.setIcon(icon2);
-			}
-		}
-		
-
 		toolcheckbox.setSelected(false);
 		toolcheckbox.setOpaque(false);
 		
@@ -238,6 +234,10 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 		
 		String title = "";
 		title+="被测程序执行结果：";
+		
+		if(showAll==1){
+			title+=testcase.getProgramExeResult();
+		}
 		
 		exeresultlabel.setText(title);
 		exeresultlabel.setFont(new Font("微软雅黑", Font.BOLD, 12));

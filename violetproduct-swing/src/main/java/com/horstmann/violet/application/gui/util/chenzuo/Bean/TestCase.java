@@ -142,7 +142,9 @@ public class TestCase implements Serializable{
 					+ " ¼¤Àø×´Ì¬ :" + ((m.processStatus == "NULL")?"¿Õ":m.getProcessStatus())
 					+")";
 		}
-		tmp = tmp + " ]\n  -->²âÊÔÖ´ÐÐ×´Ì¬: [ ²âÊÔºÄÊ±:" + exetime + " ms ]\n  -->½á¹û×´Ì¬: [ "+ state+" ]\n  -->±»²â³ÌÐòÖ´ÐÐ½á¹û: [ "+ programExeResult+" ]";
+		tmp = tmp + " ]\n  -->²âÊÔÖ´ÐÐ×´Ì¬: [ ²âÊÔºÄÊ±:" + exetime + " ms ]\n"
+				+ "  -->½á¹û×´Ì¬: [ "+ state+" ]\n"
+				+ "  -->±»²â³ÌÐòÖ´ÐÐ½á¹û: [ "+ programExeResult+" ]";
 		return tmp;
 	}
 	
@@ -164,6 +166,7 @@ public class TestCase implements Serializable{
 		sb.append("-->exetime:["+exetime+"]\n");
 		sb.append("-->expectResult:["+expectResult+"]\n");
 		sb.append("-->state:["+state+"]\n");
+		sb.append("-->programExeResult:["+programExeResult+"]\n");
 		
 		return sb.toString();
 	}
@@ -229,6 +232,7 @@ public class TestCase implements Serializable{
 		sb.append("-->exetime:["+exetime+"]\n");
 		sb.append("-->expectResult:["+expectResult+"]\n");
 		sb.append("-->state:["+state+"]\n");
+		sb.append("-->programExeResult:["+programExeResult+"]\n");
 		
 		return sb.toString();
 	}
