@@ -1408,9 +1408,10 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				parentTestCaseDataPanel.getTestCaseChartTabbedPanel().add(functionalTestCaseChartTabbedPanel);
 				
 				PerformanceExeTimeLineChart pxtlc=new PerformanceExeTimeLineChart(exetimelist);
-				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
-				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(pxtlc.createChart());
+				functionalTestCaseChartTabbedPanel.getPerformanceexetimelinepanel().removeAll();
+				functionalTestCaseChartTabbedPanel.getPerformanceexetimelinepanel().add(pxtlc.createChart());
 				
+				functionalTestCaseChartTabbedPanel.showPerformaneExeTimeLine();
 			}
 			else{
 				Map<String, Object> testcasemap=TcConvertUtil.functionStatistics(resulttestcaselist);
@@ -1481,9 +1482,12 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(ffspc.createChart());
 				
 				if(cf==0){
-					functionalTestCaseChartTabbedPanel.getFailedstatisticstablepanel().setVisible(false);
-					functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().setVisible(false);
+					functionalTestCaseChartTabbedPanel.showSuccessFailedPie(0);
 				}
+				else{
+					functionalTestCaseChartTabbedPanel.showSuccessFailedPie(1);
+				}
+				
 			}
 			
 		}
@@ -1530,69 +1534,92 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		}
 		else if(type==3){
 			
-			Map<String, Integer> resultmap=TcConvertUtil.timeStatistics(resulttestcaselist);
-			
-			TimeTestCaseChartTabbedPanel timeTestCaseChartTabbedPanel=new TimeTestCaseChartTabbedPanel(mainFrame);
-			
-			parentTestCaseDataPanel.getTestCaseChartTabbedPanel().removeAll();
-			parentTestCaseDataPanel.getTestCaseChartTabbedPanel().add(timeTestCaseChartTabbedPanel);
-			
-			DefaultTableModel tabelmodel=timeTestCaseChartTabbedPanel.getAttributetablemodel();
-			
-			int cs=0,cf=0,csum=0;
-			cs=resultmap.get("success");
-			cf=resultmap.get("failed");
-			
-//			cs=180;
-//			cf=39;
-			
-			csum=cs+cf;
-			DefaultTableModel successfailedtabelmodel=timeTestCaseChartTabbedPanel.getSuccessfailedattributetablemodel();
-			while(successfailedtabelmodel.getRowCount()>0){
-				successfailedtabelmodel.removeRow(0);
+			if(attribute==2){
+				
+				List<Double> exetimelist=new ArrayList<>();
+				
+				for(TestCase testCase:resulttestcaselist){
+					exetimelist.add(Double.parseDouble(testCase.getExetime()));
+				}
+				
+				TimeTestCaseChartTabbedPanel timeTestCaseChartTabbedPanel=new TimeTestCaseChartTabbedPanel(mainFrame);
+				
+				parentTestCaseDataPanel.getTestCaseChartTabbedPanel().removeAll();
+				parentTestCaseDataPanel.getTestCaseChartTabbedPanel().add(timeTestCaseChartTabbedPanel);
+				
+				PerformanceExeTimeLineChart petlc=new PerformanceExeTimeLineChart(exetimelist);
+				timeTestCaseChartTabbedPanel.getPerformanceexetimelinepanel().removeAll();
+				timeTestCaseChartTabbedPanel.getPerformanceexetimelinepanel().add(petlc.createChart());
+				
+				timeTestCaseChartTabbedPanel.showPerformaneExeTimeLine();
 			}
-			Object[] rowData1={"合计：",cs, cf, csum};
-			successfailedtabelmodel.addRow(rowData1);
-			Object[] rowData2={"百分比：",calcper(cs, csum), calcper(cf, csum), calcper(csum, csum)};
-//			Object[] rowData2={"百分比：","99.51%", "0.49%", calcper(csum, csum)};
-			successfailedtabelmodel.addRow(rowData2);
-			
-			int f1=0,f2=0;
-//			if (failedStatistics.containsKey("测试用例有误")) {
-//				f1=failedStatistics.get("测试用例有误").size();
-//			}
-//			if(failedStatistics.containsKey("程序出现死循环或者抛出异常")){
-//				f2=failedStatistics.get("程序出现死循环或者抛出异常").size();
-//			}
-			
-			f1=resultmap.get("testcasefailed");
-			f2=resultmap.get("timefailed");
-			
-//			f1=0;
-//			f2=0;
-//			cf=0;
-			
-			DefaultTableModel failedstatisticstabelmodel=timeTestCaseChartTabbedPanel.getFailedstatisticsattributetablemodel();
-			while(failedstatisticstabelmodel.getRowCount()>0){
-				failedstatisticstabelmodel.removeRow(0);
-			}
-			Object[] rowData3={"合计：", f1, f2, cf};
-			failedstatisticstabelmodel.addRow(rowData3);
-			Object[] rowData4={"百分比：", calcper(f1, cf), calcper(f2, cf), calcper(cf, cf)};
-			failedstatisticstabelmodel.addRow(rowData4);
-			
-			
-			TimeSuccessFailedPieChart tsfpc=new TimeSuccessFailedPieChart(cs, cf);
-			timeTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
-			timeTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(tsfpc.createChart());
-			
-			TimeFailedStatisticsPieChart tfspc=new TimeFailedStatisticsPieChart(f1, f2);
-			timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().removeAll();
-			timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(tfspc.createChart());
-			
-			if(cf==0){
-				timeTestCaseChartTabbedPanel.getFailedstatisticstablepanel().setVisible(false);
-				timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().setVisible(false);
+			else{
+				Map<String, Integer> resultmap=TcConvertUtil.timeStatistics(resulttestcaselist);
+				
+				TimeTestCaseChartTabbedPanel timeTestCaseChartTabbedPanel=new TimeTestCaseChartTabbedPanel(mainFrame);
+				
+				parentTestCaseDataPanel.getTestCaseChartTabbedPanel().removeAll();
+				parentTestCaseDataPanel.getTestCaseChartTabbedPanel().add(timeTestCaseChartTabbedPanel);
+				
+				DefaultTableModel tabelmodel=timeTestCaseChartTabbedPanel.getAttributetablemodel();
+				
+				int cs=0,cf=0,csum=0;
+				cs=resultmap.get("success");
+				cf=resultmap.get("failed");
+				
+//				cs=180;
+//				cf=39;
+				
+				csum=cs+cf;
+				DefaultTableModel successfailedtabelmodel=timeTestCaseChartTabbedPanel.getSuccessfailedattributetablemodel();
+				while(successfailedtabelmodel.getRowCount()>0){
+					successfailedtabelmodel.removeRow(0);
+				}
+				Object[] rowData1={"合计：",cs, cf, csum};
+				successfailedtabelmodel.addRow(rowData1);
+				Object[] rowData2={"百分比：",calcper(cs, csum), calcper(cf, csum), calcper(csum, csum)};
+//				Object[] rowData2={"百分比：","99.51%", "0.49%", calcper(csum, csum)};
+				successfailedtabelmodel.addRow(rowData2);
+				
+				int f1=0,f2=0;
+//				if (failedStatistics.containsKey("测试用例有误")) {
+//					f1=failedStatistics.get("测试用例有误").size();
+//				}
+//				if(failedStatistics.containsKey("程序出现死循环或者抛出异常")){
+//					f2=failedStatistics.get("程序出现死循环或者抛出异常").size();
+//				}
+				
+				f1=resultmap.get("testcasefailed");
+				f2=resultmap.get("timefailed");
+				
+//				f1=0;
+//				f2=0;
+//				cf=0;
+				
+				DefaultTableModel failedstatisticstabelmodel=timeTestCaseChartTabbedPanel.getFailedstatisticsattributetablemodel();
+				while(failedstatisticstabelmodel.getRowCount()>0){
+					failedstatisticstabelmodel.removeRow(0);
+				}
+				Object[] rowData3={"合计：", f1, f2, cf};
+				failedstatisticstabelmodel.addRow(rowData3);
+				Object[] rowData4={"百分比：", calcper(f1, cf), calcper(f2, cf), calcper(cf, cf)};
+				failedstatisticstabelmodel.addRow(rowData4);
+				
+				
+				TimeSuccessFailedPieChart tsfpc=new TimeSuccessFailedPieChart(cs, cf);
+				timeTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
+				timeTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(tsfpc.createChart());
+				
+				TimeFailedStatisticsPieChart tfspc=new TimeFailedStatisticsPieChart(f1, f2);
+				timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().removeAll();
+				timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(tfspc.createChart());
+				
+				if(cf==0){
+					timeTestCaseChartTabbedPanel.showSuccessFailedPie(0);
+				}
+				else{
+					timeTestCaseChartTabbedPanel.showSuccessFailedPie(1);
+				}
 			}
 			
 		}

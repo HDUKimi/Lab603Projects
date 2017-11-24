@@ -147,6 +147,8 @@ public class TestCaseDataPanel{
 				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
 				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(petlc.createChart());
 				
+				functionalTestCaseChartTabbedPanel.showPerformaneExeTimeLine();
+				
 //				PerformanceExeTimeScatterPlotChart petspc=new PerformanceExeTimeScatterPlotChart(exetimelist);
 //				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
 //				functionalTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(petspc.createChart());
@@ -212,8 +214,10 @@ public class TestCaseDataPanel{
 				functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(ffspc.createChart());
 				
 				if(cf==0){
-					functionalTestCaseChartTabbedPanel.getFailedstatisticstablepanel().setVisible(false);
-					functionalTestCaseChartTabbedPanel.getFailedstatisticspiepanel().setVisible(false);
+					functionalTestCaseChartTabbedPanel.showSuccessFailedPie(0);
+				}
+				else{
+					functionalTestCaseChartTabbedPanel.showSuccessFailedPie(1);
 				}
 			}
 			
@@ -274,8 +278,10 @@ public class TestCaseDataPanel{
 				testCaseChartTabbedPanel.add(timeTestCaseChartTabbedPanel);
 				
 				PerformanceExeTimeLineChart petlc=new PerformanceExeTimeLineChart(exetimelist);
-				timeTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
-				timeTestCaseChartTabbedPanel.getSuccessfailedpiepanel().add(petlc.createChart());
+				timeTestCaseChartTabbedPanel.getPerformanceexetimelinepanel().removeAll();
+				timeTestCaseChartTabbedPanel.getPerformanceexetimelinepanel().add(petlc.createChart());
+				
+				timeTestCaseChartTabbedPanel.showPerformaneExeTimeLine();
 				
 //				PerformanceExeTimeScatterPlotChart petspc=new PerformanceExeTimeScatterPlotChart(exetimelist);
 //				timeTestCaseChartTabbedPanel.getSuccessfailedpiepanel().removeAll();
@@ -336,8 +342,10 @@ public class TestCaseDataPanel{
 				timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().add(tfspc.createChart());
 				
 				if(cf==0){
-					timeTestCaseChartTabbedPanel.getFailedstatisticstablepanel().setVisible(false);
-					timeTestCaseChartTabbedPanel.getFailedstatisticspiepanel().setVisible(false);
+					timeTestCaseChartTabbedPanel.showSuccessFailedPie(0);
+				}
+				else{
+					timeTestCaseChartTabbedPanel.showSuccessFailedPie(1);
 				}
 			}
 			

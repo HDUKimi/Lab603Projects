@@ -46,6 +46,7 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 	private JCheckBox checkbox4;
 	private JCheckBox checkbox5;
 	private JCheckBox checkbox6;
+	private JCheckBox checkbox7;
 	
 	private JPanel checkboxpanel1;
 	private JPanel checkboxpanel2;
@@ -53,6 +54,7 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 	private JPanel checkboxpanel4;
 	private JPanel checkboxpanel5;
 	private JPanel checkboxpanel6;
+	private JPanel checkboxpanel7;
 	
 	private JScrollPane reportscrollpanel;
 	private JPanel reportresultpanel;
@@ -70,6 +72,7 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 	
 	private JPanel successfailedpiepanel;
 	private JPanel failedstatisticspiepanel;
+	private JPanel performanceexetimelinepanel;
 	
 	private JPanel chartpanel;
 	private JPanel barpanel1;
@@ -118,6 +121,8 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 		
 		initReportPanel();
 		
+		setPanelVisible();
+		
 		GridBagLayout layout = new GridBagLayout();
 		this.setLayout(layout);
 		this.add(toolpanel);
@@ -160,6 +165,7 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 		checkbox4=new JCheckBox();
 		checkbox5=new JCheckBox();
 		checkbox6=new JCheckBox();
+		checkbox7=new JCheckBox();
 		
 		checkboxpanel1=new JPanel();
 		checkboxpanel2=new JPanel();
@@ -167,6 +173,7 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 		checkboxpanel4=new JPanel();
 		checkboxpanel5=new JPanel();
 		checkboxpanel6=new JPanel();
+		checkboxpanel7=new JPanel();
 		
 		checkbox1.setText("统计表格");
 		checkbox1.setOpaque(false);
@@ -258,6 +265,25 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 			}
 		});
 		
+		checkbox7.setText("性能耗时折线图");
+		checkbox7.setOpaque(false);
+		checkbox7.setSelected(true);
+		checkbox7.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(checkbox7.isSelected()){
+					performanceexetimelinepanel.setVisible(true);
+					ChangeRepaint();
+				}
+				else{
+					performanceexetimelinepanel.setVisible(false);
+					ChangeRepaint();
+				}
+			}
+		});
+		
 		checkboxpanel1.setOpaque(false);
 		checkboxpanel1.setLayout(new GridLayout());
 		checkboxpanel1.add(checkbox1);
@@ -267,6 +293,9 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 		checkboxpanel6.setOpaque(false);
 		checkboxpanel6.setLayout(new GridLayout());
 		checkboxpanel6.add(checkbox6);
+		checkboxpanel7.setOpaque(false);
+		checkboxpanel7.setLayout(new GridLayout());
+		checkboxpanel7.add(checkbox7);
 		
 		toolpanel.setBackground(new Color(207, 214, 229));
 		toolpanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5,3));
@@ -283,6 +312,7 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 		toolpanel.add(checkboxpanel1);
 		toolpanel.add(checkboxpanel5);
 		toolpanel.add(checkboxpanel6);
+		toolpanel.add(checkboxpanel7);
 		
 		toolpanel.setPreferredSize(new Dimension(100, 29));
 		toolpanel.setMaximumSize(new Dimension(100, 29));
@@ -596,6 +626,7 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 		
 		successfailedpiepanel=new JPanel();
 		failedstatisticspiepanel=new JPanel();
+		performanceexetimelinepanel=new JPanel();
 		
 		barpanel1=new JPanel();
 		linepanel1=new JPanel();
@@ -645,6 +676,9 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 		failedstatisticspiepanel.setPreferredSize(new Dimension(300, 300));
 		failedstatisticspiepanel.setMaximumSize(new Dimension(300, 300));
 		failedstatisticspiepanel.setMinimumSize(new Dimension(300, 300));
+		performanceexetimelinepanel.setPreferredSize(new Dimension(300, 300));
+		performanceexetimelinepanel.setMaximumSize(new Dimension(300, 300));
+		performanceexetimelinepanel.setMinimumSize(new Dimension(300, 300));
 		
 		barchartpanel1.setPreferredSize(new Dimension(300, 300));
 		barchartpanel1.setMaximumSize(new Dimension(300, 300));
@@ -688,6 +722,7 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 		
 		successfailedpiepanel.setLayout(new GridLayout());
 		failedstatisticspiepanel.setLayout(new GridLayout());
+		performanceexetimelinepanel.setLayout(new GridLayout());
 		
 		GridBagLayout layout = new GridBagLayout();
 		chartpanel.setLayout(layout);
@@ -699,6 +734,7 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 //		chartpanel.add(piepanel2);
 		chartpanel.add(successfailedpiepanel);
 		chartpanel.add(failedstatisticspiepanel);
+		chartpanel.add(performanceexetimelinepanel);
 		
 //		chartpanel.add(leftemptypanel1);
 //		chartpanel.add(leftemptypanel2);
@@ -713,6 +749,7 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 		
 		layout.setConstraints(successfailedpiepanel, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		layout.setConstraints(failedstatisticspiepanel, new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(performanceexetimelinepanel, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 //		layout.setConstraints(barpanel1, new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 //		layout.setConstraints(linepanel1, new GBC(1, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
@@ -734,6 +771,47 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 //		layout.setConstraints(rightemptypanel5, new GBC(2, 5, 1, 1).setFill(GBC.BOTH).setWeight(0.3, 1));
 		
 		chartpanel.setBackground(new Color(255, 255, 255));
+		
+	}
+	
+	private void setPanelVisible() {
+		// TODO Auto-generated method stub
+		
+		checkboxpanel1.setVisible(false);
+		checkboxpanel5.setVisible(false);
+		checkboxpanel6.setVisible(false);
+		checkboxpanel7.setVisible(false);
+		
+		tablepanel.setVisible(false);
+		successfailedpiepanel.setVisible(false);
+		failedstatisticspiepanel.setVisible(false);
+		performanceexetimelinepanel.setVisible(false);
+		
+	}
+	
+	public void showPerformaneExeTimeLine() {
+		
+		checkboxpanel7.setVisible(true);
+		performanceexetimelinepanel.setVisible(true);
+		
+	}
+	
+	public void showSuccessFailedPie(int flag) {
+		// TODO Auto-generated method stub
+		
+		checkboxpanel1.setVisible(true);
+		checkboxpanel5.setVisible(true);
+		
+		tablepanel.setVisible(true);
+		successfailedpiepanel.setVisible(true);
+		
+		if(flag==1){
+			checkboxpanel6.setVisible(true);
+			failedstatisticspiepanel.setVisible(true);
+		}
+		else{
+			failedstatisticstablepanel.setVisible(false);
+		}
 		
 	}
 	
@@ -760,6 +838,10 @@ public class TimeTestCaseChartTabbedPanel extends JPanel{
 		return failedstatisticspiepanel;
 	}
 	
+	public JPanel getPerformanceexetimelinepanel() {
+		return performanceexetimelinepanel;
+	}
+
 	public JPanel getFailedstatisticstablepanel() {
 		return failedstatisticstablepanel;
 	}
