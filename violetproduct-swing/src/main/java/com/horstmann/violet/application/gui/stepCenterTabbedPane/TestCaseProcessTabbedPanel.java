@@ -20,6 +20,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -78,6 +79,7 @@ import com.horstmann.violet.application.gui.util.ckt.output.forPlatform;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PathCoverage_new;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML2;
+import com.horstmann.violet.application.gui.util.ckt.testcase.testtest;
 import com.horstmann.violet.application.gui.util.ckt.xml.GetTimeXML;
 import com.horstmann.violet.application.gui.util.ckt.xml.XMLGet;
 import com.horstmann.violet.application.gui.util.ckt.xml.XmlOfTime;
@@ -943,7 +945,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 							testCase=StateCoverage__1.testCase(aTDRTAutomatic);						
 						}
 						else if(selectCoverState==1){//Ç¨ÒÆ¸²¸Ç
-							testCase=PathCoverage_new.testCase(aTDRTAutomatic);
+//							testCase=PathCoverage_new.testCase(aTDRTAutomatic);
+							testCase=testtest.test1(aTDRTAutomatic);
 						}
 					}
 					else{
@@ -1225,6 +1228,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						am.setInequalitySet(Get_inequality__1.get_Inequalitys(am));
 						System.out.println(am.getInequalitySet().size());
 					}
+				}
+				
+				if(selectUppaal.contains("ÈÆÈ¦·ÉÐÐ")){
+					RemoveErrorProcess(collectLimit);
 				}
 				
 //				int k=1;
@@ -1669,6 +1676,40 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				stepsum=5;
 //			}
 			
+		}
+		
+	}
+
+	protected void RemoveErrorProcess(ArrayList<Automatic> collectLimit) {
+		
+		List<String> datalist=new ArrayList<>();
+		String str[] = {"angle_ef_roll_pitch_yaw", "get_alt_target", "get_land_descent_speed",
+				"get_pilot_desired_climb_rate", "get_pitch", "get_roll", "get_surface_tracking_climb_rate",
+				"get_wp_destination", "get_yaw", "guided_angle_control_run", "guided_pos_control_run",
+				"guided_posvel_control_run", "guided_run", "guided_takeoff_run", "guided_vel_control_run",
+				"init_vel_controller_xyz", "output_armed_stabilizing", "pv_alt_above_origin", "reached_wp_destination",
+				"rtl_climb_return_run", "rtl_descent_run", "rtl_descent_start", "rtl_loiterathome_run",
+				"rtl_loiterathome_start", "rtl_return_start", "set_alt_target_with_slew", "set_auto_yaw_mode",
+				"set_land_complete", "set_pilot_desired_acceleration", "set_target_to_stopping_point_z",
+				"set_throttle_takeoff", "update_loiter", "update_simple_mode", "update_wpnav"};
+
+		for(String s:str){
+			datalist.add(s);
+		}
+		int i=0;
+		for(Automatic automatic:collectLimit){
+//			ArrayList<Transition> transitions=automatic.getTransitionSet();
+			Iterator<Transition> iterator=automatic.getTransitionSet().iterator();
+			while (iterator.hasNext()) {
+				Transition transition = (Transition) iterator.next();
+				String name=transition.getName();
+				if(name.contains("(")){
+					name=name.substring(0, name.indexOf("("));
+				}
+				if(datalist.contains(name)){
+					iterator.remove();
+				}
+			}
 		}
 		
 	}
