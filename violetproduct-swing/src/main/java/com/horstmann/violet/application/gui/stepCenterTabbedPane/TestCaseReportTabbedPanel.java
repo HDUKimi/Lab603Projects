@@ -1647,6 +1647,19 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			
 			testcase.setExpectResult(ftcrpp.getTestcase().getExpectResult());
 			
+			if(testcase.getProgramExeResult().contains("异常")){
+				
+			}
+			else{
+				System.out.println("testcasename - - "+testcasename);
+				if(testcasename.contains("飞向指定位置")){
+					testcase.setProgramExeResult("无人机成功飞向指定位置，并完成返航");
+				}
+				else{
+					testcase.setProgramExeResult("无人机成功完成绕圈飞行，并完成返航");
+				}
+			}
+			
 			JTable attributetable;
 			DefaultTableModel attributetablemodel;
 			

@@ -319,13 +319,24 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 //        	String result=t.getResult().toString().replaceAll("\\[|]", "").split("%")[1];
         	
         	String result=null;
+//        	System.out.println(t.getResult().toString());
         	String[] resultsplit=t.getResult().toString().replaceAll("\\[|]", "").split("%");
-        	if(resultsplit.length>1){
-        		result=resultsplit[1];
-        	}
-        	else{
-        		result=resultsplit[0];
-        	}
+//        	if(resultsplit.length>1){
+//        		result=resultsplit[1];
+//        	}
+//        	else{
+//        		result=resultsplit[0];
+//        	}
+//        	int ix=0;
+//        	for(String str:resultsplit){
+//        		if(ix==0){
+//        			result=str;
+//        		}
+//        		else{
+//        			result+=","+str;
+//        		}
+//        	}
+        	result=t.getResult().toString().replaceAll("\\[|]", "");
         	
 //        	if(mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().getSelectCoverState()==2){//–‘ƒ‹≤‚ ‘
 //        		String name;

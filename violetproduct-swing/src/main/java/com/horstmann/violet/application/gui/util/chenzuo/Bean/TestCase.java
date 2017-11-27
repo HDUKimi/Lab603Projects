@@ -125,7 +125,7 @@ public class TestCase implements Serializable{
 			tmp = tmp + "\tmyProcess [processID=" + m.processID + ", processName=" + m.processName + ", processParam=" + m.processParam
 					+ ", processStatus=" + m.processStatus + ", processExec=" + m.processExec + "]\n";
 		}
-		tmp = tmp + ", state=测试耗时:" + exetime + " ms, result="+ result + ",\n detail=" + detail + "]";
+		tmp = tmp + ", state=测试耗时:" + exetime + " ms, result="+ result + ",\n detail=" + showTestCase() + "]";
 		return tmp;
 	}
 	/***
@@ -234,6 +234,22 @@ public class TestCase implements Serializable{
 		sb.append("-->state:["+state+"]\n");
 		sb.append("-->programExeResult:["+programExeResult+"]\n");
 		
+		return sb.toString();
+	}
+	
+	public String toStringX(){
+		
+		StringBuffer sb=new StringBuffer();
+		
+		sb.append("测试用例ID: "+testCaseID+"\n");
+		sb.append("激励列表: \n");
+		for(myProcess process:processList){
+			sb.append("激励ID:"+process.getProcessID()+" ");
+			sb.append("激励名称:"+process.getProcessName()+" ");
+			sb.append("激励参数:"+process.getProcessParam()+" ");
+			sb.append("\n");
+		}
+
 		return sb.toString();
 	}
 	

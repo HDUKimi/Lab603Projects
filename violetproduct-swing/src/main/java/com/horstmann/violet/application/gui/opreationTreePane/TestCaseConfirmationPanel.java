@@ -5,22 +5,23 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
@@ -31,21 +32,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
-import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
@@ -59,26 +53,15 @@ import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.StepFiveCenterTabbedPane;
-import com.horstmann.violet.application.gui.StepFourCenterTabbedPane;
 import com.horstmann.violet.application.gui.opreationTreePane.CheckBoxTree.CheckBoxTreeCellRenderer;
 import com.horstmann.violet.application.gui.opreationTreePane.CheckBoxTree.CheckBoxTreeNode;
 import com.horstmann.violet.application.gui.opreationTreePane.CheckBoxTree.CheckBoxTreeNodeSelectionListener;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.FixedButtonTabbedPanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.FunctionalTestCaseReportPartPanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEditor;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.PerformanceTestCaseReportPartPanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.PerformanceTestCaseReportTableHeaderPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.TestCaseDataPanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.TimeTestCaseReportPartPanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.chart.TestCasePieChartPanel;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseResult;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.myProcess;
 import com.horstmann.violet.application.gui.util.lmr.DB.DataBaseUtil;
 import com.horstmann.violet.application.gui.util.tanchao.SaveText;
-import com.horstmann.violet.application.gui.util.tanchao.TestCaseXMLToStringList;
-import com.l2fprod.common.swing.JTaskPane;
-import com.l2fprod.common.swing.JTaskPaneGroup;
 
 public class TestCaseConfirmationPanel extends JPanel{
 	
@@ -1585,6 +1568,14 @@ public class TestCaseConfirmationPanel extends JPanel{
 				
 				JOptionPane.showMessageDialog(mainFrame, "测试用例提取完成！", "消息" , JOptionPane.INFORMATION_MESSAGE);
 				
+				for (TestCase testCase:testcaselist) {
+
+					SaveText.init("D:\\Text\\testshilihua.txt");
+					SaveText.SaveWord(testCase.toStringX());
+					SaveText.SaveFenGe();
+					SaveText.End();
+				}
+				
 				System.out.println("------------END------------");
 			}
 		}).start();
@@ -1633,7 +1624,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 					TestCase testCase=DataBaseUtil.extractTestCaseByString(testcasetype, str);
 //					System.out.println(testCase.showTimeTestCase());
 					testcaselist.add(testCase);
-					System.out.println(testCase.getTestCaseID()+" - - "+testCase.getExetime());
+//					System.out.println(testCase.getTestCaseID()+" - - "+testCase.getExetime());
 				}
 						
 				for(TestCaseDataPanel tcd:testCaseDataPanels){
@@ -1654,6 +1645,8 @@ public class TestCaseConfirmationPanel extends JPanel{
 				
 				TextAreaPrint(testcasename+"的 "+testcaselist.size()+" 条测试用例以及测试报告提取完成");
 				
+				TestError(testcaselist);
+				
 				mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
 				
 				JOptionPane.showMessageDialog(mainFrame, "测试用例提取完成！", "消息" , JOptionPane.INFORMATION_MESSAGE);
@@ -1662,6 +1655,101 @@ public class TestCaseConfirmationPanel extends JPanel{
 			}
 		}).start();
 
+	}
+
+	protected void TestError(List<TestCase> testcaselist) {
+		
+		Map<String, Integer> map=new TreeMap<>();
+		
+		for(TestCase testCase:testcaselist){
+			for(myProcess process:testCase.getProcessList()){
+				if(!process.isProcessExec()){
+					if(map.containsKey(process.getProcessName())){
+						map.put(process.getProcessName(), map.get(process.getProcessName())+1);
+					}
+					else{
+						map.put(process.getProcessName(), 1);
+					}
+				}
+			}
+		}
+		
+		System.out.println("-------------------------------------------"+testcaselist.size());
+		for(Entry<String, Integer> entry:map.entrySet()){
+//			System.out.println(entry.getKey()+" - - "+entry.getValue());
+			if(entry.getValue()>50){
+				System.out.println(entry.getKey()+", ");
+			}
+		}
+		System.out.println("-------------------------------------------");
+		
+		List<List<String>> alllist=new ArrayList<>();
+		
+		for(TestCase testCase:testcaselist){
+			List<String> errorlist=new ArrayList<>();
+			for(myProcess process:testCase.getProcessList()){
+				if(!process.isProcessExec()){
+					errorlist.add(process.getProcessName());
+				}
+			}
+			
+			int flag=0;
+			for(List<String> list:alllist){
+				flag=1;
+				for(String e:errorlist){
+					if(!list.contains(e)){
+						flag=0;
+						break;
+					}
+				}
+				if(flag==1){
+					break;
+				}
+			}
+			if(flag==0){
+				alllist.add(errorlist);
+			}
+		}
+		
+		System.out.println("-------------------------------------------"+alllist.size());
+		for(List<String> list:alllist){
+			System.out.println(list.toString());
+		}
+		System.out.println("-------------------------------------------");
+		
+		//去重
+		List<String> datalist=new ArrayList<>();
+		String str[] = { "angle_ef_roll_pitch_yaw", "get_alt_target", "get_land_descent_speed",
+				"get_pilot_desired_climb_rate", "get_pitch", "get_roll", "get_surface_tracking_climb_rate",
+				"get_wp_destination", "get_yaw", "guided_angle_control_run", "guided_pos_control_run",
+				"guided_posvel_control_run", "guided_run", "guided_takeoff_run", "guided_vel_control_run",
+				"init_vel_controller_xyz", "output_armed_stabilizing", "pv_alt_above_origin", "reached_wp_destination",
+				"rtl_climb_return_run", "rtl_descent_run", "rtl_descent_start", "rtl_loiterathome_run",
+				"rtl_loiterathome_start", "rtl_return_start", "set_alt_target_with_slew", "set_auto_yaw_mode",
+				"set_land_complete", "set_pilot_desired_acceleration", "set_target_to_stopping_point_z",
+				"set_throttle_takeoff", "update_loiter", "update_simple_mode", "update_wpnav", "" };
+
+		for(String s:str){
+			datalist.add(s);
+		}
+		
+		for(List<String> list:alllist){
+			Iterator<String> iterator=list.iterator();
+			while (iterator.hasNext()) {
+				String s = (String) iterator.next();
+				if(datalist.contains(s)){
+					iterator.remove();
+				}
+			}
+		}
+		
+		System.out.println("-------------------------------------------"+alllist.size());
+		for(List<String> list:alllist){
+			System.out.println(list.toString());
+		}
+		System.out.println("-------------------------------------------");
+		
+		
 	}
 
 	protected void initUI() {
