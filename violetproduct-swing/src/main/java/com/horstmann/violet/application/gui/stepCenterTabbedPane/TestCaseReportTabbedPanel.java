@@ -1651,7 +1651,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 			}
 			else{
-				System.out.println("testcasename - - "+testcasename);
+//				System.out.println("testcasename - - "+testcasename);
 				if(testcasename.contains("飞向指定位置")){
 					testcase.setProgramExeResult("无人机成功飞向指定位置，并完成返航");
 				}

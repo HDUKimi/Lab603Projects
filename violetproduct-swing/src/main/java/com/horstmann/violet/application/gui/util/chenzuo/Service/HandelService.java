@@ -106,10 +106,14 @@ public class HandelService implements Callable {
                 //get index of result file and convert
                 if (data.contains("index")) {
                     String index = data.split("#")[1];
+                    if(index.contains("exit")){
+                    	index=index.replaceAll("exit", "");
+                    }
                     fIndex++;
                     receiveService.submit(new RecvTransService(node,index));
 //                  logger.debug(receiveService.take().get());
-                } else if ("exit".equals(data)) {
+                } 
+                if ("exit".equals(data)) {
                 	
                 	logger.debug(node.getIp()+" success receive all files");
                 	

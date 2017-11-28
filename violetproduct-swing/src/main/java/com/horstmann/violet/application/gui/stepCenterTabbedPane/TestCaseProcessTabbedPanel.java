@@ -76,6 +76,7 @@ import com.horstmann.violet.application.gui.util.ckt.handle.StateCoverage__1;
 import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 import com.horstmann.violet.application.gui.util.ckt.output.TestAutoDiagram;
 import com.horstmann.violet.application.gui.util.ckt.output.forPlatform;
+import com.horstmann.violet.application.gui.util.ckt.testcase.MinTC;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PathCoverage_new;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML2;
@@ -946,7 +947,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 						}
 						else if(selectCoverState==1){//Ç¨ÒÆ¸²¸Ç
 //							testCase=PathCoverage_new.testCase(aTDRTAutomatic);
-							testCase=testtest.test1(aTDRTAutomatic);
+							testCase=MinTC.sideCoverage(aTDRTAutomatic);
+//							testCase=testtest.test1(aTDRTAutomatic);
 						}
 					}
 					else{

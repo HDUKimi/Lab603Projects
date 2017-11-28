@@ -108,6 +108,7 @@ public class TestCaseShowTabbedPanel extends JPanel{
 					for(FunctionalTestCaseReportPartPanel ftcrpp:functionaltestcasereportlist){
 						if(ftcrpp.getAttributepanel().isVisible()){
 							ftcrpp.getAttributepanel().setVisible(false);
+							ftcrpp.getExeresultpanel().setVisible(false);
 						}
 					}
 					
@@ -129,6 +130,7 @@ public class TestCaseShowTabbedPanel extends JPanel{
 						if (ttcrpp.getAttributepanel().isVisible()) {
 							ttcrpp.getAttributepanel().setVisible(false);
 							ttcrpp.getLimitpanel().setVisible(false);
+							ttcrpp.getExeresultpanel().setVisible(false);
 						}
 						
 					}
@@ -157,6 +159,7 @@ public class TestCaseShowTabbedPanel extends JPanel{
 					for (FunctionalTestCaseReportPartPanel ftcrpp : functionaltestcasereportlist) {
 						if (!ftcrpp.getAttributepanel().isVisible()) {
 							ftcrpp.getAttributepanel().setVisible(true);
+							ftcrpp.getExeresultpanel().setVisible(true);
 						}
 					}
 
@@ -177,6 +180,7 @@ public class TestCaseShowTabbedPanel extends JPanel{
 						if (!ttcrpp.getAttributepanel().isVisible()) {
 							ttcrpp.getAttributepanel().setVisible(true);
 							ttcrpp.getLimitpanel().setVisible(true);
+							ttcrpp.getExeresultpanel().setVisible(true);
 						}
 						
 					}
