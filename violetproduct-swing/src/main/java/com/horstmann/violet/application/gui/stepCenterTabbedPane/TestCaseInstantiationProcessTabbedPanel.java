@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Callable;
@@ -104,6 +105,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 	private ArrayList<Automatic> collectResult;
 	private ArrayList<Automatic> bordercollectLimit;
 	private ArrayList<Automatic> bordercollectResult;
+	private ArrayList<Automatic> performancecollectLimit;
+	private ArrayList<Automatic> performancecollectResult;
 	
 	private Automatic PerAutomaticResult;
 	
@@ -346,7 +349,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
 		
 		starttype=mainFrame.getTestCaseInstantiationPanel().FindRadioButtonIndex(mainFrame.getTestCaseInstantiationPanel().getSelectTestRadioButton())+1;
-		
+		starttype=1;
 		if(selectAbstract.contains("起飞高度")){
 			starttype=2;
 		}
@@ -452,6 +455,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				collectLimit=(ArrayList<Automatic>) readAbstractTestCaseSerialFile(selectAbstractPath);
 				//获取数据
 				bordercollectLimit=(ArrayList<Automatic>) readAbstractTestCaseSerialFile(selectAbstractPath);
+				//获取数据
+				performancecollectLimit=(ArrayList<Automatic>) readAbstractTestCaseSerialFile(selectAbstractPath);
 
 				Thread.sleep(1000);
 				
@@ -544,12 +549,16 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				if(starttype==1){//功能测试
 					if(hastime==1){
 						collectResult=XmlOfTime.collectResult(collectLimit);
+						bordercollectResult=XmlOfTime.collectResult(bordercollectLimit);
+						performancecollectResult=XmlOfTime.collectResult(performancecollectLimit);
 					}
 					else{
 						//获取数据
 						collectResult = forPlatform.collectResult(collectLimit);
 						//获取边界值数据
 						bordercollectResult = borderTestXML.collectResult(bordercollectLimit);
+						
+						performancecollectResult=forPlatform.collectResult(performancecollectLimit);
 					}
 				}
 				else if(starttype==2){//性能测试
@@ -807,7 +816,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					//性能测试用例生成
 					String performancepath=baseUrl+name+"PerformanceTestCase.xml";
 					
-					forPlatform.produceXML(performancepath,collectResult);
+					forPlatform.produceXML(performancepath,performancecollectResult);
 					
 					List<FunctionalTestCaseReportPartPanel> performancetestcasereportlist=new ArrayList<FunctionalTestCaseReportPartPanel>();
 					
@@ -939,7 +948,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					
 					//边界值测试用例
 					String borderpath=baseUrl+name+"BorderTestCase.xml";
-					borderTimeXML.produceBorderXML(borderpath, collectLimit);
+					borderTimeXML.produceBorderXML(borderpath, bordercollectLimit);
 					
 					List<List<String>> borderlimitlist=new ArrayList<List<String>>();
 					List<TimeTestCaseReportPartPanel> bordertimetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
@@ -977,7 +986,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					//性能测试用例
 					String performancepath=baseUrl+name+"PerformanceTestCase.xml";
 					
-					XmlOfTime.producePerformanceXML(performancepath, collectLimit);
+					XmlOfTime.producePerformanceXML(performancepath, performancecollectLimit);
 					
 					List<List<String>> performancelimitlist=new ArrayList<List<String>>();
 					List<TimeTestCaseReportPartPanel> performancetimetestcasereportlist=new ArrayList<TimeTestCaseReportPartPanel>();
@@ -1249,7 +1258,45 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 			e.printStackTrace();
 		}
 		
+		if(path.contains("绕圈飞行")){
+			RemoveErrorProcess(abstractAutomatic);
+		}
+		
 		return abstractAutomatic;
+	}
+	
+	public void RemoveErrorProcess(List<Automatic> collectLimit) {
+		
+		List<String> datalist=new ArrayList<>();
+		String str[] = {"angle_ef_roll_pitch_yaw", "get_alt_target", "get_land_descent_speed",
+				"get_pilot_desired_climb_rate", "get_pitch", "get_roll", "get_surface_tracking_climb_rate",
+				"get_wp_destination", "get_yaw", "guided_angle_control_run", "guided_pos_control_run",
+				"guided_posvel_control_run", "guided_run", "guided_takeoff_run", "guided_vel_control_run",
+				"init_vel_controller_xyz", "output_armed_stabilizing", "pv_alt_above_origin", "reached_wp_destination",
+				"rtl_climb_return_run", "rtl_descent_run", "rtl_descent_start", "rtl_loiterathome_run",
+				"rtl_loiterathome_start", "rtl_return_start", "set_alt_target_with_slew", "set_auto_yaw_mode",
+				"set_land_complete", "set_pilot_desired_acceleration", "set_target_to_stopping_point_z",
+				"set_throttle_takeoff", "update_loiter", "update_simple_mode", "update_wpnav"};
+
+		for(String s:str){
+			datalist.add(s);
+		}
+		int i=0;
+		for(Automatic automatic:collectLimit){
+//			ArrayList<Transition> transitions=automatic.getTransitionSet();
+			Iterator<Transition> iterator=automatic.getTransitionSet().iterator();
+			while (iterator.hasNext()) {
+				Transition transition = (Transition) iterator.next();
+				String name=transition.getName();
+				if(name.contains("(")){
+					name=name.substring(0, name.indexOf("("));
+				}
+				if(datalist.contains(name)){
+					iterator.remove();
+				}
+			}
+		}
+		
 	}
 	
 	public void ChangeRepaint() {

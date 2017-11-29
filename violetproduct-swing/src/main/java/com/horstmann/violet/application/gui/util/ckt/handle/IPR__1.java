@@ -68,6 +68,7 @@ public class IPR__1 {
 			int h=Minimization__1.includeZero(s.getInvariantDBM());
 			if(s.getPosition().equals(automatic.getInitState().getPosition())&&h==1){
 				intiState.setName(s.getName());
+				intiState.setShowName(s.getShowName());
 				intiState.setId(s.getId());
 				intiState.setPosition(s.getPosition());
 				intiState.setInvariantDBM(s.getInvariantDBM());

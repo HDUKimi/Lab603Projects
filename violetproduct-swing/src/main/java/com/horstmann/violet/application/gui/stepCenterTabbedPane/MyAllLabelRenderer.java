@@ -85,7 +85,7 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 		else if(tablename.equals("UppaalOptimizationStateInforPartPanel")){
 //			final String[] columnNames={"状态","序号","名称","位置","是否为终止状态","类型"};
 //			setFont(new Font("微软雅黑", Font.PLAIN, 10));
-			setForeground(new Color(0,0,0));
+//			setForeground(new Color(0,0,0));
 			setBackground(new Color(255, 255, 255));
 			if(Integer.parseInt(table.getValueAt(row, 0).toString())==-1){
 				setForeground(new Color(177, 177, 177));
@@ -103,7 +103,7 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 		else if(tablename.equals("UppaalOptimizationMigrateInforPartPanel")){
 //			final String[] columnNames={"状态","序号","名称","in(约束条件)","conditions(约束条件)","out(输出信息)","重置时钟"};
 //			setFont(new Font("微软雅黑", Font.PLAIN, 12));
-			setForeground(new Color(0,0,0));
+//			setForeground(new Color(0,0,0));
 			setBackground(new Color(255, 255, 255));
 			if(Integer.parseInt(table.getValueAt(row, 0).toString())==-1){
 				setForeground(new Color(177, 177, 177));

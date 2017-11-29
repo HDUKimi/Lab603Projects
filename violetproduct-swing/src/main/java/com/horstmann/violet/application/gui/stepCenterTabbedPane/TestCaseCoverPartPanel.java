@@ -68,6 +68,8 @@ public class TestCaseCoverPartPanel extends JPanel{
 		this.automatic=automatic;
 		this.workspace=workspace;
 		
+//		System.out.println("TestCaseCoverPartPanel  "+automatic.getName()+" - - "+automatic.getStateSet().size()+" - - "+automatic.getTransitionSet().size()+" - "+(automatic.getStateSet().size()-automatic.getTransitionSet().size()==1?"True":"False"));
+		
 		init();
 		
 		this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -140,12 +142,13 @@ public class TestCaseCoverPartPanel extends JPanel{
 //						System.out.print(t.getId()+" ");
 //					}
 					
-					System.out.println("---------------------------------");
-					for(Transition t:automatic.getTransitionSet()){
-						System.out.println(t.getId()+" + "+t.getName());
-					}
-					System.out.println("---------------------------------");
-
+//					System.out.println("---------------------------------");
+//					for(Transition t:automatic.getTransitionSet()){
+//						System.out.println(t.getId()+" + "+t.getName());
+//					}
+//					System.out.println("---------------------------------");
+					
+					System.out.println(automatic.getName()+" - - "+automatic.getStateSet().size()+" - - "+automatic.getTransitionSet().size()+" - "+(automatic.getStateSet().size()-automatic.getTransitionSet().size()==1?"True":"False"));
 					
 					TranMessageColorize tmc=new TranMessageColorize();
 					tmc.ColorizeDFSPath(automatic,mainFrame,workspace,mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getTrantextstate());
@@ -176,7 +179,7 @@ public class TestCaseCoverPartPanel extends JPanel{
 					mainFrame.getAbstractTestCaseResultPanel().getThreeresultpanel().add(resultpanel);
 					
 					mainFrame.getAbstractTestCaseResultPanel().getThreenamelabel().setText("测试路径"+index+"，包含"+automatic.getStateSet().size()+"个状态节点和"+automatic.getTransitionSet().size()+"条消息迁移");
-					
+					System.out.println("-*-*-*-*");
 					mainFrame.getAbstractTestCaseResultPanel().getTestcaselabeltab3().doClick();
 					
 				}

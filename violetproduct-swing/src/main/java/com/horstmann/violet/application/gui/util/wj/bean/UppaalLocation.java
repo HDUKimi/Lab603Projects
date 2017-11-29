@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class UppaalLocation {
 	private String name;//名称
+	private String showName;
 	private ArrayList<String> invariant ;//状态中的时钟不变式集合
 	//private ArrayList<String> com_invariant ;//时钟不变式的补集
 	boolean finalState;//标志状态是否为终止状态
@@ -33,6 +34,12 @@ public class UppaalLocation {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getShowName() {
+		return showName;
+	}
+	public void setShowName(String showName) {
+		this.showName = showName;
 	}
 
 	

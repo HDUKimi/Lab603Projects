@@ -60,6 +60,7 @@ public class AddType {
 			
 			State ss=new State();
 			ss.setName(s.getName());
+			ss.setShowName(s.getShowName());
 			ss.setPosition(s.getPosition());
 			ss.setInvariantDBM(s.getInvariantDBM());
 			ss.setAddClockRelationDBM(s.getAddClockRelationDBM());
@@ -100,6 +101,7 @@ public class AddType {
 			int h=Minimization__1.includeZero(s.getInvariantDBM());
 			if(s.getPosition().equals(automatic.getInitState().getPosition())&&h==1){
 				intiState.setName(s.getName());
+				intiState.setShowName(s.getShowName());
 				intiState.setPosition(s.getPosition());
 				intiState.setInvariantDBM(s.getInvariantDBM());
 				intiState.setId(1);

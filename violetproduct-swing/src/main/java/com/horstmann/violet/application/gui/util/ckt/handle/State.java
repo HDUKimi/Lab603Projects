@@ -13,6 +13,7 @@ public class State implements Serializable{
 	
 	private int id;//后来添加
 	private String name;//名称
+	private String showName;
 	private DBM_element[][] invariantDBM ;//状态中的时钟不变式集合
 	private DBM_element[][] addClockRelationDBM ;//加入了时钟关系的不变式矩阵
 	private String position;//判断两个状态位置是否相同的标志位
@@ -75,9 +76,17 @@ public class State implements Serializable{
 	public void setFinalState(boolean finalState) {
 		this.finalState = finalState;
 	}
+	
+	
+	public String getShowName() {
+		return showName;
+	}
+	public void setShowName(String showName) {
+		this.showName = showName;
+	}
 	@Override
 	public String toString() {
-		return "状态 " + id + " [id=" + id + ", name=" + name + ", position=" + position + ", finalState="
+		return "状态 " + id + " [id=" + id + ", name=" + name + ", showName=" + showName + ", finalState="
 				+ finalState + ", type=" + type + "]";
 	}
 	

@@ -49,6 +49,7 @@ public class Minimization__1 {
 		for(State s:StateSet){
 			State ss=new State();
 			ss.setName(s.getName());
+			ss.setShowName(s.getShowName());
 			ss.setPosition(s.getPosition());
 			ss.setInvariantDBM(s.getInvariantDBM());
 			ss.setAddClockRelationDBM(s.getAddClockRelationDBM());
@@ -57,6 +58,7 @@ public class Minimization__1 {
 
 		State s0=new State();//s0为第一个被拆分的状态，复制时间自动机的初始状态，防止时间自动机的初始状态被改变
 		s0.setName(Init_State.getName());
+		s0.setShowName(Init_State.getShowName());
 		s0.setPosition(Init_State.getPosition());
 		s0.setInvariantDBM(Init_State.getInvariantDBM());
 		s0.setAddClockRelationDBM(Init_State.getAddClockRelationDBM());
@@ -109,6 +111,7 @@ public class Minimization__1 {
 
 				State x_copy=new State();
 				x_copy.setName(x.getName());
+				x_copy.setShowName(x.getShowName());
 				x_copy.setPosition(x.getPosition());
 				x_copy.setInvariantDBM(x.getInvariantDBM());
 				x_copy.setAddClockRelationDBM(x.getAddClockRelationDBM());
@@ -137,6 +140,7 @@ public class Minimization__1 {
 				for(State s:diff){//将后继加入可达集
 					State ss=new State();
 					ss.setName(s.getName());
+					ss.setShowName(s.getShowName());
 					ss.setPosition(s.getPosition());
 					ss.setInvariantDBM(s.getInvariantDBM());
 					ss.setAddClockRelationDBM(s.getAddClockRelationDBM());
@@ -154,6 +158,7 @@ public class Minimization__1 {
 					if(x.getPosition().equals(Init_State.getPosition())&&includeZero(zone)==1){
 						State ss=new State();
 						ss.setName(s.getName());
+						ss.setShowName(s.getShowName());
 						ss.setPosition(s.getPosition());
 						ss.setInvariantDBM(s.getInvariantDBM());
 						ss.setAddClockRelationDBM(s.getAddClockRelationDBM());
@@ -244,6 +249,7 @@ public class Minimization__1 {
 				for(State s:new_X){//状态集中加入拆分得到的新状态
 					State ss=new State();
 					ss.setName(s.getName());
+					ss.setShowName(s.getShowName());
 					ss.setPosition(s.getPosition());
 					ss.setInvariantDBM(s.getInvariantDBM());
 					ss.setAddClockRelationDBM(s.getAddClockRelationDBM());
@@ -358,6 +364,7 @@ public class Minimization__1 {
 
 		State accNostable=new State();
 		accNostable.setName(s.getName());
+		accNostable.setShowName(s.getShowName());
 		accNostable.setPosition(s.getPosition());
 		accNostable.setInvariantDBM(s.getInvariantDBM());
 		accNostable.setAddClockRelationDBM(s.getAddClockRelationDBM());
@@ -410,6 +417,7 @@ public class Minimization__1 {
 			if(flag==1){
 				State state=new State();
 				state.setName(posts.get(i).getName());
+				state.setShowName(posts.get(i).getShowName());
 				state.setPosition(posts.get(i).getPosition());
 				state.setInvariantDBM(posts.get(i).getInvariantDBM());
 				state.setAddClockRelationDBM(posts.get(i).getAddClockRelationDBM());

@@ -39,7 +39,7 @@ public class Controller {
 
     private static Logger logger = Logger.getLogger(Controller.class);
 
-//    private static long MAX_FILE_SIZE = 10000 * 1024 * 1024;
+//    private static long MAX_FILE_SIZE = 1000000 * 1024 * 1024;
     private static long MAX_FILE_SIZE = 5*1024;
     
     // deploy

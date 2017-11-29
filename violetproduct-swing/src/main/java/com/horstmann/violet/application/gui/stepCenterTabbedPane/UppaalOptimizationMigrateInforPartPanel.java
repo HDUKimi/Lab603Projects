@@ -184,7 +184,7 @@ public class UppaalOptimizationMigrateInforPartPanel extends JPanel{
 		// TODO Auto-generated method stub
 		
 //		"状态","序号","名称","源状态名称","目的状态名称","in(约束条件)","out(输出信息)","conditions(约束条件)"
-		final String[] columnNames={"状态","序号","名称","源状态名称","目的状态名称","in(约束条件)","out(输出信息)","conditions(约束条件)"};
+		final String[] columnNames={"状态","序号","名称","源状态ID","目的状态ID","in(约束条件)","out(输出信息)","conditions(约束条件)"};
 		String[][] tabelValues={};
 		
 		attributetablemodel=new DefaultTableModel(tabelValues, columnNames){
@@ -226,10 +226,10 @@ public class UppaalOptimizationMigrateInforPartPanel extends JPanel{
 		attributetable.getColumn("序号").setMaxWidth(50);
 		attributetable.getColumn("名称").setPreferredWidth(50);
 		attributetable.getColumn("名称").setMinWidth(50);
-		attributetable.getColumn("源状态名称").setPreferredWidth(80);
-		attributetable.getColumn("源状态名称").setMinWidth(80);
-		attributetable.getColumn("目的状态名称").setPreferredWidth(80);
-		attributetable.getColumn("目的状态名称").setMinWidth(80);
+		attributetable.getColumn("源状态ID").setPreferredWidth(80);
+		attributetable.getColumn("源状态ID").setMinWidth(80);
+		attributetable.getColumn("目的状态ID").setPreferredWidth(80);
+		attributetable.getColumn("目的状态ID").setMinWidth(80);
 		attributetable.getColumn("in(约束条件)").setPreferredWidth(90);
 		attributetable.getColumn("in(约束条件)").setMinWidth(90);
 		attributetable.getColumn("out(输出信息)").setPreferredWidth(90);

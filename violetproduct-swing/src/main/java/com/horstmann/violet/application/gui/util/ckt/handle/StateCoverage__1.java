@@ -296,6 +296,12 @@ public class StateCoverage__1 {
 				System.out.println("-------------");
 			}
 		}*/
+		
+		System.out.println("------------------------");
+		for(Automatic auto:testcaseSet){
+			System.out.println(auto.getName()+" - - "+auto.getStateSet().size()+" - - "+auto.getTransitionSet().size()+" - "+(auto.getStateSet().size()-auto.getTransitionSet().size()==1?"True":"False"));
+		}
+		System.out.println("------------------------");
 
 		return testcaseSet;
 	}

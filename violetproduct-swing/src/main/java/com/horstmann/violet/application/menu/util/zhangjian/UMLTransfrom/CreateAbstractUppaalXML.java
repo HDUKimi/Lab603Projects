@@ -249,16 +249,16 @@ public class CreateAbstractUppaalXML {
 			sum++;
 			AbstractState node = abNodeList.get(i);
 
-			System.out.println("*************************" + i + "  " + abNodeList.size()+"   *"+locationmap.get(node.getSname())+"*"+ "  "+node.getSname());
+//			System.out.println("*************************" + i + "  " + abNodeList.size()+"   *"+locationmap.get(node.getSname())+"*"+ "  "+node.getSname());
 			xy = locationmap.get(node.getSname());
 			index = xy.indexOf('-');
 			x = xy.substring(0, index);
 			y = xy.substring(index + 1);
-			System.out.println(node.getSname());
-			System.out.println(x + "---" + y);
-			System.out.println("*************************"+node.getType());
+//			System.out.println(node.getSname());
+//			System.out.println(x + "---" + y);
+//			System.out.println("*************************"+node.getType());
 
-			System.out.println();
+//			System.out.println();
 			if ("Start".equals(node.getType().trim())) {
 
 				Element cStartNode = nodes.addElement("CircularNode").addAttribute("id", k + "");

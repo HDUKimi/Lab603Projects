@@ -173,6 +173,7 @@ public class GetAutomatic {
 					state.setId(stateNum++);
 				}
 				state.setName(loc.getName());
+				state.setShowName(loc.getShowName());
 				state.setInvariantDBM(DBM);
 				//state.setFinalState(loc.isFinalState());
 				state.setPosition(loc.getName());
@@ -186,6 +187,7 @@ public class GetAutomatic {
 				State state=new State();
 				state.setId(stateNum++);
 				state.setName(loc.getName());
+				state.setShowName(loc.getShowName());
 				state.setInvariantDBM(DBM);
 				//state.setFinalState(loc.isFinalState());
 				state.setFinalState(loc.isFinalState());
@@ -310,6 +312,7 @@ public class GetAutomatic {
 		State initstate=new State();
 		initstate.setFinalState(temPlate.getInitState().isFinalState());
 		initstate.setName(temPlate.getInitState().getName());
+		initstate.setShowName(temPlate.getInitState().getShowName());
 		initstate.setId(1);//////////////
 		initstate.setType("start");////////////
 		if(temPlate.getInitState().getInvariant().size()!=0){

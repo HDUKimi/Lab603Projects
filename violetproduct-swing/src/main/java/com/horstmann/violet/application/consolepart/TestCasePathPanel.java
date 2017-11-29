@@ -192,7 +192,7 @@ public class TestCasePathPanel extends JPanel{
 		
 		int maxsize=statelist.size()-1>transitionlist.size()?statelist.size()-1:transitionlist.size();
 		
-		System.out.println(statelist.size()+" - - "+transitionlist.size()+" - - "+maxsize);
+//		System.out.println(statelist.size()+" - - "+transitionlist.size()+" - - "+maxsize);
 		
 		for(int index=0;index<maxsize;index++){
 			if(index<statelist.size()-1){

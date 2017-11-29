@@ -435,7 +435,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\SequenceToUppal\\";
 		
-		starttype=mainFrame.getTestCaseGenerationPanel().FindRadioButtonIndex(mainFrame.getTestCaseGenerationPanel().getSelectTestRadioButton())+1;
+//		starttype=mainFrame.getTestCaseGenerationPanel().FindRadioButtonIndex(mainFrame.getTestCaseGenerationPanel().getSelectTestRadioButton())+1;
+		starttype=1;
 		
 		if(selectUppaal.contains("起飞高度")){
 			starttype=2;
@@ -604,7 +605,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 
 				for(State s:type_a.getStateSet()){
 //					Object[] rowData={"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
-					Object[] rowData={s.getId()+"",s.getName(),s.getPosition(),s.isFinalState()+"",s.getType()};
+					Object[] rowData={s.getId()+"",s.getShowName(),s.getName(),s.isFinalState()+"",s.getType()};
 					copystatetablemodel.addRow(rowData);
 					stateinfortablemodel.addRow(rowData);
 					TextAreaPrint(s.toString());
@@ -652,6 +653,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				//获取数据
 				iPARAutomatic=IPR__1.iPR(a);//状态拆分
+				System.out.println("---------2222222222");
+				for(State s:iPARAutomatic.getStateSet()){
+					System.out.println(s.getShowName());
+				}
 				
 				aTDRTAutomatic=ATDTR__1.aTDRT(iPARAutomatic,a);//去除迁移
 				
@@ -709,7 +714,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					}
 					index=0;
 //					Object[] rowData={index,"1","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","loc_id_29C2E776_04D4_47f3_8F70_D9F4DD7BEE72_14","false","CircularNode"};
-					Object[] rowData={index,s.getId()+"",s.getName(),s.getPosition(),s.isFinalState()+"",s.getType()};
+					Object[] rowData={index,s.getId()+"",s.getShowName(),s.getName(),s.isFinalState()+"",s.getType()};
 					copystatetablemodel.addRow(rowData);
 					stateinfortablemodel.addRow(rowData);
 					TextAreaPrint(s.toString());
@@ -962,6 +967,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 							afterSortTestCase=GeneratePath.getFormatPathFromAutomatic(a, 100, 1);
 							beforeSortTestCase=GeneratePath.getBeforeSort();
 							testCase=beforeSortTestCase;
+							
+//							testCase=MinTC.sideCoverage(a);
+//							afterSortTestCase=testCase;
 						}
 					}
 				}
@@ -1128,6 +1136,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					
 //					am.setName("测试用例"+index);
 					
+//					System.out.println(am.getName()+" - - "+am.getStateSet().size()+" - - "+am.getTransitionSet().size()+" - "+(am.getStateSet().size()-am.getTransitionSet().size()==1?"True":"False"));
+					
 					TestCaseCoverPartPanel tccppanel=new TestCaseCoverPartPanel(index,mainFrame,am,workspace);//传入测试序列。包括路径信息，以及workspace
 					resultpanel.add(tccppanel);
 					layout.setConstraints(tccppanel, new GBC(0, i++, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
@@ -1232,9 +1242,9 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					}
 				}
 				
-				if(selectUppaal.contains("绕圈飞行")){
-					RemoveErrorProcess(collectLimit);
-				}
+//				if(selectUppaal.contains("绕圈飞行")){
+//					RemoveErrorProcess(collectLimit);
+//				}
 				
 //				int k=1;
 //				for (Automatic am : collectLimit) {
@@ -1800,13 +1810,13 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 			abState.setPosition(s.getPosition());
 			
 //			abState.setType(s.getType());
-			System.out.println("************************  "+s.getType());
+//			System.out.println("************************  "+s.getType());
 			if(s.getType().equals("CircularNode")){
-				System.out.println("---------------");
+//				System.out.println("---------------");
 				abState.setType("CircularNode");
 			}
 			else if(s.getType().equals("Start")||s.getType().equals("start")){
-				System.out.println("++++++++++++++++++");
+//				System.out.println("++++++++++++++++++");
 				abState.setType("Start");
 			}
 			

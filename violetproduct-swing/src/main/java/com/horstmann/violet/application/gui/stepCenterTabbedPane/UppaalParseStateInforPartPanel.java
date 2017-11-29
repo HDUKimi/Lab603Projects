@@ -195,7 +195,7 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 	private void initAttributePanel() {
 		// TODO Auto-generated method stub
 		
-		final String[] columnNames={"序号","名称","位置","是否为终止状态","类型"};
+		final String[] columnNames={"序号","名称","ID","是否为终止状态","类型"};
 		String[][] tabelValues={};
 		
 		attributetablemodel=new DefaultTableModel(tabelValues, columnNames){
@@ -231,8 +231,8 @@ public class UppaalParseStateInforPartPanel extends JPanel{
 		attributetable.getColumn("序号").setMaxWidth(50);
 		attributetable.getColumn("名称").setPreferredWidth(180);
 		attributetable.getColumn("名称").setMinWidth(180);
-		attributetable.getColumn("位置").setPreferredWidth(180);
-		attributetable.getColumn("位置").setMinWidth(180);
+		attributetable.getColumn("ID").setPreferredWidth(180);
+		attributetable.getColumn("ID").setMinWidth(180);
 		attributetable.getColumn("是否为终止状态").setPreferredWidth(120);
 		attributetable.getColumn("是否为终止状态").setMinWidth(120);
 		attributetable.getColumn("是否为终止状态").setMaxWidth(120);

@@ -233,6 +233,9 @@ public class XML2UppaalUtil {
 			// id
 			uppaalLocation.setName(location.getId());
 			
+			//showName
+			uppaalLocation.setShowName(location.getName());
+			
 			// final
 			uppaalLocation.setFinalState(location.isFinl());
 			

@@ -1017,6 +1017,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 		progressbar.setValue(0);
 		progressbarlabel.setText("");
 		
+		moviepanel.getMovieLabel().setText("等待进行测试执行");
+		
 //		mainFrame.getStepFiveCenterTabbedPane().getTestCaseChartDiagramButtonPanel().setVisible(false);
 		
 //		tableresultpanel.removeAll();

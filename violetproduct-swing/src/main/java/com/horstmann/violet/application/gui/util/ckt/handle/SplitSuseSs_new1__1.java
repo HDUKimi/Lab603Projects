@@ -9,6 +9,7 @@ public class SplitSuseSs_new1__1 {
 		ArrayList<State> States=new ArrayList<State>();
 		String x_position=x.getPosition();//获取x的标志位
 		String x_name=x.getName();//获取状态x的名称
+		String x_showname=x.getShowName();
 		DBM_element x_DBM[][] =x.getAddClockRelationDBM();//获取状态x加了时钟复位信息的时钟约束
 		
 		ArrayList<State> posts=PostAndPre__1.post(x, Ps, trans, ClockSet);//获取x的后继集合
@@ -37,6 +38,7 @@ public class SplitSuseSs_new1__1 {
 					s.setInvariantDBM(X_DBMs.get(i));//状态的不变式为X_DBMs.get(i)
 					s.setAddClockRelationDBM(X_DBMs.get(i));//状态的添加了时钟复位信息不变式也为X_DBMs.get(i)
 					s.setName(x_name+i);//状态的名称为原名称加i
+					s.setShowName(x_showname+i);
 					//////////////////////.........................
 					s.setId(x.getId());
 					/////////////////////

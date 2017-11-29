@@ -130,6 +130,7 @@ public class ATDTR__1 {
 		for(State s:auto_StateSet){//遍历时间自动机的状态集合，装入StateSet
 			State state=new State();
 			state.setName(s.getName());
+			state.setShowName(s.getShowName());
 			state.setPosition(s.getPosition());
 			state.setInvariantDBM(s.getInvariantDBM());
 			state.setAddClockRelationDBM(s.getAddClockRelationDBM());
