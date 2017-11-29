@@ -192,7 +192,7 @@ public class TestCaseProducePartPanel extends JPanel{
 	private void initAttributePanel() {
 		// TODO Auto-generated method stub
 		
-		final String[] columnNames={"迁移Id","迁移名称","源状态名称","目的状态名称","实例化约束条件"};
+		final String[] columnNames={"迁移ID","迁移名称","源状态ID","目的状态ID","实例化约束条件"};
 		String[][] tabelValues={};
 		
 		attributetablemodel=new DefaultTableModel(tabelValues, columnNames){
@@ -223,15 +223,15 @@ public class TestCaseProducePartPanel extends JPanel{
 		attributetable.getColumnModel().getColumn(3).setCellRenderer(new MyAllLabelRenderer());
 		attributetable.getColumnModel().getColumn(4).setCellRenderer(new MyAllLabelRenderer());
 
-		attributetable.getColumn("迁移Id").setPreferredWidth(50);
-		attributetable.getColumn("迁移Id").setMinWidth(50);
-		attributetable.getColumn("迁移Id").setMaxWidth(50);
+		attributetable.getColumn("迁移ID").setPreferredWidth(50);
+		attributetable.getColumn("迁移ID").setMinWidth(50);
+		attributetable.getColumn("迁移ID").setMaxWidth(50);
 		attributetable.getColumn("迁移名称").setPreferredWidth(50);
 		attributetable.getColumn("迁移名称").setMinWidth(50);
-		attributetable.getColumn("源状态名称").setPreferredWidth(80);
-		attributetable.getColumn("源状态名称").setMinWidth(80);
-		attributetable.getColumn("目的状态名称").setPreferredWidth(80);
-		attributetable.getColumn("目的状态名称").setMinWidth(80);
+		attributetable.getColumn("源状态ID").setPreferredWidth(80);
+		attributetable.getColumn("源状态ID").setMinWidth(80);
+		attributetable.getColumn("目的状态ID").setPreferredWidth(80);
+		attributetable.getColumn("目的状态ID").setMinWidth(80);
 		attributetable.getColumn("实例化约束条件").setPreferredWidth(270);
 		attributetable.getColumn("实例化约束条件").setMinWidth(270);
         

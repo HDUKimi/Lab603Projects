@@ -807,13 +807,15 @@ public class FunctionalTestCaseChartTabbedPanel extends JPanel{
 		tablepanel.setVisible(true);
 		successfailedpiepanel.setVisible(true);
 		
-		if(flag==1){
-			checkboxpanel6.setVisible(true);
-			failedstatisticspiepanel.setVisible(true);
-		}
-		else{
-			failedstatisticstablepanel.setVisible(false);
-		}
+//		if(flag==1){
+//			checkboxpanel6.setVisible(true);
+//			failedstatisticspiepanel.setVisible(true);
+//		}
+//		else{
+//			failedstatisticstablepanel.setVisible(false);
+//		}
+		
+		failedstatisticstablepanel.setVisible(false);
 		
 	}
 	

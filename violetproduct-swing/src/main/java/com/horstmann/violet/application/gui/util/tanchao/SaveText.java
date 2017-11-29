@@ -13,7 +13,7 @@ public class SaveText {
 	public static void init(String path){
 		file=new File(path);
 		try {
-			writer=new FileWriter(file,false);
+			writer=new FileWriter(file,true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
