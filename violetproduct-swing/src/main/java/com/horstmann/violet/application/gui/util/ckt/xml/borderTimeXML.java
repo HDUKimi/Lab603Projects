@@ -601,42 +601,47 @@ public class borderTimeXML {
 		int addNum = 0;
 		
 		for (int i1 = 0; i1 < testCase.size(); i1++) {
+			String openresult="";
+			String tname;
 				// 4、生成子节点及节点内容
 				Element testcase = tcs.addElement("testcase");
 				for (int j = 0; j < testCase.get(i1).getTransitionSet().size(); j++) {
 					// 添加节点
 					Element process = testcase.addElement("process");
 					Element operation = process.addElement("operation");
-					//operation.setText(testCase.get(i1).getTransitionSet().get(j).getName());
-					//Element input = process.addElement("input");
+					Element input = process.addElement("input");
+				
+					int random = -1;
+					if (random == -1) {
+						random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
+					}
+					String value = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
+					String[] cs =value.toString().split("%");
+					if(cs[0].contains("flag=1")){
+						String name = cs[0].replace("flag=1", "");
+						operation.setText(name);
+					}else{
+						if(!cs[0].contains("flag=1")){
+							operation.setText(cs[0]);
+						}
+					}
 					
-					//功能按顺序取值
-					/*if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
-						input.setText(testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true"));
-					}else{*/
-						int random = -1;
-						if (random == -1) {
-							random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
-						}
-						String value = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
-						String[] cs =value.toString().split("%");
-						if(cs[0].contains("flag=1")){
-							String name = cs[0].replace("flag=1", "");
-							operation.setText(name);
-						}else{
-							if(!cs[0].contains("flag=1")){
-								operation.setText(cs[0]);
-							}
-						}
+					tname=testCase.get(i1).getTransitionSet().get(j).getName();
+					if(tname.equals("open_return")){
+						input.setText(openresult);
+					}
+					else{
 						cs[1] = XmlOfTime.dealresult(cs[1]);						
-						Element input = process.addElement("input");
 						if(cs[0].contains("flag=1")){
 							input.addAttribute("border","1");
 							input.setText(cs[1]);
 						}else{
 							input.setText(cs[1]);
 						}
-					//}					
+						if(tname.equals("open()")){
+							openresult=cs[1];
+						}
+					}
 					
 					Element time = process.addElement("time");
 					time.setText(testCase.get(i1).getTransitionSet().get(j).getTranTimeName());

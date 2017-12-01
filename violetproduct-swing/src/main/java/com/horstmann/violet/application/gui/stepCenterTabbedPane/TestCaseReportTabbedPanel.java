@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Writer;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -1134,14 +1135,14 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				}
 				
 				parentTestCaseDataPanel.getTestCaseChartDiagramButtonPanel().setVisible(true);
-				
-				TextAreaPrint("测试执行结束");
-				
+
 				Controller.resultService.closeService();
 				
 				CheckIsSaveDB();
 				
 				moviepanel.getMovieLabel().setText("测试执行结束");
+				
+				TextAreaPrint("测试执行结束");
 				
 				threadstate = 0;
 				
@@ -1331,9 +1332,12 @@ public class TestCaseReportTabbedPanel extends JPanel{
 
 	protected void CheckIsSaveDB() {
 		
+		moviepanel.getMovieLabel().setText("保存测试用例");
+		
 		int issave=JOptionPane.showConfirmDialog(mainFrame, "是否需要保存该次测试用例及测试报告", "提示", JOptionPane.YES_NO_OPTION);
 		
 		if(issave==JOptionPane.YES_OPTION){
+			TextAreaPrint("正在保存该次测试用例及测试报告...");
 			SaveTestCaseToDBByType(testcasetype,testcaseattribute);
 			JOptionPane.showMessageDialog(mainFrame, "保存成功！", "消息" , JOptionPane.INFORMATION_MESSAGE);
 		}
@@ -1443,8 +1447,18 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				}
 				Object[] rowData1={"合计：",cs, cf, csum};
 				successfailedtabelmodel.addRow(rowData1);
-				Object[] rowData2={"百分比：",calcper(cs, csum), calcper(cf, csum), calcper(csum, csum)};
+				
+//				if(cf>0&&calcper(cf, csum).equals("0 %")){
+//					Object[] rowData2={"百分比：","99 %", "1 %", "100 %"};
+//					successfailedtabelmodel.addRow(rowData2);
+//				}
+//				else{
+//					Object[] rowData2={"百分比：",calcper(cs, csum), calcper(cf, csum), calcper(csum, csum)};
+//					successfailedtabelmodel.addRow(rowData2);
+//				}
+				
 //				Object[] rowData2={"百分比：","99.51%", "0.49%", calcper(csum, csum)};
+				Object[] rowData2={"百分比：",calcper(cs, csum), calcper(cf, csum), calcper(csum, csum)};
 				successfailedtabelmodel.addRow(rowData2);
 				
 				int f1=0,f2=0;
@@ -1574,6 +1588,16 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				}
 				Object[] rowData1={"合计：",cs, cf, csum};
 				successfailedtabelmodel.addRow(rowData1);
+				
+//				if(cf>0&&calcper(cf, csum).equals("0 %")){
+//					Object[] rowData2={"百分比：","99 %", "1 %", "100 %"};
+//					successfailedtabelmodel.addRow(rowData2);
+//				}
+//				else{
+//					Object[] rowData2={"百分比：",calcper(cs, csum), calcper(cf, csum), calcper(csum, csum)};
+//					successfailedtabelmodel.addRow(rowData2);
+//				}
+				
 				Object[] rowData2={"百分比：",calcper(cs, csum), calcper(cf, csum), calcper(csum, csum)};
 //				Object[] rowData2={"百分比：","99.51%", "0.49%", calcper(csum, csum)};
 				successfailedtabelmodel.addRow(rowData2);
@@ -2074,13 +2098,13 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				parentTestCaseDataPanel.getTestCaseChartDiagramButtonPanel().setVisible(true);
 				
-				TextAreaPrint("测试执行结束");
-				
 				Controller.resultService.closeService();
 				
 				CheckIsSaveDB();
 				
 				moviepanel.getMovieLabel().setText("测试执行结束");
+				
+				TextAreaPrint("测试执行结束");
 				
 				threadstate=0;
 				
@@ -2278,9 +2302,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				progressbar.setValue(100);
 				progressbarlabel.setText("100%");
 				
-				for(TestCase tc:ResultService.list){
-					System.out.println(tc.getTestCaseID()+" - "+tc.getResult().getWind_speed()+" - "+tc.getResult().getTakeoff_alt());
-				}
+//				for(TestCase tc:ResultService.list){
+//					System.out.println(tc.getTestCaseID()+" - "+tc.getResult().getWind_speed()+" - "+tc.getResult().getTakeoff_alt());
+//				}
 				
 			}
 		});
@@ -2799,13 +2823,13 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				
 				parentTestCaseDataPanel.getTestCaseChartDiagramButtonPanel().setVisible(true);
 				
-				TextAreaPrint("测试执行结束");
-				
 				Controller.resultService.closeService();
 				
 				CheckIsSaveDB();
 				
 				moviepanel.getMovieLabel().setText("测试执行结束");
+				
+				TextAreaPrint("测试执行结束");
 				
 				threadstate=0;
 			}
@@ -3130,7 +3154,11 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			return "0 %";
 		}
 		else{
-			return (int)(a*1.0/b*100+0.5)+" %";
+			
+			NumberFormat ddf1=NumberFormat.getNumberInstance() ; 
+			ddf1.setMaximumFractionDigits(2); 
+			
+			return ddf1.format(a*1.0/b*100)+" %";
 		}
 	}
 

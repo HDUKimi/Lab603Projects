@@ -249,6 +249,12 @@ public class TestCase implements Serializable{
 			sb.append("激励参数:"+process.getProcessParam()+" ");
 			sb.append("\n");
 		}
+		if(limit!=null&&limit.size()>0){
+			sb.append("不等式组列表:\n");
+			for(String time:limit){
+				sb.append(time+"\n");
+			}
+		}
 
 		return sb.toString();
 	}

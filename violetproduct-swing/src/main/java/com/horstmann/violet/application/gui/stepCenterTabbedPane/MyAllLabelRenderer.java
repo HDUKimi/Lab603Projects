@@ -119,9 +119,9 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 			}
 		}
 		else if(tablename.equals("TestCaseCoverPartPanel")){
-//			final String[] columnNames={"迁移Id","迁移名称","源状态名称","目的状态名称","in(约束条件)","out(输出信息)","conditions(约束条件)"};
+//			final String[] columnNames={"迁移ID","迁移名称","源状态名称","目的状态名称","in(约束条件)","out(输出信息)","conditions(约束条件)"};
 //			setFont(new Font("微软雅黑", Font.PLAIN, 12));
-			if(table.getColumnName(column).equals("迁移Id")){
+			if(table.getColumnName(column).equals("迁移ID")){
 				setHorizontalAlignment(JLabel.CENTER);
 				setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 			}
@@ -131,9 +131,9 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 			}
 		}
 		else if(tablename.equals("TestCaseProducePartPanel")){
-//			final String[] columnNames={"迁移Id","迁移名称","源状态名称","目的状态名称","实例化约束条件"};
+//			final String[] columnNames={"迁移ID","迁移名称","源状态名称","目的状态名称","实例化约束条件"};
 //			setFont(new Font("微软雅黑", Font.PLAIN, 12));
-			if(table.getColumnName(column).equals("迁移Id")){
+			if(table.getColumnName(column).equals("迁移ID")){
 				setHorizontalAlignment(JLabel.CENTER);
 				setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 			}
@@ -143,9 +143,9 @@ public class MyAllLabelRenderer extends JLabel implements TableCellRenderer{
 			}
 		}
 		else if(tablename.equals("TestCaseInstantiationPartPanel")){
-//			final String[] columnNames={"迁移Id","迁移名称","源状态名称","实例化结果"};
+//			final String[] columnNames={"迁移ID","迁移名称","源状态名称","实例化结果"};
 //			setFont(new Font("微软雅黑", Font.PLAIN, 12));
-			if(table.getColumnName(column).equals("迁移Id")){
+			if(table.getColumnName(column).equals("迁移ID")){
 				setHorizontalAlignment(JLabel.CENTER);
 				setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 			}

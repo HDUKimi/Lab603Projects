@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -78,6 +79,8 @@ public class TestCaseDataPanel{
 		this.testcaseattribute=testcaseattribute;
 		this.hastime=hastime;
 		this.showAll=showAll;
+		
+		this.testCaseTabName="π¶ƒ‹≤‚ ‘";
 		
 		initbuttonpanel();
 		
@@ -361,7 +364,11 @@ public class TestCaseDataPanel{
 			return "0 %";
 		}
 		else{
-			return (int)(a*1.0/b*100+0.5)+" %";
+			
+			NumberFormat ddf1=NumberFormat.getNumberInstance() ; 
+			ddf1.setMaximumFractionDigits(2); 
+			
+			return ddf1.format(a*1.0/b*100)+" %";
 		}
 	}
 	

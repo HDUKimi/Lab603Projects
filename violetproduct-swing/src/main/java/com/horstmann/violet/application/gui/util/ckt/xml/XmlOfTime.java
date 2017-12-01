@@ -18,6 +18,7 @@ import org.dom4j.io.XMLWriter;
 import com.horstmann.violet.application.gui.util.ckt.handle.*;
 import com.horstmann.violet.application.gui.util.ckt.output.ShowInfor;
 import com.horstmann.violet.application.gui.util.ckt.testcase.GetMap;
+import com.horstmann.violet.application.gui.util.ckt.testcase.MinTC;
 import com.horstmann.violet.application.gui.util.ckt.testcase.OutSideResult;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PathCoverage_new;
 import com.horstmann.violet.application.gui.util.ckt.testcase.Result1;
@@ -40,7 +41,7 @@ public class XmlOfTime {
 		//String xml = "EAElevatorV2ForXStream.xml";
 		//String xml = "EAElevatorForXStream.xml";
 		//String xml = "EAElevator7ForXStream.xml";
-		String xml = "EAElevatorForXStream.xml";
+		String xml = "电梯模拟ForXStream.xml";
 		Automatic automatic = GetAutomatic.getAutomatic(xml);// 获得原始的时间自动机
 		Automatic new_automatic = IPR__1.iPR(automatic);// 获得拆分后的时间自动机
 		Automatic aTDRTAutomatic = ATDTR__1.aTDRT(new_automatic, automatic);// 获得去除抽象时间迁移后的时间自动机
@@ -64,7 +65,8 @@ public class XmlOfTime {
 		//ArrayList<Automatic> testCase = pathCoverage2.testCase(aTDRTAutomatic);
 		
 		//路径覆盖
-		ArrayList<Automatic> testCase = PathCoverage_new.testCase(aTDRTAutomatic);
+//		ArrayList<Automatic> testCase = PathCoverage_new.testCase(aTDRTAutomatic);
+		ArrayList<Automatic> testCase = MinTC.sideCoverage(aTDRTAutomatic);
 		
 		/*System.out.println(testCase.size() + "-----测试路径的个数");
 		for(Automatic auto : testCase){
@@ -238,6 +240,8 @@ public class XmlOfTime {
 			int max = tranMaxNumber(testCase.get(i1).getTransitionSet());
 			System.out.println("---------------------------------------------------"+max);
 			for(int i2 = 0; i2 < max; i2++){
+				String openresult="";
+				String tname;
 				// 4、生成子节点及节点内容
 				Element testcase = tcs.addElement("testcase");
 				for (int j = 0; j < testCase.get(i1).getTransitionSet().size(); j++) {
@@ -246,20 +250,31 @@ public class XmlOfTime {
 					Element operation = process.addElement("operation");
 					operation.setText(testCase.get(i1).getTransitionSet().get(j).getName());
 					Element input = process.addElement("input");
-					//功能按顺序取值
-					if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
-						String cs =testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true");
-						cs = dealresult(cs);//把解中的！给替换掉
-						input.setText(cs);
-					}else{
-						int random = -1;
-						if (random == -1) {
-							random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
+					
+					tname=testCase.get(i1).getTransitionSet().get(j).getName();
+					if(tname.equals("open_return")){
+						input.setText(openresult);
+					}
+					else{
+						//功能按顺序取值
+						String cs;
+						if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
+							cs =testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true");
+							cs = dealresult(cs);//把解中的！给替换掉
+							input.setText(cs);
+						}else{
+							int random = -1;
+							if (random == -1) {
+								random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
+							}
+							cs = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
+							cs = dealresult(cs);
+							input.setText(cs);
 						}
-						String cs = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
-						cs = dealresult(cs);
-						input.setText(cs);
-					}					
+						if(tname.equals("open()")){
+							openresult=cs;
+						}
+					}
 					
 					Element time = process.addElement("time");
 					time.setText(testCase.get(i1).getTransitionSet().get(j).getTranTimeName());
@@ -308,22 +323,39 @@ public class XmlOfTime {
 						// 4、生成子节点及节点内容
 						Element testcase = tcs.addElement("testcase");
 						testcase.addAttribute("result", "TIMEerror");
+						String openresult="";
+						String tname;
 						for (int j = 0; j < testCase.get(i1).getTransitionSet().size(); j++) {
 							// 添加节点
 							Element process = testcase.addElement("process");
 							Element operation = process.addElement("operation");
 							operation.setText(testCase.get(i1).getTransitionSet().get(j).getName());
 							Element input = process.addElement("input");
-							//功能按顺序取值
-							if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
-								input.setText(testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true"));
-							}else{
-								int random = -1;
-								if (random == -1) {
-									random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
+							
+							tname=testCase.get(i1).getTransitionSet().get(j).getName();
+							if(tname.equals("open_return")){
+								input.setText(openresult);
+							}
+							else{
+								//功能按顺序取值
+								String cs;
+								if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
+									cs = testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true");
+									cs = dealresult(cs);
+									input.setText(cs);
+								}else{
+									int random = -1;
+									if (random == -1) {
+										random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
+									}
+									cs = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
+									cs = dealresult(cs);
+									input.setText(cs);
+								}	
+								if(tname.equals("open()")){
+									openresult=cs;
 								}
-								input.setText(testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true"));
-							}	
+							}
 							Element time = process.addElement("time");
 							time.setText(testCase.get(i1).getTransitionSet().get(j).getTranTimeName());
 						}
@@ -882,6 +914,8 @@ public class XmlOfTime {
 			int max = tranMaxNumber(testCase.get(i1).getTransitionSet());
 			System.out.println("---------------------------------------------------"+max);
 			for(int i2 = 0; i2 < max; i2++){
+				String openresult="";
+				String tname;
 				// 4、生成子节点及节点内容
 				Element testcase = tcs.addElement("testcase");
 				for (int j = 0; j < testCase.get(i1).getTransitionSet().size(); j++) {
@@ -890,20 +924,31 @@ public class XmlOfTime {
 					Element operation = process.addElement("operation");
 					operation.setText(testCase.get(i1).getTransitionSet().get(j).getName());
 					Element input = process.addElement("input");
-					//功能按顺序取值
-					if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
-						String cs =testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true");
-						cs = dealresult(cs);//把解中的！给替换掉
-						input.setText(cs);
-					}else{
-						int random = -1;
-						if (random == -1) {
-							random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
+					
+					tname=testCase.get(i1).getTransitionSet().get(j).getName();
+					if(tname.equals("open_return")){
+						input.setText(openresult);
+					}
+					else{
+						//功能按顺序取值
+						String cs;
+						if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
+							cs =testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true");
+							cs = dealresult(cs);//把解中的！给替换掉
+							input.setText(cs);
+						}else{
+							int random = -1;
+							if (random == -1) {
+								random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
+							}
+							cs = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
+							cs = dealresult(cs);
+							input.setText(cs);
 						}
-						String cs = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
-						cs = dealresult(cs);
-						input.setText(cs);
-					}					
+						if(tname.equals("open()")){
+							openresult=cs;
+						}
+					}
 					
 					Element time = process.addElement("time");
 					time.setText(testCase.get(i1).getTransitionSet().get(j).getTranTimeName());
@@ -1118,6 +1163,8 @@ public class XmlOfTime {
 			int max = tranMaxNumber(testCase.get(i1).getTransitionSet());
 			System.out.println("---------------------------------------------------"+max);
 			for(int i2 = 0; i2 < max; i2++){
+				String openresult="";
+				String tname;
 				// 4、生成子节点及节点内容
 				Element testcase = tcs.addElement("testcase");
 				for (int j = 0; j < testCase.get(i1).getTransitionSet().size(); j++) {
@@ -1126,20 +1173,31 @@ public class XmlOfTime {
 					Element operation = process.addElement("operation");
 					operation.setText(testCase.get(i1).getTransitionSet().get(j).getName());
 					Element input = process.addElement("input");
-					//功能按顺序取值
-					if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
-						String cs =testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true");
-						cs = dealresult(cs);//把解中的！给替换掉
-						input.setText(cs);
-					}else{
-						int random = -1;
-						if (random == -1) {
-							random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
+					
+					tname=testCase.get(i1).getTransitionSet().get(j).getName();
+					if(tname.equals("open_return")){
+						input.setText(openresult);
+					}
+					else{
+						//功能按顺序取值
+						String cs;
+						if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
+							cs =testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true");
+							cs = dealresult(cs);//把解中的！给替换掉
+							input.setText(cs);
+						}else{
+							int random = -1;
+							if (random == -1) {
+								random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
+							}
+							cs = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
+							cs = dealresult(cs);
+							input.setText(cs);
 						}
-						String cs = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
-						cs = dealresult(cs);
-						input.setText(cs);
-					}					
+						if(tname.equals("open()")){
+							openresult=cs;
+						}
+					}
 					
 					Element time = process.addElement("time");
 					time.setText(testCase.get(i1).getTransitionSet().get(j).getTranTimeName());
@@ -1185,6 +1243,8 @@ public class XmlOfTime {
 				for (int k1 = 0; k1 < all_inequalitys.get(i1).size(); k1++) {
 					String str = all_inequalitys.get(i1).get(k1).toString();
 					if(Result1.getNumber(str)){
+						String openresult="";
+						String tname;
 						// 4、生成子节点及节点内容
 						Element testcase = tcs.addElement("testcase");
 						testcase.addAttribute("result", "TIMEerror");
@@ -1195,21 +1255,30 @@ public class XmlOfTime {
 							operation.setText(testCase.get(i1).getTransitionSet().get(j).getName());
 							Element input = process.addElement("input");
 							
-							//功能按顺序取值
-							if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
-								String cs =testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true");
-								cs = dealresult(cs);//把解中的！给替换掉
-								input.setText(cs);
-							}else{
-								int random = -1;
-								if (random == -1) {
-									random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
+							tname=testCase.get(i1).getTransitionSet().get(j).getName();
+							if(tname.equals("open_return")){
+								input.setText(openresult);
+							}
+							else{
+								//功能按顺序取值
+								String cs;
+								if(testCase.get(i1).getTransitionSet().get(j).getResult().size() > addNum){
+									cs = testCase.get(i1).getTransitionSet().get(j).getResult().get(addNum).replace("False", "false").replace("True", "true");
+									cs = dealresult(cs);
+									input.setText(cs);
+								}else{
+									int random = -1;
+									if (random == -1) {
+										random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
+									}
+									cs = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
+									cs = dealresult(cs);
+									input.setText(cs);
+								}	
+								if(tname.equals("open()")){
+									openresult=cs;
 								}
-								String cs = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
-								cs = dealresult(cs);
-								input.setText(cs);
-							}	
-							
+							}
 							Element time = process.addElement("time");
 							time.setText(testCase.get(i1).getTransitionSet().get(j).getTranTimeName());
 						}
@@ -1509,7 +1578,9 @@ public class XmlOfTime {
 					System.out.println();
 					//cases.add(casesAndTime);
 					
-					
+					String openresult="";
+					String tname;
+					int flag=0;
 					// 4、生成子节点及节点内容
 					Element testcase = tcs.addElement("testcase");
 					num1++;
@@ -1524,17 +1595,34 @@ public class XmlOfTime {
 						System.out.println();
 						System.out.println("*****"+tran.getResult().toString());
 						System.out.println();
+						
+						tname=tran.getName();
+						
 						if(tran.getResult().get(0).toString().contains("***********")){
 							input.addAttribute("GN", "Error");
+							if(tname.equals("open()")||tname.equals("open_return")){
+								flag=1;
+							}
 						}
-						String str = tran.getResult().get(0).toString().replace("False", "false").replace("True", "true").replace("***********", "").replace("||", ",").replace("==", "=");
-						str = dealresult(str);//把解中的！给替换掉
-						input.setText(str);
-//						if((tran.getResult().get(0).contains("False")) ||(tran.getResult().get(0).contains("True"))){
-//							input.setText(tran.getResult().get(0).replace("False", "false").replace("True", "true").replace("***********", "").replace("==", "=")/*.replace("||", ",")*/);
-//						}else{
-//							input.setText(tran.getResult().get(0).toString().replace("***********", "").replace("==", "=").replace("||", ","));
-//						}
+						
+						if(flag==0){
+							if(tname.equals("open_return")){
+								input.setText(openresult);
+							}
+							else{
+								String str = tran.getResult().get(0).toString().replace("False", "false").replace("True", "true").replace("***********", "").replace("||", ",").replace("==", "=");
+								str = dealresult(str);//把解中的！给替换掉
+								input.setText(str);
+								if(tname.equals("open()")){
+									openresult=str;
+								}
+							}
+						}
+						else{
+							String str = tran.getResult().get(0).toString().replace("False", "false").replace("True", "true").replace("***********", "").replace("||", ",").replace("==", "=");
+							str = dealresult(str);//把解中的！给替换掉
+							input.setText(str);
+						}
 						
 						Element time = process.addElement("time");
 						time.setText(tran.getTranTimeName());

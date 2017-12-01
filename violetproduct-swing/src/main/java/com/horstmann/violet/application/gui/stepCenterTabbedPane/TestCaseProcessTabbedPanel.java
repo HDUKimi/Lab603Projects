@@ -1044,17 +1044,30 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					}
 				}
 				else if(starttype==2){//性能测试
-					if(hastime==1){
-						moviepanel.getMovieLabel().setText("进行性能测试，生成测试路径");
-						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("进行性能测试，生成测试路径");
-						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("性能测试");
-						TextAreaPrint("进行性能测试，生成测试路径");
+//					if(hastime==1){
+//						moviepanel.getMovieLabel().setText("进行性能测试，生成测试路径");
+//						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("进行性能测试，生成测试路径");
+//						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("性能测试");
+//						TextAreaPrint("进行性能测试，生成测试路径");
+//					}
+//					else{
+//						moviepanel.getMovieLabel().setText("进行性能覆盖，生成测试路径");
+//						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("进行性能覆盖，生成测试路径");
+//						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("性能覆盖");
+//						TextAreaPrint("进行性能覆盖，生成测试路径");
+//					}
+						
+					if(selectCoverState==0){//状态覆盖
+						moviepanel.getMovieLabel().setText("进行状态覆盖，生成测试路径");
+						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("进行状态覆盖，生成测试路径");
+						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("状态覆盖");
+						TextAreaPrint("进行状态覆盖，生成测试路径");
 					}
-					else{
-						moviepanel.getMovieLabel().setText("进行性能测试，生成测试路径");
-						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("进行性能测试，生成测试路径");
-						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("性能测试");
-						TextAreaPrint("进行性能测试，生成测试路径");
+					else if(selectCoverState==1){//迁移覆盖
+						moviepanel.getMovieLabel().setText("进行迁移覆盖，生成测试路径");
+						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverTabbedPanel().getMoviepanel().getMovieLabel().setText("进行迁移覆盖，生成测试路径");
+						mainFrame.getStepThreeCenterTabbedPane().getTestCaseCoverButton().setText("迁移覆盖");
+						TextAreaPrint("进行迁移覆盖，生成测试路径");
 					}
 				}
 //				else if(starttype==3){//时间约束测试
@@ -1193,12 +1206,20 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					}
 				}
 				else if(starttype==2){//性能测试
-					if(hastime==1){
-						stepAllProcessList.add("第四步：性能测试");
+//					if(hastime==1){
+//						stepAllProcessList.add("第四步：性能测试");
+//						resultAllProcessList.add("生成"+testCase.size()+"条测试路径");
+//					}
+//					else{
+//						stepAllProcessList.add("第三步：性能覆盖");
+//						resultAllProcessList.add("生成"+testCase.size()+"条测试路径");
+//					}
+					if(selectCoverState==0){//状态覆盖
+						stepAllProcessList.add("第三步：状态覆盖");
 						resultAllProcessList.add("生成"+testCase.size()+"条测试路径");
 					}
-					else{
-						stepAllProcessList.add("第三步：性能测试");
+					else if(selectCoverState==1){//迁移覆盖
+						stepAllProcessList.add("第三步：迁移覆盖");
 						resultAllProcessList.add("生成"+testCase.size()+"条测试路径");
 					}
 				}

@@ -116,6 +116,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 	private List<String> stepAllProcessList=new ArrayList<String>();
 	private List<String> timeAllProcessList=new ArrayList<String>();
 	private List<String> resultAllProcessList=new ArrayList<String>();
+
+	private Object str;
 	
 
 	public TestCaseInstantiationProcessTabbedPanel(MainFrame mainframe) {
@@ -550,7 +552,11 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					if(hastime==1){
 						collectResult=XmlOfTime.collectResult(collectLimit);
 						bordercollectResult=XmlOfTime.collectResult(bordercollectLimit);
-						performancecollectResult=XmlOfTime.collectResult(performancecollectLimit);
+//						performancecollectResult=XmlOfTime.collectResult(performancecollectLimit);
+						performancecollectResult=new ArrayList<>();
+						for(Automatic auto:collectResult){
+							performancecollectResult.add(auto.clone());
+						}
 					}
 					else{
 						//获取数据
@@ -558,17 +564,21 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 						//获取边界值数据
 						bordercollectResult = borderTestXML.collectResult(bordercollectLimit);
 						
-						performancecollectResult=forPlatform.collectResult(performancecollectLimit);
+//						performancecollectResult=forPlatform.collectResult(performancecollectLimit);
+						performancecollectResult=new ArrayList<>();
+						for(Automatic auto:collectResult){
+							performancecollectResult.add(auto.clone());
+						}
 					}
 				}
 				else if(starttype==2){//性能测试
-					if(hastime==1){
-						collectResult=XmlOfTime.collectResult(collectLimit);
-					}
-					else{
+//					if(hastime==1){
+//						collectResult=XmlOfTime.collectResult(collectLimit);
+//					}
+//					else{
 						PerAutomaticResult=PerformanceXML2.getPerformResultFromAutomatic(collectLimit.get(0));
 						collectResult.add(PerAutomaticResult);
-					}
+//					}
 				}
 //				else if(starttype==3){
 //					collectResult=XmlOfTime.collectResult(collectLimit);
@@ -946,7 +956,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					
 					mainFrame.getStepFourCenterTabbedPane().getTestCaseShowButtonPanel().setVisible(true);
 					
-					//边界值测试用例
+//					边界值测试用例
 					String borderpath=baseUrl+name+"BorderTestCase.xml";
 					borderTimeXML.produceBorderXML(borderpath, bordercollectLimit);
 					
@@ -1258,29 +1268,56 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 			e.printStackTrace();
 		}
 		
-		if(path.contains("绕圈飞行")){
-			RemoveErrorProcess(abstractAutomatic);
+		if(path.contains("飞向指定位置")){
+			RemoveErrorProcess(abstractAutomatic,1);
+		}
+		else if(path.contains("绕圈飞行")){
+			RemoveErrorProcess(abstractAutomatic,2);
 		}
 		
 		return abstractAutomatic;
 	}
 	
-	public void RemoveErrorProcess(List<Automatic> collectLimit) {
+	public void RemoveErrorProcess(List<Automatic> collectLimit, int index) {
 		
 		List<String> datalist=new ArrayList<>();
-		String str[] = {"angle_ef_roll_pitch_yaw", "get_alt_target", "get_land_descent_speed",
-				"get_pilot_desired_climb_rate", "get_pitch", "get_roll", "get_surface_tracking_climb_rate",
-				"get_wp_destination", "get_yaw", "guided_angle_control_run", "guided_pos_control_run",
-				"guided_posvel_control_run", "guided_run", "guided_takeoff_run", "guided_vel_control_run",
-				"init_vel_controller_xyz", "output_armed_stabilizing", "pv_alt_above_origin", "reached_wp_destination",
-				"rtl_climb_return_run", "rtl_descent_run", "rtl_descent_start", "rtl_loiterathome_run",
-				"rtl_loiterathome_start", "rtl_return_start", "set_alt_target_with_slew", "set_auto_yaw_mode",
-				"set_land_complete", "set_pilot_desired_acceleration", "set_target_to_stopping_point_z",
-				"set_throttle_takeoff", "update_loiter", "update_simple_mode", "update_wpnav"};
-
-		for(String s:str){
-			datalist.add(s);
+//		String str[] = { "angle_ef_roll_pitch_yaw", "get_alt_target", "get_land_descent_speed",
+//				"get_pilot_desired_climb_rate", "get_pitch", "get_roll", "get_surface_tracking_climb_rate",
+//				"get_wp_destination", "get_yaw", "guided_angle_control_run", "guided_pos_control_run",
+//				"guided_posvel_control_run", "guided_run", "guided_takeoff_run", "guided_vel_control_run",
+//				"init_loiter_target", "init_vel_controller_xyz", "loiter_soften_for_landing", "output_armed_stabilizing",
+//				"pv_alt_above_origin", "reached_wp_destination", "relax_alt_hold_controllers", "rtl_climb_return_run",
+//				"rtl_descent_run", "rtl_descent_start", "rtl_land_run", "rtl_land_start", "rtl_loiterathome_run",
+//				"rtl_loiterathome_start", "rtl_return_start", "set_alt_target_with_slew", "set_auto_yaw_mode",
+//				"set_desired_velocity", "set_land_complete", "set_pilot_desired_acceleration",
+//				"set_target_to_stopping_point_z", "set_throttle_takeoff", "update_loiter", "update_simple_mode",
+//				"update_wpnav" };
+		
+		
+		if(index==1){
+//			String str[]= { "output_armed_not_stabilizing", "output_armed_stabilizing", "set_land_complete" };
+			String str[]= { "output_armed_not_stabilizing", "set_land_complete" };
+			for(String s:str){
+				datalist.add(s);
+			}
 		}
+		else if(index==2){
+			String str[]= { "angle_ef_roll_pitch_yaw", "get_alt_target", "get_land_descent_speed",
+					"get_pilot_desired_climb_rate", "get_pitch", "get_roll", "get_surface_tracking_climb_rate",
+					"get_wp_destination", "get_yaw", "guided_angle_control_run", "guided_pos_control_run",
+					"guided_posvel_control_run", "guided_run", "guided_takeoff_run", "guided_vel_control_run",
+					"init_loiter_target", "init_vel_controller_xyz", "loiter_soften_for_landing", "output_armed_stabilizing",
+					"pv_alt_above_origin", "reached_wp_destination", "relax_alt_hold_controllers", "rtl_climb_return_run",
+					"rtl_descent_run", "rtl_descent_start", "rtl_land_run", "rtl_land_start", "rtl_loiterathome_run",
+					"rtl_loiterathome_start", "rtl_return_start", "set_alt_target_with_slew", "set_auto_yaw_mode",
+					"set_desired_velocity", "set_land_complete", "set_pilot_desired_acceleration",
+					"set_target_to_stopping_point_z", "set_throttle_takeoff", "update_loiter", "update_simple_mode",
+					"update_wpnav" };
+			for(String s:str){
+				datalist.add(s);
+			}
+		}
+		
 		int i=0;
 		for(Automatic automatic:collectLimit){
 //			ArrayList<Transition> transitions=automatic.getTransitionSet();
@@ -1296,7 +1333,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				}
 			}
 		}
-		
+
 	}
 	
 	public void ChangeRepaint() {

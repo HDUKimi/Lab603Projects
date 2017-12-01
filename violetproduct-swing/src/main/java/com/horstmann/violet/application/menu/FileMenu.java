@@ -950,8 +950,22 @@ public class FileMenu extends JMenu {
 
 					final List<IFile> files = new ArrayList<IFile>();
 					if (flag == false) {
-						List<IFile> eafiles = openEAXML(selectedFile, url);
-						files.addAll(eafiles);
+						if(selectedFile.getFilename().contains("µçÌÝÄ£Äâ")){
+//							String upath="D:\\ModelDriverProjectFile\\SequenceDiagram\\Violet\\TimeTest\\elevator.seq.violet.xml";
+//							File ufile=new File(upath);
+//							if(ufile.exists()){
+//								IFile u=new LocalFile(ufile);
+//								files.add(u);
+//							}
+//							else{
+								List<IFile> eafiles = openEAXML(selectedFile, url);
+								files.addAll(eafiles);
+//							}
+						}
+						else{
+							List<IFile> eafiles = openEAXML(selectedFile, url);
+							files.addAll(eafiles);
+						}
 					} else {
 						files.add(selectedFile);
 					}

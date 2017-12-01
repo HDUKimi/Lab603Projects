@@ -320,7 +320,7 @@ public class TestCaseInstantiationPartPanel extends JPanel{
         	
         	String result=null;
 //        	System.out.println(t.getResult().toString());
-        	String[] resultsplit=t.getResult().toString().replaceAll("\\[|]", "").split("%");
+//        	String[] resultsplit=t.getResult().toString().replaceAll("\\[|]", "").split("%");
 //        	if(resultsplit.length>1){
 //        		result=resultsplit[1];
 //        	}
@@ -336,7 +336,21 @@ public class TestCaseInstantiationPartPanel extends JPanel{
 //        			result+=","+str;
 //        		}
 //        	}
-        	result=t.getResult().toString().replaceAll("\\[|]", "").replaceAll(t.getName()+"%", "");
+        	
+        	result=t.getResult().toString().replaceAll("\\[|]", "");
+        	
+        	String name;
+			name=t.getName();
+			if(name.indexOf("(")>0){
+				name=name.substring(0, name.indexOf("("));
+			}
+        	result=result.replaceAll(t.getName()+"%", "");
+        	
+        	result=result.replaceAll(name+"%", "");
+        	result=result.replaceAll("%null", "");
+        	if(result.equals("")){
+				result=null;
+			}
         	
 //        	if(mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().getSelectCoverState()==2){//–‘ƒ‹≤‚ ‘
 //        		String name;

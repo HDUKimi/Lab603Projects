@@ -1488,7 +1488,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 				testcaseattribute=FindRadioButtonIndex(selectTestRadioButton)+1;
 				testcasename=selectTestCaseCheckBox.getText();
 				
-				TextAreaPrint("正在从本地提取"+testcasename+"的测试用例以及测试报告。。。");
+				TextAreaPrint("正在从本地提取"+testcasename+"的测试用例。。。");
 				
 				int hastime=0;
 				
@@ -1676,10 +1676,10 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 		System.out.println("-------------------------------------------"+testcaselist.size());
 		for(Entry<String, Integer> entry:map.entrySet()){
-//			System.out.println(entry.getKey()+" - - "+entry.getValue());
-			if(entry.getValue()>50){
-				System.out.println(entry.getKey()+", ");
-			}
+			System.out.println(entry.getKey()+" - - "+entry.getValue());
+//			if(entry.getValue()>50){
+//				System.out.println(entry.getKey()+", ");
+//			}
 		}
 		System.out.println("-------------------------------------------");
 		
@@ -1723,11 +1723,13 @@ public class TestCaseConfirmationPanel extends JPanel{
 				"get_pilot_desired_climb_rate", "get_pitch", "get_roll", "get_surface_tracking_climb_rate",
 				"get_wp_destination", "get_yaw", "guided_angle_control_run", "guided_pos_control_run",
 				"guided_posvel_control_run", "guided_run", "guided_takeoff_run", "guided_vel_control_run",
-				"init_vel_controller_xyz", "output_armed_stabilizing", "pv_alt_above_origin", "reached_wp_destination",
-				"rtl_climb_return_run", "rtl_descent_run", "rtl_descent_start", "rtl_loiterathome_run",
-				"rtl_loiterathome_start", "rtl_return_start", "set_alt_target_with_slew", "set_auto_yaw_mode",
-				"set_land_complete", "set_pilot_desired_acceleration", "set_target_to_stopping_point_z",
-				"set_throttle_takeoff", "update_loiter", "update_simple_mode", "update_wpnav", "" };
+				"init_loiter_target", "init_vel_controller_xyz", "loiter_soften_for_landing",
+				"output_armed_stabilizing", "pv_alt_above_origin", "reached_wp_destination",
+				"relax_alt_hold_controllers", "rtl_climb_return_run", "rtl_descent_run", "rtl_descent_start",
+				"rtl_land_run", "rtl_land_start", "rtl_loiterathome_run", "rtl_loiterathome_start", "rtl_return_start",
+				"set_alt_target_with_slew", "set_auto_yaw_mode", "set_desired_velocity", "set_land_complete",
+				"set_pilot_desired_acceleration", "set_target_to_stopping_point_z", "set_throttle_takeoff",
+				"update_loiter", "update_simple_mode", "update_wpnav" };
 
 		for(String s:str){
 			datalist.add(s);

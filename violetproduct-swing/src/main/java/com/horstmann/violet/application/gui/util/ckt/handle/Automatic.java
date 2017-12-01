@@ -1,5 +1,10 @@
 package com.horstmann.violet.application.gui.util.ckt.handle;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -52,6 +57,30 @@ public class Automatic implements Serializable{
 	}
 	public void setInequalitySet(ArrayList<String> inequalitySet) {
 		InequalitySet = inequalitySet;
+	}
+	
+	@Override
+	public Automatic clone(){
+		Automatic automatic = null;
+
+		try {
+			ByteArrayOutputStream output = new ByteArrayOutputStream();
+			ObjectOutputStream outputStream = new ObjectOutputStream(output);
+			outputStream.writeObject(this);
+
+			ByteArrayInputStream input = new ByteArrayInputStream(output.toByteArray());
+			ObjectInputStream inputStream = new ObjectInputStream(input);
+			automatic = (Automatic) inputStream.readObject();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return automatic;
 	}
 	
 }

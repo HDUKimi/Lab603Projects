@@ -194,11 +194,13 @@ public class TestCasePathStateInforPanel extends JPanel{
         
         Object[] rowData1={"id="+state.getId()};
         attributetablemodel.addRow(rowData1);
-        Object[] rowData2={"name="+state.getName()};
+        Object[] rowData2={"name="+state.getShowName()};
         attributetablemodel.addRow(rowData2);
+        Object[] rowData5={"locID="+state.getName()};
+        attributetablemodel.addRow(rowData5);
         Object[] rowData3={"type="+state.getType()};
         attributetablemodel.addRow(rowData3);
-        Object[] rowData4={"position="+state.getPosition()};
+        Object[] rowData4={"isFinalState="+state.isFinalState()};
         attributetablemodel.addRow(rowData4);
         
         

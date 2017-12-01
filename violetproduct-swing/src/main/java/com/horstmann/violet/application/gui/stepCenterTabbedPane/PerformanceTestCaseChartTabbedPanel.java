@@ -282,7 +282,7 @@ public class PerformanceTestCaseChartTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("正在生成测试报告");
+		moviepanel.getMovieLabel().setText("生成测试报告");
 		
 	}
 

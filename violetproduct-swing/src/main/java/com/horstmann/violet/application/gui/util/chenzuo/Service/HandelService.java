@@ -113,7 +113,7 @@ public class HandelService implements Callable {
                     receiveService.submit(new RecvTransService(node,index));
 //                  logger.debug(receiveService.take().get());
                 } 
-                if ("exit".equals(data)) {
+                if (data.contains("exit")) {
                 	
                 	logger.debug(node.getIp()+" success receive all files");
                 	

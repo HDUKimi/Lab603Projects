@@ -592,6 +592,7 @@ public class TestCaseInstantiationPanel extends JPanel{
 		//Ä¬ÈÏÑ¡ÖÐ
 		int becomeRunFileNameType=StepFourCenterTabbedPane.getBecomeRunFileNameType();
 		if(becomeRunFileNameType!=-1){
+			becomeRunFileNameType=1;
 			for(JCheckBox checkBox:abstractCheckBoxList.get(becomeRunFileNameType-1)){
 				if(StepFourCenterTabbedPane.getBecomeRunFileName().equals(checkBox.getText())){
 					checkBox.setSelected(true);

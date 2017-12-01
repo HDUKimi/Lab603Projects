@@ -356,6 +356,14 @@ public class TcConvertUtil {
 					}
 					
 					if (type != "Function") {
+						
+						if(Integer.valueOf(r[0])==2){
+							testCase.setProgramExeResult("无人机成功返航，并完成加锁");
+						}
+						else{
+							testCase.setProgramExeResult("无人机运行出现异常");
+						}
+						
 						testCaseResult.setExeTime(Double.valueOf(r[1]));
 						testCaseResult.setTakeoff_alt(Double.valueOf(r[2].substring("takeoff_alt".length())));
 						testCaseResult

@@ -25,6 +25,7 @@ import org.jfree.chart.labels.ItemLabelAnchor;
 import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.labels.StandardPieToolTipGenerator;
 import org.jfree.chart.labels.StandardXYItemLabelGenerator;
 import org.jfree.chart.labels.StandardXYToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
@@ -491,7 +492,16 @@ public class ChartUtils {
 		piePlot.setLabelOutlinePaint(null);// 去掉边框
 		piePlot.setShadowPaint(null);
 		// 0:category 1:value:2 :percentage
-		piePlot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}:{2}"));// 显示标签数据
+//		piePlot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}:{2}"));// 显示标签数据
+		
+		// 图片中显示百分比:自定义方式，{0} 表示选项， {1} 表示数值， {2} 表示所占比例 ,小数点后两位
+		piePlot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}:{2}", NumberFormat.getNumberInstance(),
+				new DecimalFormat("0.00%")));
+		piePlot.setToolTipGenerator(new StandardPieToolTipGenerator("{0}:({1},{2})", NumberFormat.getNumberInstance(),
+				new DecimalFormat("0.00%")));
+		
+		// 图例显示百分比:自定义方式， {0} 表示选项， {1} 表示数值， {2} 表示所占比例
+//		piePlot.setLegendLabelGenerator(new StandardPieSectionLabelGenerator("{0}:{2}"));
 	}
 
 	/**
