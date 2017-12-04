@@ -42,14 +42,14 @@ public class PieChart {
 		Object[] datas = { 17, 2 };
 		DefaultPieDataset dataset = ChartUtils.createDefaultPieDataset(categories, datas);
 		
-		double x;
-		x=2*1.00/19;
-		NumberFormat ddf1=NumberFormat.getNumberInstance() ; 
-		ddf1.setMaximumFractionDigits(2); 
-		String s= ddf1.format(x) ; 
-		System.out.println(s); 
-		System.out.println(ddf1.format(x*100));
-		System.out.println(x);
+//		double x;
+//		x=2*1.00/19;
+//		NumberFormat ddf1=NumberFormat.getNumberInstance() ; 
+//		ddf1.setMaximumFractionDigits(2); 
+//		String s= ddf1.format(x) ; 
+//		System.out.println(s); 
+//		System.out.println(ddf1.format(x*100));
+//		System.out.println(x);
 		
 		return dataset;
 	}

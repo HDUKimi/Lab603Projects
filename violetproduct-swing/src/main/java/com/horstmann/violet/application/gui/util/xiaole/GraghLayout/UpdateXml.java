@@ -54,10 +54,10 @@ public class UpdateXml {
 		List<Element> list=LIST.get(a).elements("transition");
  		List<Element> List=LIST.get(a).elements("location");//List代表着点的集合
  		
- 		System.out.println("/*/*/*/****************"+filename);
- 		for(Element e:List){
- 			System.out.println(e.attributeValue("id"));
- 		}
+// 		System.out.println("/*/*/*/****************"+filename);
+// 		for(Element e:List){
+// 			System.out.println(e.attributeValue("id"));
+// 		}
  		
 		Element Template=List.get(0);//Template指向点
         Element template1=list.get(0);
@@ -138,7 +138,7 @@ public class UpdateXml {
 				n++;
 				Template.element("name").attribute("y").setText(XX);
 				Template.element("name").attribute("x").setText(YY);
-				System.out.println("节点名设置成功！！！");
+//				System.out.println("节点名设置成功！！！");
             }                                    	
 			//Template 代表着点List，template1代表着边list				
 			n = 0;
@@ -186,7 +186,7 @@ public class UpdateXml {
 //				nail2.addAttribute("x").setText(yyyyyy);
 //				nail2.addAttribute("y").setText(xxxxxxx);
 				
-				System.out.println("到自己有边的点的标签设置成功！！！");
+//				System.out.println("到自己有边的点的标签设置成功！！！");
 				k++;
 				}	   
 				else 
@@ -195,7 +195,7 @@ public class UpdateXml {
 				yyyy = (Integer.valueOf(yyy[k]) + Integer.valueOf(YYY[k])) / 2-20;//标签有长度
 				String xxxxx = String.valueOf(xxxx);
 				String yyyyy = String.valueOf(yyyy);
-				System.out.println("标签设置成功！！！"+"--"+yyyyy+"--");
+//				System.out.println("标签设置成功！！！"+"--"+yyyyy+"--");
 				if(template1.element("label")!=null){
 					template1.element("label").attribute("y").setText(yyyyy);//这段如果出现空指针错误，是因为边上没有标签
 					template1.element("label").attribute("x").setText(xxxxx);
@@ -261,7 +261,7 @@ public class UpdateXml {
 				    template1.element("nail").addAttribute("x", XX);
 				    template1.element("label").attribute("y").setText(YY2);
 					template1.element("label").attribute("x").setText(XX);
-					System.out.println("回路标签设置成功！！！");
+//					System.out.println("回路标签设置成功！！！");
 			    }	
 				
 				B[M][N]=B[N][M]=0;

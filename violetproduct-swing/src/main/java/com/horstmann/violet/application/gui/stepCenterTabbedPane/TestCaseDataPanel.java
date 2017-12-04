@@ -80,7 +80,7 @@ public class TestCaseDataPanel{
 		this.hastime=hastime;
 		this.showAll=showAll;
 		
-		this.testCaseTabName="功能测试";
+//		this.testCaseTabName="功能测试";
 		
 		initbuttonpanel();
 		

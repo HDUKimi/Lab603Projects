@@ -105,7 +105,7 @@ public class TestGraph extends JApplet {
 					else if(A[I][J]==1&&I==J)//有node(存在该node到该node的边)
 						Flag++;				       
 			}				
-			System.out.println("List.size():"+List.size()+" Edgecount-flag-Flag:"+(Edgecount-flag-Flag));
+//			System.out.println("List.size():"+List.size()+" Edgecount-flag-Flag:"+(Edgecount-flag-Flag));
 			for(int K=0;K<Edgecount-flag-Flag;K++)
 			{//因为前面有先后加的所以才能够如此
 				if(K<List.size()){

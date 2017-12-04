@@ -1643,9 +1643,17 @@ public class TestCaseConfirmationPanel extends JPanel{
 				
 				nowtcdpanel.getTestCaseReportDiagramButtonPanel().getTabbedbutton().doClick();
 				
+//				for(TestCase testCase:testcaselist){
+//					TextAreaPrint(testCase.toString());
+//				}
+//				TextAreaPrint("正在进行数据统计整理...");
+//				TextAreaPrint("正在保存该次测试用例及测试报告...");
+//				TextAreaPrint("保存成功！！！");
+//				TextAreaPrint("测试执行结束");
+				
 				TextAreaPrint(testcasename+"的 "+testcaselist.size()+" 条测试用例以及测试报告提取完成");
 				
-				TestError(testcaselist);
+//				TestError(testcaselist);
 				
 				mainFrame.getStepFiveCenterTabbedPane().ChangeRepaint();
 				

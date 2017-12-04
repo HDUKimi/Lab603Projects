@@ -596,10 +596,12 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							File originaluppaalbasefile=new File(originaluppaalbaseurl);
 							File[] originaluppaalbasefilelist=originaluppaalbasefile.listFiles();
 							uppaallists.clear();
+							System.out.println("originaluppaalbasefilelist "+originaluppaalbasefilelist.length);
 							for(File f:originaluppaalbasefilelist){
 								
 								String fname=f.getName();
-								if(fname.endsWith(".xml")&&!fname.contains("ForXStream")&&!fname.contains("-----")){
+//								if(fname.endsWith(".xml")&&!fname.contains("ForXStream")&&!fname.contains("-----")){
+								if(fname.endsWith(".xml")&&!fname.contains("ForXStream")&&!fname.contains("11")){
 									uppaallists.add(fname.substring(0, fname.lastIndexOf(".xml")));
 								}
 								
@@ -612,6 +614,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 						    	}
 						    }
 						    
+						    System.out.println("originaluppaalbasefilelist "+originaluppaalbasefilelist.length);
 							System.out.println("--------------------------");
 							
 							if(SD2UppaalMain.diagramslistsize==1){

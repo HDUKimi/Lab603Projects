@@ -1634,6 +1634,10 @@ public class ModelExistValidationPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
+				mainFrame.getValidationResultPanel().getFivenamelabel().setText("评估结果： ");
+				mainFrame.getValidationResultPanel().getFiveresultpanel().removeAll();
+				mainFrame.getValidationResultPanel().ChangeRepaint();
+				
 				if(selectUppaalCheckBox.getText()==null||selectUppaalCheckBox.getText().equals("")){
 					JOptionPane.showMessageDialog(mainFrame, "请选择要进行模型评估的时间自动机！", "提示" , JOptionPane.ERROR_MESSAGE);
 					return ;
