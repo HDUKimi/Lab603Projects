@@ -257,6 +257,46 @@ public class ATDTR__1 {
 			}
 			System.out.println("-------------");
 		}*/
+		//加入终止状态标志
+		for(State state:atstr.getStateSet()) {
+			int k1= 0;
+			for(Transition tran:atstr.getTransitionSet()){//判断目标状态是否已被访问
+				if(state.getName().equals(tran.getSource())){//找出以此状态为起点的迁移
+					k1=1;
+					break;
+				}
+			}
+			if(k1==0){
+				state.setFinalState(true);
+			}else{
+				state.setFinalState(false);
+			}
+		}
+		
+		
+		//加入前驱和后继
+		for(State s : atstr.getStateSet()){
+			ArrayList<Transition> nextTranSet = new ArrayList<Transition>();
+			ArrayList<Transition> proTranSet = new ArrayList<Transition>();
+			for(Transition t : atstr.getTransitionSet()){
+				if(t.getSource().equals(s.getName())){
+					nextTranSet.add(t);
+				}
+				if(t.getTarget().equals(s.getName())){
+					proTranSet.add(t);
+				}
+			}
+			s.setProTranSet(proTranSet);
+			s.setNextTranSet(nextTranSet);
+		}
+		for(Transition t : atstr.getTransitionSet()){
+			State sourceState = new State();
+			State targetState = new State();
+			sourceState = GetAutomatic.findStateFromString(t.getSource(), atstr);
+			targetState = GetAutomatic.findStateFromString(t.getTarget(), atstr);
+			t.setSourceState(sourceState);
+			t.setTargetState(targetState);
+		}
 		return atstr;
 	}
 }

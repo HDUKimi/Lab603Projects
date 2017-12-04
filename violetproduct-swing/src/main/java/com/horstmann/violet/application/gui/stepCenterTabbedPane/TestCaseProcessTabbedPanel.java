@@ -461,8 +461,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 		System.out.println(selectUppaalPath+"  ----------  "+selectCoverState);
 		
+		clockstate="否";
 		if(CheckIsContainTime(selectUppaalPath)){
 			hastime=1;
+			clockstate="是";
 		}
 		else{
 			hastime=0;
@@ -521,7 +523,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 //						Thread.sleep(10000);
 //					}
 					if(!futuretasklist.get(step-1).isDone()){
-						Thread.sleep(500);
+						Thread.sleep(1000);
 					}
 					else{
 						Thread.sleep(100);
@@ -565,10 +567,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 //					automatictimestate=1;
 //					clockstate="是";
 //				}
-				if(a.getClockSet().size()!=0){
-					automatictimestate=1;
-					clockstate="是";
-				}
+//				if(a.getClockSet().size()!=0){
+//					automatictimestate=1;
+//					clockstate="是";
+//				}
 				
 				Thread.sleep(1000);
 				
@@ -653,10 +655,10 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				//获取数据
 				iPARAutomatic=IPR__1.iPR(a);//状态拆分
-				System.out.println("---------2222222222");
-				for(State s:iPARAutomatic.getStateSet()){
-					System.out.println(s.getShowName());
-				}
+//				System.out.println("---------2222222222");
+//				for(State s:iPARAutomatic.getStateSet()){
+//					System.out.println(s.getShowName());
+//				}
 				
 				aTDRTAutomatic=ATDTR__1.aTDRT(iPARAutomatic,a);//去除迁移
 				
@@ -964,12 +966,12 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 							
 						}
 						else if(selectCoverState==1){//迁移覆盖
-							afterSortTestCase=GeneratePath.getFormatPathFromAutomatic(a, 100, 1);
-							beforeSortTestCase=GeneratePath.getBeforeSort();
-							testCase=beforeSortTestCase;
+//							afterSortTestCase=GeneratePath.getFormatPathFromAutomatic(a, 100, 1);
+//							beforeSortTestCase=GeneratePath.getBeforeSort();
+//							testCase=beforeSortTestCase;
 							
-//							testCase=MinTC.sideCoverage(a);
-//							afterSortTestCase=testCase;
+							testCase=MinTC.sideCoverage(a);
+							afterSortTestCase=testCase;
 						}
 					}
 				}

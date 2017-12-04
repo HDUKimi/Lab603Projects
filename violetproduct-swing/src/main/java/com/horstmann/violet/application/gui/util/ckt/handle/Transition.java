@@ -32,7 +32,21 @@ public class Transition implements Serializable{
 	private String limit;//迁移条件集合
 	private String tranTimeName;//去除抽象时间延迟迁移再迁移上添加的t；
 	boolean visited = false; 
-
+	private State sourceState;
+	private State targetState;
+	
+	public State getSourceState() {
+		return sourceState;
+	}
+	public void setSourceState(State sourceState) {
+		this.sourceState = sourceState;
+	}
+	public State getTargetState() {
+		return targetState;
+	}
+	public void setTargetState(State targetState) {
+		this.targetState = targetState;
+	}
 	public boolean isVisited() {
 		return visited;
 	}

@@ -436,8 +436,48 @@ public class GetAutomatic {
 			System.out.println("********************");
 		}*/
 		
+		for(State s : automatic.getStateSet()){
+			ArrayList<Transition> nextTranSet = new ArrayList<Transition>();
+			ArrayList<Transition> proTranSet = new ArrayList<Transition>();
+			for(Transition t : automatic.getTransitionSet()){
+				if(t.getSource().equals(s.getName())){
+					nextTranSet.add(t);
+				}
+				if(t.getTarget().equals(s.getName())){
+					proTranSet.add(t);
+				}
+			}
+			s.setProTranSet(proTranSet);
+			s.setNextTranSet(nextTranSet);
+		}
+		for(Transition t : automatic.getTransitionSet()){
+			State sourceState = new State();
+			State targetState = new State();
+			sourceState = findStateFromString(t.getSource(), automatic);
+			targetState = findStateFromString(t.getTarget(), automatic);
+			t.setSourceState(sourceState);
+			t.setTargetState(targetState);
+		}
+		
 		return automatic;
 		
 		
+	}
+	
+	/**
+	 * 根据状态名称找到状态
+	 * @param name
+	 * @param auto
+	 * @return
+	 */
+	public static State findStateFromString (String name, Automatic auto){
+		State state = new State();
+		for(State s : auto.getStateSet()){
+			if(s.getName().equals(name)){
+				state = s;
+				break;
+			}
+		}
+		return state;
 	}
 }

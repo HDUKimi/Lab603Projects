@@ -20,7 +20,22 @@ public class State implements Serializable{
 	private String type;//后期可能添加的状态类型属性（是不是初始状态）
 	boolean finalState;//标志状态是否为终止状态
 	boolean starState;
+	private ArrayList<Transition> nextTranSet;
+	private ArrayList<Transition> proTranSet;
 	private int stateAccessTimes = 0;//状态节点的访问次数
+	
+	public ArrayList<Transition> getNextTranSet() {
+		return nextTranSet;
+	}
+	public void setNextTranSet(ArrayList<Transition> nextTranSet) {
+		this.nextTranSet = nextTranSet;
+	}
+	public ArrayList<Transition> getProTranSet() {
+		return proTranSet;
+	}
+	public void setProTranSet(ArrayList<Transition> proTranSet) {
+		this.proTranSet = proTranSet;
+	}
 	
 	public int getStateAccessTimes() {
 		return stateAccessTimes;
