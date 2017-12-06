@@ -67,6 +67,10 @@ public class FunctionalTestCaseReportPartPanel extends JPanel {
 		this.testcaseattribute=testcaseattribute;
 		this.showAll=showAll;
 		
+		if(testcase.getState()==null||testcase.getState().equals("")||testcase.getState().equals("null")){
+			this.showAll=0;
+		}
+		
 		init();
 
 		this.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));

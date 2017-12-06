@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -347,40 +348,164 @@ public class DataBaseUtil {
 
 	}
 	
+	public static void updateTestCaseStringList(int type, List<String> testcasestringlist, List<Integer> testcaseidlist, String testcasedataname) {
+
+		int caseid=queryByTestCaseDataName(testcasedataname);
+		if(caseid==0){
+			insertTestCaseData(type, testcasedataname);
+			caseid=queryByTestCaseDataName(testcasedataname);
+			
+			try {
+
+				init();
+				
+				if (type == 1) {
+					sql = "insert into functionalcase(id,content,casedataid) values(?,?,?)";
+				} else if (type == 2) {
+					sql = "insert into performancecase(id,content,casedataid) values(?,?,?)";
+				} else if (type == 3) {
+					sql = "insert into bordercase(id,content,casedataid) values(?,?,?)";
+				} else if (type == 4) {
+					sql = "insert into timecase(id,content,casedataid) values(?,?,?)";
+				} 
+
+				conn.setAutoCommit(false);
+				pst = conn.prepareStatement(sql);
+				int id = 1;
+				for (String str : testcasestringlist) {
+					
+					if(id%100==0){
+						pst.executeBatch();
+						conn.commit();
+						
+						conn.setAutoCommit(false);
+					}
+					
+					pst.setInt(1, id++);
+					pst.setString(2, str);
+					pst.setInt(3, caseid);
+//					pst.executeUpdate();
+					pst.addBatch();
+				}
+
+				pst.executeBatch();
+				conn.commit();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close();
+			}
+			
+		}
+		else{
+			
+			try {
+
+				init();
+				
+				if (type == 1) {
+					sql = "update functionalcase set content=? where id=? and casedataid=?";
+				} else if (type == 2) {
+					sql = "update performancecase set content=? where id=? and casedataid=?";
+				} else if (type == 3) {
+					sql = "update bordercase set content=? where id=? and casedataid=?";
+				} else if (type == 4) {
+					sql = "update timecase set content=? where id=? and casedataid=?";
+				}
+
+				conn.setAutoCommit(false);
+				pst = conn.prepareStatement(sql);
+				int index = 1;
+				for (String str : testcasestringlist) {
+					
+					if(index%100==0){
+						pst.executeBatch();
+						conn.commit();
+						
+						conn.setAutoCommit(false);
+					}
+					
+					pst.setString(1, str);
+					pst.setInt(2, testcaseidlist.get(index-1));
+					pst.setInt(3, caseid);
+					index++;
+					pst.addBatch();
+				}
+
+				pst.executeBatch();
+				conn.commit();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close();
+			}
+			
+		}
+		
+	}
+	
 	public static TestCase extractTestCaseByString(int type, String str){
 		
 		str = str.replace("\n", "");
 		TestCase testCase=new TestCase();
-
-		if(type==1){
-			testCase.setTestCaseID(stringRegEx(str, "testCaseID:([\\s|\\S]*?)-->processList:").get(0));
-			testCase.setExetime(stringRegEx(str, "exetime:\\[([\\s|\\S]*?)\\]-->expectResult:").get(0));
-			testCase.setExpectResult(stringRegEx(str, "expectResult:\\[([\\s|\\S]*?)\\]-->state:").get(0));
-			testCase.setState(stringRegEx(str, "state:\\[([\\s|\\S]*?)\\]-->programExeResult:").get(0));
-			testCase.setProgramExeResult(stringRegEx(str, "programExeResult:\\[([\\s|\\S]*?)\\]").get(0));
-			String processstr=stringRegEx(str, "processList:\\[([\\s|\\S]*?)\\]-->exetime:").get(0);
-			testCase.setProcessList(extractProcessByString(processstr));
+		
+		if(str.contains("state:[]")){
+			if(type==1){
+				testCase.setTestCaseID(stringRegEx(str, "testCaseID:([\\s|\\S]*?)-->processList:").get(0));
+				testCase.setExpectResult(stringRegEx(str, "expectResult:\\[([\\s|\\S]*?)\\]-->state:").get(0));
+				String processstr=stringRegEx(str, "processList:\\[([\\s|\\S]*?)\\]-->exetime:").get(0);
+				testCase.setProcessList(extractProcessByStringBefore(processstr));
+			}
+			else if(type==2){
+				testCase.setTestCaseID(stringRegEx(str, "testCaseID:([\\s|\\S]*?)-->processList:").get(0));
+				testCase.setExpectResult(stringRegEx(str, "expectResult:\\[([\\s|\\S]*?)\\]-->state:").get(0));
+				String processstr=stringRegEx(str, "processList:\\[([\\s|\\S]*?)\\]-->performanceParam:").get(0);
+				testCase.setProcessList(extractProcessByStringBefore(processstr));
+				String paramstr=stringRegEx(str, "performanceParam:\\[([\\s|\\S]*?)\\]-->exetime:").get(0);
+				extractPerformanceParamByString(testCase,paramstr);
+			}
+			else if(type==3){
+				testCase.setTestCaseID(stringRegEx(str, "testCaseID:([\\s|\\S]*?)-->processList:").get(0));
+				testCase.setExpectResult(stringRegEx(str, "expectResult:\\[([\\s|\\S]*?)\\]-->state:").get(0));
+				String processstr=stringRegEx(str, "processList:\\[([\\s|\\S]*?)\\]-->timeLimit:").get(0);
+				testCase.setProcessList(extractProcessByStringBefore(processstr));
+				String timelimitstr=stringRegEx(str, "timeLimit:\\[([\\s|\\S]*?)\\]-->exetime:").get(0);
+				extractTimeLimitByStringBefore(testCase,timelimitstr);
+			}
 		}
-		else if(type==2){
-			testCase.setTestCaseID(stringRegEx(str, "testCaseID:([\\s|\\S]*?)-->processList:").get(0));
-			testCase.setExetime(stringRegEx(str, "exetime:\\[([\\s|\\S]*?)\\]-->expectResult:").get(0));
-			testCase.setExpectResult(stringRegEx(str, "expectResult:\\[([\\s|\\S]*?)\\]-->state:").get(0));
-			testCase.setState(stringRegEx(str, "state:\\[([\\s|\\S]*?)\\]").get(0));
-			String processstr=stringRegEx(str, "processList:\\[([\\s|\\S]*?)\\]-->performanceParam:").get(0);
-			testCase.setProcessList(extractProcessByString(processstr));
-			String paramstr=stringRegEx(str, "performanceParam:\\[([\\s|\\S]*?)\\]-->exetime:").get(0);
-			extractPerformanceParamByString(testCase,paramstr);
-		}
-		else if(type==3){
-			testCase.setTestCaseID(stringRegEx(str, "testCaseID:([\\s|\\S]*?)-->processList:").get(0));
-			testCase.setExetime(stringRegEx(str, "exetime:\\[([\\s|\\S]*?)\\]-->expectResult:").get(0));
-			testCase.setExpectResult(stringRegEx(str, "expectResult:\\[([\\s|\\S]*?)\\]-->state:").get(0));
-			testCase.setState(stringRegEx(str, "state:\\[([\\s|\\S]*?)\\]-->programExeResult:").get(0));
-			testCase.setProgramExeResult(stringRegEx(str, "programExeResult:\\[([\\s|\\S]*?)\\]").get(0));
-			String processstr=stringRegEx(str, "processList:\\[([\\s|\\S]*?)\\]-->timeLimit:").get(0);
-			testCase.setProcessList(extractProcessByString(processstr));
-			String timelimitstr=stringRegEx(str, "timeLimit:\\[([\\s|\\S]*?)\\]-->exetime:").get(0);
-			extractTimeLimitByString(testCase,timelimitstr);
+		else{
+			if(type==1){
+				testCase.setTestCaseID(stringRegEx(str, "testCaseID:([\\s|\\S]*?)-->processList:").get(0));
+				testCase.setExetime(stringRegEx(str, "exetime:\\[([\\s|\\S]*?)\\]-->expectResult:").get(0));
+				testCase.setExpectResult(stringRegEx(str, "expectResult:\\[([\\s|\\S]*?)\\]-->state:").get(0));
+				testCase.setState(stringRegEx(str, "state:\\[([\\s|\\S]*?)\\]-->programExeResult:").get(0));
+				testCase.setProgramExeResult(stringRegEx(str, "programExeResult:\\[([\\s|\\S]*?)\\]").get(0));
+				String processstr=stringRegEx(str, "processList:\\[([\\s|\\S]*?)\\]-->exetime:").get(0);
+				testCase.setProcessList(extractProcessByString(processstr));
+			}
+			else if(type==2){
+				testCase.setTestCaseID(stringRegEx(str, "testCaseID:([\\s|\\S]*?)-->processList:").get(0));
+				testCase.setExetime(stringRegEx(str, "exetime:\\[([\\s|\\S]*?)\\]-->expectResult:").get(0));
+				testCase.setExpectResult(stringRegEx(str, "expectResult:\\[([\\s|\\S]*?)\\]-->state:").get(0));
+				testCase.setState(stringRegEx(str, "state:\\[([\\s|\\S]*?)\\]").get(0));
+				String processstr=stringRegEx(str, "processList:\\[([\\s|\\S]*?)\\]-->performanceParam:").get(0);
+				testCase.setProcessList(extractProcessByString(processstr));
+				String paramstr=stringRegEx(str, "performanceParam:\\[([\\s|\\S]*?)\\]-->exetime:").get(0);
+				extractPerformanceParamByString(testCase,paramstr);
+			}
+			else if(type==3){
+				testCase.setTestCaseID(stringRegEx(str, "testCaseID:([\\s|\\S]*?)-->processList:").get(0));
+				testCase.setExetime(stringRegEx(str, "exetime:\\[([\\s|\\S]*?)\\]-->expectResult:").get(0));
+				testCase.setExpectResult(stringRegEx(str, "expectResult:\\[([\\s|\\S]*?)\\]-->state:").get(0));
+				testCase.setState(stringRegEx(str, "state:\\[([\\s|\\S]*?)\\]-->programExeResult:").get(0));
+				testCase.setProgramExeResult(stringRegEx(str, "programExeResult:\\[([\\s|\\S]*?)\\]").get(0));
+				String processstr=stringRegEx(str, "processList:\\[([\\s|\\S]*?)\\]-->timeLimit:").get(0);
+				testCase.setProcessList(extractProcessByString(processstr));
+				String timelimitstr=stringRegEx(str, "timeLimit:\\[([\\s|\\S]*?)\\]-->exetime:").get(0);
+				extractTimeLimitByString(testCase,timelimitstr);
+			}
 		}
 		
 		return testCase;
@@ -447,22 +572,83 @@ public class DataBaseUtil {
 		testCase.setResult(testCaseResult);
 		
 	}
+	
+	private static void extractTimeLimitByStringBefore(TestCase testCase, String str) {
 
+		List<String> timeLimitList=new ArrayList<String>();
+		
+		List<String> timeLimitStringList=stringRegEx(str, "\\[([\\s|\\S]*?)\\]");
+		
+		for(String timeLimit:timeLimitStringList){
+			String uninquery=stringRegEx(timeLimit, "uninquery:([\\s|\\S]*?)timeAttribute:").get(0);
+			
+			timeLimitList.add(uninquery);
+		}
+		
+		testCase.setLimit(timeLimitList);
+		
+	}
+	
 	public static List<myProcess> extractProcessByString(String str) {
 		
 		List<myProcess> list=new ArrayList<myProcess>();
 		
-		List<String> processStringlist=stringRegEx(str, "\\[processID:([\\s|\\S]*?)\\]");
+//		List<String> processStringlist=stringRegEx(str, "\\[processID:([\\s|\\S]*?)\\]");
+		
+		List<String> processStringlist=new ArrayList<>();
+		String [] dataStr = str.split("\\]([\\s]*?)\\["); 
+		for(int i=0;i<dataStr.length;i++){
+			if(i==0){
+				processStringlist.add(dataStr[i].substring(1, dataStr[i].length()));
+			}
+			else if(i==dataStr.length-1){
+				processStringlist.add(dataStr[i].substring(0, dataStr[i].length()-1));
+			}
+			else{
+				processStringlist.add(dataStr[i]);
+			}
+		}
 		
 		for(String processStr:processStringlist){
 			myProcess process=new myProcess();
-			processStr="processID:"+processStr;
 			process.setProcessID(Integer.parseInt(stringRegEx(processStr, "processID:([\\s|\\S]*?)processName:").get(0)));
 			process.setProcessName(stringRegEx(processStr, "processName:([\\s|\\S]*?)processParam:").get(0));
 			process.setProcessParam(stringRegEx(processStr, "processParam:([\\s|\\S]*?)processStatus:").get(0));
 			process.setProcessStatus(stringRegEx(processStr, "processStatus:([\\s|\\S]*?)processExec:").get(0));
 //			process.setProcessExec(Boolean.parseBoolean(stringRegEx(processStr, "processExec:([\\s|\\S]*?)").get(0)));
 			process.setProcessExec(Boolean.parseBoolean(processStr.split("processExec:")[1]));
+			list.add(process);
+		}
+		
+		return list;
+	}
+	
+	public static List<myProcess> extractProcessByStringBefore(String str) {
+		
+		List<myProcess> list=new ArrayList<myProcess>();
+		
+//		List<String> processStringlist=stringRegEx(str, "\\[processID:([\\s|\\S]*?)\\]");
+		
+		List<String> processStringlist=new ArrayList<>();
+		String [] dataStr = str.split("\\]([\\s]*?)\\["); 
+//		System.out.println(Arrays.toString(dataStr).toString());
+		for(int i=0;i<dataStr.length;i++){
+			if(i==0){
+				processStringlist.add(dataStr[i].substring(1, dataStr[i].length()));
+			}
+			else if(i==dataStr.length-1){
+				processStringlist.add(dataStr[i].substring(0, dataStr[i].length()-1));
+			}
+			else{
+				processStringlist.add(dataStr[i]);
+			}
+		}
+		
+		for(String processStr:processStringlist){
+			myProcess process=new myProcess();
+			process.setProcessID(Integer.parseInt(stringRegEx(processStr, "processID:([\\s|\\S]*?)processName:").get(0)));
+			process.setProcessName(stringRegEx(processStr, "processName:([\\s|\\S]*?)processParam:").get(0));
+			process.setProcessParam(stringRegEx(processStr, "processParam:([\\s|\\S]*?)processStatus:").get(0));
 			list.add(process);
 		}
 		

@@ -46,6 +46,7 @@ import com.horstmann.violet.application.gui.util.ckt.xml.XmlOfTime;
 import com.horstmann.violet.application.gui.util.ckt.xml.borderTestXML;
 import com.horstmann.violet.application.gui.util.ckt.xml.borderTimeXML;
 import com.horstmann.violet.application.gui.util.ckt.xml.outXMLofTime;
+import com.horstmann.violet.application.gui.util.lmr.DB.DataBaseUtil;
 import com.horstmann.violet.application.gui.util.tanchao.SaveText;
 
 public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
@@ -116,6 +117,10 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 	private List<String> stepAllProcessList=new ArrayList<String>();
 	private List<String> timeAllProcessList=new ArrayList<String>();
 	private List<String> resultAllProcessList=new ArrayList<String>();
+	
+	private List<TestCase> testcaselist=new ArrayList<TestCase>();
+	private List<TestCase> bordertestcaselist=new ArrayList<TestCase>();
+	private List<TestCase> performancetestcaselist=new ArrayList<TestCase>();
 
 	private Object str;
 	
@@ -421,11 +426,14 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 					if(step==2&&!futuretasklist.get(step-1).isDone()){//处于实例化步骤时，增大休眠时间
 						Thread.sleep(3000);
 					}
-//					else if (step==stepsum&&!futuretasklist.get(step-1).isDone()){
-//						Thread.sleep(10000);
-//					}
-					else{
+					else if (step==stepsum&&!futuretasklist.get(step-1).isDone()){
+						Thread.sleep(3000);
+					}
+					else if(!futuretasklist.get(step-1).isDone()){
 						Thread.sleep(300);
+					}
+					else{
+						Thread.sleep(50);
 					}
 				}
 				
@@ -743,9 +751,13 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 //				
 //				System.err.println(path);
 				
-				List<TestCase> testcaselist=new ArrayList<TestCase>();
-				List<TestCase> bordertestcaselist=new ArrayList<TestCase>();
-				List<TestCase> performancetestcaselist=new ArrayList<TestCase>();
+//				List<TestCase> testcaselist=new ArrayList<TestCase>();
+//				List<TestCase> bordertestcaselist=new ArrayList<TestCase>();
+//				List<TestCase> performancetestcaselist=new ArrayList<TestCase>();
+				
+				testcaselist=new ArrayList<TestCase>();
+				bordertestcaselist=new ArrayList<TestCase>();
+				performancetestcaselist=new ArrayList<TestCase>();
 				
 				if(starttype==1&&hastime==0){//功能测试
 					
@@ -1069,9 +1081,9 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				time1=System.currentTimeMillis();
 				
-				moviepanel.getMovieLabel().setText("生成测试用例xml");
+				moviepanel.getMovieLabel().setText("存储测试用例");
 				
-				TextAreaPrint("生成测试用例xml");
+				TextAreaPrint("存储测试用例");
 				
 				String name=selectAbstract.substring(0, selectAbstract.indexOf("Abstract"));
 				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
@@ -1092,33 +1104,41 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				String nextRunFileName = null;
 
-				Thread.sleep(new Random().nextInt(1000)+1000);
-				
-				time2=System.currentTimeMillis();
-				
-				stepAllProcessList.add("第四步：存储测试用例");
-				timeAllProcessList.add(time2-time1+"ms");
-				
 				if(starttype == 1){
-//					if(hastime==1){
-//						resultAllProcessList.add("生成"+name+"TestCase.xml，"+name+"PerformanceTestCase.xml");
-//						
-//						TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path);
-//						TextAreaPrint("生成"+name+"PerformanceTestCase.xml，保存路径："+performancepath);
-//					}
-//					else{
+					if(hastime==1){
 						resultAllProcessList.add("生成"+name+"FunctionalTestCase.xml，"+name+"BorderTestCase.xml，"+name+"PerformanceTestCase.xml");
 						
 						TextAreaPrint("生成"+name+"FunctionalTestCase.xml，保存路径："+path);
+						SaveTestCaseToDBByType(3, 1, name+"FunctionalTestCase", testcaselist);
+						
 						TextAreaPrint("生成"+name+"BorderTestCase.xml，保存路径："+borderpath);
+						SaveTestCaseToDBByType(3, 3, name+"BorderTestCase", bordertestcaselist);
+						
 						TextAreaPrint("生成"+name+"PerformanceTestCase.xml，保存路径："+performancepath);
+						SaveTestCaseToDBByType(3, 2, name+"PerformanceTestCase", performancetestcaselist);
 						
 						nextRunFileName=name+"FunctionalTestCase";
-//					}
+					}
+					else{
+						resultAllProcessList.add("生成"+name+"FunctionalTestCase.xml，"+name+"BorderTestCase.xml，"+name+"PerformanceTestCase.xml");
+						
+						TextAreaPrint("生成"+name+"FunctionalTestCase.xml，保存路径："+path);
+						SaveTestCaseToDBByType(1, 1, name+"FunctionalTestCase", testcaselist);
+						
+						TextAreaPrint("生成"+name+"BorderTestCase.xml，保存路径："+borderpath);
+						SaveTestCaseToDBByType(1, 3, name+"BorderTestCase", bordertestcaselist);
+						
+						TextAreaPrint("生成"+name+"PerformanceTestCase.xml，保存路径："+performancepath);
+						SaveTestCaseToDBByType(1, 2, name+"PerformanceTestCase", performancetestcaselist);
+						
+						nextRunFileName=name+"FunctionalTestCase";
+					}
 				}
 				else if(starttype==2){
 					resultAllProcessList.add("生成"+name+"TestCase.xml");
+					
 					TextAreaPrint("生成"+name+"TestCase.xml，保存路径："+path1);
+					SaveTestCaseToDBByType(2, 2, name+"TestCase", testcaselist);
 					
 					nextRunFileName=name+"TestCase";
 				}
@@ -1130,6 +1150,10 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				StepFiveCenterTabbedPane.setBecomeRunFileName(nextRunFileName);
 				StepFiveCenterTabbedPane.setBecomeRunFileNameType(starttype);
 				
+				time2=System.currentTimeMillis();
+				
+				stepAllProcessList.add("第四步：存储测试用例");
+				timeAllProcessList.add(time2-time1+"ms");
 				
 				return 1;
 			}
@@ -1219,6 +1243,35 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		
 		tablepanel.setLayout(new GridLayout());
 		tablepanel.setOpaque(false);
+		
+	}
+	
+	private void SaveTestCaseToDBByType(int type, int attribute, String testcasename, List<TestCase> resulttestcaselist) {
+		
+		if(type==1){
+			List<String> testcasestringlist=new ArrayList<String>();
+			for(TestCase testCase:resulttestcaselist){
+				testcasestringlist.add(testCase.SpellFunctionalTestCaseBefore());
+			}
+			DataBaseUtil.insertTestCaseStringList(attribute, testcasestringlist, testcasename);
+			TextAreaPrint(testcasename+"的测试用例成功保存到数据库中");
+		}
+		else if(type==2){
+			List<String> testcasestringlist=new ArrayList<String>();
+			for(TestCase testCase:resulttestcaselist){
+				testcasestringlist.add(testCase.SpellPerformanceTestCaseBefore());
+			}
+			DataBaseUtil.insertTestCaseStringList(type, testcasestringlist, testcasename);
+			TextAreaPrint(testcasename+"的测试用例成功保存到数据库中");
+		}
+		else if(type==3){
+			List<String> testcasestringlist=new ArrayList<String>();
+			for(TestCase testCase:resulttestcaselist){
+				testcasestringlist.add(testCase.SpellTimeTestCaseBefore());
+			}
+			DataBaseUtil.insertTestCaseStringList(4, testcasestringlist, testcasename);
+			TextAreaPrint(testcasename+"的测试用例成功保存到数据库中");
+		}
 		
 	}
 	

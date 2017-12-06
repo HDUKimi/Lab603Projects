@@ -75,8 +75,12 @@ public class TimeTestCaseReportPartPanel extends JPanel {
 		this.testcaseattribute=testcaseattribute;
 		this.showAll=showAll;
 		
+		if(testcase.getState()==null||testcase.getState().equals("")||testcase.getState().equals("null")){
+			this.showAll=0;
+		}
+		
 		this.limit=testcase.getLimit();
-		if(showAll==1){
+		if(this.showAll==1){
 			this.showTimeLimitMap=testcase.getResult().getTimeLimit().getShowMap();
 		}
 		

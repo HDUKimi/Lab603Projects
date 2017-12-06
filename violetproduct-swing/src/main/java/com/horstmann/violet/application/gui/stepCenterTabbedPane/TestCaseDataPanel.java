@@ -124,20 +124,31 @@ public class TestCaseDataPanel{
 		showTestCase();
 		
 		if(showAll==1){
-			showStatisticsDataByType(testcasetype,testcaseattribute);
-			testCaseChartDiagramButtonPanel.setVisible(true);
+			List<TestCase> list=new ArrayList<>();
+			for(TestCase testcase:testcaselist){
+				if(testcase.getState()==null||testcase.getState().equals("")||testcase.getState().equals("null")){
+					showAll=0;
+				}
+				else{
+					list.add(testcase);
+				}
+			}
+			if(list.size()>0){
+				showStatisticsDataByType(testcasetype,testcaseattribute,list);
+				testCaseChartDiagramButtonPanel.setVisible(true);
+			}
 		}
 		
 	}
 	
-	protected void showStatisticsDataByType(int type, int attribute) {
+	protected void showStatisticsDataByType(int type, int attribute, List<TestCase> list) {
 		
 		if(type==1){//统计功能数据
 			
 			if(attribute==2){
 				List<Double> exetimelist=new ArrayList<>();
 				
-				for(TestCase testCase:testcaselist){
+				for(TestCase testCase:list){
 					exetimelist.add(Double.parseDouble(testCase.getExetime()));
 				}
 				
@@ -158,7 +169,7 @@ public class TestCaseDataPanel{
 				
 			}
 			else{
-				Map<String, Object> testcasemap=TcConvertUtil.functionStatistics(testcaselist);
+				Map<String, Object> testcasemap=TcConvertUtil.functionStatistics(list);
 				List<Integer> caseSuccess=(List<Integer>) testcasemap.get("caseSuccess");
 				List<Integer> caseFailed=(List<Integer>) testcasemap.get("caseFailed");
 				Map<String,List<Map<Integer,List<Integer>>>> failedStatistics=(Map<String, List<Map<Integer, List<Integer>>>>) testcasemap.get("failedStatistics");
@@ -227,7 +238,7 @@ public class TestCaseDataPanel{
 		}
 		else if(type==2){//统计性能数据
 
-			Map testcasemap=TcConvertUtil.testCaseStatistics(testcaselist);
+			Map testcasemap=TcConvertUtil.testCaseStatistics(list);
 
 			List<Pair> highspeeddata=(List<Pair>) testcasemap.get("high-speed");
 			List<Pair> timespeeddata=(List<Pair>) testcasemap.get("time-speed");
@@ -271,7 +282,7 @@ public class TestCaseDataPanel{
 			if(attribute==2){
 				List<Double> exetimelist=new ArrayList<>();
 				
-				for(TestCase testCase:testcaselist){
+				for(TestCase testCase:list){
 					exetimelist.add(Double.parseDouble(testCase.getExetime()));
 				}
 				
@@ -292,7 +303,7 @@ public class TestCaseDataPanel{
 				
 			}
 			else{
-				Map<String, Integer> resultmap=TcConvertUtil.timeStatistics(testcaselist);
+				Map<String, Integer> resultmap=TcConvertUtil.timeStatistics(list);
 				
 				TimeTestCaseChartTabbedPanel timeTestCaseChartTabbedPanel=new TimeTestCaseChartTabbedPanel(mainFrame);
 				

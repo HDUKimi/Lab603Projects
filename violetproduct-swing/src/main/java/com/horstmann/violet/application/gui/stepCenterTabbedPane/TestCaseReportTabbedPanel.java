@@ -1350,27 +1350,33 @@ public class TestCaseReportTabbedPanel extends JPanel{
 	private void SaveTestCaseToDBByType(int type, int attribute) {
 		
 		if(type==1){
+			List<Integer> testcaseidlist=new ArrayList<>();
 			List<String> testcasestringlist=new ArrayList<String>();
 			for(TestCase testCase:resulttestcaselist){
+				testcaseidlist.add(testCase.getTID());
 				testcasestringlist.add(testCase.SpellFunctionalTestCase());
 			}
-			DataBaseUtil.insertTestCaseStringList(attribute, testcasestringlist, testcasename);
+			DataBaseUtil.updateTestCaseStringList(attribute, testcasestringlist, testcaseidlist, testcasename);
 			TextAreaPrint("保存成功！！！");
 		}
 		else if(type==2){
+			List<Integer> testcaseidlist=new ArrayList<>();
 			List<String> testcasestringlist=new ArrayList<String>();
 			for(TestCase testCase:resulttestcaselist){
+				testcaseidlist.add(testCase.getTID());
 				testcasestringlist.add(testCase.SpellPerformanceTestCase());
 			}
-			DataBaseUtil.insertTestCaseStringList(type, testcasestringlist, testcasename);
+			DataBaseUtil.updateTestCaseStringList(type, testcasestringlist, testcaseidlist, testcasename);
 			TextAreaPrint("保存成功！！！");
 		}
 		else if(type==3){
+			List<Integer> testcaseidlist=new ArrayList<>();
 			List<String> testcasestringlist=new ArrayList<String>();
 			for(TestCase testCase:resulttestcaselist){
+				testcaseidlist.add(testCase.getTID());
 				testcasestringlist.add(testCase.SpellTimeTestCase());
 			}
-			DataBaseUtil.insertTestCaseStringList(4, testcasestringlist, testcasename);
+			DataBaseUtil.updateTestCaseStringList(4, testcasestringlist, testcaseidlist, testcasename);
 			TextAreaPrint("保存成功！！！");
 		}
 		
@@ -1671,6 +1677,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				}
 //			}
 			
+			testcase.setTestCaseID(ftcrpp.getTestcase().getTestCaseID());
 			testcase.setExpectResult(ftcrpp.getTestcase().getExpectResult());
 			
 			if(testcase.getProgramExeResult().contains("异常")){
@@ -1784,6 +1791,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 //				performancelistindex++;
 //			}
 			
+			testcase.setTestCaseID(ptcrpp.getTestcase().getTestCaseID());
 			testcase.setExpectResult(ptcrpp.getTestcase().getExpectResult());
 			
 			JTable attributetable;
@@ -1820,6 +1828,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 			ttcrpp = (TimeTestCaseReportPartPanel) checkedtestcasereportlist
 					.get(Integer.parseInt(testcase.getTestCaseID()) - 1);
 			
+			testcase.setTestCaseID(ttcrpp.getTestcase().getTestCaseID());
 			testcase.setExpectResult(ttcrpp.getTestcase().getExpectResult());
 			
 			JTable attributetable;

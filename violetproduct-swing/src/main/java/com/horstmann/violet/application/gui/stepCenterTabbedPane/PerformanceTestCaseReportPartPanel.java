@@ -65,6 +65,10 @@ public class PerformanceTestCaseReportPartPanel extends JPanel {
 		this.testcase=testcase;
 		this.showAll=showAll;
 		
+		if(testcase.getState()==null||testcase.getState().equals("")||testcase.getState().equals("null")){
+			this.showAll=0;
+		}
+		
 		init();
 
 		this.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));

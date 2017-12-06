@@ -19,7 +19,7 @@ public class TestCase implements Serializable{
 	//list of process
 	List<myProcess> processList;
 	//state of testcase
-	String  state;
+	String  state="null";
 	//result of testcase
 	TestCaseResult  result;
 	//detail of testcase, String of socket received
@@ -125,7 +125,7 @@ public class TestCase implements Serializable{
 			tmp = tmp + "\tmyProcess [processID=" + m.processID + ", processName=" + m.processName + ", processParam=" + m.processParam
 					+ ", processStatus=" + m.processStatus + ", processExec=" + m.processExec + "]\n";
 		}
-		tmp = tmp + ", state=²âÊÔºÄÊ±:" + exetime + " ms, result="+ result + ",\n detail=" + showTestCase() + "]";
+		tmp = tmp + ", exetime=²âÊÔºÄÊ±:" + exetime + " ms, state="+state+", result="+ result + ",\n detail=" + showTestCase() + "]";
 		return tmp;
 	}
 	/***
@@ -215,12 +215,6 @@ public class TestCase implements Serializable{
 		}
 		sb.append("\n]\n");
 		sb.append("-->timeLimit:[");
-//		for(Entry<String, Pair<String, String>> entry:result.getTimeLimit().showMap.entrySet()){
-//			sb.append("\n\t[");
-//			sb.append("uninquery:"+entry.getKey()+"\t");
-//			sb.append("timeAttribute:"+entry.getValue().getFirst()+"\t");
-//			sb.append("isOk:"+entry.getValue().getSecond()+"]");
-//		}
 		for(String time:limit){
 			sb.append("\n\t[");
 			sb.append("uninquery:"+time+"\t");
@@ -233,6 +227,88 @@ public class TestCase implements Serializable{
 		sb.append("-->expectResult:["+expectResult+"]\n");
 		sb.append("-->state:["+state+"]\n");
 		sb.append("-->programExeResult:["+programExeResult+"]\n");
+		
+		return sb.toString();
+	}
+	
+	public String SpellFunctionalTestCaseBefore(){
+		
+		StringBuffer sb=new StringBuffer();
+		
+		sb.append("testCaseID:"+testCaseID+"\n");
+		sb.append("-->processList:[");
+		for(myProcess process:processList){
+			sb.append("\n\t[");
+			sb.append("processID:"+process.getProcessID()+"\t");
+			sb.append("processName:"+process.getProcessName()+"\t");
+			sb.append("processParam:"+process.getProcessParam()+"\t");
+			sb.append("processStatus:\t");
+			sb.append("processExec:]");
+		}
+		sb.append("\n]\n");
+		sb.append("-->exetime:[]\n");
+		sb.append("-->expectResult:["+expectResult+"]\n");
+		sb.append("-->state:[]\n");
+		sb.append("-->programExeResult:[]\n");
+		
+		return sb.toString();
+	}
+	
+	public String SpellPerformanceTestCaseBefore(){
+		
+		StringBuffer sb=new StringBuffer();
+		
+		sb.append("testCaseID:"+testCaseID+"\n");
+		sb.append("-->processList:[");
+		for(myProcess process:processList){
+			sb.append("\n\t[");
+			sb.append("processID:"+process.getProcessID()+"\t");
+			sb.append("processName:"+process.getProcessName()+"\t");
+			sb.append("processParam:"+process.getProcessParam()+"\t");
+			sb.append("processStatus:\t");
+			sb.append("processExec:]");
+		}
+		sb.append("\n]\n");
+		sb.append("-->performanceParam:[");
+		sb.append("wind_speed:"+result.getWind_speed()+"\t");
+		sb.append("takeoff_alt:"+result.getTakeoff_alt()+"\t");
+		sb.append("battery_remaining:"+result.getBattery_remaining()+"\t");
+		sb.append("time:"+result.getTime()+"]");
+		sb.append("\n");
+		sb.append("-->exetime:[]\n");
+		sb.append("-->expectResult:["+expectResult+"]\n");
+		sb.append("-->state:[]\n");
+		
+		return sb.toString();
+	}	
+	
+	public String SpellTimeTestCaseBefore(){
+		
+		StringBuffer sb=new StringBuffer();
+		
+		sb.append("testCaseID:"+testCaseID+"\n");
+		sb.append("-->processList:[");
+		for(myProcess process:processList){
+			sb.append("\n\t[");
+			sb.append("processID:"+process.getProcessID()+"\t");
+			sb.append("processName:"+process.getProcessName()+"\t");
+			sb.append("processParam:"+process.getProcessParam()+"\t");
+			sb.append("processStatus:\t");
+			sb.append("processExec:]");
+		}
+		sb.append("\n]\n");
+		sb.append("-->timeLimit:[");
+		for(String time:limit){
+			sb.append("\n\t[");
+			sb.append("uninquery:"+time+"\t");
+			sb.append("timeAttribute:\t");
+			sb.append("isOk:]");
+		}
+		sb.append("\n]\n");
+		sb.append("-->exetime:[]\n");
+		sb.append("-->expectResult:["+expectResult+"]\n");
+		sb.append("-->state:[]\n");
+		sb.append("-->programExeResult:[]\n");
 		
 		return sb.toString();
 	}
@@ -257,6 +333,11 @@ public class TestCase implements Serializable{
 		}
 
 		return sb.toString();
+	}
+
+	public Integer getTID() {
+		
+		return Integer.parseInt(this.getTestCaseID().replaceAll("testCaseID:", ""));
 	}
 	
 }
