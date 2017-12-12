@@ -363,6 +363,9 @@ public class TestCaseReportTabbedPanel extends JPanel{
 										progressbar.setValue(0);
 										progressbarlabel.setText("0%");
 										progressbarindex=0;
+										
+										JOptionPane.showMessageDialog(mainFrame, "连接服务器失败！\n请等待几秒后，再尝试连接！", "提示" , JOptionPane.WARNING_MESSAGE);
+										
 									}
 								} catch (InterruptedException e) {
 									// TODO Auto-generated catch block
