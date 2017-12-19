@@ -5,89 +5,171 @@
   <template>
     <name x="30" y="30">template_</name>
     <declaration/>
-    <location id="loc_id_init" x="48" y="525" timeDuration="null" final="false">
-      <name x="18" y="495">copter:_init time:null</name>
+    <location id="loc_id_init" x="48" y="438">
+      <name x="18" y="408">loc_id_init</name>
     </location>
-    <location id="loc_id_8B135CFE_8E29_4f41_A494_1A3DAA3575ED" x="324" y="525" timeDuration="null" final="false">
-      <name x="294" y="495">copter:update_land_detector() time:null</name>
+    <location id="loc_id_2994C157_4854_4351_A947_F4E7BC16C968" x="324" y="438">
+      <name x="294" y="408">loc_id_2994C157_4854_4351_A947_F4E7BC16C968</name>
     </location>
-    <location id="loc_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489" x="600" y="525" timeDuration="null" final="false">
-      <name x="570" y="495">motors:armed() time:null</name>
+    <location id="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087" x="600" y="438">
+      <name x="570" y="408">loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087</name>
     </location>
-    <location id="loc_id_3B26EB00_E793_480e_B965_EA41DABF4037" x="876" y="300" timeDuration="null" final="false">
-      <name x="846" y="270">copter:set_land_complete(bool) time:null</name>
+    <location id="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3" x="876" y="438">
+      <name x="846" y="408">loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3</name>
     </location>
-    <location id="loc_id_42BE194B_C774_4a1a_8145_102B3F2322D2" x="876" y="525" timeDuration="null" final="false">
-      <name x="846" y="495">motors:get_throttle() time:null</name>
+    <location id="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6" x="1152" y="438">
+      <name x="1122" y="408">loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6</name>
     </location>
-    <location id="loc_id_CE27A32B_18F3_47c6_AF2A_1939AF334483" x="1152" y="525" timeDuration="null" final="false">
-      <name x="1122" y="495">copter:get_non_takeoffthrotle() time:null</name>
+    <location id="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2" x="1428" y="438">
+      <name x="1398" y="408">loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2</name>
     </location>
-    <location id="loc_id_3A85D284_A257_47cf_8840_007817EE49D3" x="1428" y="438" timeDuration="null" final="false">
-      <name x="1398" y="408">copter:set_land_complete(bool) time:null</name>
+    <location id="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5" x="1704" y="303">
+      <name x="1674" y="273">loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5</name>
     </location>
-    <location id="loc_id_2B5B2553_2C21_4138_A672_07D3D3D8BACA" x="876" y="750" timeDuration="null" final="false">
-      <name x="846" y="720">motors:is_throttle_mix_min() time:null</name>
+    <location id="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC" x="2256" y="438">
+      <name x="2226" y="408">loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC</name>
     </location>
-    <location id="loc_id_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4" x="1704" y="573" timeDuration="null" final="true">
-      <name x="1674" y="543">copter:set_land_complete_maybe(bool) time:null</name>
+    <location id="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24" x="1980" y="303">
+      <name x="1950" y="273">loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24</name>
     </location>
-    <init ref="loc_id_init"/>
-    <transition id="tran_id_init_8B135CFE_8E29_4f41_A494_1A3DAA3575ED" timeDuration="null" name="update_land_detector()" receiveOrSend="!" type="null" condition="null" in="null" out="null" use="null" def="null" typeId="null" RESET="null">
+    <location id="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B" x="2532" y="303">
+      <name x="2502" y="273">loc_id_50B8F800_23CD_4431_9778_042103F2DA5B</name>
+    </location>
+    <location id="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD" x="3084" y="438">
+      <name x="3054" y="408">loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</name>
+    </location>
+    <location id="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE" x="3636" y="438">
+      <name x="3606" y="408">loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</name>
+    </location>
+    <location id="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3" x="2808" y="303">
+      <name x="2778" y="273">loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3</name>
+    </location>
+    <location id="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7" x="3360" y="438">
+      <name x="3330" y="408">loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7</name>
+    </location>
+    <location id="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4" x="3912" y="438">
+      <name x="3882" y="408">loc_id_3085365D_8B34_423f_B39A_463F262E5CF4</name>
+    </location>
+    <location id="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F" x="4188" y="438">
+      <name x="4158" y="408">loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F</name>
+    </location>
+    <location id="loc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED" x="4464" y="438">
+      <name x="4434" y="408">loc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED</name>
+    </location>
+    <transition id="tran_idloc_id_initloc_id_2994C157_4854_4351_A947_F4E7BC16C968">
       <source ref="loc_id_init"/>
-      <target ref="loc_id_8B135CFE_8E29_4f41_A494_1A3DAA3575ED"/>
-      <label kind="synchronisation" x="166" y="505">#name:update_land_detector() #receiveOrSend:! #typeAndCondition:null #time:null #in:null #out:null</label>
+      <target ref="loc_id_2994C157_4854_4351_A947_F4E7BC16C968"/>
+      <label kind="synchronisation" x="166" y="418">tran_idloc_id_initloc_id_2994C157_4854_4351_A947_F4E7BC16C968</label>
     </transition>
-    <transition id="tran_id_8B135CFE_8E29_4f41_A494_1A3DAA3575ED_437FCC2B_1245_46f5_B0B2_DB4AEC006489" timeDuration="null" name="armed()" receiveOrSend="?" type="null" condition="null" in="null" out="has_armed#has_armed:bool" use="null" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_8B135CFE_8E29_4f41_A494_1A3DAA3575ED"/>
-      <target ref="loc_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489"/>
-      <label kind="synchronisation" x="442" y="505">#name:armed() #receiveOrSend:? #typeAndCondition:null #time:null #in:null #out:has_armed#has_armed:bool</label>
+    <transition id="tran_idloc_id_2994C157_4854_4351_A947_F4E7BC16C968loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087">
+      <source ref="loc_id_2994C157_4854_4351_A947_F4E7BC16C968"/>
+      <target ref="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087"/>
+      <label kind="synchronisation" x="442" y="418">tran_idloc_id_2994C157_4854_4351_A947_F4E7BC16C968loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087</label>
     </transition>
-    <transition id="tran_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489_3B26EB00_E793_480e_B965_EA41DABF4037" timeDuration="null" name="set_land_complete(bool)" receiveOrSend="!" type="[alt]" condition="has_armed==false#has_armed:bool" in="null" out="null" use="bnull" def="null" typeId="EAID_A1F49214_78D9_4dca_A070_598B9C002BFA" RESET="null">
-      <source ref="loc_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489"/>
-      <target ref="loc_id_3B26EB00_E793_480e_B965_EA41DABF4037"/>
-      <label kind="synchronisation" x="718" y="392">#name:set_land_complete(bool) #receiveOrSend:! #typeAndCondition:[alt]/has_armed==false#has_armed:bool #time:null #in:null #out:null</label>
+    <transition id="tran_idloc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3">
+      <source ref="loc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087"/>
+      <target ref="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3"/>
+      <label kind="synchronisation" x="718" y="418">tran_idloc_id_AB770414_2510_47b1_A5E9_2A0B2DB55087loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3</label>
     </transition>
-    <transition id="tran_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489_42BE194B_C774_4a1a_8145_102B3F2322D2" timeDuration="null" name="get_throttle()" receiveOrSend="?" type="[alt]" condition="has_armed==true &amp;&amp; ap.land_complete==1,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t" in="null" out="get_the_throttle#get_the_throttle:float" use="null" def="null" typeId="EAID_A1F49214_78D9_4dca_A070_598B9C002BFA" RESET="null">
-      <source ref="loc_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489"/>
-      <target ref="loc_id_42BE194B_C774_4a1a_8145_102B3F2322D2"/>
-      <label kind="synchronisation" x="718" y="505">#name:get_throttle() #receiveOrSend:? #typeAndCondition:[alt]/has_armed==true &amp;&amp; ap.land_complete==1,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t #time:null #in:null #out:get_the_throttle#get_the_throttle:float</label>
+    <transition id="tran_idloc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6">
+      <source ref="loc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3"/>
+      <target ref="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6"/>
+      <label kind="synchronisation" x="994" y="418">tran_idloc_id_2E1A464A_417F_47b9_A7AD_B775BB5DECF3loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6</label>
     </transition>
-    <transition id="tran_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489_2B5B2553_2C21_4138_A672_07D3D3D8BACA" timeDuration="null" name="is_throttle_mix_min()" receiveOrSend="" type="[alt]" condition="has_armed==true &amp;&amp; ap.land_complete==0,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t" in="null" out="null" use="null" def="null" typeId="EAID_A1F49214_78D9_4dca_A070_598B9C002BFA" RESET="null">
-      <source ref="loc_id_437FCC2B_1245_46f5_B0B2_DB4AEC006489"/>
-      <target ref="loc_id_2B5B2553_2C21_4138_A672_07D3D3D8BACA"/>
-      <label kind="synchronisation" x="718" y="617">#name:is_throttle_mix_min() #receiveOrSend: #typeAndCondition:[alt]/has_armed==true &amp;&amp; ap.land_complete==0,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t #time:null #in:null #out:null</label>
+    <transition id="tran_idloc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2">
+      <source ref="loc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6"/>
+      <target ref="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2"/>
+      <label kind="synchronisation" x="1270" y="418">tran_idloc_id_94B18EE0_6C97_47af_9ECE_B6A502CC12E6loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2</label>
     </transition>
-    <transition id="tran_id_3B26EB00_E793_480e_B965_EA41DABF4037_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4" timeDuration="null" name="set_land_complete_maybe(bool)" receiveOrSend="!?" type="null" condition="null" in="null" out="null" use="bnull" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_3B26EB00_E793_480e_B965_EA41DABF4037"/>
-      <target ref="loc_id_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4"/>
-      <label kind="synchronisation" x="1270" y="416">#name:set_land_complete_maybe(bool) #receiveOrSend:!? #typeAndCondition:null #time:null #in:null #out:null</label>
+    <transition id="tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5">
+      <source ref="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2"/>
+      <target ref="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5"/>
+      <label kind="synchronisation" x="1546" y="350">tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5</label>
     </transition>
-    <transition id="tran_id_42BE194B_C774_4a1a_8145_102B3F2322D2_CE27A32B_18F3_47c6_AF2A_1939AF334483" timeDuration="null" name="get_non_takeoffthrotle()" receiveOrSend="!" type="[alt]" condition="has_armed==true &amp;&amp; ap.land_complete==1,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t" in="null" out="get_non_takeoffthrotle#get_non_takeoffthrotle:float" use="null" def="null" typeId="EAID_A1F49214_78D9_4dca_A070_598B9C002BFA" RESET="null">
-      <source ref="loc_id_42BE194B_C774_4a1a_8145_102B3F2322D2"/>
-      <target ref="loc_id_CE27A32B_18F3_47c6_AF2A_1939AF334483"/>
-      <label kind="synchronisation" x="994" y="505">#name:get_non_takeoffthrotle() #receiveOrSend:! #typeAndCondition:[alt]/has_armed==true &amp;&amp; ap.land_complete==1,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t #time:null #in:null #out:get_non_takeoffthrotle#get_non_takeoffthrotle:float</label>
+    <transition id="tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC">
+      <source ref="loc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2"/>
+      <target ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
+      <label kind="synchronisation" x="1822" y="418">tran_idloc_id_757CFC82_7ABE_4211_BF8E_17CA02229CB2loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC</label>
     </transition>
-    <transition id="tran_id_CE27A32B_18F3_47c6_AF2A_1939AF334483_3A85D284_A257_47cf_8840_007817EE49D3" timeDuration="null" name="set_land_complete(bool)" receiveOrSend="?" type="[alt-opt]" condition="has_armed==true &amp;&amp; ap.land_complete==1,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t--get_the_throttle &gt; get_non_takeoffthrotle#get_the_throttle:float,get_non_takeoffthrotle:float" in="null" out="null" use="bnull" def="null" typeId="EAID_A1F49214_78D9_4dca_A070_598B9C002BFA-EAID_69C29469_3DE6_44d7_8890_3B75CCACB2C0" RESET="null">
-      <source ref="loc_id_CE27A32B_18F3_47c6_AF2A_1939AF334483"/>
-      <target ref="loc_id_3A85D284_A257_47cf_8840_007817EE49D3"/>
-      <label kind="synchronisation" x="1270" y="461">#name:set_land_complete(bool) #receiveOrSend:? #typeAndCondition:[alt-opt]/has_armed==true &amp;&amp; ap.land_complete==1,0&lt;=ap.land_complete&lt;=1#has_armed:bool,ap.land_complete:uint8_t--get_the_throttle &gt; get_non_takeoffthrotle#get_the_throttle:float,get_non_takeoffthrotle:float #time:null #in:null #out:null</label>
+    <transition id="tran_idloc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24">
+      <source ref="loc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5"/>
+      <target ref="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24"/>
+      <label kind="synchronisation" x="1822" y="283">tran_idloc_id_E8C2F626_8CEC_40cb_A3C3_8350257A56C5loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24</label>
     </transition>
-    <transition id="tran_id_CE27A32B_18F3_47c6_AF2A_1939AF334483_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4" timeDuration="null" name="set_land_complete_maybe(bool)" receiveOrSend="!?" type="!(get_the_throttle &gt; get_non_takeoffthrotle)#get_the_throttle:float,get_non_takeoffthrotle:float" condition="!(get_the_throttle &gt; get_non_takeoffthrotle)#get_the_throttle:float,get_non_takeoffthrotle:float" in="null" out="null" use="bnull" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_CE27A32B_18F3_47c6_AF2A_1939AF334483"/>
-      <target ref="loc_id_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4"/>
-      <label kind="synchronisation" x="1408" y="529">#name:set_land_complete_maybe(bool) #receiveOrSend:!? #typeAndCondition:!(get_the_throttle &gt; get_non_takeoffthrotle)#get_the_throttle:float,get_non_takeoffthrotle:float #time:null #in:null #out:null</label>
+    <transition id="tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_50B8F800_23CD_4431_9778_042103F2DA5B">
+      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
+      <target ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
+      <label kind="synchronisation" x="2374" y="350">tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_50B8F800_23CD_4431_9778_042103F2DA5B</label>
     </transition>
-    <transition id="tran_id_3A85D284_A257_47cf_8840_007817EE49D3_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4" timeDuration="null" name="set_land_complete_maybe(bool)" receiveOrSend="!?" type="null" condition="null" in="null" out="null" use="bnull" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_3A85D284_A257_47cf_8840_007817EE49D3"/>
-      <target ref="loc_id_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4"/>
-      <label kind="synchronisation" x="1546" y="485">#name:set_land_complete_maybe(bool) #receiveOrSend:!? #typeAndCondition:null #time:null #in:null #out:null</label>
+    <transition id="tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD">
+      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
+      <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
+      <label kind="synchronisation" x="2650" y="418">tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</label>
     </transition>
-    <transition id="tran_id_2B5B2553_2C21_4138_A672_07D3D3D8BACA_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4" timeDuration="null" name="set_land_complete_maybe(bool)" receiveOrSend="!?" type="null" condition="null" in="null" out="null" use="bnull" def="null" typeId="null" RESET="null">
-      <source ref="loc_id_2B5B2553_2C21_4138_A672_07D3D3D8BACA"/>
-      <target ref="loc_id_E4EF7D6F_03E6_47db_AAFD_A19E27DC2CE4"/>
-      <label kind="synchronisation" x="1270" y="641">#name:set_land_complete_maybe(bool) #receiveOrSend:!? #typeAndCondition:null #time:null #in:null #out:null</label>
+    <transition id="tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE">
+      <source ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
+      <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
+      <label kind="synchronisation" x="2926" y="418">tran_idloc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DCloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</label>
+    </transition>
+    <transition id="tran_idloc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC">
+      <source ref="loc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24"/>
+      <target ref="loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC"/>
+      <label kind="synchronisation" x="2098" y="350">tran_idloc_id_B962B7F7_0DE7_49e0_94FF_78514ADD9E24loc_id_863E40B4_D7CC_41f3_AD20_0F51B84401DC</label>
+    </transition>
+    <transition id="tran_idloc_id_50B8F800_23CD_4431_9778_042103F2DA5Bloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3">
+      <source ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
+      <target ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
+      <label kind="synchronisation" x="2670" y="323">tran_idloc_id_50B8F800_23CD_4431_9778_042103F2DA5Bloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3</label>
+      <nail y="323" x="2670"/>
+    </transition>
+    <transition id="tran_idloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBDloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7">
+      <source ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
+      <target ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
+      <label kind="synchronisation" x="3222" y="458">tran_idloc_id_409350B8_616A_4af1_92A3_C1E16EE75EBDloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7</label>
+      <nail y="458" x="3222"/>
+    </transition>
+    <transition id="tran_idloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EEloc_id_3085365D_8B34_423f_B39A_463F262E5CF4">
+      <source ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
+      <target ref="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4"/>
+      <label kind="synchronisation" x="3754" y="418">tran_idloc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EEloc_id_3085365D_8B34_423f_B39A_463F262E5CF4</label>
+    </transition>
+    <transition id="tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_50B8F800_23CD_4431_9778_042103F2DA5B">
+      <source ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
+      <target ref="loc_id_50B8F800_23CD_4431_9778_042103F2DA5B"/>
+      <label kind="synchronisation" x="2670" y="283">tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_50B8F800_23CD_4431_9778_042103F2DA5B</label>
+      <nail y="283" x="2670"/>
+    </transition>
+    <transition id="tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD">
+      <source ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
+      <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
+      <label kind="synchronisation" x="2926" y="350">tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</label>
+    </transition>
+    <transition id="tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE">
+      <source ref="loc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3"/>
+      <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
+      <label kind="synchronisation" x="3202" y="350">tran_idloc_id_E51577EA_E113_4d04_9F18_AFE2BCF7DCA3loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</label>
+    </transition>
+    <transition id="tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD">
+      <source ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
+      <target ref="loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD"/>
+      <label kind="synchronisation" x="3222" y="418">tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_409350B8_616A_4af1_92A3_C1E16EE75EBD</label>
+      <nail y="418" x="3222"/>
+    </transition>
+    <transition id="tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE">
+      <source ref="loc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7"/>
+      <target ref="loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE"/>
+      <label kind="synchronisation" x="3478" y="418">tran_idloc_id_AE89C51E_8B63_46e6_8483_B4C30C5AA2A7loc_id_E5AE0D24_7A98_44f2_AADD_3FB4EE0E46EE</label>
+    </transition>
+    <transition id="tran_idloc_id_3085365D_8B34_423f_B39A_463F262E5CF4loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F">
+      <source ref="loc_id_3085365D_8B34_423f_B39A_463F262E5CF4"/>
+      <target ref="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F"/>
+      <label kind="synchronisation" x="4030" y="418">tran_idloc_id_3085365D_8B34_423f_B39A_463F262E5CF4loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F</label>
+    </transition>
+    <transition id="tran_idloc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8Floc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED">
+      <source ref="loc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8F"/>
+      <target ref="loc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED"/>
+      <label kind="synchronisation" x="4306" y="418">tran_idloc_id_88E4EF84_3952_4078_AF71_0B0BF13EAD8Floc_id_03DEB7D0_543B_475b_BADF_609BE49BFAED</label>
     </transition>
   </template>
-  <system>system template_;</system>
+  <system/>
 </nta>

@@ -20,8 +20,46 @@ public class Automatic implements Serializable{
 	private ArrayList<State> StateSet;//状态集合
 	private ArrayList<String> ClockSet;//时钟集合
 	private ArrayList<String> InequalitySet;//不等式集合
+	private double pathOfImportance;
+	private double PathOfAllImpPercentage;
 	
 	
+	
+	public double getMax(){
+		double max = StateSet.get(0).getImportance();
+		for(State state:StateSet){
+			if(max < state.getImportance()){
+				max = state.getImportance();
+			}
+		}
+		return max;
+	}
+	
+	public double getMin(){
+		double min = StateSet.get(0).getImportance();
+		for(State state:StateSet){
+			if(min > state.getImportance()){
+				min = state.getImportance();
+			}
+		}
+		return min;
+	}
+	
+	public double getPathOfAllImpPercentage() {
+		return PathOfAllImpPercentage;
+	}
+
+	public void setPathOfAllImpPercentage(double pathOfAllImpPercentage) {
+		PathOfAllImpPercentage = pathOfAllImpPercentage;
+	}
+
+	
+	public double getPathOfImportance() {
+		return pathOfImportance;
+	}
+	public void setPathOfImportance(double pathOfImportance) {
+		this.pathOfImportance = pathOfImportance;
+	}
 	public String getName() {
 		return name;
 	}

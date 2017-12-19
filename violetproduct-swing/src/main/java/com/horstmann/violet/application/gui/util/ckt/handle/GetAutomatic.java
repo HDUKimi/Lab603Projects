@@ -450,6 +450,22 @@ public class GetAutomatic {
 			s.setProTranSet(proTranSet);
 			s.setNextTranSet(nextTranSet);
 		}
+		
+		//…Ë÷√≥ı º◊¥Ã¨
+		State s=automatic.getInitState();
+		ArrayList<Transition> nextTranSet = new ArrayList<Transition>();
+		ArrayList<Transition> proTranSet = new ArrayList<Transition>();
+		for(Transition t : automatic.getTransitionSet()){
+			if(t.getSource().equals(s.getName())){
+				nextTranSet.add(t);
+			}
+			if(t.getTarget().equals(s.getName())){
+				proTranSet.add(t);
+			}
+		}
+		s.setProTranSet(proTranSet);
+		s.setNextTranSet(nextTranSet);
+		
 		for(Transition t : automatic.getTransitionSet()){
 			State sourceState = new State();
 			State targetState = new State();
@@ -458,6 +474,8 @@ public class GetAutomatic {
 			t.setSourceState(sourceState);
 			t.setTargetState(targetState);
 		}
+		
+		
 		
 		return automatic;
 		

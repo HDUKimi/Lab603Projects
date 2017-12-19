@@ -76,6 +76,7 @@ import com.horstmann.violet.application.gui.util.ckt.handle.StateCoverage__1;
 import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 import com.horstmann.violet.application.gui.util.ckt.output.TestAutoDiagram;
 import com.horstmann.violet.application.gui.util.ckt.output.forPlatform;
+import com.horstmann.violet.application.gui.util.ckt.testcase.Importance;
 import com.horstmann.violet.application.gui.util.ckt.testcase.MinTC;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PathCoverage_new;
 import com.horstmann.violet.application.gui.util.ckt.testcase.PerformanceXML;
@@ -168,6 +169,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 	private Automatic aTDRTAutomatic;
 	private Automatic type_aTDRTAutomatic;
 	private Automatic DFStree;
+	private Automatic sortAuto;
 	private ArrayList<Automatic> beforeSortTestCase;
 	private ArrayList<Automatic> afterSortTestCase;
 	private ArrayList<Automatic> testCase;
@@ -950,18 +952,21 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				if(starttype==1){//功能测试
 					if(hastime==1){
 						if(selectCoverState==0){//状态覆盖
-							testCase=StateCoverage__1.testCase(aTDRTAutomatic);						
+							testCase=StateCoverage__1.testCase(aTDRTAutomatic);		
+							sortAuto=aTDRTAutomatic;
 						}
 						else if(selectCoverState==1){//迁移覆盖
 //							testCase=PathCoverage_new.testCase(aTDRTAutomatic);
 							testCase=MinTC.sideCoverage(aTDRTAutomatic);
+							sortAuto=aTDRTAutomatic;
 //							testCase=testtest.test1(aTDRTAutomatic);
 						}
 					}
 					else{
 						if(selectCoverState==0){//状态覆盖
 							//获取数据
-							testCase=StateCoverage__1.testCase(DFStree);
+							testCase=StateCoverage__1.testCase(a);
+							sortAuto=a;
 							AutomateTransformXml(DFStree);
 							
 						}
@@ -971,7 +976,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 //							testCase=beforeSortTestCase;
 							
 							testCase=MinTC.sideCoverage(a);
-							afterSortTestCase=testCase;
+							sortAuto=a;
+//							afterSortTestCase=testCase;
 						}
 					}
 				}
@@ -1345,15 +1351,16 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				if(starttype==1){//功能测试
 					if(hastime==1){
-						stepAllProcessList.add("第五步：获取测试序列");
+//						stepAllProcessList.add("第五步：获取测试序列");
+						stepAllProcessList.add("第六步：获取测试序列");
 					}
 					else{
-						if(selectCoverState==0){
-							stepAllProcessList.add("第四步：获取测试序列");
-						}
-						else if(selectCoverState==1){
+//						if(selectCoverState==0){
+//							stepAllProcessList.add("第四步：获取测试序列");
+//						}
+//						else if(selectCoverState==1){
 							stepAllProcessList.add("第五步：获取测试序列");
-						}
+//						}
 					}
 				}
 				else if(starttype==2){//性能测试
@@ -1447,15 +1454,16 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				if(starttype==1){//功能测试
 					if(hastime==1){
-						stepAllProcessList.add("第六步：存储测试序列");
+//						stepAllProcessList.add("第六步：存储测试序列");
+						stepAllProcessList.add("第七步：存储测试序列");
 					}
 					else{
-						if(selectCoverState==0){
-							stepAllProcessList.add("第五步：存储测试序列");
-						}
-						else if(selectCoverState==1){
+//						if(selectCoverState==0){
+//							stepAllProcessList.add("第五步：存储测试序列");
+//						}
+//						else if(selectCoverState==1){
 							stepAllProcessList.add("第六步：存储测试序列");
-						}
+//						}
 					}
 				}
 				else if(starttype==2){//性能测试
@@ -1536,18 +1544,25 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				int copyi=0;
 				
 //				ArrayList<Automatic> oldTestCase=XMLGet.testcaseNew(testCase);
-				testCase=afterSortTestCase;
+//				testCase=afterSortTestCase;
+//				testCase=Importance.pathOfImportance(testCase,sortAuto);
+				
+				beforeSortTestCase=Importance.pathOfImportanceToCalculate(testCase, sortAuto);
 				
 				TextAreaPrint("=======================排序前=======================");
 		        for(Automatic a: beforeSortTestCase){
 //		        	System.out.println(a.getName() + "     重要度：" + GeneratePath.getFindPointByPath().get(a));
-		        	TextAreaPrint(a.getName().replace("用例", "路径") + "     重要度：" + GeneratePath.getFindPointByPath().get(a));
+		        	TextAreaPrint(a.getName().replace("用例", "路径") + "     重要度：" + a.getPathOfAllImpPercentage());
 		        }
+		        
+				afterSortTestCase=Importance.pathOfImportanceToSort(beforeSortTestCase);
+				testCase=afterSortTestCase;
+				
 		        TextAreaPrint("=======================排序后=======================");
 		        int k=1;
 		        for(Automatic a: afterSortTestCase){
 //		        	System.out.println(a.getName() + "     重要度：" + GeneratePath.getFindPointByPath().get(a));
-		        	TextAreaPrint("测试路径"+k+"     <--     "+a.getName().replace("用例", "路径") + "     重要度：" + GeneratePath.getFindPointByPath().get(a));
+		        	TextAreaPrint("测试路径"+k+"     <--     "+a.getName().replace("用例", "路径") + "     重要度：" + a.getPathOfAllImpPercentage());
 		        	k++;
 		        }
 				
@@ -1607,7 +1622,17 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 //					stepAllProcessList.add("第六步：排序对比");
 //				}
 				
-				stepAllProcessList.add("第四步：重要度排序");
+				if(starttype==1){//功能测试
+					if(hastime==1){
+						stepAllProcessList.add("第五步：存储测试序列");
+					}
+					else{
+						stepAllProcessList.add("第四步：重要度排序");
+					}
+				}
+				else if(starttype==2){//性能测试
+				}
+				
 				timeAllProcessList.add(time2-time1+"ms");
 				resultAllProcessList.add("完成对测试路径的排序，并将排序前后的测试路径进行对比");
 				
@@ -1628,6 +1653,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				futuretasklist.add(task2);
 				futuretasklist.add(task3);
 				futuretasklist.add(task4);
+				futuretasklist.add(task7);
 				futuretasklist.add(task5);
 				futuretasklist.add(task6);
 				
@@ -1635,28 +1661,29 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				threadlist.add(thread2);
 				threadlist.add(thread3);
 				threadlist.add(thread4);
+				threadlist.add(thread7);
 				threadlist.add(thread5);
 				threadlist.add(thread6);
 				
-				stepsum=6;
+				stepsum=7;
 			}
 			else {
-				if(selectCoverState==0){
-					futuretasklist.add(task1);
-					futuretasklist.add(task3);
-					futuretasklist.add(task4);
-					futuretasklist.add(task5);
-					futuretasklist.add(task6);
-					
-					threadlist.add(thread1);
-					threadlist.add(thread3);
-					threadlist.add(thread4);
-					threadlist.add(thread5);
-					threadlist.add(thread6);
-					
-					stepsum=5;
-				}
-				else if(selectCoverState==1){
+//				if(selectCoverState==0){
+//					futuretasklist.add(task1);
+//					futuretasklist.add(task3);
+//					futuretasklist.add(task4);
+//					futuretasklist.add(task5);
+//					futuretasklist.add(task6);
+//					
+//					threadlist.add(thread1);
+//					threadlist.add(thread3);
+//					threadlist.add(thread4);
+//					threadlist.add(thread5);
+//					threadlist.add(thread6);
+//					
+//					stepsum=5;
+//				}
+//				else if(selectCoverState==1){
 					futuretasklist.add(task1);
 					futuretasklist.add(task3);
 					futuretasklist.add(task4);
@@ -1672,7 +1699,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 					threadlist.add(thread6);
 					
 					stepsum=6;
-				}
+//				}
 			}
 			
 		}

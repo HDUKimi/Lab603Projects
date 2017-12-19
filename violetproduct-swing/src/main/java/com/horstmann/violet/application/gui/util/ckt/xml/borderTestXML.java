@@ -246,6 +246,26 @@ public class borderTestXML {
 							operation.setText(cs[0]);
 						}
 					}
+					//把解的值非去掉 换成确切值
+					if(!(cs[1].toString() == null)){
+						String[] val = cs[1].split(",");
+						for(int k=0; k<val.length; k++){
+							if(val[k].contains("!") && !(val[k].contains("!!"))){
+								if(val[k].contains("false")){
+									val[k] = val[k].replace("!", "").replace("false", "true");
+								}else{
+									if(val[k].contains("true")){
+										val[k] = val[k].replace("!", "").replace("true", "false");
+									}
+								}
+							}
+						}
+						String vall = val[0];
+						for(int k=1; k<val.length; k++){
+							vall = vall + "," +val[k];
+						}
+						cs[1] = vall;
+					}
 					
 					Element input = process.addElement("input");
 					if(cs[0].contains("flag=1")){
@@ -531,6 +551,27 @@ public class borderTestXML {
 						if (!cs[0].contains("flag=1")) {
 							operation.setText(cs[0]);
 						}
+					}
+					
+					//把解的值非去掉 换成确切值
+					if(!(cs[1].toString() == null)){
+						String[] val = cs[1].split(",");
+						for(int k=0; k<val.length; k++){
+							if(val[k].contains("!") && !(val[k].contains("!!"))){
+								if(val[k].contains("false")){
+									val[k] = val[k].replace("!", "").replace("false", "true");
+								}else{
+									if(val[k].contains("true")){
+										val[k] = val[k].replace("!", "").replace("true", "false");
+									}
+								}
+							}
+						}
+						String vall = val[0];
+						for(int k=1; k<val.length; k++){
+							vall = vall + "," +val[k];
+						}
+						cs[1] = vall;
 					}
 
 					Element input = process.addElement("input");

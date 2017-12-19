@@ -22,8 +22,47 @@ public class State implements Serializable{
 	boolean starState;
 	private ArrayList<Transition> nextTranSet;
 	private ArrayList<Transition> proTranSet;
+	private int proImportance;
+	private int nextImportance;
+	private int Importance;
+	private double ImpPercentage;
+	boolean visited;
+	
+	
+	public double getImpPercentage() {
+		return ImpPercentage;
+	}
+	public void setImpPercentage(double impPercentage) {
+		ImpPercentage = impPercentage;
+	}
+	public boolean isVisited() {
+		return visited;
+	}
+	public void setVisited(boolean visited) {
+		this.visited = visited;
+	}
+	
+	
+	public int getImportance() {
+		return Importance;
+	}
+	public void setImportance(int importance) {
+		Importance = importance;
+	}
+	public int getNextImportance() {
+		return nextImportance;
+	}
+	public void setNextImportance(int nextImportance) {
+		this.nextImportance = nextImportance;
+	}
 	private int stateAccessTimes = 0;//状态节点的访问次数
 	
+	public int getProImportance() {
+		return proImportance;
+	}
+	public void setProImportance(int proImportance) {
+		this.proImportance = proImportance;
+	}
 	public ArrayList<Transition> getNextTranSet() {
 		return nextTranSet;
 	}
