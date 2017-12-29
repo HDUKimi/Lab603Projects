@@ -2415,6 +2415,22 @@ public class ModelExistValidationPanel extends JPanel{
 		return assessdealtext31;
 	}
 
+	public void setAssessdealtext11(JTextField assessdealtext11) {
+		this.assessdealtext11 = assessdealtext11;
+	}
+
+	public void setAssessdealtext21(JTextField assessdealtext21) {
+		this.assessdealtext21 = assessdealtext21;
+	}
+
+	public void setAssessdealtext22(JTextField assessdealtext22) {
+		this.assessdealtext22 = assessdealtext22;
+	}
+
+	public void setAssessdealtext31(JTextField assessdealtext31) {
+		this.assessdealtext31 = assessdealtext31;
+	}
+
 	public JRadioButton getRadioButton1() {
 		return radioButton1;
 	}

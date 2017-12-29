@@ -68,6 +68,8 @@ public class StepFourCenterTabbedPane extends JPanel {
 	private static String BecomeRunFileName=null;
 	private static int BecomeRunFileNameType=-1;
 	
+	private static boolean NeedRefresh=false;
+	
 	public StepFourCenterTabbedPane(MainFrame mainFrame) {
 		
 		this.mainFrame = mainFrame;
@@ -548,6 +550,14 @@ public class StepFourCenterTabbedPane extends JPanel {
 
 	public static void setBecomeRunFileNameType(int becomeRunFileNameType) {
 		BecomeRunFileNameType = becomeRunFileNameType;
+	}
+
+	public static boolean isNeedRefresh() {
+		return NeedRefresh;
+	}
+
+	public static void setNeedRefresh(boolean needRefresh) {
+		NeedRefresh = needRefresh;
 	}
 
 }

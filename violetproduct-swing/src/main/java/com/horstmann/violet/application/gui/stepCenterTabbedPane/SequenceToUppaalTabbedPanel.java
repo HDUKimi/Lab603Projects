@@ -576,7 +576,9 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 						String path = baseUrl + filename + ".seq.violet.xml";
 						
 						StepThreeCenterTabbedPane.setBecomeRunFileName(filename+"ForXStream");
+						StepThreeCenterTabbedPane.setNeedRefresh(true);
 						StepSixCenterTabbedPane.setBecomeRunFileName(filename+"Uppaal");
+						StepSixCenterTabbedPane.setNeedRefresh(true);
 
 						if (!FileMenu.isVioletXML(path)) {// 打开ea平台的xml文件
 							
@@ -600,8 +602,8 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							for(File f:originaluppaalbasefilelist){
 								
 								String fname=f.getName();
-//								if(fname.endsWith(".xml")&&!fname.contains("ForXStream")&&!fname.contains("-----")){
-								if(fname.endsWith(".xml")&&!fname.contains("ForXStream")&&!fname.contains("11")){
+								if(fname.endsWith(".xml")&&!fname.contains("ForXStream")&&!fname.contains("-----")){
+//								if(fname.endsWith(".xml")&&!fname.contains("ForXStream")&&!fname.contains("11")){
 									uppaallists.add(fname.substring(0, fname.lastIndexOf(".xml")));
 								}
 								
@@ -686,7 +688,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 		
 		progressbarindex=0;
 		progressbar.setValue(0);
-		progressbarlabel.setText("0%");
+		progressbarlabel.setText("");
 		
 		while(sequencetouppaaltablemodel.getRowCount()>0){
 			sequencetouppaaltablemodel.removeRow(sequencetouppaaltablemodel.getRowCount()-1);
@@ -701,6 +703,9 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //		dtm.fireTableDataChanged();
 		
 		for(ButtonTabbedPanel btp:mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()){
+			btp.setVisible(false);
+		}
+		for(ButtonTabbedPanel btp:mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists()){
 			btp.setVisible(false);
 		}
 		

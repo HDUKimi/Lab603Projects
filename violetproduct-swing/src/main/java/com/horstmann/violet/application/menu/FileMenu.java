@@ -47,6 +47,7 @@ import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -822,6 +823,13 @@ public class FileMenu extends JMenu {
 				directory = selectedFile.getDirectory();
 				fileName = selectedFile.getFilename();
 				try {
+					
+					File file = new File(path + "Violet\\Test\\");
+					while (!file.exists()) {
+						file.mkdirs();
+						Thread.sleep(500);
+					}
+					
 					MainTransEAToViolet.TransEAToViolet(url, path + "Violet\\Test\\" + name, name, eaDiagram);
 					File f = new File(path + "Violet\\Test\\" + name);
 					deleteFileFirstLine(f);
@@ -985,6 +993,7 @@ public class FileMenu extends JMenu {
 						becomeRunFileName=selectFileName.replace(".timing.violet.xml", "");
 					}
 					StepTwoCenterTabbedPane.setBecomeRunFileName(becomeRunFileName);
+					StepTwoCenterTabbedPane.setNeedRefresh(true);
 					
 					final String runfilename=becomeRunFileName;
 

@@ -212,7 +212,7 @@ public class ButtonTabbedPanel extends JPanel{
 					setBackground(new Color(58, 105, 190));
 					mainFrame.getStepOneCenterTabbedPane().setSelectedButtonTabbedPanel(((ButtonTabbedPanel)tabbedbutton.getParent()));
 					
-					CheckIsShow();
+					CheckIsShow(1);
 					
 					System.out.println("------------------------");
 					System.out.println("xuanzhongl "+((ButtonTabbedPanel)tabbedbutton.getParent()).getButtontabbedpanelindex());
@@ -408,6 +408,8 @@ public class ButtonTabbedPanel extends JPanel{
 					setBackground(new Color(58, 105, 190));
 					mainFrame.getStepTwoCenterTabbedPane().setSelectedButtonTabbedPanel(((ButtonTabbedPanel)tabbedbutton.getParent()));
 					
+					CheckIsShow(2);
+					
 					System.out.println("------------------------");
 					System.out.println("xuanzhongl "+((ButtonTabbedPanel)tabbedbutton.getParent()).getButtontabbedpanelindex());
 					System.out.println(workspace.getGraphFile().isSaveRequired()+"  "+workspace.getGraphFile().getDirectory()+"  "+workspace.getGraphFile().getFilename());
@@ -467,42 +469,84 @@ public class ButtonTabbedPanel extends JPanel{
 		
 	}
 
-	protected void CheckIsShow() {
+	protected void CheckIsShow(int index) {
 		
-		int location=0;
-		for(ButtonTabbedPanel btPanel:mainFrame.getStepOneCenterTabbedPane().getAllDiagramButtonTabbedPanelLists()){
-			if(btPanel.equals((ButtonTabbedPanel)tabbedbutton.getParent())){
-				break;
+		if(index==1){
+			int location=0;
+			for(ButtonTabbedPanel btPanel:mainFrame.getStepOneCenterTabbedPane().getAllDiagramButtonTabbedPanelLists()){
+				if(btPanel.equals((ButtonTabbedPanel)tabbedbutton.getParent())){
+					break;
+				}
+				if(btPanel.isVisible()){
+					location+=btPanel.getTabbedpanelwidth();
+				}
 			}
-			if(btPanel.isVisible()){
-				location+=btPanel.getTabbedpanelwidth();
+			int locationandbutton=location+((ButtonTabbedPanel)tabbedbutton.getParent()).getTabbedpanelwidth();
+			
+			int buttonpanelwidth=(int) (mainFrame.getStepOneCenterTabbedPane().getButtonPanel().getSize().getWidth()-55);
+			
+			JScrollBar bar=mainFrame.getStepOneCenterTabbedPane().getButtonScrollPanel().getHorizontalScrollBar();
+			
+			int nowvalue=bar.getValue();
+			double maxvalue=bar.getMaximum()-bar.getVisibleAmount();
+			double point=nowvalue*1.0/maxvalue;
+			
+			double maxbuttonwidth=bar.getMaximum()-buttonpanelwidth;
+			
+			int leftlocation;
+			int rightlocation;
+//			leftlocation=(int) (nowvalue-leftpoint*buttonpanelwidth);
+//			rightlocation=(int) (nowvalue+(1-leftpoint)*buttonpanelwidth);
+			
+			leftlocation=(int) (maxbuttonwidth*point);
+			rightlocation=leftlocation+buttonpanelwidth;
+			
+			
+			if(location<leftlocation||locationandbutton>rightlocation){
+				bar.setValue(location);
 			}
 		}
-		int locationandbutton=location+((ButtonTabbedPanel)tabbedbutton.getParent()).getTabbedpanelwidth();
-		
-		int buttonpanelwidth=(int) (mainFrame.getStepOneCenterTabbedPane().getButtonPanel().getSize().getWidth()-55);
-		
-		JScrollBar bar=mainFrame.getStepOneCenterTabbedPane().getButtonScrollPanel().getHorizontalScrollBar();
-		
-		int nowvalue=bar.getValue();
-		double maxvalue=bar.getMaximum()-bar.getVisibleAmount();
-		double point=nowvalue*1.0/maxvalue;
-		
-		double maxbuttonwidth=bar.getMaximum()-buttonpanelwidth;
-		
-		int leftlocation;
-		int rightlocation;
-//		leftlocation=(int) (nowvalue-leftpoint*buttonpanelwidth);
-//		rightlocation=(int) (nowvalue+(1-leftpoint)*buttonpanelwidth);
-		
-		leftlocation=(int) (maxbuttonwidth*point);
-		rightlocation=leftlocation+buttonpanelwidth;
-		
-		
-		if(location<leftlocation||locationandbutton>rightlocation){
-			bar.setValue(location);
+		else if(index==2){
+			int location=0;
+			location+=mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonPanel().getWidth();
+			for(ButtonTabbedPanel btPanel:mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()){
+				if(btPanel.equals((ButtonTabbedPanel)tabbedbutton.getParent())){
+					break;
+				}
+				if(btPanel.isVisible()){
+					location+=btPanel.getTabbedpanelwidth();
+				}
+			}
+			for(ButtonTabbedPanel btPanel:mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists()){
+				if(btPanel.equals((ButtonTabbedPanel)tabbedbutton.getParent())){
+					break;
+				}
+				if(btPanel.isVisible()){
+					location+=btPanel.getTabbedpanelwidth();
+				}
+			}
+			int locationandbutton=location+((ButtonTabbedPanel)tabbedbutton.getParent()).getTabbedpanelwidth();
+			
+			int buttonpanelwidth=(int) (mainFrame.getStepTwoCenterTabbedPane().getButtonPanel().getSize().getWidth()-55);
+			JScrollBar bar=mainFrame.getStepTwoCenterTabbedPane().getButtonScrollPanel().getHorizontalScrollBar();
+			
+			int nowvalue=bar.getValue();
+			double maxvalue=bar.getMaximum()-bar.getVisibleAmount();
+			double point=nowvalue*1.0/maxvalue;
+			
+			double maxbuttonwidth=bar.getMaximum()-buttonpanelwidth;
+			
+			int leftlocation;
+			int rightlocation;
+			
+			leftlocation=(int) (maxbuttonwidth*point);
+			rightlocation=leftlocation+buttonpanelwidth;
+			
+			if(location<leftlocation||locationandbutton>rightlocation){
+				bar.setValue(location);
+//				bar.setValue((location+locationandbutton)/2);
+			}
 		}
-		
 		
 	}
 

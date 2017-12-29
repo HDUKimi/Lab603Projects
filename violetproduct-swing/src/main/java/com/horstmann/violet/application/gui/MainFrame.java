@@ -134,7 +134,7 @@ public class MainFrame extends JFrame
         decorateFrame();
         setInitialSize();
 		setUIManeger();
-		createMenuBar();
+//		createMenuBar();
 		
 		//初始化文件列表
 		StartFileCheck sfc=new StartFileCheck();
@@ -1289,15 +1289,15 @@ public class MainFrame extends JFrame
 //			js1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, this.getTopPanel(), js2);
 //			this.mainPanel = js1;
 			
-			this.mainPanel.add(this.getTopPanel());
+//			this.mainPanel.add(this.getTopPanel());
 			this.mainPanel.add(this.getLeftPanel());
-			this.mainPanel.add(this.getBottomPanel());
+//			this.mainPanel.add(this.getBottomPanel());
 			this.mainPanel.add(this.getCenterPanel());
 			this.mainPanel.add(this.getOneTouchExpandablePanel());
 			
-			layout.setConstraints(this.getTopPanel(), new GBC(0, 0, 3, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//			layout.setConstraints(this.getTopPanel(), new GBC(0, 0, 3, 1).setFill(GBC.BOTH).setWeight(1, 0));
 			layout.setConstraints(this.getLeftPanel(), new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(0, 1));
-			layout.setConstraints(this.getBottomPanel(), new GBC(0, 2, 3, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//			layout.setConstraints(this.getBottomPanel(), new GBC(0, 2, 3, 1).setFill(GBC.BOTH).setWeight(1, 0));
 			layout.setConstraints(this.getCenterPanel(), new GBC(1, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 			layout.setConstraints(this.getOneTouchExpandablePanel(), new GBC(2, 1, 1, 1).setFill(GBC.BOTH).setWeight(0, 1));
 			

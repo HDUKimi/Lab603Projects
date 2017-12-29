@@ -66,6 +66,8 @@ public class StepFiveCenterTabbedPane extends JPanel{
 	private static String BecomeRunFileName=null;
 	private static int BecomeRunFileNameType=-1;
 	
+	private static boolean NeedRefresh=false;
+	
 	public StepFiveCenterTabbedPane(MainFrame mainFrame)
 	{
 		
@@ -437,6 +439,10 @@ public class StepFiveCenterTabbedPane extends JPanel{
 		testCaseDataPanelList=new ArrayList<TestCaseDataPanel>();
 		selectedFixedButtonTabbedPanel=null;
 		
+		mainFrame.getTestCaseConfirmationPanel().initUI();
+		
+		mainFrame.getConsolePartPanel().getTextarea5().setText("");
+		
 	}
 
 	public JPanel getDiagramPanel() {
@@ -517,6 +523,14 @@ public class StepFiveCenterTabbedPane extends JPanel{
 
 	public static void setBecomeRunFileNameType(int becomeRunFileNameType) {
 		BecomeRunFileNameType = becomeRunFileNameType;
+	}
+
+	public static boolean isNeedRefresh() {
+		return NeedRefresh;
+	}
+
+	public static void setNeedRefresh(boolean needRefresh) {
+		NeedRefresh = needRefresh;
 	}
 	
 }

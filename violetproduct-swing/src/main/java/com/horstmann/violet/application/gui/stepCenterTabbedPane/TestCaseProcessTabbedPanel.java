@@ -409,7 +409,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		mainFrame.getAbstractTestCaseResultPanel().getThreenamelabel().setText("");
 		
 		mainFrame.getConsolePartPanel().getTextarea3().setText("");
-		ChangeRepaint();
+//		ChangeRepaint();
 	}
 
 	protected void initThread() {
@@ -417,6 +417,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 		//³õÊ¼»¯Ïß³Ì£¬Êý¾Ý
 		initUIPanel();
+		ChangeRepaint();
 //		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
 //		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
 		
@@ -778,7 +779,15 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 
 				if(starttype==1){//¹¦ÄÜ²âÊÔ
 					if(hastime==1){
-						AutomateTransformXml(type_aTDRTAutomatic);
+//						AutomateTransformXml(type_aTDRTAutomatic);
+						if(selectCoverState==0){//×´Ì¬¸²¸Ç
+							DFStree=StateCoverage__1.DFSTree(type_aTDRTAutomatic);
+							AutomateTransformXml(type_aTDRTAutomatic);
+							
+						}
+						else if(selectCoverState==1){//Ç¨ÒÆ¸²¸Ç
+							AutomateTransformXml(type_aTDRTAutomatic);
+						}
 					}
 					else{
 						if(selectCoverState==0){//×´Ì¬¸²¸Ç
@@ -828,7 +837,13 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				TranMessageColorize tmc=new TranMessageColorize();
 				if(starttype==1){//¹¦ÄÜ²âÊÔ
 					if(hastime==1){
-						
+						if(selectCoverState==0){//×´Ì¬¸²¸Ç
+							tmc.ColorizeDFSTree(DFStree,mainFrame,workspace);
+							tmc.ColorizeDFSTree(DFStree,mainFrame,copyworkspace);
+						}
+						else if(selectCoverState==1){//Ç¨ÒÆ¸²¸Ç
+							
+						}
 					}
 					else{
 						if(selectCoverState==0){//×´Ì¬¸²¸Ç
@@ -1484,7 +1499,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				StepFourCenterTabbedPane.setBecomeRunFileName(abstractName + "Abstract");
 				StepFourCenterTabbedPane.setBecomeRunFileNameType(starttype);
-				
+				StepFourCenterTabbedPane.setNeedRefresh(true);
 				
 				return 1;
 			}

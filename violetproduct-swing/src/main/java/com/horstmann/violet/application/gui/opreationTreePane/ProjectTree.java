@@ -62,6 +62,7 @@ import javax.swing.tree.TreePath;
 import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
+import com.horstmann.violet.application.gui.StepTwoCenterTabbedPane;
 import com.horstmann.violet.application.menu.FileMenu;
 import com.l2fprod.common.swing.JTaskPane;
 import com.l2fprod.common.swing.JTaskPaneGroup;
@@ -817,6 +818,7 @@ public class ProjectTree extends JPanel {
 				// TODO Auto-generated method stub
 				
 				mainFrame.getStepOneCenterTabbedPane().initUIPanelData();
+				StepTwoCenterTabbedPane.setNeedRefresh(true);
 				
 			}
 		});

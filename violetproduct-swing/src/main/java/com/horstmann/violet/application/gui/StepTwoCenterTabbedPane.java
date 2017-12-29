@@ -71,6 +71,8 @@ public class StepTwoCenterTabbedPane extends JPanel{
 	
 	private static String BecomeRunFileName=null;
 	
+	private static boolean NeedRefresh=false;
+	
 	public StepTwoCenterTabbedPane(MainFrame mainFrame)
 	{
 		
@@ -429,8 +431,16 @@ public class StepTwoCenterTabbedPane extends JPanel{
 		return timingToUppaalDiagramButtonTabbedPanelLists;
 	}
 
+	public JPanel getButtonPanel() {
+		return buttonPanel;
+	}
+
 	public JPanel getButtonTabbedPanel() {
 		return buttonTabbedPanel;
+	}
+
+	public JScrollPane getButtonScrollPanel() {
+		return buttonScrollPanel;
 	}
 
 	public JPanel getSequenceToUppaalDiagramButtonPanel() {
@@ -463,6 +473,14 @@ public class StepTwoCenterTabbedPane extends JPanel{
 
 	public static void setBecomeRunFileName(String becomeRunFileName) {
 		BecomeRunFileName = becomeRunFileName;
+	}
+
+	public static boolean isNeedRefresh() {
+		return NeedRefresh;
+	}
+
+	public static void setNeedRefresh(boolean needRefresh) {
+		NeedRefresh = needRefresh;
 	}
 
 }

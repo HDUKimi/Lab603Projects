@@ -1160,6 +1160,8 @@ public class StepButtonPanel extends JPanel {
 				index=1;
 				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
 				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
+				
+				System.gc();
 
 				wakeupUI();
 				mainFrame.ChangeRepaint();
@@ -1222,6 +1224,12 @@ public class StepButtonPanel extends JPanel {
 
 //				mainFrame.getStepTwoCenterTabbedPane().initUIPanelData();
 				
+				if(StepTwoCenterTabbedPane.isNeedRefresh()){
+					mainFrame.getStepTwoCenterTabbedPane().initUIPanelData();
+					StepTwoCenterTabbedPane.setNeedRefresh(false);
+				}
+				System.gc();
+				
 				wakeupUI();
 				mainFrame.ChangeRepaint();
 				
@@ -1282,12 +1290,19 @@ public class StepButtonPanel extends JPanel {
 			    ClearAttributePanel();
 			    attributePanel.add(mainFrame.getAbstractTestCaseResultPanel());
 			    
+			    if(StepThreeCenterTabbedPane.isNeedRefresh()){
+					mainFrame.getStepThreeCenterTabbedPane().initUIPanelData();
+					StepThreeCenterTabbedPane.setNeedRefresh(false);
+				}
+			    
 			    index=3;
 				setstepbuttonpanelrepaint();
 				step3buttonpanel.setBackground(new Color(53,55,59));
 				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
 				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
-			    
+				
+				System.gc();
+				
 			    wakeupUI();
 			    mainFrame.ChangeRepaint();
 			    
@@ -1338,12 +1353,19 @@ public class StepButtonPanel extends JPanel {
 			    ClearAttributePanel();
 			    attributePanel.add(mainFrame.getTestCaseInstantiationResultPanel());
 			    
+			    if(StepFourCenterTabbedPane.isNeedRefresh()){
+					mainFrame.getStepFourCenterTabbedPane().initUIPanelData();
+					StepFourCenterTabbedPane.setNeedRefresh(false);
+				}
+			    
 			    index=4;
 				setstepbuttonpanelrepaint();
 				step4buttonpanel.setBackground(new Color(53,55,59));
 				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
 				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			    
+				System.gc();
+				
 			    wakeupUI();
 			    mainFrame.ChangeRepaint();
 			    
@@ -1391,6 +1413,11 @@ public class StepButtonPanel extends JPanel {
 				
 			    ClearAttributePanel();
 			    attributePanel.add(mainFrame.getTestCaseConfirmResultPanel());
+			    
+			    if(StepFiveCenterTabbedPane.isNeedRefresh()){
+					mainFrame.getStepFiveCenterTabbedPane().initUIPanelData();
+					StepFiveCenterTabbedPane.setNeedRefresh(false);
+				}
 							
 			    index=5;
 				setstepbuttonpanelrepaint();
@@ -1398,6 +1425,8 @@ public class StepButtonPanel extends JPanel {
 				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
 				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			    
+				System.gc();
+				
 			    wakeupUI();
 			    mainFrame.ChangeRepaint();
 			}
@@ -1450,7 +1479,14 @@ public class StepButtonPanel extends JPanel {
 				step6buttonpanel.setBackground(new Color(53,55,59));
 				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
 				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
+				
+				if(StepSixCenterTabbedPane.isNeedRefresh()){
+					mainFrame.getStepSixCenterTabbedPane().initUIPanelData();
+					StepSixCenterTabbedPane.setNeedRefresh(false);
+				}
 			    
+				System.gc();
+				
 			    wakeupUI();
 			    mainFrame.ChangeRepaint();
 				

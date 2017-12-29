@@ -1762,7 +1762,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 	}
 
-	protected void initUI() {
+	public void initUI() {
 		DefaultTableModel dtm=mainFrame.getTestCaseConfirmResultPanel().getTestcaseinfortablemodel();
 		while(dtm.getRowCount()>0){
 			dtm.removeRow(dtm.getRowCount()-1);

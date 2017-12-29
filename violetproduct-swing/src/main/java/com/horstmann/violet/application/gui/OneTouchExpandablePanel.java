@@ -129,7 +129,7 @@ public class OneTouchExpandablePanel extends JPanel{
 		
 		label1.setText("<html><body>模<br>型<br>列<br>表</body></html>");
 		label2.setText("<html><body>消<br>息<br>控<br>制<br>台</body></html>");
-		label3.setText("<html><body>结<br>果<br>信<br>息</body></html>");
+		label3.setText("<html><body>属<br>性<br>信<br>息</body></html>");
 		
 		label1.setFont(new Font("System", Font.PLAIN, 12));
 		label1.setForeground(new Color(255, 255, 255));

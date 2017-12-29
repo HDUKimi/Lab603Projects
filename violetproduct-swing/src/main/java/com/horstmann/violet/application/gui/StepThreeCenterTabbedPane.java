@@ -98,6 +98,8 @@ public class StepThreeCenterTabbedPane extends JPanel {
 	
 	private static String BecomeRunFileName=null;
 	
+	private static boolean NeedRefresh=false;
+	
 	public StepThreeCenterTabbedPane(MainFrame mainFrame) {
 		
 		this.mainFrame = mainFrame;
@@ -786,6 +788,14 @@ public class StepThreeCenterTabbedPane extends JPanel {
 
 	public static void setBecomeRunFileName(String becomeRunFileName) {
 		BecomeRunFileName = becomeRunFileName;
+	}
+
+	public static boolean isNeedRefresh() {
+		return NeedRefresh;
+	}
+
+	public static void setNeedRefresh(boolean needRefresh) {
+		NeedRefresh = needRefresh;
 	}
 
 }

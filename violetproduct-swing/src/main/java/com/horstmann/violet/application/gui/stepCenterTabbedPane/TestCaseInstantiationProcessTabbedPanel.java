@@ -342,7 +342,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		mainFrame.getTestCaseInstantiationResultPanel().getTworesultpanel().removeAll();
 		
 		mainFrame.getConsolePartPanel().getTextarea4().setText("");
-		ChangeRepaint();
+//		ChangeRepaint();
 	}
 
 	protected void initThread() {
@@ -350,6 +350,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		
 		//初始化线程，数据
 		initUIPanel();
+		ChangeRepaint();
 		
 		selectAbstract=mainFrame.getTestCaseInstantiationPanel().getSelectAbstractCheckBox().getText();
 		
@@ -1149,6 +1150,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				StepFiveCenterTabbedPane.setBecomeRunFileName(nextRunFileName);
 				StepFiveCenterTabbedPane.setBecomeRunFileNameType(starttype);
+				StepFiveCenterTabbedPane.setNeedRefresh(true);
 				
 				time2=System.currentTimeMillis();
 				

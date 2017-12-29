@@ -578,7 +578,9 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 						String path = baseUrl + filename + ".timing.violet.xml";
 						
 						StepThreeCenterTabbedPane.setBecomeRunFileName(filename+"ForXStream");
+						StepThreeCenterTabbedPane.setNeedRefresh(true);
 						StepSixCenterTabbedPane.setBecomeRunFileName(filename+"Uppaal");
+						StepSixCenterTabbedPane.setNeedRefresh(true);
 
 						if (!FileMenu.isVioletXML(path)) {// 打开ea平台的xml文件
 							
@@ -663,7 +665,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 		
 		progressbarindex=0;
 		progressbar.setValue(0);
-		progressbarlabel.setText("0%");
+		progressbarlabel.setText("");
 		
 		while(timingtouppaaltablemodel.getRowCount()>0){
 			timingtouppaaltablemodel.removeRow(timingtouppaaltablemodel.getRowCount()-1);
@@ -678,6 +680,9 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 //		dtm.fireTableDataChanged();
 		
 		for(ButtonTabbedPanel btp:mainFrame.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists()){
+			btp.setVisible(false);
+		}
+		for(ButtonTabbedPanel btp:mainFrame.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()){
 			btp.setVisible(false);
 		}
 		mainFrame.getModelTransformationPanel().getModelTimingTreePanel().initUIPanel();

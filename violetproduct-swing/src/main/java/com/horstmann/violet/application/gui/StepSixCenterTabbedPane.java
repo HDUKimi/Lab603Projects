@@ -68,6 +68,8 @@ public class StepSixCenterTabbedPane extends JPanel {
 	private ValidationToolPanel validationToolPanel;
 
 	private static String BecomeRunFileName = null;
+	
+	private static boolean NeedRefresh=false;
 
 	public StepSixCenterTabbedPane(MainFrame mainFrame) {
 
@@ -105,28 +107,41 @@ public class StepSixCenterTabbedPane extends JPanel {
 
 	public void initUIPanelData() {
 
-		mainFrame.getModelExistValidationPanel().getValidationinfopanel().removeAll();
-		mainFrame.getModelExistValidationPanel().getValidationcheckboxpanel().removeAll();
-
+//		mainFrame.getModelExistValidationPanel().getValidationinfopanel().removeAll();
+//		mainFrame.getModelExistValidationPanel().getValidationcheckboxpanel().removeAll();
+//
+//		mainFrame.getModelExistValidationPanel().getAssessdealtext11().setText("");
+//		mainFrame.getModelExistValidationPanel().getAssessdealtext21().setText("");
+//		mainFrame.getModelExistValidationPanel().getAssessdealtext22().setText("");
+//		mainFrame.getModelExistValidationPanel().getAssessdealtext31().setText("");
+//
+//		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
+//		mainFrame.getStepSixCenterTabbedPane().getTimingDiagramTabbedPane().removeAll();
+//
+//		mainFrame.getValidationResultPanel().getOnenamelabel().setText("");
+//		mainFrame.getValidationResultPanel().getTwonamelabel().setText("");
+//		mainFrame.getValidationResultPanel().getThreenamelabel().setText("测试对比结果显示： ");
+//		mainFrame.getValidationResultPanel().getFournamelabel().setText("时间刻度显示： ");
+//		mainFrame.getValidationResultPanel().getFivenamelabel().setText("");
+//		mainFrame.getValidationResultPanel().getOneresultpanel().removeAll();
+//		mainFrame.getValidationResultPanel().getTworesultpanel().removeAll();
+//		mainFrame.getValidationResultPanel().getStatelocationresultpanel().removeAll();
+//		mainFrame.getValidationResultPanel().getMessagetransitionresultpanel().removeAll();
+//		mainFrame.getValidationResultPanel().getFourresultpanel().removeAll();
+//		mainFrame.getValidationResultPanel().getFiveresultpanel().removeAll();
+		
+		mainFrame.getValidationResultPanel().getFivenamelabel().setText("评估结果： ");
+		mainFrame.getValidationResultPanel().getFiveresultpanel().removeAll();
+		
+		mainFrame.getStepSixCenterTabbedPane().getDiagramPanel().removeAll();
+		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
+		
+		uppaalDiagramButtonPanel.setBackground(new Color(77, 96, 130));
+		
 		mainFrame.getModelExistValidationPanel().getAssessdealtext11().setText("");
 		mainFrame.getModelExistValidationPanel().getAssessdealtext21().setText("");
 		mainFrame.getModelExistValidationPanel().getAssessdealtext22().setText("");
 		mainFrame.getModelExistValidationPanel().getAssessdealtext31().setText("");
-
-		mainFrame.getStepSixCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
-		mainFrame.getStepSixCenterTabbedPane().getTimingDiagramTabbedPane().removeAll();
-
-		mainFrame.getValidationResultPanel().getOnenamelabel().setText("");
-		mainFrame.getValidationResultPanel().getTwonamelabel().setText("");
-		mainFrame.getValidationResultPanel().getThreenamelabel().setText("测试对比结果显示： ");
-		mainFrame.getValidationResultPanel().getFournamelabel().setText("时间刻度显示： ");
-		mainFrame.getValidationResultPanel().getFivenamelabel().setText("");
-		mainFrame.getValidationResultPanel().getOneresultpanel().removeAll();
-		mainFrame.getValidationResultPanel().getTworesultpanel().removeAll();
-		mainFrame.getValidationResultPanel().getStatelocationresultpanel().removeAll();
-		mainFrame.getValidationResultPanel().getMessagetransitionresultpanel().removeAll();
-		mainFrame.getValidationResultPanel().getFourresultpanel().removeAll();
-		mainFrame.getValidationResultPanel().getFiveresultpanel().removeAll();
 
 		mainFrame.getConsolePartPanel().getTextarea6().setText("");
 	}
@@ -171,6 +186,10 @@ public class StepSixCenterTabbedPane extends JPanel {
 		buttonPanel.add(buttonScrollPanel, BorderLayout.CENTER);
 		buttonPanel.add(rightButton, BorderLayout.EAST);
 
+	}
+
+	public FixedButtonTabbedPanel getUppaalDiagramButtonPanel() {
+		return uppaalDiagramButtonPanel;
 	}
 
 	private void initleftrightbuttonpanel() {
@@ -418,6 +437,14 @@ public class StepSixCenterTabbedPane extends JPanel {
 
 	public static void setBecomeRunFileName(String becomeRunFileName) {
 		BecomeRunFileName = becomeRunFileName;
+	}
+
+	public static boolean isNeedRefresh() {
+		return NeedRefresh;
+	}
+
+	public static void setNeedRefresh(boolean needRefresh) {
+		NeedRefresh = needRefresh;
 	}
 
 }
