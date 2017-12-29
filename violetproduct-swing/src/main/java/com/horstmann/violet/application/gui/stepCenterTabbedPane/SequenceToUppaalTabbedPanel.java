@@ -694,7 +694,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 			sequencetouppaaltablemodel.removeRow(sequencetouppaaltablemodel.getRowCount()-1);
 		}
 		
-		moviepanel.getMovieLabel().setText("正在读取顺序图");
+		moviepanel.getMovieLabel().setText("等待进行模型转换");
 		
 //		DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel();
 //		for (int i = 0; i < dtm.getRowCount(); i++) {

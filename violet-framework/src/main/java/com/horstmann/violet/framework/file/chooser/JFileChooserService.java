@@ -228,7 +228,8 @@ public class JFileChooserService implements IFileChooserService
     public IFileReader chooseAndGetFileReader(ExtensionFilter... filters) throws FileNotFoundException, UnsupportedEncodingException
     {
     	JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(this.currentDirectory);
+//        fileChooser.setCurrentDirectory(this.currentDirectory);
+    	fileChooser.setCurrentDirectory(new File("D:\\ModelDriverProjectFile\\SequenceDiagram\\Violet"));
     	//ExtensionFilter[] filters = fileNamingService.getFileFilters();
         for (int i = 0; i < filters.length; i++)
         {

@@ -671,7 +671,7 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 			timingtouppaaltablemodel.removeRow(timingtouppaaltablemodel.getRowCount()-1);
 		}
 		
-		moviepanel.getMovieLabel().setText("正在读取时序图");
+		moviepanel.getMovieLabel().setText("等待进行模型转换");
 		
 //		DefaultTableModel dtm=mainFrame.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel();
 //		for (int i = 0; i < dtm.getRowCount(); i++) {
