@@ -181,12 +181,12 @@ public class EditorPart extends JPanel implements IEditorPart
 			zy = (int) (zoom * bounds.getMaxY());
 			pw = (int) parentSize.getWidth();
 			ph = (int) parentSize.getHeight();
-
+			
 			if (pw != 0 && ph != 0) {
 				while (zx > pw || zy > ph) {
-//					if(ALL_STEP<-MAX_STEP){
-//						break;
-//					}
+					if(ALL_STEP<-MAX_STEP){
+						break;
+					}
 					changeZoom(-1, workspace);
 					graphstart = 0;
 					zx = (int) (zoom * bounds.getMaxX());
@@ -388,7 +388,7 @@ public class EditorPart extends JPanel implements IEditorPart
 
     private IEditorPartBehaviorManager behaviorManager = new EditorPartBehaviorManager();
     
-    private static final int MAX_STEP=5;
+    private static final int MAX_STEP=18;
     private int ALL_STEP=0;
     
     private boolean zoomstate=false;

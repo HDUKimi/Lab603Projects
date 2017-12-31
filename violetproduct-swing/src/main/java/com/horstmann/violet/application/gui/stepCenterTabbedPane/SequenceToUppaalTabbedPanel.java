@@ -43,6 +43,7 @@ import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.StepSixCenterTabbedPane;
 import com.horstmann.violet.application.gui.StepThreeCenterTabbedPane;
+import com.horstmann.violet.application.gui.util.tanchao.RefreshTool;
 import com.horstmann.violet.application.gui.util.tanchao.XMLCopy;
 import com.horstmann.violet.application.gui.util.wujun.SequenceTransfrom.SD2UppaalMain;
 import com.horstmann.violet.application.gui.util.xiaole.GraghLayout.LayoutUppaal;
@@ -575,10 +576,12 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 						System.out.println(sequencelistindex+"   "+sequencelists.size()+"   "+baseUrl + filename);
 						String path = baseUrl + filename + ".seq.violet.xml";
 						
-						StepThreeCenterTabbedPane.setBecomeRunFileName(filename+"ForXStream");
-						StepThreeCenterTabbedPane.setNeedRefresh(true);
+//						StepThreeCenterTabbedPane.setBecomeRunFileName(filename+"ForXStream");
+						StepThreeCenterTabbedPane.setBecomeRunFileName(filename+"Uppaal");
+//						StepThreeCenterTabbedPane.setNeedRefresh(true);
 						StepSixCenterTabbedPane.setBecomeRunFileName(filename+"Uppaal");
-						StepSixCenterTabbedPane.setNeedRefresh(true);
+//						StepSixCenterTabbedPane.setNeedRefresh(true);
+						RefreshTool.RefreshThreeAndEnd();
 
 						if (!FileMenu.isVioletXML(path)) {// 打开ea平台的xml文件
 							

@@ -55,6 +55,7 @@ import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.StepSixCenterTabbedPane;
 import com.horstmann.violet.application.gui.StepThreeCenterTabbedPane;
 import com.horstmann.violet.application.gui.StepTwoCenterTabbedPane;
+import com.horstmann.violet.application.gui.util.tanchao.RefreshTool;
 import com.horstmann.violet.application.gui.util.tanchao.ShowOnTableAndConsole;
 import com.horstmann.violet.application.gui.util.tanchao.XMLCopy;
 import com.horstmann.violet.application.gui.util.wujun.SequenceTransfrom.SD2UppaalMain;
@@ -578,9 +579,10 @@ public class TimingToUppaalTabbedPanel extends JPanel{
 						String path = baseUrl + filename + ".timing.violet.xml";
 						
 						StepThreeCenterTabbedPane.setBecomeRunFileName(filename+"ForXStream");
-						StepThreeCenterTabbedPane.setNeedRefresh(true);
+//						StepThreeCenterTabbedPane.setNeedRefresh(true);
 						StepSixCenterTabbedPane.setBecomeRunFileName(filename+"Uppaal");
-						StepSixCenterTabbedPane.setNeedRefresh(true);
+//						StepSixCenterTabbedPane.setNeedRefresh(true);
+						RefreshTool.RefreshThreeAndEnd();
 
 						if (!FileMenu.isVioletXML(path)) {// 打开ea平台的xml文件
 							

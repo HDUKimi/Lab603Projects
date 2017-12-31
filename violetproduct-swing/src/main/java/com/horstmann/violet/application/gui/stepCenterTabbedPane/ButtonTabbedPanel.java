@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -234,7 +235,9 @@ public class ButtonTabbedPanel extends JPanel{
 						if(mainFrame.getActiveWorkspace()!=null){
 							
 							mainFrame.getStepOneCenterTabbedPane().getSequenceDiagramTabbedPane().add(workspace.getAWTComponent(),
-									new GBC(0, 0).setWeight(1, 1).setFill(GBC.BOTH));
+									new GBC(0, 0, 1, 1).setWeight(1, 1).setFill(GBC.BOTH));
+//							mainFrame.getStepOneCenterTabbedPane().getSequenceDiagramTabbedPane().setLayout(new GridLayout());
+//							mainFrame.getStepOneCenterTabbedPane().getSequenceDiagramTabbedPane().add(workspace.getAWTComponent());
 							
 							ToolPanel toolPanel = new ToolPanel(mainFrame,workspace);
 

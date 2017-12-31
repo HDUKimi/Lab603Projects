@@ -47,6 +47,7 @@ import com.horstmann.violet.application.gui.util.ckt.xml.borderTestXML;
 import com.horstmann.violet.application.gui.util.ckt.xml.borderTimeXML;
 import com.horstmann.violet.application.gui.util.ckt.xml.outXMLofTime;
 import com.horstmann.violet.application.gui.util.lmr.DB.DataBaseUtil;
+import com.horstmann.violet.application.gui.util.tanchao.RefreshTool;
 import com.horstmann.violet.application.gui.util.tanchao.SaveText;
 
 public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
@@ -261,6 +262,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				step=1;
 				
 				initUIPanel();
+				ChangeRepaint();
 				
 			}
 		});
@@ -1150,7 +1152,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				
 				StepFiveCenterTabbedPane.setBecomeRunFileName(nextRunFileName);
 				StepFiveCenterTabbedPane.setBecomeRunFileNameType(starttype);
-				StepFiveCenterTabbedPane.setNeedRefresh(true);
+//				StepFiveCenterTabbedPane.setNeedRefresh(true);
+				RefreshTool.RefreshFiveAndEnd();
 				
 				time2=System.currentTimeMillis();
 				

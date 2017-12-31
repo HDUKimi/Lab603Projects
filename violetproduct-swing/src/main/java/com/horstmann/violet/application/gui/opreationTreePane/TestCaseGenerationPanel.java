@@ -752,7 +752,8 @@ public class TestCaseGenerationPanel extends JPanel {
 	    {
 	    	String fileName=file.getName();
 	    	if(fileName.lastIndexOf(".xml")>0){
-	    		uppaallists.add(fileName.substring(0, fileName.lastIndexOf(".xml")));
+//	    		uppaallists.add(fileName.substring(0, fileName.lastIndexOf(".xml")));
+	    		uppaallists.add(fileName.substring(0, fileName.lastIndexOf(".xml")).replace("ForXStream", "Uppaal"));
 	    	}
 	    	
 	    }

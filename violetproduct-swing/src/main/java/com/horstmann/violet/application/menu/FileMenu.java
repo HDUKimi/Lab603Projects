@@ -73,6 +73,7 @@ import com.horstmann.violet.application.gui.StepOneCenterTabbedPane;
 import com.horstmann.violet.application.gui.StepTwoCenterTabbedPane;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.gui.util.tanchao.CalculateWidth;
+import com.horstmann.violet.application.gui.util.tanchao.RefreshTool;
 import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateActivityDiagramEAXml;
 import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateActivityDiagramVioletXML;
 import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateClassDiagramEAXML;
@@ -993,7 +994,8 @@ public class FileMenu extends JMenu {
 						becomeRunFileName=selectFileName.replace(".timing.violet.xml", "");
 					}
 					StepTwoCenterTabbedPane.setBecomeRunFileName(becomeRunFileName);
-					StepTwoCenterTabbedPane.setNeedRefresh(true);
+//					StepTwoCenterTabbedPane.setNeedRefresh(true);
+					RefreshTool.RefreshTwoAndEnd();
 					
 					final String runfilename=becomeRunFileName;
 

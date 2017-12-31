@@ -85,6 +85,7 @@ import com.horstmann.violet.application.gui.util.ckt.testcase.testtest;
 import com.horstmann.violet.application.gui.util.ckt.xml.GetTimeXML;
 import com.horstmann.violet.application.gui.util.ckt.xml.XMLGet;
 import com.horstmann.violet.application.gui.util.ckt.xml.XmlOfTime;
+import com.horstmann.violet.application.gui.util.tanchao.RefreshTool;
 import com.horstmann.violet.application.gui.util.tanchao.SaveText;
 import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
 import com.horstmann.violet.application.gui.util.wj.bean.UppaalLocation;
@@ -327,6 +328,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				initUIPanel();
 				
+				ChangeRepaint();
+				
 			}
 		});
 		
@@ -421,7 +424,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 //		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportTabbedPane().initUIPanel();
 //		mainFrame.getStepFiveCenterTabbedPane().getTestCaseReportDiagramButton().doClick();
 		
-		selectUppaal=mainFrame.getTestCaseGenerationPanel().getSelectUppaalCheckBox().getText();
+//		selectUppaal=mainFrame.getTestCaseGenerationPanel().getSelectUppaalCheckBox().getText();
+		selectUppaal=mainFrame.getTestCaseGenerationPanel().getSelectUppaalCheckBox().getText().replace("Uppaal", "ForXStream");
 //		selectCover=mainFrame.getTestCaseGenerationPanel().getSelectCoverCheckBox().getText();
 //		System.out.println(selectUppaal+"  ------  "+selectCover);
 		
@@ -1499,7 +1503,8 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				StepFourCenterTabbedPane.setBecomeRunFileName(abstractName + "Abstract");
 				StepFourCenterTabbedPane.setBecomeRunFileNameType(starttype);
-				StepFourCenterTabbedPane.setNeedRefresh(true);
+//				StepFourCenterTabbedPane.setNeedRefresh(true);
+				RefreshTool.RefreshFourAndEnd();
 				
 				return 1;
 			}
@@ -1639,7 +1644,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				if(starttype==1){//功能测试
 					if(hastime==1){
-						stepAllProcessList.add("第五步：存储测试序列");
+						stepAllProcessList.add("第五步：重要度排序");
 					}
 					else{
 						stepAllProcessList.add("第四步：重要度排序");
