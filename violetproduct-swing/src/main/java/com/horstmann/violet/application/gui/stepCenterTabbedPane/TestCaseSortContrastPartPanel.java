@@ -144,6 +144,9 @@ public class TestCaseSortContrastPartPanel extends JPanel{
 					else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==0){
 						mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().ChangeRepaint();
 					}
+					else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==7){
+						mainFrame.getStepThreeCenterTabbedPane().getTestCaseOptimizationTabbedPanel().ChangeRepaint();
+					}
 					
 					JPanel resultpanel = new JPanel();
 					JPanel emptypanel = new JPanel();

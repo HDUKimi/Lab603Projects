@@ -662,7 +662,7 @@ public class PerformanceXML2 {
 					if(!cases.get(nn).get(0).contains("takeoff_alt_cm")){
 						int random = -1;
 						if (random == -1) {
-							random = new Random().nextInt(cases.get(nn).size());
+							random = new Random(System.currentTimeMillis()).nextInt(cases.get(nn).size());
 						}
 //						ShowInfor.print("random-->"+random);
 						value = cases.get(nn).get(random);

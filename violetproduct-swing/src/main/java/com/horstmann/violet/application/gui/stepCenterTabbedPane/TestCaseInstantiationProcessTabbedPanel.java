@@ -360,7 +360,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		
 		starttype=mainFrame.getTestCaseInstantiationPanel().FindRadioButtonIndex(mainFrame.getTestCaseInstantiationPanel().getSelectTestRadioButton())+1;
 		starttype=1;
-		if(selectAbstract.contains("起飞高度")){
+		if(selectAbstract.contains("起飞模式")){
 			starttype=2;
 		}
 		
@@ -1062,7 +1062,8 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 //						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条测试用例，"+performancetestcaselist.size()+"条性能测试用例");
 //					}
 //					else{
-						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条功能测试用例，"+bordertestcaselist.size()+"条边界测试用例，"+performancetestcaselist.size()+"条性能测试用例");						
+						resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条功能测试用例，"+bordertestcaselist.size()+"条边界测试用例，"+performancetestcaselist.size()+"条性能测试用例");
+//					resultAllProcessList.add("对实例化后求到的多组解进行随机组合，生成"+testcaselist.size()+"条功能测试用例，"+bordertestcaselist.size()+"条边界测试用例，"+2132+"条性能测试用例");	
 //					}
 				}
 				else{

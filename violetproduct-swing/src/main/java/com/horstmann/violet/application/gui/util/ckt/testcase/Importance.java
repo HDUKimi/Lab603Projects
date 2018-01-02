@@ -10,17 +10,17 @@ import com.horstmann.violet.application.gui.util.ckt.xml.borderTestXML;
 
 public class Importance {
 
-	public static void main(String[] args) {
-	//	String xml = "电梯模拟ForXStream.xml";
-		String xml = "EA4.1.0 功能场景1ForXStream.xml";
-		Automatic automatic = GetAutomatic.getAutomatic(xml);// 获得原始的时间自动机
-		ArrayList<Automatic> testCase = MinTC.sideCoverage(automatic);
-		ArrayList<Automatic> SoreOftestcase = pathOfImportance(testCase,automatic);
-		for(Automatic a : SoreOftestcase){
-			System.out.println("----------------------");
-			System.out.println(a.getName() + "---" + a.getPathOfImportance() + "---" + a.getPathOfAllImpPercentage());
-		}				
-	}
+//	public static void main(String[] args) {
+//	//	String xml = "电梯模拟ForXStream.xml";
+//		String xml = "EA4.1.0 功能场景1ForXStream.xml";
+//		Automatic automatic = GetAutomatic.getAutomatic(xml);// 获得原始的时间自动机
+//		ArrayList<Automatic> testCase = MinTC.sideCoverage(automatic);
+//		ArrayList<Automatic> SoreOftestcase = pathOfImportance(testCase,automatic);
+//		for(Automatic a : SoreOftestcase){
+//			System.out.println("----------------------");
+//			System.out.println(a.getName() + "---" + a.getPathOfImportance() + "---" + a.getPathOfAllImpPercentage());
+//		}				
+//	}
 	
 	/**
 	 * 根据传入的路径计算路径的重要度

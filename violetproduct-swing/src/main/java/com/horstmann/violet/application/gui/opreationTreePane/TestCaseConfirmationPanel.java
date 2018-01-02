@@ -1497,7 +1497,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 					testcasetype=3;
 				}
 				
-				if(testcasename.contains("起飞高度")){
+				if(testcasename.contains("起飞模式")){
 					testcasetype=2;
 				}
 				
@@ -1605,7 +1605,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 					testcasetype=3;
 				}
 				
-				if(testcasename.contains("起飞高度")){
+				if(testcasename.contains("起飞模式")){
 					testcasetype=2;
 				}
 				

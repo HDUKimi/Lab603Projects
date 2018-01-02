@@ -266,7 +266,7 @@ public class borderTimeXML {
 					}else{*/
 						int random = -1;
 						if (random == -1) {
-							random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
+							random = new Random(System.currentTimeMillis()).nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
 						}
 						String value = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
 						String[] cs =value.toString().split("%");
@@ -613,7 +613,7 @@ public class borderTimeXML {
 				
 					int random = -1;
 					if (random == -1) {
-						random = new Random().nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
+						random = new Random(System.currentTimeMillis()).nextInt(testCase.get(i1).getTransitionSet().get(j).getResult().size());
 					}
 					String value = testCase.get(i1).getTransitionSet().get(j).getResult().get(random).replace("False", "false").replace("True", "true");
 					String[] cs =value.toString().split("%");

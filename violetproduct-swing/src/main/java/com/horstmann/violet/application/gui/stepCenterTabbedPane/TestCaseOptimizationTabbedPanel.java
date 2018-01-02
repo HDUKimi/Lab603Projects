@@ -32,7 +32,7 @@ import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
 import com.horstmann.violet.application.gui.util.tanchao.TranMessageText;
 import com.horstmann.violet.workspace.IWorkspace;
 
-public class TestCaseCoverTabbedPanel extends JPanel{
+public class TestCaseOptimizationTabbedPanel extends JPanel{
 
 	private MainFrame mainFrame;
 	private IWorkspace workspace;
@@ -76,7 +76,7 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 	private int tablestate=1;
 	private int trantextstate=1;//1是id，0是name
 	
-	public TestCaseCoverTabbedPanel(MainFrame mainFrame,IWorkspace workspace) {
+	public TestCaseOptimizationTabbedPanel(MainFrame mainFrame,IWorkspace workspace) {
 
 		this.mainFrame = mainFrame;
 		this.workspace=workspace;
@@ -494,7 +494,7 @@ public class TestCaseCoverTabbedPanel extends JPanel{
 	private void initMoviePanel() {
 		// TODO Auto-generated method stub
 		
-		moviepanel.getMovieLabel().setText("进行路径覆盖");
+		moviepanel.getMovieLabel().setText("进行测试用例优化约简");
 		
 	}
 

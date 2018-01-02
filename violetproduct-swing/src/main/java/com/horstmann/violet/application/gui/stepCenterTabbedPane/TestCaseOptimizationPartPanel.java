@@ -38,7 +38,7 @@ import com.horstmann.violet.workspace.IWorkspace;
 import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
 import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
 
-public class TestCaseCoverPartPanel extends JPanel{
+public class TestCaseOptimizationPartPanel extends JPanel{
 	
 	private MainFrame mainFrame;
 	private Automatic automatic;
@@ -61,14 +61,12 @@ public class TestCaseCoverPartPanel extends JPanel{
 	private DefaultTableModel attributetablemodel;
 	
 	
-	public TestCaseCoverPartPanel(int index,MainFrame mainFrame,Automatic automatic,IWorkspace workspace){
+	public TestCaseOptimizationPartPanel(int index,MainFrame mainFrame,Automatic automatic,IWorkspace workspace){
 		
 		this.index=index;
 		this.mainFrame=mainFrame;
 		this.automatic=automatic;
 		this.workspace=workspace;
-		
-//		System.out.println("TestCaseCoverPartPanel  "+automatic.getName()+" - - "+automatic.getStateSet().size()+" - - "+automatic.getTransitionSet().size()+" - "+(automatic.getStateSet().size()-automatic.getTransitionSet().size()==1?"True":"False"));
 		
 		init();
 		

@@ -1446,8 +1446,8 @@ public class TestCaseReportTabbedPanel extends JPanel{
 				cs=caseSuccess.size();
 				cf=caseFailed.size();
 				
-//				cs=7935;
-//				cf=39;
+//				cs=1142;
+//				cf=82;
 				
 				csum=cs+cf;
 				DefaultTableModel successfailedtabelmodel=functionalTestCaseChartTabbedPanel.getSuccessfailedattributetablemodel();

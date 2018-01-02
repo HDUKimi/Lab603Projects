@@ -377,6 +377,9 @@ public class TestCaseSortContrastTabbedPanel extends JPanel{
 								else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==0){
 									mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().ChangeRepaint();
 								}
+								else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==7){
+									mainFrame.getStepThreeCenterTabbedPane().getTestCaseOptimizationTabbedPanel().ChangeRepaint();
+								}
 								
 								index++;
 								
@@ -394,6 +397,9 @@ public class TestCaseSortContrastTabbedPanel extends JPanel{
 									}
 									else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==0){
 										mainFrame.getStepThreeCenterTabbedPane().getTestCaseProcessTabbedPanel().ChangeRepaint();
+									}
+									else if(mainFrame.getStepThreeCenterTabbedPane().getFixButtonTabbedPanelSelectedIndex()==7){
+										mainFrame.getStepThreeCenterTabbedPane().getTestCaseOptimizationTabbedPanel().ChangeRepaint();
 									}
 								}
 								

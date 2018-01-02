@@ -105,6 +105,7 @@ public class MinTC {
 		 Automatic new_automatic = IPR__1.iPR(automatic);// 获得拆分后的时间自动机
 		 Automatic aTDRTAutomatic = ATDTR__1.aTDRT(new_automatic, automatic);// 获得去除抽象时间迁移后的时间自动机
 
+		Automatic autoOfSource = automatic;//后续传入的时间自动机
 		// 搜索终止状态集合
 		/*
 		 * for(State state:aTDRTAutomatic.getStateSet()) { int k1= 0;
@@ -121,20 +122,37 @@ public class MinTC {
 		 * ////System.out.println("不是终止状态--- " + i + "---" + state); } i++; }
 		 */
 
+		ArrayList<ArrayList<Transition>> ss = MinSSOfFirstForTC(autoOfSource);
+		
+		
+		
+		//==============================================================================
 		// 迁移覆盖(主要平台显示接口)
-		 ArrayList<Automatic> testCase = sideCoverage(aTDRTAutomatic);
-
-//		ArrayList<Automatic> testCase = sideCoverage(automatic); // -----------------------
-
+		ArrayList<Automatic> notMinTestCase = NotMinsideCoverage(ss, autoOfSource);
 		// 输出信息
-		//System.out.println(testCase.size() + "-----测试路径的个数");// --------------------------
-		/*for (Automatic auto : testCase) {
+		System.out.println(notMinTestCase.size() + "-----测试路径的个数");
+		for (Automatic auto : notMinTestCase) {
 			for (Transition tran : auto.getTransitionSet()) {
-				//System.out.println(tran.getName() + "------" + tran.getTranTimeName());
+				System.out.println(tran.getName() + "------" + tran.getTranTimeName());
 			}
-			//System.out.println();
-			//System.out.println("-------");
-		}*/
+			System.out.println();
+			System.out.println("-------");
+		}
+		System.out.println();
+		
+		//==============================================================================
+		// 迁移覆盖(主要平台显示接口)
+		ArrayList<Automatic> testCase = MinsideCoverage(ss, autoOfSource);
+		// 输出信息
+		System.out.println();
+		System.out.println(testCase.size() + "-----测试路径的个数");// --------------------------
+		for (Automatic auto : testCase) {
+			for (Transition tran : auto.getTransitionSet()) {
+				System.out.println(tran.getName() + "------" + tran.getTranTimeName());
+			}
+			System.out.println();
+			System.out.println("-------");
+		}
 
 	}
 
@@ -145,11 +163,38 @@ public class MinTC {
 	 * @return
 	 */
 	public static ArrayList<Automatic> test1(Automatic auto) {
-		// ArrayList<ArrayList<Transition>> minSS = minSS(auto);
-		ArrayList<Automatic> test1 = sideCoverage(auto);
+		ArrayList<ArrayList<Transition>> ss = minSS(auto);
+		ArrayList<Automatic> test1 = MinsideCoverage(ss, auto);
 		return test1;
 	}
 
+	public static ArrayList<Automatic> NotMinsideCoverage(ArrayList<ArrayList<Transition>> ss, Automatic auto) {
+		// ArrayList<ArrayList<Transition>> ss = MinSSOfFirstForTC(auto);
+		ArrayList<ArrayList<Transition>> TestcaseOfSide = TestcaseOfSide(ss, auto);
+		// ArrayList<ArrayList<Transition>> minTestcaseOfSide =
+		// MinTestcaseOfSide(ss, auto);
+		int n = TestcaseOfSide.size();// 测试用例个数
+		ArrayList<Automatic> testcaseSet = new ArrayList<Automatic>();// 测试用例集合
+		for (int i = 0; i < n; i++) {
+			Automatic test_case = new Automatic();
+			test_case.setClockSet(auto.getClockSet());
+			test_case.setName("测试用例" + (i + 1));
+			test_case.setTransitionSet(TestcaseOfSide.get(i));
+			ArrayList<State> StateSet = new ArrayList<State>();
+			State s = TestcaseOfSide.get(i).get(0).getSourceState();
+			// findStateFromString((minTestcaseOfSide.get(i).get(0).getSource()),auto);
+			StateSet.add(s);
+			for (Transition tran : TestcaseOfSide.get(i)) {
+				State state = tran.getTargetState();
+				// findStateFromString((tran.getTarget()),auto);
+				StateSet.add(state);
+			}
+			test_case.setStateSet(StateSet);
+			test_case.setInitState(auto.getInitState());
+			testcaseSet.add(test_case);
+		}
+		return testcaseSet;
+	}
 	/**
 	 * 主要的调用方法，将MinTestcaseOfSide中满足迁移覆盖的最小的迁移集合转换为测试用例集合
 	 * 
@@ -157,8 +202,9 @@ public class MinTC {
 	 *            传入的时间自动机中终止状态已经明确标出
 	 * @return
 	 */
-	public static ArrayList<Automatic> sideCoverage(Automatic auto) {
-		ArrayList<ArrayList<Transition>> minTestcaseOfSide = MinTestcaseOfSide(auto);
+	public static ArrayList<Automatic> MinsideCoverage(ArrayList<ArrayList<Transition>> ss, Automatic auto) {
+		// ArrayList<ArrayList<Transition>> ss = MinSSOfFirstForTC(auto);
+		ArrayList<ArrayList<Transition>> minTestcaseOfSide = MinTestcaseOfSide(ss, auto);
 		int n = minTestcaseOfSide.size();// 测试用例个数
 		ArrayList<Automatic> testcaseSet = new ArrayList<Automatic>();// 测试用例集合
 		for (int i = 0; i < n; i++) {
@@ -181,7 +227,85 @@ public class MinTC {
 		}
 		return testcaseSet;
 	}
+	
+	public static ArrayList<ArrayList<Transition>> MinSSOfFirstForTC(Automatic auto) {
+		// 第一个算法
+		ArrayList<ArrayList<Transition>> ss = minSS(auto);
+		return ss;
+	}
 
+	public static ArrayList<ArrayList<Transition>> TestcaseOfSide(ArrayList<ArrayList<Transition>> ss, Automatic auto) {
+		ArrayList<ArrayList<Transition>> propath = new ArrayList<ArrayList<Transition>>();
+		// 为最简组合片段加入前驱
+		for (ArrayList<Transition> transet : ss) {
+			if (transet.get(0).getSource().equals(auto.getInitState().getName())) {
+				propath.add(transet);
+				/*
+				 * System.out.println("---该片段是从初始状态开始,且路径为---"); for (Transition
+				 * t : transet) { System.out.print(t.getName() + "--  "); }
+				 * System.out.println();
+				 */
+			} else {
+				// System.out.println("加前驱前的首迁移------ " + transet.get(0));
+				ArrayList<Transition> shortPath = oneOfPathforStartToOne(auto, transet.get(0));
+				// System.out.println("--- " + shortPath);
+				for (Transition tran : transet) {
+					shortPath.add(tran);
+				}
+				propath.add(shortPath);
+				/*
+				 * System.out.println("---加入前驱后路径--- "); for (Transition t :
+				 * shortPath) { System.out.print(t.getName() + "--  "); }
+				 * System.out.println();
+				 */
+			}
+			// System.out.println("------------------------------");
+		}
+
+		// System.out.println();
+		// System.out.println("-------------------加前驱后路径-------------------");
+		// System.out.println("********************************************");
+		// for (ArrayList<Transition> tset : propath) {
+		// for (Transition t : tset) {
+		// System.out.print(t.getName() + "-- ");
+		// }
+		// System.out.println();
+		// }
+		// System.out.println("********************************************");
+
+		// 找到迁移片段到终止节点的最短路径
+		for (ArrayList<Transition> transet : propath) {
+			// System.out.println(" ----------------------------------------");
+			// System.out.println(auto.getInitState());
+			// System.out.println("====目标状态====" + transet.get(transet.size() -
+			// 1).getTargetState());
+			// System.out.println(" ----------------------------------------");
+			// System.out.println("---------***** " + transet.get(transet.size()
+			// - 1));
+			// System.out.println("---------***** " + transet.get(transet.size()
+			// - 1).getTargetState());
+			if (!(transet.get(transet.size() - 1).getTargetState().isFinalState())) {
+				// System.out.println("====需要加后续片段====");
+				ArrayList<Transition> lastPath = oneOfPathforOneToEnd(auto, transet.get(transet.size() - 1));
+				// System.out.println("后续片段-- " + lastPath);
+				for (Transition tran : lastPath) {
+					transet.add(tran);
+				}
+			}
+		}
+		// System.out.println();
+		// System.out.println("--------------------最终路径-------------------");
+		// System.out.println("********************************************");
+		// for (ArrayList<Transition> tset : propath) {
+		// for (Transition t : tset) {
+		// System.out.print(t.getName() + "-- ");
+		// }
+		// System.out.println();
+		// }
+		// System.out.println("********************************************");
+		// System.out.println();
+		return propath;
+	}
 	/**
 	 * 主要方法，求出这个时间自动机中满足迁移覆盖的最小的测试用例
 	 * 
@@ -189,161 +313,155 @@ public class MinTC {
 	 *            传入的时间自动机中终止状态已经明确标出
 	 * @return
 	 */
-	public static ArrayList<ArrayList<Transition>> MinTestcaseOfSide(Automatic auto) {
+	public static ArrayList<ArrayList<Transition>> MinTestcaseOfSide(ArrayList<ArrayList<Transition>> ss,Automatic auto) {
 
-		//System.out.println("-------------------算法前所有迁移-------------------");
-		//System.out.println("********************************************");
-		//System.out.println("算法前初始状态--  " + auto.getInitState().getName());
-		//System.out.println("算法前状态个数：  " + auto.getStateSet().size());
-		//System.out.println("算法前迁移个数：  " + auto.getTransitionSet().size());
-		//System.out.println("算法前迁移--  " + auto.getTransitionSet());
-		//System.out.println();
+		/*
+		 * System.out.println("-------------------算法前所有迁移-------------------");
+		 * System.out.println("********************************************");
+		 * System.out.println("算法前初始状态--  " + auto.getInitState().getName());
+		 * System.out.println("算法前状态个数：  " + auto.getStateSet().size());
+		 * System.out.println("算法前迁移个数：  " + auto.getTransitionSet().size());
+		 * System.out.println("算法前迁移--  " + auto.getTransitionSet());
+		 * System.out.println();
+		 * 
+		 * for (Transition tran : auto.getTransitionSet()) {
+		 * 
+		 * if (tran.getSource().equals(auto.getInitState().getName())) {
+		 * System.out.println(
+		 * "*************************************************");
+		 * System.out.println(" 初始迁移-- " + tran); System.out.println(
+		 * "*************************************************");
+		 * System.out.println(); } State state = tran.getTargetState(); //
+		 * findStateFromString(tran.getTarget(), auto);
+		 * 
+		 * if(state.isFinalState()){ System.out.println(); System.out.println(
+		 * "========================================================");
+		 * System.out.println(" 终止状态-- " + state); System.out.
+		 * println("              --------------------------------");
+		 * System.out.println(" 终止迁移-- " + tran); System.out.println(
+		 * "========================================================"); }
+		 * 
+		 * } System.out.println(); System.out.println("算法前所有初始状态--  " +
+		 * auto.getInitState()); System.out.println("算法前所有迁移--  ");
+		 * 
+		 * for (Transition t : auto.getTransitionSet()) {
+		 * System.out.print(t.getName() + "-- "); } System.out.println();
+		 * System.out.println("********************************************");
+		 * 
+		 * // 第一个算法 ArrayList<ArrayList<Transition>> ss = minSS(auto);
+		 * 
+		 * System.out.println();
+		 * System.out.println("-------------------1、得到的迁移片段-------------------")
+		 * ; System.out.println("********************************************");
+		 * for (ArrayList<Transition> tset : ss) { for (Transition t : tset) {
+		 * System.out.print(t.getName() + "-- "); } System.out.println(); }
+		 * System.out.println("********************************************");
+		 */
 
-		for (Transition tran : auto.getTransitionSet()) {
-
-			if (tran.getSource().equals(auto.getInitState().getName())) {
-				//System.out.println("*************************************************");
-				//System.out.println(" 初始迁移-- " + tran);
-				//System.out.println("*************************************************");
-				//System.out.println();
-			}
-			State state = tran.getTargetState();
-			// findStateFromString(tran.getTarget(), auto);
-			/*
-			 * if(state.isFinalState()){ //System.out.println();
-			 * //System.out.println(
-			 * "========================================================");
-			 * //System.out.println(" 终止状态-- " + state); //System.out.
-			 * println("              --------------------------------");
-			 * //System.out.println(" 终止迁移-- " + tran); //System.out.println(
-			 * "========================================================"); }
-			 */
-		}
-		//System.out.println();
-		//System.out.println("算法前所有初始状态--  " + auto.getInitState());
-		//System.out.println("算法前所有迁移--  ");
-
-		for (Transition t : auto.getTransitionSet()) {
-			//System.out.print(t.getName() + "-- ");
-		}
-		//System.out.println();
-		//System.out.println("********************************************");
-
-		// 第一个算法
-		ArrayList<ArrayList<Transition>> ss = minSS(auto);
-
-		//System.out.println();
-		//System.out.println("-------------------1、得到的迁移片段-------------------");
-		//System.out.println("********************************************");
-		for (ArrayList<Transition> tset : ss) {
-			for (Transition t : tset) {
-				//System.out.print(t.getName() + "-- ");
-			}
-			//System.out.println();
-		}
-		//System.out.println("********************************************");
-
-		// //System.out.println("-----------------------------------------------");
-		// //System.out.println();
-		// //System.out.println("经过第1个算法得到的迁移片段个数 --- " + ss.size());
+		// System.out.println("-----------------------------------------------");
+		// System.out.println();
+		// System.out.println("经过第1个算法得到的迁移片段个数 --- " + ss.size());
 
 		// 第二格算法
-		//ArrayList<ArrayList<Transition>> lastminSS = lastMinSS(ss, auto);
+		// ArrayList<ArrayList<Transition>> lastminSS = lastMinSS(ss, auto);
 		ArrayList<ArrayList<Transition>> lastminSS = lastMinSS1(ss, auto);
 
-		//System.out.println();
-		//System.out.println("-------------------2、约简迁移片段-------------------");
-		//System.out.println("********************************************");
-		for (ArrayList<Transition> tset : lastminSS) {
-			for (Transition t : tset) {
-				//System.out.print(t.getName() + "-- ");
-			}
-			//System.out.println();
-		}
-		//System.out.println("********************************************");
+		// System.out.println();
+		// System.out.println("-------------------2、约简迁移片段-------------------");
+		// System.out.println("********************************************");
+		// for (ArrayList<Transition> tset : lastminSS) {
+		// for (Transition t : tset) {
+		// System.out.print(t.getName() + "-- ");
+		// }
+		// System.out.println();
+		// }
+		// System.out.println("********************************************");
 
-		// //System.out.println("经过第2个算法得到的迁移片段个数 --- " + lastminSS.size());
-		// //System.out.println("-----------------------------------------------");
-		// //System.out.println();
+		// System.out.println("经过第2个算法得到的迁移片段个数 --- " + lastminSS.size());
+		// System.out.println("-----------------------------------------------");
+		// System.out.println();
 
 		ArrayList<ArrayList<Transition>> propath = new ArrayList<ArrayList<Transition>>();
 
 		/*
-		 * //单独测试shortPathforStartToOne算法 //System.out.println("2次算法后的迁移片段--  " +
-		 * lastminSS.get(3)); ////System.out.println("transet.get(0)--  " +
+		 * //单独测试shortPathforStartToOne算法 System.out.println("2次算法后的迁移片段--  " +
+		 * lastminSS.get(3)); //System.out.println("transet.get(0)--  " +
 		 * transet.get(0));
 		 * if(lastminSS.get(3).get(0).getSource().equals(auto.getInitState().
 		 * getName())){ propath.add(lastminSS.get(3));
-		 * //System.out.println("---该片段是从初始状态开始---");
-		 * //System.out.println(lastminSS.get(3)); for(Transition t :
-		 * lastminSS.get(3)){ //System.out.print(t.getName() + "--  "); }
-		 * //System.out.println(); }else{ ArrayList<Transition> shortPath =
+		 * System.out.println("---该片段是从初始状态开始---");
+		 * System.out.println(lastminSS.get(3)); for(Transition t :
+		 * lastminSS.get(3)){ System.out.print(t.getName() + "--  "); }
+		 * System.out.println(); }else{ ArrayList<Transition> shortPath =
 		 * shortPathforStartToOne(auto, lastminSS.get(3).get(0));
-		 * //System.out.println("2次算法后加入前驱的迁移片段  " + shortPath); for(Transition
+		 * System.out.println("2次算法后加入前驱的迁移片段  " + shortPath); for(Transition
 		 * tran : lastminSS.get(3)){ shortPath.add(tran); }
-		 * propath.add(shortPath); //System.out.println();
-		 * //System.out.println(shortPath); for(Transition t : shortPath){
-		 * //System.out.print(t.getName() + "--  "); } //System.out.println(); }
+		 * propath.add(shortPath); System.out.println();
+		 * System.out.println(shortPath); for(Transition t : shortPath){
+		 * System.out.print(t.getName() + "--  "); } System.out.println(); }
 		 */
 
 		// 为最简组合片段加入前驱
 		for (ArrayList<Transition> transet : lastminSS) {
 
-			//System.out.println();
-			//System.out.println("------------------------------");
-			//System.out.println("2次算法后的迁移片段--  " + transet);
+			// System.out.println();
+			// System.out.println("------------------------------");
+			// System.out.println("2次算法后的迁移片段-- " + transet);
 			if (transet.get(0).getSource().equals(auto.getInitState().getName())) {
 				propath.add(transet);
-				//System.out.println("---该片段是从初始状态开始,且路径为---");
-				// //System.out.println(transet);
-				for (Transition t : transet) {
-					//System.out.print(t.getName() + "--  ");
-				}
-				//System.out.println();
+				// System.out.println("---该片段是从初始状态开始,且路径为---");
+				// System.out.println(transet);
+				// for (Transition t : transet) {
+				// System.out.print(t.getName() + "-- ");
+				// }
+				// System.out.println();
 			} else {
-				//System.out.println("加前驱前的首迁移------    " + transet.get(0));
+				// System.out.println("加前驱前的首迁移------ " + transet.get(0));
 				// ArrayList<Transition> shortPath =
 				// shortPathforStartToOne(auto, transet.get(0));
 				// ArrayList<Transition> shortPath = addProPath(auto,
 				// transet.get(0));//----------------------------------
 				ArrayList<Transition> shortPath = oneOfPathforStartToOne(auto, transet.get(0));////////////////////////////////////////////////////////////
-				//System.out.println("--- " + shortPath);
+				// System.out.println("--- " + shortPath);
 
-				// //System.out.println("2次算法后加入前驱的迁移片段 " + shortPath);
+				// System.out.println("2次算法后加入前驱的迁移片段 " + shortPath);
 				for (Transition tran : transet) {
 					shortPath.add(tran);
 				}
 				propath.add(shortPath);
-				//System.out.println("---加入前驱后路径--- ");
-				for (Transition t : shortPath) {
-					//System.out.print(t.getName() + "--  ");
-				}
-				//System.out.println();
+				// System.out.println("---加入前驱后路径--- ");
+//				for (Transition t : shortPath) {
+//					System.out.print(t.getName() + "--  ");
+//				}
+				// System.out.println();
 			}
-			//System.out.println("------------------------------");
+			// System.out.println("------------------------------");
 		}
 
-		//System.out.println();
-		//System.out.println("-------------------加前驱后路径-------------------");
-		//System.out.println("********************************************");
-		for (ArrayList<Transition> tset : propath) {
-			for (Transition t : tset) {
-				//System.out.print(t.getName() + "-- ");
-			}
-			//System.out.println();
-		}
-		//System.out.println("********************************************");
+		// System.out.println();
+		// System.out.println("-------------------加前驱后路径-------------------");
+		// System.out.println("********************************************");
+		// for (ArrayList<Transition> tset : propath) {
+		// for (Transition t : tset) {
+		// System.out.print(t.getName() + "-- ");
+		// }
+		// System.out.println();
+		// }
+		// System.out.println("********************************************");
 
 		// 找到迁移片段到终止节点的最短路径
 		for (ArrayList<Transition> transet : propath) {
-			//System.out.println("                      ----------------------------------------");
-			// //System.out.println(auto.getInitState());
-			//System.out.println("====目标状态====" + transet.get(transet.size() - 1).getTargetState());
-			//System.out.println("                      ----------------------------------------");
-			//System.out.println("---------*****  " + transet.get(transet.size() - 1));
-			//System.out.println("---------*****  " + transet.get(transet.size() - 1).getTargetState());
+			// System.out.println(" ----------------------------------------");
+			// System.out.println(auto.getInitState());
+			// System.out.println("====目标状态====" + transet.get(transet.size() -
+			// 1).getTargetState());
+			// System.out.println(" ----------------------------------------");
+			// System.out.println("---------***** " + transet.get(transet.size()
+			// - 1));
+			// System.out.println("---------***** " + transet.get(transet.size()
+			// - 1).getTargetState());
 			if (!(transet.get(transet.size() - 1).getTargetState().isFinalState())) {
-				//System.out.println("====需要加后续片段====");
+				// System.out.println("====需要加后续片段====");
 				// if(!(findStateFromString(transet.get(transet.size()-1).getTarget(),
 				// auto).isFinalState())){
 				// ArrayList<Transition> lastPath = shortPathforOneToEnd(auto,
@@ -351,23 +469,23 @@ public class MinTC {
 				// ArrayList<Transition> lastPath = addPostPath(auto,
 				// transet.get(transet.size()-1));
 				ArrayList<Transition> lastPath = oneOfPathforOneToEnd(auto, transet.get(transet.size() - 1));
-				//System.out.println("后续片段-- " + lastPath);
+				// System.out.println("后续片段-- " + lastPath);
 				for (Transition tran : lastPath) {
 					transet.add(tran);
 				}
 			}
 		}
-		//System.out.println();
-		//System.out.println("--------------------最终路径-------------------");
-		//System.out.println("********************************************");
-		for (ArrayList<Transition> tset : propath) {
-			for (Transition t : tset) {
-				//System.out.print(t.getName() + "-- ");
-			}
-			//System.out.println();
-		}
-		//System.out.println("********************************************");
-		//System.out.println();
+		// System.out.println();
+		// System.out.println("--------------------最终路径-------------------");
+		// System.out.println("********************************************");
+		// for (ArrayList<Transition> tset : propath) {
+		// for (Transition t : tset) {
+		// System.out.print(t.getName() + "-- ");
+		// }
+		// System.out.println();
+		// }
+		// System.out.println("********************************************");
+		// System.out.println();
 		return propath;
 
 	}
@@ -459,14 +577,14 @@ public class MinTC {
 
 			}
 		}
-		for (ArrayList<Transition> s : SS) {
-			//System.out.println("***********");
-			for (Transition t : s) {
-				// //System.out.print(t.getId()+" --- ");
-				//System.out.print(t.getName() + " -- ");
-			}
-			//System.out.println("***********");
-		}
+		// for (ArrayList<Transition> s : SS) {
+		// System.out.println("***********");
+		// for (Transition t : s) {
+		// // System.out.print(t.getId()+" --- ");
+		// System.out.print(t.getName() + " -- ");
+		// }
+		// System.out.println("***********");
+		// }
 		return SS;
 	}
 

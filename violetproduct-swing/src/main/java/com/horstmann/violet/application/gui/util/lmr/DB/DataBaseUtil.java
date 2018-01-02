@@ -269,7 +269,28 @@ public class DataBaseUtil {
 		
 	}
 	
-	public static void insertTestCaseData(int type, String testcasedataname){
+	public static void updateTestCaseData(int id, int count){
+		
+		try {
+
+			init();
+			
+			sql = "update casedata set count=? where id=?";
+			
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, count);
+			pst.setInt(2, id);
+			pst.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+	}
+	
+	public static void insertTestCaseData(int type, String testcasedataname, int count){
 		
 		int id=queryMaxTestCaseDataId()+1;
 		
@@ -277,12 +298,13 @@ public class DataBaseUtil {
 
 			init();
 			
-			sql = "insert into casedata(id,name,type) values(?,?,?)";
+			sql = "insert into casedata(id,name,count,type) values(?,?,?,?)";
 
 			pst = conn.prepareStatement(sql);
 			pst.setInt(1, id);
 			pst.setString(2, testcasedataname);
-			pst.setInt(3, type);
+			pst.setInt(3, count);
+			pst.setInt(4, type);
 			pst.executeUpdate();
 
 		} catch (Exception e) {
@@ -297,10 +319,11 @@ public class DataBaseUtil {
 
 		int caseid=queryByTestCaseDataName(testcasedataname);
 		if(caseid==0){
-			insertTestCaseData(type, testcasedataname);
+			insertTestCaseData(type, testcasedataname,testcasestringlist.size());
 			caseid=queryByTestCaseDataName(testcasedataname);
 		}
 		else{
+			updateTestCaseData(caseid,testcasestringlist.size());
 			deleteTestCaseByIdAndType(caseid,type);
 		}
 		
@@ -352,7 +375,7 @@ public class DataBaseUtil {
 
 		int caseid=queryByTestCaseDataName(testcasedataname);
 		if(caseid==0){
-			insertTestCaseData(type, testcasedataname);
+			insertTestCaseData(type, testcasedataname, testcasestringlist.size());
 			caseid=queryByTestCaseDataName(testcasedataname);
 			
 			try {

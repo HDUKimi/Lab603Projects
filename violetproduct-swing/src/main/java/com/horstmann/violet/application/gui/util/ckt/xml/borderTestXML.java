@@ -502,7 +502,12 @@ public class borderTestXML {
 			int numm = 1;
 			System.out.println("第" + index + "条测试路径上解个数" + numm);
 			int testRouteNum = testcaseresult.size();
-			int num = 1000 / testRouteNum + 1;// 一条路径100个测试用例///////////////////////////////////////////////////////////////////////////////////
+			
+			Random rand=new Random(System.currentTimeMillis());
+			int expertNum=1000+rand.nextInt(300);
+			
+			
+			int num = expertNum / testRouteNum + 1;// 一条路径100个测试用例///////////////////////////////////////////////////////////////////////////////////
 			for (int nn = 0; nn < cases.size(); nn++) {
 				int n = cases.get(nn).size();
 				if (n <= 0) {
@@ -537,7 +542,7 @@ public class borderTestXML {
 
 					int random = -1;
 					if (random == -1) {
-						random = new Random().nextInt(cases.get(nn).size());
+						random = new Random(System.currentTimeMillis()).nextInt(cases.get(nn).size());
 					}
 					// ShowInfor.print("random-->"+random);
 					String value = cases.get(nn).get(random);
