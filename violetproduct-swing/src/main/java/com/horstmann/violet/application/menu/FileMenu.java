@@ -959,7 +959,7 @@ public class FileMenu extends JMenu {
 
 					final List<IFile> files = new ArrayList<IFile>();
 					if (flag == false) {
-						if(selectedFile.getFilename().contains("电梯模拟")){
+						if(selectedFile.getFilename().contains("电梯控制")){
 							String upath="D:\\ModelDriverProjectFile\\SequenceDiagram\\Violet\\TimeTest\\elevator.seq.violet.xml";
 							File ufile=new File(upath);
 							if(ufile.exists()){

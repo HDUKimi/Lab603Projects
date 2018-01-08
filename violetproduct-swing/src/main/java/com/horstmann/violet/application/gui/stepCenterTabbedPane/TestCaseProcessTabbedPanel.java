@@ -643,7 +643,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				
 				stepAllProcessList.add("第一步：获取时间自动机");
 				timeAllProcessList.add(time2-time1+"ms");
-				resultAllProcessList.add("  1  2  3  4  5  6  7  8  9  0   通过解析xml，共解析出"+a.getStateSet().size()+"个状态，"+a.getTransitionSet().size()+"个迁移");
+				resultAllProcessList.add("通过解析xml，共解析出"+a.getStateSet().size()+"个状态，"+a.getTransitionSet().size()+"个迁移");
 				
 				return 1;
 			}

@@ -1769,6 +1769,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		}
 		dtm.fireTableDataChanged();
 		mainFrame.getTestCaseConfirmResultPanel().getOnenamelabel().setText("");
+		mainFrame.getConsolePartPanel().getTextarea5().setText("");
 	}
 
 	protected void updateTestCaseTree() {
