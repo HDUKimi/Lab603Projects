@@ -31,106 +31,11 @@ public class ApplicationStopper
      */
     public void exitProgram(MainFrame mainFrame)
     {
-        boolean ok = isItReadyToExit(mainFrame);
-        if (ok)
-        {
-            System.exit(0);
-        }
-    }
-
-    /**
-     * Asks user to save changes before exit.
-     * 
-     * @return true is all is saved either false
-     */
-    private boolean isItReadyToExit(MainFrame mainFrame)
-    {
-        List<IWorkspace> dirtyWorkspaceList = new ArrayList<IWorkspace>();
-        List<IWorkspace> StateworkspaceList = mainFrame.getStateWorkspaceList();
-        List<IWorkspace> SequenceworkspaceList = mainFrame.getSequenceWorkspaceList();
-        List<IWorkspace> TimingDiagramworkspaceList = mainFrame.getTimingWorkspaceList();
-        List<IWorkspace> UseCaseworkspaceList = mainFrame.getUseCaseWorkspaceList();
-      
-       
-        for (IWorkspace aWorkspacel : StateworkspaceList)
-        {
-            IGraphFile graphFile = aWorkspacel.getGraphFile();
-        	if (graphFile.isSaveRequired())
-            {
-                dirtyWorkspaceList.add(aWorkspacel);
-            }
-        }
-        for (IWorkspace aWorkspacel : SequenceworkspaceList)
-        {
-            IGraphFile graphFile = aWorkspacel.getGraphFile();
-        	if (graphFile.isSaveRequired())
-            {
-                dirtyWorkspaceList.add(aWorkspacel);
-            }
-        }
-        for (IWorkspace aWorkspacel : TimingDiagramworkspaceList)
-        {
-            IGraphFile graphFile = aWorkspacel.getGraphFile();
-        	if (graphFile.isSaveRequired())
-            {
-                dirtyWorkspaceList.add(aWorkspacel);
-            }
-        }
-        for (IWorkspace aWorkspacel : UseCaseworkspaceList)
-        {
-            IGraphFile graphFile = aWorkspacel.getGraphFile();
-        	if (graphFile.isSaveRequired())
-            {
-                dirtyWorkspaceList.add(aWorkspacel);
-            }
-        }
-        int unsavedCount = dirtyWorkspaceList.size();
-        IWorkspace activeWorkspace = mainFrame.getActiveWorkspace();
-        if (unsavedCount > 0)
-        {
-            // ask user if it is ok to close
-            String message = MessageFormat.format(this.dialogExitMessage, new Object[]
-            {
-                new Integer(unsavedCount)
-            });
-            JOptionPane optionPane = new JOptionPane(message, JOptionPane.CLOSED_OPTION, JOptionPane.YES_NO_CANCEL_OPTION,
-                    this.dialogExitIcon);
-            dialogFactory.showDialog(optionPane, this.dialogExitTitle, true);
-
-            int result = JOptionPane.YES_OPTION;
-            if (!JOptionPane.UNINITIALIZED_VALUE.equals(optionPane.getValue()))
-            {
-                result = ((Integer) optionPane.getValue()).intValue();
-            }
-
-            if (result == JOptionPane.CANCEL_OPTION)
-            {
-                return false;
-            }
-            if (result == JOptionPane.YES_OPTION)
-            {
-                for (IWorkspace aDirtyWorkspace : dirtyWorkspaceList)
-                {
-                    aDirtyWorkspace.getGraphFile().save();
-                }
-                this.userPreferencesService.setActiveDiagramFile(activeWorkspace.getGraphFile());
-                return true;
-            }
-            if (result == JOptionPane.NO_OPTION)
-            {
-                this.userPreferencesService.setActiveDiagramFile(activeWorkspace.getGraphFile());
-                return true;
-            }
-        }
-        if (unsavedCount == 0)
-        {
-            if (activeWorkspace != null)
-            {
-                this.userPreferencesService.setActiveDiagramFile(activeWorkspace.getGraphFile());
-            }
-            return true;
-        }
-        return false;
+//        boolean ok = isItReadyToExit(mainFrame);
+//        if (ok)
+//        {
+//            System.exit(0);
+//        }
     }
 
     @ResourceBundleBean(key = "dialog.exit.icon")

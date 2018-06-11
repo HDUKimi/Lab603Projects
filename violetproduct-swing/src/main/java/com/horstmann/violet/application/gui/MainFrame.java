@@ -62,24 +62,9 @@ import javax.swing.JScrollBar;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
-import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.synth.SynthSeparatorUI;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
 
-import com.horstmann.violet.application.consolepart.AbstractTestCaseResultPanel;
-import com.horstmann.violet.application.consolepart.AttributePartOnePanel;
-import com.horstmann.violet.application.consolepart.AttributePartTwoPanel;
-import com.horstmann.violet.application.consolepart.ConsolePart;
-import com.horstmann.violet.application.consolepart.ConsolePartPanel;
-import com.horstmann.violet.application.consolepart.TestCaseConfirmResultPanel;
-import com.horstmann.violet.application.consolepart.TestCaseInstantiationResultPanel;
-import com.horstmann.violet.application.consolepart.ValidationResultPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.TestCaseGenerationPanel;
 import com.horstmann.violet.application.gui.homeTabbedPanel.HomeAllTabbedPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.ModelExistValidationPanel;
@@ -87,15 +72,11 @@ import com.horstmann.violet.application.gui.opreationTreePane.ModelTransformatio
 import com.horstmann.violet.application.gui.opreationTreePane.ProjectTree;
 import com.horstmann.violet.application.gui.opreationTreePane.TestCaseConfirmationPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.TestCaseInstantiationPanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.gui.stepone.StepOneCenterPanel;
 import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 import com.horstmann.violet.application.help.AboutDialog;
 import com.horstmann.violet.application.menu.MenuFactory;
 import com.horstmann.violet.framework.dialog.DialogFactory;
-import com.horstmann.violet.framework.file.GraphFile;
-import com.horstmann.violet.framework.file.IFile;
-import com.horstmann.violet.framework.file.IGraphFile;
 import com.horstmann.violet.framework.file.chooser.IFileChooserService;
 import com.horstmann.violet.framework.injection.bean.ManiocFramework.BeanInjector;
 import com.horstmann.violet.framework.injection.bean.ManiocFramework.InjectedBean;
@@ -227,119 +208,6 @@ public class MainFrame extends JFrame {
 
 	}
 
-	public void deleteTabbedPane(final IWorkspace workspace) {
-		if (workspace.getTitle().toString().contains(".ucase.violet.xml")
-				|| workspace.getTitle().toString().substring(2, 4).equals("Us"))// 如果是用例图
-		{
-
-			JTree usecasetree = this.getProjectTree().getUsecaseTreePanel().getUsecasetree();
-			DefaultTreeModel usecasetreemodel = this.getProjectTree().getUsecaseTreePanel().getUsecasetreemodel();
-			DefaultMutableTreeNode usecasetreerootnode = this.getProjectTree().getUsecaseTreePanel()
-					.getUsecasetreerootnode();
-
-			TreePath selectionpath = usecasetree.getSelectionPath();
-			DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) selectionpath.getLastPathComponent();
-
-			int index = usecasetreerootnode.getIndex(parentNode);
-			usecasetreemodel.removeNodeFromParent(parentNode);
-			this.UseCaseWorkspaceList.remove(index);
-			this.getStepOneCenterTabbedPane().getButtonTabbedPanel()
-					.remove(this.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists().get(index));
-			this.getStepOneCenterTabbedPane().getAllDiagramButtonTabbedPanelLists()
-					.remove(this.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists().get(index));
-			this.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists().remove(index);
-			for (ButtonTabbedPanel buttonTabbedPanel : this.getStepOneCenterTabbedPane()
-					.getUsecaseDiagramButtonTabbedPanelLists()) {
-				if (buttonTabbedPanel.getButtontabbedpanelindex() >= index) {
-					buttonTabbedPanel.setButtontabbedpanelindex(buttonTabbedPanel.getButtontabbedpanelindex() - 1);
-				}
-			}
-
-		}
-		if (workspace.getTitle().toString().contains(".timing.violet.xml")
-				|| workspace.getTitle().toString().substring(2, 4).equals("Ti"))// 时序图
-		{
-
-			JTree timingtree = this.getProjectTree().getTimingTreePanel().getTimingtree();
-			DefaultTreeModel timingtreemodel = this.getProjectTree().getTimingTreePanel().getTimingtreemodel();
-			DefaultMutableTreeNode timingtreerootnode = this.getProjectTree().getTimingTreePanel()
-					.getTimingtreerootnode();
-
-			TreePath selectionpath = timingtree.getSelectionPath();
-			DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) selectionpath.getLastPathComponent();
-
-			int index = timingtreerootnode.getIndex(parentNode);
-			timingtreemodel.removeNodeFromParent(parentNode);
-			this.TimingWorkspaceList.remove(index);
-			this.getStepOneCenterTabbedPane().getButtonTabbedPanel()
-					.remove(this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().get(index));
-			this.getStepOneCenterTabbedPane().getAllDiagramButtonTabbedPanelLists()
-					.remove(this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().get(index));
-			this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().remove(index);
-			for (ButtonTabbedPanel buttonTabbedPanel : this.getStepOneCenterTabbedPane()
-					.getTimingDiagramButtonTabbedPanelLists()) {
-				if (buttonTabbedPanel.getButtontabbedpanelindex() >= index) {
-					buttonTabbedPanel.setButtontabbedpanelindex(buttonTabbedPanel.getButtontabbedpanelindex() - 1);
-				}
-			}
-
-		}
-		if (workspace.getTitle().toString().contains(".seq.violet.xml")
-				|| workspace.getTitle().toString().substring(2, 4).equals("Se"))// 如果是顺序图
-		{
-
-			JTree sequencetree = this.getProjectTree().getSequenceTreePanel().getSequencetree();
-			DefaultTreeModel sequencetreemodel = this.getProjectTree().getSequenceTreePanel().getSequencetreemodel();
-			DefaultMutableTreeNode sequencetreerootnode = this.getProjectTree().getSequenceTreePanel()
-					.getSequencetreerootnode();
-
-			TreePath selectionpath = sequencetree.getSelectionPath();
-			DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) selectionpath.getLastPathComponent();
-
-			int index = sequencetreerootnode.getIndex(parentNode);
-			sequencetreemodel.removeNodeFromParent(parentNode);
-			this.SequenceWorkspaceList.remove(index);
-			this.getStepOneCenterTabbedPane().getButtonTabbedPanel()
-					.remove(this.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists().get(index));
-			this.getStepOneCenterTabbedPane().getAllDiagramButtonTabbedPanelLists()
-					.remove(this.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists().get(index));
-			this.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists().remove(index);
-			for (ButtonTabbedPanel buttonTabbedPanel : this.getStepOneCenterTabbedPane()
-					.getSequenceDiagramButtonTabbedPanelLists()) {
-				if (buttonTabbedPanel.getButtontabbedpanelindex() >= index) {
-					buttonTabbedPanel.setButtontabbedpanelindex(buttonTabbedPanel.getButtontabbedpanelindex() - 1);
-				}
-			}
-
-		}
-		if (workspace.getTitle().toString().contains(".state.violet.xml")
-				|| workspace.getTitle().toString().substring(2, 4).equals("St"))// 如果是状态图
-		{
-
-			JTree statetree = this.getProjectTree().getStateTreePanel().getStatetree();
-			DefaultTreeModel statetreemodel = this.getProjectTree().getStateTreePanel().getStatetreemodel();
-			DefaultMutableTreeNode statetreerootnode = this.getProjectTree().getStateTreePanel().getStatetreerootnode();
-
-			TreePath selectionpath = statetree.getSelectionPath();
-			DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) selectionpath.getLastPathComponent();
-
-			int index = statetreerootnode.getIndex(parentNode);
-			statetreemodel.removeNodeFromParent(parentNode);
-			this.StateWorkspaceList.remove(index);
-			this.getStepOneCenterTabbedPane().getButtonTabbedPanel()
-					.remove(this.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists().get(index));
-			this.getStepOneCenterTabbedPane().getAllDiagramButtonTabbedPanelLists()
-					.remove(this.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists().get(index));
-			this.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists().remove(index);
-			for (ButtonTabbedPanel buttonTabbedPanel : this.getStepOneCenterTabbedPane()
-					.getStateDiagramButtonTabbedPanelLists()) {
-				if (buttonTabbedPanel.getButtontabbedpanelindex() >= index) {
-					buttonTabbedPanel.setButtontabbedpanelindex(buttonTabbedPanel.getButtontabbedpanelindex() - 1);
-				}
-			}
-
-		}
-	}
 
 	/**
 	 * Adds a tabbed pane (only if not already added)
@@ -347,290 +215,13 @@ public class MainFrame extends JFrame {
 	 * @param c
 	 *            the component to display in the internal frame
 	 */
-	public void addTabbedPane(final IWorkspace workspace) {
-		// replaceWelcomePanelByTabbedPane();
-		// 在添加图形元素的时候，首先判断下是哪种图形
 
-		if (workspace.getTitle().toString().contains(".markov.violet.xml")
-				|| workspace.getTitle().toString().substring(2, 4).equals("Ma"))// 时序图
-		{
-			if (this.TimingWorkspaceList.contains(workspace)) {
-				return;
-			}
-			// this.TimingWorkspaceList.clear();// 保证每一次新建或导入只会有1个Type页
-			// int
-			// index=this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().size();
-			int index = this.getProjectTree().getTimingTreePanel().getTimingtreerootnode().getChildCount();
-			// int size=this.TimingWorkspaceList.size();
-			// for(int i=size;i<=index;i++){
-			// this.TimingWorkspaceList.add(i, workspace);
-			// }
-			// this.TimingWorkspaceList.remove(index);
-
-			if (index == 0) {
-				this.TimingWorkspaceList.clear();
-				this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().clear();
-			}
-
-			this.TimingWorkspaceList.add(index, workspace);
-
-			this.getStepOneCenterTabbedPane().getTimingDiagramTabbedPane().removeAll();
-			// this.getStepOneCenterTabbedPane().getTimingDiagramTabbedPane().add(workspace.getAWTComponent(),
-			// new GBC(0, 0).setWeight(1, 1).setFill(GBC.BOTH));
-
-			ButtonTabbedPanel buttontabbedpanel = new ButtonTabbedPanel(this, workspace, index,
-					(workspace.getTitle().toString().split("\\."))[0]);
-			this.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists().add(index, buttontabbedpanel);
-			this.getStepOneCenterTabbedPane().getButtonTabbedPanel().add(buttontabbedpanel);
-			this.getStepOneCenterTabbedPane().getAllDiagramButtonTabbedPanelLists().add(buttontabbedpanel);
-
-			listenToDiagramPanelEvents(workspace, TimingWorkspaceList);
-
-			repaint();
-		}
-
-		/*
-		 * 展示uppaal
-		 */
-		if (workspace.getTitle().toString().contains(".uppaal.violet.xml")
-				&& !workspace.getTitle().toString().substring(0, 3).equals(("abs"))) {
-			if (this.UppaalWorkspaceList.contains(workspace)) {
-				return;
-			}
-			this.UppaalWorkspaceList.clear();
-			this.UppaalWorkspaceList.add(workspace);
-			this.getStepTwoCenterTabbedPane().getUppaalDiagramTabbedPane().removeAll();
-			this.getStepTwoCenterTabbedPane().getUppaalDiagramTabbedPane().add(workspace.getAWTComponent(),
-					new GBC(0, 0).setWeight(1, 1).setFill(GBC.BOTH));
-			listenToDiagramPanelEvents(workspace, UppaalWorkspaceList);
-			repaint();
-		}
-
-	}
-
-	public void addTabbedPane(final IWorkspace workspace, int flag) {
-		// replaceWelcomePanelByTabbedPane();
-		// 在添加图形元素的时候，首先判断下是哪种图形
-		if (flag == 21) {
-			// if(workspace.getTitle().toString().endsWith(".timing.violet.xml")
-			// ||workspace.getTitle().toString().substring(2,
-			// 4).equals("Ti"))//时序图
-			// {
-			// if(this.TimingWorkspaceList.contains(workspace))
-			// {
-			// return;
-			// }
-			// this.TimingWorkspaceList.clear();//保证每一次新建或导入只会有1个Type页
-			// this.TimingWorkspaceList.add(workspace);
-			// this.getStepTwoCenterTabbedPane().getUMLDiagramTabbedPane().removeAll();
-			// this.getStepTwoCenterTabbedPane().getUMLDiagramTabbedPane()
-			// .add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1,
-			// 1).setFill(GBC.BOTH));
-			// listenToDiagramPanelEvents(workspace,TimingWorkspaceList);
-			// repaint();
-			// }
-			// if(workspace.getTitle().toString().endsWith(".seq.violet.xml")
-			// ||workspace.getTitle().toString().substring(2,
-			// 4).equals("Se"))//如果是顺序图
-			//
-			// {
-			//
-			// if(this.StepTwoSequenceWorkspaceList.contains(workspace))
-			// {
-			// return;
-			// }
-			// this.StepTwoSequenceWorkspaceList.clear();
-			// this.StepTwoSequenceWorkspaceList.add(workspace);
-			// this.getStepTwoCenterTabbedPane().getUMLDiagramTabbedPane().removeAll();
-			// this.getStepTwoCenterTabbedPane().getUMLDiagramTabbedPane()
-			// .add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1,
-			// 1).setFill(GBC.BOTH));
-			// listenToDiagramPanelEvents(workspace,StepTwoSequenceWorkspaceList);
-			// repaint();
-			// }
-
-			/*
-			 * 展示uppaal
-			 */
-			if (workspace.getTitle().toString().contains(".uppaal.violet.xml")) {
-				if (this.SequenceToUppaalWorkspaceList.contains(workspace)) {
-					return;
-				}
-
-				// int
-				// index=this.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltablemodel().getRowCount();
-				// int
-				// index=this.getModelTransformationPanel().getModelSequenceTreePanel().getUppaaltreerootnode().getChildCount();
-
-				int index = 0;
-
-				DefaultMutableTreeNode rootnode = this.getModelTransformationPanel().getModelSequenceTreePanel()
-						.getUppaaltreerootnode();
-				Enumeration<?> en = rootnode.children();
-				while (en.hasMoreElements()) {
-
-					index++;
-
-					DefaultMutableTreeNode node;
-					node = (DefaultMutableTreeNode) en.nextElement();
-
-					index += node.getChildCount();
-
-				}
-
-				System.err.println(index + " - "
-						+ this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().size());
-
-				if (index == 0) {
-					this.SequenceToUppaalWorkspaceList.clear();
-					this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().clear();
-				}
-
-				this.SequenceToUppaalWorkspaceList.add(index, workspace);
-
-				// System.err.println(workspace.getTitle());
-				// ButtonTabbedPanel buttontabbedpanel=new
-				// ButtonTabbedPanel(this, workspace,index,
-				// (workspace.getTitle().toString().split("\\."))[0]);
-				ButtonTabbedPanel buttontabbedpanel = new ButtonTabbedPanel(this, workspace, index,
-						(workspace.getTitle().toString().replace(".uppaal.violet.xml", "")));
-				// for(ButtonTabbedPanel
-				// btp:this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()){
-				// if(btp.getTabbedbutton().getText().equals(workspace.getTitle().toString().replace(".uppaal.violet.xml",
-				// ""))){
-				// btp.setVisible(false);
-				// this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists().remove(btp);
-				// break;
-				// }
-				// }
-				buttontabbedpanel.setVisible(false);
-				this.getStepTwoCenterTabbedPane().getSequenceToUppaalDiagramButtonTabbedPanelLists()
-						.add(buttontabbedpanel);
-				this.getStepTwoCenterTabbedPane().getButtonTabbedPanel().add(buttontabbedpanel);
-				// listenToDiagramPanelEvents(workspace,SequenceToUppaalWorkspaceList);
-				// repaint();
-			}
-		}
-
-		if (flag == 22) {
-			if (workspace.getTitle().toString().contains(".uppaal.violet.xml")) {
-				if (this.TimingToUppaalWorkspaceList.contains(workspace)) {
-					return;
-				}
-
-				// int
-				// index=this.getModelTransformationPanel().getModelTimingTreePanel().getUppaaltablemodel().getRowCount();
-
-				int index = 0;
-
-				DefaultMutableTreeNode rootnode = this.getModelTransformationPanel().getModelTimingTreePanel()
-						.getUppaaltreerootnode();
-				Enumeration<?> en = rootnode.children();
-				while (en.hasMoreElements()) {
-
-					index++;
-
-					DefaultMutableTreeNode node;
-					node = (DefaultMutableTreeNode) en.nextElement();
-
-					index += node.getChildCount();
-
-				}
-
-				System.err.println(index + " - "
-						+ this.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists().size());
-
-				if (index == 0) {
-					this.TimingToUppaalWorkspaceList.clear();
-					this.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists().clear();
-				}
-
-				this.TimingToUppaalWorkspaceList.add(index, workspace);
-
-				// System.err.println(workspace.getTitle());
-				// ButtonTabbedPanel buttontabbedpanel=new
-				// ButtonTabbedPanel(this, workspace,index,
-				// (workspace.getTitle().toString().split("\\."))[0]);
-				ButtonTabbedPanel buttontabbedpanel = new ButtonTabbedPanel(this, workspace, index,
-						(workspace.getTitle().toString().replace(".uppaal.violet.xml", "")));
-				buttontabbedpanel.setVisible(false);
-				this.getStepTwoCenterTabbedPane().getTimingToUppaalDiagramButtonTabbedPanelLists()
-						.add(buttontabbedpanel);
-				this.getStepTwoCenterTabbedPane().getButtonTabbedPanel().add(buttontabbedpanel);
-
-				// listenToDiagramPanelEvents(workspace,TimingToUppaalWorkspaceList);
-				// repaint();
-			}
-		}
-
-		if (flag == 3) {
-			/*
-			 * 含有时间迁移自动机
-			 */
-			// if(workspace.getTitle().toString().startsWith("abs"))
-			// {
-			// if(this.UppaalWorkspaceList.contains(workspace))
-			// {
-			// return;
-			// }
-			// this.UppaalWorkspaceList.clear();//保证每一次新建或导入只会有1个Type页
-			// this.UppaalWorkspaceList.add(workspace);
-			// this.getStepThreeCenterTabbedPane().getAbstractUppaalTabbedPane().removeAll();
-			// this.getStepThreeCenterTabbedPane().getAbstractUppaalTabbedPane()
-			// .add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1,
-			// 1).setFill(GBC.BOTH));
-			// listenToDiagramPanelEvents(workspace,UppaalWorkspaceList);
-			// repaint();
-			// }
-			/*
-			 * 去时间迁移自动机
-			 */
-			// if(workspace.getTitle().toString().startsWith("no_time_abs"))
-			// {
-			// if(this.UppaalWorkspaceList.contains(workspace))
-			// {
-			// return;
-			// }
-			// this.UppaalWorkspaceList.clear();//保证每一次新建或导入只会有1个Type页
-			// this.UppaalWorkspaceList.add(workspace);
-			// this.getStepThreeCenterTabbedPane().getUppaalTabbedPane().removeAll();
-			// this.getStepThreeCenterTabbedPane().getUppaalTabbedPane()
-			// .add(workspace.getAWTComponent(),new GBC(0,0).setWeight(1,
-			// 1).setFill(GBC.BOTH));
-			// listenToDiagramPanelEvents(workspace,UppaalWorkspaceList);
-			// repaint();
-			// }
-		}
-
-	}
 
 	/**
 	 * Add a listener to perform action when something happens on this diagram
 	 * 
 	 * @param diagramPanel
 	 */
-	private void listenToDiagramPanelEvents(final IWorkspace diagramPanel, final List<IWorkspace> workspaceList) {
-		diagramPanel.addListener(new IWorkspaceListener() {
-			public void titleChanged(String newTitle) {
-				int pos = workspaceList.indexOf(diagramPanel);
-
-			}
-
-			public void graphCouldBeSaved() {
-				// nothing to do here
-			}
-
-			public void mustOpenfile(IFile file) {
-				try {
-					IGraphFile graphFile = new GraphFile(file);
-					IWorkspace newWorkspace = new Workspace(graphFile);
-					addTabbedPane(newWorkspace);
-				} catch (IOException e) {
-					DialogFactory.getInstance().showErrorDialog(e.getMessage());
-				}
-			}
-		});
-	}
 
 	private void replaceWelcomePanelByTabbedPane() {
 		WelcomePanel welcomePanel = this.getWelcomePanel();
@@ -684,43 +275,6 @@ public class MainFrame extends JFrame {
 	 * @param diagramPanel
 	 */
 	public void removeDiagramPanel(IWorkspace diagramPanel) {
-		if (this.UseCaseWorkspaceList.contains(diagramPanel)) {
-			int pos = this.UseCaseWorkspaceList.indexOf(diagramPanel);
-			// getStepOneCenterTabbedPane().getUMLTabbedPane(diagramPanel).remove(pos);
-			// this.UseCaseWorkspaceList.remove(diagramPanel);
-			repaint();
-		}
-		if (this.TimingWorkspaceList.contains(diagramPanel)) {
-			int pos = this.TimingWorkspaceList.indexOf(diagramPanel);
-			// getStepOneCenterTabbedPane().getUMLTabbedPane(diagramPanel).remove(pos);
-			// this.TimingWorkspaceList.remove(diagramPanel);
-			repaint();
-		}
-		if (this.SequenceWorkspaceList.contains(diagramPanel)) {
-			int pos = this.SequenceWorkspaceList.indexOf(diagramPanel);
-			// getStepOneCenterTabbedPane().getUMLTabbedPane(diagramPanel).remove(pos);
-			// this.SequenceWorkspaceList.remove(diagramPanel);
-			repaint();
-		}
-		if (this.StateWorkspaceList.contains(diagramPanel)) {
-			int pos = this.StateWorkspaceList.indexOf(diagramPanel);
-			// getStepOneCenterTabbedPane().getUMLTabbedPane(diagramPanel).remove(pos);
-			// this.StateWorkspaceList.remove(diagramPanel);
-			repaint();
-		}
-		if (this.UppaalWorkspaceList.contains(diagramPanel)) {
-			int pos = this.UppaalWorkspaceList.indexOf(diagramPanel);
-			getStepTwoCenterTabbedPane().getUppaalDiagramTabbedPane().remove(pos);
-			this.UppaalWorkspaceList.remove(diagramPanel);
-			repaint();
-		}
-
-		this.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().setVisible(false);
-		// this.getStepOneCenterTabbedPane().getButtonPanel().remove(this.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel());
-		this.getStepOneCenterTabbedPane().getDiagramPanel().removeAll();
-		this.setVisible(false);
-		this.getContentPane().repaint();
-		this.setVisible(true);
 
 	}
 
@@ -730,115 +284,14 @@ public class MainFrame extends JFrame {
 	 * @param diagramFilePath
 	 *            diagram file path
 	 */
-	public void setActiveDiagramPanel(IFile aGraphFile) {
-		if (aGraphFile == null)
-			return;
-		for (IWorkspace aDiagramPanel : this.UseCaseWorkspaceList) {
-			IFile toCompare = aDiagramPanel.getGraphFile();
-			boolean isSameFilename = aGraphFile.getFilename().equals(toCompare.getFilename());
-			if (isSameFilename) {
-				int pos = this.UseCaseWorkspaceList.indexOf(aDiagramPanel);
-				// JTabbedPane tp =
-				// getStepOneCenterTabbedPane().getUsecaseDiagramTabbedPane();
-				// tp.setSelectedIndex(pos);
-				return;
-			}
-		}
-		for (IWorkspace aDiagramPanel : this.TimingWorkspaceList) {
-			IFile toCompare = aDiagramPanel.getGraphFile();
-			boolean isSameFilename = aGraphFile.getFilename().equals(toCompare.getFilename());
-			if (isSameFilename) {
-				int pos = this.TimingWorkspaceList.indexOf(aDiagramPanel);
-				// JTabbedPane tp =
-				// getStepOneCenterTabbedPane().getTimingDiagramTabbedPane();
-				// tp.setSelectedIndex(pos);
-				return;
-			}
-		}
-		for (IWorkspace aDiagramPanel : this.SequenceWorkspaceList) {
-			IFile toCompare = aDiagramPanel.getGraphFile();
-			boolean isSameFilename = aGraphFile.getFilename().equals(toCompare.getFilename());
-			if (isSameFilename) {
-				int pos = this.SequenceWorkspaceList.indexOf(aDiagramPanel);
-				// JTabbedPane tp =
-				// getStepOneCenterTabbedPane().getSequenceDiagramTabbedPane();
-				// tp.setSelectedIndex(pos);
-				return;
-			}
-		}
-		for (IWorkspace aDiagramPanel : this.StateWorkspaceList) {
-			IFile toCompare = aDiagramPanel.getGraphFile();
-			boolean isSameFilename = aGraphFile.getFilename().equals(toCompare.getFilename());
-			if (isSameFilename) {
-				int pos = this.StateWorkspaceList.indexOf(aDiagramPanel);
-				// JTabbedPane tp =
-				// getStepOneCenterTabbedPane().getStateDiagramTabbedPane();
-				// tp.setSelectedIndex(pos);
-				return;
-			}
-		}
-	}
 
-	/**
-	 * @return true if at least a diagram is displayed
-	 */
-	public boolean isThereAnyDiagramDisplayed() {
-		return !this.UseCaseWorkspaceList.isEmpty() || !this.TimingWorkspaceList.isEmpty()
-				|| !this.StateWorkspaceList.isEmpty() || !this.SequenceWorkspaceList.isEmpty()
-				|| !this.UppaalWorkspaceList.isEmpty();
-	}
-
-	public List<IWorkspace> getUseCaseWorkspaceList() {
-		return UseCaseWorkspaceList;
-	}
-
-	public List<IWorkspace> getTimingWorkspaceList() {
-		return TimingWorkspaceList;
-	}
-
-	public List<IWorkspace> getSequenceWorkspaceList() {
-		return SequenceWorkspaceList;
-	}
-
-	public List<IWorkspace> getStateWorkspaceList() {
-		return StateWorkspaceList;
-	}
 
 	/**
 	 * @return selected diagram file path (or null if not one is selected; that
 	 *         should never happen)
 	 */
 	public IWorkspace getActiveWorkspace() {
-		StepOneCenterTabbedPane Onetp = getStepOneCenterTabbedPane();
-		StepTwoCenterTabbedPane Twotp = getStepTwoCenterTabbedPane();
-		int pos1 = Onetp.getSelectedIndex();
-		int pos2 = Twotp.getSelectedIndex();
-		// System.out.println(pos1+"+++++++++++++++++"+pos2);
-		// System.out.println(UppaalWorkspaceList.size());
-		System.out.println("se " + SequenceWorkspaceList.size() + " + ti " + TimingWorkspaceList.size() + " + st "
-				+ StateWorkspaceList.size() + " + uc " + UseCaseWorkspaceList.size());
-		if (pos1 == 0 && SequenceWorkspaceList.size() > 0) {
-			return this.SequenceWorkspaceList
-					.get(this.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex());
-		}
-		if (pos1 == 1 && TimingWorkspaceList.size() > 0) {
-			return this.TimingWorkspaceList
-					.get(this.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex());
-		}
-		if (pos1 == 2 && StateWorkspaceList.size() > 0) {
-			return this.StateWorkspaceList
-					.get(this.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex());
-		}
-		if (pos1 == 3 && UseCaseWorkspaceList.size() > 0) {
-			return this.UseCaseWorkspaceList
-					.get(this.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex());
-		}
-		if (pos2 == 1 && UppaalWorkspaceList.size() > 0) {
-			// System.out.println("----------------");
-			return this.UppaalWorkspaceList.get(0);
-		} else {// 说明没有workspace UML图形需要保存
 			return null;
-		}
 	}
 	
 
@@ -864,61 +317,6 @@ public class MainFrame extends JFrame {
 		return this.stepButton;
 	}
 
-	// public ConsolePart getConsolePart() {
-	// if(this.consolePart==null)
-	// {
-	// this.consolePart=new ConsolePart(this);
-	// }
-	// return this.consolePart;
-	// }
-	public ConsolePartPanel getConsolePartPanel() {
-		if (this.consolePartPanel == null) {
-			this.consolePartPanel = new ConsolePartPanel(this);
-		}
-		return this.consolePartPanel;
-	}
-
-	public AttributePartOnePanel getAttributePartOnePanel() {
-		if (this.attributePartOnePanel == null) {
-			this.attributePartOnePanel = new AttributePartOnePanel(this);
-		}
-		return this.attributePartOnePanel;
-	}
-
-	public AttributePartTwoPanel getAttributePartTwoPanel() {
-		if (this.attributePartTwoPanel == null) {
-			this.attributePartTwoPanel = new AttributePartTwoPanel(this);
-		}
-		return this.attributePartTwoPanel;
-	}
-
-	public ValidationResultPanel getValidationResultPanel() {
-		if (this.validationResultPanel == null) {
-			this.validationResultPanel = new ValidationResultPanel(this);
-		}
-		return this.validationResultPanel;
-	}
-
-	public AbstractTestCaseResultPanel getAbstractTestCaseResultPanel() {
-		if (this.abstractTestCaseResultPanel == null) {
-			this.abstractTestCaseResultPanel = new AbstractTestCaseResultPanel(this);
-		}
-		return this.abstractTestCaseResultPanel;
-	}
-
-	public TestCaseInstantiationResultPanel getTestCaseInstantiationResultPanel() {
-		if (this.testCaseInstantiationResultPanel == null) {
-			this.testCaseInstantiationResultPanel = new TestCaseInstantiationResultPanel(this);
-		}
-		return this.testCaseInstantiationResultPanel;
-	}
-
-	public TestCaseConfirmResultPanel getTestCaseConfirmResultPanel() {
-		if (this.testCaseConfirmResultPanel == null) {
-			this.testCaseConfirmResultPanel = new TestCaseConfirmResultPanel(this);
-		}
-		return this.testCaseConfirmResultPanel;
-	}
 
 	// public JPanel getConsolePart(){
 	// return this.consolepartpanel;
@@ -1001,8 +399,6 @@ public class MainFrame extends JFrame {
 			this.getCenterPanel().setBackground(new Color(53, 73, 105));
 			this.getCenterPanel().add(this.getHomeAllTabbedPanel());// 默认添加首页
 			this.setStepindex(0);
-			this.getCenterTabPanel().setLayout(new GridLayout(1, 1));
-			this.getCenterTabPanel().setBackground(new Color(53, 73, 105));
 
 			this.mainPanel.add(this.getTopPanel());
 			this.mainPanel.add(this.getCenterPanel());
@@ -1081,21 +477,6 @@ public class MainFrame extends JFrame {
 
 	}
 
-	public JPanel getOpreationPart() {
-		// TODO Auto-generated method stub
-		return this.opreationpanel;
-	}
-
-	public JPanel getAttributePart() {
-		// TODO Auto-generated method stub
-		return this.attributePanel;
-	}
-
-	public JPanel getCenterTabPanel() {
-		// TODO Auto-generated method stub
-		return this.centerTabPanel;
-	}
-
 	/**
 	 * @return the menu factory instance
 	 */
@@ -1154,10 +535,6 @@ public class MainFrame extends JFrame {
 		this.stepindex = stepindex;
 	}
 
-	public String getDirectory() {
-		return this.getSequenceWorkspaceList().get(0).getGraphFile().getDirectory();
-	}
-
 	public List<IWorkspace> getMarkovWorkspaceList() {
 		return MarkovWorkspaceList;
 	}
@@ -1189,22 +566,8 @@ public class MainFrame extends JFrame {
 	private StepFiveCenterTabbedPane stepFiveCenterTabbedPane;
 	private StepSixCenterTabbedPane stepSixCenterTabbedPane;
 
-	private ConsolePartPanel consolePartPanel;
-	private AttributePartOnePanel attributePartOnePanel;
-	private AttributePartTwoPanel attributePartTwoPanel;
-	private ValidationResultPanel validationResultPanel;
-	private AbstractTestCaseResultPanel abstractTestCaseResultPanel;
-	private TestCaseInstantiationResultPanel testCaseInstantiationResultPanel;
-	private TestCaseConfirmResultPanel testCaseConfirmResultPanel;
-	// private ConsolePart consolePart;
-
 	private StepButtonPanel stepButton;
 	private JPanel centerPanel = new JPanel();;
-	private JPanel opreationpanel = new JPanel();
-	private JPanel attributePanel = new JPanel();
-	private JPanel centerTabPanel = new JPanel();
-	// private JPanel consolepartpanel = new JPanel();
-	private String directory;
 	public int stepindex = 0;
 
 	private TopPanel topPanel;
@@ -1255,11 +618,6 @@ public class MainFrame extends JFrame {
 	 */
 
 	private List<IWorkspace> MarkovWorkspaceList = new ArrayList<IWorkspace>();// 剖面图
-
-	private List<IWorkspace> UppaalWorkspaceList = new ArrayList<IWorkspace>();// 时间自动机
-
-	private List<IWorkspace> SequenceToUppaalWorkspaceList = new ArrayList<IWorkspace>();// 时间自动机
-	private List<IWorkspace> TimingToUppaalWorkspaceList = new ArrayList<IWorkspace>();// 时间自动机
 
 	// workaround for bug #4646747 in J2SE SDK 1.4.0
 	private static java.util.HashMap<Class<?>, BeanInfo> beanInfos;

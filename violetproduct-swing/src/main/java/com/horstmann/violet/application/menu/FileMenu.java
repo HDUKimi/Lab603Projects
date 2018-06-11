@@ -76,26 +76,6 @@ import com.horstmann.violet.application.gui.util.tanchao.CalculateWidth;
 import com.horstmann.violet.application.gui.util.tanchao.RefreshTool;
 import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 import com.horstmann.violet.application.gui.util.tanchao.XMLCopy;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateActivityDiagramEAXml;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateActivityDiagramVioletXML;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateClassDiagramEAXML;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateClassDiagramVioletXML;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateStateDiagramEAXml;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateStateDiagramVioletXML;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateUseCaseDiagramEAXml;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.CreateUseCaseDiagramVioletXml;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.XMLUtils;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.readActivityXMLFormViolet;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.readActivityXMLFromEA;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.readClassXMLFormViolet;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.readClassXMLFromEA;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.readStateXMLFormViolet;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.readStateXMLFromEA;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.readUcaseXMLFormViolet;
-import com.horstmann.violet.application.menu.util.zhangjian.UMLTransfrom.readUseCaseXMLFromEA;
-import com.horstmann.violet.application.menu.xiaole.SequenceTransfrom.EADiagram;
-import com.horstmann.violet.application.menu.xiaole.SequenceTransfrom.MainTransEAToViolet;
-import com.horstmann.violet.application.menu.xiaole.TimingTransfrom.MainTransVioletTiming;
 import com.horstmann.violet.framework.dialog.DialogFactory;
 import com.horstmann.violet.framework.file.GraphFile;
 import com.horstmann.violet.framework.file.IFile;
@@ -560,180 +540,6 @@ public class FileMenu extends JMenu {
 	 * 张建新加 selectedFile(选中的文件)--->graphFile(转化成我们平台的格式)
 	 * flag来表示我们打开的是ea，还是我们的平台xml
 	 */
-	public static IFile exchangeFile(IFile selectedFile, IGraphFile graphFile, boolean flag) throws Exception {
-		String url = selectedFile.getDirectory() + "\\" + selectedFile.getFilename();
-		// String base="D:\\ModelDriverProjectFile";
-		File ffff = FileSystemView.getFileSystemView().getHomeDirectory();
-		// 获得目录
-		String s = ffff.getAbsolutePath();
-		// String baseUrl ="D://ModelDriverProjectFile";
-		String base = s + "\\ModelDriverProjectFile";
-		String type = (selectedFile.getFilename().split("\\."))[1];// 第一个表示我们文件的类型
-		String path = null;
-		File ff = null;// 用于生成在d盘中文件
-		if (flag == true) {// 选择的文件是平台保存的文件XML格式
-			graphFile = new GraphFile(selectedFile);
-
-			if ("class".equals(type)) {
-				path = base + "/ClassDiagram/";
-				graphFile.AutoSave(selectedFile, path + "Violet/");
-				readClassXMLFormViolet rc = new readClassXMLFormViolet(url);
-				CreateClassDiagramEAXML c = new CreateClassDiagramEAXML();
-				ff = new File(path + "EA");
-				if (!ff.exists()) {
-					ff.mkdirs();
-				}
-				StringBuffer name = dealEAFileName(selectedFile);
-				c.create(rc, path + "EA/" + name);
-			} else if ("ucase".equals(type)) {
-				path = base + "/UseCaseDiagram/";
-				graphFile.AutoSave(selectedFile, path + "Violet/");
-				readUcaseXMLFormViolet ru = new readUcaseXMLFormViolet(url);
-				CreateUseCaseDiagramEAXml cu = new CreateUseCaseDiagramEAXml();
-				ff = new File(path + "EA");
-				if (!ff.exists()) {
-					ff.mkdirs();
-				}
-				StringBuffer name = dealEAFileName(selectedFile);
-				cu.create(ru, path + "EA/" + name);
-			} else if ("seq".equals(type)) {
-				path = base + "/SequenceDiagram/";
-			} else if ("state".equals(type)) {
-				path = base + "/StateDiagram/";
-				graphFile.AutoSave(selectedFile, path + "Violet/");
-				readStateXMLFormViolet rs = new readStateXMLFormViolet(url);
-				CreateStateDiagramEAXml cs = new CreateStateDiagramEAXml();
-				ff = new File(path + "EA/");
-				if (!ff.exists()) {
-					ff.mkdirs();
-				}
-				StringBuffer name = dealEAFileName(selectedFile);
-				cs.create(rs, path + "EA/" + name);
-			} else if ("timing".equals(type)) {
-				path = base + "/TimingDiagram/";
-			} else if ("uppaal".equals(type)) {
-				path = base + "/UPPAL/";
-			} else if ("activity".equals(type)) {
-				path = base + "/ActivityDiagram/";
-				graphFile.AutoSave(selectedFile, path + "Violet/");
-				readActivityXMLFormViolet ra = new readActivityXMLFormViolet(url);
-				CreateActivityDiagramEAXml ca = new CreateActivityDiagramEAXml();
-				ff = new File(path + "EA/");
-				if (!ff.exists()) {
-					ff.mkdirs();
-				}
-				StringBuffer name = dealEAFileName(selectedFile);
-				ca.create(ra, path + "EA/" + name);
-			} else if ("object".equals(type)) {
-				path = base + "/ObjectDiagram/";
-				graphFile.AutoSave(selectedFile, path + "Violet/");
-				readStateXMLFormViolet rs = new readStateXMLFormViolet(url);
-				CreateStateDiagramEAXml cs = new CreateStateDiagramEAXml();
-				ff = new File(path + "EA/");
-				if (!ff.exists()) {
-					ff.mkdirs();
-				}
-				StringBuffer name = dealEAFileName(selectedFile);
-				cs.create(rs, path + "EA/" + name);
-			}
-		} else if (flag == false) {
-			// System.out.println(type);
-			String name = "";
-			// 选择的文件是EA格式的文件
-			if ("class".equals(type)) {
-				path = base + "/ClassDiagram/";
-
-				readClassXMLFromEA rc = new readClassXMLFromEA(url, selectedFile);
-
-				CreateClassDiagramVioletXML c = new CreateClassDiagramVioletXML();
-				ff = new File(path + "Violet/");
-				if (!ff.exists()) {
-					ff.mkdirs();
-				}
-
-				name = selectedFile.getFilename().replaceAll("EA", "");
-				c.create(rc, path + "Violet/" + name);
-
-			} else if ("ucase".equals(type)) {
-				path = base + "/UseCaseDiagram/";
-				readUseCaseXMLFromEA ru = new readUseCaseXMLFromEA(url, selectedFile);
-				CreateUseCaseDiagramVioletXml cu = new CreateUseCaseDiagramVioletXml();
-				ff = new File(path + "Violet/");
-				if (!ff.exists()) {
-					ff.mkdirs();
-				}
-				name = selectedFile.getFilename().replaceAll("EA", "");
-				cu.create(ru, path + "Violet/" + name);
-
-			} else if ("seq".equals(type)) {
-				path = base + "/SequenceDiagram/";
-				ff = new File(path + "Violet/");
-				if (!ff.exists()) {
-					ff.mkdirs();
-				}
-				name = selectedFile.getFilename().replaceAll("EA", "");
-				directory = selectedFile.getDirectory();
-				fileName = selectedFile.getFilename();
-				// System.out.println("@@"+directory);
-				MainTransEAToViolet.TransEAToViolet(url, path + "Violet/" + name);
-
-			} else if ("state".equals(type)) {
-				path = base + "/StateDiagram/";
-				readStateXMLFromEA rs = new readStateXMLFromEA(url, selectedFile);
-				CreateStateDiagramVioletXML cs = new CreateStateDiagramVioletXML();
-				ff = new File(path + "Violet");
-				if (!ff.exists()) {
-					ff.mkdirs();
-				}
-				name = selectedFile.getFilename().replaceAll("EA", "");
-				cs.create(rs, path + "Violet/" + name);
-				// 时序图
-			} else if ("timing".equals(type)) {
-				System.out.println("start----------");
-				path = base + "/TimingDiagram/";
-				ff = new File(path + "Violet/");
-				if (!ff.exists()) {
-					ff.mkdirs();
-				}
-				name = selectedFile.getFilename().replaceAll("EA", "");
-				directory = selectedFile.getDirectory();
-				fileName = selectedFile.getFilename();
-				// System.out.println("@@"+directory);
-				System.out.println("middle--------");
-				MainTransVioletTiming.CreateTimCaseDiagramVioletXml(url, path + "Violet/" + name);
-				System.out.println("end----------");
-			} else if ("uppaal".equals(type)) {
-				path = base + "/UPPAL/";
-			} else if ("activity".equals(type)) {
-				path = base + "/ActivityDiagram/";
-				readActivityXMLFromEA ra = new readActivityXMLFromEA(url, selectedFile);
-				CreateActivityDiagramVioletXML ca = new CreateActivityDiagramVioletXML();
-				ff = new File(path + "Violet");
-				if (!ff.exists()) {
-					ff.mkdirs();
-				}
-				name = selectedFile.getFilename().replaceAll("EA", "");
-				ca.create(ra, path + "Violet/" + name);
-			} else if ("object".equals(type)) {
-				path = base + "/ObjectDiagram/";
-				readStateXMLFromEA rs = new readStateXMLFromEA(url, selectedFile);
-				CreateStateDiagramVioletXML cs = new CreateStateDiagramVioletXML();
-				ff = new File(path + "Violet");
-				if (!ff.exists()) {
-					ff.mkdirs();
-				}
-				name = selectedFile.getFilename().replaceAll("EA", "");
-				cs.create(rs, path + "Violet/" + name);
-			}
-			File f = new File(path + "Violet/" + name);
-			deleteFileFirstLine(f);
-			selectedFile = new LocalFile(f);
-			// System.out.println("改变的文件"+selectedFile.getDirectory()+"\\"+selectedFile.getFilename());
-			// graphFile =new GraphFile(selectedFile);
-		}
-
-		return selectedFile;
-	}
 
 	/*
 	 * 张建
@@ -776,124 +582,6 @@ public class FileMenu extends JMenu {
 		return name;
 	}
 
-	public static boolean isVioletXML(String url) {
-		Document document = XMLUtils.load(url);
-		Element root = document.getRootElement();
-		if (root.getName().equals("XMI")) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	private List<IFile> openEAXML(IFile selectedFile, String url) {
-		List<IFile> EAFiles = new ArrayList<IFile>();
-		// File ffff =FileSystemView.getFileSystemView().getHomeDirectory();
-		// String s =ffff .getAbsolutePath();
-		// String base=s+"\\ModelDriverProjectFile";
-		// mainFrame.setBathRoute(base);
-		String path = null;
-		File ff = null;// 用于生成在d盘中文件
-		String name = "";
-		List<Object> information = judgeEAXML(url);
-		List<EADiagram> EADiagrams = (List<EADiagram>) information.get(1);
-		for (EADiagram eaDiagram : EADiagrams) {
-			// if ("Use Case".equals(eaDiagram.getType())) {
-			// try {
-			// path = StartFileCheck.DefaultRoute+"UseCaseDiagram\\";
-			// String aimPath = path + "EAXML";
-			// XMLUtils.AutoSave(url, aimPath, selectedFile.getFilename());
-			// readUseCaseXMLFromEA ru = new readUseCaseXMLFromEA(url,
-			// selectedFile, eaDiagram);
-			// CreateUseCaseDiagramVioletXml cu = new
-			// CreateUseCaseDiagramVioletXml();
-			// name = selectedFile.getFilename().replaceAll(".xml",
-			// ".ucase.violet.xml");
-			// cu.create(ru, path + "Violet/" + name);
-			// File f = new File(path + "Violet/" + name);
-			// selectedFile = new LocalFile(f);
-			// EAFiles.add(selectedFile);
-			// } catch (IOException e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
-			// } else
-			if ("Sequence".equals(eaDiagram.getType())) {
-				path = StartFileCheck.DefaultRoute+"SequenceDiagram\\";
-				String aimPath = path + "EAXML";
-				// XMLUtils.AutoSave(url, aimPath,selectedFile.getFilename());
-				name = eaDiagram.getName() + ".seq.violet.xml";
-				directory = selectedFile.getDirectory();
-				fileName = selectedFile.getFilename();
-				try {
-					
-					File file = new File(path + "Violet\\Test\\");
-					while (!file.exists()) {
-						file.mkdirs();
-						Thread.sleep(500);
-					}
-					
-					MainTransEAToViolet.TransEAToViolet(url, path + "Violet\\Test\\" + name, name, eaDiagram);
-					File f = new File(path + "Violet\\Test\\" + name);
-					deleteFileFirstLine(f);
-					selectedFile = new LocalFile(f);
-					EAFiles.add(selectedFile);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else {
-				IGraphFile graphFile = null;
-				try {
-					selectedFile = exchangeFile(selectedFile, graphFile, false);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				EAFiles.add(selectedFile);
-			}
-		}
-		return EAFiles;
-	}
-
-	private String judgeVioletXML(String url) {
-		Document document = XMLUtils.load(url);
-		Element root = document.getRootElement();
-		if (root.getName().contains("UseCaseDiagramGraph")) {
-			return "ucase";
-		} else {
-			return "seq";
-		}
-	}
-
-	private List<Object> judgeEAXML(String url) {
-		List<Object> list = new ArrayList<Object>();
-		Document document = XMLUtils.load(url);
-		Element root = document.getRootElement();
-		Element extension = root.element("Extension");
-		Element diagrams = extension.element("diagrams");
-		List<Element> diagramList = diagrams.elements("diagram");
-		String type = diagramList.get(0).element("properties").attributeValue("type");
-		list.add(type);
-		List<EADiagram> sequenceDiagrams = new ArrayList<EADiagram>();
-		for (Element element : diagramList) {
-			EADiagram sequenceDiagram = new EADiagram();
-			sequenceDiagram.setName(element.element("properties").attributeValue("name"));
-			sequenceDiagram.setID(element.element("model").attributeValue("package"));
-			sequenceDiagram.setDiagramID(element.attributeValue("id"));
-			sequenceDiagram.setType(element.element("properties").attributeValue("type"));
-			if (element.element("elements") != null) {
-				Element diagramElements = element.element("elements");
-				List<Element> elements = diagramElements.elements("element");
-				for (Element elementID : elements) {
-					sequenceDiagram.getElementid().add(elementID.attributeValue("subject"));
-				}
-				sequenceDiagrams.add(sequenceDiagram);
-			}
-		}
-		list.add(sequenceDiagrams);
-		return list;
-	}
 
 	/**
 	 * Init open menu entry。张建已改
@@ -912,16 +600,16 @@ public class FileMenu extends JMenu {
 					selectedFile = fileOpener.getFileDefinition();// 返回一个绝对路径的文件
 
 					String url = selectedFile.getDirectory() + "\\" + selectedFile.getFilename();
-					boolean flag = isVioletXML(url);// 是平台格式的文件
+//					boolean flag = isVioletXML(url);// 是平台格式的文件
 
 					final List<IFile> files = new ArrayList<IFile>();
-					if (flag == false) {
-						XMLCopy.SourceCopyToTarget(url, StartFileCheck.DefaultRoute+"SequenceDiagram\\Violet\\"+selectedFile.getFilename());
-							List<IFile> eafiles = openEAXML(selectedFile, url);
-							files.addAll(eafiles);
-					} else {
+//					if (flag == false) {
+//						XMLCopy.SourceCopyToTarget(url, StartFileCheck.DefaultRoute+"SequenceDiagram\\Violet\\"+selectedFile.getFilename());
+//							List<IFile> eafiles = openEAXML(selectedFile, url);
+//							files.addAll(eafiles);
+//					} else {
 						files.add(selectedFile);
-					}
+//					}
 					
 					String selectFileName=selectedFile.getFilename();
 					String becomeRunFileName = null;
@@ -1089,7 +777,7 @@ public class FileMenu extends JMenu {
 					try {
 						IGraphFile graphFile = new GraphFile(aFile);
 						IWorkspace workspace = new Workspace(graphFile);
-						mainFrame.addTabbedPane(workspace);
+//						mainFrame.addTabbedPane(workspace);
 						userPreferencesService.addOpenedFile(aFile);
 						userPreferencesService.addRecentFile(aFile);
 

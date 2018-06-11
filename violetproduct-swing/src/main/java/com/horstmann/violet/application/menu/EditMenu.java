@@ -243,13 +243,6 @@ public class EditMenu extends JMenu
     /**
      * @return true id at least one workspace is reachable
      */
-    private boolean isThereAnyWorkspaceDisplayed()
-    {
-        return mainFrame.getUseCaseWorkspaceList().size() > 0
-        		||mainFrame.getTimingWorkspaceList().size() > 0
-        		||mainFrame.getSequenceWorkspaceList().size() > 0
-        	    ||mainFrame.getStateWorkspaceList().size() > 0;
-    }
     
     /** Application frame */
     private MainFrame mainFrame;
