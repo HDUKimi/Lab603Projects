@@ -49,6 +49,7 @@ import com.horstmann.violet.application.gui.StepTwoCenterTabbedPane;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEditor;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyUppaalLabelRender;
+import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 import com.horstmann.violet.application.gui.util.tanchao.XMLToTree;
 import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.ImportByDoubleClick;
 import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.TransToVioletUppaal;
@@ -613,7 +614,8 @@ public class ModelTimingTreePanel extends JPanel{
 	 public   File[] getAllFileByDiagramType(String type){
 //		 File f =FileSystemView.getFileSystemView().getHomeDirectory();
 //		String s =f .getAbsolutePath();
-		 String baseUrl ="D://ModelDriverProjectFile";
+//		 String baseUrl ="D://ModelDriverProjectFile";
+		 String baseUrl =StartFileCheck.DefaultRoute;
 //		String baseUrl =s+"//ModelDriverProjectFile";
 //		File bFile = new File(baseUrl);
 //		if(!bFile.exists()){

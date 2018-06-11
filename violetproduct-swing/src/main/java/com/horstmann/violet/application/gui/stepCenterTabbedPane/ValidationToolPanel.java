@@ -733,7 +733,7 @@ public class ValidationToolPanel extends JPanel{
 					}
 					else{
 						//------------
-//						String path = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\uppaalTest1.uppaal.violet.xml";
+//						String path = StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\uppaalTest1.uppaal.violet.xml";
 	                    //µÃµ½k---name v-----idµÄmap
 //						HashMap<String,String> mapCopy=XMLVerificationTranMessage.getTranMessage(path);
 						TranMessageColorize tmc=new TranMessageColorize();

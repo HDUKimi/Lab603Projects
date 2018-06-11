@@ -12,6 +12,7 @@ import org.dom4j.io.SAXReader;
 
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.opreationTreePane.ModelExistValidationPanel;
+import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.PathTuple;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalLocation;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.UppaalTransition;
@@ -48,7 +49,7 @@ public class Evaluation {
 	
 	public void LoadUppaalXmlData() throws DocumentException{
 		
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\";
+		String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\";
 		File uppaalfile;
 		
 		if(uppaalType==1){

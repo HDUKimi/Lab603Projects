@@ -3,6 +3,7 @@ package com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom;
 import java.io.File;
 import java.io.IOException;
 
+import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 import com.horstmann.violet.framework.file.GraphFile;
 import com.horstmann.violet.framework.file.IFile;
 import com.horstmann.violet.framework.file.LocalFile;
@@ -31,7 +32,9 @@ public class ImportByDoubleClick {
 	public static GraphFile importFileByDoubleClick(String type,String name){
     	GraphFile graphFile=null;
     
-    	String base="D://ModelDriverProjectFile";
+//    	String base="D://ModelDriverProjectFile";
+    	String base=StartFileCheck.DefaultRoute;
+    	
     	//根据type找到相应的文件夹
     	if("ClassDiagram".equals(type)){
     		base+="\\ClassDiagram\\Violet";

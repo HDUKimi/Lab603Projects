@@ -515,7 +515,7 @@ public class TestCaseDataPanel{
 
 //	private void findTestCaseXMLPath() {
 //		
-//		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+//		String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase\\";
 //		
 //		File file = null;
 //		int type=1;
@@ -543,7 +543,7 @@ public class TestCaseDataPanel{
 //		
 //		if(!file.exists()){
 //			
-//			baseUrl = "D:\\ModelDriverProjectFile\\SqlTestCase\\";
+//			baseUrl = StartFileCheck.DefaultRoute+"SqlTestCase\\";
 //			
 //			testCasePath=baseUrl+testCaseName+".xml";
 //		}

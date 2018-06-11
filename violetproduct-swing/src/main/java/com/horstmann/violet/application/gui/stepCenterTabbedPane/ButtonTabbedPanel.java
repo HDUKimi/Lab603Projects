@@ -309,8 +309,8 @@ public class ButtonTabbedPanel extends JPanel{
 						mainFrame.getConsolePartPanel().getTextarea1().append("打开用例图 "+tabbedbutton.getText()+" 的绘图面板\n");
 						
 					}
-					else if (workspace.getTitle().toString().contains(".timing.violet.xml")
-							|| workspace.getTitle().toString().substring(2, 4).equals("Ti")) {
+					else if (workspace.getTitle().toString().contains(".markov.violet.xml")
+							|| workspace.getTitle().toString().substring(2, 4).equals("Ma")) {
 						
 						mainFrame.getStepOneCenterTabbedPane().setSelectedIndex(1);
 						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().removeAll();

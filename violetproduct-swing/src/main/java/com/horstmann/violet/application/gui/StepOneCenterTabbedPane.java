@@ -598,9 +598,9 @@ public class StepOneCenterTabbedPane extends JPanel {
 		return timingDiagramButtonTabbedPanelLists;
 	}
 
-	public void setTimingDiagramButtonTabbedPanelLists(List<ButtonTabbedPanel> timingDiagramButtonTabbedPanelLists) {
-		this.timingDiagramButtonTabbedPanelLists = timingDiagramButtonTabbedPanelLists;
-	}
+//	public void setTimingDiagramButtonTabbedPanelLists(List<ButtonTabbedPanel> timingDiagramButtonTabbedPanelLists) {
+//		this.timingDiagramButtonTabbedPanelLists = timingDiagramButtonTabbedPanelLists;
+//	}
 
 	public List<ButtonTabbedPanel> getStateDiagramButtonTabbedPanelLists() {
 		return stateDiagramButtonTabbedPanelLists;

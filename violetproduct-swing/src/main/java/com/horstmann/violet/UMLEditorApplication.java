@@ -20,6 +20,7 @@
 
 package com.horstmann.violet;
 
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
@@ -161,7 +162,12 @@ public class UMLEditorApplication
         splashScreen.setVisible(true);//一个窗体
        // this.versionChecker.checkJavaVersion();
         MainFrame mainFrame = new MainFrame();//主窗体控件
-        mainFrame.setSize(Toolkit.getDefaultToolkit().getScreenSize());//设置大小
+        
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = (int) screenSize.getWidth()/2;
+        int screenHeight = (int) screenSize.getHeight()/2;
+        
+        mainFrame.setSize(new Dimension(1200, 900));//设置大小
         SplashScreen.displayOverEditor(mainFrame, 1000);//延时1000毫秒显示主窗体？？
         List<IFile> fullList = new ArrayList<IFile>();
         List<IFile> lastSessionFiles = this.userPreferencesService.getOpenedFilesDuringLastSession();
@@ -197,7 +203,7 @@ public class UMLEditorApplication
             }
         }
         IFile activeFile = this.userPreferencesService.getActiveDiagramFile();
-        mainFrame.setActiveDiagramPanel(activeFile);
+//        mainFrame.setActiveDiagramPanel(activeFile);
         mainFrame.setVisible(true);
         splashScreen.setVisible(false);
         splashScreen.dispose();

@@ -196,7 +196,7 @@ public class OneTouchExpandablePanel extends JPanel{
 ////						stateDiagramButtonTabbedPanelLists.get(0).getTabbedbutton().doClick();
 ////						Thread.sleep(2000);
 //						
-//						IFile file =  new LocalFile(new File("D:\\ModelDriverProjectFile\\StateDiagram\\Violet\\1.state.violet.xml"));
+//						IFile file =  new LocalFile(new File(StartFileCheck.DefaultRoute+"StateDiagram\\Violet\\1.state.violet.xml"));
 //						IGraphFile graphFile = new GraphFile(file);
 //						IWorkspace workspace = new Workspace(graphFile);
 //						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().removeAll();
@@ -220,7 +220,7 @@ public class OneTouchExpandablePanel extends JPanel{
 ////						stateDiagramButtonTabbedPanelLists.get(1).getTabbedbutton().doClick();
 ////						Thread.sleep(2000);
 //						
-//						IFile file =  new LocalFile(new File("D:\\ModelDriverProjectFile\\StateDiagram\\Violet\\2.state.violet.xml"));
+//						IFile file =  new LocalFile(new File(StartFileCheck.DefaultRoute+"StateDiagram\\Violet\\2.state.violet.xml"));
 //						IGraphFile graphFile = new GraphFile(file);
 //						IWorkspace workspace = new Workspace(graphFile);
 //						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().removeAll();
@@ -242,7 +242,7 @@ public class OneTouchExpandablePanel extends JPanel{
 //						
 ////						stateDiagramButtonTabbedPanelLists.get(2).getTabbedbutton().doClick();
 ////						Thread.sleep(000);
-//						IFile file =  new LocalFile(new File("D:\\ModelDriverProjectFile\\StateDiagram\\Violet\\3.state.violet.xml"));
+//						IFile file =  new LocalFile(new File(StartFileCheck.DefaultRoute+"StateDiagram\\Violet\\3.state.violet.xml"));
 //						IGraphFile graphFile = new GraphFile(file);
 //						IWorkspace workspace = new Workspace(graphFile);
 //						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().removeAll();
@@ -264,7 +264,7 @@ public class OneTouchExpandablePanel extends JPanel{
 //						
 ////						stateDiagramButtonTabbedPanelLists.get(3).getTabbedbutton().doClick();
 ////						Thread.sleep(000);
-//						IFile file =  new LocalFile(new File("D:\\ModelDriverProjectFile\\StateDiagram\\Violet\\1.state.violet.xml"));
+//						IFile file =  new LocalFile(new File(StartFileCheck.DefaultRoute+"StateDiagram\\Violet\\1.state.violet.xml"));
 //						IGraphFile graphFile = new GraphFile(file);
 //						IWorkspace workspace = new Workspace(graphFile);
 //						mainFrame.getStepOneCenterTabbedPane().getDiagramPanel().removeAll();

@@ -16,6 +16,7 @@ import org.dom4j.io.SAXReader;
 
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.util.tanchao.ShowOnTableAndConsole;
+import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 import com.horstmann.violet.application.gui.util.wujun.SD2AutomataForPlatform.util.Display;
 import com.horstmann.violet.application.gui.util.wujun.SD2AutomataForPlatform.util.PlatformBean2WJclass;
 import com.horstmann.violet.application.gui.util.wujun.SD2AutomataForPlatform.util.SequenceDiagramGraph;
@@ -98,7 +99,7 @@ public class SD2UppaalMain {
 		
  //  ---读取平台导出的---	1	
 //		Display.println("================================正在读取导出的所有顺序图xml================================");
-//		String folderPath = "D:\\ModelDriverProjectFile\\Test\\";
+//		String folderPath = StartFileCheck.DefaultRoute+"Test\\";
 //		File file = new File(folderPath);
 //		String fileNames[];
 //		fileNames = file.list();
@@ -715,8 +716,8 @@ public class SD2UppaalMain {
 		    Display.println("\n------------------------------------------------------------------");
 		    Display.println("完成顺序图到自动机的转换，正在写入图名为"+diagramDaraI.name+"的xml");
 		    
-//		    String baseurl="D:\\ModelDriverProjectFile\\WJXML\\";
-		    String baseurl="D:\\ModelDriverProjectFile\\WJXML\\"+filename+"\\";
+//		    String baseurl=StartFileCheck.DefaultRoute+"WJXML\\";
+		    String baseurl=StartFileCheck.DefaultRoute+"WJXML\\"+filename+"\\";
 		    File basefile=new File(baseurl);
 		    if(!basefile.exists()){
 		    	while(!basefile.mkdirs()){

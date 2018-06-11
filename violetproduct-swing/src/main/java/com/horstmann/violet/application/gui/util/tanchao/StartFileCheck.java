@@ -5,29 +5,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StartFileCheck {
+	
+	public static String DefaultRoute;
 
 	public void FileCheck(){
 		
+		File[] roots = File.listRoots();
+    	DefaultRoute = roots[0].getAbsolutePath() + "ModelDriverProjectFile\\";
+    	
+    	File defaultFile = new File(DefaultRoute);
+    	if(!defaultFile.exists()){
+    		defaultFile.mkdirs();
+    	}
+		
 		List<String> pathlist=new ArrayList<String>();
-		pathlist.add("D:\\ModelDriverProjectFile\\ActivityDiagram\\Violet\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\StateDiagram\\Violet\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\UsecaseDiagram\\Violet\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\SequenceDiagram\\Violet\\FunctionalTest\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\SequenceDiagram\\Violet\\PerformanceTest\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\SequenceDiagram\\Violet\\TimeTest\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\SequenceDiagram\\Violet\\Test\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\FunctionalTest\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\PerformanceTest\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\TimeTest\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\FunctionalTest\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\PerformanceTest\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\TimeTest\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\FunctionalTest\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\PerformanceTest\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\TimeTest\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\SqlTestCase\\");
-		pathlist.add("D:\\ModelDriverProjectFile\\WJXML\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"ActivityDiagram\\Violet\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"StateDiagram\\Violet\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"TimingDiagram\\Violet\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"UsecaseDiagram\\Violet\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"SequenceDiagram\\Violet\\FunctionalTest\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"SequenceDiagram\\Violet\\PerformanceTest\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"SequenceDiagram\\Violet\\TimeTest\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"SequenceDiagram\\Violet\\Test\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\FunctionalTest\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\PerformanceTest\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\TimeTest\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\SequenceToUppal\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\TimingToUppal\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"UPPAL\\3.Abstract_TestCase\\FunctionalTest\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"UPPAL\\3.Abstract_TestCase\\PerformanceTest\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"UPPAL\\3.Abstract_TestCase\\TimeTest\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase\\FunctionalTest\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase\\PerformanceTest\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase\\TimeTest\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"SqlTestCase\\");
+		pathlist.add(StartFileCheck.DefaultRoute+"WJXML\\");
 		
 		File file;
 		

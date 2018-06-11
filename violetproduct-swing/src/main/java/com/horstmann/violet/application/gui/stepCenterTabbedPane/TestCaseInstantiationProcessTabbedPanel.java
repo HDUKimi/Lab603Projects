@@ -49,6 +49,7 @@ import com.horstmann.violet.application.gui.util.ckt.xml.outXMLofTime;
 import com.horstmann.violet.application.gui.util.lmr.DB.DataBaseUtil;
 import com.horstmann.violet.application.gui.util.tanchao.RefreshTool;
 import com.horstmann.violet.application.gui.util.tanchao.SaveText;
+import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 
 public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 	private static MainFrame mainFrame;
@@ -356,7 +357,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 		
 		selectAbstract=mainFrame.getTestCaseInstantiationPanel().getSelectAbstractCheckBox().getText();
 		
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
+		String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\3.Abstract_TestCase\\";
 		
 		starttype=mainFrame.getTestCaseInstantiationPanel().FindRadioButtonIndex(mainFrame.getTestCaseInstantiationPanel().getSelectTestRadioButton())+1;
 		starttype=1;
@@ -739,7 +740,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				TextAreaPrint("…˙≥…≤‚ ‘”√¿˝");
 				
 				String name=selectAbstract.substring(0, selectAbstract.indexOf("Abstract"));
-				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+				String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase\\";
 				
 				if(starttype == 1){
 					baseUrl += "FunctionalTest\\";
@@ -1090,7 +1091,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				TextAreaPrint("¥Ê¥¢≤‚ ‘”√¿˝");
 				
 				String name=selectAbstract.substring(0, selectAbstract.indexOf("Abstract"));
-				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+				String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase\\";
 				
 				if(starttype == 1){
 					baseUrl += "FunctionalTest\\";
@@ -1176,7 +1177,7 @@ public class TestCaseInstantiationProcessTabbedPanel extends JPanel{
 				time1=System.currentTimeMillis();
 				
 				String name=selectAbstract.substring(0, selectAbstract.indexOf("Abstract"));
-				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+				String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase\\";
 
 				baseUrl += "FunctionalTest\\";
 				

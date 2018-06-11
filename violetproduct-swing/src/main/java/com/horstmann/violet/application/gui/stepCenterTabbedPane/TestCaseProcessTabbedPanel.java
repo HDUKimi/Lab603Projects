@@ -87,6 +87,7 @@ import com.horstmann.violet.application.gui.util.ckt.xml.XMLGet;
 import com.horstmann.violet.application.gui.util.ckt.xml.XmlOfTime;
 import com.horstmann.violet.application.gui.util.tanchao.RefreshTool;
 import com.horstmann.violet.application.gui.util.tanchao.SaveText;
+import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
 import com.horstmann.violet.application.gui.util.wj.bean.UppaalLocation;
 import com.horstmann.violet.application.gui.util.wj.util.GeneratePath;
@@ -448,7 +449,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 //			selectCoverState=2;
 //		}
 		
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\SequenceToUppal\\";
+		String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\SequenceToUppal\\";
 		
 //		starttype=mainFrame.getTestCaseGenerationPanel().FindRadioButtonIndex(mainFrame.getTestCaseGenerationPanel().getSelectTestRadioButton())+1;
 		starttype=1;
@@ -1435,7 +1436,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 				TextAreaPrint("生成测试序列文件");
 				
 				String abstractName=selectUppaal.substring(0, selectUppaal.indexOf("ForXStream"));
-				String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
+				String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\3.Abstract_TestCase\\";
 				
 				if(starttype == 1){
 					baseUrl += "FunctionalTest\\";
@@ -2045,7 +2046,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		// TODO Auto-generated method stub
 		
 		try {
-//			String path="D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+testcasename+"serialtestcase.txt";
+//			String path=StartFileCheck.DefaultRoute+"UPPAL\\3.Abstract_TestCase\\"+testcasename+"serialtestcase.txt";
 			FileOutputStream fos = new FileOutputStream(path);
 			ObjectOutputStream oos=new ObjectOutputStream(fos);
 			
@@ -2189,7 +2190,7 @@ public class TestCaseProcessTabbedPanel extends JPanel{
 		
 		CreateAbstractUppaalXML c =new CreateAbstractUppaalXML(abStateList, abTransList);
 		try {
-			 c.create("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\abs.uppaal.violet.xml");
+			 c.create(StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\abs.uppaal.violet.xml");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

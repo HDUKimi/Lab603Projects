@@ -107,7 +107,7 @@ public class ModelTransformationPanel extends JPanel{
 
 	public ModelTransformationPanel(MainFrame mainFram) {
 		this.mainFrame = mainFram;
-		initFileList();
+//		initFileList();
 //		initUI();
 //		this.setLayout(new GridBagLayout());
 //		JPanel umlDiagramPanel = new JPanel();
@@ -758,8 +758,8 @@ public class ModelTransformationPanel extends JPanel{
 	 public   File[] getAllFileByDiagramType(String type){
 		 File f =FileSystemView.getFileSystemView().getHomeDirectory();
 		String s =f .getAbsolutePath();
-//		 String baseUrl ="D://ModelDriverProjectFile";
-		String baseUrl =s+"//ModelDriverProjectFile";
+		 String baseUrl ="D://ModelDriverProjectFile";
+//		String baseUrl =s+"//ModelDriverProjectFile";
 //		File bFile = new File(baseUrl);
 //		if(!bFile.exists()){
 //			bFile.mkdirs();

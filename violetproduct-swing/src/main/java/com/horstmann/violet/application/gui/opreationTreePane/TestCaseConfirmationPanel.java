@@ -62,6 +62,7 @@ import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseResult;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.myProcess;
 import com.horstmann.violet.application.gui.util.lmr.DB.DataBaseUtil;
 import com.horstmann.violet.application.gui.util.tanchao.SaveText;
+import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 
 public class TestCaseConfirmationPanel extends JPanel{
 	
@@ -290,7 +291,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 		testcasefilenamelists.clear();
 		
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase";
+		String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase";
 
 		File[] rootfilelist = null;
 		File rootfile = null;
@@ -632,7 +633,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 		int count=0;
 		
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+		String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase\\";
 		String testCasePath = null;
 		
 		File file = null;
@@ -661,7 +662,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 		if(!file.exists()){
 			
-			baseUrl = "D:\\ModelDriverProjectFile\\SqlTestCase\\";
+			baseUrl = StartFileCheck.DefaultRoute+"SqlTestCase\\";
 			
 			testCasePath=baseUrl+testCaseName+".xml";
 		}
@@ -1265,7 +1266,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 //						for(String filename:sqlcasedatalist){
 //							
 //							TestCaseXMLToStringList tcxmltsl=new TestCaseXMLToStringList();
-//							tcxmltsl.createXml(DataBaseUtil.queryTestCaseStringList(filename), "D:\\ModelDriverProjectFile\\SqlTestCase\\"+filename+".xml");
+//							tcxmltsl.createXml(DataBaseUtil.queryTestCaseStringList(filename), StartFileCheck.DefaultRoute+"SqlTestCase\\"+filename+".xml");
 //							
 //						}
 						
@@ -1865,7 +1866,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 	private String findTestCaseXMLPath(String testCaseName) {
 		
 		String testCasePath = null;
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+		String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase\\";
 		
 		File file = null;
 		int type=1;
@@ -1893,7 +1894,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 		if(!file.exists()){
 			
-			baseUrl = "D:\\ModelDriverProjectFile\\SqlTestCase\\";
+			baseUrl = StartFileCheck.DefaultRoute+"SqlTestCase\\";
 			
 			testCasePath=baseUrl+testCaseName+".xml";
 		}
@@ -1905,7 +1906,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 		
 		if (type == 1) {
 			
-			SaveText.init("D:\\ModelDriverProjectFile\\Text\\functionaltesttestcaselist.txt");
+			SaveText.init(StartFileCheck.DefaultRoute+"Text\\functionaltesttestcaselist.txt");
 			for(TestCase tc:testcaselist){
 				SaveText.SaveWord("测试用例ID: "+tc.getTestCaseID());
 				SaveText.SaveWord("激励列表: ");
@@ -1918,7 +1919,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 			
 		} else if (type == 2) {
 			
-			SaveText.init("D:\\ModelDriverProjectFile\\Text\\performancetesttestcaselist.txt");
+			SaveText.init(StartFileCheck.DefaultRoute+"Text\\performancetesttestcaselist.txt");
 			for(TestCase tc:testcaselist){
 				SaveText.SaveWord("测试用例ID: "+tc.getTestCaseID());
 				SaveText.SaveWord("风速级别: "+tc.getResult().getWind_speed()+" 起飞高度: "+tc.getResult().getTakeoff_alt());
@@ -1932,7 +1933,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 			
 		} else if (type == 3) {
 			
-			SaveText.init("D:\\ModelDriverProjectFile\\Text\\timetesttestcaselist.txt");
+			SaveText.init(StartFileCheck.DefaultRoute+"Text\\timetesttestcaselist.txt");
 			for(TestCase tc:testcaselist){
 				SaveText.SaveWord("测试用例ID: "+tc.getTestCaseID());
 				SaveText.SaveWord("激励列表: ");
@@ -2320,7 +2321,7 @@ public class TestCaseConfirmationPanel extends JPanel{
 	}
 	
 	public File[] getAllFileByDiagramType(int starttype) {
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase";
+		String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase";
 
 		File[] fList = null;
 		File file = null;

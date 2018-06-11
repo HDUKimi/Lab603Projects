@@ -44,6 +44,7 @@ import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.StepSixCenterTabbedPane;
 import com.horstmann.violet.application.gui.StepThreeCenterTabbedPane;
 import com.horstmann.violet.application.gui.util.tanchao.RefreshTool;
+import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 import com.horstmann.violet.application.gui.util.tanchao.XMLCopy;
 import com.horstmann.violet.application.gui.util.wujun.SequenceTransfrom.SD2UppaalMain;
 import com.horstmann.violet.application.gui.util.xiaole.GraghLayout.LayoutUppaal;
@@ -554,9 +555,9 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 						String filename=sequencelists.get(oldsequencelistindex);
 //						sequencelistindex=sequencelists.indexOf(filename);
 						
-						String baseUrl = "D:\\ModelDriverProjectFile\\SequenceDiagram\\Violet\\";
-						String baseUrl2 = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\SequenceToUppal\\";
-						String baseUrl3 = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\";
+						String baseUrl = StartFileCheck.DefaultRoute+"SequenceDiagram\\Violet\\";
+						String baseUrl2 = StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\SequenceToUppal\\";
+						String baseUrl3 = StartFileCheck.DefaultRoute+"UPPAL\\3.Abstract_TestCase\\";
 						
 //						int starttype=mainFrame.getHomeAllTabbedPanel().getStarttype();
 //						if(starttype == 1){
@@ -587,7 +588,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							
 							moviepanel.getMovieLabel().setText("正在转换顺序图 "+filename+"...");
 							
-//							path="D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\EATiming2.timing.violet.xml";
+//							path=StartFileCheck.DefaultRoute+"TimingDiagram\\Violet\\EATiming2.timing.violet.xml";
 							
 							SD2UppaalMain.transEA(filename, path, mainFrame);// 主要是将ea的xml转换成我们的wujun的xml(里面有他的路径)
 							
@@ -595,8 +596,8 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 							
 							System.out.println("*************************+++++++++++++++++++++++"+SD2UppaalMain.diagramslistsize);
 							
-							String originaluppaalbaseurl="D:\\ModelDriverProjectFile\\WJXML\\"+filename+"\\";
-							String uppaalbaseurl="D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\"+filename+"\\";
+							String originaluppaalbaseurl=StartFileCheck.DefaultRoute+"WJXML\\"+filename+"\\";
+							String uppaalbaseurl=StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\"+filename+"\\";
 							
 							File originaluppaalbasefile=new File(originaluppaalbaseurl);
 							File[] originaluppaalbasefilelist=originaluppaalbasefile.listFiles();
@@ -758,7 +759,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //							
 //							sequencelistindex=sequencelists.indexOf(filename);
 //							
-//							String baseUrl = "D:\\ModelDriverProjectFile\\SequenceDiagram\\Violet\\";
+//							String baseUrl = StartFileCheck.DefaultRoute+"SequenceDiagram\\Violet\\";
 //							System.out.println(sequencelistindex+"   "+sequencelists.size()+"   "+baseUrl + filename);
 //							String path = baseUrl + filename + ".seq.violet.xml";
 //
@@ -766,7 +767,7 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //								
 //								moviepanel.getMovieLabel().setText("正在转换顺序图 "+filename+"...");
 //								
-////								path="D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\EATiming2.timing.violet.xml";
+////								path=StartFileCheck.DefaultRoute+"TimingDiagram\\Violet\\EATiming2.timing.violet.xml";
 //								
 //								SD2UppaalMain.transEA(path, mainFrame);// 主要是将ea的xml转换成我们的wujun的xml(里面有他的路径)
 //								
@@ -779,11 +780,11 @@ public class SequenceToUppaalTabbedPanel extends JPanel{
 //								
 ////								System.out.println("SD2UppaalMain.getDiagramDataName():+++++++++"+SD2UppaalMain.getDiagramDataName()+" - - "+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml");//前者文件为时间自动机需要，后者文件为测试用例生成需要
 //								
-////								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\"+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
-//								XMLCopy.SourceCopyToTarget("D:\\ModelDriverProjectFile\\WJXML\\UAVForXStream.xml", "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
+////								XMLCopy.SourceCopyToTarget(StartFileCheck.DefaultRoute+"WJXML\\"+SD2UppaalMain.getDiagramDataName()+"ForXStream.xml", StartFileCheck.DefaultRoute+"UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
+//								XMLCopy.SourceCopyToTarget(StartFileCheck.DefaultRoute+"WJXML\\UAVForXStream.xml", StartFileCheck.DefaultRoute+"UPPAL\\3.Abstract_TestCase\\"+filename+"ForXStream.xml");
 //								
-////								LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\"+SD2UppaalMain.getDiagramDataName()+".xml");
-//								LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\UAV.xml");
+////								LayoutUppaal.layout(StartFileCheck.DefaultRoute+"WJXML\\"+SD2UppaalMain.getDiagramDataName()+".xml");
+//								LayoutUppaal.layout(StartFileCheck.DefaultRoute+"WJXML\\UAV.xml");
 //								
 //								filename1 = TransToVioletUppaal.TransToViolet(filename);//wujun的xml转换为平台显示的时间自动机xml
 //								// String

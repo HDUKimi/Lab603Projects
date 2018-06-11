@@ -178,10 +178,10 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		
 		initleftrightbuttonpanel();
 
-		testCaseProcessButtonPanel = new FixedButtonTabbedPanel("抽象测试用例生成进程");
+		testCaseProcessButtonPanel = new FixedButtonTabbedPanel("测试用例优先排序进程");
 		testCaseProcessButton = testCaseProcessButtonPanel.getTabbedbutton();
 		
-		uppaalParseInforButtonPanel = new FixedButtonTabbedPanel("获取时间自动机");
+		uppaalParseInforButtonPanel = new FixedButtonTabbedPanel("获取自动机");
 		uppaalParseInforButton = uppaalParseInforButtonPanel.getTabbedbutton();
 		
 		uppaalOptimizationButtonPanel = new FixedButtonTabbedPanel("约简状态空间");
@@ -205,7 +205,7 @@ public class StepThreeCenterTabbedPane extends JPanel {
 		testCaseOptimizationButtonPanel = new FixedButtonTabbedPanel("优化约简");
 		testCaseOptimizationButton = testCaseOptimizationButtonPanel.getTabbedbutton();
 		
-		testCaseSortContrastButtonPanel=new FixedButtonTabbedPanel("重要度排序");
+		testCaseSortContrastButtonPanel=new FixedButtonTabbedPanel("优先级排序");
 		testCaseSortContrastButton=testCaseSortContrastButtonPanel.getTabbedbutton();
 
 		testCaseProduceButtonPanel = new FixedButtonTabbedPanel("获取测试序列");

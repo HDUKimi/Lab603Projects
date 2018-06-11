@@ -13,6 +13,8 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
+import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
+
 public class TestFileSpilt {
 
 	public static void main(String[] args) {
@@ -20,7 +22,7 @@ public class TestFileSpilt {
 		TestFileSpilt testFileSpilt=new TestFileSpilt();
 		
 //		File file=new File(System.getProperty("user.dir")+"//src//xx#1.xml");
-		File file=new File("D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\EAElevator31Time#3.xml");
+		File file=new File(StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase\\EAElevator31Time#3.xml");
 		
 		testFileSpilt.FileSpilt(file);
 		
@@ -32,7 +34,7 @@ public class TestFileSpilt {
 		String filename=file.getName().replaceAll(".xml", "");
 		String name=filename.split("#")[0];
 		String type=filename.split("#")[1];
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\";
+		String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase\\";
 		String filename1=name+"_1#"+type+".xml";
 		String filename2=name+"_2#"+type+".xml";
 		File[] files=new File[2];

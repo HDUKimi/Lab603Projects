@@ -96,7 +96,7 @@ public class TimingTreePanel extends JPanel{
 						public void actionPerformed(ActionEvent e) {
 							// TODO Auto-generated method stub
 							
-							((JMenu) fileMenu.getFileNewMenu().getItem(1)).getItem(5).doClick();
+							((JMenu) fileMenu.getFileNewMenu().getItem(1)).getItem(6).doClick();
 							
 //							DefaultMutableTreeNode node=new DefaultMutableTreeNode("ti +_+");
 //							timingtreemodel.insertNodeInto(node, timingtreerootnode, timingtreerootnode.getChildCount());

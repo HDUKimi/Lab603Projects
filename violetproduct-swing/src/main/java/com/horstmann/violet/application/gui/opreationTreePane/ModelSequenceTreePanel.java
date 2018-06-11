@@ -49,6 +49,7 @@ import com.horstmann.violet.application.gui.StepTwoCenterTabbedPane;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEditor;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyUppaalLabelRender;
+import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 import com.horstmann.violet.application.gui.util.tanchao.XMLToTree;
 import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.ImportByDoubleClick;
 import com.horstmann.violet.application.gui.util.xiaole.UppaalTransfrom.TransToVioletUppaal;
@@ -622,7 +623,7 @@ public class ModelSequenceTreePanel extends JPanel{
 	  * @return
 	  */
 	 public   File[] getAllFileByDiagramType(int starttype){
-		 String baseUrl ="D:\\ModelDriverProjectFile\\SequenceDiagram\\Violet";
+		 String baseUrl =StartFileCheck.DefaultRoute+"SequenceDiagram\\Violet";
 		 
 		 File[] fList =null;
 		 File file=null;

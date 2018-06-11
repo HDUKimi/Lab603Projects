@@ -301,7 +301,9 @@ public class ResultOfTime {
 					//System.out.println("整数不等式:"+bbb);
 					//System.out.println("整数数参数："+cs1);
 					int resultNum = getMathNum(bbb);
-					String solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);					
+					System.out.println("---------++++++++++++");
+					String solution1 = Mathematica.getSolution2(bbb, cs1, resultNum);	
+					System.out.println(solution1+"123456789");
 					if(solution1.equals("{}")){
 						System.out.println("原求得矛盾空解"+solution1);
 						System.out.println("原求得矛盾不等式"+bds1);

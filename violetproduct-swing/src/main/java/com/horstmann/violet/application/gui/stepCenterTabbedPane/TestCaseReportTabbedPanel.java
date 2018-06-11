@@ -86,6 +86,7 @@ import com.horstmann.violet.application.gui.util.chenzuo.Controller.Controller;
 import com.horstmann.violet.application.gui.util.chenzuo.Service.ResultService;
 import com.horstmann.violet.application.gui.util.chenzuo.Util.TcConvertUtil;
 import com.horstmann.violet.application.gui.util.lmr.DB.DataBaseUtil;
+import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.Pair;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCase;
 import com.horstmann.violet.application.gui.util.chenzuo.Bean.TestCaseException;
@@ -1073,7 +1074,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					}
 				}
 				
-				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\xxyy#1.xml";
+				String extraxmlpath=StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase\\xxyy#1.xml";
 				extractDataToXml(extraxmlpath, selectedtestcaselist, 1);//生成测试用例xml
 				File file=new File(extraxmlpath);
 				
@@ -2045,7 +2046,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					selectedtestcaselist.add(tcrpp.getTestcase());
 				}
 				
-				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\xxyy#2.xml";
+				String extraxmlpath=StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase\\xxyy#2.xml";
 				extractDataToXml(extraxmlpath, selectedtestcaselist, 2);//生成测试用例xml
 				File file=new File(extraxmlpath);
 				
@@ -2346,7 +2347,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					}
 				}
 				
-				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\xxyy#2.xml";
+				String extraxmlpath=StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase\\xxyy#2.xml";
 				extractDataToXml(extraxmlpath, selectedtestcaselist, 2);//生成测试用例xml
 				File file=new File(extraxmlpath);
 				
@@ -2744,7 +2745,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 					}
 				}
 				
-				String extraxmlpath="D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase\\xxyy#3.xml";
+				String extraxmlpath=StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase\\xxyy#3.xml";
 				extractDataToXml(extraxmlpath, selectedtestcaselist, 3);//生成测试用例xml
 				File file=new File(extraxmlpath);
 				
@@ -3282,7 +3283,7 @@ public class TestCaseReportTabbedPanel extends JPanel{
 
 		try {
 			// 定义输出流的目的地
-//			String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\4.Real_TestCase";
+//			String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\4.Real_TestCase";
 			FileWriter fw = new FileWriter(path);
 
 			// 定义输出格式和字符集

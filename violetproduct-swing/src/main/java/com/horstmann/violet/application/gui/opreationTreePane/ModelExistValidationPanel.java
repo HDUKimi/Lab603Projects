@@ -63,6 +63,7 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.ToolPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.UppaalToolPanel;
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.ValidationToolPanel;
 import com.horstmann.violet.application.gui.util.lmr.Evaluation.Evaluation;
+import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 import com.horstmann.violet.application.gui.util.tanchao.TranMessageColorize;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.CompareEAtoAutomata;
 import com.horstmann.violet.application.gui.util.wujun.TDVerification.ExistVerification;
@@ -1189,7 +1190,7 @@ public class ModelExistValidationPanel extends JPanel{
 				// TODO Auto-generated method stub
 				if(e.getClickCount()==2){
 
-					String baseUrl = "D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\";
+					String baseUrl = StartFileCheck.DefaultRoute+"TimingDiagram\\Violet\\";
 					String filename=(String) timingtablemodel.getValueAt(timingtable.getSelectedRow(), timingtable.getSelectedColumn());
 					String path = baseUrl + filename + ".timing.violet.xml";
 					String uppaalname=filename.substring(0, filename.indexOf("Uppaal"));
@@ -1207,23 +1208,23 @@ public class ModelExistValidationPanel extends JPanel{
 					}
 					else{
 						try {
-							ev=new ExistVerification("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\TimingToUppal\\"+uppaalname+"ForXStream.xml");
+							ev=new ExistVerification(StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\TimingToUppal\\"+uppaalname+"ForXStream.xml");
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 					}
 					
-//					String filePath="D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\uppaalTest1.uppaal.violet.xml";
+//					String filePath=StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\uppaalTest1.uppaal.violet.xml";
 					
 //					try {
-//						System.out.println("+-+-+-++++++++++++++++********************"+"D:\\ModelDriverProjectFile\\WJXML\\"+filename+"\\"+TimingEAtoUppaal.getDiagramDataName()+".xml");
-//						ev=new ExistVerification("D:\\ModelDriverProjectFile\\WJXML\\"+filename+"\\"+TimingEAtoUppaal.getDiagramDataName()+".xml");
-////						ev=new ExistVerification("D:\\ModelDriverProjectFile\\WJXML\\EA4.1.0 功能场景1\\UAV.xml");
+//						System.out.println("+-+-+-++++++++++++++++********************"+StartFileCheck.DefaultRoute+"WJXML\\"+filename+"\\"+TimingEAtoUppaal.getDiagramDataName()+".xml");
+//						ev=new ExistVerification(StartFileCheck.DefaultRoute+"WJXML\\"+filename+"\\"+TimingEAtoUppaal.getDiagramDataName()+".xml");
+////						ev=new ExistVerification(StartFileCheck.DefaultRoute+"WJXML\\EA4.1.0 功能场景1\\UAV.xml");
 //						
 //						uppaalmessagelist=ev.getMessages();
 //						
-//						RowStringsForDisplay row=CompareEAtoAutomata.compareFromXMLPath(path, "D:\\ModelDriverProjectFile\\WJXML\\"+filename+"\\"+TimingEAtoUppaal.getDiagramDataName()+".xml");
+//						RowStringsForDisplay row=CompareEAtoAutomata.compareFromXMLPath(path, StartFileCheck.DefaultRoute+"WJXML\\"+filename+"\\"+TimingEAtoUppaal.getDiagramDataName()+".xml");
 //						
 //						stateCompareList =row.getStateCompareList();
 //						messageCompareList = row.getMessageCompareList();
@@ -1266,7 +1267,7 @@ public class ModelExistValidationPanel extends JPanel{
 
 	protected int checkUppaalType(String filename) {
 		
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\";
+		String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\";
 	    
 	    File SeFile=new File(baseUrl+"SequenceToUppal\\"+filename+"ForXStream.xml");
 	    if(SeFile.exists()){
@@ -1467,13 +1468,13 @@ public class ModelExistValidationPanel extends JPanel{
 		
 		
 			
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\";
+		String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\";
 		String path = baseUrl + "\\"+filename + "\\"+filename+"Uppaal.uppaal.violet.xml";
 
 		try {
 
 //			TimingEAtoUppaal.transEA(filename,path,mainFrame,0);
-//			LayoutUppaal.layout("D:\\ModelDriverProjectFile\\WJXML\\"+filename+"\\"+TimingEAtoUppaal.getDiagramDataName() + ".xml");
+//			LayoutUppaal.layout(StartFileCheck.DefaultRoute+"WJXML\\"+filename+"\\"+TimingEAtoUppaal.getDiagramDataName() + ".xml");
 //			String filename1 = TransToVioletUppaal.TransToViolet(filename,2,2);
 //
 //			System.out.println("filename1:" + filename1 + " TimingEAtoUppaal.getDiagramDataName():"
@@ -1643,7 +1644,7 @@ public class ModelExistValidationPanel extends JPanel{
 					return ;
 				}
 				
-				String baseUrl = "D:\\ModelDriverProjectFile\\TimingDiagram\\Violet\\";
+				String baseUrl = StartFileCheck.DefaultRoute+"TimingDiagram\\Violet\\";
 				String filename=selectUppaalCheckBox.getText();
 				String uppaalname=filename.substring(0, filename.indexOf("Uppaal"));
 				
@@ -1659,7 +1660,7 @@ public class ModelExistValidationPanel extends JPanel{
 				}
 				else{
 					try {
-						ev=new ExistVerification("D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\TimingToUppal\\"+uppaalname+"ForXStream.xml");
+						ev=new ExistVerification(StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\TimingToUppal\\"+uppaalname+"ForXStream.xml");
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -2301,7 +2302,7 @@ public class ModelExistValidationPanel extends JPanel{
 	
 	public void initFileList() {
 	
-	    String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\";
+	    String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\";
 	    
 	    File SeFile=new File(baseUrl+"SequenceToUppal\\");
 	    for(String fileName:SeFile.list()){

@@ -52,8 +52,12 @@ public class DataBaseUtil {
 			if(ret!=null){
 				ret.close();
 			}
-			pst.close();
-			conn.close();
+			if(pst!=null){
+				pst.close();
+			}
+			if(conn!=null){
+				conn.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -130,7 +134,9 @@ public class DataBaseUtil {
 		
 		try {
 
-			init();
+//			init();
+			Class.forName(name);
+			conn = DriverManager.getConnection(url, user, password);// 获取连接
 			
 			casedatalist=new ArrayList<String>();
 			

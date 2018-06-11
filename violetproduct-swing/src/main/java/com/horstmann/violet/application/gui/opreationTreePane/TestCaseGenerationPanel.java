@@ -42,6 +42,7 @@ import com.horstmann.violet.application.gui.ButtonMouseListener;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.StepThreeCenterTabbedPane;
+import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 
 public class TestCaseGenerationPanel extends JPanel {
 	
@@ -258,7 +259,7 @@ public class TestCaseGenerationPanel extends JPanel {
 	private void initUppaalPanel() {
 		// TODO Auto-generated method stub
 		
-		uppaallabel.setText("Ê±¼ä×Ô¶¯»ú");
+		uppaallabel.setText("×Ô¶¯»ú");
 		uppaallabel.setForeground(new Color(0,0,0));
 		uppaallabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		uppaallabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
@@ -456,7 +457,7 @@ public class TestCaseGenerationPanel extends JPanel {
 	private void initCoverPanel() {
 		// TODO Auto-generated method stub
 		
-		coverlabel.setText("¸²¸ÇÌõ¼þ");
+		coverlabel.setText("ÅÅÐò·½·¨");
 		coverlabel.setForeground(new Color(0,0,0));
 		coverlabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		coverlabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
@@ -511,8 +512,10 @@ public class TestCaseGenerationPanel extends JPanel {
 		testlists.add("ÐÔÄÜ²âÊÔ");
 //		testlists.add("Ê±¼äÔ¼Êø²âÊÔ");
 		
-		coverlists.add("×´Ì¬¸²¸Ç");
-		coverlists.add("Ç¨ÒÆ¸²¸Ç");
+//		coverlists.add("×´Ì¬¸²¸Ç");
+//		coverlists.add("Ç¨ÒÆ¸²¸Ç");
+		coverlists.add("EFSMÅÅÐò");
+		coverlists.add("HMMÅÅÐò");
 //		coverlists.add("ÐÔÄÜ²âÊÔ");
 		
 		addCheckBoxToCovercheckboxpanel();
@@ -764,7 +767,7 @@ public class TestCaseGenerationPanel extends JPanel {
 	  * @return
 	  */
 	public File[] getAllFileByDiagramType(int starttype) {
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\2.UML_Model_Transfer\\SequenceToUppal";
+		String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\2.UML_Model_Transfer\\SequenceToUppal";
 
 		File[] fList = null;
 		File file = null;

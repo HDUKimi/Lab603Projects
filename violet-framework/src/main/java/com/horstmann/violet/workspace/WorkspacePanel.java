@@ -75,7 +75,6 @@ public class WorkspacePanel extends JPanel
         JScrollPane scrollGPanel = getScrollableEditorPart();                                			
 //		add(scrollGPanel, BorderLayout.CENTER);
         JScrollPane scrollSideBarPanel = getScrollableSideBar();
-//        if( !workspace.getTitle().toString().endsWith(".uppaal.violet.xml"))
 //		add(scrollSideBarPanel, BorderLayout.EAST);
 		workspacejs=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollGPanel,scrollSideBarPanel);
 		workspacejs.setOneTouchExpandable(true);
@@ -83,7 +82,7 @@ public class WorkspacePanel extends JPanel
 		workspacejs.setDividerSize(0);
 		workspacejs.setResizeWeight(1);
 		add(workspacejs,BorderLayout.CENTER);
-		scrollSideBarPanel.setVisible(false);
+//		scrollSideBarPanel.setVisible(false);
         refreshDisplay();
     }    
     /**

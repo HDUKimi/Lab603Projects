@@ -732,7 +732,7 @@ public class ProjectTree extends JPanel {
 					((JMenu) fileMenu.getFileNewMenu().getItem(1)).getItem(3).doClick();
 				}
 				else if(index==4){
-					((JMenu) fileMenu.getFileNewMenu().getItem(1)).getItem(5).doClick();
+					((JMenu) fileMenu.getFileNewMenu().getItem(1)).getItem(6).doClick();
 				}
 				
 			}

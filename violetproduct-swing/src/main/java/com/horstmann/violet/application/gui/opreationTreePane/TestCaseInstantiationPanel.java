@@ -53,6 +53,7 @@ import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyLabelCellEdit
 import com.horstmann.violet.application.gui.stepCenterTabbedPane.MyUppaalLabelRender;
 import com.horstmann.violet.application.gui.util.ckt.handle.Automatic;
 import com.horstmann.violet.application.gui.util.ckt.handle.Transition;
+import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 import com.l2fprod.common.swing.JTaskPane;
 import com.l2fprod.common.swing.JTaskPaneGroup;
 
@@ -424,7 +425,7 @@ public class TestCaseInstantiationPanel extends JPanel{
 		
 		List<Automatic> abstractAutomatic=new ArrayList<Automatic>();
 		try {
-			String serialpath = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase\\FunctionalTest\\"+name+".txt";
+			String serialpath = StartFileCheck.DefaultRoute+"UPPAL\\3.Abstract_TestCase\\FunctionalTest\\"+name+".txt";
 			FileInputStream fis = new FileInputStream(serialpath);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 
@@ -802,7 +803,7 @@ public class TestCaseInstantiationPanel extends JPanel{
 	  * @return
 	  */
 	public File[] getAllFileByDiagramType(int starttype) {
-		String baseUrl = "D:\\ModelDriverProjectFile\\UPPAL\\3.Abstract_TestCase";
+		String baseUrl = StartFileCheck.DefaultRoute+"UPPAL\\3.Abstract_TestCase";
 
 		File[] fList = null;
 		File file = null;
