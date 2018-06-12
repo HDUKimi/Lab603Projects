@@ -27,14 +27,14 @@ import javax.swing.SwingConstants;
 
 public class StepButtonPanel extends JPanel {
 
-	private JPanel homebuttonpanel;
+	private JPanel step0buttonpanel;
 	private JPanel step1buttonpanel;
 	private JPanel step2buttonpanel;
 	private JPanel step3buttonpanel;
 	private JPanel step4buttonpanel;
 
 	private List<JButton> stepButtonGroup;
-	private JButton homebutton;
+	private JButton step0button;
 	private JButton step1button;
 	private JButton step2button;
 	private JButton step3button;
@@ -55,7 +55,7 @@ public class StepButtonPanel extends JPanel {
 
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-		this.add(homebuttonpanel);
+		this.add(step0buttonpanel);
 		this.add(step1buttonpanel);
 		this.add(step2buttonpanel);
 		this.add(step3buttonpanel);
@@ -67,13 +67,13 @@ public class StepButtonPanel extends JPanel {
 
 	private void initButton() {
 
-		homebuttonpanel = new JPanel();
+		step0buttonpanel = new JPanel();
 		step1buttonpanel = new JPanel();
 		step2buttonpanel = new JPanel();
 		step3buttonpanel = new JPanel();
 		step4buttonpanel = new JPanel();
 
-		homebutton = new JButton();
+		step0button = new JButton();
 		step1button = new JButton();
 		step2button = new JButton();
 		step3button = new JButton();
@@ -84,30 +84,30 @@ public class StepButtonPanel extends JPanel {
 
 		ImageIcon icon0 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton0.png"));
 		icon0.setImage(icon0.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton1.png"));
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton0.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton2.png"));
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton0.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton3.png"));
+		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton0.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton4.png"));
+		ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton0.png"));
 		icon4.setImage(icon4.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
 
 		// step1button.setContentAreaFilled(false);//btn背景透明
 		// step1button.setBorderPainted(false);//btn无边框
 		// step1button.setFocusPainted(false);//btn无内边框
-		homebutton.setIcon(icon0);
-		homebutton.setText("首页");
-		homebutton.setFont(new Font("微软雅黑", Font.PLAIN, 13));
-		homebutton.setForeground(new Color(255, 255, 255));
-		homebutton.setHorizontalTextPosition(SwingConstants.CENTER);
-		homebutton.setVerticalTextPosition(SwingConstants.BOTTOM);
-		homebutton.setMargin(new Insets(0, 0, 0, 0));
-		homebutton.setFocusable(false);
-		homebutton.setContentAreaFilled(false);
-		homebutton.setBorderPainted(false);
-		homebutton.setPreferredSize(new Dimension(75, 80));
-		homebutton.addMouseListener(new MouseListener() {
+		step0button.setIcon(icon0);
+		step0button.setText("首页");
+		step0button.setFont(new Font("微软雅黑", Font.PLAIN, 13));
+		step0button.setForeground(new Color(255, 255, 255));
+		step0button.setHorizontalTextPosition(SwingConstants.CENTER);
+		step0button.setVerticalTextPosition(SwingConstants.BOTTOM);
+		step0button.setMargin(new Insets(0, 0, 0, 0));
+		step0button.setFocusable(false);
+		step0button.setContentAreaFilled(false);
+		step0button.setBorderPainted(false);
+		step0button.setPreferredSize(new Dimension(140, 80));
+		step0button.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -118,14 +118,14 @@ public class StepButtonPanel extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				homebuttonpanel.setBackground(new Color(53, 55, 59));
+				step0buttonpanel.setBackground(new Color(53, 55, 59));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				if (index != 0) {
-					homebuttonpanel.setBackground(new Color(71, 80, 93));
+					step0buttonpanel.setBackground(new Color(71, 80, 93));
 				}
 			}
 
@@ -133,7 +133,7 @@ public class StepButtonPanel extends JPanel {
 			public void mouseEntered(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				if (index != 0) {
-					homebuttonpanel.setBackground(new Color(72, 76, 81));
+					step0buttonpanel.setBackground(new Color(72, 76, 81));
 				}
 			}
 
@@ -141,23 +141,22 @@ public class StepButtonPanel extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				setstepbuttonpanelrepaint();
-				homebuttonpanel.setBackground(new Color(53, 55, 59));
+				step0buttonpanel.setBackground(new Color(53, 55, 59));
 				index = 0;
-				mainFrame.getBottomPanel().setBackground(new Color(104, 33, 122));
-				mainFrame.getBottomPanel().getMessagelable().setText("就绪");
+
 			}
 		});
 		step1button.setIcon(icon1);
-		step1button.setText("系统建模");
+		step1button.setText("构建剖面图");
 		step1button.setFont(new Font("微软雅黑", Font.PLAIN, 13));
 		step1button.setForeground(new Color(255, 255, 255));
 		step1button.setHorizontalTextPosition(SwingConstants.CENTER);
 		step1button.setVerticalTextPosition(SwingConstants.BOTTOM);
 		step1button.setMargin(new Insets(0, 0, 0, 0));
-		step1button.setFocusable(false);// btn里图片focus边框不显示
+		step1button.setFocusable(false);
 		step1button.setContentAreaFilled(false);
 		step1button.setBorderPainted(false);
-		step1button.setPreferredSize(new Dimension(75, 80));
+		step1button.setPreferredSize(new Dimension(140, 80));
 		step1button.addMouseListener(new MouseListener() {
 
 			@Override
@@ -194,12 +193,10 @@ public class StepButtonPanel extends JPanel {
 				setstepbuttonpanelrepaint();
 				step1buttonpanel.setBackground(new Color(53, 55, 59));
 				index = 1;
-				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
-				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			}
 		});
 		step2button.setIcon(icon2);
-		step2button.setText("模型转换");
+		step2button.setText("生成测试用例");
 		step2button.setFont(new Font("微软雅黑", Font.PLAIN, 13));
 		step2button.setForeground(new Color(255, 255, 255));
 		step2button.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -208,7 +205,7 @@ public class StepButtonPanel extends JPanel {
 		step2button.setFocusable(false);
 		step2button.setContentAreaFilled(false);
 		step2button.setBorderPainted(false);
-		step2button.setPreferredSize(new Dimension(75, 80));
+		step2button.setPreferredSize(new Dimension(140, 80));
 		step2button.addMouseListener(new MouseListener() {
 
 			@Override
@@ -245,12 +242,11 @@ public class StepButtonPanel extends JPanel {
 				setstepbuttonpanelrepaint();
 				step2buttonpanel.setBackground(new Color(53, 55, 59));
 				index = 2;
-				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
-				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			}
 		});
 		step3button.setIcon(icon3);
-		step3button.setText("<html><center>测试用例<br>优先排序</center></html>");
+//		step3button.setText("<html><center>测试用例<br>优先排序</center></html>");
+		step3button.setText("收集失效数据");
 		step3button.setFont(new Font("微软雅黑", Font.PLAIN, 13));
 		step3button.setForeground(new Color(255, 255, 255));
 		step3button.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -259,7 +255,7 @@ public class StepButtonPanel extends JPanel {
 		step3button.setFocusable(false);
 		step3button.setContentAreaFilled(false);
 		step3button.setBorderPainted(false);
-		step3button.setPreferredSize(new Dimension(75, 80));
+		step3button.setPreferredSize(new Dimension(140, 80));
 		step3button.addMouseListener(new MouseListener() {
 
 			@Override
@@ -296,12 +292,10 @@ public class StepButtonPanel extends JPanel {
 				setstepbuttonpanelrepaint();
 				step3buttonpanel.setBackground(new Color(53, 55, 59));
 				index = 3;
-				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
-				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			}
 		});
 		step4button.setIcon(icon4);
-		step4button.setText("<html><center>测试用例<br>实例化</center></html>");
+		step4button.setText("可靠性评估");
 		step4button.setFont(new Font("微软雅黑", Font.PLAIN, 13));
 		step4button.setForeground(new Color(255, 255, 255));
 		step4button.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -310,7 +304,7 @@ public class StepButtonPanel extends JPanel {
 		step4button.setFocusable(false);
 		step4button.setContentAreaFilled(false);
 		step4button.setBorderPainted(false);
-		step4button.setPreferredSize(new Dimension(75, 80));
+		step4button.setPreferredSize(new Dimension(140, 80));
 		step4button.addMouseListener(new MouseListener() {
 
 			@Override
@@ -347,17 +341,15 @@ public class StepButtonPanel extends JPanel {
 				setstepbuttonpanelrepaint();
 				step4buttonpanel.setBackground(new Color(53, 55, 59));
 				index = 4;
-				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
-				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 			}
 		});
 
-		homebuttonpanel.setLayout(new GridLayout());
-		// homebuttonpanel.setBackground(new Color(71,80,93));
-		homebuttonpanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
-		homebuttonpanel.add(homebutton);
+		step0buttonpanel.setLayout(new GridLayout());
+		// step0buttonpanel.setBackground(new Color(71,80,93));
+		step0buttonpanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
+		step0buttonpanel.add(step0button);
 
-		homebuttonpanel.setBackground(new Color(53, 55, 59));
+		step0buttonpanel.setBackground(new Color(53, 55, 59));
 		index = 0;
 
 		step1buttonpanel.setLayout(new GridLayout());
@@ -378,7 +370,7 @@ public class StepButtonPanel extends JPanel {
 		step4buttonpanel.add(step4button);
 
 		stepButtonGroup = new ArrayList<JButton>();
-		stepButtonGroup.add(homebutton);
+		stepButtonGroup.add(step0button);
 		stepButtonGroup.add(step1button);
 		stepButtonGroup.add(step2button);
 		stepButtonGroup.add(step3button);
@@ -391,7 +383,7 @@ public class StepButtonPanel extends JPanel {
 
 	protected void setstepbuttonpanelrepaint() {
 		// TODO Auto-generated method stub
-		homebuttonpanel.setBackground(new Color(71, 80, 93));
+		step0buttonpanel.setBackground(new Color(71, 80, 93));
 		step1buttonpanel.setBackground(new Color(71, 80, 93));
 		step2buttonpanel.setBackground(new Color(71, 80, 93));
 		step3buttonpanel.setBackground(new Color(71, 80, 93));
@@ -408,15 +400,15 @@ public class StepButtonPanel extends JPanel {
 
 	// 设置监听器
 	private void SetButtonListener() {
-		homebutton.addActionListener(new ActionListener() {
+		step0button.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				clearSelection();
-				// homebutton.setForeground(Color.RED);
+
 				mainFrame.getCenterPanel().removeAll();
-				mainFrame.getCenterPanel().add(mainFrame.getHomeAllTabbedPanel());
+				mainFrame.getCenterPanel().add(mainFrame.getStepZeroCenterPanel());
 				mainFrame.setStepindex(0);
 				mainFrame.ChangeRepaint();
 			}
@@ -437,8 +429,6 @@ public class StepButtonPanel extends JPanel {
 				setstepbuttonpanelrepaint();
 				step1buttonpanel.setBackground(new Color(53, 55, 59));
 				index = 1;
-				mainFrame.getBottomPanel().setBackground(new Color(0, 122, 204));
-				mainFrame.getBottomPanel().getMessagelable().setText("全部重新生成");
 
 				mainFrame.ChangeRepaint();
 				step2button.setEnabled(true);// 第一步点击之后，第二步可点击

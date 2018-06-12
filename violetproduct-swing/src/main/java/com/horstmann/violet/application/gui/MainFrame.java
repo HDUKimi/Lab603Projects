@@ -72,7 +72,8 @@ import com.horstmann.violet.application.gui.opreationTreePane.ModelTransformatio
 import com.horstmann.violet.application.gui.opreationTreePane.ProjectTree;
 import com.horstmann.violet.application.gui.opreationTreePane.TestCaseConfirmationPanel;
 import com.horstmann.violet.application.gui.opreationTreePane.TestCaseInstantiationPanel;
-import com.horstmann.violet.application.gui.stepone.StepOneCenterPanel;
+import com.horstmann.violet.application.gui.stepOne.StepOneCenterPanel;
+import com.horstmann.violet.application.gui.stepZero.StepZeroCenterPanel;
 import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 import com.horstmann.violet.application.help.AboutDialog;
 import com.horstmann.violet.application.menu.MenuFactory;
@@ -127,47 +128,14 @@ public class MainFrame extends JFrame {
 	private void setUIManeger() {
 		// TODO Auto-generated method stub
 
-		// UIManager.put("TabbedPane.unselectedBackground", new Color(64, 66,
-		// 68));
-		UIManager.put("TabbedPane.selected", new Color(64, 66, 68));
-		UIManager.put("TabbedPane.unselected", new Color(64, 66, 68));
-		UIManager.put("TabbedPane.selectedForeground", Color.WHITE);
-
-		// URL Tree_collapsed_url =
-		// this.getClass().getResource("Tree_collapsed.png");
-		// ImageIcon Tree_collapsed_icon = new ImageIcon(Tree_collapsed_url);
-		// Tree_collapsed_icon.setImage(Tree_collapsed_icon.getImage().getScaledInstance(20,20,
-		// Image.SCALE_DEFAULT));
-		//
-		// URL Tree_expanded_url =
-		// this.getClass().getResource("Tree_expanded.png");
-		// ImageIcon Tree_expanded_icon = new ImageIcon(Tree_expanded_url);
-		// Tree_expanded_icon.setImage(Tree_expanded_icon.getImage().getScaledInstance(20,20,
-		// Image.SCALE_DEFAULT));
-
-		// String absolutePath=System.getProperty("user.dir");
-		// String pngpath =
-		// absolutePath+"\\src\\site\\resources\\icons\\OpreationPart\\";
-		// demoRenderer.setClosedIcon(new ImageIcon(pngpath+"jiahao.png"));
-		// demoRenderer.setOpenIcon(new ImageIcon(pngpath+"jianhao.png"));
+//		UIManager.put("TabbedPane.selected", new Color(64, 66, 68));
+//		UIManager.put("TabbedPane.unselected", new Color(64, 66, 68));
+//		UIManager.put("TabbedPane.selectedForeground", Color.WHITE);
 
 		UIManager.put("Tree.collapsedIcon", new ImageIcon(this.getClass().getResource("ImagePart/collapsed.png")));
 		UIManager.put("Tree.expandedIcon", new ImageIcon(this.getClass().getResource("ImagePart/expanded.png")));
-		// UIManager.put("Tree.openIcon", null);
-		// UIManager.put("Tree.closeIcon", null);
-
-		// try {
-		// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		// UIDefaults uiDf = UIManager.getLookAndFeelDefaults();
-		// uiDf.put("SplitPane.background", new ColorUIResource(Color.RED));
 
 		UIManager.put("SplitPane.background", new Color(41, 57, 85));
-
-		// UIManager.put("Menu.foreground", new Color(0, 0, 0));
-		// UIManager.put("Menu.background", new Color(255,255,255));
 
 	}
 
@@ -375,13 +343,6 @@ public class MainFrame extends JFrame {
 		return this.topPanel;
 	}
 
-	public OneTouchExpandablePanel getOneTouchExpandablePanel() {
-		if (this.oneTouchExpandablePanel == null) {
-			this.oneTouchExpandablePanel = new OneTouchExpandablePanel(this);
-		}
-		return this.oneTouchExpandablePanel;
-	}
-
 	public BottomPanel getBottomPanel() {
 		if (this.bottomPanel == null) {
 			this.bottomPanel = new BottomPanel(this);
@@ -397,7 +358,7 @@ public class MainFrame extends JFrame {
 
 			this.getCenterPanel().setLayout(new GridLayout(1, 1));
 			this.getCenterPanel().setBackground(new Color(53, 73, 105));
-			this.getCenterPanel().add(this.getHomeAllTabbedPanel());// 默认添加首页
+			this.getCenterPanel().add(this.getStepZeroCenterPanel());// 默认添加首页
 			this.setStepindex(0);
 
 			this.mainPanel.add(this.getTopPanel());
@@ -417,6 +378,13 @@ public class MainFrame extends JFrame {
 		this.mainPanel.setVisible(false);
 		this.mainPanel.getRootPane().repaint();
 		this.mainPanel.setVisible(true);
+	}
+	
+	public StepZeroCenterPanel getStepZeroCenterPanel() {
+		if (this.stepZeroCenterPanel == null) {
+			stepZeroCenterPanel = new StepZeroCenterPanel(this);
+		}
+		return stepZeroCenterPanel;
 	}
 
 	public StepOneCenterPanel getStepOneCenterPanel() {
@@ -557,6 +525,7 @@ public class MainFrame extends JFrame {
 	private TestCaseInstantiationPanel testCaseInstantiationPanel;
 	private TestCaseConfirmationPanel testCaseConfirmationPanel;
 
+	private StepZeroCenterPanel stepZeroCenterPanel;
 	private StepOneCenterPanel stepOneCenterPanel;
 
 	private StepOneCenterTabbedPane stepOneCenterTabbedPane;
@@ -571,7 +540,6 @@ public class MainFrame extends JFrame {
 	public int stepindex = 0;
 
 	private TopPanel topPanel;
-	private OneTouchExpandablePanel oneTouchExpandablePanel;
 	private BottomPanel bottomPanel;
 	private JSplitPane js1;
 	private JSplitPane js2;
