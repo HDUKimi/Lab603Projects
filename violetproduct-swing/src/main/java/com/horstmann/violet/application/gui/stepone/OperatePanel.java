@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.stepone;
+package com.horstmann.violet.application.gui.stepOne;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

@@ -1,49 +1,15 @@
-package com.horstmann.violet.application.gui.stepone;
+package com.horstmann.violet.application.gui.stepOne;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.SequenceInputStream;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreeNode;
 
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.MoviePanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.ToolPanel;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.colorpicker.ColorPickerDemo;
-import com.horstmann.violet.workspace.IWorkspace;
-import com.horstmann.violet.workspace.Workspace;
 
 public class StepOneCenterPanel extends JPanel {
 

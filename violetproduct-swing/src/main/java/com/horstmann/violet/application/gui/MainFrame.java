@@ -21,60 +21,34 @@
 
 package com.horstmann.violet.application.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Label;
 import java.awt.Paint;
 import java.awt.Toolkit;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.MouseWheelListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowStateListener;
 import java.awt.geom.Point2D;
 import java.beans.BeanInfo;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import com.horstmann.violet.application.gui.opreationTreePane.TestCaseGenerationPanel;
-import com.horstmann.violet.application.gui.homeTabbedPanel.HomeAllTabbedPanel;
-import com.horstmann.violet.application.gui.opreationTreePane.ModelExistValidationPanel;
-import com.horstmann.violet.application.gui.opreationTreePane.ModelTransformationPanel;
-import com.horstmann.violet.application.gui.opreationTreePane.ProjectTree;
-import com.horstmann.violet.application.gui.opreationTreePane.TestCaseConfirmationPanel;
-import com.horstmann.violet.application.gui.opreationTreePane.TestCaseInstantiationPanel;
+import com.horstmann.violet.application.gui.common.StartFileCheck;
 import com.horstmann.violet.application.gui.stepOne.StepOneCenterPanel;
 import com.horstmann.violet.application.gui.stepZero.StepZeroCenterPanel;
-import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
 import com.horstmann.violet.application.help.AboutDialog;
 import com.horstmann.violet.application.menu.MenuFactory;
 import com.horstmann.violet.framework.dialog.DialogFactory;
@@ -90,11 +64,7 @@ import com.horstmann.violet.product.diagram.abstracts.node.AbstractNode;
 import com.horstmann.violet.product.diagram.abstracts.property.ArrowHead;
 import com.horstmann.violet.product.diagram.abstracts.property.BentStyle;
 import com.horstmann.violet.product.diagram.abstracts.property.LineStyle;
-import com.horstmann.violet.product.diagram.sequence.RefNode;
 import com.horstmann.violet.workspace.IWorkspace;
-import com.horstmann.violet.workspace.IWorkspaceListener;
-import com.horstmann.violet.workspace.Workspace;
-import com.horstmann.violet.workspace.editorpart.behavior.EditSelectedBehavior;
 
 /**
  * This desktop frame contains panes that show graphs.
@@ -128,9 +98,9 @@ public class MainFrame extends JFrame {
 	private void setUIManeger() {
 		// TODO Auto-generated method stub
 
-//		UIManager.put("TabbedPane.selected", new Color(64, 66, 68));
-//		UIManager.put("TabbedPane.unselected", new Color(64, 66, 68));
-//		UIManager.put("TabbedPane.selectedForeground", Color.WHITE);
+		// UIManager.put("TabbedPane.selected", new Color(64, 66, 68));
+		// UIManager.put("TabbedPane.unselected", new Color(64, 66, 68));
+		// UIManager.put("TabbedPane.selectedForeground", Color.WHITE);
 
 		UIManager.put("Tree.collapsedIcon", new ImageIcon(this.getClass().getResource("ImagePart/collapsed.png")));
 		UIManager.put("Tree.expandedIcon", new ImageIcon(this.getClass().getResource("ImagePart/expanded.png")));
@@ -174,39 +144,6 @@ public class MainFrame extends JFrame {
 		menuBar.add(menuFactory.getHelpMenu(this));
 		setJMenuBar(menuBar);
 
-	}
-
-
-	/**
-	 * Adds a tabbed pane (only if not already added)
-	 * 
-	 * @param c
-	 *            the component to display in the internal frame
-	 */
-
-
-	/**
-	 * Add a listener to perform action when something happens on this diagram
-	 * 
-	 * @param diagramPanel
-	 */
-
-	private void replaceWelcomePanelByTabbedPane() {
-		WelcomePanel welcomePanel = this.getWelcomePanel();
-		// JTabbedPane tabbedPane = getTabbedPane();
-		getMainPanel().remove(welcomePanel);
-		// getMainPanel().add(tabbedPane, new
-		// GBC(1,1,1,1).setFill(GBC.BOTH).setWeight(1, 1));
-		repaint();
-	}
-
-	private void replaceTabbedPaneByWelcomePanel() {
-		this.welcomePanel = null;
-		WelcomePanel welcomePanel = this.getWelcomePanel();
-		JTabbedPane tabbedPane = getTabbedPane();
-		getMainPanel().remove(tabbedPane);
-		getMainPanel().add(welcomePanel, BorderLayout.CENTER);
-		repaint();
 	}
 
 	/**
@@ -253,28 +190,12 @@ public class MainFrame extends JFrame {
 	 *            diagram file path
 	 */
 
-
 	/**
 	 * @return selected diagram file path (or null if not one is selected; that
 	 *         should never happen)
 	 */
 	public IWorkspace getActiveWorkspace() {
-			return null;
-	}
-	
-
-	public WelcomePanel getWelcomePanel() {
-		if (this.welcomePanel == null) {
-			this.welcomePanel = new WelcomePanel(this.getMenuFactory().getFileMenu(this));
-		}
-		return this.welcomePanel;
-	}
-
-	public HomeAllTabbedPanel getHomeAllTabbedPanel() {
-		if (this.homepanel == null) {
-			this.homepanel = new HomeAllTabbedPanel(this);
-		}
-		return this.homepanel;
+		return null;
 	}
 
 	public StepButtonPanel getStepButton() {
@@ -283,57 +204,6 @@ public class MainFrame extends JFrame {
 			this.stepButton = new StepButtonPanel(this);
 		}
 		return this.stepButton;
-	}
-
-
-	// public JPanel getConsolePart(){
-	// return this.consolepartpanel;
-	// }
-	public ProjectTree getProjectTree() {
-		if (this.projectTree == null) {
-			this.projectTree = new ProjectTree(this.getMenuFactory().getFileMenu(this), this);
-		}
-		return this.projectTree;
-	}
-
-	public ModelTransformationPanel getModelTransformationPanel() {
-		if (this.modelTransformationPanel == null) {
-			this.modelTransformationPanel = new ModelTransformationPanel(this);
-
-		}
-		return this.modelTransformationPanel;
-	}
-
-	public ModelExistValidationPanel getModelExistValidationPanel() {
-		if (this.modelExistValidationPanel == null) {
-			this.modelExistValidationPanel = new ModelExistValidationPanel(this);
-
-		}
-		return this.modelExistValidationPanel;
-	}
-
-	public TestCaseGenerationPanel getTestCaseGenerationPanel() {
-		if (this.abstractTestCaseGenerationPanel == null) {
-			this.abstractTestCaseGenerationPanel = new TestCaseGenerationPanel(this);
-
-		}
-		return this.abstractTestCaseGenerationPanel;
-	}
-
-	public TestCaseInstantiationPanel getTestCaseInstantiationPanel() {
-		if (this.testCaseInstantiationPanel == null) {
-			this.testCaseInstantiationPanel = new TestCaseInstantiationPanel(this);
-
-		}
-		return this.testCaseInstantiationPanel;
-	}
-
-	public TestCaseConfirmationPanel getTestCaseConfirmationPanel() {
-		if (this.testCaseConfirmationPanel == null) {
-			this.testCaseConfirmationPanel = new TestCaseConfirmationPanel(this);
-
-		}
-		return this.testCaseConfirmationPanel;
 	}
 
 	private TopPanel getTopPanel() {
@@ -379,7 +249,7 @@ public class MainFrame extends JFrame {
 		this.mainPanel.getRootPane().repaint();
 		this.mainPanel.setVisible(true);
 	}
-	
+
 	public StepZeroCenterPanel getStepZeroCenterPanel() {
 		if (this.stepZeroCenterPanel == null) {
 			stepZeroCenterPanel = new StepZeroCenterPanel(this);
@@ -392,57 +262,6 @@ public class MainFrame extends JFrame {
 			stepOneCenterPanel = new StepOneCenterPanel(this);
 		}
 		return stepOneCenterPanel;
-	}
-
-	public StepOneCenterTabbedPane getStepOneCenterTabbedPane() {
-		if (this.stepOneCenterTabbedPane == null) {
-			stepOneCenterTabbedPane = new StepOneCenterTabbedPane(this);
-		}
-		return this.stepOneCenterTabbedPane;
-
-	}
-
-	public StepTwoCenterTabbedPane getStepTwoCenterTabbedPane() {
-		if (this.stepTwoCenterTabbedPane == null) {
-			stepTwoCenterTabbedPane = new StepTwoCenterTabbedPane(this);
-		}
-		return this.stepTwoCenterTabbedPane;
-
-	}
-
-	// 第3的tab
-	public StepThreeCenterTabbedPane getStepThreeCenterTabbedPane() {
-		if (this.stepThreeCenterTabbedPane == null) {
-			stepThreeCenterTabbedPane = new StepThreeCenterTabbedPane(this);
-		}
-		return this.stepThreeCenterTabbedPane;
-
-	}
-
-	public StepFourCenterTabbedPane getStepFourCenterTabbedPane() {
-		if (this.stepFourCenterTabbedPane == null) {
-			stepFourCenterTabbedPane = new StepFourCenterTabbedPane(this);
-		}
-		return this.stepFourCenterTabbedPane;
-
-	}
-
-	// 第5的tab
-	public StepFiveCenterTabbedPane getStepFiveCenterTabbedPane() {
-		if (this.stepFiveCenterTabbedPane == null) {
-			stepFiveCenterTabbedPane = new StepFiveCenterTabbedPane(this);
-		}
-		return this.stepFiveCenterTabbedPane;
-
-	}
-
-	// 第6的tab
-	public StepSixCenterTabbedPane getStepSixCenterTabbedPane() {
-		if (this.stepSixCenterTabbedPane == null) {
-			stepSixCenterTabbedPane = new StepSixCenterTabbedPane(this);
-		}
-		return this.stepSixCenterTabbedPane;
-
 	}
 
 	/**
@@ -515,25 +334,8 @@ public class MainFrame extends JFrame {
 	/**
 	 * Panel added is not diagram is opened
 	 */
-	private WelcomePanel welcomePanel;
-	private HomeAllTabbedPanel homepanel;
-
-	private ProjectTree projectTree;
-	private ModelTransformationPanel modelTransformationPanel;
-	private ModelExistValidationPanel modelExistValidationPanel;
-	private TestCaseGenerationPanel abstractTestCaseGenerationPanel;
-	private TestCaseInstantiationPanel testCaseInstantiationPanel;
-	private TestCaseConfirmationPanel testCaseConfirmationPanel;
-
 	private StepZeroCenterPanel stepZeroCenterPanel;
 	private StepOneCenterPanel stepOneCenterPanel;
-
-	private StepOneCenterTabbedPane stepOneCenterTabbedPane;
-	private StepTwoCenterTabbedPane stepTwoCenterTabbedPane;
-	private StepThreeCenterTabbedPane stepThreeCenterTabbedPane;
-	private StepFourCenterTabbedPane stepFourCenterTabbedPane;
-	private StepFiveCenterTabbedPane stepFiveCenterTabbedPane;
-	private StepSixCenterTabbedPane stepSixCenterTabbedPane;
 
 	private StepButtonPanel stepButton;
 	private JPanel centerPanel = new JPanel();;

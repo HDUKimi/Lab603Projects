@@ -41,13 +41,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -55,32 +53,13 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollBar;
-import javax.swing.JTextArea;
-import javax.swing.JTree;
-import javax.swing.filechooser.FileSystemView;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-
-import org.dom4j.Document;
-import org.dom4j.Element;
 
 import com.horstmann.violet.application.ApplicationStopper;
 import com.horstmann.violet.application.gui.MainFrame;
-import com.horstmann.violet.application.gui.StepButtonPanel;
-import com.horstmann.violet.application.gui.StepOneCenterTabbedPane;
-import com.horstmann.violet.application.gui.StepTwoCenterTabbedPane;
-import com.horstmann.violet.application.gui.stepCenterTabbedPane.ButtonTabbedPanel;
-import com.horstmann.violet.application.gui.util.tanchao.CalculateWidth;
-import com.horstmann.violet.application.gui.util.tanchao.RefreshTool;
-import com.horstmann.violet.application.gui.util.tanchao.StartFileCheck;
-import com.horstmann.violet.application.gui.util.tanchao.XMLCopy;
 import com.horstmann.violet.framework.dialog.DialogFactory;
 import com.horstmann.violet.framework.file.GraphFile;
 import com.horstmann.violet.framework.file.IFile;
 import com.horstmann.violet.framework.file.IGraphFile;
-import com.horstmann.violet.framework.file.LocalFile;
 import com.horstmann.violet.framework.file.chooser.IFileChooserService;
 import com.horstmann.violet.framework.file.export.FileExportService;
 import com.horstmann.violet.framework.file.naming.ExtensionFilter;
@@ -291,8 +270,6 @@ public class FileMenu extends JMenu {
 					graphFile.saveToNewLocation();
 					userPreferencesService.addRecentFile(graphFile);
 
-					messageAppendConsolepart(workspace, graphFile);
-
 				}
 			}
 		});
@@ -300,113 +277,6 @@ public class FileMenu extends JMenu {
 			this.fileSaveAsItem.setEnabled(false);
 	}
 
-	protected void messageAppendConsolepart(IWorkspace workspace, IGraphFile graphFile) {
-		// TODO Auto-generated method stub
-		int index = mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel().getButtontabbedpanelindex();
-		System.out.println("index:" + index);
-
-		List<ButtonTabbedPanel> sequenceDiagramButtonTabbedPanelLists = mainFrame.getStepOneCenterTabbedPane()
-				.getSequenceDiagramButtonTabbedPanelLists();
-		List<ButtonTabbedPanel> timingDiagramButtonTabbedPanelLists = mainFrame.getStepOneCenterTabbedPane()
-				.getTimingDiagramButtonTabbedPanelLists();
-		List<ButtonTabbedPanel> stateDiagramButtonTabbedPanelLists = mainFrame.getStepOneCenterTabbedPane()
-				.getStateDiagramButtonTabbedPanelLists();
-		List<ButtonTabbedPanel> usecaseDiagramButtonTabbedPanelLists = mainFrame.getStepOneCenterTabbedPane()
-				.getUsecaseDiagramButtonTabbedPanelLists();
-
-		if (workspace.getTitle().toString().endsWith(".ucase.violet.xml")
-				|| workspace.getTitle().toString().substring(2, 4).equals("Us"))// 如果是用例图
-		{
-			String name=graphFile.getFilename().toString().split("\\.")[0];
-			usecaseDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().setText(name);
-			usecaseDiagramButtonTabbedPanelLists.get(index).setWidth(usecaseDiagramButtonTabbedPanelLists.get(index), name);
-			usecaseDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().doClick();
-			
-			int i = 0;
-			Enumeration<?> en = mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetreerootnode().children();
-			DefaultMutableTreeNode node;
-			while (en.hasMoreElements()) {
-				node = (DefaultMutableTreeNode) en.nextElement();
-				if (i == index) {
-					node.setUserObject(graphFile.getFilename().toString().split("\\.")[0]);
-					mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetree().updateUI();
-					break;
-				}
-				i++;
-			}
-
-			mainFrame.getStepOneCenterTabbedPane().TextAreaPrint("保存用例图文件 " + graphFile.getFilename() + " 到 " + graphFile.getDirectory());
-		}
-		if (workspace.getTitle().toString().endsWith(".timing.violet.xml")
-				|| workspace.getTitle().toString().substring(2, 4).equals("Ti"))// 时序图
-		{
-			String name=graphFile.getFilename().toString().split("\\.")[0];
-			timingDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().setText(name);
-			timingDiagramButtonTabbedPanelLists.get(index).setWidth(timingDiagramButtonTabbedPanelLists.get(index), name);
-			timingDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().doClick();
-
-			int i = 0;
-			Enumeration<?> en = mainFrame.getProjectTree().getTimingTreePanel().getTimingtreerootnode().children();
-			DefaultMutableTreeNode node;
-			while (en.hasMoreElements()) {
-				node = (DefaultMutableTreeNode) en.nextElement();
-				if (i == index) {
-					node.setUserObject(graphFile.getFilename().toString().split("\\.")[0]);
-					mainFrame.getProjectTree().getTimingTreePanel().getTimingtree().updateUI();
-					break;
-				}
-				i++;
-			}
-
-			mainFrame.getStepOneCenterTabbedPane().TextAreaPrint("保存时序图文件 " + graphFile.getFilename() + " 到 " + graphFile.getDirectory());
-		}
-		if (workspace.getTitle().toString().endsWith(".seq.violet.xml")
-				|| workspace.getTitle().toString().substring(2, 4).equals("Se"))// 如果是顺序图
-		{
-			String name=graphFile.getFilename().toString().split("\\.")[0];
-			sequenceDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().setText(name);
-			sequenceDiagramButtonTabbedPanelLists.get(index).setWidth(sequenceDiagramButtonTabbedPanelLists.get(index), name);
-			sequenceDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().doClick();
-
-			int i = 0;
-			Enumeration<?> en = mainFrame.getProjectTree().getSequenceTreePanel().getSequencetreerootnode().children();
-			DefaultMutableTreeNode node;
-			while (en.hasMoreElements()) {
-				node = (DefaultMutableTreeNode) en.nextElement();
-				if (i == index) {
-					node.setUserObject(graphFile.getFilename().toString().split("\\.")[0]);
-					mainFrame.getProjectTree().getSequenceTreePanel().getSequencetree().updateUI();
-					break;
-				}
-				i++;
-			}
-
-			mainFrame.getStepOneCenterTabbedPane().TextAreaPrint("保存顺序图文件 " + graphFile.getFilename() + " 到 " + graphFile.getDirectory());
-		}
-		if (workspace.getTitle().toString().endsWith(".state.violet.xml")
-				|| workspace.getTitle().toString().substring(2, 4).equals("St"))// 如果是状态图
-		{
-			String name=graphFile.getFilename().toString().split("\\.")[0];
-			stateDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().setText(name);
-			stateDiagramButtonTabbedPanelLists.get(index).setWidth(stateDiagramButtonTabbedPanelLists.get(index), name);
-			stateDiagramButtonTabbedPanelLists.get(index).getTabbedbutton().doClick();
-
-			int i = 0;
-			Enumeration<?> en = mainFrame.getProjectTree().getStateTreePanel().getStatetreerootnode().children();
-			DefaultMutableTreeNode node;
-			while (en.hasMoreElements()) {
-				node = (DefaultMutableTreeNode) en.nextElement();
-				if (i == index) {
-					node.setUserObject(graphFile.getFilename().toString().split("\\.")[0]);
-					mainFrame.getProjectTree().getStateTreePanel().getStatetree().updateUI();
-					break;
-				}
-				i++;
-			}
-			
-			mainFrame.getStepOneCenterTabbedPane().TextAreaPrint("保存状态图文件 " + graphFile.getFilename() + " 到 " + graphFile.getDirectory());
-		}
-	}
 
 	/**
 	 * Init save menu entry
@@ -419,8 +289,6 @@ public class FileMenu extends JMenu {
 					IGraphFile graphFile = workspace.getGraphFile();
 					graphFile.save();
 					userPreferencesService.addRecentFile(graphFile);
-
-					messageAppendConsolepart(workspace, graphFile);
 
 				}
 			}
@@ -478,12 +346,10 @@ public class FileMenu extends JMenu {
 							String filename = graphFile.getFilename();
 							if (filename == null) {
 								graphFile.saveToNewLocation();
-								messageAppendConsolepart(workspace, graphFile);
 								userPreferencesService.addRecentFile(graphFile);
 							}
 							if (filename != null) {
 								graphFile.save();
-								messageAppendConsolepart(workspace, graphFile);
 							}
 							if (!graphFile.isSaveRequired()) {
 								mainFrame.removeDiagramPanel(workspace);
@@ -506,30 +372,6 @@ public class FileMenu extends JMenu {
 					// mainFrame.requestFocus();
 					// }
 
-					if (workspace.getTitle().toString().endsWith(".ucase.violet.xml")
-							|| workspace.getTitle().toString().substring(2, 4).equals("Us"))// 如果是用例图
-					{
-						mainFrame.getStepOneCenterTabbedPane().TextAreaPrint("关闭用例图 " + mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel()
-										.getTabbedbutton().getText() + " 的绘图面板");
-					}
-					if (workspace.getTitle().toString().endsWith(".markov.violet.xml")
-							|| workspace.getTitle().toString().substring(2, 4).equals("Ma"))// 时序图
-					{
-						mainFrame.getStepOneCenterTabbedPane().TextAreaPrint("关闭时序图 " + mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel()
-										.getTabbedbutton().getText() + " 的绘图面板");
-					}
-					if (workspace.getTitle().toString().endsWith(".seq.violet.xml")
-							|| workspace.getTitle().toString().substring(2, 4).equals("Se"))// 如果是顺序图
-					{
-						mainFrame.getStepOneCenterTabbedPane().TextAreaPrint("关闭顺序图 " + mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel()
-										.getTabbedbutton().getText() + " 的绘图面板");
-					}
-					if (workspace.getTitle().toString().endsWith(".state.violet.xml")
-							|| workspace.getTitle().toString().substring(2, 4).equals("St"))// 如果是状态图
-					{
-						mainFrame.getStepOneCenterTabbedPane().TextAreaPrint("关闭状态图 " + mainFrame.getStepOneCenterTabbedPane().getSelectedButtonTabbedPanel()
-										.getTabbedbutton().getText() + " 的绘图面板");
-					}
 
 				}
 			}
@@ -616,10 +458,6 @@ public class FileMenu extends JMenu {
 					if(selectedFile.getFilename().contains("markov")){
 						becomeRunFileName=selectFileName.replace(".markov.violet.xml", "");
 					}
-					
-					StepTwoCenterTabbedPane.setBecomeRunFileName(becomeRunFileName);
-//					StepTwoCenterTabbedPane.setNeedRefresh(true);
-					RefreshTool.RefreshTwoAndEnd();
 					
 					final String runfilename=becomeRunFileName;
 
@@ -777,127 +615,9 @@ public class FileMenu extends JMenu {
 					try {
 						IGraphFile graphFile = new GraphFile(aFile);
 						IWorkspace workspace = new Workspace(graphFile);
-//						mainFrame.addTabbedPane(workspace);
 						userPreferencesService.addOpenedFile(aFile);
 						userPreferencesService.addRecentFile(aFile);
 
-						String type = (aFile.getFilename().split("\\."))[1];
-						JButton tabbutton;
-						JButton stepbutton = mainFrame.getStepButton().getStep1button();
-
-						List<ButtonTabbedPanel> sequenceDiagramButtonTabbedPanelLists = mainFrame
-								.getStepOneCenterTabbedPane().getSequenceDiagramButtonTabbedPanelLists();
-						List<ButtonTabbedPanel> timingDiagramButtonTabbedPanelLists = mainFrame
-								.getStepOneCenterTabbedPane().getTimingDiagramButtonTabbedPanelLists();
-						List<ButtonTabbedPanel> stateDiagramButtonTabbedPanelLists = mainFrame
-								.getStepOneCenterTabbedPane().getStateDiagramButtonTabbedPanelLists();
-						List<ButtonTabbedPanel> usecaseDiagramButtonTabbedPanelLists = mainFrame
-								.getStepOneCenterTabbedPane().getUsecaseDiagramButtonTabbedPanelLists();
-
-						if (type.equals("ucase")) {
-							tabbutton = usecaseDiagramButtonTabbedPanelLists
-									.get(usecaseDiagramButtonTabbedPanelLists.size() - 1).getTabbedbutton();
-							stepbutton.doClick();
-
-							mainFrame.getStepOneCenterTabbedPane().TextAreaPrint("打开最近用例图文件: " + aFile.getFilename());
-
-							tabbutton.doClick();
-
-							String nodename = tabbutton.getText();
-							DefaultMutableTreeNode node = new DefaultMutableTreeNode(nodename);
-
-							JTree usecasetree = mainFrame.getProjectTree().getUsecaseTreePanel().getUsecasetree();
-							DefaultTreeModel usecasetreemodel = mainFrame.getProjectTree().getUsecaseTreePanel()
-									.getUsecasetreemodel();
-							DefaultMutableTreeNode usecasetreerootnode = mainFrame.getProjectTree()
-									.getUsecaseTreePanel().getUsecasetreerootnode();
-
-							usecasetreemodel.insertNodeInto(node, usecasetreerootnode,
-									usecasetreerootnode.getChildCount());
-							TreePath path = new TreePath(usecasetreerootnode.getPath());
-							if (!usecasetree.isVisible(path)) {
-								usecasetree.makeVisible(path);
-							}
-							usecasetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
-
-						} else if (type.equals("state")) {
-							tabbutton = stateDiagramButtonTabbedPanelLists
-									.get(stateDiagramButtonTabbedPanelLists.size() - 1).getTabbedbutton();
-							stepbutton.doClick();
-
-							mainFrame.getStepOneCenterTabbedPane().TextAreaPrint("打开最近状态图文件: " + aFile.getFilename());
-
-							tabbutton.doClick();
-
-							String nodename = tabbutton.getText();
-							DefaultMutableTreeNode node = new DefaultMutableTreeNode(nodename);
-
-							JTree statetree = mainFrame.getProjectTree().getStateTreePanel().getStatetree();
-							DefaultTreeModel statetreemodel = mainFrame.getProjectTree().getStateTreePanel()
-									.getStatetreemodel();
-							DefaultMutableTreeNode statetreerootnode = mainFrame.getProjectTree().getStateTreePanel()
-									.getStatetreerootnode();
-
-							statetreemodel.insertNodeInto(node, statetreerootnode, statetreerootnode.getChildCount());
-							TreePath path = new TreePath(statetreerootnode.getPath());
-							if (!statetree.isVisible(path)) {
-								statetree.makeVisible(path);
-							}
-							statetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
-
-						} else if (type.equals("seq")) {
-							tabbutton = sequenceDiagramButtonTabbedPanelLists
-									.get(sequenceDiagramButtonTabbedPanelLists.size() - 1).getTabbedbutton();
-							stepbutton.doClick();
-
-							mainFrame.getStepOneCenterTabbedPane().TextAreaPrint("打开最近顺序图文件: " + aFile.getFilename());
-
-							tabbutton.doClick();
-
-							String nodename = tabbutton.getText();
-							DefaultMutableTreeNode node = new DefaultMutableTreeNode(nodename);
-
-							JTree sequencetree = mainFrame.getProjectTree().getSequenceTreePanel().getSequencetree();
-							DefaultTreeModel sequencetreemodel = mainFrame.getProjectTree().getSequenceTreePanel()
-									.getSequencetreemodel();
-							DefaultMutableTreeNode sequencetreerootnode = mainFrame.getProjectTree()
-									.getSequenceTreePanel().getSequencetreerootnode();
-
-							sequencetreemodel.insertNodeInto(node, sequencetreerootnode,
-									sequencetreerootnode.getChildCount());
-							TreePath path = new TreePath(sequencetreerootnode.getPath());
-							if (!sequencetree.isVisible(path)) {
-								sequencetree.makeVisible(path);
-							}
-							sequencetree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
-
-						} else if (type.equals("timing")) {
-							tabbutton = timingDiagramButtonTabbedPanelLists
-									.get(timingDiagramButtonTabbedPanelLists.size() - 1).getTabbedbutton();
-							stepbutton.doClick();
-
-							mainFrame.getStepOneCenterTabbedPane().TextAreaPrint("打开最近时序图文件: " + aFile.getFilename());
-
-							tabbutton.doClick();
-
-							String nodename = tabbutton.getText();
-							DefaultMutableTreeNode node = new DefaultMutableTreeNode(nodename);
-
-							JTree timingtree = mainFrame.getProjectTree().getTimingTreePanel().getTimingtree();
-							DefaultTreeModel timingtreemodel = mainFrame.getProjectTree().getTimingTreePanel()
-									.getTimingtreemodel();
-							DefaultMutableTreeNode timingtreerootnode = mainFrame.getProjectTree().getTimingTreePanel()
-									.getTimingtreerootnode();
-
-							timingtreemodel.insertNodeInto(node, timingtreerootnode,
-									timingtreerootnode.getChildCount());
-							TreePath path = new TreePath(timingtreerootnode.getPath());
-							if (!timingtree.isVisible(path)) {
-								timingtree.makeVisible(path);
-							}
-							timingtree.getSelectionModel().setSelectionPath(new TreePath(node.getPath()));
-
-						}
 
 					} catch (Exception e) {
 						dialogFactory.showErrorDialog(dialogOpenFileErrorMessage + " : " + e.getMessage());
@@ -952,9 +672,6 @@ public class FileMenu extends JMenu {
 				if (workspace != null) {
 					IGraphFile graphFile = workspace.getGraphFile();
 					graphFile.dsave();
-
-					messageAppendConsolepart(workspace, graphFile);
-
 				}
 			}
 		});

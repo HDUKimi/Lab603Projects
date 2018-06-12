@@ -82,15 +82,15 @@ public class StepButtonPanel extends JPanel {
 		String absolutePath = System.getProperty("user.dir");
 		String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
 
-		ImageIcon icon0 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton0.png"));
+		ImageIcon icon0 = new ImageIcon(this.getClass().getResource("stepbutton0.png"));
 		icon0.setImage(icon0.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton0.png"));
+		ImageIcon icon1 = new ImageIcon(this.getClass().getResource("stepbutton0.png"));
 		icon1.setImage(icon1.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton0.png"));
+		ImageIcon icon2 = new ImageIcon(this.getClass().getResource("stepbutton0.png"));
 		icon2.setImage(icon2.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton0.png"));
+		ImageIcon icon3 = new ImageIcon(this.getClass().getResource("stepbutton0.png"));
 		icon3.setImage(icon3.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-		ImageIcon icon4 = new ImageIcon(this.getClass().getResource("ImagePart/stepbutton0.png"));
+		ImageIcon icon4 = new ImageIcon(this.getClass().getResource("stepbutton0.png"));
 		icon4.setImage(icon4.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
 
 		// step1button.setContentAreaFilled(false);//btn±³¾°Í¸Ã÷
