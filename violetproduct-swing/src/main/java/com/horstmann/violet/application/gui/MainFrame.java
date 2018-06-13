@@ -85,7 +85,7 @@ public class MainFrame extends JFrame {
 		decorateFrame();
 		// setInitialSize();
 		// setUIManeger();
-		// createMenuBar();
+//		 createMenuBar();
 
 		// 初始化文件列表
 		StartFileCheck sfc = new StartFileCheck();

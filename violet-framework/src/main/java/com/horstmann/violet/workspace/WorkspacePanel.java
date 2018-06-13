@@ -73,15 +73,15 @@ public class WorkspacePanel extends JPanel
         LayoutManager layout = new BorderLayout();
         setLayout(layout);
         JScrollPane scrollGPanel = getScrollableEditorPart();                                			
-//		add(scrollGPanel, BorderLayout.CENTER);
+		add(scrollGPanel, BorderLayout.CENTER);
         JScrollPane scrollSideBarPanel = getScrollableSideBar();
-//		add(scrollSideBarPanel, BorderLayout.EAST);
-		workspacejs=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollGPanel,scrollSideBarPanel);
-		workspacejs.setOneTouchExpandable(true);
-		workspacejs.setContinuousLayout(true);
-		workspacejs.setDividerSize(0);
-		workspacejs.setResizeWeight(1);
-		add(workspacejs,BorderLayout.CENTER);
+		add(scrollSideBarPanel, BorderLayout.EAST);
+//		workspacejs=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollGPanel,scrollSideBarPanel);
+//		workspacejs.setOneTouchExpandable(true);
+//		workspacejs.setContinuousLayout(true);
+//		workspacejs.setDividerSize(0);
+//		workspacejs.setResizeWeight(1);
+//		add(workspacejs,BorderLayout.CENTER);
 //		scrollSideBarPanel.setVisible(false);
         refreshDisplay();
     }    

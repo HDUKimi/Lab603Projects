@@ -35,7 +35,8 @@ public class BottomPanel extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(messagelable,BorderLayout.CENTER);
 		
-		this.setBackground(ColorData.gray);
+		this.setBackground(ColorData.gray_5);
+		this.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, ColorData.gray));
 		
 	}
 

@@ -150,7 +150,7 @@ public class FileMenu extends JMenu {
 	private void addWindowsClosingListener() {
 		this.mainFrame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent event) {
-//				stopper.exitProgram(mainFrame);
+				// stopper.exitProgram(mainFrame);
 			}
 		});
 	}
@@ -277,7 +277,6 @@ public class FileMenu extends JMenu {
 			this.fileSaveAsItem.setEnabled(false);
 	}
 
-
 	/**
 	 * Init save menu entry
 	 */
@@ -372,7 +371,6 @@ public class FileMenu extends JMenu {
 					// mainFrame.requestFocus();
 					// }
 
-
 				}
 			}
 		});
@@ -424,7 +422,6 @@ public class FileMenu extends JMenu {
 		return name;
 	}
 
-
 	/**
 	 * Init open menu entry。张建已改
 	 */
@@ -442,58 +439,46 @@ public class FileMenu extends JMenu {
 					selectedFile = fileOpener.getFileDefinition();// 返回一个绝对路径的文件
 
 					String url = selectedFile.getDirectory() + "\\" + selectedFile.getFilename();
-//					boolean flag = isVioletXML(url);// 是平台格式的文件
+					// boolean flag = isVioletXML(url);// 是平台格式的文件
 
 					final List<IFile> files = new ArrayList<IFile>();
-//					if (flag == false) {
-//						XMLCopy.SourceCopyToTarget(url, StartFileCheck.DefaultRoute+"SequenceDiagram\\Violet\\"+selectedFile.getFilename());
-//							List<IFile> eafiles = openEAXML(selectedFile, url);
-//							files.addAll(eafiles);
-//					} else {
-						files.add(selectedFile);
-//					}
-					
-					String selectFileName=selectedFile.getFilename();
+					// if (flag == false) {
+					// XMLCopy.SourceCopyToTarget(url,
+					// StartFileCheck.DefaultRoute+"SequenceDiagram\\Violet\\"+selectedFile.getFilename());
+					// List<IFile> eafiles = openEAXML(selectedFile, url);
+					// files.addAll(eafiles);
+					// } else {
+					files.add(selectedFile);
+					// }
+
+					String selectFileName = selectedFile.getFilename();
 					String becomeRunFileName = null;
-					if(selectedFile.getFilename().contains("markov")){
-						becomeRunFileName=selectFileName.replace(".markov.violet.xml", "");
+					if (selectedFile.getFilename().contains("markov")) {
+						becomeRunFileName = selectFileName.replace(".markov.violet.xml", "");
 					}
-					
-					final String runfilename=becomeRunFileName;
 
-					Thread t = new Thread(new Runnable() {
+					final String runfilename = becomeRunFileName;
 
-						@Override
-						public void run() {
-							// TODO Auto-generated method stub
+					IGraphFile graphFile = null;
 
-							JButton tabbutton = null;
+					for (IFile simplefile : files) {
 
-							IGraphFile graphFile = null;
-							
-							for (IFile simplefile : files) {
-
-								try {
-									graphFile = new GraphFile(simplefile);
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-
-								// 显示文件图形
-								IWorkspace workspace = new Workspace(graphFile);
-								
-								mainFrame.getMarkovWorkspaceList().add(workspace);
-								
-								mainFrame.getStepOneCenterPanel().getWorkTabbedPane().add(runfilename, workspace.getAWTComponent());
-
-
-
-							}
-
+						try {
+							graphFile = new GraphFile(simplefile);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
-					});
-					t.start();
+
+						// 显示文件图形
+						IWorkspace workspace = new Workspace(graphFile);
+
+						mainFrame.getMarkovWorkspaceList().add(workspace);
+
+						mainFrame.getStepOneCenterPanel().getWorkTabbedPane().add(runfilename,
+								workspace.getAWTComponent());
+
+					}
 
 				} catch (StreamException se) {
 					dialogFactory.showErrorDialog(dialogOpenFileIncompatibilityMessage);
@@ -553,19 +538,19 @@ public class FileMenu extends JMenu {
 					public void actionPerformed(ActionEvent event) {
 
 						String str = null;
-						str = (String) JOptionPane.showInputDialog(null, "请输入模型图名称:\n", "输入",
-								JOptionPane.PLAIN_MESSAGE, null, null, "在这输入");
+						str = (String) JOptionPane.showInputDialog(null, "请输入模型图名称:\n", "输入", JOptionPane.PLAIN_MESSAGE,
+								null, null, "在这输入");
 						System.out.println(str);
 						if (str != null && !str.equals("")) {
 							Class<? extends IGraph> graphClass = aDiagramPlugin.getGraphClass();
 							IGraphFile graphFile = new GraphFile(graphClass);
 							IWorkspace workspace = new Workspace(graphFile);
-							
+
 							mainFrame.getMarkovWorkspaceList().add(workspace);
-							
+
 							String itemname = item.getText().substring(0, 2);
 							System.out.println(itemname);
-							
+
 							mainFrame.getStepOneCenterPanel().getWorkTabbedPane().add(str, workspace.getAWTComponent());
 
 						}
@@ -617,7 +602,6 @@ public class FileMenu extends JMenu {
 						IWorkspace workspace = new Workspace(graphFile);
 						userPreferencesService.addOpenedFile(aFile);
 						userPreferencesService.addRecentFile(aFile);
-
 
 					} catch (Exception e) {
 						dialogFactory.showErrorDialog(dialogOpenFileErrorMessage + " : " + e.getMessage());
