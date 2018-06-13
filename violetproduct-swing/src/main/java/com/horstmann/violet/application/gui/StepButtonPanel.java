@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -12,18 +11,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+
+import com.horstmann.violet.application.gui.common.ColorData;
 
 public class StepButtonPanel extends JPanel {
 
@@ -39,9 +36,9 @@ public class StepButtonPanel extends JPanel {
 	private JButton step2button;
 	private JButton step3button;
 	private JButton step4button;
-	
+
 	private static int index = 0;
-	
+
 	private MainFrame mainFrame;
 
 	public StepButtonPanel(MainFrame mainFrame) {
@@ -60,6 +57,11 @@ public class StepButtonPanel extends JPanel {
 		this.add(step2buttonpanel);
 		this.add(step3buttonpanel);
 		this.add(step4buttonpanel);
+		this.setOpaque(false);
+
+		this.setMinimumSize(new Dimension(1200, 96));
+		this.setPreferredSize(new Dimension(1200, 96));
+		this.setMaximumSize(new Dimension(1200, 96));
 
 		SetButtonListener();
 
@@ -78,6 +80,18 @@ public class StepButtonPanel extends JPanel {
 		step2button = new JButton();
 		step3button = new JButton();
 		step4button = new JButton();
+		
+//		step0button.setText("首页");
+//		step1button.setText("构建剖面图");
+//		step2button.setText("生成测试用例");
+//		step3button.setText("收集失效数据");
+//		step4button.setText("可靠性评估");
+//		
+//		step0button.setPreferredSize(new Dimension(140, 80));
+//		step1button.setPreferredSize(new Dimension(140, 80));
+//		step2button.setPreferredSize(new Dimension(140, 80));
+//		step3button.setPreferredSize(new Dimension(140, 80));
+//		step4button.setPreferredSize(new Dimension(140, 80));
 
 		String absolutePath = System.getProperty("user.dir");
 		String path = absolutePath + "\\src\\site\\resources\\icons\\OpreationPart\\";
@@ -96,10 +110,10 @@ public class StepButtonPanel extends JPanel {
 		// step1button.setContentAreaFilled(false);//btn背景透明
 		// step1button.setBorderPainted(false);//btn无边框
 		// step1button.setFocusPainted(false);//btn无内边框
-		step0button.setIcon(icon0);
+//		step0button.setIcon(icon0);
 		step0button.setText("首页");
 		step0button.setFont(new Font("微软雅黑", Font.PLAIN, 13));
-		step0button.setForeground(new Color(255, 255, 255));
+		step0button.setForeground(ColorData.black);
 		step0button.setHorizontalTextPosition(SwingConstants.CENTER);
 		step0button.setVerticalTextPosition(SwingConstants.BOTTOM);
 		step0button.setMargin(new Insets(0, 0, 0, 0));
@@ -118,14 +132,14 @@ public class StepButtonPanel extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				step0buttonpanel.setBackground(new Color(53, 55, 59));
+				step0buttonpanel.setBackground(ColorData.gray_65);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				if (index != 0) {
-					step0buttonpanel.setBackground(new Color(71, 80, 93));
+					step0buttonpanel.setBackground(ColorData.gray);
 				}
 			}
 
@@ -133,7 +147,7 @@ public class StepButtonPanel extends JPanel {
 			public void mouseEntered(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				if (index != 0) {
-					step0buttonpanel.setBackground(new Color(72, 76, 81));
+					step0buttonpanel.setBackground(ColorData.gray_50);
 				}
 			}
 
@@ -141,15 +155,15 @@ public class StepButtonPanel extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				setstepbuttonpanelrepaint();
-				step0buttonpanel.setBackground(new Color(53, 55, 59));
+				step0buttonpanel.setBackground(ColorData.gray_35);
 				index = 0;
 
 			}
 		});
-		step1button.setIcon(icon1);
+//		step1button.setIcon(icon1);
 		step1button.setText("构建剖面图");
 		step1button.setFont(new Font("微软雅黑", Font.PLAIN, 13));
-		step1button.setForeground(new Color(255, 255, 255));
+		step1button.setForeground(ColorData.black);
 		step1button.setHorizontalTextPosition(SwingConstants.CENTER);
 		step1button.setVerticalTextPosition(SwingConstants.BOTTOM);
 		step1button.setMargin(new Insets(0, 0, 0, 0));
@@ -168,14 +182,14 @@ public class StepButtonPanel extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				step1buttonpanel.setBackground(new Color(53, 55, 59));
+				step1buttonpanel.setBackground(ColorData.gray_65);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				if (index != 1) {
-					step1buttonpanel.setBackground(new Color(71, 80, 93));
+					step1buttonpanel.setBackground(ColorData.gray);
 				}
 			}
 
@@ -183,7 +197,7 @@ public class StepButtonPanel extends JPanel {
 			public void mouseEntered(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				if (index != 1) {
-					step1buttonpanel.setBackground(new Color(72, 76, 81));
+					step1buttonpanel.setBackground(ColorData.gray_50);
 				}
 			}
 
@@ -191,14 +205,14 @@ public class StepButtonPanel extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				setstepbuttonpanelrepaint();
-				step1buttonpanel.setBackground(new Color(53, 55, 59));
+				step1buttonpanel.setBackground(ColorData.gray_35);
 				index = 1;
 			}
 		});
-		step2button.setIcon(icon2);
+//		step2button.setIcon(icon2);
 		step2button.setText("生成测试用例");
 		step2button.setFont(new Font("微软雅黑", Font.PLAIN, 13));
-		step2button.setForeground(new Color(255, 255, 255));
+		step2button.setForeground(ColorData.black);
 		step2button.setHorizontalTextPosition(SwingConstants.CENTER);
 		step2button.setVerticalTextPosition(SwingConstants.BOTTOM);
 		step2button.setMargin(new Insets(0, 0, 0, 0));
@@ -217,14 +231,14 @@ public class StepButtonPanel extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				step2buttonpanel.setBackground(new Color(53, 55, 59));
+				step2buttonpanel.setBackground(ColorData.gray_65);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				if (index != 2) {
-					step2buttonpanel.setBackground(new Color(71, 80, 93));
+					step2buttonpanel.setBackground(ColorData.gray);
 				}
 			}
 
@@ -232,7 +246,7 @@ public class StepButtonPanel extends JPanel {
 			public void mouseEntered(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				if (index != 2) {
-					step2buttonpanel.setBackground(new Color(72, 76, 81));
+					step2buttonpanel.setBackground(ColorData.gray_50);
 				}
 			}
 
@@ -240,15 +254,15 @@ public class StepButtonPanel extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				setstepbuttonpanelrepaint();
-				step2buttonpanel.setBackground(new Color(53, 55, 59));
+				step2buttonpanel.setBackground(ColorData.gray_35);
 				index = 2;
 			}
 		});
-		step3button.setIcon(icon3);
-//		step3button.setText("<html><center>测试用例<br>优先排序</center></html>");
+//		step3button.setIcon(icon3);
+		// step3button.setText("<html><center>测试用例<br>优先排序</center></html>");
 		step3button.setText("收集失效数据");
 		step3button.setFont(new Font("微软雅黑", Font.PLAIN, 13));
-		step3button.setForeground(new Color(255, 255, 255));
+		step3button.setForeground(ColorData.black);
 		step3button.setHorizontalTextPosition(SwingConstants.CENTER);
 		step3button.setVerticalTextPosition(SwingConstants.BOTTOM);
 		step3button.setMargin(new Insets(0, 0, 0, 0));
@@ -267,14 +281,14 @@ public class StepButtonPanel extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				step3buttonpanel.setBackground(new Color(53, 55, 59));
+				step3buttonpanel.setBackground(ColorData.gray_65);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				if (index != 3) {
-					step3buttonpanel.setBackground(new Color(71, 80, 93));
+					step3buttonpanel.setBackground(ColorData.gray);
 				}
 			}
 
@@ -282,7 +296,7 @@ public class StepButtonPanel extends JPanel {
 			public void mouseEntered(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				if (index != 3) {
-					step3buttonpanel.setBackground(new Color(72, 76, 81));
+					step3buttonpanel.setBackground(ColorData.gray_50);
 				}
 			}
 
@@ -290,14 +304,14 @@ public class StepButtonPanel extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				setstepbuttonpanelrepaint();
-				step3buttonpanel.setBackground(new Color(53, 55, 59));
+				step3buttonpanel.setBackground(ColorData.gray_35);
 				index = 3;
 			}
 		});
-		step4button.setIcon(icon4);
+//		step4button.setIcon(icon4);
 		step4button.setText("可靠性评估");
 		step4button.setFont(new Font("微软雅黑", Font.PLAIN, 13));
-		step4button.setForeground(new Color(255, 255, 255));
+		step4button.setForeground(ColorData.black);
 		step4button.setHorizontalTextPosition(SwingConstants.CENTER);
 		step4button.setVerticalTextPosition(SwingConstants.BOTTOM);
 		step4button.setMargin(new Insets(0, 0, 0, 0));
@@ -316,14 +330,14 @@ public class StepButtonPanel extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				step4buttonpanel.setBackground(new Color(53, 55, 59));
+				step4buttonpanel.setBackground(ColorData.gray_65);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				if (index != 4) {
-					step4buttonpanel.setBackground(new Color(71, 80, 93));
+					step4buttonpanel.setBackground(ColorData.gray);
 				}
 			}
 
@@ -331,7 +345,7 @@ public class StepButtonPanel extends JPanel {
 			public void mouseEntered(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				if (index != 4) {
-					step4buttonpanel.setBackground(new Color(72, 76, 81));
+					step4buttonpanel.setBackground(ColorData.gray_50);
 				}
 			}
 
@@ -339,7 +353,7 @@ public class StepButtonPanel extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 				setstepbuttonpanelrepaint();
-				step4buttonpanel.setBackground(new Color(53, 55, 59));
+				step4buttonpanel.setBackground(ColorData.gray_35);
 				index = 4;
 			}
 		});
@@ -349,23 +363,23 @@ public class StepButtonPanel extends JPanel {
 		step0buttonpanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
 		step0buttonpanel.add(step0button);
 
-		step0buttonpanel.setBackground(new Color(53, 55, 59));
+		step0buttonpanel.setBackground(ColorData.gray_35);
 		index = 0;
 
 		step1buttonpanel.setLayout(new GridLayout());
-		step1buttonpanel.setBackground(new Color(71, 80, 93));
+		step1buttonpanel.setBackground(ColorData.gray);
 		step1buttonpanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
 		step1buttonpanel.add(step1button);
 		step2buttonpanel.setLayout(new GridLayout());
-		step2buttonpanel.setBackground(new Color(71, 80, 93));
+		step2buttonpanel.setBackground(ColorData.gray);
 		step2buttonpanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
 		step2buttonpanel.add(step2button);
 		step3buttonpanel.setLayout(new GridLayout());
-		step3buttonpanel.setBackground(new Color(71, 80, 93));
+		step3buttonpanel.setBackground(ColorData.gray);
 		step3buttonpanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
 		step3buttonpanel.add(step3button);
 		step4buttonpanel.setLayout(new GridLayout());
-		step4buttonpanel.setBackground(new Color(71, 80, 93));
+		step4buttonpanel.setBackground(ColorData.gray);
 		step4buttonpanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 3, 0));
 		step4buttonpanel.add(step4button);
 
@@ -375,28 +389,20 @@ public class StepButtonPanel extends JPanel {
 		stepButtonGroup.add(step2button);
 		stepButtonGroup.add(step3button);
 		stepButtonGroup.add(step4button);
-		
-		step2button.setEnabled(false);// 初始其他步骤按钮都不可点击
-		step3button.setEnabled(false);
-		step4button.setEnabled(false);
+
+//		step2button.setEnabled(false);// 初始其他步骤按钮都不可点击
+//		step3button.setEnabled(false);
+//		step4button.setEnabled(false);
 	}
 
 	protected void setstepbuttonpanelrepaint() {
 		// TODO Auto-generated method stub
-		step0buttonpanel.setBackground(new Color(71, 80, 93));
-		step1buttonpanel.setBackground(new Color(71, 80, 93));
-		step2buttonpanel.setBackground(new Color(71, 80, 93));
-		step3buttonpanel.setBackground(new Color(71, 80, 93));
-		step4buttonpanel.setBackground(new Color(71, 80, 93));
+		step0buttonpanel.setBackground(ColorData.gray);
+		step1buttonpanel.setBackground(ColorData.gray);
+		step2buttonpanel.setBackground(ColorData.gray);
+		step3buttonpanel.setBackground(ColorData.gray);
+		step4buttonpanel.setBackground(ColorData.gray);
 	}
-
-	// 初始化阶段
-	public void clearSelection() {
-		for (JButton stepButton : stepButtonGroup) {
-			stepButton.setForeground(new Color(255, 255, 255));
-		}
-	}
-
 
 	// 设置监听器
 	private void SetButtonListener() {
@@ -405,8 +411,6 @@ public class StepButtonPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				clearSelection();
-
 				mainFrame.getCenterPanel().removeAll();
 				mainFrame.getCenterPanel().add(mainFrame.getStepZeroCenterPanel());
 				mainFrame.setStepindex(0);
@@ -419,15 +423,11 @@ public class StepButtonPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 
-				clearSelection();
-
 				mainFrame.getCenterPanel().removeAll();
 				mainFrame.getCenterPanel().add(mainFrame.getStepOneCenterPanel());
 
 				mainFrame.setStepindex(1);
 
-				setstepbuttonpanelrepaint();
-				step1buttonpanel.setBackground(new Color(53, 55, 59));
 				index = 1;
 
 				mainFrame.ChangeRepaint();
@@ -438,9 +438,6 @@ public class StepButtonPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				clearSelection();
-
-
 			}
 		});
 		step3button.addActionListener(new ActionListener() {
@@ -448,7 +445,6 @@ public class StepButtonPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				clearSelection();
 			}
 		});
 		step4button.addActionListener(new ActionListener() {
@@ -456,7 +452,6 @@ public class StepButtonPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				clearSelection();
 
 			}
 		});
