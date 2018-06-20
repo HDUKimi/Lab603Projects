@@ -47,6 +47,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import com.horstmann.violet.application.gui.common.StartFileCheck;
+import com.horstmann.violet.application.gui.stepFour.StepFourCenterPanel;
 import com.horstmann.violet.application.gui.stepOne.StepOneCenterPanel;
 import com.horstmann.violet.application.gui.stepZero.StepZeroCenterPanel;
 import com.horstmann.violet.application.help.AboutDialog;
@@ -263,6 +264,13 @@ public class MainFrame extends JFrame {
 		}
 		return stepOneCenterPanel;
 	}
+	
+	public StepFourCenterPanel getStepFourCenterPanel() {
+		if (this.stepFourCenterPanel == null) {
+			stepFourCenterPanel = new StepFourCenterPanel(this);
+		}
+		return stepFourCenterPanel;
+	}
 
 	/**
 	 * @return the menu factory instance
@@ -336,6 +344,7 @@ public class MainFrame extends JFrame {
 	 */
 	private StepZeroCenterPanel stepZeroCenterPanel;
 	private StepOneCenterPanel stepOneCenterPanel;
+	private StepFourCenterPanel stepFourCenterPanel;
 
 	private StepButtonPanel stepButton;
 	private JPanel centerPanel = new JPanel();;

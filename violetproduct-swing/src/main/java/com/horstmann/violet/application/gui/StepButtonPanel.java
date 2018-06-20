@@ -451,8 +451,16 @@ public class StepButtonPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				mainFrame.getCenterPanel().removeAll();
+				mainFrame.getCenterPanel().add(mainFrame.getStepFourCenterPanel());
 
+				mainFrame.setStepindex(4);
+
+				index = 4;
+
+				mainFrame.ChangeRepaint();
+				
 			}
 		});
 	}

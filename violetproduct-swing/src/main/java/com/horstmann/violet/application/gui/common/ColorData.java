@@ -14,4 +14,6 @@ public class ColorData {
 	public static Color gray_50 = new Color(129, 129, 129);
 	public static Color gray_65 = new Color(89, 89, 89);
 
+	public static Color yellow_light = new Color(255, 201, 14);
+
 }
