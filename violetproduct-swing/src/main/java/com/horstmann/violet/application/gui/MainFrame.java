@@ -46,6 +46,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import com.horstmann.violet.application.gui.common.ChartUtils;
 import com.horstmann.violet.application.gui.common.StartFileCheck;
 import com.horstmann.violet.application.gui.stepFour.StepFourCenterPanel;
 import com.horstmann.violet.application.gui.stepOne.StepOneCenterPanel;
@@ -91,6 +92,9 @@ public class MainFrame extends JFrame {
 		// 初始化文件列表
 		StartFileCheck sfc = new StartFileCheck();
 		sfc.FileCheck();
+		
+		//装载chart插件
+		ChartUtils cu=new ChartUtils();
 
 		getContentPane().add(this.getMainPanel());
 
@@ -249,6 +253,13 @@ public class MainFrame extends JFrame {
 		this.mainPanel.setVisible(false);
 		this.mainPanel.getRootPane().repaint();
 		this.mainPanel.setVisible(true);
+	}
+	
+	public void ChangeRepaint(JPanel jPanel) {
+		// TODO Auto-generated method stub
+		jPanel.setVisible(false);
+		jPanel.getRootPane().repaint();
+		jPanel.setVisible(true);
 	}
 
 	public StepZeroCenterPanel getStepZeroCenterPanel() {

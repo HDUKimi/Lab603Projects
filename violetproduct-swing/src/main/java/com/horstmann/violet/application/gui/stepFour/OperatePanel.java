@@ -174,15 +174,25 @@ public class OperatePanel extends JPanel {
 				}
 
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() == 0) {
+					
 					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("模型预测",
 							mainFrame.getStepFourCenterPanel().getModelPredictPanel());
+					
+					new Thread(new Runnable() {
+						
+						@Override
+						public void run() {
+							mainFrame.getStepFourCenterPanel().getModelPredictPanel().dealAndShow();
+						}
+					}).start();
+					
 				}
 
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() >= 1
 						&& mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getSelectedIndex() != 0) {
 					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().setSelectedIndex(0);
 				}
-
+				
 			}
 		});
 
@@ -191,11 +201,17 @@ public class OperatePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				// mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("模型评价",mainFrame.getStepFourCenterPanel().getModelEvaluatePanel());
-
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() == 1) {
 					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("模型评价",
 							mainFrame.getStepFourCenterPanel().getModelEvaluatePanel());
+					
+					new Thread(new Runnable() {
+						
+						@Override
+						public void run() {
+							mainFrame.getStepFourCenterPanel().getModelEvaluatePanel().dealAndShow();
+						}
+					}).start();
 				}
 
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() >= 2
@@ -210,8 +226,6 @@ public class OperatePanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				// mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("模型选择",mainFrame.getStepFourCenterPanel().getModelSelectPanel());
 
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() == 2) {
 					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("模型选择",

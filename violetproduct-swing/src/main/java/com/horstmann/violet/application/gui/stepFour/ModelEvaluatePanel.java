@@ -18,6 +18,12 @@ import javax.swing.table.DefaultTableModel;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
+import com.horstmann.violet.application.lmr.antcolony.GOModel;
+import com.horstmann.violet.application.lmr.antcolony.JMModel;
+import com.horstmann.violet.application.lmr.antcolony.LVModel;
+import com.horstmann.violet.application.lmr.antcolony.ModelUChart;
+import com.horstmann.violet.application.lmr.antcolony.ModelYChart;
+import com.horstmann.violet.application.lmr.antcolony.MusaModel;
 
 public class ModelEvaluatePanel extends JPanel {
 
@@ -47,7 +53,7 @@ public class ModelEvaluatePanel extends JPanel {
 		this.setLayout(layout);
 		this.add(evaluatePanel);
 		this.add(modelPanel);
-		layout.setConstraints(evaluatePanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(evaluatePanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(modelPanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 
 		this.setBackground(ColorData.white);
@@ -109,11 +115,11 @@ public class ModelEvaluatePanel extends JPanel {
 		evaluateTablePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 		evaluateTablePanel.setOpaque(false);
 
-		String[] str = new String[] { "模型拟合度", "模型精确性", "模型偏差", "模型偏差趋势", "模型噪声" };
 		Object[] rowData1 = { "评价标准", "JM模型", "GO模型", "Musa模型", "LV模型" };
 		evaluateTableModel.addRow(rowData1);
+		String[] str = new String[] { "模型拟合度", "模型精确性", "模型偏差", "模型偏差趋势", "模型噪声" };
 		for (int i = 0; i < str.length; i++) {
-			Object[] rowData = { str[i], Math.random(), Math.random(), Math.random(), Math.random() };
+			Object[] rowData = { str[i], "", "", "", "", };
 			evaluateTableModel.addRow(rowData);
 		}
 
@@ -143,6 +149,41 @@ public class ModelEvaluatePanel extends JPanel {
 		layout.setConstraints(uPanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		layout.setConstraints(yPanel, new GBC(1, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 
+	}
+	
+	public void dealAndShow() {
+		
+		showEvaluateData();
+		
+		ModelUChart.AddSeriesCollection();
+		ModelYChart.AddSeriesCollection();
+		
+		uPanel.removeAll();
+		uPanel.setLayout(new GridLayout());
+		uPanel.add(new ModelUChart().createChart());
+		
+		yPanel.removeAll();
+		yPanel.setLayout(new GridLayout());
+		yPanel.add(new ModelYChart().createChart());
+		
+		mainFrame.ChangeRepaint(this);
+		
+	}
+
+	private void showEvaluateData() {
+		
+		String[] str = new String[] { "模型拟合度", "模型精确性", "模型偏差", "模型偏差趋势", "模型噪声" };
+		double[] JM=new double[]{JMModel.FD,JMModel.PL,JMModel.KS_U,JMModel.KS_Y,JMModel.MN};
+		double[] GO=new double[]{GOModel.FD,GOModel.PL,GOModel.KS_U,GOModel.KS_Y,GOModel.MN};
+		double[] Musa=new double[]{MusaModel.FD,MusaModel.PL,MusaModel.KS_U,MusaModel.KS_Y,MusaModel.MN};
+		double[] LV=new double[]{LVModel.FD,LVModel.PL,LVModel.KS_U,LVModel.KS_Y,LVModel.MN};
+		for (int i = 1; i <= str.length; i++) {
+			evaluateTable.setValueAt(JM[i-1], i, 1);
+			evaluateTable.setValueAt(GO[i-1], i, 2);
+			evaluateTable.setValueAt(Musa[i-1], i, 3);
+			evaluateTable.setValueAt(LV[i-1], i, 4);
+		}
+		
 	}
 
 }

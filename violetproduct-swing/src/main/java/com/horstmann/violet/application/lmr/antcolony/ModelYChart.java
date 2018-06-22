@@ -22,7 +22,7 @@ public class ModelYChart {
 	public static void AddSeriesCollection(){
 		XYSeries xyseries0 = new XYSeries("Data");
 		XYSeries xyseries1 = new XYSeries("JM");
-		XYSeries xyseries2 = new XYSeries("GO");
+//		XYSeries xyseries2 = new XYSeries("GO");
 		XYSeries xyseries3 = new XYSeries("Musa");
 		XYSeries xyseries4 = new XYSeries("LV");
 		
@@ -50,12 +50,12 @@ public class ModelYChart {
 			xyseries1.add((i+2)*1.0/(JMModel.YList.size()+1),JMModel.YList.get(i).doubleValue());
 		}
 		
-		xyseries2.add(0,0);
-		xyseries2.add(1.0/(GOModel.YList.size()+1),0);
-		for(int i=0;i<GOModel.YList.size();i++){
-			xyseries2.add((i+1)*1.0/(GOModel.YList.size()+1),GOModel.YList.get(i).doubleValue());
-			xyseries2.add((i+2)*1.0/(GOModel.YList.size()+1),GOModel.YList.get(i).doubleValue());
-		}
+//		xyseries2.add(0,0);
+//		xyseries2.add(1.0/(GOModel.YList.size()+1),0);
+//		for(int i=0;i<GOModel.YList.size();i++){
+//			xyseries2.add((i+1)*1.0/(GOModel.YList.size()+1),GOModel.YList.get(i).doubleValue());
+//			xyseries2.add((i+2)*1.0/(GOModel.YList.size()+1),GOModel.YList.get(i).doubleValue());
+//		}
 		
 		xyseries3.add(0,0);
 		xyseries3.add(1.0/(MusaModel.YList.size()+1),0);
@@ -73,7 +73,7 @@ public class ModelYChart {
 		
 		seriescollection.addSeries(xyseries0);
 		seriescollection.addSeries(xyseries1);
-		seriescollection.addSeries(xyseries2);
+//		seriescollection.addSeries(xyseries2);
 		seriescollection.addSeries(xyseries3);
 		seriescollection.addSeries(xyseries4);
 		

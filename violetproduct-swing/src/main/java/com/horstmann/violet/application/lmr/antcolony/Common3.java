@@ -29,7 +29,7 @@ public class Common3 {
 	/**
 	 * 迭代次数
 	 */
-	public static int N_IT_COUNT = 500;
+	public static int N_IT_COUNT = 100;
 	/**
 	 * 分割数目，把变量的取值范围分割
 	 */
@@ -113,7 +113,7 @@ public class Common3 {
 	/**
 	 * 精度
 	 */
-	public static final double E=0.000000001;
+	public static final double E=0.00000001;
 
 	/**
 	 * 返回指定范围内的随机整数

@@ -22,7 +22,7 @@ public class ModelUChart {
 	public static void AddSeriesCollection(){
 		XYSeries xyseries0 = new XYSeries("Data");
 		XYSeries xyseries1 = new XYSeries("JM");
-		XYSeries xyseries2 = new XYSeries("GO");
+//		XYSeries xyseries2 = new XYSeries("GO");
 		XYSeries xyseries3 = new XYSeries("Musa");
 		XYSeries xyseries4 = new XYSeries("LV");
 		
@@ -36,12 +36,12 @@ public class ModelUChart {
 		}
 		xyseries1.add(1,JMModel.UList.size()*1.0/(JMModel.UList.size()+1));
 		
-		xyseries2.add(0,0);
-		for(int i=0;i<GOModel.UList.size();i++){
-			xyseries2.add(GOModel.UList.get(i).doubleValue(),i*1.0/(GOModel.UList.size()+1));
-			xyseries2.add(GOModel.UList.get(i).doubleValue(),(i+1)*1.0/(GOModel.UList.size()+1));
-		}
-		xyseries2.add(1,GOModel.UList.size()*1.0/(GOModel.UList.size()+1));
+//		xyseries2.add(0,0);
+//		for(int i=0;i<GOModel.UList.size();i++){
+//			xyseries2.add(GOModel.UList.get(i).doubleValue(),i*1.0/(GOModel.UList.size()+1));
+//			xyseries2.add(GOModel.UList.get(i).doubleValue(),(i+1)*1.0/(GOModel.UList.size()+1));
+//		}
+//		xyseries2.add(1,GOModel.UList.size()*1.0/(GOModel.UList.size()+1));
 		
 		xyseries3.add(0,0);
 		for(int i=0;i<MusaModel.UList.size();i++){
@@ -59,7 +59,7 @@ public class ModelUChart {
 		
 		seriescollection.addSeries(xyseries0);
 		seriescollection.addSeries(xyseries1);
-		seriescollection.addSeries(xyseries2);
+//		seriescollection.addSeries(xyseries2);
 		seriescollection.addSeries(xyseries3);
 		seriescollection.addSeries(xyseries4);
 		

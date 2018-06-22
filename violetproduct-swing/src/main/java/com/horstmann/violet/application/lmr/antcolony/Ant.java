@@ -44,7 +44,7 @@ public class Ant implements Cloneable
         
         //随机选择区域中的x点
         m_nCurXVal=Common.rndAreaXVal(m_nCurAreaNo);
-        m_nCurFunVal=Fun.getFunResult(m_nCurXVal);
+        m_nCurFunVal=AcoMainFun.getFunResult(m_nCurXVal);
         
         m_nAreaXVal=new double[Common.N_SPLIT_COUNT];
         m_nAreaFunVal=new double[Common.N_SPLIT_COUNT];

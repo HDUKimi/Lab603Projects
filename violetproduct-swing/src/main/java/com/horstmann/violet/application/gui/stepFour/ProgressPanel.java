@@ -55,11 +55,14 @@ public class ProgressPanel extends JPanel {
 		progressBar.setValue(60);
 		// progressBar.setStringPainted(false);
 		progressBar.setPreferredSize(new Dimension(400, 23));
+		progressBar.setMaximumSize(new Dimension(400, 23));
+		progressBar.setMinimumSize(new Dimension(400, 23));
+		
 		progressBar.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, ColorData.gray));
 
 		progressBarPanel.setLayout(new GridLayout());
 		progressBarPanel.add(progressBar);
-		progressBarPanel.setBorder(BorderFactory.createEmptyBorder(3, 5, 3, 5));
+		progressBarPanel.setBorder(BorderFactory.createEmptyBorder(7, 10, 7, 10));
 
 		progressBarPanel.setOpaque(false);
 

@@ -203,7 +203,7 @@ public class Solve {
 		//生成各区域随机点，并计算对应的函数值
 		for (int i = 0; i < Common.N_SPLIT_COUNT; i++) {
 			ant.m_nAreaXVal[i]=Common.rndAreaXVal(i);
-			ant.m_nAreaFunVal[i]=Fun.getFunResult(ant.m_nAreaXVal[i]);
+			ant.m_nAreaFunVal[i]=AcoMainFun.getFunResult(ant.m_nAreaXVal[i]);
 		}
 		
 //		if(Common.Type==1){

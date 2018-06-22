@@ -2,6 +2,7 @@ package com.horstmann.violet.application.gui.stepFour;
 
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -11,6 +12,8 @@ import javax.swing.border.TitledBorder;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
+import com.horstmann.violet.application.lmr.antcolony.AcoMainFun;
+import com.horstmann.violet.application.lmr.antcolony.ModelDataChart;
 
 public class ModelPredictPanel extends JPanel{
 
@@ -38,7 +41,7 @@ public class ModelPredictPanel extends JPanel{
 		this.setLayout(layout);
 		this.add(predictPanel);
 		this.add(modelPanel);
-		layout.setConstraints(predictPanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1.5));
+		layout.setConstraints(predictPanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		layout.setConstraints(modelPanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		this.setBackground(ColorData.white);
@@ -92,6 +95,20 @@ public class ModelPredictPanel extends JPanel{
 		layout.setConstraints(GOModelPanel, new GBC(1, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		layout.setConstraints(MusaModelPanel, new GBC(2, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		layout.setConstraints(LVModelPanel, new GBC(3, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+	}
+	
+	public void dealAndShow() {
+		
+		AcoMainFun aco=new AcoMainFun();
+		
+		aco.InitData();
+		
+		predictPanel.removeAll();
+		predictPanel.setLayout(new GridLayout());
+		predictPanel.add(new ModelDataChart().createChart());
+		
+		mainFrame.ChangeRepaint(this);
 		
 	}
 	

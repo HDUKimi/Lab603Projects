@@ -3,7 +3,7 @@ package com.horstmann.violet.application.lmr.antcolony;
 /**
  * º¯Êý
  */
-public class Fun {
+public class AcoMainFun {
 	
 	static int index=0;
 	
@@ -78,25 +78,25 @@ public class Fun {
 			
 		}
 		
-		Main.frame.acoChartPanel.removeAll();
-		new FLineChart().createChart();
-		Main.frame.acoChartPanel.add(new FLineChart().createChart());
-		
-		Main.frame.funChartPanel.removeAll();
-		Main.frame.funChartPanel.add(new ModelDataChart().createChart());
-		
-		Main.frame.uChartPanel.removeAll();
-		Main.frame.uChartPanel.add(new ModelUChart().createChart());
-		
-		Main.frame.yChartPanel.removeAll();
-		Main.frame.yChartPanel.add(new ModelYChart().createChart());
-		
-		Main.frame.betterAntTA.setVisible(false);
-		Main.frame.bestAntTA.setCaretPosition(0);
-
-		Main.frame.rootPanel.setVisible(false);
-		Main.frame.rootPanel.repaint();
-		Main.frame.rootPanel.setVisible(true);
+//		Main.frame.acoChartPanel.removeAll();
+//		new FLineChart().createChart();
+//		Main.frame.acoChartPanel.add(new FLineChart().createChart());
+//		
+//		Main.frame.funChartPanel.removeAll();
+//		Main.frame.funChartPanel.add(new ModelDataChart().createChart());
+//		
+//		Main.frame.uChartPanel.removeAll();
+//		Main.frame.uChartPanel.add(new ModelUChart().createChart());
+//		
+//		Main.frame.yChartPanel.removeAll();
+//		Main.frame.yChartPanel.add(new ModelYChart().createChart());
+//		
+//		Main.frame.betterAntTA.setVisible(false);
+//		Main.frame.bestAntTA.setCaretPosition(0);
+//
+//		Main.frame.rootPanel.setVisible(false);
+//		Main.frame.rootPanel.repaint();
+//		Main.frame.rootPanel.setVisible(true);
 		
 	}
 	
@@ -120,7 +120,7 @@ public class Fun {
 		JMModel.a=solve.m_bestAnts[solve.m_bestAnts.length-1].m_nCurXVal;
 		JMModel.GetB();
 		JMModel.GetData();
-		JMModel.ShowData();
+//		JMModel.ShowData();
 		
 	}
 	
@@ -143,7 +143,7 @@ public class Fun {
 		GOModel.b=solve.m_bestAnts[solve.m_bestAnts.length-1].m_nCurXVal;
 		GOModel.GetA();
 		GOModel.GetData();
-		GOModel.ShowData();
+//		GOModel.ShowData();
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class Fun {
 		MusaModel.b=solve.m_bestAnts[solve.m_bestAnts.length-1].m_nCurXVal;
 		MusaModel.GetA();
 		MusaModel.GetData();
-		MusaModel.ShowData();
+//		MusaModel.ShowData();
 	}
 
 	/**
@@ -207,7 +207,7 @@ public class Fun {
 		
 		LVModel.a=LVModel.GetA();
 		LVModel.GetData();
-		LVModel.ShowData();
+//		LVModel.ShowData();
 	}
 
 	/**
