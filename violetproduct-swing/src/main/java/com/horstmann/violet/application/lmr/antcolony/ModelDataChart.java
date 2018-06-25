@@ -23,7 +23,7 @@ public class ModelDataChart {
 	public static void AddSeriesCollection(){
 		XYSeries xyseries0 = new XYSeries("Data");
 		XYSeries xyseries1 = new XYSeries("JM");
-//		XYSeries xyseries2 = new XYSeries("GO");
+		XYSeries xyseries2 = new XYSeries("GO");
 		XYSeries xyseries3 = new XYSeries("Musa");
 		XYSeries xyseries4 = new XYSeries("LV");
 		
@@ -34,11 +34,11 @@ public class ModelDataChart {
 		for(int i=0;i<JMModel.PredictFailureTimeList.size();i++){
 			xyseries1.add(JMModel.PredictFailureTimeList.get(i).doubleValue(), i);
 		}
-//		
-//		for(int i=0;i<GOModel.PredictFailureTimeList.size();i++){
-//			xyseries2.add(GOModel.PredictFailureTimeList.get(i).doubleValue(), i);
-//		}
-//		
+		
+		for(int i=0;i<GOModel.PredictFailureTimeList.size();i++){
+			xyseries2.add(GOModel.PredictFailureTimeList.get(i).doubleValue(), i);
+		}
+		
 		for(int i=0;i<MusaModel.PredictFailureTimeList.size();i++){
 			xyseries3.add(MusaModel.PredictFailureTimeList.get(i).doubleValue(), i);
 		}
@@ -49,7 +49,7 @@ public class ModelDataChart {
 		
 		seriescollection.addSeries(xyseries0);
 		seriescollection.addSeries(xyseries1);
-//		seriescollection.addSeries(xyseries2);
+		seriescollection.addSeries(xyseries2);
 		seriescollection.addSeries(xyseries3);
 		seriescollection.addSeries(xyseries4);
 		

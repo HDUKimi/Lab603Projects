@@ -8,6 +8,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Stroke;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,6 +21,11 @@ import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
 import com.horstmann.violet.application.gui.common.DottedLabel;
+import com.horstmann.violet.application.lmr.antcolony.GOModel;
+import com.horstmann.violet.application.lmr.antcolony.JMModel;
+import com.horstmann.violet.application.lmr.antcolony.LVModel;
+import com.horstmann.violet.application.lmr.antcolony.MusaModel;
+import com.horstmann.violet.application.lmr.deeplearn.BpRegression;
 
 public class ModelSelectPanel extends JPanel{
 
@@ -122,6 +130,75 @@ public class ModelSelectPanel extends JPanel{
 		labelPanel3.add(label3);
 		labelPanel3.setBorder(BorderFactory.createEmptyBorder(10, 10, 30, 10));
 		
+	}
+	
+	public void dealAndShow() {
+		
+		int[] input=dealEvaluate();
+		
+		label1.setText("<html><body><p>根据模型评价标准分别计算各个待选模型的5项评价值，并进行分级编码。</p><br><p>其编码后最终的结果为"+Arrays.toString(input)+"</p></body></html>");
+		mainFrame.ChangeRepaint(this);
+		
+		BpRegression bp=new BpRegression();
+		int result=bp.Start(input);
+		
+		mainFrame.getStepFourCenterPanel().setSelectModel(result);
+		
+		String[] modelStr=new String[]{"","JM","GO","Musa","LV"};
+		
+		label3.setText("<html><body><p>输出结果为"+result+"，即"+modelStr[result]+"模型为最佳的模型选择</p></body></html>");
+		
+		mainFrame.ChangeRepaint(this);
+		
+	}
+
+
+	private int[] dealEvaluate() {
+		
+		int[] input=new int[5];
+		
+		double[] FD=new double[]{0,JMModel.FD,GOModel.FD,MusaModel.FD,LVModel.FD};
+		double[] PL=new double[]{0,JMModel.PL,GOModel.PL,MusaModel.PL,LVModel.PL};
+		double[] KS_U=new double[]{0,JMModel.KS_U,GOModel.KS_U,MusaModel.KS_U,LVModel.KS_U};
+		double[] KS_Y=new double[]{0,JMModel.KS_Y,GOModel.KS_Y,MusaModel.KS_Y,LVModel.KS_Y};
+		double[] MN=new double[]{0,JMModel.MN,GOModel.MN,MusaModel.MN,LVModel.MN};
+		
+		input[0]=1;
+		for(int i=1;i<FD.length;i++){
+			if(FD[i]<FD[input[0]]){
+				input[0]=i;
+			}
+		}
+		
+		input[1]=1;
+		for(int i=1;i<PL.length;i++){
+			if(PL[i]>PL[input[1]]){
+				input[1]=i;
+			}
+		}
+		
+		input[2]=1;
+		for(int i=1;i<KS_U.length;i++){
+			if(KS_U[i]<KS_U[input[2]]){
+				input[2]=i;
+			}
+		}
+		
+		input[3]=1;
+		for(int i=1;i<KS_Y.length;i++){
+			if(KS_Y[i]<KS_Y[input[3]]){
+				input[3]=i;
+			}
+		}
+		
+		input[4]=1;
+		for(int i=1;i<MN.length;i++){
+			if(MN[i]<MN[input[4]]){
+				input[4]=i;
+			}
+		}
+		
+		return input;
 	}
 	
 }

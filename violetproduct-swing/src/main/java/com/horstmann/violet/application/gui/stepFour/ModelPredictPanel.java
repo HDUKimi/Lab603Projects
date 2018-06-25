@@ -1,10 +1,13 @@
 package com.horstmann.violet.application.gui.stepFour;
 
+import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
@@ -13,7 +16,11 @@ import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
 import com.horstmann.violet.application.lmr.antcolony.AcoMainFun;
+import com.horstmann.violet.application.lmr.antcolony.GOModel;
+import com.horstmann.violet.application.lmr.antcolony.JMModel;
+import com.horstmann.violet.application.lmr.antcolony.LVModel;
 import com.horstmann.violet.application.lmr.antcolony.ModelDataChart;
+import com.horstmann.violet.application.lmr.antcolony.MusaModel;
 
 public class ModelPredictPanel extends JPanel{
 
@@ -26,6 +33,21 @@ public class ModelPredictPanel extends JPanel{
 	private JPanel GOModelPanel;
 	private JPanel MusaModelPanel;
 	private JPanel LVModelPanel;
+	
+	private JPanel JMLabelPanel;
+	private JPanel GOLabelPanel;
+	private JPanel MusaLabelPanel;
+	private JPanel LVLabelPanel;
+	
+	private JLabel JMLabel1;
+	private JLabel JMLabel2;
+	private JLabel GOLabel1;
+	private JLabel GOLabel2;
+	private JLabel MusaLabel1;
+	private JLabel MusaLabel2;
+	private JLabel LVLabel1;
+	private JLabel LVLabel2;
+	private JLabel LVLabel3;
 	
 	public ModelPredictPanel(MainFrame mainFrame) {
 		
@@ -41,7 +63,7 @@ public class ModelPredictPanel extends JPanel{
 		this.setLayout(layout);
 		this.add(predictPanel);
 		this.add(modelPanel);
-		layout.setConstraints(predictPanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(predictPanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(2, 1));
 		layout.setConstraints(modelPanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		this.setBackground(ColorData.white);
@@ -71,6 +93,11 @@ public class ModelPredictPanel extends JPanel{
 		MusaModelPanel.setOpaque(false);
 		LVModelPanel.setOpaque(false);
 		
+		initJMModelPanel();
+		initGOModelPanel();
+		initMusaModelPanel();
+		initLVModelPanel();
+		
 		JMModelPanel.setBorder(new CompoundBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5),
 				BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, ColorData.gray), "JMÄ£ÐÍ",
 						TitledBorder.LEFT, TitledBorder.TOP, new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 13), ColorData.black)));
@@ -85,19 +112,117 @@ public class ModelPredictPanel extends JPanel{
 						TitledBorder.LEFT, TitledBorder.TOP, new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 13), ColorData.black)));
 
 		
-		GridBagLayout layout = new GridBagLayout();
-		modelPanel.setLayout(layout);
+//		GridBagLayout layout = new GridBagLayout();
+//		modelPanel.setLayout(layout);
+//		modelPanel.add(JMModelPanel);
+//		modelPanel.add(GOModelPanel);
+//		modelPanel.add(MusaModelPanel);
+//		modelPanel.add(LVModelPanel);
+//		layout.setConstraints(JMModelPanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(GOModelPanel, new GBC(1, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(MusaModelPanel, new GBC(2, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		layout.setConstraints(LVModelPanel, new GBC(3, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+		modelPanel.setLayout(new GridLayout(1, 4));
 		modelPanel.add(JMModelPanel);
 		modelPanel.add(GOModelPanel);
 		modelPanel.add(MusaModelPanel);
 		modelPanel.add(LVModelPanel);
-		layout.setConstraints(JMModelPanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(GOModelPanel, new GBC(1, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(MusaModelPanel, new GBC(2, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		layout.setConstraints(LVModelPanel, new GBC(3, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 	}
 	
+	private void initJMModelPanel() {
+		
+		JMLabelPanel=new JPanel();
+		
+		JMLabel1=new JLabel();
+		JMLabel2=new JLabel();
+		
+		JMLabel1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		JMLabel1.setBorder(BorderFactory.createEmptyBorder(10, 5, 5, 5));
+		JMLabel2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		JMLabel2.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		
+		JMLabelPanel.setOpaque(false);
+		JMLabelPanel.setLayout(new BoxLayout(JMLabelPanel, BoxLayout.Y_AXIS));
+		JMLabelPanel.add(JMLabel1);
+		JMLabelPanel.add(JMLabel2);
+		
+		JMModelPanel.setLayout(new BorderLayout());
+		JMModelPanel.add(JMLabelPanel, BorderLayout.NORTH);
+		
+	}
+
+	private void initGOModelPanel() {
+		
+		GOLabelPanel=new JPanel();
+		
+		GOLabel1=new JLabel();
+		GOLabel2=new JLabel();
+		
+		GOLabel1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		GOLabel1.setBorder(BorderFactory.createEmptyBorder(10, 5, 5, 5));
+		GOLabel2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		GOLabel2.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		
+		GOLabelPanel.setOpaque(false);
+		GOLabelPanel.setLayout(new BoxLayout(GOLabelPanel, BoxLayout.Y_AXIS));
+		GOLabelPanel.add(GOLabel1);
+		GOLabelPanel.add(GOLabel2);
+		
+		GOModelPanel.setLayout(new BorderLayout());
+		GOModelPanel.add(GOLabelPanel, BorderLayout.NORTH);
+		
+	}
+
+	private void initMusaModelPanel() {
+		
+		MusaLabelPanel=new JPanel();
+		
+		MusaLabel1=new JLabel();
+		MusaLabel2=new JLabel();
+		
+		MusaLabel1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		MusaLabel1.setBorder(BorderFactory.createEmptyBorder(10, 5, 5, 5));
+		MusaLabel2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		MusaLabel2.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		
+		MusaLabelPanel.setOpaque(false);
+		MusaLabelPanel.setLayout(new BoxLayout(MusaLabelPanel, BoxLayout.Y_AXIS));
+		MusaLabelPanel.add(MusaLabel1);
+		MusaLabelPanel.add(MusaLabel2);
+		
+		MusaModelPanel.setLayout(new BorderLayout());
+		MusaModelPanel.add(MusaLabelPanel, BorderLayout.NORTH);
+		
+	}
+
+	private void initLVModelPanel() {
+		
+		LVLabelPanel=new JPanel();
+		
+		LVLabel1=new JLabel();
+		LVLabel2=new JLabel();
+		LVLabel3=new JLabel();
+		
+		LVLabel1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		LVLabel1.setBorder(BorderFactory.createEmptyBorder(10, 5, 5, 5));
+		LVLabel2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		LVLabel2.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		LVLabel3.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
+		LVLabel3.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		
+		LVLabelPanel.setOpaque(false);
+		LVLabelPanel.setLayout(new BoxLayout(LVLabelPanel, BoxLayout.Y_AXIS));
+		LVLabelPanel.add(LVLabel1);
+		LVLabelPanel.add(LVLabel2);
+		LVLabelPanel.add(LVLabel3);
+		
+		LVModelPanel.setLayout(new BorderLayout());
+		LVModelPanel.add(LVLabelPanel, BorderLayout.NORTH);
+		
+	}
+
 	public void dealAndShow() {
 		
 		AcoMainFun aco=new AcoMainFun();
@@ -107,6 +232,19 @@ public class ModelPredictPanel extends JPanel{
 		predictPanel.removeAll();
 		predictPanel.setLayout(new GridLayout());
 		predictPanel.add(new ModelDataChart().createChart());
+		
+		JMLabel1.setText("ÐÎ²Îa: "+JMModel.a);
+		JMLabel2.setText("±ÈÀý³£Êýb: "+JMModel.b);
+		
+		GOLabel1.setText("ÐÎ²Îa: "+GOModel.a);
+		GOLabel2.setText("±ÈÀý³£Êýb: "+GOModel.b);
+		
+		MusaLabel1.setText("ÐÎ²Îa: "+MusaModel.a);
+		MusaLabel2.setText("±ÈÀý³£Êýb: "+MusaModel.b);
+		
+		LVLabel1.setText("ÐÎ²Îa: "+LVModel.a);
+		LVLabel2.setText("±ÈÀý³£Êý¦Â0: "+LVModel.b0);
+		LVLabel3.setText("±ÈÀý³£Êý¦Â1: "+LVModel.b1);
 		
 		mainFrame.ChangeRepaint(this);
 		

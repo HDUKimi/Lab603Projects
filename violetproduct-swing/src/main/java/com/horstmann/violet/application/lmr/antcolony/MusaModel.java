@@ -95,6 +95,7 @@ public class MusaModel {
 		SetResidualFaults();
 		SetMTTF();
 		SetReliable();
+		SetNoReliable();
 		
 		SetPredictFailureTimeAndFragList();
 		SetPredicrNoReliableList();
@@ -193,6 +194,13 @@ public class MusaModel {
 	static void SetReliable(){
 //		Reliable=Model.PowE(-a*(1-Model.PowE(-b*Model.fragTime[Model.n]))*Model.PowE(-b*Model.sumTime[Model.n-1]));
 		Reliable=Model.PowE(-a*b*Model.PowE(-b*Model.sumTime[Model.n]));
+	}
+	
+	/**
+	 * 计算不可靠度
+	 */
+	static void SetNoReliable(){
+		NoReliable=1-Reliable;
 	}
 	
 	/**

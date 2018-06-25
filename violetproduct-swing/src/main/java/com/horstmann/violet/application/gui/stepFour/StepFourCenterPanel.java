@@ -22,11 +22,12 @@ public class StepFourCenterPanel extends JPanel {
 	private JPanel workPanel;
 	private JTabbedPane workTabbedPane;
 	
-	
 	private ModelPredictPanel modelPredictPanel;
 	private ModelEvaluatePanel modelEvaluatePanel;
 	private ModelSelectPanel modelSelectPanel;
 	private ReliabilityEvaluatePanel reliabilityEvaluatePanel;
+	
+	private int selectModel;
 
 	public StepFourCenterPanel(MainFrame mainFrame) {
 
@@ -110,6 +111,14 @@ public class StepFourCenterPanel extends JPanel {
 
 	public ReliabilityEvaluatePanel getReliabilityEvaluatePanel() {
 		return reliabilityEvaluatePanel;
+	}
+
+	public int getSelectModel() {
+		return selectModel;
+	}
+
+	public void setSelectModel(int selectModel) {
+		this.selectModel = selectModel;
 	}
 	
 }

@@ -230,6 +230,15 @@ public class OperatePanel extends JPanel {
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() == 2) {
 					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("模型选择",
 							mainFrame.getStepFourCenterPanel().getModelSelectPanel());
+					
+					new Thread(new Runnable() {
+						
+						@Override
+						public void run() {
+							mainFrame.getStepFourCenterPanel().getModelSelectPanel().dealAndShow();
+						}
+					}).start();
+					
 				}
 
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() >= 3
@@ -249,6 +258,15 @@ public class OperatePanel extends JPanel {
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() == 3) {
 					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("可靠性评估",
 							mainFrame.getStepFourCenterPanel().getReliabilityEvaluatePanel());
+					
+new Thread(			new Runnable() {
+						
+						@Override
+						public void run() {
+							mainFrame.getStepFourCenterPanel().getReliabilityEvaluatePanel().dealAndShow();
+						}
+					}).start();
+					
 				}
 
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() >= 4

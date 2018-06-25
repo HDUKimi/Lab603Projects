@@ -95,6 +95,7 @@ public class GOModel {
 		SetResidualFaults();
 		SetMTTF();
 		SetReliable();
+		SetNoReliable();
 		
 		SetPredictFailureTimeAndFragList();
 		SetPredictNoReliableList();
@@ -205,6 +206,13 @@ public class GOModel {
 //		Reliable=Model.PowE(-a*(1-Model.PowE(-b*1.0))*Model.PowE(-b*Model.sumTime[Model.n]));
 		
 		Reliable=Model.PowE(-a*b*Model.PowE(-b*Model.sumTime[Model.n]));
+	}
+	
+	/**
+	 * 计算不可靠度
+	 */
+	static void SetNoReliable(){
+		NoReliable=1-Reliable;
 	}
 	
 	/**

@@ -101,6 +101,7 @@ public class LVModel {
 //		SetResidualFaults();
 		SetMTTF();
 		SetReliable();
+		SetNoReliable();
 		
 		SetPredictFailureTimeAndFragList();
 		SetPredictNoReliableList();
@@ -249,6 +250,13 @@ public class LVModel {
 	static void SetReliable(){
 //		Reliable=Math.pow(Bi(Model.n)/(Model.fragTime[Model.n]+Bi(Model.n)), a);
 		Reliable=Model.PowE(-a/(Model.fragTime[Model.n]+Bi(Model.n)));
+	}
+	
+	/**
+	 * 计算不可靠度
+	 */
+	static void SetNoReliable(){
+		NoReliable=1-Reliable;
 	}
 	
 	/**

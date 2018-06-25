@@ -37,7 +37,7 @@ public class Common {
 	/**
 	 * 函数样本编号
 	 */
-	public static int N_FUN_ID = 2;
+	public static int N_FUN_ID = 3;
 	
 	/**
 	 * 变量的实时取值上限

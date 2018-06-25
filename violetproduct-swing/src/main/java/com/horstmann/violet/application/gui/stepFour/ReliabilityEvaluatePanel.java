@@ -16,6 +16,10 @@ import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
 import com.horstmann.violet.application.gui.common.DottedLabel;
+import com.horstmann.violet.application.lmr.antcolony.GOModel;
+import com.horstmann.violet.application.lmr.antcolony.JMModel;
+import com.horstmann.violet.application.lmr.antcolony.LVModel;
+import com.horstmann.violet.application.lmr.antcolony.MusaModel;
 
 public class ReliabilityEvaluatePanel extends JPanel {
 
@@ -120,10 +124,49 @@ public class ReliabilityEvaluatePanel extends JPanel {
 		Object[] rowData1 = { "名称", "结果" };
 		evaluateTableModel.addRow(rowData1);
 		for (int i = 0; i < str.length; i++) {
-			Object[] rowData = { str[i], Math.random(), Math.random(), Math.random(), Math.random() };
+			Object[] rowData = { str[i], Math.random() };
 			evaluateTableModel.addRow(rowData);
 		}
 
+	}
+	
+	public void dealAndShow() {
+		
+		int selectModel=mainFrame.getStepFourCenterPanel().getSelectModel();
+		
+		String[] str;
+		double[] result;
+		
+		if(selectModel!=4){
+			str= new String[] { "可靠度", "不可靠度", "失效率", "剩余故障数", "MTTF" };
+			if(selectModel==1){
+				result=new double[]{JMModel.Reliable,JMModel.NoReliable,JMModel.FailureRate,JMModel.ResidualFaults,JMModel.MTTF};
+			}
+			else if(selectModel==2){
+				result=new double[]{GOModel.Reliable,GOModel.NoReliable,GOModel.FailureRate,GOModel.ResidualFaults,GOModel.MTTF};
+			}
+			else{
+				result=new double[]{MusaModel.Reliable,MusaModel.NoReliable,MusaModel.FailureRate,MusaModel.ResidualFaults,MusaModel.MTTF};
+			}
+		}
+		else{
+			str= new String[] { "可靠度", "不可靠度", "失效率", "MTTF" };
+			result=new double[]{LVModel.Reliable,LVModel.NoReliable,LVModel.FailureRate,LVModel.MTTF};
+		}
+		
+		while(evaluateTableModel.getRowCount()>0){
+			evaluateTableModel.removeRow(evaluateTableModel.getRowCount()-1);
+		}
+		
+		Object[] rowData1 = { "名称", "结果" };
+		evaluateTableModel.addRow(rowData1);
+		for (int i = 0; i < str.length; i++) {
+			Object[] rowData = { str[i], result[i] };
+			evaluateTableModel.addRow(rowData);
+		}
+		
+		mainFrame.ChangeRepaint(this);
+		
 	}
 
 }

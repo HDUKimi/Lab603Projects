@@ -25,7 +25,7 @@ public class JMModel {
 	/**
 	 * 不可靠度
 	 */
-	public static double aoReliable;
+	public static double NoReliable;
 	/**
 	 * 失效率
 	 */
@@ -96,6 +96,7 @@ public class JMModel {
 		SetResidualFaults();
 		SetMTTF();
 		SetReliable();
+		SetNoReliable();
 		
 		SetPredictFailureTimeAndFragList();
 		SetPredictNoReliableList();
@@ -211,6 +212,13 @@ public class JMModel {
 	static void SetReliable(){
 //		Reliable=Model.PowE(-b*(a-Model.n+1)*Model.fragTime[Model.n]);
 		Reliable=Model.PowE(-b*(a-Model.n+1));
+	}
+	
+	/**
+	 * 计算不可靠度
+	 */
+	static void SetNoReliable(){
+		NoReliable=1-Reliable;
 	}
 	
 	/**

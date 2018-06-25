@@ -65,9 +65,9 @@ public class AcoMainFun {
 			Model.initData();
 			
 			DealJMModel();
-//			
-//			DealGOModel();
-//			
+			
+			DealGOModel();
+			
 			DealMusaModel();
 			
 			DealLVModel();
