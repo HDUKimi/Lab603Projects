@@ -112,6 +112,10 @@ public class StepFourCenterPanel extends JPanel {
 	public ReliabilityEvaluatePanel getReliabilityEvaluatePanel() {
 		return reliabilityEvaluatePanel;
 	}
+	
+	public ProgressPanel getProgressPanel() {
+		return progressPanel;
+	}
 
 	public int getSelectModel() {
 		return selectModel;

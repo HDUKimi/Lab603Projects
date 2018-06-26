@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.CompoundBorder;
@@ -153,6 +154,20 @@ public class ModelEvaluatePanel extends JPanel {
 	
 	public void dealAndShow() {
 		
+		JProgressBar progressBar=mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar();
+		progressBar.setValue(0);
+		while(progressBar.getValue()<99){
+			
+			progressBar.setValue(progressBar.getValue()+1);
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
 		showEvaluateData();
 		
 		ModelUChart.AddSeriesCollection();
@@ -165,6 +180,8 @@ public class ModelEvaluatePanel extends JPanel {
 		yPanel.removeAll();
 		yPanel.setLayout(new GridLayout());
 		yPanel.add(new ModelYChart().createChart());
+		
+		progressBar.setValue(100);
 		
 		mainFrame.ChangeRepaint(this);
 		

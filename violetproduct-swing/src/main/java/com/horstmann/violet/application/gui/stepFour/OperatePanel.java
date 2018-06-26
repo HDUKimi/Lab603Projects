@@ -56,7 +56,7 @@ public class OperatePanel extends JPanel {
 		initButtonPanel();
 
 		this.setLayout(new BorderLayout());
-		this.add(comboBoxPanel, BorderLayout.NORTH);
+//		this.add(comboBoxPanel, BorderLayout.NORTH);
 		this.add(buttonPanel, BorderLayout.CENTER);
 
 		this.setPreferredSize(new Dimension(300, 300));
@@ -125,16 +125,18 @@ public class OperatePanel extends JPanel {
 
 		GridBagLayout layout = new GridBagLayout();
 		buttonPanel.setLayout(layout);
+		buttonPanel.add(comboBoxPanel);
 		buttonPanel.add(buttonPanel1);
 		buttonPanel.add(buttonPanel2);
 		buttonPanel.add(buttonPanel3);
 		buttonPanel.add(buttonPanel4);
-		// buttonPanel.add(emptyPanel);
-		layout.setConstraints(buttonPanel1, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(buttonPanel2, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(buttonPanel3, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(buttonPanel4, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		layout.setConstraints(emptyPanel, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		buttonPanel.add(emptyPanel);
+		layout.setConstraints(comboBoxPanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(buttonPanel1, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(buttonPanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(buttonPanel3, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(buttonPanel4, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(emptyPanel, new GBC(0, 5, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 
 		buttonPanel.setOpaque(false);
 
@@ -174,25 +176,25 @@ public class OperatePanel extends JPanel {
 				}
 
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() == 0) {
-					
+
 					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("模型预测",
 							mainFrame.getStepFourCenterPanel().getModelPredictPanel());
-					
+
 					new Thread(new Runnable() {
-						
+
 						@Override
 						public void run() {
 							mainFrame.getStepFourCenterPanel().getModelPredictPanel().dealAndShow();
 						}
 					}).start();
-					
+
 				}
 
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() >= 1
 						&& mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getSelectedIndex() != 0) {
 					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().setSelectedIndex(0);
 				}
-				
+
 			}
 		});
 
@@ -204,9 +206,9 @@ public class OperatePanel extends JPanel {
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() == 1) {
 					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("模型评价",
 							mainFrame.getStepFourCenterPanel().getModelEvaluatePanel());
-					
+
 					new Thread(new Runnable() {
-						
+
 						@Override
 						public void run() {
 							mainFrame.getStepFourCenterPanel().getModelEvaluatePanel().dealAndShow();
@@ -230,15 +232,15 @@ public class OperatePanel extends JPanel {
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() == 2) {
 					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("模型选择",
 							mainFrame.getStepFourCenterPanel().getModelSelectPanel());
-					
+
 					new Thread(new Runnable() {
-						
+
 						@Override
 						public void run() {
 							mainFrame.getStepFourCenterPanel().getModelSelectPanel().dealAndShow();
 						}
 					}).start();
-					
+
 				}
 
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() >= 3
@@ -258,15 +260,15 @@ public class OperatePanel extends JPanel {
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() == 3) {
 					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("可靠性评估",
 							mainFrame.getStepFourCenterPanel().getReliabilityEvaluatePanel());
-					
-new Thread(			new Runnable() {
-						
+
+					new Thread(new Runnable() {
+
 						@Override
 						public void run() {
 							mainFrame.getStepFourCenterPanel().getReliabilityEvaluatePanel().dealAndShow();
 						}
 					}).start();
-					
+
 				}
 
 				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() >= 4

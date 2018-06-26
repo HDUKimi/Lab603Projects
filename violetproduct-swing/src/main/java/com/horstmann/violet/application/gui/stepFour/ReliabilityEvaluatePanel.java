@@ -7,7 +7,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -16,6 +18,7 @@ import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
 import com.horstmann.violet.application.gui.common.DottedLabel;
+import com.horstmann.violet.application.gui.common.DottedPanel;
 import com.horstmann.violet.application.lmr.antcolony.GOModel;
 import com.horstmann.violet.application.lmr.antcolony.JMModel;
 import com.horstmann.violet.application.lmr.antcolony.LVModel;
@@ -32,7 +35,10 @@ public class ReliabilityEvaluatePanel extends JPanel {
 	private DefaultTableModel evaluateTableModel;
 
 	private JPanel labelPanel;
-	private DottedLabel label;
+	private JLabel label;
+	
+	private DottedPanel dottedPanel;
+	private JPanel resultPanel;
 
 	public ReliabilityEvaluatePanel(MainFrame mainFrame) {
 
@@ -43,13 +49,26 @@ public class ReliabilityEvaluatePanel extends JPanel {
 
 		initLabelPanel();
 		initEvaluatePanel();
+		
+		dottedPanel=new DottedPanel();
+		resultPanel=new JPanel();
 
+		dottedPanel.setOpaque(false);
+		resultPanel.setOpaque(false);
+		
 		GridBagLayout layout = new GridBagLayout();
-		this.setLayout(layout);
-		this.add(labelPanel);
-		this.add(evaluatePanel);
+		dottedPanel.setLayout(layout);
+		dottedPanel.add(labelPanel);
+		dottedPanel.add(evaluatePanel);
 		layout.setConstraints(labelPanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(0, 0));
 		layout.setConstraints(evaluatePanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+		resultPanel.setLayout(new BorderLayout());
+		resultPanel.add(dottedPanel, BorderLayout.NORTH);
+		resultPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		
+		this.setLayout(new BorderLayout());
+		this.add(resultPanel, BorderLayout.NORTH);
 
 		this.setBackground(ColorData.white);
 
@@ -57,13 +76,13 @@ public class ReliabilityEvaluatePanel extends JPanel {
 
 	private void initLabelPanel() {
 
-		label = new DottedLabel();
+		label = new JLabel();
 		label.setText("<html><body><p>根据上述推导出的估计值，该系统的可靠性指标的估计值为</p></body></html>");
-		label.setBorder(BorderFactory.createEmptyBorder(30, 10, 30, 10));
+		label.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
 		labelPanel.setLayout(new GridLayout());
 		labelPanel.add(label);
-		labelPanel.setBorder(BorderFactory.createEmptyBorder(30, 10, 30, 10));
+		labelPanel.setBorder(BorderFactory.createEmptyBorder(20, 15, 10, 15));
 		labelPanel.setOpaque(false);
 
 	}
@@ -77,7 +96,7 @@ public class ReliabilityEvaluatePanel extends JPanel {
 		evaluatePanel.setLayout(new GridLayout());
 		evaluatePanel.add(evaluateTablePanel);
 
-		evaluatePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		evaluatePanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 20, 15));
 		evaluatePanel.setBackground(ColorData.white);
 
 	}
@@ -132,6 +151,20 @@ public class ReliabilityEvaluatePanel extends JPanel {
 	
 	public void dealAndShow() {
 		
+		JProgressBar progressBar=mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar();
+		progressBar.setValue(0);
+		while(progressBar.getValue()<99){
+			
+			progressBar.setValue(progressBar.getValue()+1);
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
 		int selectModel=mainFrame.getStepFourCenterPanel().getSelectModel();
 		
 		String[] str;
@@ -164,6 +197,8 @@ public class ReliabilityEvaluatePanel extends JPanel {
 			Object[] rowData = { str[i], result[i] };
 			evaluateTableModel.addRow(rowData);
 		}
+		
+		progressBar.setValue(100);
 		
 		mainFrame.ChangeRepaint(this);
 		

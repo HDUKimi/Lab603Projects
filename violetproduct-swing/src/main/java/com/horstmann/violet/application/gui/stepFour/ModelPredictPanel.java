@@ -4,11 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
@@ -48,6 +52,15 @@ public class ModelPredictPanel extends JPanel{
 	private JLabel LVLabel1;
 	private JLabel LVLabel2;
 	private JLabel LVLabel3;
+	
+	private Callable<Integer> callable;
+	private FutureTask<Integer> task;
+	private Thread thread;
+	private Callable<Integer> processCallable;
+	private FutureTask<Integer> processTask;
+	private Thread processThread;
+	
+	private int state;
 	
 	public ModelPredictPanel(MainFrame mainFrame) {
 		
@@ -112,22 +125,22 @@ public class ModelPredictPanel extends JPanel{
 						TitledBorder.LEFT, TitledBorder.TOP, new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 13), ColorData.black)));
 
 		
-//		GridBagLayout layout = new GridBagLayout();
-//		modelPanel.setLayout(layout);
-//		modelPanel.add(JMModelPanel);
-//		modelPanel.add(GOModelPanel);
-//		modelPanel.add(MusaModelPanel);
-//		modelPanel.add(LVModelPanel);
-//		layout.setConstraints(JMModelPanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-//		layout.setConstraints(GOModelPanel, new GBC(1, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-//		layout.setConstraints(MusaModelPanel, new GBC(2, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-//		layout.setConstraints(LVModelPanel, new GBC(3, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
-		
-		modelPanel.setLayout(new GridLayout(1, 4));
+		GridBagLayout layout = new GridBagLayout();
+		modelPanel.setLayout(layout);
 		modelPanel.add(JMModelPanel);
 		modelPanel.add(GOModelPanel);
 		modelPanel.add(MusaModelPanel);
 		modelPanel.add(LVModelPanel);
+		layout.setConstraints(JMModelPanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(GOModelPanel, new GBC(1, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(MusaModelPanel, new GBC(2, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(LVModelPanel, new GBC(3, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+//		modelPanel.setLayout(new GridLayout(1, 4));
+//		modelPanel.add(JMModelPanel);
+//		modelPanel.add(GOModelPanel);
+//		modelPanel.add(MusaModelPanel);
+//		modelPanel.add(LVModelPanel);
 		
 	}
 	
@@ -225,9 +238,69 @@ public class ModelPredictPanel extends JPanel{
 
 	public void dealAndShow() {
 		
+		processCallable=new Callable<Integer>() {
+
+			@Override
+			public Integer call() throws Exception {
+				
+				JProgressBar progressBar=mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar();
+				progressBar.setValue(0);
+				while(progressBar.getValue()<99){
+					
+					progressBar.setValue(progressBar.getValue()+1);
+					if(state==0){
+						Thread.sleep(600);
+					}
+					else{
+						Thread.sleep(10);
+					}
+					
+				}
+				
+				return 1;
+			}
+		};
+		processTask=new FutureTask<>(processCallable);
+		processThread=new Thread(processTask);
+		
+		callable=new Callable<Integer>() {
+
+			@Override
+			public Integer call() throws Exception {
+
+				state=0;
+				
+				DealData();
+				
+				state=1;
+				
+				while(processTask.get() == null){
+					Thread.sleep(10);
+				}
+				
+				ShowData();
+				
+				mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar().setValue(100);
+				
+				return 1;
+			}
+
+		};
+		task=new FutureTask<>(callable);
+		thread=new Thread(task);
+		
+		processThread.start();
+		thread.start();
+		
+	}
+	
+	private void DealData() {
 		AcoMainFun aco=new AcoMainFun();
 		
 		aco.InitData();
+	}
+
+	private void ShowData() {
 		
 		predictPanel.removeAll();
 		predictPanel.setLayout(new GridLayout());
@@ -249,5 +322,7 @@ public class ModelPredictPanel extends JPanel{
 		mainFrame.ChangeRepaint(this);
 		
 	}
+	
+	
 	
 }

@@ -52,7 +52,7 @@ public class ProgressPanel extends JPanel {
 
 		progressBar.setMinimum(0);
 		progressBar.setMaximum(100);
-		progressBar.setValue(60);
+		progressBar.setValue(0);
 		// progressBar.setStringPainted(false);
 		progressBar.setPreferredSize(new Dimension(400, 23));
 		progressBar.setMaximumSize(new Dimension(400, 23));
@@ -68,4 +68,8 @@ public class ProgressPanel extends JPanel {
 
 	}
 
+	public JProgressBar getProgressBar() {
+		return progressBar;
+	}
+	
 }

@@ -11,11 +11,14 @@ import java.awt.Stroke;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
@@ -42,6 +45,16 @@ public class ModelSelectPanel extends JPanel{
 	private JPanel emptyPanel;
 	private JPanel emptyPanel1;
 	private JPanel emptyPanel2;
+	
+	
+	private Callable<Integer> callable;
+	private FutureTask<Integer> task;
+	private Thread thread;
+	private Callable<Integer> processCallable;
+	private FutureTask<Integer> processTask;
+	private Thread processThread;
+	
+	private int state;
 	
 	
 	public ModelSelectPanel(MainFrame mainFrame) {
@@ -134,21 +147,73 @@ public class ModelSelectPanel extends JPanel{
 	
 	public void dealAndShow() {
 		
-		int[] input=dealEvaluate();
+		processCallable=new Callable<Integer>() {
+
+			@Override
+			public Integer call() throws Exception {
+				
+				JProgressBar progressBar=mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar();
+				progressBar.setValue(0);
+				while(progressBar.getValue()<99){
+					
+					progressBar.setValue(progressBar.getValue()+1);
+					if(state==0){
+						Thread.sleep(500);
+					}
+					else{
+						Thread.sleep(10);
+					}
+					
+				}
+				
+				return 1;
+			}
+		};
+		processTask=new FutureTask<>(processCallable);
+		processThread=new Thread(processTask);
 		
-		label1.setText("<html><body><p>根据模型评价标准分别计算各个待选模型的5项评价值，并进行分级编码。</p><br><p>其编码后最终的结果为"+Arrays.toString(input)+"</p></body></html>");
-		mainFrame.ChangeRepaint(this);
+		callable=new Callable<Integer>() {
+
+			@Override
+			public Integer call() throws Exception {
+
+				state=0;
+				
+				int[] input=dealEvaluate();
+				
+				Thread.sleep(1000);
+				
+				label1.setText("<html><body><p>根据模型评价标准分别计算各个待选模型的5项评价值，并进行分级编码。</p><br><p>其编码后最终的结果为"+Arrays.toString(input)+"</p></body></html>");
+				mainFrame.ChangeRepaint(mainFrame.getStepFourCenterPanel().getModelSelectPanel());
+				
+				BpRegression bp=new BpRegression();
+				int result=bp.Start(input);
+				
+				mainFrame.getStepFourCenterPanel().setSelectModel(result);
+				
+				state=1;
+				
+				while(processTask.get() == null){
+					Thread.sleep(10);
+				}
+				
+				String[] modelStr=new String[]{"","JM","GO","Musa","LV"};
+				
+				label3.setText("<html><body><p>输出结果为"+result+"，即"+modelStr[result]+"模型为最佳的模型选择</p></body></html>");
+				
+				mainFrame.ChangeRepaint(mainFrame.getStepFourCenterPanel().getModelSelectPanel());
+				
+				mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar().setValue(100);
+				
+				return 1;
+			}
+
+		};
+		task=new FutureTask<>(callable);
+		thread=new Thread(task);
 		
-		BpRegression bp=new BpRegression();
-		int result=bp.Start(input);
-		
-		mainFrame.getStepFourCenterPanel().setSelectModel(result);
-		
-		String[] modelStr=new String[]{"","JM","GO","Musa","LV"};
-		
-		label3.setText("<html><body><p>输出结果为"+result+"，即"+modelStr[result]+"模型为最佳的模型选择</p></body></html>");
-		
-		mainFrame.ChangeRepaint(this);
+		processThread.start();
+		thread.start();
 		
 	}
 
