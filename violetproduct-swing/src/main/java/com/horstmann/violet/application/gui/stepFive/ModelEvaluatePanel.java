@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.stepFour;
+package com.horstmann.violet.application.gui.stepFive;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -154,7 +154,7 @@ public class ModelEvaluatePanel extends JPanel {
 	
 	public void dealAndShow() {
 		
-		JProgressBar progressBar=mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar();
+		JProgressBar progressBar=mainFrame.getStepFiveCenterPanel().getProgressPanel().getProgressBar();
 		progressBar.setValue(0);
 		while(progressBar.getValue()<99){
 			

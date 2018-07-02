@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.stepFour;
+package com.horstmann.violet.application.gui.stepFive;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -171,28 +171,28 @@ public class OperatePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane() == null) {
-					mainFrame.getStepFourCenterPanel().initWorkPanel();
+				if (mainFrame.getStepFiveCenterPanel().getWorkTabbedPane() == null) {
+					mainFrame.getStepFiveCenterPanel().initWorkPanel();
 				}
 
-				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() == 0) {
+				if (mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().getTabCount() == 0) {
 
-					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("模型预测",
-							mainFrame.getStepFourCenterPanel().getModelPredictPanel());
+					mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().add("模型预测",
+							mainFrame.getStepFiveCenterPanel().getModelPredictPanel());
 
 					new Thread(new Runnable() {
 
 						@Override
 						public void run() {
-							mainFrame.getStepFourCenterPanel().getModelPredictPanel().dealAndShow();
+							mainFrame.getStepFiveCenterPanel().getModelPredictPanel().dealAndShow();
 						}
 					}).start();
 
 				}
 
-				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() >= 1
-						&& mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getSelectedIndex() != 0) {
-					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().setSelectedIndex(0);
+				if (mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().getTabCount() >= 1
+						&& mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().getSelectedIndex() != 0) {
+					mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().setSelectedIndex(0);
 				}
 
 			}
@@ -203,22 +203,22 @@ public class OperatePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() == 1) {
-					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("模型评价",
-							mainFrame.getStepFourCenterPanel().getModelEvaluatePanel());
+				if (mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().getTabCount() == 1) {
+					mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().add("模型评价",
+							mainFrame.getStepFiveCenterPanel().getModelEvaluatePanel());
 
 					new Thread(new Runnable() {
 
 						@Override
 						public void run() {
-							mainFrame.getStepFourCenterPanel().getModelEvaluatePanel().dealAndShow();
+							mainFrame.getStepFiveCenterPanel().getModelEvaluatePanel().dealAndShow();
 						}
 					}).start();
 				}
 
-				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() >= 2
-						&& mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getSelectedIndex() != 1) {
-					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().setSelectedIndex(1);
+				if (mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().getTabCount() >= 2
+						&& mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().getSelectedIndex() != 1) {
+					mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().setSelectedIndex(1);
 				}
 
 			}
@@ -229,23 +229,23 @@ public class OperatePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() == 2) {
-					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("模型选择",
-							mainFrame.getStepFourCenterPanel().getModelSelectPanel());
+				if (mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().getTabCount() == 2) {
+					mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().add("模型选择",
+							mainFrame.getStepFiveCenterPanel().getModelSelectPanel());
 
 					new Thread(new Runnable() {
 
 						@Override
 						public void run() {
-							mainFrame.getStepFourCenterPanel().getModelSelectPanel().dealAndShow();
+							mainFrame.getStepFiveCenterPanel().getModelSelectPanel().dealAndShow();
 						}
 					}).start();
 
 				}
 
-				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() >= 3
-						&& mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getSelectedIndex() != 2) {
-					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().setSelectedIndex(2);
+				if (mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().getTabCount() >= 3
+						&& mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().getSelectedIndex() != 2) {
+					mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().setSelectedIndex(2);
 				}
 			}
 		});
@@ -257,23 +257,23 @@ public class OperatePanel extends JPanel {
 
 				// mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("可靠性评估",mainFrame.getStepFourCenterPanel().getReliabilityEvaluatePanel());
 
-				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() == 3) {
-					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("可靠性评估",
-							mainFrame.getStepFourCenterPanel().getReliabilityEvaluatePanel());
+				if (mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().getTabCount() == 3) {
+					mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().add("可靠性评估",
+							mainFrame.getStepFiveCenterPanel().getReliabilityEvaluatePanel());
 
 					new Thread(new Runnable() {
 
 						@Override
 						public void run() {
-							mainFrame.getStepFourCenterPanel().getReliabilityEvaluatePanel().dealAndShow();
+							mainFrame.getStepFiveCenterPanel().getReliabilityEvaluatePanel().dealAndShow();
 						}
 					}).start();
 
 				}
 
-				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() >= 4
-						&& mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getSelectedIndex() != 3) {
-					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().setSelectedIndex(3);
+				if (mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().getTabCount() >= 4
+						&& mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().getSelectedIndex() != 3) {
+					mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().setSelectedIndex(3);
 				}
 			}
 		});

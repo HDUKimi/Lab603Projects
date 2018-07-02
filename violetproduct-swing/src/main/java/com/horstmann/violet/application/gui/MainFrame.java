@@ -48,8 +48,9 @@ import javax.swing.border.EmptyBorder;
 
 import com.horstmann.violet.application.gui.common.ChartUtils;
 import com.horstmann.violet.application.gui.common.StartFileCheck;
-import com.horstmann.violet.application.gui.stepFour.StepFourCenterPanel;
+import com.horstmann.violet.application.gui.stepFive.StepFiveCenterPanel;
 import com.horstmann.violet.application.gui.stepOne.StepOneCenterPanel;
+import com.horstmann.violet.application.gui.stepTwo.StepTwoCenterPanel;
 import com.horstmann.violet.application.gui.stepZero.StepZeroCenterPanel;
 import com.horstmann.violet.application.help.AboutDialog;
 import com.horstmann.violet.application.menu.MenuFactory;
@@ -268,19 +269,26 @@ public class MainFrame extends JFrame {
 		}
 		return stepZeroCenterPanel;
 	}
-
+	
 	public StepOneCenterPanel getStepOneCenterPanel() {
 		if (this.stepOneCenterPanel == null) {
 			stepOneCenterPanel = new StepOneCenterPanel(this);
 		}
 		return stepOneCenterPanel;
 	}
-	
-	public StepFourCenterPanel getStepFourCenterPanel() {
-		if (this.stepFourCenterPanel == null) {
-			stepFourCenterPanel = new StepFourCenterPanel(this);
+
+	public StepTwoCenterPanel getStepTwoCenterPanel() {
+		if (this.stepTwoCenterPanel == null) {
+			stepTwoCenterPanel = new StepTwoCenterPanel(this);
 		}
-		return stepFourCenterPanel;
+		return stepTwoCenterPanel;
+	}
+	
+	public StepFiveCenterPanel getStepFiveCenterPanel() {
+		if (this.stepFiveCenterPanel == null) {
+			stepFiveCenterPanel = new StepFiveCenterPanel(this);
+		}
+		return stepFiveCenterPanel;
 	}
 
 	/**
@@ -355,7 +363,8 @@ public class MainFrame extends JFrame {
 	 */
 	private StepZeroCenterPanel stepZeroCenterPanel;
 	private StepOneCenterPanel stepOneCenterPanel;
-	private StepFourCenterPanel stepFourCenterPanel;
+	private StepTwoCenterPanel stepTwoCenterPanel;
+	private StepFiveCenterPanel stepFiveCenterPanel;
 
 	private StepButtonPanel stepButton;
 	private JPanel centerPanel = new JPanel();;

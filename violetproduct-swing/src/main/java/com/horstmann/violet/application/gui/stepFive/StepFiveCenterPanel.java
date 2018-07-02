@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.stepFour;
+package com.horstmann.violet.application.gui.stepFive;
 
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -12,7 +12,7 @@ import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
 
-public class StepFourCenterPanel extends JPanel {
+public class StepFiveCenterPanel extends JPanel {
 
 	private MainFrame mainFrame;
 
@@ -29,7 +29,7 @@ public class StepFourCenterPanel extends JPanel {
 	
 	private int selectModel;
 
-	public StepFourCenterPanel(MainFrame mainFrame) {
+	public StepFiveCenterPanel(MainFrame mainFrame) {
 
 		this.mainFrame = mainFrame;
 

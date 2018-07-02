@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.stepFour;
+package com.horstmann.violet.application.gui.stepTwo;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -62,7 +62,7 @@ public class IntroducePanel extends JPanel{
 		introduceLabel1.setBorder(BorderFactory.createEmptyBorder(30, 35, 0, 0));
 		introduceLabel1.setFont(new Font("微软雅黑", Font.PLAIN, 27));
 
-		introduceLabel2.setText("<html><body>" + "<p>第一步：可靠性评估</p><br>" + "<p>第二步：</p><br>"
+		introduceLabel2.setText("<html><body>" + "<p>第一步：构建剖面图</p><br>" + "<p>第二步：</p><br>"
 				 + "</body></html>");
 		introduceLabel2.setBorder(BorderFactory.createEmptyBorder(20, 35, 0, 30));
 		introduceLabel2.setFont(new Font("微软雅黑", Font.PLAIN, 15));

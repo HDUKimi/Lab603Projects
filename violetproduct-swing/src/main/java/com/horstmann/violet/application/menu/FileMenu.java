@@ -475,7 +475,7 @@ public class FileMenu extends JMenu {
 
 						mainFrame.getMarkovWorkspaceList().add(workspace);
 
-						mainFrame.getStepOneCenterPanel().getWorkTabbedPane().add(runfilename,
+						mainFrame.getStepTwoCenterPanel().getWorkTabbedPane().add(runfilename,
 								workspace.getAWTComponent());
 
 					}
@@ -551,7 +551,7 @@ public class FileMenu extends JMenu {
 							String itemname = item.getText().substring(0, 2);
 							System.out.println(itemname);
 
-							mainFrame.getStepOneCenterPanel().getWorkTabbedPane().add(str, workspace.getAWTComponent());
+							mainFrame.getStepTwoCenterPanel().getWorkTabbedPane().add(str, workspace.getAWTComponent());
 
 						}
 					}

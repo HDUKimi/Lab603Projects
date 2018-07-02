@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.stepFour;
+package com.horstmann.violet.application.gui.stepFive;
 
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
@@ -152,7 +152,7 @@ public class ModelSelectPanel extends JPanel{
 			@Override
 			public Integer call() throws Exception {
 				
-				JProgressBar progressBar=mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar();
+				JProgressBar progressBar=mainFrame.getStepFiveCenterPanel().getProgressPanel().getProgressBar();
 				progressBar.setValue(0);
 				while(progressBar.getValue()<99){
 					
@@ -184,12 +184,12 @@ public class ModelSelectPanel extends JPanel{
 				Thread.sleep(1000);
 				
 				label1.setText("<html><body><p>根据模型评价标准分别计算各个待选模型的5项评价值，并进行分级编码。</p><br><p>其编码后最终的结果为"+Arrays.toString(input)+"</p></body></html>");
-				mainFrame.ChangeRepaint(mainFrame.getStepFourCenterPanel().getModelSelectPanel());
+				mainFrame.ChangeRepaint(mainFrame.getStepFiveCenterPanel().getModelSelectPanel());
 				
 				BpRegression bp=new BpRegression();
 				int result=bp.Start(input);
 				
-				mainFrame.getStepFourCenterPanel().setSelectModel(result);
+				mainFrame.getStepFiveCenterPanel().setSelectModel(result);
 				
 				state=1;
 				
@@ -201,9 +201,9 @@ public class ModelSelectPanel extends JPanel{
 				
 				label3.setText("<html><body><p>输出结果为"+result+"，即"+modelStr[result]+"模型为最佳的模型选择</p></body></html>");
 				
-				mainFrame.ChangeRepaint(mainFrame.getStepFourCenterPanel().getModelSelectPanel());
+				mainFrame.ChangeRepaint(mainFrame.getStepFiveCenterPanel().getModelSelectPanel());
 				
-				mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar().setValue(100);
+				mainFrame.getStepFiveCenterPanel().getProgressPanel().getProgressBar().setValue(100);
 				
 				return 1;
 			}

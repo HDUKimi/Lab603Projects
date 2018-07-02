@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.stepOne;
+package com.horstmann.violet.application.gui.stepTwo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -114,14 +114,14 @@ public class OperatePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (mainFrame.getStepOneCenterPanel().getWorkTabbedPane() == null) {
-					mainFrame.getStepOneCenterPanel().initWorkPanel();
+				if (mainFrame.getStepTwoCenterPanel().getWorkTabbedPane() == null) {
+					mainFrame.getStepTwoCenterPanel().initWorkPanel();
 				}
 
 				((JMenu) mainFrame.getMenuFactory().getFileMenu(mainFrame).getFileNewMenu().getItem(1)).getItem(6)
 						.doClick();
 
-				mainFrame.getStepOneCenterPanel().getWorkTabbedPane().setSelectedIndex(mainFrame.getStepOneCenterPanel().getWorkTabbedPane().getTabCount()-1);
+				mainFrame.getStepTwoCenterPanel().getWorkTabbedPane().setSelectedIndex(mainFrame.getStepTwoCenterPanel().getWorkTabbedPane().getTabCount()-1);
 				
 			}
 		});
@@ -131,13 +131,13 @@ public class OperatePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (mainFrame.getStepOneCenterPanel().getWorkTabbedPane() == null) {
-					mainFrame.getStepOneCenterPanel().initWorkPanel();
+				if (mainFrame.getStepTwoCenterPanel().getWorkTabbedPane() == null) {
+					mainFrame.getStepTwoCenterPanel().initWorkPanel();
 				}
 
 				mainFrame.getMenuFactory().getFileMenu(mainFrame).fileOpenItem.doClick();
 				
-				mainFrame.getStepOneCenterPanel().getWorkTabbedPane().setSelectedIndex(mainFrame.getStepOneCenterPanel().getWorkTabbedPane().getTabCount()-1);
+				mainFrame.getStepTwoCenterPanel().getWorkTabbedPane().setSelectedIndex(mainFrame.getStepTwoCenterPanel().getWorkTabbedPane().getTabCount()-1);
 			}
 		});
 

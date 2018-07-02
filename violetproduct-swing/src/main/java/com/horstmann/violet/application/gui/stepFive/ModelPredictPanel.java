@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.stepFour;
+package com.horstmann.violet.application.gui.stepFive;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -243,7 +243,7 @@ public class ModelPredictPanel extends JPanel{
 			@Override
 			public Integer call() throws Exception {
 				
-				JProgressBar progressBar=mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar();
+				JProgressBar progressBar=mainFrame.getStepFiveCenterPanel().getProgressPanel().getProgressBar();
 				progressBar.setValue(0);
 				while(progressBar.getValue()<99){
 					
@@ -280,7 +280,7 @@ public class ModelPredictPanel extends JPanel{
 				
 				ShowData();
 				
-				mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar().setValue(100);
+				mainFrame.getStepFiveCenterPanel().getProgressPanel().getProgressBar().setValue(100);
 				
 				return 1;
 			}
