@@ -115,8 +115,6 @@ public class ReliabilityEvaluatePanel extends JPanel {
 
 		evaluateTable = new JTable(evaluateTableModel);
 
-		evaluateTable.setName("TestCaseProcessEndPanel");
-
 		evaluateTable.setSelectionBackground(ColorData.white);
 		evaluateTable.setSelectionForeground(ColorData.black);
 		evaluateTable.setGridColor(ColorData.gray);

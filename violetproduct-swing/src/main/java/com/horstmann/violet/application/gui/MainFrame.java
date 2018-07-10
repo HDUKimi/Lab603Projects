@@ -50,6 +50,7 @@ import com.horstmann.violet.application.gui.common.ChartUtils;
 import com.horstmann.violet.application.gui.common.StartFileCheck;
 import com.horstmann.violet.application.gui.stepFive.StepFiveCenterPanel;
 import com.horstmann.violet.application.gui.stepOne.StepOneCenterPanel;
+import com.horstmann.violet.application.gui.stepThree.StepThreeCenterPanel;
 import com.horstmann.violet.application.gui.stepTwo.StepTwoCenterPanel;
 import com.horstmann.violet.application.gui.stepZero.StepZeroCenterPanel;
 import com.horstmann.violet.application.help.AboutDialog;
@@ -87,7 +88,6 @@ public class MainFrame extends JFrame {
 		this.dialogFactory.setDialogOwner(this);
 		decorateFrame();
 		// setInitialSize();
-		// setUIManeger();
 //		 createMenuBar();
 
 		// 初始化文件列表
@@ -98,20 +98,6 @@ public class MainFrame extends JFrame {
 		ChartUtils cu=new ChartUtils();
 
 		getContentPane().add(this.getMainPanel());
-
-	}
-
-	private void setUIManeger() {
-		// TODO Auto-generated method stub
-
-		// UIManager.put("TabbedPane.selected", new Color(64, 66, 68));
-		// UIManager.put("TabbedPane.unselected", new Color(64, 66, 68));
-		// UIManager.put("TabbedPane.selectedForeground", Color.WHITE);
-
-		UIManager.put("Tree.collapsedIcon", new ImageIcon(this.getClass().getResource("ImagePart/collapsed.png")));
-		UIManager.put("Tree.expandedIcon", new ImageIcon(this.getClass().getResource("ImagePart/expanded.png")));
-
-		UIManager.put("SplitPane.background", new Color(41, 57, 85));
 
 	}
 
@@ -153,34 +139,6 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * @return the tabbed pane that contains diagram panels
-	 */
-	public JTabbedPane getTabbedPane() {
-		if (this.tabbedPane == null) {
-			this.tabbedPane = new JTabbedPane() {
-				public void paint(Graphics g) {
-					Graphics2D g2 = (Graphics2D) g;
-					Paint currentPaint = g2.getPaint();
-					ITheme LAF = themeManager.getTheme();
-					GradientPaint paint = new GradientPaint(getWidth() / 2, -getHeight() / 4,
-							LAF.getWelcomeBackgroundStartColor(), getWidth() / 2, getHeight() + getHeight() / 4,
-							LAF.getWelcomeBackgroundEndColor());
-					g2.setPaint(paint);
-					g2.fillRect(0, 0, getWidth(), getHeight());
-					g2.setPaint(currentPaint);
-					super.paint(g);
-				}
-			};
-			this.tabbedPane.setOpaque(false);
-			MouseWheelListener[] mouseWheelListeners = this.tabbedPane.getMouseWheelListeners();
-			for (int i = 0; i < mouseWheelListeners.length; i++) {
-				this.tabbedPane.removeMouseWheelListener(mouseWheelListeners[i]);
-			}
-		}
-		return this.tabbedPane;
-	}
-
-	/**
 	 * Removes a diagram panel from this editor frame
 	 * 
 	 * @param diagramPanel
@@ -190,18 +148,14 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * Looks for an opened diagram from its file path and focus it
-	 * 
-	 * @param diagramFilePath
-	 *            diagram file path
-	 */
-
-	/**
 	 * @return selected diagram file path (or null if not one is selected; that
 	 *         should never happen)
 	 */
 	public IWorkspace getActiveWorkspace() {
-		return null;
+		
+		JTabbedPane workTabbedPanel=this.getStepTwoCenterPanel().getWorkTabbedPane();
+		
+		return this.getMarkovWorkspaceList().get(workTabbedPanel.getSelectedIndex());
 	}
 
 	public StepButtonPanel getStepButton() {
@@ -284,6 +238,13 @@ public class MainFrame extends JFrame {
 		return stepTwoCenterPanel;
 	}
 	
+	public StepThreeCenterPanel getStepThreeCenterPanel() {
+		if (this.stepThreeCenterPanel == null) {
+			stepThreeCenterPanel = new StepThreeCenterPanel(this);
+		}
+		return stepThreeCenterPanel;
+	}
+	
 	public StepFiveCenterPanel getStepFiveCenterPanel() {
 		if (this.stepFiveCenterPanel == null) {
 			stepFiveCenterPanel = new StepFiveCenterPanel(this);
@@ -309,38 +270,6 @@ public class MainFrame extends JFrame {
 		this.centerPanel = centerPanel;
 	}
 
-	public JSplitPane getJs1() {
-		return js1;
-	}
-
-	public void setJs1(JSplitPane js1) {
-		this.js1 = js1;
-	}
-
-	public JSplitPane getJs2() {
-		return js2;
-	}
-
-	public void setJs2(JSplitPane js2) {
-		this.js2 = js2;
-	}
-
-	public JSplitPane getJs3() {
-		return js3;
-	}
-
-	public void setJs3(JSplitPane js3) {
-		this.js3 = js3;
-	}
-
-	public JSplitPane getJs4() {
-		return js4;
-	}
-
-	public void setJs4(JSplitPane js4) {
-		this.js4 = js4;
-	}
-
 	public int getStepindex() {
 		return stepindex;
 	}
@@ -353,17 +282,11 @@ public class MainFrame extends JFrame {
 		return MarkovWorkspaceList;
 	}
 
-	/**
-	 * Tabbed pane instance
-	 */
-	private JTabbedPane tabbedPane;
 
-	/**
-	 * Panel added is not diagram is opened
-	 */
 	private StepZeroCenterPanel stepZeroCenterPanel;
 	private StepOneCenterPanel stepOneCenterPanel;
 	private StepTwoCenterPanel stepTwoCenterPanel;
+	private StepThreeCenterPanel stepThreeCenterPanel;
 	private StepFiveCenterPanel stepFiveCenterPanel;
 
 	private StepButtonPanel stepButton;
@@ -372,11 +295,6 @@ public class MainFrame extends JFrame {
 
 	private TopPanel topPanel;
 	private BottomPanel bottomPanel;
-	private JSplitPane js1;
-	private JSplitPane js2;
-	private JSplitPane js3;
-	private JSplitPane js4;
-	private JSplitPane js5;
 
 	/**
 	 * Main panel

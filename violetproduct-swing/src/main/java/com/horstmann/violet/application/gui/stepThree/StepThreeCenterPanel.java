@@ -1,55 +1,60 @@
-package com.horstmann.violet.application.gui.stepTwo;
+package com.horstmann.violet.application.gui.stepThree;
 
-import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
-import com.horstmann.violet.workspace.IWorkspace;
-import com.horstmann.violet.workspace.Workspace;
 
-public class StepTwoCenterPanel extends JPanel {
+public class StepThreeCenterPanel extends JPanel {
 
 	private MainFrame mainFrame;
 
 	private IntroducePanel introducePanel;
 	private OperatePanel operatePanel;
+	private ProgressPanel progressPanel;
 	private JPanel workPanel;
 	private JTabbedPane workTabbedPane;
 	
-	private List<IWorkspace> workSpaceList=new ArrayList<>();
+	private ParseMarkovPanel parseMarkovPanel;
+	private TestSeqProducePanel testSeqProducePanel;
+	private TestCaseProducePanel testCaseProducePanel;
+	
+	private int selectModel;
 
-	public StepTwoCenterPanel(MainFrame mainFrame) {
+	public StepThreeCenterPanel(MainFrame mainFrame) {
 
 		this.mainFrame = mainFrame;
 
 		introducePanel = new IntroducePanel(mainFrame);
 		operatePanel = new OperatePanel(mainFrame);
+		progressPanel=new ProgressPanel(mainFrame);
 		workPanel = new JPanel();
 		
 		workPanel.setOpaque(false);
 
 //		initWorkPanel();
-
+		
+		parseMarkovPanel=new ParseMarkovPanel(mainFrame);
+		testSeqProducePanel=new TestSeqProducePanel(mainFrame);
+		testCaseProducePanel=new TestCaseProducePanel(mainFrame);
+		
 		GridBagLayout layout = new GridBagLayout();
 		this.setLayout(layout);
 		this.add(introducePanel);
 		this.add(operatePanel);
+		this.add(progressPanel);
 		this.add(workPanel);
-		layout.setConstraints(introducePanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(0, 1));
-		layout.setConstraints(operatePanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(0, 1));
-		layout.setConstraints(workPanel, new GBC(1, 0, 1, 2).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(introducePanel, new GBC(0, 0, 1, 2).setFill(GBC.BOTH).setWeight(0, 1));
+		layout.setConstraints(operatePanel, new GBC(0, 2, 1, 2).setFill(GBC.BOTH).setWeight(0, 1));
+		layout.setConstraints(progressPanel, new GBC(1, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(workPanel, new GBC(1, 1, 1, 3).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		this.setBackground(ColorData.white);
 
@@ -72,13 +77,6 @@ public class StepTwoCenterPanel extends JPanel {
 		workPanel.setLayout(new GridLayout());
 		workPanel.add(workTabbedPane);
 		
-//		workPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		
-//		workPanel.setBorder(
-//				BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, ColorData.gray), "∆ √ÊÕº",
-//						TitledBorder.LEFT, TitledBorder.TOP , new Font("Œ¢»Ì—≈∫⁄", Font.PLAIN, 13), ColorData.black));
-
-
 	}
 
 	public void TextAreaPrint(String word) {
@@ -95,8 +93,28 @@ public class StepTwoCenterPanel extends JPanel {
 		return workTabbedPane;
 	}
 
-	public List<IWorkspace> getWorkSpaceList() {
-		return workSpaceList;
+	public ProgressPanel getProgressPanel() {
+		return progressPanel;
+	}
+
+	public int getSelectModel() {
+		return selectModel;
+	}
+
+	public void setSelectModel(int selectModel) {
+		this.selectModel = selectModel;
+	}
+
+	public ParseMarkovPanel getParseMarkovPanel() {
+		return parseMarkovPanel;
+	}
+
+	public TestSeqProducePanel getTestSeqProducePanel() {
+		return testSeqProducePanel;
+	}
+
+	public TestCaseProducePanel getTestCaseProducePanel() {
+		return testCaseProducePanel;
 	}
 	
 }

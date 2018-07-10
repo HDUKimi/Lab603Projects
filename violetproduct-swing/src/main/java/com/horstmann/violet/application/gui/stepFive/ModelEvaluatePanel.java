@@ -91,8 +91,6 @@ public class ModelEvaluatePanel extends JPanel {
 
 		evaluateTable = new JTable(evaluateTableModel);
 
-		evaluateTable.setName("TestCaseProcessEndPanel");
-
 		evaluateTable.setSelectionBackground(ColorData.white);
 		evaluateTable.setSelectionForeground(ColorData.black);
 		evaluateTable.setGridColor(ColorData.gray);
@@ -108,7 +106,7 @@ public class ModelEvaluatePanel extends JPanel {
 		renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
 		evaluateTable.setDefaultRenderer(Object.class, renderer);
 
-		evaluateTable.setBackground(new Color(255, 255, 255));
+		evaluateTable.setBackground(ColorData.white);
 		evaluateTable.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, ColorData.gray));
 
 		evaluateTablePanel.setLayout(new BorderLayout());

@@ -37,14 +37,18 @@ public class ModelSelectPanel extends JPanel{
 	private JPanel labelPanel1;
 	private JPanel labelPanel2;
 	private JPanel labelPanel3;
+	private JPanel labelPanel4;
 	
 	private DottedLabel label1;
 	private JLabel label2;
 	private DottedLabel label3;
+	private JLabel label4;
 	
 	private JPanel emptyPanel;
 	private JPanel emptyPanel1;
 	private JPanel emptyPanel2;
+	private JPanel emptyPanel3;
+	private JPanel emptyPanel4;
 	
 	
 	private Callable<Integer> callable;
@@ -64,28 +68,33 @@ public class ModelSelectPanel extends JPanel{
 		labelPanel1= new JPanel();
 		labelPanel2=new JPanel();
 		labelPanel3=new JPanel();
+		labelPanel4=new JPanel();
 		
 		emptyPanel=new JPanel();
 		
 		labelPanel1.setOpaque(false);
 		labelPanel2.setOpaque(false);
 		labelPanel3.setOpaque(false);
+		labelPanel4.setOpaque(false);
 		emptyPanel.setOpaque(false);
 		
 		initLabelPanel1();
 		initLabelPanel2();
 		initLabelPanel3();
+		initLabelPanel4();
 		
 		GridBagLayout layout = new GridBagLayout();
 		this.setLayout(layout);
 		this.add(labelPanel1);
 		this.add(labelPanel2);
 		this.add(labelPanel3);
+		this.add(labelPanel4);
 		this.add(emptyPanel);
 		layout.setConstraints(labelPanel1, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(0, 0));
 		layout.setConstraints(labelPanel2, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(0, 0));
 		layout.setConstraints(labelPanel3, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(0, 0));
-		layout.setConstraints(emptyPanel, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(labelPanel4, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(0, 0));
+		layout.setConstraints(emptyPanel, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 		
 		this.setBackground(ColorData.white);
 		
@@ -95,7 +104,7 @@ public class ModelSelectPanel extends JPanel{
 	private void initLabelPanel1() {
 		
 		label1=new DottedLabel();
-		label1.setText("<html><body><p>根据模型评价标准分别计算各个待选模型的5项评价值，并进行分级编码。</p><br><p>编码结果如表9所示，括号内为级别，其编码后最终的结果为{4,4,1,1,4}</p></body></html>");
+		label1.setText("<html><body><p>根据模型评价标准分别计算各个待选模型的5项评价值，并进行分级编码。</p></body></html>");
 		label1.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 		
 		
@@ -136,12 +145,38 @@ public class ModelSelectPanel extends JPanel{
 	private void initLabelPanel3() {
 		
 		label3=new DottedLabel();
-		label3.setText("<html><body><p>将编码后的结果输入到稳定的BP神经网络中进行计算</p><br><p>输出结果为4，即LV模型为最佳的模型选择</p></body></html>");
+		label3.setText("<html><body><p>将编码后的结果输入到稳定的BP神经网络中进行计算...</p></body></html>");
 		label3.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 		
 		labelPanel3.setLayout(new GridLayout());
 		labelPanel3.add(label3);
 		labelPanel3.setBorder(BorderFactory.createEmptyBorder(10, 10, 30, 10));
+		
+	}
+	
+	private void initLabelPanel4() {
+		
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("bp.jpg"));
+		icon.setImage(icon.getImage().getScaledInstance(500,300, Image.SCALE_DEFAULT));
+		
+		label4=new JLabel();
+		label4.setIcon(icon);
+		
+		emptyPanel3=new JPanel();
+		emptyPanel4=new JPanel();
+		emptyPanel3.setOpaque(false);
+		emptyPanel4.setOpaque(false);
+		
+		GridBagLayout layout = new GridBagLayout();
+		labelPanel4.setLayout(layout);
+		labelPanel4.add(emptyPanel3);
+		labelPanel4.add(label4);
+		labelPanel4.add(emptyPanel4);
+		layout.setConstraints(emptyPanel3, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(label4, new GBC(1, 0, 1, 1).setFill(GBC.BOTH).setWeight(0, 0));
+		layout.setConstraints(emptyPanel4, new GBC(2, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		
+		labelPanel4.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
 		
 	}
 	

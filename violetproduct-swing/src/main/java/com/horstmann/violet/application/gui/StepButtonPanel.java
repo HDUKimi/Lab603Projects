@@ -34,8 +34,8 @@ public class StepButtonPanel extends JPanel {
 	private List<JButton> stepButtonGroup;
 	private JButton step0button;
 	private JButton step1button;
-	private JButton step2button;
 	private JButton step3button;
+	private JButton step2button;
 	private JButton step4button;
 	private JButton step5button;
 
@@ -503,6 +503,14 @@ public class StepButtonPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				mainFrame.getCenterPanel().removeAll();
+				mainFrame.getCenterPanel().add(mainFrame.getStepThreeCenterPanel());
+
+				mainFrame.setStepindex(3);
+
+				index = 3;
+
+				mainFrame.ChangeRepaint();
 			}
 		});
 		step4button.addActionListener(new ActionListener() {
@@ -528,14 +536,6 @@ public class StepButtonPanel extends JPanel {
 				
 			}
 		});
-	}
-
-	public JButton getStep1button() {
-		return step1button;
-	}
-
-	public JButton getStep2button() {
-		return step2button;
 	}
 
 	public static int getIndex() {
