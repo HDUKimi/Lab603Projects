@@ -2,12 +2,15 @@ package com.horstmann.violet.application.gui.stepThree;
 
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.horstmann.violet.application.ckt.entity.Markov;
+import com.horstmann.violet.application.ckt.entity.Route;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
@@ -26,8 +29,10 @@ public class StepThreeCenterPanel extends JPanel {
 	private TestSeqProducePanel testSeqProducePanel;
 	private TestCaseProducePanel testCaseProducePanel;
 	
-	private int selectModel;
-
+	private String markovPath="connect.markov.violet.xml";
+	private Markov markov;
+	private List<Route> routes;
+	
 	public StepThreeCenterPanel(MainFrame mainFrame) {
 
 		this.mainFrame = mainFrame;
@@ -97,14 +102,6 @@ public class StepThreeCenterPanel extends JPanel {
 		return progressPanel;
 	}
 
-	public int getSelectModel() {
-		return selectModel;
-	}
-
-	public void setSelectModel(int selectModel) {
-		this.selectModel = selectModel;
-	}
-
 	public ParseMarkovPanel getParseMarkovPanel() {
 		return parseMarkovPanel;
 	}
@@ -116,5 +113,31 @@ public class StepThreeCenterPanel extends JPanel {
 	public TestCaseProducePanel getTestCaseProducePanel() {
 		return testCaseProducePanel;
 	}
+
+	public String getMarkovPath() {
+		return markovPath;
+	}
+
+	public void setMarkovPath(String markovPath) {
+		this.markovPath = markovPath;
+	}
+
+	public Markov getMarkov() {
+		return markov;
+	}
+
+	public void setMarkov(Markov markov) {
+		this.markov = markov;
+	}
+
+	public List<Route> getRoutes() {
+		return routes;
+	}
+
+	public void setRoutes(List<Route> routes) {
+		this.routes = routes;
+	}
+	
+	
 	
 }

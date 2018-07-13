@@ -1,12 +1,16 @@
 package com.horstmann.violet.application.gui.stepThree;
 
 import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.horstmann.violet.application.ckt.entity.Markov;
+import com.horstmann.violet.application.ckt.entity.Route;
+import com.horstmann.violet.application.ckt.random.RouletteSelection;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
 
@@ -42,15 +46,30 @@ public class TestSeqProducePanel extends JPanel {
 
 	public void dealAndShow() {
 		
-		showSeqData();
+		dealData();
+		
+		showData();
 		
 	}
 
-	private void showSeqData() {
+	private void dealData() {
+		
+		Markov markov=mainFrame.getStepThreeCenterPanel().getMarkov();
+		
+		List<Route> routes = RouletteSelection.randomRoute(markov, 100);
+		
+		mainFrame.getStepThreeCenterPanel().setRoutes(routes);
+		
+	}
+
+	private void showData() {
+		
+		List<Route> routes=mainFrame.getStepThreeCenterPanel().getRoutes();
 		
 		seqPanel.setLayout(new BoxLayout(seqPanel, BoxLayout.Y_AXIS));
-		for(int i=0;i<50;i++){
-			TestSeqPartPanel seqPartPanel=new TestSeqPartPanel();
+		for(int i=0;i<routes.size();i++){
+			Route route=routes.get(i);
+			TestSeqPartPanel seqPartPanel=new TestSeqPartPanel(route);
 			if(i==0){
 				seqPartPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, ColorData.gray));
 			}

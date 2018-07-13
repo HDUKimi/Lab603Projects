@@ -8,7 +8,7 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 
-public class DottedPanel extends JPanel {
+public class DottedLinePanel extends JPanel {
 
 	private Rectangle2D mfRect = new Rectangle2D.Float();
 	// —’…´
@@ -18,8 +18,9 @@ public class DottedPanel extends JPanel {
 
 	private BasicStroke s = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash1, 0.0f);
 
-	public DottedPanel() {
+	public DottedLinePanel() {
 		super();
+		this.setOpaque(false);
 	}
 
 	/**
@@ -33,11 +34,12 @@ public class DottedPanel extends JPanel {
 		// …Ë÷√±ﬂøÚ—’…´
 		g2d.setColor(mfColor);
 		// …Ë÷√±ﬂøÚ∑∂Œß
-		mfRect.setRect(0, 0, getWidth() - 1, getHeight() - 1);
+//		mfRect.setRect(0, 0, getWidth() - 1, getHeight() - 1);
 		// …Ë÷√±ﬂøÚ¿‡–Õ
 		g2d.setStroke(s);
 
-		g2d.draw(mfRect);
+//		g2d.draw(mfRect);
+		g2d.drawLine(10, (getHeight()-1)/2, getWidth()-10, (getHeight()-1)/2);
 
 	}
 }

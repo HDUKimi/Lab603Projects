@@ -8,7 +8,7 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.JLabel;
 
-public class DottedLabel extends JLabel {
+public class DottedRectLabel extends JLabel {
 
 	private Rectangle2D mfRect = new Rectangle2D.Float();
 	// ÑÕÉ«
@@ -18,7 +18,7 @@ public class DottedLabel extends JLabel {
 
 	private BasicStroke s = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash1, 0.0f);
 
-	public DottedLabel() {
+	public DottedRectLabel() {
 		super();
 	}
 

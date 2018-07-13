@@ -16,6 +16,10 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import com.horstmann.violet.application.ckt.entity.Markov;
+import com.horstmann.violet.application.ckt.entity.State;
+import com.horstmann.violet.application.ckt.entity.Transition;
+import com.horstmann.violet.application.ckt.random.ReadMarkov;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
@@ -79,7 +83,7 @@ public class ParseMarkovPanel extends JPanel{
 
 	private void initStateTablePanel() {
 
-		final String[] columnNames = { "序号","名称","ID","是否为终止状态","类型" };
+		final String[] columnNames = { "序号","名称","是否为终止状态"};
 		String[][] tabelValues = {};
 
 		stateTableModel = new DefaultTableModel(tabelValues, columnNames) {
@@ -101,6 +105,10 @@ public class ParseMarkovPanel extends JPanel{
 		stateTable.setRowHeight(27);
 		stateTable.doLayout();
 		stateTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		
+		stateTable.getColumn("序号").setPreferredWidth(50);
+		stateTable.getColumn("序号").setMinWidth(50);
+		stateTable.getColumn("序号").setMaxWidth(50);
 
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
@@ -113,13 +121,6 @@ public class ParseMarkovPanel extends JPanel{
 		stateTablePanel.add(stateTable, BorderLayout.CENTER);
 		stateTablePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 		stateTablePanel.setBackground(ColorData.white);
-
-		Object[] rowData1 = { "序号","名称","ID","是否为终止状态","类型" };
-		stateTableModel.addRow(rowData1);
-		for (int i = 0; i < 50; i++) {
-			Object[] rowData = { (i+1), "dfaf", "13213", "eee", "false" };
-			stateTableModel.addRow(rowData);
-		}
 
 	}
 
@@ -143,7 +144,7 @@ public class ParseMarkovPanel extends JPanel{
 
 	private void initTransitionTablePanel() {
 
-		final String[] columnNames = { "序号","名称","ID","是否为终止状态","类型" };
+		final String[] columnNames = { "序号","名称","概率","条件","源状态名称","目标状态名称","预期结果" };
 		String[][] tabelValues = {};
 
 		transitionTableModel = new DefaultTableModel(tabelValues, columnNames) {
@@ -165,6 +166,27 @@ public class ParseMarkovPanel extends JPanel{
 		transitionTable.setRowHeight(27);
 		transitionTable.doLayout();
 		transitionTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		
+		transitionTable.getColumn("序号").setPreferredWidth(50);
+		transitionTable.getColumn("序号").setMinWidth(50);
+		transitionTable.getColumn("序号").setMaxWidth(50);
+		transitionTable.getColumn("名称").setPreferredWidth(50);
+		transitionTable.getColumn("名称").setMinWidth(50);
+		transitionTable.getColumn("名称").setMaxWidth(50);
+		transitionTable.getColumn("概率").setPreferredWidth(60);
+		transitionTable.getColumn("概率").setMinWidth(60);
+		transitionTable.getColumn("概率").setMaxWidth(60);
+		transitionTable.getColumn("条件").setPreferredWidth(50);
+		transitionTable.getColumn("条件").setMinWidth(50);
+		transitionTable.getColumn("源状态名称").setPreferredWidth(100);
+		transitionTable.getColumn("源状态名称").setMinWidth(100);
+		transitionTable.getColumn("源状态名称").setMaxWidth(100);
+		transitionTable.getColumn("目标状态名称").setPreferredWidth(100);
+		transitionTable.getColumn("目标状态名称").setMinWidth(100);
+		transitionTable.getColumn("目标状态名称").setMaxWidth(100);
+		transitionTable.getColumn("预期结果").setPreferredWidth(100);
+		transitionTable.getColumn("预期结果").setMinWidth(100);
+		transitionTable.getColumn("预期结果").setMaxWidth(100);
 
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
@@ -178,17 +200,54 @@ public class ParseMarkovPanel extends JPanel{
 		transitionTablePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 		transitionTablePanel.setBackground(ColorData.white);
 
-		Object[] rowData1 = { "序号","名称","ID","是否为终止状态","类型" };
-		transitionTableModel.addRow(rowData1);
-		for (int i = 0; i < 50; i++) {
-			Object[] rowData = { (i+1), "dfaf", "13213", "eee", "false" };
-			transitionTableModel.addRow(rowData);
-		}
-
 	}
 	
 	public void dealAndShow() {
 		
+		dealData();
+		
+		showData();
+		
+	}
+
+	private void showData() {
+		
+		Markov markov = mainFrame.getStepThreeCenterPanel().getMarkov();
+		
+		for(int i=stateTableModel.getRowCount()-1;i>=0;i--){
+			stateTableModel.removeRow(i);
+		}
+		
+		for(int i=transitionTableModel.getRowCount()-1;i>=0;i--){
+			transitionTableModel.removeRow(i);
+		}
+		
+		Object[] rowData10 = { "序号","名称","是否为终止状态" };
+		stateTableModel.addRow(rowData10);
+		for(State state:markov.getStates()){
+			Object[] rowData11 = { state.getId(),state.getStateName(),state.isFinalState() };
+			stateTableModel.addRow(rowData11);
+		}
+		
+		Object[] rowData20 = { "序号","名称","概率","条件","源状态名称","目标状态名称","预期结果" };
+		transitionTableModel.addRow(rowData20);
+		for (Transition transition:markov.getTransitions()) {
+			Object[] rowData21 = { transition.getId(), transition.getName(), transition.getProbability(), transition.getCondition(),transition.getStartState().getStateName(),transition.getEndState().getStateName(), transition.getExpectResult() };
+			transitionTableModel.addRow(rowData21);
+		}
+		
+	}
+
+	private void dealData() {
+		String path=mainFrame.getStepThreeCenterPanel().getMarkovPath();
+
+		try {
+			Markov markov = ReadMarkov.readMarkov(path);
+			mainFrame.getStepThreeCenterPanel().setMarkov(markov);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

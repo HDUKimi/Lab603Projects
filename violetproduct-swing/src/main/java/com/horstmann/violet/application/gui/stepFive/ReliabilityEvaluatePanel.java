@@ -17,8 +17,8 @@ import javax.swing.table.DefaultTableModel;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
-import com.horstmann.violet.application.gui.common.DottedLabel;
-import com.horstmann.violet.application.gui.common.DottedPanel;
+import com.horstmann.violet.application.gui.common.DottedRectLabel;
+import com.horstmann.violet.application.gui.common.DottedRectPanel;
 import com.horstmann.violet.application.lmr.antcolony.GOModel;
 import com.horstmann.violet.application.lmr.antcolony.JMModel;
 import com.horstmann.violet.application.lmr.antcolony.LVModel;
@@ -37,7 +37,7 @@ public class ReliabilityEvaluatePanel extends JPanel {
 	private JPanel labelPanel;
 	private JLabel label;
 	
-	private DottedPanel dottedPanel;
+	private DottedRectPanel dottedPanel;
 	private JPanel resultPanel;
 
 	public ReliabilityEvaluatePanel(MainFrame mainFrame) {
@@ -50,7 +50,7 @@ public class ReliabilityEvaluatePanel extends JPanel {
 		initLabelPanel();
 		initEvaluatePanel();
 		
-		dottedPanel=new DottedPanel();
+		dottedPanel=new DottedRectPanel();
 		resultPanel=new JPanel();
 
 		dottedPanel.setOpaque(false);

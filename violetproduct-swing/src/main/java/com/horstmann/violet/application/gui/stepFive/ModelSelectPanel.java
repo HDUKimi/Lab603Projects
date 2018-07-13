@@ -23,7 +23,7 @@ import javax.swing.JProgressBar;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
-import com.horstmann.violet.application.gui.common.DottedLabel;
+import com.horstmann.violet.application.gui.common.DottedRectLabel;
 import com.horstmann.violet.application.lmr.antcolony.GOModel;
 import com.horstmann.violet.application.lmr.antcolony.JMModel;
 import com.horstmann.violet.application.lmr.antcolony.LVModel;
@@ -39,9 +39,9 @@ public class ModelSelectPanel extends JPanel{
 	private JPanel labelPanel3;
 	private JPanel labelPanel4;
 	
-	private DottedLabel label1;
+	private DottedRectLabel label1;
 	private JLabel label2;
-	private DottedLabel label3;
+	private DottedRectLabel label3;
 	private JLabel label4;
 	
 	private JPanel emptyPanel;
@@ -103,7 +103,7 @@ public class ModelSelectPanel extends JPanel{
 
 	private void initLabelPanel1() {
 		
-		label1=new DottedLabel();
+		label1=new DottedRectLabel();
 		label1.setText("<html><body><p>根据模型评价标准分别计算各个待选模型的5项评价值，并进行分级编码。</p></body></html>");
 		label1.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 		
@@ -144,7 +144,7 @@ public class ModelSelectPanel extends JPanel{
 
 	private void initLabelPanel3() {
 		
-		label3=new DottedLabel();
+		label3=new DottedRectLabel();
 		label3.setText("<html><body><p>将编码后的结果输入到稳定的BP神经网络中进行计算...</p></body></html>");
 		label3.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 		

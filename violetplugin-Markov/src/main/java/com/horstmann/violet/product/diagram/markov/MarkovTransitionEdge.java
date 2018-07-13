@@ -83,25 +83,29 @@ public class MarkovTransitionEdge extends ShapeEdge
 
         Line2D line = getConnectionPoints();
         Point2D control = getControlPoint();
-        double x = control.getX() / 2 + line.getX1() / 4 + line.getX2() / 4;
-        double y = control.getY() / 2 + line.getY1() / 4 + line.getY2() / 4;
-
-        final int GAP = 3;
-        if (line.getY1() == line.getY2()) x -= d.getWidth() / 2;
-        else if (line.getY1() <= line.getY2()) x += GAP;
-        else x -= d.getWidth() + GAP;
-
-        if (line.getX1() == line.getX2()) y += d.getHeight() / 2;
-        else if (line.getX1() <= line.getX2()) y -= d.getHeight() + GAP;
-        else y += GAP;
-        if (Math.abs(line.getX1() - line.getX2()) >= Math.abs(line.getY1() - line.getY2()))
-        {
-            x = x - d.getWidth() / 2;
-        }
-        if (Math.abs(line.getX1() - line.getX2()) <= Math.abs(line.getY1() - line.getY2()))
-        {
-            y = y - d.getHeight() / 2;
-        }
+        
+        double x = control.getX() / 2 + line.getX1() / 4 + line.getX2() / 4-d.width/2;
+        double y = control.getY() / 2 + line.getY1() / 4 + line.getY2() / 4-d.height/2;
+        
+//        double x = control.getX() / 2 + line.getX1() / 4 + line.getX2() / 4;
+//        double y = control.getY() / 2 + line.getY1() / 4 + line.getY2() / 4;
+//
+//        final int GAP = 3;
+//        if (line.getY1() == line.getY2()) x -= d.getWidth() / 2;
+//        else if (line.getY1() <= line.getY2()) x += GAP;
+//        else x -= d.getWidth() + GAP;
+//
+//        if (line.getX1() == line.getX2()) y += d.getHeight() / 2;
+//        else if (line.getX1() <= line.getX2()) y -= d.getHeight() + GAP;
+//        else y += GAP;
+//        if (Math.abs(line.getX1() - line.getX2()) >= Math.abs(line.getY1() - line.getY2()))
+//        {
+//            x = x - d.getWidth() / 2;
+//        }
+//        if (Math.abs(line.getX1() - line.getX2()) <= Math.abs(line.getY1() - line.getY2()))
+//        {
+//            y = y - d.getHeight() / 2;
+//        }
         return new Rectangle2D.Double(x, y, d.width, d.height);
     }
 

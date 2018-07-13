@@ -180,11 +180,19 @@ public class OperatePanel extends JPanel {
 					mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().add("解析剖面图",
 							mainFrame.getStepThreeCenterPanel().getParseMarkovPanel());
 					
+					mainFrame.getStepThreeCenterPanel().getParseMarkovPanel().dealAndShow();
+					
 					mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().add("生成测试序列",
 							mainFrame.getStepThreeCenterPanel().getTestSeqProducePanel());
 					
 					mainFrame.getStepThreeCenterPanel().getTestSeqProducePanel().dealAndShow();
 
+					mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().add("生成测试用例",
+							mainFrame.getStepThreeCenterPanel().getTestCaseProducePanel());
+					
+					mainFrame.getStepThreeCenterPanel().getTestCaseProducePanel().dealAndShow();
+
+					
 				}
 
 				if (mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().getTabCount() >= 1
