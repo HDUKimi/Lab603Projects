@@ -6,9 +6,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.CompoundBorder;
@@ -40,6 +43,15 @@ public class ParseMarkovPanel extends JPanel{
 	private JPanel transitionTablePanel;
 	private JTable transitionTable;
 	private DefaultTableModel transitionTableModel;
+	
+	private Callable<Integer> callable;
+	private FutureTask<Integer> task;
+	private Thread thread;
+	private Callable<Integer> processCallable;
+	private FutureTask<Integer> processTask;
+	private Thread processThread;
+	
+	private int state;
 	
 	public ParseMarkovPanel(MainFrame mainFrame) {
 		
@@ -117,8 +129,20 @@ public class ParseMarkovPanel extends JPanel{
 		stateTable.setBackground(ColorData.white);
 		stateTable.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, ColorData.gray));
 
-		stateTablePanel.setLayout(new BorderLayout());
-		stateTablePanel.add(stateTable, BorderLayout.CENTER);
+//		stateTablePanel.setLayout(new BorderLayout());
+//		stateTablePanel.add(stateTable, BorderLayout.CENTER);
+		
+		JPanel emptyPanel=new JPanel();
+		emptyPanel.setOpaque(false);
+		
+		GridBagLayout layout = new GridBagLayout();
+		stateTablePanel.setLayout(layout);
+		stateTablePanel.add(stateTable);
+		stateTablePanel.add(emptyPanel);
+		layout.setConstraints(stateTable, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(emptyPanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
+		
 		stateTablePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 		stateTablePanel.setBackground(ColorData.white);
 
@@ -195,8 +219,19 @@ public class ParseMarkovPanel extends JPanel{
 		transitionTable.setBackground(ColorData.white);
 		transitionTable.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, ColorData.gray));
 
-		transitionTablePanel.setLayout(new BorderLayout());
-		transitionTablePanel.add(transitionTable, BorderLayout.CENTER);
+//		transitionTablePanel.setLayout(new BorderLayout());
+//		transitionTablePanel.add(transitionTable, BorderLayout.CENTER);
+		
+		JPanel emptyPanel=new JPanel();
+		emptyPanel.setOpaque(false);
+		
+		GridBagLayout layout = new GridBagLayout();
+		transitionTablePanel.setLayout(layout);
+		transitionTablePanel.add(transitionTable);
+		transitionTablePanel.add(emptyPanel);
+		layout.setConstraints(transitionTable, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(emptyPanel, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		
 		transitionTablePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 		transitionTablePanel.setBackground(ColorData.white);
 
@@ -204,9 +239,61 @@ public class ParseMarkovPanel extends JPanel{
 	
 	public void dealAndShow() {
 		
-		dealData();
+		processCallable=new Callable<Integer>() {
+
+			@Override
+			public Integer call() throws Exception {
+				
+				JProgressBar progressBar=mainFrame.getStepThreeCenterPanel().getProgressPanel().getProgressBar();
+				progressBar.setValue(0);
+				while(progressBar.getValue()<30){
+					
+					progressBar.setValue(progressBar.getValue()+1);
+					if(state==0){
+						Thread.sleep(100);
+					}
+					else{
+						Thread.sleep(10);
+					}
+					
+				}
+				
+				return 1;
+			}
+		};
+		processTask=new FutureTask<>(processCallable);
+		processThread=new Thread(processTask);
 		
-		showData();
+		callable=new Callable<Integer>() {
+
+			@Override
+			public Integer call() throws Exception {
+
+				state=0;
+				
+				dealData();
+				
+				state=1;
+				
+				while(processTask.get() == null){
+					Thread.sleep(10);
+				}
+				
+				showData();
+				
+				mainFrame.getStepThreeCenterPanel().getProgressPanel().getProgressBar().setValue(30);
+				mainFrame.getStepThreeCenterPanel().setStep(2);
+				
+				return 1;
+			}
+
+		};
+		task=new FutureTask<>(callable);
+		thread=new Thread(task);
+		
+		processThread.start();
+		thread.start();
+		
 		
 	}
 
@@ -229,12 +316,16 @@ public class ParseMarkovPanel extends JPanel{
 			stateTableModel.addRow(rowData11);
 		}
 		
+		mainFrame.ChangeRepaint(this);
+		
 		Object[] rowData20 = { "序号","名称","概率","条件","源状态名称","目标状态名称","预期结果" };
 		transitionTableModel.addRow(rowData20);
 		for (Transition transition:markov.getTransitions()) {
 			Object[] rowData21 = { transition.getId(), transition.getName(), transition.getProbability(), transition.getCondition(),transition.getStartState().getStateName(),transition.getEndState().getStateName(), transition.getExpectResult() };
 			transitionTableModel.addRow(rowData21);
 		}
+		
+		mainFrame.ChangeRepaint(this);
 		
 	}
 

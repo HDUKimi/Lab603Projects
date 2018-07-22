@@ -9,6 +9,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.swing.Action;
 import javax.swing.BorderFactory;
@@ -23,6 +26,7 @@ import javax.swing.border.TitledBorder;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
+import com.horstmann.violet.application.gui.common.FileUtil;
 
 public class OperatePanel extends JPanel {
 
@@ -44,7 +48,9 @@ public class OperatePanel extends JPanel {
 	private JComboBox comboBox;
 
 	private JPanel emptyPanel;
-
+	
+	private HashMap<String, String> fileMap=new HashMap<>();
+	
 	public OperatePanel(MainFrame mainFrame) {
 
 		this.mainFrame = mainFrame;
@@ -54,9 +60,11 @@ public class OperatePanel extends JPanel {
 
 		initComboBoxPanel();
 		initButtonPanel();
+		
+		initFileMap();
 
 		this.setLayout(new BorderLayout());
-//		this.add(comboBoxPanel, BorderLayout.NORTH);
+		// this.add(comboBoxPanel, BorderLayout.NORTH);
 		this.add(buttonPanel, BorderLayout.CENTER);
 
 		this.setPreferredSize(new Dimension(300, 300));
@@ -127,16 +135,20 @@ public class OperatePanel extends JPanel {
 		buttonPanel.setLayout(layout);
 		buttonPanel.add(comboBoxPanel);
 		buttonPanel.add(buttonPanel1);
-//		buttonPanel.add(buttonPanel2);
-//		buttonPanel.add(buttonPanel3);
-//		buttonPanel.add(buttonPanel4);
-//		buttonPanel.add(emptyPanel);
+		// buttonPanel.add(buttonPanel2);
+		// buttonPanel.add(buttonPanel3);
+		// buttonPanel.add(buttonPanel4);
+		// buttonPanel.add(emptyPanel);
 		layout.setConstraints(comboBoxPanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(buttonPanel1, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//		layout.setConstraints(buttonPanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//		layout.setConstraints(buttonPanel3, new GBC(0, 3, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//		layout.setConstraints(buttonPanel4, new GBC(0, 4, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-//		layout.setConstraints(emptyPanel, new GBC(0, 5, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+		// layout.setConstraints(buttonPanel2, new GBC(0, 2, 1,
+		// 1).setFill(GBC.BOTH).setWeight(1, 0));
+		// layout.setConstraints(buttonPanel3, new GBC(0, 3, 1,
+		// 1).setFill(GBC.BOTH).setWeight(1, 0));
+		// layout.setConstraints(buttonPanel4, new GBC(0, 4, 1,
+		// 1).setFill(GBC.BOTH).setWeight(1, 0));
+		// layout.setConstraints(emptyPanel, new GBC(0, 5, 1,
+		// 1).setFill(GBC.BOTH).setWeight(1, 1));
 
 		buttonPanel.setOpaque(false);
 
@@ -146,22 +158,26 @@ public class OperatePanel extends JPanel {
 
 	@SuppressWarnings("unchecked")
 	private void initComboBoxPanel() {
-
+		
 		comboBox = new JComboBox<>();
 
 		comboBox.setPreferredSize(new Dimension(100, 30));
-
-		comboBox.addItem("剖面图1");
-		comboBox.addItem("剖面图2");
-		comboBox.addItem("剖面图3");
-		comboBox.addItem("剖面图4");
-		comboBox.addItem("剖面图5");
-
+		
 		comboBoxPanel.setLayout(new GridLayout());
 		comboBoxPanel.add(comboBox);
 		comboBoxPanel.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
 		comboBoxPanel.setOpaque(false);
+		
+	}
 
+	private void initFileMap() {
+		
+		fileMap=FileUtil.FileList("MarkovDiagram");
+		
+		for(String name:fileMap.keySet()){
+			comboBox.addItem(name);
+		}
+		
 	}
 
 	private void initButtonListener() {
@@ -176,33 +192,97 @@ public class OperatePanel extends JPanel {
 				}
 
 				if (mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().getTabCount() == 0) {
+					new Thread(new Runnable() {
 
-					mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().add("解析剖面图",
-							mainFrame.getStepThreeCenterPanel().getParseMarkovPanel());
-					
-					mainFrame.getStepThreeCenterPanel().getParseMarkovPanel().dealAndShow();
-					
-					mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().add("生成测试序列",
-							mainFrame.getStepThreeCenterPanel().getTestSeqProducePanel());
-					
-					mainFrame.getStepThreeCenterPanel().getTestSeqProducePanel().dealAndShow();
+						@Override
+						public void run() {
+							stepFunSelect(1);
+						}
+					}).start();
+					new Thread(new Runnable() {
 
-					mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().add("生成测试用例",
-							mainFrame.getStepThreeCenterPanel().getTestCaseProducePanel());
-					
-					mainFrame.getStepThreeCenterPanel().getTestCaseProducePanel().dealAndShow();
+						@Override
+						public void run() {
+							stepFunSelect(2);
+						}
+					}).start();
+					new Thread(new Runnable() {
 
+						@Override
+						public void run() {
+							stepFunSelect(3);
+						}
+					}).start();
 					
-				}
-
-				if (mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().getTabCount() >= 1
-						&& mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().getSelectedIndex() != 0) {
-					mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().setSelectedIndex(0);
 				}
 
 			}
 		});
 
+	}
+
+	public void stepFunSelect(int index) {
+
+		if (index == 1) {
+			mainFrame.getStepThreeCenterPanel().setStep(1);
+			
+			mainFrame.getStepThreeCenterPanel().setMarkovPath(fileMap.get(comboBox.getSelectedItem()));
+
+			mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().add("解析剖面图",
+					mainFrame.getStepThreeCenterPanel().getParseMarkovPanel());
+			mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().setSelectedIndex(0);
+
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					mainFrame.getStepThreeCenterPanel().getParseMarkovPanel().dealAndShow();
+				}
+			}).start();
+
+		} else if (index == 2) {
+			while (mainFrame.getStepThreeCenterPanel().getStep() <= 1) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+
+			mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().add("生成测试序列",
+					mainFrame.getStepThreeCenterPanel().getTestSeqProducePanel());
+			mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().setSelectedIndex(1);
+
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					mainFrame.getStepThreeCenterPanel().getTestSeqProducePanel().dealAndShow();
+				}
+			}).start();
+		} else if (index == 3) {
+			while (mainFrame.getStepThreeCenterPanel().getStep() <= 2) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+
+			mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().add("生成测试用例",
+					mainFrame.getStepThreeCenterPanel().getTestCaseProducePanel());
+			mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().setSelectedIndex(2);
+
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					mainFrame.getStepThreeCenterPanel().getTestCaseProducePanel().dealAndShow();
+				}
+			}).start();
+		}
 
 	}
 

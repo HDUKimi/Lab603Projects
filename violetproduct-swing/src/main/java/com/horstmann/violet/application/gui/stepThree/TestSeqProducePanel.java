@@ -2,10 +2,13 @@ package com.horstmann.violet.application.gui.stepThree;
 
 import java.awt.GridLayout;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 
 import com.horstmann.violet.application.ckt.entity.Markov;
@@ -20,6 +23,15 @@ public class TestSeqProducePanel extends JPanel {
 	
 	private JScrollPane seqScrollPane;
 	private JPanel seqPanel;
+	
+	private Callable<Integer> callable;
+	private FutureTask<Integer> task;
+	private Thread thread;
+	private Callable<Integer> processCallable;
+	private FutureTask<Integer> processTask;
+	private Thread processThread;
+	
+	private int state;
 
 	public TestSeqProducePanel(MainFrame mainFrame) {
 
@@ -46,9 +58,59 @@ public class TestSeqProducePanel extends JPanel {
 
 	public void dealAndShow() {
 		
-		dealData();
+		processCallable=new Callable<Integer>() {
+
+			@Override
+			public Integer call() throws Exception {
+				
+				JProgressBar progressBar=mainFrame.getStepThreeCenterPanel().getProgressPanel().getProgressBar();
+				while(progressBar.getValue()<60){
+					
+					progressBar.setValue(progressBar.getValue()+1);
+					if(state==0){
+						Thread.sleep(100);
+					}
+					else{
+						Thread.sleep(10);
+					}
+					
+				}
+				
+				return 1;
+			}
+		};
+		processTask=new FutureTask<>(processCallable);
+		processThread=new Thread(processTask);
 		
-		showData();
+		callable=new Callable<Integer>() {
+
+			@Override
+			public Integer call() throws Exception {
+
+				state=0;
+				
+				dealData();
+				
+				state=1;
+				
+				while(processTask.get() == null){
+					Thread.sleep(10);
+				}
+				
+				showData();
+				
+				mainFrame.getStepThreeCenterPanel().getProgressPanel().getProgressBar().setValue(60);
+				mainFrame.getStepThreeCenterPanel().setStep(3);
+				
+				return 1;
+			}
+
+		};
+		task=new FutureTask<>(callable);
+		thread=new Thread(task);
+		
+		processThread.start();
+		thread.start();
 		
 	}
 
@@ -75,6 +137,8 @@ public class TestSeqProducePanel extends JPanel {
 			}
 			seqPanel.add(seqPartPanel);
 		}
+		
+		mainFrame.ChangeRepaint(this);
 		
 	}
 	

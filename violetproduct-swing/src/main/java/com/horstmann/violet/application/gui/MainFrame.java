@@ -47,7 +47,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import com.horstmann.violet.application.gui.common.ChartUtils;
-import com.horstmann.violet.application.gui.common.StartFileCheck;
+import com.horstmann.violet.application.gui.common.FileUtil;
 import com.horstmann.violet.application.gui.stepFive.StepFiveCenterPanel;
 import com.horstmann.violet.application.gui.stepOne.StepOneCenterPanel;
 import com.horstmann.violet.application.gui.stepThree.StepThreeCenterPanel;
@@ -91,8 +91,7 @@ public class MainFrame extends JFrame {
 //		 createMenuBar();
 
 		// 初始化文件列表
-		StartFileCheck sfc = new StartFileCheck();
-		sfc.FileCheck();
+		FileUtil.FileCheck();
 		
 		//装载chart插件
 		ChartUtils cu=new ChartUtils();

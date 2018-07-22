@@ -29,7 +29,8 @@ public class StepThreeCenterPanel extends JPanel {
 	private TestSeqProducePanel testSeqProducePanel;
 	private TestCaseProducePanel testCaseProducePanel;
 	
-	private String markovPath="connect.markov.violet.xml";
+	private int step;
+	private String markovPath;
 	private Markov markov;
 	private List<Route> routes;
 	
@@ -136,6 +137,14 @@ public class StepThreeCenterPanel extends JPanel {
 
 	public void setRoutes(List<Route> routes) {
 		this.routes = routes;
+	}
+
+	public int getStep() {
+		return step;
+	}
+
+	public void setStep(int step) {
+		this.step = step;
 	}
 	
 	
