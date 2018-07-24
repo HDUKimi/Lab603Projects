@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.stepThree;
+package com.horstmann.violet.application.gui.stepFour;
 
 import java.awt.GridLayout;
 import java.util.List;
@@ -18,7 +18,7 @@ import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
 import com.horstmann.violet.application.gui.common.FileUtil;
 
-public class TestCaseProducePanel extends JPanel {
+public class TestCaseExecutePanel extends JPanel {
 
 	private MainFrame mainFrame;
 
@@ -34,7 +34,7 @@ public class TestCaseProducePanel extends JPanel {
 	
 	private int state;
 
-	public TestCaseProducePanel(MainFrame mainFrame) {
+	public TestCaseExecutePanel(MainFrame mainFrame) {
 
 		this.mainFrame = mainFrame;
 		
@@ -64,7 +64,7 @@ public class TestCaseProducePanel extends JPanel {
 			@Override
 			public Integer call() throws Exception {
 				
-				JProgressBar progressBar=mainFrame.getStepThreeCenterPanel().getProgressPanel().getProgressBar();
+				JProgressBar progressBar=mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar();
 				while(progressBar.getValue()<100){
 					
 					progressBar.setValue(progressBar.getValue()+1);
@@ -100,8 +100,7 @@ public class TestCaseProducePanel extends JPanel {
 				
 				showData();
 				
-				mainFrame.getStepThreeCenterPanel().getProgressPanel().getProgressBar().setValue(100);
-				mainFrame.getStepThreeCenterPanel().setStep(4);
+				mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar().setValue(100);
 				
 				return 1;
 			}
@@ -117,21 +116,22 @@ public class TestCaseProducePanel extends JPanel {
 
 	private void dealData() {
 
-		List<Route> routes=mainFrame.getStepThreeCenterPanel().getRoutes();
+		String name=mainFrame.getStepFourCenterPanel().getTestCaseName();
+		String path=FileUtil.pathlist.get(1)+name+".violet.xml";
 		
-		RouteInstantiate.instantiation(routes);
+		List<Route> routes=TestCaseUtil.ToRoute(path);
 		
-		String name=mainFrame.getStepThreeCenterPanel().getMarkovName();
-		name=name.substring(0, name.lastIndexOf(".markov"));
-		String path=FileUtil.pathlist.get(1)+name+".testcase.violet.xml";
+		mainFrame.getStepFourCenterPanel().setRoutes(routes);
 		
-		TestCaseUtil.ToXML(path, routes);
+		for(Route route:routes){
+			System.out.println(route.toString());
+		}
 		
 	}
 
 	private void showData() {
 		
-		List<Route> routes=mainFrame.getStepThreeCenterPanel().getRoutes();
+		List<Route> routes=mainFrame.getStepFourCenterPanel().getRoutes();
 		
 		casePanel.setLayout(new BoxLayout(casePanel, BoxLayout.Y_AXIS));
 		for(int i=0;i<routes.size();i++){

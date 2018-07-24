@@ -137,13 +137,13 @@ public class ReliabilityEvaluatePanel extends JPanel {
 		evaluateTablePanel.add(evaluateTable, BorderLayout.NORTH);
 		evaluateTablePanel.setOpaque(false);
 
-		String[] str = new String[] { "可靠度", "不可靠度", "失效率", "剩余故障数", "MTTF" };
-		Object[] rowData1 = { "名称", "结果" };
-		evaluateTableModel.addRow(rowData1);
-		for (int i = 0; i < str.length; i++) {
-			Object[] rowData = { str[i], Math.random() };
-			evaluateTableModel.addRow(rowData);
-		}
+//		String[] str = new String[] { "可靠度", "不可靠度", "失效率", "剩余故障数", "MTTF" };
+//		Object[] rowData1 = { "名称", "结果" };
+//		evaluateTableModel.addRow(rowData1);
+//		for (int i = 0; i < str.length; i++) {
+//			Object[] rowData = { str[i], Math.random() };
+//			evaluateTableModel.addRow(rowData);
+//		}
 
 	}
 	

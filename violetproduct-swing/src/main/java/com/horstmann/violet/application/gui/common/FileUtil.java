@@ -51,12 +51,18 @@ public class FileUtil {
 			fileList = new File(pathlist.get(0)).listFiles();
 			for (File file : fileList) {
 				String fileName = file.getName();
-				if (fileName.lastIndexOf(".xml") > 0) {
-					fileMap.put(fileName.substring(0, fileName.lastIndexOf(".xml")), file.getAbsolutePath());
+				if (fileName.lastIndexOf(".markov.violet.xml") > 0) {
+					fileMap.put(fileName.substring(0, fileName.lastIndexOf(".violet.xml")), file.getAbsolutePath());
 				}
 			}
 		} else if (name.equals("TestCase")) {
-
+			fileList = new File(pathlist.get(1)).listFiles();
+			for (File file : fileList) {
+				String fileName = file.getName();
+				if (fileName.lastIndexOf(".testcase.violet.xml") > 0) {
+					fileMap.put(fileName.substring(0, fileName.lastIndexOf(".violet.xml")), file.getAbsolutePath());
+				}
+			}
 		}
 
 		System.out.println(fileMap.size());

@@ -96,10 +96,10 @@ public class OperatePanel extends JPanel {
 		buttonPanel.setLayout(layout);
 		buttonPanel.add(buttonPanel1);
 		buttonPanel.add(buttonPanel2);
-		buttonPanel.add(emptyPanel);
-		layout.setConstraints(buttonPanel1, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(0, 0));
-		layout.setConstraints(buttonPanel2, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(0, 0));
-		layout.setConstraints(emptyPanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
+//		buttonPanel.add(emptyPanel);
+		layout.setConstraints(buttonPanel1, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+		layout.setConstraints(buttonPanel2, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
+//		layout.setConstraints(emptyPanel, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 1));
 
 		buttonPanel.setOpaque(false);
 

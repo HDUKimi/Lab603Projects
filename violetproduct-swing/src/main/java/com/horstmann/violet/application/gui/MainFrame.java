@@ -49,6 +49,7 @@ import javax.swing.border.EmptyBorder;
 import com.horstmann.violet.application.gui.common.ChartUtils;
 import com.horstmann.violet.application.gui.common.FileUtil;
 import com.horstmann.violet.application.gui.stepFive.StepFiveCenterPanel;
+import com.horstmann.violet.application.gui.stepFour.StepFourCenterPanel;
 import com.horstmann.violet.application.gui.stepOne.StepOneCenterPanel;
 import com.horstmann.violet.application.gui.stepThree.StepThreeCenterPanel;
 import com.horstmann.violet.application.gui.stepTwo.StepTwoCenterPanel;
@@ -244,6 +245,13 @@ public class MainFrame extends JFrame {
 		return stepThreeCenterPanel;
 	}
 	
+	public StepFourCenterPanel getStepFourCenterPanel() {
+		if (this.stepFourCenterPanel == null) {
+			stepFourCenterPanel = new StepFourCenterPanel(this);
+		}
+		return stepFourCenterPanel;
+	}
+	
 	public StepFiveCenterPanel getStepFiveCenterPanel() {
 		if (this.stepFiveCenterPanel == null) {
 			stepFiveCenterPanel = new StepFiveCenterPanel(this);
@@ -286,6 +294,7 @@ public class MainFrame extends JFrame {
 	private StepOneCenterPanel stepOneCenterPanel;
 	private StepTwoCenterPanel stepTwoCenterPanel;
 	private StepThreeCenterPanel stepThreeCenterPanel;
+	private StepFourCenterPanel stepFourCenterPanel;
 	private StepFiveCenterPanel stepFiveCenterPanel;
 
 	private StepButtonPanel stepButton;

@@ -7,15 +7,71 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
 import com.horstmann.violet.application.ckt.entity.Route;
 import com.horstmann.violet.application.ckt.entity.Transition;
 
-public class SaveTestCase {
+public class TestCaseUtil {
+	
+	public static void main(String[] args) {
+		
+		String path="C:\\ModelDriverProjectFile\\TestCase\\readWP.testcase.violet.xml";
+		
+		List<Route> routes=ToRoute(path);
+		
+		System.out.println(routes.size());
+		
+	}
+	
+	public static List<Route> ToRoute(String path){
+		
+		List<Route> testcases=new ArrayList<>();
+		
+		File file=new File(path);
+		
+		SAXReader reader = new SAXReader();   
+		Document doc = null;
+		try {
+			doc = reader.read(file);
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   
+		Element root = doc.getRootElement();  
+		
+		List<Element> nodes = root.elements("testcase");
+		for(Element node:nodes){
+			Route route=new Route();
+			route.setId(Integer.parseInt(node.attribute("id").getValue().trim()));
+			route.setRouteResult(node.attribute("RouteResult").getValue().trim());
+			
+			List<Transition> transitions=new ArrayList<>();
+			
+			List<Element> tnodes=node.elements("process");
+			for(Element tnode:tnodes){
+				Transition transition=new Transition();
+				
+				transition.setExpectResult(tnode.attribute("expectResult").getValue().trim());
+				transition.setName(tnode.element("operation").getText());
+				transition.setResultOfCondition(tnode.element("input").getText());
+				
+				transitions.add(transition);
+			}
+			
+			route.setTransitionList(transitions);
+			
+			testcases.add(route);
+		}
+		
+		return testcases;
+		
+	}
 
 	public static void ToXML(String path, List<Route> testcases) {
 		// 1、创建document对象，代表整个xml文档
@@ -50,7 +106,6 @@ public class SaveTestCase {
 		}
 		OutputFormat format = OutputFormat.createPrettyPrint();
 		// 6、生成xml文件
-//		File file = new File("E:\\XML\\connect.markov.violet.xml");
 		File file = new File(path);
 		XMLWriter writer;
 		try {

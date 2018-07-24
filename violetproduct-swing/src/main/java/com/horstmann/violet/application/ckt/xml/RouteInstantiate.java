@@ -24,6 +24,8 @@ public class RouteInstantiate {
 //				System.out.println(transition.toString());
 //			}
 		}
+		
+		System.out.println("END");
 	}
 	
 }

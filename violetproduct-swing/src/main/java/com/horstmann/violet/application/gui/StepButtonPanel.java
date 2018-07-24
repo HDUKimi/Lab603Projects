@@ -518,6 +518,15 @@ public class StepButtonPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				mainFrame.getCenterPanel().removeAll();
+				mainFrame.getCenterPanel().add(mainFrame.getStepFourCenterPanel());
+
+				mainFrame.setStepindex(4);
+
+				index = 4;
+
+				mainFrame.ChangeRepaint();
+				
 			}
 		});
 		step5button.addActionListener(new ActionListener() {

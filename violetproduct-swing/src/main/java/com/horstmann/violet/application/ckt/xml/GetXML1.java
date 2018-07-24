@@ -70,7 +70,7 @@ public class GetXML1 {
 		//第3步：为路径上的每条迁移实例化
 		RouteInstantiate.instantiation(routes);
 		
-		SaveTestCase.ToXML("E:\\XML\\connect.markov.violet.xml", routes);
+		TestCaseUtil.ToXML("E:\\XML\\connect.markov.violet.xml", routes);
 		
 	}
 	public static void getXML(String fileOfStart) throws Exception{

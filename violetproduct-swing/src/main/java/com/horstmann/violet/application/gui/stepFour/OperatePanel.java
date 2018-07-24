@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.stepThree;
+package com.horstmann.violet.application.gui.stepFour;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -87,25 +87,15 @@ public class OperatePanel extends JPanel {
 
 		buttonPanel1 = new JPanel();
 		buttonPanel2 = new JPanel();
-		buttonPanel3 = new JPanel();
-		buttonPanel4 = new JPanel();
 
 		button1 = new JButton();
 		button2 = new JButton();
-		button3 = new JButton();
-		button4 = new JButton();
 
 		button1.setText("生成测试用例");
 		button1.setPreferredSize(new Dimension(100, 60));
 
-		button2.setText("模型评价");
+		button2.setText("获取失效数据");
 		button2.setPreferredSize(new Dimension(100, 60));
-
-		button3.setText("模型选择");
-		button3.setPreferredSize(new Dimension(100, 60));
-
-		button4.setText("可靠性评估");
-		button4.setPreferredSize(new Dimension(100, 60));
 
 		buttonPanel1.setLayout(new GridLayout());
 		buttonPanel1.add(button1);
@@ -115,40 +105,15 @@ public class OperatePanel extends JPanel {
 		buttonPanel2.add(button2);
 		buttonPanel2.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
 		buttonPanel2.setOpaque(false);
-		buttonPanel3.setLayout(new GridLayout());
-		buttonPanel3.add(button3);
-		buttonPanel3.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
-		buttonPanel3.setOpaque(false);
-		buttonPanel4.setLayout(new GridLayout());
-		buttonPanel4.add(button4);
-		buttonPanel4.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
-		buttonPanel4.setOpaque(false);
-
-		emptyPanel = new JPanel();
-		emptyPanel.setOpaque(false);
-
-		// buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-		// buttonPanel.add(buttonPanel1);
-		// buttonPanel.add(buttonPanel2);
 
 		GridBagLayout layout = new GridBagLayout();
 		buttonPanel.setLayout(layout);
 		buttonPanel.add(comboBoxPanel);
 		buttonPanel.add(buttonPanel1);
-		// buttonPanel.add(buttonPanel2);
-		// buttonPanel.add(buttonPanel3);
-		// buttonPanel.add(buttonPanel4);
-		// buttonPanel.add(emptyPanel);
+		buttonPanel.add(buttonPanel2);
 		layout.setConstraints(comboBoxPanel, new GBC(0, 0, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 		layout.setConstraints(buttonPanel1, new GBC(0, 1, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
-		// layout.setConstraints(buttonPanel2, new GBC(0, 2, 1,
-		// 1).setFill(GBC.BOTH).setWeight(1, 0));
-		// layout.setConstraints(buttonPanel3, new GBC(0, 3, 1,
-		// 1).setFill(GBC.BOTH).setWeight(1, 0));
-		// layout.setConstraints(buttonPanel4, new GBC(0, 4, 1,
-		// 1).setFill(GBC.BOTH).setWeight(1, 0));
-		// layout.setConstraints(emptyPanel, new GBC(0, 5, 1,
-		// 1).setFill(GBC.BOTH).setWeight(1, 1));
+		layout.setConstraints(buttonPanel2, new GBC(0, 2, 1, 1).setFill(GBC.BOTH).setWeight(1, 0));
 
 		buttonPanel.setOpaque(false);
 
@@ -172,7 +137,7 @@ public class OperatePanel extends JPanel {
 
 	private void initFileMap() {
 		
-		fileMap=FileUtil.FileList("MarkovDiagram");
+		fileMap=FileUtil.FileList("TestCase");
 		
 		for(String name:fileMap.keySet()){
 			comboBox.addItem(name);
@@ -187,103 +152,63 @@ public class OperatePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (mainFrame.getStepThreeCenterPanel().getWorkTabbedPane() == null) {
-					mainFrame.getStepThreeCenterPanel().initWorkPanel();
+				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane() == null) {
+					mainFrame.getStepFourCenterPanel().initWorkPanel();
 				}
 
-				if (mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().getTabCount() == 0) {
-					new Thread(new Runnable() {
+				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() == 0) {
 
-						@Override
-						public void run() {
-							stepFunSelect(1);
-						}
-					}).start();
-					new Thread(new Runnable() {
-
-						@Override
-						public void run() {
-							stepFunSelect(2);
-						}
-					}).start();
-					new Thread(new Runnable() {
-
-						@Override
-						public void run() {
-							stepFunSelect(3);
-						}
-					}).start();
+					mainFrame.getStepFourCenterPanel().setTestCaseName(comboBox.getSelectedItem().toString());
+					mainFrame.getStepFourCenterPanel().setTestCasePath(fileMap.get(comboBox.getSelectedItem()));
 					
+					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("执行测试用例",
+							mainFrame.getStepFourCenterPanel().getTestCaseExecutePanel());
+
+					new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							mainFrame.getStepFourCenterPanel().getTestCaseExecutePanel().dealAndShow();
+						}
+					}).start();
+
+				}
+
+				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() >= 1
+						&& mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getSelectedIndex() != 0) {
+					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().setSelectedIndex(0);
 				}
 
 			}
 		});
+		
+		button2.addActionListener(new ActionListener() {
 
-	}
+			@Override
+			public void actionPerformed(ActionEvent e) {
 
-	public void stepFunSelect(int index) {
+				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() == 1) {
 
-		if (index == 1) {
-			mainFrame.getStepThreeCenterPanel().setStep(1);
-			
-			mainFrame.getStepThreeCenterPanel().setMarkovName(comboBox.getSelectedItem().toString());
-			mainFrame.getStepThreeCenterPanel().setMarkovPath(fileMap.get(comboBox.getSelectedItem()));
+					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().add("获取失效数据",
+							mainFrame.getStepFourCenterPanel().getDealFailureDataPanel());
 
-			mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().add("解析剖面图",
-					mainFrame.getStepThreeCenterPanel().getParseMarkovPanel());
-			mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().setSelectedIndex(0);
+					new Thread(new Runnable() {
 
-			new Thread(new Runnable() {
+						@Override
+						public void run() {
+							mainFrame.getStepFourCenterPanel().getDealFailureDataPanel().dealAndShow();
+						}
+					}).start();
 
-				@Override
-				public void run() {
-					mainFrame.getStepThreeCenterPanel().getParseMarkovPanel().dealAndShow();
 				}
-			}).start();
 
-		} else if (index == 2) {
-			while (mainFrame.getStepThreeCenterPanel().getStep() <= 1) {
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				if (mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getTabCount() >= 2
+						&& mainFrame.getStepFourCenterPanel().getWorkTabbedPane().getSelectedIndex() != 1) {
+					mainFrame.getStepFourCenterPanel().getWorkTabbedPane().setSelectedIndex(1);
 				}
+
 			}
-
-			mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().add("生成测试序列",
-					mainFrame.getStepThreeCenterPanel().getTestSeqProducePanel());
-			mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().setSelectedIndex(1);
-
-			new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					mainFrame.getStepThreeCenterPanel().getTestSeqProducePanel().dealAndShow();
-				}
-			}).start();
-		} else if (index == 3) {
-			while (mainFrame.getStepThreeCenterPanel().getStep() <= 2) {
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-
-			mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().add("生成测试用例",
-					mainFrame.getStepThreeCenterPanel().getTestCaseProducePanel());
-			mainFrame.getStepThreeCenterPanel().getWorkTabbedPane().setSelectedIndex(2);
-
-			new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					mainFrame.getStepThreeCenterPanel().getTestCaseProducePanel().dealAndShow();
-				}
-			}).start();
-		}
+		});
 
 	}
 

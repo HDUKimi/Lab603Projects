@@ -1,4 +1,4 @@
-package com.horstmann.violet.application.gui.stepThree;
+package com.horstmann.violet.application.gui.stepFour;
 
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -15,7 +15,7 @@ import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
 
-public class StepThreeCenterPanel extends JPanel {
+public class StepFourCenterPanel extends JPanel {
 
 	private MainFrame mainFrame;
 
@@ -25,17 +25,15 @@ public class StepThreeCenterPanel extends JPanel {
 	private JPanel workPanel;
 	private JTabbedPane workTabbedPane;
 	
-	private ParseMarkovPanel parseMarkovPanel;
-	private TestSeqProducePanel testSeqProducePanel;
-	private TestCaseProducePanel testCaseProducePanel;
+	private TestCaseExecutePanel testCaseExecutePanel;
+	private DealFailureDataPanel dealFailureDataPanel;
 	
 	private int step;
-	private String markovName;
-	private String markovPath;
-	private Markov markov;
+	private String testCaseName;
+	private String testCasePath;
 	private List<Route> routes;
 	
-	public StepThreeCenterPanel(MainFrame mainFrame) {
+	public StepFourCenterPanel(MainFrame mainFrame) {
 
 		this.mainFrame = mainFrame;
 
@@ -48,9 +46,8 @@ public class StepThreeCenterPanel extends JPanel {
 
 //		initWorkPanel();
 		
-		parseMarkovPanel=new ParseMarkovPanel(mainFrame);
-		testSeqProducePanel=new TestSeqProducePanel(mainFrame);
-		testCaseProducePanel=new TestCaseProducePanel(mainFrame);
+		testCaseExecutePanel=new TestCaseExecutePanel(mainFrame);
+		dealFailureDataPanel=new DealFailureDataPanel(mainFrame);
 		
 		GridBagLayout layout = new GridBagLayout();
 		this.setLayout(layout);
@@ -104,40 +101,28 @@ public class StepThreeCenterPanel extends JPanel {
 		return progressPanel;
 	}
 
-	public ParseMarkovPanel getParseMarkovPanel() {
-		return parseMarkovPanel;
+	public TestCaseExecutePanel getTestCaseExecutePanel() {
+		return testCaseExecutePanel;
 	}
 
-	public TestSeqProducePanel getTestSeqProducePanel() {
-		return testSeqProducePanel;
+	public DealFailureDataPanel getDealFailureDataPanel() {
+		return dealFailureDataPanel;
 	}
 
-	public TestCaseProducePanel getTestCaseProducePanel() {
-		return testCaseProducePanel;
-	}
-	
-	public String getMarkovName() {
-		return markovName;
+	public String getTestCaseName() {
+		return testCaseName;
 	}
 
-	public void setMarkovName(String markovName) {
-		this.markovName = markovName;
+	public void setTestCaseName(String testCaseName) {
+		this.testCaseName = testCaseName;
 	}
 
-	public String getMarkovPath() {
-		return markovPath;
+	public String getTestCasePath() {
+		return testCasePath;
 	}
 
-	public void setMarkovPath(String markovPath) {
-		this.markovPath = markovPath;
-	}
-
-	public Markov getMarkov() {
-		return markov;
-	}
-
-	public void setMarkov(Markov markov) {
-		this.markov = markov;
+	public void setTestCasePath(String testCasePath) {
+		this.testCasePath = testCasePath;
 	}
 
 	public List<Route> getRoutes() {
