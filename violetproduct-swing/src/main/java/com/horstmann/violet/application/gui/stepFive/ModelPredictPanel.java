@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
@@ -16,9 +20,12 @@ import javax.swing.JProgressBar;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
+import com.horstmann.violet.application.ckt.entity.Route;
+import com.horstmann.violet.application.ckt.xml.TestCaseUtil;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
+import com.horstmann.violet.application.gui.common.FileUtil;
 import com.horstmann.violet.application.lmr.antcolony.AcoMainFun;
 import com.horstmann.violet.application.lmr.antcolony.GOModel;
 import com.horstmann.violet.application.lmr.antcolony.JMModel;
@@ -267,21 +274,26 @@ public class ModelPredictPanel extends JPanel{
 
 			@Override
 			public Integer call() throws Exception {
-
-				state=0;
 				
-				DealData();
-				
-				state=1;
-				
-				while(processTask.get() == null){
-					Thread.sleep(10);
+				try{
+					state=0;
+					
+					DealData();
+					
+					state=1;
+					
+					while(processTask.get() == null){
+						Thread.sleep(10);
+					}
+					
+					ShowData();
+					
+					mainFrame.getStepFiveCenterPanel().getProgressPanel().getProgressBar().setValue(100);
+					
+				}catch (Exception e) {
+					e.printStackTrace();
 				}
-				
-				ShowData();
-				
-				mainFrame.getStepFiveCenterPanel().getProgressPanel().getProgressBar().setValue(100);
-				
+
 				return 1;
 			}
 
@@ -295,9 +307,21 @@ public class ModelPredictPanel extends JPanel{
 	}
 	
 	private void DealData() {
+		
+		String name=mainFrame.getStepFiveCenterPanel().getFailureDataName();
+		String path=FileUtil.pathlist.get(3)+name+".violet.txt";
+		
+		List<Integer> failureDataList=new ArrayList<>();
+		try {
+			failureDataList=FileUtil.ReadFailureData(new File(path));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		AcoMainFun aco=new AcoMainFun();
 		
-		aco.InitData();
+		aco.InitData(failureDataList);
 	}
 
 	private void ShowData() {

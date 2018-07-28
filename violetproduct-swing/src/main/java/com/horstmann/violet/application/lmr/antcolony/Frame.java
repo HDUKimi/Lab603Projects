@@ -226,7 +226,7 @@ public class Frame extends JFrame {
 
 		// ¿ªÊ¼Ö´ÐÐ
 		AcoMainFun fun = new AcoMainFun();
-		fun.InitData();
+//		fun.InitData();
 
 	}
 

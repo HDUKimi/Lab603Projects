@@ -9,6 +9,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.Action;
 import javax.swing.BorderFactory;
@@ -23,6 +26,7 @@ import javax.swing.border.TitledBorder;
 import com.horstmann.violet.application.gui.GBC;
 import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
+import com.horstmann.violet.application.gui.common.FileUtil;
 
 public class OperatePanel extends JPanel {
 
@@ -44,6 +48,8 @@ public class OperatePanel extends JPanel {
 	private JComboBox comboBox;
 
 	private JPanel emptyPanel;
+	
+	private HashMap<String, String> fileMap=new HashMap<>();
 
 	public OperatePanel(MainFrame mainFrame) {
 
@@ -54,6 +60,8 @@ public class OperatePanel extends JPanel {
 
 		initComboBoxPanel();
 		initButtonPanel();
+		
+		initFileMap();
 
 		this.setLayout(new BorderLayout());
 //		this.add(comboBoxPanel, BorderLayout.NORTH);
@@ -151,17 +159,21 @@ public class OperatePanel extends JPanel {
 
 		comboBox.setPreferredSize(new Dimension(100, 30));
 
-		comboBox.addItem("失效数据1");
-		comboBox.addItem("失效数据2");
-		comboBox.addItem("失效数据3");
-		comboBox.addItem("失效数据4");
-		comboBox.addItem("失效数据5");
-
 		comboBoxPanel.setLayout(new GridLayout());
 		comboBoxPanel.add(comboBox);
 		comboBoxPanel.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
 		comboBoxPanel.setOpaque(false);
 
+	}
+	
+	private void initFileMap() {
+		
+		fileMap=FileUtil.FileList("FailureData");
+		
+		for(String name:fileMap.keySet()){
+			comboBox.addItem(name);
+		}
+		
 	}
 
 	private void initButtonListener() {
@@ -176,6 +188,9 @@ public class OperatePanel extends JPanel {
 				}
 
 				if (mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().getTabCount() == 0) {
+					
+					mainFrame.getStepFiveCenterPanel().setFailureDataName(comboBox.getSelectedItem().toString());
+					mainFrame.getStepFiveCenterPanel().setFailureDataPath(fileMap.get(comboBox.getSelectedItem()));
 
 					mainFrame.getStepFiveCenterPanel().getWorkTabbedPane().add("模型预测",
 							mainFrame.getStepFiveCenterPanel().getModelPredictPanel());

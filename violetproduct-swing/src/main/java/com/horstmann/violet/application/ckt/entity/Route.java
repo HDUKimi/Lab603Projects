@@ -9,6 +9,7 @@ public class Route {
 	//private String tcSequence;// 路径测试序列
 	private double routeProbability; // 路径概率
 	String RouteResult;//标识路径，用于得到最终路径上的预期结果--true||false
+	String TestResult;//测试结果
 	
 	public String getRouteResult() {
 		return RouteResult;
@@ -39,6 +40,13 @@ public class Route {
 	}
 	public void setRouteProbability(double routeProbability) {
 		this.routeProbability = routeProbability;
+	}
+	
+	public String getTestResult() {
+		return TestResult;
+	}
+	public void setTestResult(String testResult) {
+		TestResult = testResult;
 	}
 	@Override
 	public String toString() {

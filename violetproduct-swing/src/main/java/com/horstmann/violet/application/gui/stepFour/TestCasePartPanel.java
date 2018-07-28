@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import com.horstmann.violet.application.ckt.entity.Route;
 import com.horstmann.violet.application.ckt.entity.Transition;
 import com.horstmann.violet.application.gui.GBC;
+import com.horstmann.violet.application.gui.MainFrame;
 import com.horstmann.violet.application.gui.common.ColorData;
 import com.horstmann.violet.application.gui.common.DottedLinePanel;
 
@@ -75,6 +76,18 @@ public class TestCasePartPanel extends JPanel {
 		showData();
 
 	}
+	
+	public void showResultData() {
+
+		String text = "测试用例" + route.getId() + "     预期结果: " + route.getRouteResult()+ "     测试结果: " + route.getTestResult();
+		titleLabel.setText(text);
+		
+		if(!route.getRouteResult().equals(route.getTestResult())){
+			titleLabel.setForeground(ColorData.red);
+		}
+		
+	}
+	
 
 	private void showData() {
 
@@ -230,6 +243,10 @@ public class TestCasePartPanel extends JPanel {
 		attributeTablePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
 		attributeTablePanel.setBackground(ColorData.white);
 
+	}
+
+	public Route getRoute() {
+		return route;
 	}
 
 }

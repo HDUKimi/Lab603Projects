@@ -128,6 +128,7 @@ public class Solve3 {
 			System.out.println(i+" "+m_bestAnts[i].m_nCurFunVal);
 			
 			if(m_bestAnts[i].m_nCurFunVal<=Common3.E){
+				m_bestAnts[m_bestAnts.length-1] = m_bestAnts[i].clone();
 				break;
 			}
 			
@@ -335,11 +336,12 @@ public class Solve3 {
 	public void ShowResult() {
 //		System.out.println(m_bestAnts[m_bestAnts.length-1].m_nCurXVal+" - "+m_bestAnts[m_bestAnts.length-1].m_nCurFunVal);
 		
-		FLineChart.initSeriesCollection();
-		FLineChart.AddSeriesCollection3(m_bestAnts, "Best");
+//		FLineChart.initSeriesCollection();
+//		FLineChart.AddSeriesCollection3(m_bestAnts, "Best");
 		
 		System.out.println(m_bestAnts[m_bestAnts.length-1].m_nCurFunVal);
 		System.out.println(Arrays.toString(m_bestAnts[m_bestAnts.length-1].m_nCurVarVal));
+		System.out.println("*----------------");
 		
 	}
 

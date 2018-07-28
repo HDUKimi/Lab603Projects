@@ -1,5 +1,7 @@
 package com.horstmann.violet.application.lmr.antcolony;
 
+import java.util.List;
+
 /**
  * º¯Êý
  */
@@ -10,8 +12,9 @@ public class AcoMainFun {
 
 	/**
 	 * ³õÊ¼»¯
+	 * @param failureDataList 
 	 */
-	public void InitData(){
+	public void InitData(List<Integer> failureDataList){
 		
 		FLineChart.initSeriesCollection();
 		ModelDataChart.initSeriesCollection();
@@ -31,9 +34,13 @@ public class AcoMainFun {
 			Model.endTime=540+10;
 		}
 		else if(Common.N_FUN_ID==3){
-			Model.n=26;
-			Model.sumTime=new int[]{0,9,21,32,36,43,45,50,58,63,70,71,77,78,87,91,92,95,98,104,105,116,149,156,247,249,250};
-			Model.endTime=250+10;
+//			Model.n=26;
+//			Model.sumTime=new int[]{0,9,21,32,36,43,45,50,58,63,70,71,77,78,87,91,92,95,98,104,105,116,149,156,247,249,250};
+//			Model.endTime=250+10;
+			System.out.println("---------------------");
+			Model.n=3;
+			Model.sumTime=new int[]{0,17,73,100};
+			Model.endTime=130;
 		}
 		else if(Common.N_FUN_ID==4){
 			Model.n=39;
@@ -50,6 +57,14 @@ public class AcoMainFun {
 			Model.sumTime=new int[]{0,10,18,32,49,64,86,105,132,167,207};
 			Model.endTime=207+10;
 		}
+		
+		
+		Model.n=failureDataList.size();
+		Model.sumTime=new int[failureDataList.size()+1];
+		for(int i=0;i<failureDataList.size();i++){
+			Model.sumTime[i+1]=failureDataList.get(i);
+		}
+		Model.endTime=130;
 		
 		Solve solve=new Solve();
 		Solve2 solve2=new Solve2();

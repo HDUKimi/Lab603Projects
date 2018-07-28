@@ -1,7 +1,15 @@
 package com.horstmann.violet.application.gui.stepFour;
 
 import java.awt.GridLayout;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
@@ -31,6 +39,9 @@ public class TestCaseExecutePanel extends JPanel {
 	private Callable<Integer> processCallable;
 	private FutureTask<Integer> processTask;
 	private Thread processThread;
+	
+	private Map<Integer, String> testCaseResultMap=new HashMap<>();
+	private List<TestCasePartPanel> testCasePartPanelList=new ArrayList<>();
 	
 	private int state;
 
@@ -65,10 +76,22 @@ public class TestCaseExecutePanel extends JPanel {
 			public Integer call() throws Exception {
 				
 				JProgressBar progressBar=mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar();
-				while(progressBar.getValue()<100){
+				while(progressBar.getValue()<40){
 					
 					progressBar.setValue(progressBar.getValue()+1);
 					if(state==0){
+						Thread.sleep(1000);
+					}
+					else{
+						Thread.sleep(100);
+					}
+					
+				}
+				
+				while(progressBar.getValue()<90){
+					
+					progressBar.setValue(progressBar.getValue()+1);
+					if(state==2){
 						Thread.sleep(1000);
 					}
 					else{
@@ -87,20 +110,34 @@ public class TestCaseExecutePanel extends JPanel {
 
 			@Override
 			public Integer call() throws Exception {
-
-				state=0;
 				
-				dealData();
-				
-				state=1;
-				
-				while(processTask.get() == null){
-					Thread.sleep(10);
+				try{
+					state=0;
+					
+					dealData();
+					
+					state=1;
+					
+					showData();
+					
+					state=2;
+					
+					dealTestCaseResult();
+					
+					state=3;
+					
+					while(processTask.get() == null){
+						Thread.sleep(10);
+					}
+					
+					showTestCaseResult();
+					
+					mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar().setValue(100);
+					
 				}
-				
-				showData();
-				
-				mainFrame.getStepFourCenterPanel().getProgressPanel().getProgressBar().setValue(100);
+				catch (Exception e) {
+					e.printStackTrace();
+				}
 				
 				return 1;
 			}
@@ -111,6 +148,44 @@ public class TestCaseExecutePanel extends JPanel {
 		
 		processThread.start();
 		thread.start();
+		
+	}
+
+	private void dealTestCaseResult() {
+		
+		String name=mainFrame.getStepFourCenterPanel().getTestCaseName().replace("testcase", "result");
+		String path=FileUtil.pathlist.get(2)+name+".violet.txt";
+		File file=new File(path);
+		
+		while(!file.exists()){
+			try {
+				thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		try {
+			testCaseResultMap=FileUtil.ReadTestCaseResult(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(testCaseResultMap.size());
+		
+	}
+
+	private void showTestCaseResult() {
+		
+		for(TestCasePartPanel testCasePartPanel:testCasePartPanelList){
+			Route route=testCasePartPanel.getRoute();
+			route.setTestResult(testCaseResultMap.get(route.getId()));
+			testCasePartPanel.showResultData();
+			
+			mainFrame.ChangeRepaint(testCasePartPanel);
+		}
 		
 	}
 
@@ -133,6 +208,8 @@ public class TestCaseExecutePanel extends JPanel {
 		
 		List<Route> routes=mainFrame.getStepFourCenterPanel().getRoutes();
 		
+		testCasePartPanelList=new ArrayList<>();
+		
 		casePanel.setLayout(new BoxLayout(casePanel, BoxLayout.Y_AXIS));
 		for(int i=0;i<routes.size();i++){
 			Route route=routes.get(i);
@@ -141,6 +218,7 @@ public class TestCaseExecutePanel extends JPanel {
 				casePartPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, ColorData.gray));
 			}
 			casePanel.add(casePartPanel);
+			testCasePartPanelList.add(casePartPanel);
 		}
 		
 		mainFrame.ChangeRepaint(this);

@@ -28,6 +28,9 @@ public class StepFiveCenterPanel extends JPanel {
 	private ReliabilityEvaluatePanel reliabilityEvaluatePanel;
 	
 	private int selectModel;
+	
+	private String failureDataName;
+	private String failureDataPath;
 
 	public StepFiveCenterPanel(MainFrame mainFrame) {
 
@@ -123,6 +126,22 @@ public class StepFiveCenterPanel extends JPanel {
 
 	public void setSelectModel(int selectModel) {
 		this.selectModel = selectModel;
+	}
+
+	public String getFailureDataName() {
+		return failureDataName;
+	}
+
+	public void setFailureDataName(String failureDataName) {
+		this.failureDataName = failureDataName;
+	}
+
+	public String getFailureDataPath() {
+		return failureDataPath;
+	}
+
+	public void setFailureDataPath(String failureDataPath) {
+		this.failureDataPath = failureDataPath;
 	}
 	
 }
